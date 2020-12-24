@@ -175,6 +175,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // Socialite provider for social login
+        \Laravel\Socialite\SocialiteServiceProvider::class,
+
+        // Permission provider for roles and permissions
+        \Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*
