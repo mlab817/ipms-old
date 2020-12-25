@@ -18,6 +18,7 @@ class RepositoryMakeCommand extends GeneratorCommand
      *
      * @var string
      */
+<<<<<<< HEAD
     protected $description = 'Generate a new Repository';
 
     protected $type = 'Repository';
@@ -34,4 +35,22 @@ class RepositoryMakeCommand extends GeneratorCommand
     {
         return $rootNamespace . '/Repositories';
     }
+=======
+    protected $description = 'Generate a new repository file';
+
+    protected $type = 'Repository';
+
+    public function getDefaultNamespace($rootNamespace)
+    {
+        return $rootNamespace . '\Repositories';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getStub()
+    {
+        return __DIR__ . '/stubs/repository.stub';
+    }
+>>>>>>> dabc44019c38ca0bba34fa3446a456a17e908fb9
 }

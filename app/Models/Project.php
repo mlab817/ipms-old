@@ -14,7 +14,7 @@ class Project extends Model
     use Trackable;
 
     protected $fillable = [
-
+        //
     ];
 
     public function getPermissionsAttribute(): array
