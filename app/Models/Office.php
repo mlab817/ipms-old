@@ -6,9 +6,8 @@ use App\Traits\HasUuid;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class InfrastructureSector extends Model
+class Office extends Model
 {
     use HasFactory;
     use HasUuid;
@@ -17,13 +16,7 @@ class InfrastructureSector extends Model
     protected $fillable = [
         'name',
         'slug',
-        'description',
     ];
-
-    public function infrastructure_subsectors(): HasMany
-    {
-        return $this->hasMany(InfrastructureSubsector::class);
-    }
 
     /**
      * @return array

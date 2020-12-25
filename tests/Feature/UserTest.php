@@ -2,21 +2,14 @@
 
 namespace Tests\Feature;
 
-<<<<<<< HEAD
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-=======
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
->>>>>>> dabc44019c38ca0bba34fa3446a456a17e908fb9
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-<<<<<<< HEAD
-=======
     use RefreshDatabase;
     use WithoutMiddleware;
 
@@ -28,19 +21,6 @@ class UserTest extends TestCase
         User::factory(10)->create();
     }
 
->>>>>>> dabc44019c38ca0bba34fa3446a456a17e908fb9
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-<<<<<<< HEAD
-    public function testExample()
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-=======
     public function testUserIndex()
     {
         // seed some users
@@ -111,6 +91,5 @@ class UserTest extends TestCase
         $response->assertStatus(200);
 
         $this->assertArrayHasKey('message', $response->json());
->>>>>>> dabc44019c38ca0bba34fa3446a456a17e908fb9
     }
 }

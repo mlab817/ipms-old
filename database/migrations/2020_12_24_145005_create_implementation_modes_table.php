@@ -15,6 +15,10 @@ class CreateImplementationModesTable extends Migration
     {
         Schema::create('implementation_modes', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('slug')->nullable();
             $table->timestamps();
         });
     }

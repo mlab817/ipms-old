@@ -15,6 +15,10 @@ class CreatePdpChaptersTable extends Migration
     {
         Schema::create('pdp_chapters', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('slug')->nullable();
             $table->timestamps();
         });
     }

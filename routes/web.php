@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Auth\SocialLoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +21,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/auth/{provider}', [SocialLoginController::class, 'redirectToProvider'])->name('auth.redirectToProvider');
+Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'handleProviderCallback'])->name('auth.handleProviderCallback');

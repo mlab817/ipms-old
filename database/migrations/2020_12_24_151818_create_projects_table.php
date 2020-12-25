@@ -15,7 +15,14 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
+            $table->string('title');
+            $table->string('slug')->nullable();
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

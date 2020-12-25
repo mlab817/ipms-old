@@ -15,6 +15,10 @@ class CreateTiersTable extends Migration
     {
         Schema::create('tiers', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('slug')->nullable();
             $table->timestamps();
         });
     }

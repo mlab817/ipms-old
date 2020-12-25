@@ -15,6 +15,10 @@ class CreatePdpSuboutcomesTable extends Migration
     {
         Schema::create('pdp_suboutcomes', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('slug')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,10 @@ class CreateTechnicalReadinessesTable extends Migration
     {
         Schema::create('technical_readinesses', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('slug')->nullable();
             $table->timestamps();
         });
     }

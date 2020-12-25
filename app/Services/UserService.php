@@ -2,14 +2,7 @@
 
 namespace App\Services;
 
-<<<<<<< HEAD
-class UserService
-{
-
-=======
 use App\Repositories\UserRepository;
-use http\Exception\InvalidArgumentException;
-use Illuminate\Support\Facades\Validator;
 
 class UserService
 {
@@ -44,5 +37,4 @@ class UserService
     {
         return $this->userRepository->delete($id);
     }
->>>>>>> dabc44019c38ca0bba34fa3446a456a17e908fb9
 }

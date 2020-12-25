@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -35,6 +37,16 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'remember_token',
     ];
+
+    public function accounts(): HasMany
+    {
+        return $this->hasMany(LinkedSocialAccount::class);
+    }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class,'user_id','id');
+    }
 
     /**
      * The attributes that should be cast to native types.
