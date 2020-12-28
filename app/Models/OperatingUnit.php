@@ -7,6 +7,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OperatingUnit extends Model
 {
@@ -20,6 +21,11 @@ class OperatingUnit extends Model
         'description',
         'operating_unit_type_id'
     ];
+
+    public function offices(): HasMany
+    {
+        return $this->hasMany(Office::class);
+    }
 
     public function operating_unit_type(): BelongsTo
     {

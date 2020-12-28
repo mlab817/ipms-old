@@ -6,6 +6,7 @@ use App\Traits\HasUuid;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PdpOutcome extends Model
 {
@@ -18,6 +19,11 @@ class PdpOutcome extends Model
         'slug',
         'description',
     ];
+
+    public function pdp_chapter(): BelongsTo
+    {
+        return $this->belongsTo(PdpChapter::class);
+    }
 
     /**
      * @return array

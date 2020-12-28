@@ -7,6 +7,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class InfrastructureSubsector extends Model
 {
@@ -24,6 +25,11 @@ class InfrastructureSubsector extends Model
     public function infrastructure_sector(): BelongsTo
     {
         return $this->belongsTo(InfrastructureSector::class);
+    }
+
+    public function projects(): BelongsToMany
+    {
+        return $this->belongsToMany(Project::class);
     }
 
     /**

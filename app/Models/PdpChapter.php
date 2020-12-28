@@ -6,6 +6,8 @@ use App\Traits\HasUuid;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PdpChapter extends Model
 {
@@ -18,6 +20,16 @@ class PdpChapter extends Model
         'slug',
         'description',
     ];
+
+    public function projects(): BelongsToMany
+    {
+        return $this->belongsToMany(Project::class);
+    }
+
+    public function pdp_outcomes(): HasMany
+    {
+        return $this->hasMany(PdpOutcome::class);
+    }
 
     /**
      * @return array

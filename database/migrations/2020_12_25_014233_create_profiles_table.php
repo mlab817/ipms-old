@@ -19,6 +19,8 @@ class CreateProfilesTable extends Migration
             $table->string('nickname')->nullable();
             $table->string('avatar')->nullable();
             $table->timestamps();
+
+            $table->unique('user_id');
         });
     }
 
