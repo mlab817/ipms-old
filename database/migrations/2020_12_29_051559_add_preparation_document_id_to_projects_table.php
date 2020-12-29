@@ -14,8 +14,8 @@ class AddPreparationDocumentIdToProjectsTable extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->foreignId('preparation_document_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('preparation_document_others')->nullable();
+            $table->foreignId('preparation_document_id')->nullable()->constrained()->nullOnDelete()->after('target_start_year');
+            $table->string('preparation_document_others')->nullable()->after('preparation_document_id');
         });
     }
 

@@ -19,8 +19,10 @@ class Project extends Model
     use Trackable;
 
     protected $fillable = [
+        'code', // pipol code
         'title',
         'pap_type_id',
+        'regular_program',
         // implementation bases
         'description',
         // implementing_agencies
@@ -30,6 +32,7 @@ class Project extends Model
         'approval_level_date',
         'pip',
         'pip_typology_id',
+        'research',
         'cip',
         'cip_type_id',
         'trip',
@@ -38,6 +41,7 @@ class Project extends Model
         'rdc_endorsed',
         'rdc_endorsed_date',
         // trip infra sector and subsectors
+        'other_infrastructure',
         // prerequisites
         'risk',
         // infra cost
@@ -53,6 +57,9 @@ class Project extends Model
         'preparation_document_id',
         // feasibility study
         'preparation_document_others',
+        'has_fs',
+        'has_row',
+        'has_rap',
         // rowa
         // resettlement
         'employment_generated',

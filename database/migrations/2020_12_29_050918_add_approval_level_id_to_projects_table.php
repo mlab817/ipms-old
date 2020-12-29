@@ -14,8 +14,8 @@ class AddApprovalLevelIdToProjectsTable extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->foreignId('approval_level_id')->nullable()->constrained()->nullOnDelete();
-            $table->date('approval_date')->nullable();
+            $table->foreignId('approval_level_id')->nullable()->constrained()->nullOnDelete()->after('spatial_coverage_id');
+            $table->date('approval_date')->nullable()->after('approval_level_id');
         });
     }
 

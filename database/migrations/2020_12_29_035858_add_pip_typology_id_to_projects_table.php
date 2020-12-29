@@ -14,7 +14,7 @@ class AddPipTypologyIdToProjectsTable extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->foreignId('pip_typology_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('pip_typology_id')->nullable()->constrained()->nullOnDelete()->after('pip');
         });
     }
 

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FundingSourcesTableSeeder::class);
         $this->call(GadsTableSeeder::class);
         $this->call(ImplementationModesTableSeeder::class);
+        $this->call(InfrastructureSectorsTableSeeder::class);
         $this->call(PapTypesTableSeeder::class);
         $this->call(PdpChaptersTableSeeder::class);
         $this->call(PipTypologiesTableSeeder::class);

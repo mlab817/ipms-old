@@ -13,10 +13,11 @@ class InfrastructureSubsector extends Model
 {
     use HasFactory;
     use HasUuid;
-    use Sluggable;
+//    use Sluggable;
 
     protected $fillable = [
         'name',
+        'uuid',
         'slug',
         'description',
         'infrastructure_sector_id',

@@ -14,7 +14,7 @@ class AddReadinessLevelIdToProjectsTable extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->foreignId('readiness_level_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('readiness_level_id')->nullable()->constrained()->nullOnDelete()->after('tier_id');
         });
     }
 
