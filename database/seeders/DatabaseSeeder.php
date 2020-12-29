@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ReadinessLevelsTableSeeder::class);
         $this->call(SdgsTableSeeder::class);
         $this->call(SpatialCoveragesTableSeeder::class);
+        $this->call(TenPointAgendasTableSeeder::class);
         $this->call(TiersTableSeeder::class);
     }
 }

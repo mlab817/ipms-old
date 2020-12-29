@@ -20,9 +20,9 @@ class TenPointAgenda extends Model
         'description',
     ];
 
-    public function regions(): BelongsToMany
+    public function projects(): BelongsToMany
     {
-        return $this->belongsToMany(Region::class);
+        return $this->belongsToMany(Project::class);
     }
 
     /**

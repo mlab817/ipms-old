@@ -20,21 +20,62 @@ class Project extends Model
 
     protected $fillable = [
         'title',
-        'description',
-        'approval_level_id',
-        'preparation_document_id',
-        'preparation_document_others',
-        'cip_type_id',
-        'funding_source_id',
-        'funding_institution_id',
-        'gad_id',
-        'implementation_mode_id',
         'pap_type_id',
-        'pdp_chapter_id',
-        'project_status_id',
+        // implementation bases
+        'description',
+        // implementing_agencies
         'spatial_coverage_id',
+        'iccable',
+        'approval_level_id',
+        'approval_level_date',
+        'pip',
+        'pip_typology_id',
+        'cip',
+        'cip_type_id',
+        'trip',
+        'rdip',
+        'rdc_endorsement_required',
+        'rdc_endorsed',
+        'rdc_endorsed_date',
+        // trip infra sector and subsectors
+        // prerequisites
+        'risk',
+        // infra cost
+        'pdp_chapter_id',
+        // pdp_chapters
+        // pdp_indicators
+        'no_pdp_indicator',
+        // ten point agenda
+        // sdg
+        'gad_id',
+        'target_start_year',
+        'target_end_year',
+        'preparation_document_id',
+        // feasibility study
+        'preparation_document_others',
+        // rowa
+        // resettlement
+        'employment_generated',
+        // costs
+        'funding_source_id',
+        // funding_institution
+        'implementation_mode_id',
+        'other_fs',
+        'project_status_id',
+        'readiness_level_id',
+        'updates',
+        'updates_date',
+        'uacs_code',
         'tier_id',
+        // nep
+        // allocation
+        // disbursement
     ];
+
+    public function allocation(): HasOne
+    {
+        return $this->hasOne(Allocation::class);
+    }
 
     public function approval_level(): BelongsTo
     {
@@ -51,6 +92,11 @@ class Project extends Model
         return $this->belongsTo(CipType::class);
     }
 
+    public function disbursement(): HasOne
+    {
+        return $this->hasOne(Disbursement::class);
+    }
+
     public function feasibility_study(): HasOne
     {
         return $this->hasOne(FeasibilityStudy::class);
@@ -61,9 +107,9 @@ class Project extends Model
         return $this->belongsTo(FundingSource::class);
     }
 
-    public function funding_institution(): BelongsTo
+    public function funding_institutions(): BelongsToMany
     {
-        return $this->belongsTo(FundingInstitution::class);
+        return $this->belongsToMany(FundingInstitution::class);
     }
 
     public function funding_sources(): BelongsToMany
@@ -94,6 +140,11 @@ class Project extends Model
     public function implementing_agencies(): BelongsToMany
     {
         return $this->belongsToMany(ImplementingAgency::class);
+    }
+
+    public function nep(): HasOne
+    {
+        return $this->hasOne(Nep::class);
     }
 
     public function pap_type(): BelongsTo
