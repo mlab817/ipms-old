@@ -1,4 +1,4 @@
-<div align="center">![cover](https://github.com/mlab817/ipms-rest/blob/main/cover.png?raw=true)</div>
+<div align="center">![cover](https://raw.githubusercontent.com/mlab817/ipms-rest/main/cover.png)</div>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
