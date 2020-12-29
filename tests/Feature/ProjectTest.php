@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -17,9 +18,7 @@ class ProjectTest extends TestCase
      */
     public function test_it_creates_project()
     {
-        $data = [
-            'title' => 'New Project',
-        ];
+        $data = Project::factory()->count(1)->make();
 
         $response = $this->json('POST', route('api.projects.create'), $data);
 

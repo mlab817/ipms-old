@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTiersTable extends Migration
+class CreateImplementationReadinessProjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateTiersTable extends Migration
      */
     public function up()
     {
-        Schema::create('tiers', function (Blueprint $table) {
-            $table->id();
-            $table->uuid('uuid');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('slug')->nullable();
+        Schema::create('implementation_readiness_project', function (Blueprint $table) {
+            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('ir_id')->constrained('implementation_readinesses')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateTiersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tiers');
+        Schema::dropIfExists('implementation_readiness_project');
     }
 }

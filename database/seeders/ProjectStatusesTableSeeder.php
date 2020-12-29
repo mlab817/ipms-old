@@ -16,17 +16,19 @@ class ProjectStatusesTableSeeder extends Seeder
     public function run()
     {
         DB::table('project_statuses')->insert([
-           [
-               'id' => 1,
-               'uuid' => Str::uuid(),
-               'name' => 'Ongoing',
-               'slug' => Str::slug('Ongoing'),
-           ],
             [
-                'id' => 1,
-                'uuid' => Str::uuid(),
-                'name' => 'Completed',
-                'slug' => Str::slug('Completed'),
+               'id'             => 1,
+               'uuid'           => Str::uuid(),
+               'name'           => 'Ongoing',
+               'slug'           => Str::slug('Ongoing'),
+               'description'    => '',
+            ],
+            [
+                'id'            => 2,
+                'uuid'          => Str::uuid(),
+                'name'          => 'Completed',
+                'slug'          => Str::slug('Completed'),
+                'description'   => '',
             ],
         ]);
     }
