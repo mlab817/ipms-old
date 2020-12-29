@@ -18,6 +18,8 @@ class Project extends Model
     use Sluggable;
     use Trackable;
 
+    protected $guard_name = 'api';
+
     protected $fillable = [
         'code', // pipol code
         'title',

@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\Project;
+
 class ProjectRepository implements RepositoryInterface
 {
 
@@ -19,7 +21,7 @@ class ProjectRepository implements RepositoryInterface
      */
     public function create(array $data)
     {
-        // TODO: Implement create() method.
+        return Project::create($data);
     }
 
     /**

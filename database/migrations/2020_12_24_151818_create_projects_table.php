@@ -46,7 +46,7 @@ class CreateProjectsTable extends Migration
             $table->string('employment_generated')->nullable();
             $table->foreignId('funding_source_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('implementation_mode_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('other_fs');
+            $table->string('other_fs')->nullable();
             $table->foreignId('project_status_id')->nullable()->constrained()->nullOnDelete();
             $table->text('updates')->nullable();
             $table->date('updates_date')->nullable();

@@ -30,5 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SpatialCoveragesTableSeeder::class);
         $this->call(TenPointAgendasTableSeeder::class);
         $this->call(TiersTableSeeder::class);
+        $this->call(RolesAndPermissionsTableSeeder::class);
     }
 }

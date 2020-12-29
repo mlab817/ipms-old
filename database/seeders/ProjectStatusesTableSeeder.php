@@ -46,6 +46,6 @@ class ProjectStatusesTableSeeder extends Seeder
             ],
         ];
 
-        DB::table('readiness_levels')->insert($seeds);
+        DB::table('project_statuses')->insert($seeds);
     }
 }

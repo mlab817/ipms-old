@@ -15,9 +15,11 @@ class ProjectService
         $this->projectRepository = $projectRepository;
     }
 
-    public function make(CreateProjectRequest $request)
+    public function create(CreateProjectRequest $request)
     {
-        $project = $this->projectRepository->create($request->all());
+        $validated = $request->validated();
+
+        $project = $this->projectRepository->create($validated);
 
         event(new CreateProjectEvent($project));
 

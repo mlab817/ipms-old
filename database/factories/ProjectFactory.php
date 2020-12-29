@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ApprovalLevel;
 use App\Models\CipType;
 use App\Models\FundingInstitution;
 use App\Models\FundingSource;
@@ -34,16 +35,17 @@ class ProjectFactory extends Factory
     {
         return [
             'title'                     => $this->faker->title,
-            'pap_type_id'               => PapType::all()->random(1)->id,
-            'cip_type_id'               => CipType::all()->random(1)->id,
-            'funding_source_id'         => FundingSource::all()->random(1)->id,
-            'funding_institution_id'    => FundingInstitution::all()->random(1)->id,
-            'gad_id'                    => Gad::all()->random(1)->id,
-            'implementation_mode_id'    => ImplementationMode::all()->random(1)->id,
-            'pdp_chapter_id'            => PdpChapter::all()->random(1)->id,
-            'project_status_id'         => ProjectStatus::all()->random(1)->id,
-            'spatial_coverage_id'       => SpatialCoverage::all()->random(1)->id,
-            'tier_id'                   => Tier::all()->random(1)->id,
+            'pap_type_id'               => PapType::all()->random()->id,
+            'cip_type_id'               => CipType::all()->random()->id,
+            'funding_source_id'         => FundingSource::all()->random()->id,
+            'gad_id'                    => Gad::all()->random()->id,
+            'iccable'                   => $this->faker->boolean,
+            'implementation_mode_id'    => ImplementationMode::all()->random()->id,
+            'pdp_chapter_id'            => PdpChapter::all()->random()->id,
+            'project_status_id'         => ProjectStatus::all()->random()->id,
+            'spatial_coverage_id'       => SpatialCoverage::all()->random()->id,
+            'tier_id'                   => Tier::all()->random()->id,
+            'approval_level_id'         => ApprovalLevel::all()->random()->id,
             'risk'                      => $this->faker->paragraph,
             'uacs_code'                 => $this->faker->ean13, // barcode
             'updates'                   => $this->faker->paragraph,

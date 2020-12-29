@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class PapTypesTableSeeder extends Seeder
@@ -44,5 +45,7 @@ class PapTypesTableSeeder extends Seeder
                 'description'   => '',
             ],
         ];
+
+        DB::table('pap_types')->insert($seeds);
     }
 }

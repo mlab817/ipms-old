@@ -28,9 +28,9 @@ class ProjectPolicy
      * @param Project $project
      * @return mixed
      */
-    public function view(User $user, Project $project)
+    public function view(User $user, Project $project): bool
     {
-        //
+        return (bool) $user;
     }
 
     /**
@@ -41,7 +41,11 @@ class ProjectPolicy
      */
     public function create(User $user)
     {
-        //
+        if (! config('ipms.permissions.projects.create')) {
+            return $this->deny('Sorry, the System is currently not accepting new submissions');
+        }
+
+        return $user->hasPermissionTo('projects.create');
     }
 
     /**
@@ -53,7 +57,11 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project)
     {
-        //
+        if (! config('ipms.permissions.projects.update')) {
+            return $this->deny('Sorry, the System is currently not accepting update to submissions');
+        }
+
+        return false;
     }
 
     /**
@@ -65,7 +73,12 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $project)
     {
-        //
+        // check global permissions first
+        if (! config('ipms.permissions.projects.delete')) {
+            return $this->deny('Sorry, the System is currently not deleting submissions');
+        }
+
+        return false;
     }
 
     /**
@@ -77,7 +90,12 @@ class ProjectPolicy
      */
     public function restore(User $user, Project $project)
     {
-        //
+        // check global permissions first
+        if (! config('ipms.permissions.projects.restore')) {
+            return $this->deny('Sorry, the System is currently not restoring deleted submissions');
+        }
+
+        return false;
     }
 
     /**
@@ -89,6 +107,11 @@ class ProjectPolicy
      */
     public function forceDelete(User $user, Project $project)
     {
-        //
+        // check global permissions first
+        if (! config('ipms.permissions.projects.forceDelete')) {
+            return $this->deny('Sorry, the System is currently not allowing permanent deletion of submissions');
+        }
+
+        return false;
     }
 }

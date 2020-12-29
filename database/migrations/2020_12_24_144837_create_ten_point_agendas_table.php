@@ -17,7 +17,7 @@ class CreateTenPointAgendasTable extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('slug')->nullable();
             $table->timestamps();
         });
