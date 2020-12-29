@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PipTypologiesTableSeeder::class);
         $this->call(ProjectStatusesTableSeeder::class);
         $this->call(ReadinessLevelsTableSeeder::class);
+        $this->call(RegionsTableSeeder::class);
         $this->call(SdgsTableSeeder::class);
         $this->call(SpatialCoveragesTableSeeder::class);
         $this->call(TenPointAgendasTableSeeder::class);

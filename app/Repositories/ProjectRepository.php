@@ -21,7 +21,11 @@ class ProjectRepository implements RepositoryInterface
      */
     public function create(array $data)
     {
-        return Project::create($data);
+        $project = Project::create($data);
+
+        $project->regions()->sync($data['regions']);
+
+        return $project;
     }
 
     /**

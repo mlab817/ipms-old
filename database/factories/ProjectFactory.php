@@ -12,6 +12,7 @@ use App\Models\PapType;
 use App\Models\PdpChapter;
 use App\Models\Project;
 use App\Models\ProjectStatus;
+use App\Models\Region;
 use App\Models\SpatialCoverage;
 use App\Models\Tier;
 use App\Models\User;
@@ -50,6 +51,7 @@ class ProjectFactory extends Factory
             'uacs_code'                 => $this->faker->ean13, // barcode
             'updates'                   => $this->faker->paragraph,
             'updates_date'              => $this->faker->date(),
+            'regions'                   => Region::all()->random(5)->pluck('id'),
         ];
     }
 }

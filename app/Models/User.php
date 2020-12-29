@@ -40,6 +40,11 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
+    protected $with = [
+        'profile',
+        'permissions',
+    ];
+
     public function accounts(): HasMany
     {
         return $this->hasMany(LinkedSocialAccount::class);
