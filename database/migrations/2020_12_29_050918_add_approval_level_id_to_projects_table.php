@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPipTypologyIdToProjectsTable extends Migration
+class AddApprovalLevelIdToProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddPipTypologyIdToProjectsTable extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->foreignId('pip_typology_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('approval_level_id')->nullable()->constrained()->nullOnDelete();
+            $table->date('approval_date')->nullable();
         });
     }
 
@@ -26,7 +27,7 @@ class AddPipTypologyIdToProjectsTable extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->dropColumn('pip_typology_id');
+            $table->dropColumn('approval_level_id');
         });
     }
 }

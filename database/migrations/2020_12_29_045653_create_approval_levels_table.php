@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImplementationReadinessesTable extends Migration
+class CreateApprovalLevelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateImplementationReadinessesTable extends Migration
      */
     public function up()
     {
-        Schema::create('implementation_readinesses', function (Blueprint $table) {
+        Schema::create('approval_levels', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
             $table->string('name');
@@ -30,6 +30,6 @@ class CreateImplementationReadinessesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('implementation_readinesses');
+        Schema::dropIfExists('approval_levels');
     }
 }

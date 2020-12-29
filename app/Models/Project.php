@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Project extends Model
 {
@@ -19,6 +20,10 @@ class Project extends Model
 
     protected $fillable = [
         'title',
+        'description',
+        'approval_level_id',
+        'preparation_document_id',
+        'preparation_document_others',
         'cip_type_id',
         'funding_source_id',
         'funding_institution_id',
@@ -31,6 +36,11 @@ class Project extends Model
         'tier_id',
     ];
 
+    public function approval_level(): BelongsTo
+    {
+        return $this->belongsTo(ApprovalLevel::class);
+    }
+
     public function bases(): BelongsToMany
     {
         return $this->belongsToMany(Basis::class);
@@ -39,6 +49,11 @@ class Project extends Model
     public function cip_type(): BelongsTo
     {
         return $this->belongsTo(CipType::class);
+    }
+
+    public function feasibility_study(): HasOne
+    {
+        return $this->hasOne(FeasibilityStudy::class);
     }
 
     public function funding_source(): BelongsTo
@@ -101,14 +116,39 @@ class Project extends Model
         return $this->belongsToMany(PdpIndicator::class);
     }
 
+    public function preparation_document(): BelongsTo
+    {
+        return $this->belongsTo(PreparationDocument::class);
+    }
+
+    public function prerequisites(): BelongsToMany
+    {
+        return $this->belongsToMany(Prerequisite::class);
+    }
+
     public function project_status(): BelongsTo
     {
         return $this->belongsTo(ProjectStatus::class);
     }
 
+    public function readiness_level(): BelongsTo
+    {
+        return $this->belongsTo(ReadinessLevel::class);
+    }
+
     public function regions(): BelongsToMany
     {
         return $this->belongsToMany(Region::class);
+    }
+
+    public function resettlement_action_plan(): HasOne
+    {
+        return $this->hasOne(ResettlementActionPlan::class);
+    }
+
+    public function right_of_way(): HasOne
+    {
+        return $this->hasOne(RightOfWay::class);
     }
 
     public function spatial_coverage(): BelongsTo

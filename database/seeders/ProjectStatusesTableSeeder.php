@@ -15,21 +15,37 @@ class ProjectStatusesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('project_statuses')->insert([
+        $seeds = [
             [
                'id'             => 1,
                'uuid'           => Str::uuid(),
-               'name'           => 'Ongoing',
-               'slug'           => Str::slug('Ongoing'),
+               'name'           => 'Level 1',
+               'slug'           => Str::slug('Level 1'),
                'description'    => '',
             ],
             [
                 'id'            => 2,
                 'uuid'          => Str::uuid(),
-                'name'          => 'Completed',
-                'slug'          => Str::slug('Completed'),
+                'name'          => 'Level 2',
+                'slug'          => Str::slug('Level 2'),
                 'description'   => '',
             ],
-        ]);
+            [
+                'id'            => 3,
+                'uuid'          => Str::uuid(),
+                'name'          => 'Level 3',
+                'slug'          => Str::slug('Level 3'),
+                'description'   => '',
+            ],
+            [
+                'id'            => 4,
+                'uuid'          => Str::uuid(),
+                'name'          => 'Level 4',
+                'slug'          => Str::slug('Level 4'),
+                'description'   => '',
+            ],
+        ];
+
+        DB::table('readiness_levels')->insert($seeds);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImplementationReadinessProjectTable extends Migration
+class CreateProjectRegionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateImplementationReadinessProjectTable extends Migration
      */
     public function up()
     {
-        Schema::create('implementation_readiness_project', function (Blueprint $table) {
+        Schema::create('project_region', function (Blueprint $table) {
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('ir_id')->constrained('implementation_readinesses')->cascadeOnDelete();
+            $table->foreignId('region_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateImplementationReadinessProjectTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('implementation_readiness_project');
+        Schema::dropIfExists('project_region');
     }
 }

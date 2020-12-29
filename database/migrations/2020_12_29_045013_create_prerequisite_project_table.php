@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePipTypologiesTable extends Migration
+class CreatePrerequisiteProjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreatePipTypologiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pip_typologies', function (Blueprint $table) {
-            $table->id();
-            $table->uuid('uuid');
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->string('slug')->nullable();
+        Schema::create('prerequisite_project', function (Blueprint $table) {
+            $table->foreignId('prerequisite_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreatePipTypologiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pip_typologies');
+        Schema::dropIfExists('prerequisite_project');
     }
 }

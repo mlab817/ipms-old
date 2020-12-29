@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePipTypologiesTable extends Migration
+class CreateReadinessLevelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePipTypologiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pip_typologies', function (Blueprint $table) {
+        Schema::create('readiness_levels', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
             $table->string('name');
@@ -30,6 +30,6 @@ class CreatePipTypologiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pip_typologies');
+        Schema::dropIfExists('readiness_levels');
     }
 }

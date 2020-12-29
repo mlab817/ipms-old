@@ -35,6 +35,11 @@ class CreateProjectRequest extends FormRequest
             'project_status_id'         => 'required',
             'spatial_coverage_id'       => 'required',
             'tier_id'                   => 'required',
+            'iccable'                   => 'required|boolean',
+            'approval_level_id'         => 'sometimes',
+//            'approval_level_date'       => ''
+            'updates'                   => 'required',
+            'updates_date'              => 'required',
         ];
     }
 

@@ -13,8 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(ApprovalLevelsTableSeeder::class);
         $this->call(BasesTableSeeder::class);
         $this->call(CipTypesTableSeeder::class);
+        $this->call(FundingInstitutionsTableSeeder::class);
         $this->call(FundingSourcesTableSeeder::class);
         $this->call(GadsTableSeeder::class);
         $this->call(ImplementationModesTableSeeder::class);
@@ -22,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PdpChaptersTableSeeder::class);
         $this->call(PipTypologiesTableSeeder::class);
         $this->call(ProjectStatusesTableSeeder::class);
+        $this->call(ReadinessLevelsTableSeeder::class);
         $this->call(SdgsTableSeeder::class);
         $this->call(SpatialCoveragesTableSeeder::class);
         $this->call(TiersTableSeeder::class);
