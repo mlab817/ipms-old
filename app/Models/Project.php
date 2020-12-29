@@ -141,11 +141,6 @@ class Project extends Model
         return $this->belongsTo(ImplementationMode::class);
     }
 
-    public function implementation_readinesses(): BelongsToMany
-    {
-        return $this->belongsToMany(ImplementationReadiness::class);
-    }
-
     public function implementing_agencies(): BelongsToMany
     {
         return $this->belongsToMany(ImplementingAgency::class);

@@ -24,6 +24,14 @@ class ProjectRepository implements RepositoryInterface
         $project = Project::create($data);
 
         $project->regions()->sync($data['regions']);
+        $project->bases()->sync($data['bases']);
+        $project->funding_sources()->sync($data['funding_sources']);
+        $project->funding_institutions()->sync($data['funding_institutions']);
+        $project->implementing_agencies()->sync($data['implementing_agencies']);
+        $project->pdp_chapters()->sync($data['pdp_chapters']);
+        $project->prerequisites()->sync($data['prerequisites']);
+        $project->sdgs()->sync($data['sdgs']);
+        $project->ten_point_agendas()->sync($data['ten_point_agendas']);
 
         return $project;
     }

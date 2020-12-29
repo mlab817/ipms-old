@@ -20,10 +20,8 @@ class ProjectTest extends TestCase
      *
      * @return void
      */
-    public function test_it_creates_project()
+    public function test_it_creates_a_project()
     {
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
-
         $data = Project::factory()->make();
 
         $user = User::factory()->create();
@@ -34,6 +32,29 @@ class ProjectTest extends TestCase
             ->json('POST', route('api.projects.store'), $data->getAttributes());
 
         $response->assertStatus(201);
+
+        $response->dump();
+    }
+
+    /**
+     *
+     */
+    public function test_it_updates_a_project()
+    {
+        $project = Project::factory()->create();
+
+        $user = User::factory()->create();
+        $user->assignRole('contributor');
+
+        $update = [
+            'title' => 'New title',
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->json('PUT', route('api.projects.update', $project->id), $update);
+
+        $response->assertStatus(200);
 
         $response->dump();
     }
