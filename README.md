@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank">![cover](https://github.com/mlab817/ipms-rest/edit/main/cover.png?raw=true)
+<p align="center"><a href="https://laravel.com" target="_blank">![cover](https://github.com/mlab817/ipms-rest/blob/main/cover.png?raw=true)
 </a></p>
 
 <p align="center">
