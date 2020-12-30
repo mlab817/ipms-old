@@ -2,20 +2,30 @@
 
 namespace Database\Factories;
 
+use App\Models\Allocation;
 use App\Models\ApprovalLevel;
+use App\Models\Basis;
 use App\Models\CipType;
+use App\Models\Disbursement;
+use App\Models\FeasibilityStudy;
 use App\Models\FundingInstitution;
 use App\Models\FundingSource;
 use App\Models\Gad;
 use App\Models\ImplementationMode;
+use App\Models\Nep;
+use App\Models\OperatingUnit;
 use App\Models\PapType;
 use App\Models\PdpChapter;
+use App\Models\Prerequisite;
 use App\Models\Project;
 use App\Models\ProjectStatus;
 use App\Models\Region;
+use App\Models\ResettlementActionPlan;
+use App\Models\RightOfWay;
+use App\Models\Sdg;
 use App\Models\SpatialCoverage;
+use App\Models\TenPointAgenda;
 use App\Models\Tier;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProjectFactory extends Factory
@@ -52,6 +62,20 @@ class ProjectFactory extends Factory
             'updates'                   => $this->faker->paragraph,
             'updates_date'              => $this->faker->date(),
             'regions'                   => Region::all()->random(5)->pluck('id'),
+            'bases'                     => Basis::all()->random(2)->pluck('id'),
+            'funding_sources'           => FundingSource::all()->random(2)->pluck('id'),
+            'funding_institutions'      => FundingInstitution::all()->random(1)->pluck('id'),
+            'implementing_agencies'     => OperatingUnit::all()->random(2)->pluck('id'),
+            'pdp_chapters'              => PdpChapter::all()->random(3)->pluck('id'),
+            'prerequisites'             => Prerequisite::all()->random(2)->pluck('id'),
+            'sdgs'                      => Sdg::all()->random(4)->pluck('id'),
+            'ten_point_agendas'         => TenPointAgenda::all()->random(3)->pluck('id'),
+//            'allocation'                => Allocation::factory(),
+//            'disbursement'              => Disbursement::factory(),
+//            'feasibility_study'         => FeasibilityStudy::factory(),
+//            'nep'                       => Nep::factory(),
+//            'resettlement_action_plan'  => ResettlementActionPlan::factory(),
+//            'right_of_way'              => RightOfWay::factory(),
         ];
     }
 }

@@ -40,6 +40,7 @@ class ProjectController extends Controller
      */
     public function store(CreateProjectRequest $request): ProjectResource
     {
+//        dd($request->all());
         $project = $this->projectService->create($request);
 
         return new ProjectResource($project);

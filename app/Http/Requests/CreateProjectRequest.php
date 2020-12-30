@@ -45,7 +45,21 @@ class CreateProjectRequest extends FormRequest
                                                 if (count($value) !== $count) {
                                                     $fail($attribute . ' is invalid.');
                                                 }
-                                            }]
+                                            }],
+            'bases'                     => 'array',
+            'funding_sources'           => 'array',
+            'funding_institutions'      => 'array',
+            'implementing_agencies'     => 'array',
+            'pdp_chapters'              => 'array',
+            'prerequisites'             => 'array',
+            'sdgs'                      => 'array',
+            'ten_point_agendas'         => 'array',
+            'allocation'                => 'sometimes',
+            'disbursement'              => 'required',
+            'feasibility_study'         => 'required',
+            'nep'                       => 'required',
+            'resettlement_action_plan'  => 'required',
+            'right_of_way'              => 'required',
         ];
     }
 }

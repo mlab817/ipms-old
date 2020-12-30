@@ -22,6 +22,10 @@ class OperatingUnit extends Model
         'operating_unit_type_id'
     ];
 
+    protected $with = [
+        'operating_unit_type',
+    ];
+
     public function offices(): HasMany
     {
         return $this->hasMany(Office::class);
@@ -30,6 +34,11 @@ class OperatingUnit extends Model
     public function operating_unit_type(): BelongsTo
     {
         return $this->belongsTo(OperatingUnitType::class);
+    }
+
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
     }
 
     /**

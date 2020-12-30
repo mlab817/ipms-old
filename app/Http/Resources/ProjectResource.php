@@ -35,6 +35,7 @@ class ProjectResource extends JsonResource
             'updated_at'            => (string) $this->updated_at,
             'permissions'           => $this->permissions,
             'regions'               => $this->regions,
+            'allocation'            => $this->allocation,
         ];
     }
 }

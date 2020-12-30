@@ -14,6 +14,7 @@ class CreateResettlementActionPlansTable extends Migration
     public function up()
     {
         Schema::create('resettlement_action_plans', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->decimal('y2017',20,2)->default(0);
             $table->decimal('y2018',20,2)->default(0);

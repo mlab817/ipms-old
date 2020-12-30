@@ -34,12 +34,12 @@ class ProjectRepository implements RepositoryInterface
         $project->sdgs()->sync($data['sdgs']);
         $project->ten_point_agendas()->sync($data['ten_point_agendas']);
 
-        $project->allocation->create($data['allocation']);
-        $project->disbursement->create($data['disbursement']);
-        $project->feasibility_study->create($data['feasibility_study']);
-        $project->nep->create($data['nep']);
-        $project->resettlement_action_plan->create($data['resettlement_action_plan']);
-        $project->right_of_way->create($data['right_of_way']);
+        $project->allocation()->create($data['allocation']);
+        $project->disbursement()->create($data['disbursement']);
+        $project->feasibility_study()->create($data['feasibility_study']);
+        $project->nep()->create($data['nep']);
+        $project->resettlement_action_plan()->create($data['resettlement_action_plan']);
+        $project->right_of_way()->create($data['right_of_way']);
 
         return $project;
     }

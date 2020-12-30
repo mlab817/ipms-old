@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImplementingAgencyProjectTable extends Migration
+class CreateFundingSourceProjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateImplementingAgencyProjectTable extends Migration
      */
     public function up()
     {
-        Schema::create('implementing_agency_project', function (Blueprint $table) {
+        Schema::create('funding_source_project', function (Blueprint $table) {
+            $table->foreignId('funding_source_id')->constrained()->cascadeOnDelete();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('operating_unit_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateImplementingAgencyProjectTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('implementing_agency_project');
+        Schema::dropIfExists('funding_source_project');
     }
 }

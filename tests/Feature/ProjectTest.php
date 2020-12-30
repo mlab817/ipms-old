@@ -2,7 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Models\Allocation;
+use App\Models\Disbursement;
+use App\Models\FeasibilityStudy;
+use App\Models\Nep;
 use App\Models\Project;
+use App\Models\ResettlementActionPlan;
+use App\Models\RightOfWay;
 use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -22,8 +28,16 @@ class ProjectTest extends TestCase
      */
     public function test_it_creates_a_project()
     {
-        $data = Project::factory()->make();
+        $this->withoutExceptionHandling();
 
+        $data = Project::factory()->make();
+        $data['allocation'] = Allocation::factory()->make();
+        $data['disbursement'] = Disbursement::factory()->make();
+        $data['feasibility_study'] = Nep::factory()->make();
+        $data['nep'] = FeasibilityStudy::factory()->make();
+        $data['resettlement_action_plan'] = ResettlementActionPlan::factory()->make();
+        $data['right_of_way'] = RightOfWay::factory()->make();
+        
         $user = User::factory()->create();
         $user->assignRole('contributor');
 

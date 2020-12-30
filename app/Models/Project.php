@@ -83,7 +83,7 @@ class Project extends Model
 
     public function allocation(): HasOne
     {
-        return $this->hasOne(Allocation::class);
+        return $this->hasOne(Allocation::class,'project_id');
     }
 
     public function approval_level(): BelongsTo
@@ -143,7 +143,7 @@ class Project extends Model
 
     public function implementing_agencies(): BelongsToMany
     {
-        return $this->belongsToMany(ImplementingAgency::class);
+        return $this->belongsToMany(OperatingUnit::class,'implementing_agency_project','project_id','operating_unit_id','id','id');
     }
 
     public function nep(): HasOne
@@ -218,7 +218,7 @@ class Project extends Model
 
     public function ten_point_agendas(): BelongsToMany
     {
-        return $this->belongsToMany(TenPointAgenda::class);
+        return $this->belongsToMany(TenPointAgenda::class,'project_ten_point_agenda','project_id','tpa_id','id','id');
     }
 
     public function tier(): BelongsTo
