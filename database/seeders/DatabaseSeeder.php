@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ApprovalLevelsTableSeeder::class);
         $this->call(BasesTableSeeder::class);
         $this->call(CipTypesTableSeeder::class);
+        $this->call(FsStatusesTableSeeder::class);
         $this->call(FundingInstitutionsTableSeeder::class);
         $this->call(FundingSourcesTableSeeder::class);
         $this->call(GadsTableSeeder::class);

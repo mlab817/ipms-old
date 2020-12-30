@@ -12,7 +12,7 @@ class RegionInvestment extends Model
 
     protected $fillable = [
         'project_id',
-        'fs_id',
+        'region_id',
         't2016',
         't2017',
         't2018',
