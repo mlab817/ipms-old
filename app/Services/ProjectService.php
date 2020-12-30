@@ -34,8 +34,8 @@ class ProjectService
 
     /**
      * @param UpdateProjectRequest $request
-     *
-     * @param Project $project
+     * @param $id
+     * @return Project
      */
     public function update(UpdateProjectRequest $request, $id): Project
     {
@@ -55,8 +55,8 @@ class ProjectService
     {
         $project = $this->projectRepository->delete($id);
 
-        event(new DeleteProjectEvent($id));
+        event(new DeleteProjectEvent($project));
 
-        return $project->delete();
+        return $project;
     }
 }

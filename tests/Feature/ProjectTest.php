@@ -39,23 +39,23 @@ class ProjectTest extends TestCase
     /**
      *
      */
-    public function test_it_updates_a_project()
-    {
-        $project = Project::factory()->create();
-
-        $user = User::factory()->create();
-        $user->assignRole('contributor');
-
-        $update = [
-            'title' => 'New title',
-        ];
-
-        $response = $this
-            ->actingAs($user)
-            ->json('PUT', route('api.projects.update', $project->id), $update);
-
-        $response->assertStatus(200);
-
-        $response->dump();
-    }
+//    public function test_it_updates_a_project()
+//    {
+//        $project = Project::factory()->create();
+//
+//        $user = User::factory()->create();
+//        $user->assignRole('contributor');
+//
+//        $update = [
+//            'title' => 'New title',
+//        ];
+//
+//        $response = $this
+//            ->actingAs($user)
+//            ->json('PUT', route('api.projects.update', $project->id), $update);
+//
+//        $response->assertStatus(200);
+//
+//        $response->dump();
+//    }
 }
