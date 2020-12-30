@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInvestmentsTable extends Migration
+class CreateOuInvestmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateInvestmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('investments', function (Blueprint $table) {
+        Schema::create('ou_investments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
-            $table->morphs('investment');
+            $table->foreignId('ou_id')->constrained('operating_units')->cascadeOnDelete();
             $table->decimal('t2016',20,2)->default(0);
             $table->decimal('t2017',20,2)->default(0);
             $table->decimal('t2018',20,2)->default(0);
@@ -38,6 +38,8 @@ class CreateInvestmentsTable extends Migration
             $table->decimal('i2024',20,2)->default(0);
             $table->decimal('i2025',20,2)->default(0);
             $table->timestamps();
+
+            $table->unique(['project_id','ou_id'], 'poui_idx');
         });
     }
 
@@ -48,6 +50,6 @@ class CreateInvestmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('investments');
+        Schema::dropIfExists('ou_investments');
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Project extends Model
@@ -111,6 +112,11 @@ class Project extends Model
         return $this->hasOne(FeasibilityStudy::class);
     }
 
+    public function fs_investments(): HasMany
+    {
+        return $this->hasMany(FsInvestment::class);
+    }
+
     public function funding_source(): BelongsTo
     {
         return $this->belongsTo(FundingSource::class);
@@ -151,6 +157,16 @@ class Project extends Model
         return $this->hasOne(Nep::class);
     }
 
+    public function operating_unit(): BelongsTo
+    {
+        return $this->belongsTo(OperatingUnit::class);
+    }
+
+    public function ou_investments(): HasMany
+    {
+        return $this->hasMany(OuInvestment::class);
+    }
+
     public function pap_type(): BelongsTo
     {
         return $this->belongsTo(PapType::class);
@@ -189,6 +205,11 @@ class Project extends Model
     public function readiness_level(): BelongsTo
     {
         return $this->belongsTo(ReadinessLevel::class);
+    }
+
+    public function region_investments(): HasMany
+    {
+        return $this->hasMany(RegionInvestment::class);
     }
 
     public function regions(): BelongsToMany
