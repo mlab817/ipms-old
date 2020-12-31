@@ -20,7 +20,7 @@ class FsInvestmentFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'fs_id' => FundingSource::all()->random()->id,

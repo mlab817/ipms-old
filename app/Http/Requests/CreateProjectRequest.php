@@ -36,30 +36,30 @@ class CreateProjectRequest extends FormRequest
             'spatial_coverage_id'       => 'required',
             'tier_id'                   => 'required',
             'iccable'                   => 'required|boolean',
-            'approval_level_id'         => 'sometimes',
+            'approval_level_id'         => 'required',
             'updates'                   => 'required',
             'updates_date'              => 'required',
 
-            'regions'                   => ['required','array', function($attribute, $value, $fail) {
-                                                $count = Region::whereIn('id', $value)->count();
-                                                if (count($value) !== $count) {
-                                                    $fail($attribute . ' is invalid.');
-                                                }
-                                            }],
-            'bases'                     => 'array',
-            'funding_sources'           => 'array',
-            'funding_institutions'      => 'array',
-            'implementing_agencies'     => 'array',
-            'pdp_chapters'              => 'array',
-            'prerequisites'             => 'array',
-            'sdgs'                      => 'array',
-            'ten_point_agendas'         => 'array',
-            'allocation'                => 'sometimes',
-            'disbursement'              => 'required',
-            'feasibility_study'         => 'required',
-            'nep'                       => 'required',
-            'resettlement_action_plan'  => 'required',
-            'right_of_way'              => 'required',
+//            'regions'                   => ['required','array', function($attribute, $value, $fail) {
+//                                                $count = Region::whereIn('id', $value)->count();
+//                                                if (count($value) !== $count) {
+//                                                    $fail($attribute . ' is invalid.');
+//                                                }
+//                                            }],
+//            'bases'                     => 'array',
+//            'funding_sources'           => 'array',
+//            'funding_institutions'      => 'array',
+//            'implementing_agencies'     => 'array',
+//            'pdp_chapters'              => 'array',
+//            'prerequisites'             => 'array',
+//            'sdgs'                      => 'array',
+//            'ten_point_agendas'         => 'array',
+//            'allocation'                => 'sometimes',
+//            'disbursement'              => 'required',
+//            'feasibility_study'         => 'required',
+//            'nep'                       => 'required',
+//            'resettlement_action_plan'  => 'required',
+//            'right_of_way'              => 'required',
         ];
     }
 }

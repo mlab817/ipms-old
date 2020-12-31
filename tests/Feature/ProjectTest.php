@@ -3,13 +3,28 @@
 namespace Tests\Feature;
 
 use App\Models\Allocation;
+use App\Models\ApprovalLevel;
+use App\Models\Basis;
+use App\Models\CipType;
 use App\Models\Disbursement;
 use App\Models\FeasibilityStudy;
+use App\Models\FundingSource;
+use App\Models\Gad;
+use App\Models\ImplementationMode;
 use App\Models\Nep;
+use App\Models\PapType;
+use App\Models\PdpChapter;
+use App\Models\PipTypology;
+use App\Models\PreparationDocument;
 use App\Models\Project;
+use App\Models\ProjectStatus;
+use App\Models\ReadinessLevel;
 use App\Models\ResettlementActionPlan;
 use App\Models\RightOfWay;
+use App\Models\SpatialCoverage;
+use App\Models\Tier;
 use App\Models\User;
+use Database\Seeders\ApprovalLevelsTableSeeder;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -31,13 +46,14 @@ class ProjectTest extends TestCase
         $this->withoutExceptionHandling();
 
         $data = Project::factory()->make();
-        $data['allocation'] = Allocation::factory()->make();
-        $data['disbursement'] = Disbursement::factory()->make();
-        $data['feasibility_study'] = Nep::factory()->make();
-        $data['nep'] = FeasibilityStudy::factory()->make();
-        $data['resettlement_action_plan'] = ResettlementActionPlan::factory()->make();
-        $data['right_of_way'] = RightOfWay::factory()->make();
-        
+
+//        $data['allocation'] = Allocation::factory()->make();
+//        $data['disbursement'] = Disbursement::factory()->make();
+//        $data['feasibility_study'] = Nep::factory()->make();
+//        $data['nep'] = FeasibilityStudy::factory()->make();
+//        $data['resettlement_action_plan'] = ResettlementActionPlan::factory()->make();
+//        $data['right_of_way'] = RightOfWay::factory()->make();
+
         $user = User::factory()->create();
         $user->assignRole('contributor');
 

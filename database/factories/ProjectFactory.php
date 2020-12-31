@@ -16,9 +16,12 @@ use App\Models\Nep;
 use App\Models\OperatingUnit;
 use App\Models\PapType;
 use App\Models\PdpChapter;
+use App\Models\PipTypology;
+use App\Models\PreparationDocument;
 use App\Models\Prerequisite;
 use App\Models\Project;
 use App\Models\ProjectStatus;
+use App\Models\ReadinessLevel;
 use App\Models\Region;
 use App\Models\ResettlementActionPlan;
 use App\Models\RightOfWay;
@@ -45,37 +48,48 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'                     => $this->faker->title,
-            'pap_type_id'               => PapType::all()->random()->id,
-            'cip_type_id'               => CipType::all()->random()->id,
-            'funding_source_id'         => FundingSource::all()->random()->id,
-            'gad_id'                    => Gad::all()->random()->id,
-            'iccable'                   => $this->faker->boolean,
-            'implementation_mode_id'    => ImplementationMode::all()->random()->id,
-            'pdp_chapter_id'            => PdpChapter::all()->random()->id,
-            'project_status_id'         => ProjectStatus::all()->random()->id,
-            'spatial_coverage_id'       => SpatialCoverage::all()->random()->id,
-            'tier_id'                   => Tier::all()->random()->id,
-            'approval_level_id'         => ApprovalLevel::all()->random()->id,
-            'risk'                      => $this->faker->paragraph,
-            'uacs_code'                 => $this->faker->ean13, // barcode
-            'updates'                   => $this->faker->paragraph,
-            'updates_date'              => $this->faker->date(),
-            'regions'                   => Region::all()->random(5)->pluck('id'),
-            'bases'                     => Basis::all()->random(2)->pluck('id'),
-            'funding_sources'           => FundingSource::all()->random(2)->pluck('id'),
-            'funding_institutions'      => FundingInstitution::all()->random(1)->pluck('id'),
-            'implementing_agencies'     => OperatingUnit::all()->random(2)->pluck('id'),
-            'pdp_chapters'              => PdpChapter::all()->random(3)->pluck('id'),
-            'prerequisites'             => Prerequisite::all()->random(2)->pluck('id'),
-            'sdgs'                      => Sdg::all()->random(4)->pluck('id'),
-            'ten_point_agendas'         => TenPointAgenda::all()->random(3)->pluck('id'),
-//            'allocation'                => Allocation::factory(),
-//            'disbursement'              => Disbursement::factory(),
-//            'feasibility_study'         => FeasibilityStudy::factory(),
-//            'nep'                       => Nep::factory(),
-//            'resettlement_action_plan'  => ResettlementActionPlan::factory(),
-//            'right_of_way'              => RightOfWay::factory(),
+            'code'                          => $this->faker->isbn13,
+            'title'                         => $this->faker->word(),
+            'pap_type_id'                   => PapType::all()->random()->id,
+            'regular_program'               => $this->faker->boolean,
+            'description'                   => $this->faker->paragraph,
+            'expected_outputs'              => $this->faker->paragraph,
+            'spatial_coverage_id'           => SpatialCoverage::all()->random()->id,
+            'iccable'                       => $this->faker->boolean,
+            'approval_level_id'             => ApprovalLevel::all()->random()->id,
+            'approval_level_date'           => $this->faker->date(),
+            'pip'                           => $this->faker->boolean,
+            'pip_typology_id'               => PipTypology::all()->random()->id,
+            'research'                      => $this->faker->boolean,
+            'cip'                           => $this->faker->boolean,
+            'cip_type_id'                   => CipType::all()->random()->id,
+            'trip'                          => $this->faker->boolean,
+            'rdip'                          => $this->faker->boolean,
+            'rdc_endorsement_required'      => $this->faker->boolean,
+            'rdc_endorsed'                  => $this->faker->boolean,
+            'rdc_endorsed_date'             => $this->faker->date(),
+            'other_infrastructure'          => $this->faker->word,
+            'risk'                          => $this->faker->paragraph,
+            'pdp_chapter_id'                => PdpChapter::all()->random()->id,
+            'no_pdp_indicator'              => $this->faker->boolean,
+            'gad_id'                        => Gad::all()->random()->id,
+            'target_start_year'             => $this->faker->randomDigit + 2000,
+            'target_end_year'               => $this->faker->randomDigit + 2000,
+            'preparation_document_id'       => PreparationDocument::all()->random()->id,
+            'preparation_document_others'   => $this->faker->word,
+            'has_fs'                        => $this->faker->boolean,
+            'has_row'                       => $this->faker->boolean,
+            'has_rap'                       => $this->faker->boolean,
+            'employment_generated'          => $this->faker->word,
+            'funding_source_id'             => FundingSource::all()->random()->id,
+            'implementation_mode_id'        => ImplementationMode::all()->random()->id,
+            'other_fs'                      => $this->faker->word,
+            'project_status_id'             => ProjectStatus::all()->random()->id,
+            'readiness_level_id'            => ReadinessLevel::all()->random()->id,
+            'updates'                       => $this->faker->paragraph,
+            'updates_date'                  => $this->faker->date(),
+            'uacs_code'                     => $this->faker->ean13, // barcode
+            'tier_id'                       => Tier::all()->random()->id,
         ];
     }
 }

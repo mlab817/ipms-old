@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\ApprovalLevel;
 use App\Models\PapType;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProjectResource extends JsonResource
@@ -10,7 +12,7 @@ class ProjectResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -18,24 +20,25 @@ class ProjectResource extends JsonResource
         return [
             'id'                    => $this->id,
             'title'                 => $this->title,
+            'description'           => $this->description,
             'pap_type'              => new PapTypeResource($this->pap_type),
-            'cip_type'              => $this->cip_type,
-            'funding_source'        => $this->funding_source,
+            'cip_type'              => new CipTypeResource($this->cip_type),
+            'funding_source'        => new FundingSourceResource($this->funding_source),
             'gad'                   => new GadResource($this->gad),
-            'implementation_mode'   => $this->implementation_mode,
-            'pdp_chapter'           => $this->pdp_chapter,
-            'project_status'        => $this->project_status,
-            'spatial_coverage'      => $this->spatial_coverage,
-            'tier'                  => $this->tier,
-            'iccable'               => $this->iccable,
-            'approval_level'        => $this->approval_level,
+            'implementation_mode'   => new ImplementationModeResource($this->implementation_mode),
+            'pdp_chapter'           => new PdpChapterResource($this->pdp_chapter),
+            'project_status'        => new ProjectStatusResource($this->project_status),
+            'spatial_coverage'      => new SpatialCoverageResource($this->spatial_coverage),
+            'tier'                  => new TierResource($this->tier),
+            'iccable'               => (boolean) $this->iccable,
+            'approval_level'        => new ApprovalLevelResource($this->approval_level),
             'updates'               => $this->updates,
             'updates_date'          => $this->updates_date,
             'created_at'            => (string) $this->created_at,
             'updated_at'            => (string) $this->updated_at,
-            'permissions'           => $this->permissions,
+            'permissions'           => (array) $this->permissions,
             'regions'               => $this->regions,
-            'allocation'            => $this->allocation,
+            'allocation'            => new AllocationResource($this->allocation),
         ];
     }
 }

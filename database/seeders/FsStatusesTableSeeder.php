@@ -32,10 +32,16 @@ class FsStatusesTableSeeder extends Seeder
                 'slug'      => Str::slug('Completed'),
             ],
             [
-                'id'        => 1,
+                'id'        => 3,
                 'uuid'      => Str::uuid(),
                 'name'      => 'For Preparation',
                 'slug'      => Str::slug('For Preparation'),
+            ],
+            [
+                'id'        => 4,
+                'uuid'      => Str::uuid(),
+                'name'      => 'Not Applicable',
+                'slug'      => Str::slug('Not Applicable'),
             ],
         ];
 

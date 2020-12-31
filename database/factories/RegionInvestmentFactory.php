@@ -21,7 +21,7 @@ class RegionInvestmentFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'region_id' => Region::all()->random()->id,

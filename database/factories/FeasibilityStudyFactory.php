@@ -19,7 +19,7 @@ class FeasibilityStudyFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'y2017' => $this->faker->randomFloat() * 1000000,
