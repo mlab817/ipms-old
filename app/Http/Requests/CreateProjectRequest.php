@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Region;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateProjectRequest extends FormRequest
@@ -63,12 +64,12 @@ class CreateProjectRequest extends FormRequest
             'approval_level_id'         => 'required',
             'approval_date'             => 'required',
 
-//            'regions'                   => ['required','array', function($attribute, $value, $fail) {
-//                                                $count = Region::whereIn('id', $value)->count();
-//                                                if (count($value) !== $count) {
-//                                                    $fail($attribute . ' is invalid.');
-//                                                }
-//                                            }],
+            'regions'                   => ['required','array', function($attribute, $value, $fail) {
+                                                $count = Region::whereIn('id', $value)->count();
+                                                if (count($value) !== $count) {
+                                                    $fail($attribute . ' is invalid.');
+                                                }
+                                            }],
 //            'bases'                     => 'array',
 //            'funding_sources'           => 'array',
 //            'funding_institutions'      => 'array',

@@ -67,6 +67,9 @@ class ProjectResource extends JsonResource
             'approval_level'            => new ApprovalLevelResource($this->approval_level),
             'approval_date'             => (string) $this->approval_date,
             'allocation'                => new AllocationResource($this->allocation),
+
+            'regions'                   => RegionResource::collection($this->regions),
+
             'creator'                   => new UserResource($this->creator),
             'updater'                   => new UserResource($this->updater),
             'deleter'                   => new UserResource($this->deleter),

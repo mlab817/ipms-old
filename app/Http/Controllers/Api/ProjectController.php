@@ -38,7 +38,24 @@ class ProjectController extends Controller
      */
     public function store(CreateProjectRequest $request): ProjectResource
     {
-        $project = Project::create($request->all());
+        $project = Project::create($request->validated());
+
+        $project->regions()->sync($request->regions);
+        $project->bases()->sync($request->bases);
+        $project->funding_sources()->sync($request->funding_sources);
+        $project->funding_institutions()->sync($request->funding_institutions);
+        $project->implementing_agencies()->sync($request->implementing_agencies);
+        $project->pdp_chapters()->sync($request->pdp_chapters);
+        $project->prerequisites()->sync($request->prerequisites);
+        $project->sdgs()->sync($request->sdgs);
+        $project->ten_point_agendas()->sync($request->ten_point_agendas);
+
+//        $project->allocation()->create($request->allocation);
+//        $project->disbursement()->create($request->disbursement);
+//        $project->feasibility_study()->create($request->feasibility_study);
+//        $project->nep()->create($request->nep);
+//        $project->resettlement_action_plan()->create($request->resettlement_action_plan);
+//        $project->right_of_way()->create($request->right_of_way);
 
         return new ProjectResource($project);
     }

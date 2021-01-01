@@ -86,6 +86,16 @@ class Project extends Model
         'creator',
         'updater',
         'deleter',
+
+        'regions',
+        'bases',
+        'funding_sources',
+        'funding_institutions',
+        'implementing_agencies',
+        'pdp_chapters',
+        'prerequisites',
+        'sdgs',
+        'ten_point_agendas',
     ];
 
     public function getRouteKeyName(): string

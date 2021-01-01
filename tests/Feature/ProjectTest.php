@@ -125,6 +125,7 @@ class ProjectTest extends TestCase
             'tier_id' => Tier::factory()->create()->id,
             'approval_level_id' => ApprovalLevel::factory()->create()->id,
             'approval_date' => $this->faker->date(),
+            'regions'   => [1,2,3]
         ];
 
         $response = $this
