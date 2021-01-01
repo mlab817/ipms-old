@@ -20,14 +20,15 @@ class ProjectCollection extends ResourceCollection
     public function toArray($request): array
     {
         return [
-            'data'  => $this->collection->transform(function ($project) {
+            'data'  => $this->collection->transform(function (Project $project) {
                 return [
                     'id'            => $project->id,
                     'title'         => $project->title,
                     'slug'          => $project->slug,
                     'description'   => Str::substr($project->description, 0, 100),
+                    'permissions'   => (array) $project->permissions,
                     'updated_at'    => (string) $project->updated_at,
-                    'creator'       => new UserResource($project->creator),
+                    'creator'       => $project->creator ? new UserResource($project->creator) : null,
                 ];
             }),
         ];

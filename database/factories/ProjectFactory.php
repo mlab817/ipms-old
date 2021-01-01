@@ -31,6 +31,7 @@ use App\Models\TenPointAgenda;
 use App\Models\Tier;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class ProjectFactory extends Factory
 {
@@ -48,9 +49,13 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
+        $title = $this->faker->catchPhrase;
+
         return [
             'code'                          => $this->faker->isbn13,
-            'title'                         => $this->faker->word(),
+            'uuid'                          => Str::uuid(),
+            'title'                         => $title,
+            'slug'                          => Str::slug($title),
             'pap_type_id'                   => PapType::all()->random()->id,
             'regular_program'               => $this->faker->boolean,
             'description'                   => $this->faker->paragraph,

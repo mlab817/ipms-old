@@ -8,6 +8,7 @@ use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Services\ProjectService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,8 +19,8 @@ class ProjectController extends Controller
 
     public function __construct(ProjectService $projectService)
     {
-        $this->middleware('auth:api')->except(['index']);
-        $this->authorizeResource(Project::class, 'project', []);
+        $this->middleware('auth:api')->except(['index','show']);
+//        $this->authorizeResource(Project::class);
         $this->projectService = $projectService;
     }
 
@@ -49,12 +50,12 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param string $slug
      * @return ProjectResource
      */
-    public function show(int $id): ProjectResource
+    public function show(string $slug): ProjectResource
     {
-        $project = $this->projectService->show($id);
+        $project = $this->projectService->findBySlug($slug);
 
         return new ProjectResource($project);
     }
@@ -63,10 +64,10 @@ class ProjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param int $id
+     * @param $id
      * @return Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -74,11 +75,16 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param $slug
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
-    public function destroy($id)
+    public function destroy($slug): JsonResponse
     {
-        //
+        $project = $this->projectService->findBySlug($slug);
+        $this->authorize('delete', $project);
+        $project->delete();
+
+        return response()->json(null, 204);
     }
 }

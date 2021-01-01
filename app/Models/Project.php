@@ -88,6 +88,11 @@ class Project extends Model
         'deleter',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function allocation(): HasOne
     {
         return $this->hasOne(Allocation::class,'project_id');
@@ -258,7 +263,7 @@ class Project extends Model
         $user = auth()->user();
 
         return [
-            'view'          => $user ? $user->can('view', $this) : false,
+            'view'          => true,
             'update'        => $user ? $user->can('update', $this) : false,
             'delete'        => $user ? $user->can('delete', $this) : false,
             'restore'       => $user ? $user->can('restore', $this) : false,

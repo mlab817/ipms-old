@@ -23,15 +23,6 @@ class ProjectObserver
         $audit->save();
     }
 
-    public function retrieved(Project $project)
-    {
-        $audit              = new ProjectAudit();
-        $audit->project_id  = $project->id;
-        $audit->user_id     = Auth::id();
-        $audit->action      = 'Retrieved';
-        $audit->save();
-    }
-
     /**
      * Handle the Project "updated" event.
      *

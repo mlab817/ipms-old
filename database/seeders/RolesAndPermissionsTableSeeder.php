@@ -35,7 +35,12 @@ class RolesAndPermissionsTableSeeder extends Seeder
             ->givePermissionTo(Permission::all());
 
         // this can be done as separate statements
-        $role = Role::create(['name' => 'admin']);
+        $role = Role::create(['name' => 'admin'])
+            ->givePermissionTo([
+                'projects.delete_any',
+                'projects.update_any',
+                'projects.view_any'
+            ]);
 
         // or may be done by chaining
         $role = Role::create(['name' => 'editor'])

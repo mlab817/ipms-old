@@ -36,6 +36,11 @@ class ProjectService
         return $project;
     }
 
+    public function findBySlug($slug)
+    {
+        return Project::where('slug', $slug)->firstOrFail();
+    }
+
     /**
      * @param UpdateProjectRequest $request
      * @param $id
@@ -52,10 +57,10 @@ class ProjectService
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @return bool|null
      */
-    public function delete(int $id): ?bool
+    public function delete($id): ?bool
     {
         $project = $this->projectRepository->delete($id);
 

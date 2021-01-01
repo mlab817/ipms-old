@@ -24,13 +24,13 @@ class ProjectPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param User $user
+     * @param User|null $user
      * @param Project $project
      * @return mixed
      */
-    public function view(User $user, Project $project): bool
+    public function view(?User $user, Project $project): bool
     {
-        return (bool) $user;
+        return true;
     }
 
     /**
@@ -76,6 +76,16 @@ class ProjectPolicy
         // check global permissions first
         if (! config('ipms.permissions.projects.delete')) {
             return $this->deny('Sorry, the System is currently not deleting submissions');
+        }
+
+        // if user is able to delete any project
+        if ($user->hasPermissionTo('projects.delete_any')) {
+            return true;
+        }
+
+        // if user is owner of the project
+        if ($user->id == $project->created_by) {
+            return true;
         }
 
         return false;

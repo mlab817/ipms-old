@@ -134,7 +134,52 @@ class ProjectTest extends TestCase
         $response->dump();
     }
 
+    public function test_it_gets_a_project_by_slug()
+    {
+        $this->withoutExceptionHandling();
 
+        $project = Project::factory()->create();
+
+        $response = $this
+            ->actingAs(User::factory()->create())
+            ->json('GET', route('api.projects.show', $project->slug))
+            ->assertStatus(200);
+
+        $response->dump();
+    }
+
+    public function test_admin_can_delete_a_project()
+    {
+        $this->withoutExceptionHandling();
+
+        $project = Project::factory()->create();
+
+        $response = $this
+            ->actingAs(User::where('email', self::ADMIN_EMAIL)->first())
+            ->json('DELETE', route('api.projects.delete', $project->slug))
+            ->assertStatus(204);
+
+        $response->dump();
+    }
+
+    public function test_owner_can_delete_own_project()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+
+        $project = Project::factory()->create();
+
+        $project->created_by = $user->id;
+        $project->save();
+
+        $response = $this
+            ->actingAs($user)
+            ->json('DELETE', route('api.projects.delete', $project->slug))
+            ->assertStatus(204);
+
+        $response->dump();
+    }
 
     /**
      *
