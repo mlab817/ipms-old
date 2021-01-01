@@ -65,8 +65,10 @@ class ProjectTest extends TestCase
             ->assertStatus(401);
     }
 
-    public function test_it_returns_403_if_user_does_not_have_permission()
+    public function test_it_returns_403_unauthorized_to_create_project()
     {
+//        $this->withoutExceptionHandling();
+
         $project = [];
 
         $this

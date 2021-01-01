@@ -7,21 +7,17 @@ use App\Http\Requests\CreateProjectRequest;
 use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
-use App\Services\ProjectService;
-use Illuminate\Auth\Access\AuthorizationException;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ProjectController extends Controller
 {
-    public $projectService;
-
-    public function __construct(ProjectService $projectService)
+    public function __construct()
     {
         $this->middleware('auth:api')->except(['index','show']);
-//        $this->authorizeResource(Project::class);
-        $this->projectService = $projectService;
+        $this->authorizeResource(Project::class, 'project');
     }
 
     /**
@@ -37,12 +33,12 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateProjectRequest $request
+     * @param $request
      * @return ProjectResource
      */
     public function store(CreateProjectRequest $request): ProjectResource
     {
-        $project = $this->projectService->create($request);
+        $project = Project::create($request->all());
 
         return new ProjectResource($project);
     }
@@ -50,13 +46,11 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param string $slug
+     * @param Project $project
      * @return ProjectResource
      */
-    public function show(string $slug): ProjectResource
+    public function show(Project $project): ProjectResource
     {
-        $project = $this->projectService->findBySlug($slug);
-
         return new ProjectResource($project);
     }
 
@@ -64,10 +58,10 @@ class ProjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param $id
+     * @param Project $project
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
         //
     }
@@ -75,14 +69,12 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $slug
+     * @param Project $project
      * @return JsonResponse
-     * @throws AuthorizationException
+     * @throws \Exception
      */
-    public function destroy($slug): JsonResponse
+    public function destroy(Project $project): JsonResponse
     {
-        $project = $this->projectService->findBySlug($slug);
-        $this->authorize('delete', $project);
         $project->delete();
 
         return response()->json(null, 204);
