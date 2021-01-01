@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -43,6 +44,30 @@ class RolesAndPermissionsTableSeeder extends Seeder
         $role = Role::create(['name' => 'contributor'])
             ->givePermissionTo(['projects.create']);
 
+        // create users and assign role
+        $admin = User::create([
+            'name'      => 'Admin',
+            'email'     => 'admin@example.com',
+            'password'  => bcrypt('password'),
+        ]);
+
+        $admin->assignRole('admin');
+
+        $contributor = User::create([
+            'name'      => 'Contributor',
+            'email'     => 'contributor@example.com',
+            'password'  => bcrypt('password'),
+        ]);
+
+        $contributor->assignRole('contributor');
+
+        $editor = User::create([
+            'name'      => 'Editor',
+            'email'     => 'editor@example.com',
+            'password'  => bcrypt('password'),
+        ]);
+
+        $editor->assignRole('editor');
 
     }
 }

@@ -44,12 +44,6 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        if ($e instanceof ValidationException && $request->wantsJson()) {
-            return response()->json([
-               'error' => $e->getMessage()
-            ], 422);
-        }
-
         if ($e instanceof ModelNotFoundException && $request->wantsJson()) {
             return response()->json([
                 'error' => 'Resource not found'

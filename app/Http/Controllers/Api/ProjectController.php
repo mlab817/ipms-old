@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProjectRequest;
+use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Services\ProjectService;
@@ -25,11 +26,11 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return ProjectCollection
      */
-    public function index()
+    public function index(): ProjectCollection
     {
-        //
+        return new ProjectCollection(Project::with('creator')->paginate(25));
     }
 
     /**
@@ -50,11 +51,13 @@ class ProjectController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return ProjectResource
      */
-    public function show($id)
+    public function show(int $id): ProjectResource
     {
-        //
+        $project = $this->projectService->show($id);
+
+        return new ProjectResource($project);
     }
 
     /**

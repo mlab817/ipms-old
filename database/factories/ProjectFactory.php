@@ -29,6 +29,7 @@ use App\Models\Sdg;
 use App\Models\SpatialCoverage;
 use App\Models\TenPointAgenda;
 use App\Models\Tier;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProjectFactory extends Factory
@@ -57,7 +58,7 @@ class ProjectFactory extends Factory
             'spatial_coverage_id'           => SpatialCoverage::all()->random()->id,
             'iccable'                       => $this->faker->boolean,
             'approval_level_id'             => ApprovalLevel::all()->random()->id,
-            'approval_level_date'           => $this->faker->date(),
+            'approval_date'                 => $this->faker->date(),
             'pip'                           => $this->faker->boolean,
             'pip_typology_id'               => PipTypology::all()->random()->id,
             'research'                      => $this->faker->boolean,

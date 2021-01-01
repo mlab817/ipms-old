@@ -19,6 +19,7 @@ class ProjectResource extends JsonResource
     {
         return [
             'id'                    => $this->id,
+            'code'                  => $this->code,
             'title'                 => $this->title,
             'description'           => $this->description,
             'pap_type'              => new PapTypeResource($this->pap_type),
