@@ -18,6 +18,7 @@ use App\Models\PdpChapter;
 use App\Models\PipTypology;
 use App\Models\PreparationDocument;
 use App\Models\Project;
+use App\Models\ProjectAudit;
 use App\Models\ProjectStatus;
 use App\Models\ReadinessLevel;
 use App\Models\ResettlementActionPlan;
@@ -81,42 +82,45 @@ class ProjectTest extends TestCase
      */
     public function test_it_creates_a_project()
     {
+        $this->withoutExceptionHandling();
+
         $project = [
-            'code' => '',
+            'code' => $this->faker->isbn13,
             'title' => 'new project',
-            'pap_type_id' => PapType::all()->random()->id,
+            'pap_type_id' => PapType::factory()->create()->id,
             'regular_program' => $this->faker->boolean,
             'description' => 'description',
-            'spatial_coverage_id' => SpatialCoverage::all()->random()->id,
+            'spatial_coverage_id' => SpatialCoverage::factory()->create()->id,
             'iccable' => $this->faker->boolean,
             'pip' => $this->faker->boolean,
+            'pip_typology_id'   => PipTypology::factory()->create()->id,
             'research' => $this->faker->boolean,
             'cip' => $this->faker->boolean,
             'cip_type_id' => CipType::factory()->create()->id,
             'trip' => $this->faker->boolean,
             'rdip' => $this->faker->boolean,
-            'rdc_endorsement_required' => '',
+            'rdc_endorsement_required' => $this->faker->boolean,
             'rdc_endorsed' => $this->faker->boolean,
-            'rdc_endorsed_date' => '',
-            'other_infrastructure' => '',
+            'rdc_endorsed_date' => $this->faker->date(),
+            'other_infrastructure' => $this->faker->word,
             'risk' => $this->faker->paragraph,
             'pdp_chapter_id' => PdpChapter::factory()->create()->id,
-            'no_pdp_indicator' => '',
-            'gad_id' => '',
-            'target_start_year' => '',
-            'target_end_year' => '',
+            'no_pdp_indicator' => $this->faker->boolean,
+            'gad_id' => Gad::factory()->create()->id,
+            'target_start_year' => $this->faker->randomDigit + 2000,
+            'target_end_year' => $this->faker->randomDigit + 2000,
             'has_fs' => $this->faker->boolean,
             'has_row' => $this->faker->boolean,
             'has_rap' => $this->faker->boolean,
-            'employment_generated' => '',
-            'funding_source_id' => FundingSource::all()->random()->id,
-            'implementation_mode_id' => ImplementationMode::all()->random()->id,
-            'other_fs' => '',
-            'project_status_id' => ProjectStatus::all()->random()->id,
+            'employment_generated' => $this->faker->word,
+            'funding_source_id' => FundingSource::factory()->create()->id,
+            'implementation_mode_id' => ImplementationMode::factory()->create()->id,
+            'other_fs' => $this->faker->word,
+            'project_status_id' => ProjectStatus::factory()->create()->id,
             'updates' => $this->faker->paragraph,
             'updates_date' => $this->faker->date(),
-            'uacs_code' => '',
-            'tier_id' => Tier::all()->random()->id,
+            'uacs_code' => $this->faker->isbn13,
+            'tier_id' => Tier::factory()->create()->id,
             'approval_level_id' => ApprovalLevel::factory()->create()->id,
             'approval_date' => $this->faker->date(),
         ];
@@ -125,7 +129,7 @@ class ProjectTest extends TestCase
             ->actingAs(User::where('email',self::CONTRIBUTOR_EMAIL)->first())
             ->json('POST', route('api.projects.store'), $project);
 
-        $response->assertStatus(200);
+        $response->assertStatus(201);
 
         $response->dump();
     }

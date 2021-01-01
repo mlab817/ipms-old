@@ -22,9 +22,9 @@ class ProjectRepository implements RepositoryInterface
     public function create(array $data)
     {
         $project = Project::create($data);
-        $project = new Project;
-        $project->fill($data);
-        $project->save();
+//        $project = new Project;
+//        $project->fill($data);
+//        $project->save();
 
         // belongs to many - sync relations
 //        $project->regions()->sync($data['regions']);
@@ -44,7 +44,7 @@ class ProjectRepository implements RepositoryInterface
 //        $project->resettlement_action_plan()->create($data['resettlement_action_plan']);
 //        $project->right_of_way()->create($data['right_of_way']);
 
-        return $project->fresh();
+        return $project;
     }
 
     /**

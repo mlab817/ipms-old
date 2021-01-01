@@ -82,6 +82,12 @@ class Project extends Model
         // disbursement
     ];
 
+    protected $with = [
+        'creator',
+        'updater',
+        'deleter',
+    ];
+
     public function allocation(): HasOne
     {
         return $this->hasOne(Allocation::class,'project_id');

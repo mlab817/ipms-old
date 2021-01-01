@@ -9,17 +9,21 @@ trait Trackable
 {
     public static function bootTrackable()
     {
-        $userId = auth()->user()->id ?? null;
 
-        static::creating(function ($model) use ($userId) {
+        static::creating(function ($model) {
+            $userId = auth()->user()->id ?? null;
             $model->created_by = $userId;
         });
 
-        static::updating(function ($model) use ($userId) {
+        static::updating(function ($model) {
+            $userId = auth()->user()->id ?? null;
+
             $model->updated_by = $userId;
         });
 
-        static::deleting(function ($model) use ($userId) {
+        static::deleting(function ($model) {
+            $userId = auth()->user()->id ?? null;
+
             $model->deleted_by = $userId;
         });
     }

@@ -23,7 +23,11 @@ class ProjectService
     {
         $validated = $request->validated();
 
-        $project = $this->projectRepository->create($validated);
+//        $project = $this->projectRepository->create($validated);
+
+        $project = Project::create($validated);
+        $project->created_by = $request->user()->id;
+        $project->save();
 
         // TODO: Add other relationships ensuring that they are also validated
 
