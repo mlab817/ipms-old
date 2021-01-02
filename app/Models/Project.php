@@ -217,6 +217,11 @@ class Project extends Model
         return $this->belongsToMany(PdpIndicator::class);
     }
 
+    public function pip_typology(): BelongsTo
+    {
+        return $this->belongsTo(PipTypology::class);
+    }
+
     public function preparation_document(): BelongsTo
     {
         return $this->belongsTo(PreparationDocument::class);

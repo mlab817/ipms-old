@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Region;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateProjectRequest extends FormRequest
+class StoreProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -45,7 +45,7 @@ class CreateProjectRequest extends FormRequest
             'rdc_endorsement_required'          => 'required_if:rdip,true|bool',
             'rdc_endorsed'                      => 'required_if:rdc_endorsement_required,true|bool',
             'rdc_endorsed_date'                 => 'required_if:rdc_endorsed,true|date',
-            'other_infrastructure'              => 'sometimes',
+            'other_infrastructure'              => 'nullable',
             'risk'                              => 'required_if:trip,true',
             'pdp_chapter_id'                    => 'required_if:no_pdp_indicator,false',
             'no_pdp_indicator'                  => 'required',
@@ -55,22 +55,21 @@ class CreateProjectRequest extends FormRequest
             'has_fs'                            => 'required|bool',
             'has_row'                           => 'required|bool',
             'has_rap'                           => 'required|bool',
-            'employment_generated'              => 'sometimes|string',
+            'employment_generated'              => 'nullable|string',
             'funding_source_id'                 => 'required|exists:funding_sources,id',
             'implementation_mode_id'            => 'required|exists:implementation_modes,id',
-            'other_fs'                          => 'sometimes',
+            'other_fs'                          => 'nullable',
             'project_status_id'                 => 'required|exists:project_statuses,id',
             'updates'                           => 'required|max:1000',
             'updates_date'                      => 'required|date',
             'uacs_code'                         => 'sometimes|string',
             'tier_id'                           => 'required|exists:tiers,id',
-
-            'regions'                           => ['required_if:spatial_coverage_id,2','exclude_unless:spatial_coverage_id,2','array', function($attribute, $value, $fail) {
-                                                    $count = Region::whereIn('id', $value)->count();
-                                                    if (count($value) !== $count) {
-                                                        $fail($attribute . ' is invalid.');
-                                                    }
-                                                }],
+            'regions'                           => ['exclude_unless:spatial_coverage_id,2','array', function($attribute, $value, $fail) {
+                $count = Region::whereIn('id', $value)->count();
+                if (count($value) !== $count) {
+                    $fail($attribute . ' is invalid.');
+                }
+            }],
             'bases'                             => 'sometimes|array',
             'funding_sources'                   => 'required|array',
             'funding_institutions'              => 'exclude_unless:funding_source_id,2|array',
@@ -83,6 +82,11 @@ class CreateProjectRequest extends FormRequest
             'feasibility_study.fs_status_id'    => 'exists:fs_statuses,id',
             'feasibility_study.needs_assistance'=> 'bool',
             'feasibility_study.y2017'           => 'numeric|min:0',
+//            'feasibility_study.project_id'      => ['sometimes', function($attribute, $value, $fail) {
+//                                                    if ($value != $this->input('id')) {
+//                                                        $fail('This feasibility study does not belong to this project.');
+//                                                    }
+//                                                }],
             'feasibility_study.y2018'           => 'numeric|min:0',
             'feasibility_study.y2019'           => 'numeric|min:0',
             'feasibility_study.y2020'           => 'numeric|min:0',
@@ -92,6 +96,11 @@ class CreateProjectRequest extends FormRequest
             'feasibility_study.y2024'           => 'numeric|min:0',
             'feasibility_study.y2025'           => 'numeric|min:0',
             'right_of_way'                      => 'required_if:has_row,true|exclude_if:has_row,false',
+//            'right_of_way.project_id'           => ['sometimes', function($attribute, $value, $fail) {
+//                                                        if ($value != $this->input('id')) {
+//                                                            $fail('This right of way does not belong to this project.');
+//                                                        }
+//                                                    }],
             'right_of_way.y2017'                => 'numeric|min:0',
             'right_of_way.y2018'                => 'numeric|min:0',
             'right_of_way.y2019'                => 'numeric|min:0',
@@ -103,6 +112,11 @@ class CreateProjectRequest extends FormRequest
             'right_of_way.y2025'                => 'numeric|min:0',
             'right_of_way.affected_households'  => 'string',
             'resettlement_action_plan'          => 'required_if:has_rap,true|exclude_if:has_rap,false',
+//            'resettlement_action_plan.project_id' => ['sometimes', function($attribute, $value, $fail) {
+//                                                        if ($value != $this->input('id')) {
+//                                                            $fail('This right of way does not belong to this project.');
+//                                                        }
+//                                                    }],
             'resettlement_action_plan.y2017'    => 'numeric|min:0',
             'resettlement_action_plan.y2018'    => 'numeric|min:0',
             'resettlement_action_plan.y2019'    => 'numeric|min:0',
@@ -114,6 +128,11 @@ class CreateProjectRequest extends FormRequest
             'resettlement_action_plan.y2025'    => 'numeric|min:0',
             'resettlement_action_plan.affected_households'  => 'string',
             'nep'                               => 'required_if:project_status_id,2',
+//            'nep.project_id' => ['sometimes', function($attribute, $value, $fail) {
+//                                                        if ($value != $this->input('id')) {
+//                                                            $fail('This right of way does not belong to this project.');
+//                                                        }
+//                                                    }],
             'nep.y2016'                         => 'numeric|min:0',
             'nep.y2017'                         => 'numeric|min:0',
             'nep.y2018'                         => 'numeric|min:0',
@@ -125,6 +144,11 @@ class CreateProjectRequest extends FormRequest
             'nep.y2024'                         => 'numeric|min:0',
             'nep.y2025'                         => 'numeric|min:0',
             'allocation'                        => 'required_if:project_status_id,2',
+//            'allocation.project_id'             => ['sometimes', function($attribute, $value, $fail) {
+//                                                        if ($value != $this->input('id')) {
+//                                                            $fail('This right of way does not belong to this project.');
+//                                                        }
+//                                                    }],
             'allocation.y2016'                  => 'numeric|lte:nep.y2016|min:0',
             'allocation.y2017'                  => 'numeric|lte:nep.y2017|min:0',
             'allocation.y2018'                  => 'numeric|lte:nep.y2018|min:0',
@@ -136,6 +160,11 @@ class CreateProjectRequest extends FormRequest
             'allocation.y2024'                  => 'numeric|lte:nep.y2024|min:0',
             'allocation.y2025'                  => 'numeric|lte:nep.y2025|min:0',
             'disbursement'                      => 'required_if:project_status_id,2',
+//            'disbursement.project_id'           => ['sometimes', function($attribute, $value, $fail) {
+//                                                        if ($value != $this->input('id')) {
+//                                                            $fail('This right of way does not belong to this project.');
+//                                                        }
+//                                                    }],
             'disbursement.y2016'                => 'numeric|lte:allocation.y2016|min:0',
             'disbursement.y2017'                => 'numeric|lte:allocation.y2017|min:0',
             'disbursement.y2018'                => 'numeric|lte:allocation.y2018|min:0',
@@ -149,13 +178,14 @@ class CreateProjectRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'title.required'        => 'The PAP Title is required.',
             'pap_type_id.required'  => 'The PAP Type is required.',
             'pap_type_id.exists'    => 'The given PAP Type is not valid.',
             'target_end_year.gte'   => 'The target end year must not be in the past.',
+            'cip_type_id.required'  => 'The type of CIP is required.',
         ];
     }
 }

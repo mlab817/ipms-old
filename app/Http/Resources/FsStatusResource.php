@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PipTypologyResource extends JsonResource
+class FsStatusResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -12,12 +12,12 @@ class PipTypologyResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request): array
+    public function toArray($request)
     {
         return [
-            'id'        => $this->id,
-            'name'      => $this->name,
-            'slug'      => $this->slug,
+            'id'    => $this->id,
+            'name'  => $this->name,
+            'slug'  => $this->slug,
         ];
     }
 }

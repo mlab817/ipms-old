@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProjectRequest;
+use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectResource;
@@ -23,12 +24,15 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return ProjectCollection
      */
     public function index(Request $request): ProjectCollection
     {
-        if ($request->search) {
-            return new ProjectCollection(Project::search($request->search)->paginate(10));
+        $queryString = trim($request->query('query'));
+
+        if ($queryString) {
+            return new ProjectCollection(Project::search($queryString)->paginate(10));
         }
 
         return new ProjectCollection(Project::with('creator')->paginate(10));
@@ -40,7 +44,7 @@ class ProjectController extends Controller
      * @param $request
      * @return ProjectResource
      */
-    public function store(CreateProjectRequest $request): ProjectResource
+    public function store(StoreProjectRequest $request): ProjectResource
     {
         $project = Project::create($request->validated());
 
@@ -99,7 +103,7 @@ class ProjectController extends Controller
      * @param Project $project
      * @return ProjectResource
      */
-    public function update(UpdateProjectRequest $request, Project $project): ProjectResource
+    public function update(StoreProjectRequest $request, Project $project): ProjectResource
     {
         $project->update($request->all());
 
@@ -115,38 +119,26 @@ class ProjectController extends Controller
 
         if ($request->allocation) {
             $project->allocation()->updateOrCreate($request->allocation);
-        } else {
-            $project->allocation->delete();
         }
 
         if ($request->disbursement) {
             $project->disbursement()->updateOrCreate($request->disbursement);
-        } else {
-            $project->allocation->delete();
         }
 
         if ($request->feasibility_study) {
             $project->feasibility_study()->updateOrCreate($request->feasibility_study);
-        } else {
-            $project->allocation->delete();
         }
 
         if ($request->nep) {
             $project->nep()->updateOrCreate($request->nep);
-        } else {
-            $project->allocation->delete();
         }
 
         if ($request->resettlement_action_plan) {
             $project->resettlement_action_plan()->updateOrCreate($request->resettlement_action_plan);
-        } else {
-            $project->allocation->delete();
         }
 
         if ($request->right_of_way) {
             $project->right_of_way()->updateOrCreate($request->right_of_way);
-        } else {
-            $project->allocation->delete();
         }
 
         return new ProjectResource($project);

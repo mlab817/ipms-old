@@ -47,6 +47,7 @@ class ProjectResource extends JsonResource
             'gad'                       => new GadResource($this->gad),
             'target_start_year'         => $this->target_start_year,
             'target_end_year'           => $this->target_end_year,
+            'preparation_document'      => new PreparationDocumentResource($this->preparation_document),
             'has_fs'                    => (boolean) $this->has_fs,
             'feasibility_study'         => new FeasibilityStudyResource($this->feasibility_study),
             'has_row'                   => (boolean) $this->has_row,
