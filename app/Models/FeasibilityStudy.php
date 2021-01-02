@@ -12,7 +12,7 @@ class FeasibilityStudy extends Model
 
     protected $fillable = [
         'project_id',
-        'status',
+        'fs_status_id',
         'needs_assistance',
         'y2017',
         'y2018',
@@ -23,7 +23,6 @@ class FeasibilityStudy extends Model
         'y2023',
         'y2024',
         'y2025',
-        'affected_households',
     ];
 
     public function project(): BelongsTo

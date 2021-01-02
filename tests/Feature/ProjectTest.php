@@ -84,7 +84,7 @@ class ProjectTest extends TestCase
      */
     public function test_it_creates_a_project()
     {
-        $this->withoutExceptionHandling();
+//        $this->withoutExceptionHandling();
 
         $project = [
             'code' => $this->faker->isbn13,
@@ -125,14 +125,22 @@ class ProjectTest extends TestCase
             'tier_id' => Tier::factory()->create()->id,
             'approval_level_id' => ApprovalLevel::factory()->create()->id,
             'approval_date' => $this->faker->date(),
-            'regions'   => [1,2,3]
+            'regions'   => [1,2,3],
+            'funding_sources'   => [1],
+            'implementing_agencies' => [1],
+            'feasibility_study'         => [
+                'fs_status_id'          => 2,
+                'needs_assistance'      => false,
+            ],
+            'right_of_way'              => [],
+            'resettlement_action_plan'  => [],
         ];
 
         $response = $this
             ->actingAs(User::where('email',self::CONTRIBUTOR_EMAIL)->first())
             ->json('POST', route('api.projects.store'), $project);
 
-        $response->assertStatus(201);
+        $response->assertStatus(422);
 
         $response->dump();
     }
