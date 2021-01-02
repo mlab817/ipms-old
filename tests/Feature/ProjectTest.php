@@ -84,7 +84,7 @@ class ProjectTest extends TestCase
      */
     public function test_it_creates_a_project()
     {
-//        $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
 
         $project = [
             'code' => $this->faker->isbn13,
@@ -131,16 +131,47 @@ class ProjectTest extends TestCase
             'feasibility_study'         => [
                 'fs_status_id'          => 2,
                 'needs_assistance'      => false,
+                'y2017'                 => 0,
+                'y2018'                 => 0,
+                'y2019'                 => 0,
+                'y2020'                 => 0,
+                'y2021'                 => 0,
+                'y2022'                 => 0,
+                'y2023'                 => 0,
+                'y2024'                 => 0,
+                'y2025'                 => 0,
             ],
-            'right_of_way'              => [],
-            'resettlement_action_plan'  => [],
+            'right_of_way'              => [
+                'y2017'                 => 0,
+                'y2018'                 => 0,
+                'y2019'                 => 0,
+                'y2020'                 => 0,
+                'y2021'                 => 0,
+                'y2022'                 => 0,
+                'y2023'                 => 0,
+                'y2024'                 => 0,
+                'y2025'                 => 0,
+                'affected_households'   => $this->faker->word,
+            ],
+            'resettlement_action_plan'  => [
+                'y2017'                 => 0,
+                'y2018'                 => 0,
+                'y2019'                 => 0,
+                'y2020'                 => 0,
+                'y2021'                 => 0,
+                'y2022'                 => 0,
+                'y2023'                 => 0,
+                'y2024'                 => 0,
+                'y2025'                 => 0,
+                'affected_households'   => $this->faker->word,
+            ],
         ];
 
         $response = $this
             ->actingAs(User::where('email',self::CONTRIBUTOR_EMAIL)->first())
             ->json('POST', route('api.projects.store'), $project);
 
-        $response->assertStatus(422);
+        $response->assertStatus(201);
 
         $response->dump();
     }

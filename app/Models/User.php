@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Scout\Searchable;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -16,6 +17,7 @@ class User extends Authenticatable implements JWTSubject
     use HasFactory;
     use Notifiable;
     use HasRoles;
+    use Searchable;
 
     protected $guard_name = 'api';
 
@@ -82,5 +84,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function searchableAs(): string
+    {
+        return 'users';
+    }
+
+    public function toSearchableArray(): array
+    {
+        return $this->toArray();
     }
 }

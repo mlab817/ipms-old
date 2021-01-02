@@ -16,7 +16,7 @@ class ProjectController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['index','show']);
+        $this->middleware('auth:api')->except(['index','show','search']);
         $this->authorizeResource(Project::class, 'project');
     }
 
@@ -50,12 +50,29 @@ class ProjectController extends Controller
         $project->sdgs()->sync($request->sdgs);
         $project->ten_point_agendas()->sync($request->ten_point_agendas);
 
-//        $project->allocation()->create($request->allocation);
-//        $project->disbursement()->create($request->disbursement);
-//        $project->feasibility_study()->create($request->feasibility_study);
-//        $project->nep()->create($request->nep);
-//        $project->resettlement_action_plan()->create($request->resettlement_action_plan);
-//        $project->right_of_way()->create($request->right_of_way);
+        if ($request->allocation) {
+            $project->allocation()->create($request->allocation);
+        }
+
+        if ($request->disbursement) {
+            $project->disbursement()->create($request->disbursement);
+        }
+
+        if ($request->feasibility_study) {
+            $project->feasibility_study()->create($request->feasibility_study);
+        }
+
+        if ($request->nep) {
+            $project->nep()->create($request->nep);
+        }
+
+        if ($request->resettlement_action_plan) {
+            $project->resettlement_action_plan()->create($request->resettlement_action_plan);
+        }
+
+        if ($request->right_of_way) {
+            $project->right_of_way()->create($request->right_of_way);
+        }
 
         return new ProjectResource($project);
     }
@@ -95,5 +112,15 @@ class ProjectController extends Controller
         $project->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function search(Request $request)
+    {
+        if ($request->search) {
+            $projects = Project::search($request->search)->paginate();
+
+            return $projects;
+        }
+        return 'Nothing to look for';
     }
 }

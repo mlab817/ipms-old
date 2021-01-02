@@ -32,6 +32,8 @@ class CreateProjectRequest extends FormRequest
             'description'                       => 'required|max:1000',
             'spatial_coverage_id'               => 'required|exists:spatial_coverages,id',
             'iccable'                           => 'required|bool',
+            'approval_level_id'                 => 'required_if:iccable,true|exists:approval_levels,id',
+            'approval_date'                     => 'required_with:approval_level_id,',
             'pip'                               => 'required|bool',
             'pip_typology_id'                   => 'required_if:pip,true',
             'research'                          => 'required_if:pip_typology_id,2',
@@ -61,8 +63,6 @@ class CreateProjectRequest extends FormRequest
             'updates_date'                      => 'required|date',
             'uacs_code'                         => 'sometimes|string',
             'tier_id'                           => 'required|exists:tiers,id',
-            'approval_level_id'                 => 'required',
-            'approval_date'                     => 'sometimes|date',
 
             'regions'                           => ['sometimes','array', function($attribute, $value, $fail) {
                                                     $count = Region::whereIn('id', $value)->count();
@@ -154,6 +154,7 @@ class CreateProjectRequest extends FormRequest
             'title.required'        => 'The PAP Title is required.',
             'pap_type_id.required'  => 'The PAP Type is required.',
             'pap_type_id.exists'    => 'The given PAP Type is not valid.',
+            'target_end_year.gte'   => 'The target end year must not be in the past.',
         ];
     }
 }

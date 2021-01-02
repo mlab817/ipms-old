@@ -11,15 +11,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Laravel\Scout\Searchable;
 
 class Project extends Model
 {
     use HasFactory;
     use HasUuid;
+    use Searchable;
     use Sluggable;
     use Trackable;
 
     protected $guard_name = 'api';
+
+    public $asYouType = true;
 
     protected $fillable = [
         'code', // pipol code
@@ -293,5 +297,15 @@ class Project extends Model
                 'source' => 'title',
             ]
         ];
+    }
+
+    public function searchableAs(): string
+    {
+        return 'projects';
+    }
+
+    public function toSearchableArray(): array
+    {
+        return $this->toArray();
     }
 }
