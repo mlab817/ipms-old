@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\CreateProjectEvent;
+use App\Events\DeleteProjectEvent;
+use App\Events\UpdateProjectEvent;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
-use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class ProjectController extends Controller
 {
@@ -41,7 +41,7 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param $request
+     * @param StoreProjectRequest $request
      * @return ProjectResource
      */
     public function store(StoreProjectRequest $request): ProjectResource
@@ -82,6 +82,8 @@ class ProjectController extends Controller
             $project->right_of_way()->create($request->right_of_way);
         }
 
+        event(new CreateProjectEvent($project));
+
         return new ProjectResource($project);
     }
 
@@ -99,7 +101,7 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateProjectRequest $request
+     * @param StoreProjectRequest $request
      * @param Project $project
      * @return ProjectResource
      */
@@ -141,6 +143,8 @@ class ProjectController extends Controller
             $project->right_of_way()->updateOrCreate($request->right_of_way);
         }
 
+        event(new UpdateProjectEvent($project));
+
         return new ProjectResource($project);
     }
 
@@ -153,6 +157,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project): JsonResponse
     {
+        event(new DeleteProjectEvent($project));
+
         $project->delete();
 
         return response()->json(null, 204);
