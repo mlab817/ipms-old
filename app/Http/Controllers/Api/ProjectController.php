@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,7 +16,7 @@ class ProjectController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['index','show','search']);
+        $this->middleware('auth:api')->except(['index','show']);
         $this->authorizeResource(Project::class, 'project');
     }
 
@@ -25,9 +25,13 @@ class ProjectController extends Controller
      *
      * @return ProjectCollection
      */
-    public function index(): ProjectCollection
+    public function index(Request $request): ProjectCollection
     {
-        return new ProjectCollection(Project::with('creator')->paginate(25));
+        if ($request->search) {
+            return new ProjectCollection(Project::search($request->search)->paginate(10));
+        }
+
+        return new ProjectCollection(Project::with('creator')->paginate(10));
     }
 
     /**
@@ -91,13 +95,61 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateProjectRequest $request
      * @param Project $project
-     * @return Response
+     * @return ProjectResource
      */
-    public function update(Request $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project): ProjectResource
     {
-        //
+        $project->update($request->all());
+
+        $project->regions()->sync($request->regions);
+        $project->bases()->sync($request->bases);
+        $project->funding_sources()->sync($request->funding_sources);
+        $project->funding_institutions()->sync($request->funding_institutions);
+        $project->implementing_agencies()->sync($request->implementing_agencies);
+        $project->pdp_chapters()->sync($request->pdp_chapters);
+        $project->prerequisites()->sync($request->prerequisites);
+        $project->sdgs()->sync($request->sdgs);
+        $project->ten_point_agendas()->sync($request->ten_point_agendas);
+
+        if ($request->allocation) {
+            $project->allocation()->updateOrCreate($request->allocation);
+        } else {
+            $project->allocation->delete();
+        }
+
+        if ($request->disbursement) {
+            $project->disbursement()->updateOrCreate($request->disbursement);
+        } else {
+            $project->allocation->delete();
+        }
+
+        if ($request->feasibility_study) {
+            $project->feasibility_study()->updateOrCreate($request->feasibility_study);
+        } else {
+            $project->allocation->delete();
+        }
+
+        if ($request->nep) {
+            $project->nep()->updateOrCreate($request->nep);
+        } else {
+            $project->allocation->delete();
+        }
+
+        if ($request->resettlement_action_plan) {
+            $project->resettlement_action_plan()->updateOrCreate($request->resettlement_action_plan);
+        } else {
+            $project->allocation->delete();
+        }
+
+        if ($request->right_of_way) {
+            $project->right_of_way()->updateOrCreate($request->right_of_way);
+        } else {
+            $project->allocation->delete();
+        }
+
+        return new ProjectResource($project);
     }
 
     /**
@@ -112,15 +164,5 @@ class ProjectController extends Controller
         $project->delete();
 
         return response()->json(null, 204);
-    }
-
-    public function search(Request $request)
-    {
-        if ($request->search) {
-            $projects = Project::search($request->search)->paginate();
-
-            return $projects;
-        }
-        return 'Nothing to look for';
     }
 }

@@ -10,6 +10,10 @@ class OuInvestment extends Model
 {
     use HasFactory;
 
+    protected $touches = [
+        'project'
+    ];
+
     protected $fillable = [
         'project_id',
         'ou_id',

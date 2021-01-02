@@ -9,7 +9,6 @@ trait Trackable
 {
     public static function bootTrackable()
     {
-
         static::creating(function ($model) {
             $userId = auth()->user()->id ?? null;
             $model->created_by = $userId;

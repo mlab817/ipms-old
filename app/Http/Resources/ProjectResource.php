@@ -69,7 +69,9 @@ class ProjectResource extends JsonResource
             'approval_level_id'         => $this->approval_level_id,
             'approval_level'            => new ApprovalLevelResource($this->approval_level),
             'approval_date'             => (string) $this->approval_date,
+            'nep'                       => new NepResource($this->nep),
             'allocation'                => new AllocationResource($this->allocation),
+            'disbursement'              => new DisbursementResource($this->disbursement),
 
             'regions'                   => RegionResource::collection($this->regions),
 

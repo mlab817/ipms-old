@@ -10,6 +10,10 @@ class FsInvestment extends Model
 {
     use HasFactory;
 
+    protected $touches = [
+        'project'
+    ];
+
     protected $fillable = [
         'project_id',
         'fs_id',

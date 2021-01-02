@@ -32,6 +32,7 @@ class Project extends Model
         'regular_program',
         // implementation bases
         'description',
+        'expected_outputs',
         // implementing_agencies
         'spatial_coverage_id',
         'iccable',
@@ -100,6 +101,10 @@ class Project extends Model
         'prerequisites',
         'sdgs',
         'ten_point_agendas',
+
+        'nep',
+        'allocation',
+        'disbursement',
     ];
 
     public function getRouteKeyName(): string
@@ -306,6 +311,14 @@ class Project extends Model
 
     public function toSearchableArray(): array
     {
-        return $this->toArray();
+        return [
+            'id'                => $this->id,
+            'slug'              => $this->slug,
+            'description'       => $this->description,
+            'pap_type'          => $this->pap_type ? $this->pap_type->name : '',
+            'project_status'    => $this->project_status ? $this->project_status->name : '',
+            'funding_source'    => $this->funding_source ? $this->funding_source->name : '',
+            'updates'           => $this->updates,
+        ];
     }
 }

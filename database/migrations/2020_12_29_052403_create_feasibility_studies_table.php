@@ -16,7 +16,7 @@ class CreateFeasibilityStudiesTable extends Migration
         Schema::create('feasibility_studies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
-            $table->enum('status',['ongoing','completed','for preparation'])->nullable();
+            $table->foreignId('fs_status_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('needs_assistance')->default(0);
             $table->decimal('y2017',20,2)->default(0);
             $table->decimal('y2018',20,2)->default(0);

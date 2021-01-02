@@ -61,6 +61,14 @@ class ProjectPolicy
             return $this->deny('Sorry, the System is currently not accepting update to submissions');
         }
 
+        if ($user->hasPermissionTo('projects.update_any')) {
+            return true;
+        }
+
+        if ($user->id == $project->created_by) {
+            return true;
+        }
+
         return false;
     }
 

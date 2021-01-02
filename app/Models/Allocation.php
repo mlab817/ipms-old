@@ -10,6 +10,10 @@ class Allocation extends Model
 {
     use HasFactory;
 
+    protected $touches = [
+        'project'
+    ];
+
     protected $fillable = [
         'project_id',
         'y2017',

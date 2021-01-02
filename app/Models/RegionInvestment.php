@@ -10,6 +10,10 @@ class RegionInvestment extends Model
 {
     use HasFactory;
 
+    protected $touches = [
+        'project'
+    ];
+
     protected $fillable = [
         'project_id',
         'region_id',

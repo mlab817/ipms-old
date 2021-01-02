@@ -38,7 +38,6 @@ Route::post('users', [UserController::class, 'store'])->name('api.users.store');
 Route::group(['prefix' => 'projects'], function($router) {
     Route::get('/', [ProjectController::class,'index'])->name('api.projects.index');
     Route::post('/', [ProjectController::class,'store'])->name('api.projects.store');
-    Route::get('/search', [ProjectController::class,'search'])->name('api.projects.search');
     Route::get('/{project}', [ProjectController::class,'show'])->name('api.projects.show');
     Route::put('/{project}', [ProjectController::class,'update'])->name('api.projects.update');
     Route::delete('/{project}', [ProjectController::class,'destroy'])->name('api.projects.delete');

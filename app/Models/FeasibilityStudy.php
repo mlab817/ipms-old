@@ -25,6 +25,11 @@ class FeasibilityStudy extends Model
         'y2025',
     ];
 
+    public function fs_status(): BelongsTo
+    {
+        return $this->belongsTo(FsStatus::class);
+    }
+
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
