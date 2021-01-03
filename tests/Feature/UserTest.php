@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Permission;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -12,6 +14,8 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
     use WithoutMiddleware;
+
+    const ADMIN_EMAIL = 'admin@example.com';
 
     public function setUp(): void
     {
@@ -91,5 +95,47 @@ class UserTest extends TestCase
         $response->assertStatus(200);
 
 //        $this->assertArrayHasKey('message', $response->json());
+    }
+
+    public function test_user_sync_roles()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+        $roles = Role::factory()->count(2)->create();
+
+        foreach ($roles as $role) {
+            $roleNames[] = $role->name;
+        }
+
+        $response = $this
+            ->actingAs(User::where('email',self::ADMIN_EMAIL)->first())
+            ->json('POST', route('api.users.syncRoles', $user->id), [
+                'roles' => $roleNames,
+            ])
+            ->assertStatus(200);
+
+        $response->dump();
+    }
+
+    public function test_user_sync_permissions()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+        $permissions = Permission::factory()->count(2)->create();
+
+        foreach ($permissions as $p) {
+            $permissionNames[] = $p->name;
+        }
+
+        $response = $this
+            ->actingAs(User::where('email',self::ADMIN_EMAIL)->first())
+            ->json('POST', route('api.users.syncPermissions', $user->id), [
+                'permissions' => $permissionNames,
+            ])
+            ->assertStatus(200);
+
+        $response->dump();
     }
 }

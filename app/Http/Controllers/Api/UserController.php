@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AssignRoleRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -22,6 +26,7 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
         $this->userService = $userService;
 //        $this->middleware(['auth:api']);
+        $this->middleware('admin')->only('update');
     }
 
     /**
@@ -29,7 +34,7 @@ class UserController extends Controller
      *
      * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $users = $this->userService->all();
 
@@ -42,7 +47,7 @@ class UserController extends Controller
      * @param StoreUserRequest $request
      * @return Response
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): Response
     {
         $user = $this->userService->create($request->only('name','email','password'));
 
@@ -53,9 +58,9 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return void
+     * @return JsonResponse
      */
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
         $user = $this->userService->find($id);
 
@@ -69,7 +74,7 @@ class UserController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function update(UpdateUserRequest $request, int $id)
+    public function update(UpdateUserRequest $request, int $id): JsonResponse
     {
         $user = $this->userService->update($request->only('name','email'), $id);
 
@@ -82,10 +87,32 @@ class UserController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
         $result = $this->userService->delete($id);
 
         return response()->json(['result' => $result, 'message' => 'User successfully deleted']);
+    }
+
+    public function syncRoles(Request $request, int $id): UserResource
+    {
+        $user = User::findOrFail($id);
+
+        $roles = $request->input('roles');
+
+        $user->syncRoles($roles);
+
+        return new UserResource($user);
+    }
+
+    public function syncPermissions(Request $request, int $id): UserResource
+    {
+        $user = User::findOrFail($id);
+
+        $permissions = $request->input('permissions');
+
+        $user->syncPermissions($permissions);
+
+        return new UserResource($user);
     }
 }
