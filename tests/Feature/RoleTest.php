@@ -34,7 +34,7 @@ class RoleTest extends TestCase
 
         $response = $this
             ->actingAs(User::where('email',self::ADMIN_EMAIL)->first())
-            ->json('GET', route('api.roles.show', $role->id))
+            ->json('GET', route('api.roles.show', $role->name))
             ->assertStatus(200);
 
         $response->dump();
@@ -64,7 +64,7 @@ class RoleTest extends TestCase
 
         $response = $this
             ->actingAs(User::where('email',self::ADMIN_EMAIL)->first())
-            ->json('PUT', route('api.roles.update', $role->id), $data)
+            ->json('PUT', route('api.roles.update', $role->name), $data)
             ->assertStatus(200);
 
         $response->dump();
@@ -80,7 +80,7 @@ class RoleTest extends TestCase
 
         $response = $this
             ->actingAs(User::where('email',self::ADMIN_EMAIL)->first())
-            ->json('DELETE', route('api.roles.destroy', $role->id))
+            ->json('DELETE', route('api.roles.destroy', $role->name))
             ->assertStatus(204);
 
         $response->dump();

@@ -25,8 +25,6 @@ class UserController extends Controller
     {
         $this->userRepository = $userRepository;
         $this->userService = $userService;
-//        $this->middleware(['auth:api']);
-        $this->middleware('admin')->only('update');
     }
 
     /**
@@ -45,9 +43,9 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreUserRequest $request
-     * @return Response
+     * @return JsonResponse
      */
-    public function store(StoreUserRequest $request): Response
+    public function store(StoreUserRequest $request): JsonResponse
     {
         $user = $this->userService->create($request->only('name','email','password'));
 

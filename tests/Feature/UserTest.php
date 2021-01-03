@@ -37,6 +37,8 @@ class UserTest extends TestCase
 
     public function testStoreUser()
     {
+        $this->withoutExceptionHandling();
+
         $data = [
             'name' => 'Example',
             'email' => 'email@example.com',
@@ -46,8 +48,6 @@ class UserTest extends TestCase
         $response = $this->json('POST', route('api.users.store'), $data);
 
         $response->assertStatus(200);
-
-//        $this->assertArrayHasKey('user', $response->json());
     }
 
     public function testShowUser()
