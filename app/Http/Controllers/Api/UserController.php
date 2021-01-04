@@ -12,6 +12,7 @@ use App\Repositories\UserRepository;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Spatie\Permission\Models\Role;
 
@@ -30,13 +31,14 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @return AnonymousResourceCollection
      */
-    public function index(): JsonResponse
+    public function index(): AnonymousResourceCollection
     {
-        $users = $this->userService->all();
+//        $users = $this->userService->all();
 
-        return response()->json(compact('users'));
+//        return response()->json(compact('users'));
+        return UserResource::collection(User::all());
     }
 
     /**
