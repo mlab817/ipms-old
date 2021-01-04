@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OperatingUnitResource extends JsonResource
+class BasisResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,10 +14,6 @@ class OperatingUnitResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id'                    => $this->id,
-            'name'                  => $this->name,
-            'operating_unit_type'   => new OperatingUnitTypeResource($this->operating_unit_type),
-        ];
+        return parent::toArray($request);
     }
 }
