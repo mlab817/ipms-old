@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRegionInvestmentsTable extends Migration
+class CreateRegionInfrastructuresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRegionInvestmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('region_investments', function (Blueprint $table) {
+        Schema::create('region_infrastructures', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->foreignId('region_id')->constrained()->cascadeOnDelete();
@@ -29,7 +29,7 @@ class CreateRegionInvestmentsTable extends Migration
             $table->decimal('y2025',20,2)->default(0);
             $table->timestamps();
 
-            $table->unique(['project_id','region_id'], 'pri_idx');
+            $table->unique(['project_id','region_id'], 'prinfra_idx');
         });
     }
 
@@ -40,6 +40,6 @@ class CreateRegionInvestmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('region_investments');
+        Schema::dropIfExists('region_infrastructures');
     }
 }

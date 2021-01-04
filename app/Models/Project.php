@@ -105,6 +105,15 @@ class Project extends Model
         'nep',
         'allocation',
         'disbursement',
+
+        'ou_investments',
+        'ou_infrastructures',
+        'region_investments',
+        'region_infrastructures',
+        'fs_investments',
+        'fs_infrastructures',
+        'infrastructure_subsectors',
+        'pdp_indicators',
     ];
 
     public function getRouteKeyName(): string
@@ -147,6 +156,11 @@ class Project extends Model
         return $this->hasMany(FsInvestment::class);
     }
 
+    public function fs_infrastructures(): HasMany
+    {
+        return $this->hasMany(FsInfrastructure::class);
+    }
+
     public function funding_source(): BelongsTo
     {
         return $this->belongsTo(FundingSource::class);
@@ -167,11 +181,6 @@ class Project extends Model
         return $this->belongsTo(Gad::class);
     }
 
-    public function infrastructure_subsectors(): BelongsToMany
-    {
-        return $this->belongsToMany(InfrastructureSubsector::class);
-    }
-
     public function implementation_mode(): BelongsTo
     {
         return $this->belongsTo(ImplementationMode::class);
@@ -180,6 +189,11 @@ class Project extends Model
     public function implementing_agencies(): BelongsToMany
     {
         return $this->belongsToMany(OperatingUnit::class,'implementing_agency_project','project_id','operating_unit_id','id','id');
+    }
+
+    public function infrastructure_subsectors(): BelongsToMany
+    {
+        return $this->belongsToMany(InfrastructureSubsector::class,'infrastructure_subsector_project','is_id','project_id','id','id');
     }
 
     public function nep(): HasOne
@@ -195,6 +209,11 @@ class Project extends Model
     public function ou_investments(): HasMany
     {
         return $this->hasMany(OuInvestment::class);
+    }
+
+    public function ou_infrastructures(): HasMany
+    {
+        return $this->hasMany(OuInfrastructure::class);
     }
 
     public function pap_type(): BelongsTo
@@ -214,7 +233,7 @@ class Project extends Model
 
     public function pdp_indicators(): BelongsToMany
     {
-        return $this->belongsToMany(PdpIndicator::class);
+        return $this->belongsToMany(PdpIndicator::class,'pdp_indicator_project','pi_id','project_id');
     }
 
     public function pip_typology(): BelongsTo
@@ -245,6 +264,11 @@ class Project extends Model
     public function region_investments(): HasMany
     {
         return $this->hasMany(RegionInvestment::class);
+    }
+
+    public function region_infrastructures(): HasMany
+    {
+        return $this->hasMany(RegionInfrastructure::class);
     }
 
     public function regions(): BelongsToMany

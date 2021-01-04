@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class RegionInvestment extends Model
+class OuInfrastructure extends Model
 {
     use HasFactory;
 
@@ -16,7 +16,7 @@ class RegionInvestment extends Model
 
     protected $fillable = [
         'project_id',
-        'region_id',
+        'ou_id',
         'y2016',
         'y2017',
         'y2018',
@@ -29,9 +29,9 @@ class RegionInvestment extends Model
         'y2025',
     ];
 
-    public function region(): BelongsTo
+    public function operating_unit(): BelongsTo
     {
-        return $this->belongsTo(Region::class);
+        return $this->belongsTo(OperatingUnit::class,'ou_id','id');
     }
 
     public function project(): BelongsTo

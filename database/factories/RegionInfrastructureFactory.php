@@ -2,19 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\FundingSource;
 use App\Models\Region;
-use App\Models\RegionInvestment;
+use App\Models\RegionInfrastructure;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RegionInvestmentFactory extends Factory
+class RegionInfrastructureFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = RegionInvestment::class;
+    protected $model = RegionInfrastructure::class;
 
     /**
      * Define the model's default state.

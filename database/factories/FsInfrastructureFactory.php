@@ -2,19 +2,18 @@
 
 namespace Database\Factories;
 
+use App\Models\FsInfrastructure;
 use App\Models\FundingSource;
-use App\Models\Region;
-use App\Models\RegionInvestment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RegionInvestmentFactory extends Factory
+class FsInfrastructureFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = RegionInvestment::class;
+    protected $model = FsInfrastructure::class;
 
     /**
      * Define the model's default state.
@@ -24,7 +23,7 @@ class RegionInvestmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'region_id' => Region::all()->random()->id,
+            'fs_id' => FundingSource::all()->random()->id,
             'y2016' => $this->faker->randomFloat() * 1000000,
             'y2017' => $this->faker->randomFloat() * 1000000,
             'y2018' => $this->faker->randomFloat() * 1000000,
