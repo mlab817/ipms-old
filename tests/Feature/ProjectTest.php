@@ -21,6 +21,7 @@ use App\Models\Project;
 use App\Models\ProjectAudit;
 use App\Models\ProjectStatus;
 use App\Models\ReadinessLevel;
+use App\Models\RegionInvestment;
 use App\Models\ResettlementActionPlan;
 use App\Models\RightOfWay;
 use App\Models\SpatialCoverage;
@@ -287,6 +288,18 @@ class ProjectTest extends TestCase
                 'PUT', route('api.projects.update', $project->slug), $update);
 
         $response->assertStatus(200);
+
+        $response->dump();
+    }
+
+    public function test_it_returns_project_region_investments()
+    {
+        $project = Project::factory()
+            ->has(RegionInvestment::factory()->count(2),'region_investments')
+            ->create();
+
+        $response = $this->get(route('api.projects.region_investments.index',$project->id))
+            ->assertStatus(200);
 
         $response->dump();
     }
