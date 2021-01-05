@@ -298,7 +298,7 @@ class ProjectTest extends TestCase
             ->has(RegionInvestment::factory()->count(2),'region_investments')
             ->create();
 
-        $response = $this->get(route('api.projects.region_investments.index',$project->id))
+        $response = $this->get(route('api.projects.region_investments.index',$project->slug))
             ->assertStatus(200);
 
         $response->dump();

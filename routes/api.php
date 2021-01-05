@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\RegionInvestmentController;
 use App\Http\Controllers\Api\UserController;
 
 /*
@@ -20,122 +21,126 @@ use App\Http\Controllers\Api\UserController;
 |
 */
 
-Route::group(['middleware' => 'api', 'prefix' => 'auth'], function($router) {
-    Route::post('authenticate', [AuthController::class, 'authenticate'])->name('api.authenticate');
-    Route::post('register', [AuthController::class, 'register'])->name('api.register');
-    Route::get('me', [AuthController::class, 'me'])->name('api.me');
-    Route::get('logout', [AuthController::class, 'logout'])->name('api.logout');
-});
+Route::group(['prefix'=>'v1'], function($router) {
+    Route::group(['middleware' => 'api', 'prefix' => 'auth'], function($router) {
+        Route::post('authenticate', [AuthController::class, 'authenticate'])->name('api.authenticate');
+        Route::post('register', [AuthController::class, 'register'])->name('api.register');
+        Route::get('me', [AuthController::class, 'me'])->name('api.me');
+        Route::get('logout', [AuthController::class, 'logout'])->name('api.logout');
+    });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+    Route::middleware('auth:api')->get('/user', function (Request $request) {
+        return $request->user();
+    });
 
-Route::get('users', [UserController::class, 'index'])->name('api.users.index');
-Route::get('users/{id}', [UserController::class, 'show'])->name('api.users.show');
-Route::post('users/{id}/syncRoles', [UserController::class, 'syncRoles'])->name('api.users.syncRoles');
-Route::post('users/{id}/syncPermissions', [UserController::class, 'syncPermissions'])->name('api.users.syncPermissions');
-Route::put('users/{id}', [UserController::class, 'update'])->name('api.users.update');
-Route::delete('users/{id}', [UserController::class, 'destroy'])->name('api.users.destroy');
-Route::post('users', [UserController::class, 'store'])->name('api.users.store');
+    Route::get('users', [UserController::class, 'index'])->name('api.users.index');
+    Route::get('users/{id}', [UserController::class, 'show'])->name('api.users.show');
+    Route::post('users/{id}/syncRoles', [UserController::class, 'syncRoles'])->name('api.users.syncRoles');
+    Route::post('users/{id}/syncPermissions', [UserController::class, 'syncPermissions'])->name('api.users.syncPermissions');
+    Route::put('users/{id}', [UserController::class, 'update'])->name('api.users.update');
+    Route::delete('users/{id}', [UserController::class, 'destroy'])->name('api.users.destroy');
+    Route::post('users', [UserController::class, 'store'])->name('api.users.store');
 
-Route::group(['prefix' => 'projects'], function($router) {
-    Route::get('/', [ProjectController::class,'index'])->name('api.projects.index');
-    Route::post('/', [ProjectController::class,'store'])->name('api.projects.store');
-    Route::get('/{project}', [ProjectController::class,'show'])->name('api.projects.show');
-    Route::put('/{project}', [ProjectController::class,'update'])->name('api.projects.update');
-    Route::delete('/{project}', [ProjectController::class,'destroy'])->name('api.projects.delete');
-});
+    Route::group(['prefix' => 'projects'], function($router) {
+        Route::get('/', [ProjectController::class,'index'])->name('api.projects.index');
+        Route::post('/', [ProjectController::class,'store'])->name('api.projects.store');
+        Route::get('/{project}', [ProjectController::class,'show'])->name('api.projects.show');
+        Route::put('/{project}', [ProjectController::class,'update'])->name('api.projects.update');
+        Route::delete('/{project}', [ProjectController::class,'destroy'])->name('api.projects.delete');
 
-Route::group(['prefix' => 'permissions'], function($router) {
-   Route::get('/', [PermissionController::class,'index'])->name('api.permissions.index');
-   Route::post('/', [PermissionController::class,'store'])->name('api.permissions.store');
-   Route::get('/{permission}', [PermissionController::class,'show'])->name('api.permissions.show');
-   Route::put('/{permission}', [PermissionController::class,'update'])->name('api.permissions.update');
-   Route::delete('/{permission}', [PermissionController::class,'destroy'])->name('api.permissions.destroy');
-});
+        Route::get('/{project}/region_investments', [RegionInvestmentController::class,'index'])->name('api.projects.region_investments.index');
+    });
 
-Route::group(['prefix' => 'roles'], function($router) {
-    Route::get('/', [RoleController::class,'index'])->name('api.roles.index');
-    Route::post('/', [RoleController::class,'store'])->name('api.roles.store');
-    Route::get('/{name}', [RoleController::class,'show'])->name('api.roles.show');
-    Route::put('/{name}', [RoleController::class,'update'])->name('api.roles.update');
-    Route::delete('/{name}', [RoleController::class,'destroy'])->name('api.roles.destroy');
-    Route::post('/{name}/syncPermissions', [RoleController::class,'syncPermissions'])->name('api.roles.syncPermissions');
-});
+    Route::group(['prefix' => 'permissions'], function($router) {
+       Route::get('/', [PermissionController::class,'index'])->name('api.permissions.index');
+       Route::post('/', [PermissionController::class,'store'])->name('api.permissions.store');
+       Route::get('/{permission}', [PermissionController::class,'show'])->name('api.permissions.show');
+       Route::put('/{permission}', [PermissionController::class,'update'])->name('api.permissions.update');
+       Route::delete('/{permission}', [PermissionController::class,'destroy'])->name('api.permissions.destroy');
+    });
 
-Route::get('/approval_levels', function () {
-    return \App\Http\Resources\ApprovalLevelResource::collection(\App\Models\ApprovalLevel::all());
-});
+    Route::group(['prefix' => 'roles'], function($router) {
+        Route::get('/', [RoleController::class,'index'])->name('api.roles.index');
+        Route::post('/', [RoleController::class,'store'])->name('api.roles.store');
+        Route::get('/{name}', [RoleController::class,'show'])->name('api.roles.show');
+        Route::put('/{name}', [RoleController::class,'update'])->name('api.roles.update');
+        Route::delete('/{name}', [RoleController::class,'destroy'])->name('api.roles.destroy');
+        Route::post('/{name}/syncPermissions', [RoleController::class,'syncPermissions'])->name('api.roles.syncPermissions');
+    });
 
-Route::get('/bases', function () {
-    return \App\Http\Resources\BasisResource::collection(\App\Models\Basis::all());
-});
+    Route::get('/approval_levels', function () {
+        return \App\Http\Resources\ApprovalLevelResource::collection(\App\Models\ApprovalLevel::all());
+    });
 
-Route::get('/cip_types', function () {
-    return \App\Http\Resources\CipTypeResource::collection(\App\Models\CipType::all());
-});
+    Route::get('/bases', function () {
+        return \App\Http\Resources\BasisResource::collection(\App\Models\Basis::all());
+    });
 
-Route::get('/fs_statuses', function () {
-    return \App\Http\Resources\FsStatusResource::collection(\App\Models\FsStatus::all());
-});
+    Route::get('/cip_types', function () {
+        return \App\Http\Resources\CipTypeResource::collection(\App\Models\CipType::all());
+    });
 
-Route::get('/funding_sources', function () {
-    return \App\Http\Resources\FundingSourceResource::collection(\App\Models\FundingSource::all());
-});
+    Route::get('/fs_statuses', function () {
+        return \App\Http\Resources\FsStatusResource::collection(\App\Models\FsStatus::all());
+    });
 
-Route::get('/funding_institutions', function () {
-    return \App\Http\Resources\FundingInstitutionResource::collection(\App\Models\FundingInstitution::all());
-});
+    Route::get('/funding_sources', function () {
+        return \App\Http\Resources\FundingSourceResource::collection(\App\Models\FundingSource::all());
+    });
 
-Route::get('/gads', function () {
-    return \App\Http\Resources\GadResource::collection(\App\Models\Gad::all());
-});
+    Route::get('/funding_institutions', function () {
+        return \App\Http\Resources\FundingInstitutionResource::collection(\App\Models\FundingInstitution::all());
+    });
 
-Route::get('/implementation_modes', function () {
-    return \App\Http\Resources\ImplementationModeResource::collection(\App\Models\ImplementationMode::all());
-});
+    Route::get('/gads', function () {
+        return \App\Http\Resources\GadResource::collection(\App\Models\Gad::all());
+    });
 
-Route::get('/operating_units', function () {
-    return \App\Http\Resources\OperatingUnitResource::collection(\App\Models\OperatingUnit::all());
-});
+    Route::get('/implementation_modes', function () {
+        return \App\Http\Resources\ImplementationModeResource::collection(\App\Models\ImplementationMode::all());
+    });
 
-Route::get('/pap_types', function() {
-    return \App\Http\Resources\PapTypeResource::collection(\App\Models\PapType::all());
-});
+    Route::get('/operating_units', function () {
+        return \App\Http\Resources\OperatingUnitResource::collection(\App\Models\OperatingUnit::all());
+    });
 
-Route::get('/pdp_chapters', function() {
-    return \App\Http\Resources\PdpChapterResource::collection(\App\Models\PdpChapter::all());
-});
+    Route::get('/pap_types', function() {
+        return \App\Http\Resources\PapTypeResource::collection(\App\Models\PapType::all());
+    });
 
-Route::get('/pip_typologies', function() {
-    return \App\Http\Resources\PipTypologyResource::collection(\App\Models\PipTypology::all());
-});
+    Route::get('/pdp_chapters', function() {
+        return \App\Http\Resources\PdpChapterResource::collection(\App\Models\PdpChapter::all());
+    });
 
-Route::get('/prerequisites', function() {
-    return \App\Http\Resources\PrerequisiteResource::collection(\App\Models\Prerequisite::all());
-});
+    Route::get('/pip_typologies', function() {
+        return \App\Http\Resources\PipTypologyResource::collection(\App\Models\PipTypology::all());
+    });
 
-Route::get('/project_statuses', function() {
-    return \App\Http\Resources\ProjectStatusResource::collection(\App\Models\ProjectStatus::all());
-});
+    Route::get('/prerequisites', function() {
+        return \App\Http\Resources\PrerequisiteResource::collection(\App\Models\Prerequisite::all());
+    });
 
-Route::get('/regions', function() {
-    return \App\Http\Resources\RegionResource::collection(\App\Models\Region::all());
-});
+    Route::get('/project_statuses', function() {
+        return \App\Http\Resources\ProjectStatusResource::collection(\App\Models\ProjectStatus::all());
+    });
 
-Route::get('/sdgs', function() {
-    return \App\Http\Resources\SdgResource::collection(\App\Models\Sdg::all());
-});
+    Route::get('/regions', function() {
+        return \App\Http\Resources\RegionResource::collection(\App\Models\Region::all());
+    });
 
-Route::get('/spatial_coverages', function() {
-    return \App\Http\Resources\SpatialCoverageResource::collection(\App\Models\SpatialCoverage::all());
-});
+    Route::get('/sdgs', function() {
+        return \App\Http\Resources\SdgResource::collection(\App\Models\Sdg::all());
+    });
 
-Route::get('/ten_point_agendas', function() {
-    return \App\Http\Resources\TenPointAgendaResource::collection(\App\Models\TenPointAgenda::all());
-});
+    Route::get('/spatial_coverages', function() {
+        return \App\Http\Resources\SpatialCoverageResource::collection(\App\Models\SpatialCoverage::all());
+    });
 
-Route::get('/tiers', function () {
-    return \App\Http\Resources\TierResource::collection(\App\Models\Tier::all());
+    Route::get('/ten_point_agendas', function() {
+        return \App\Http\Resources\TenPointAgendaResource::collection(\App\Models\TenPointAgenda::all());
+    });
+
+    Route::get('/tiers', function () {
+        return \App\Http\Resources\TierResource::collection(\App\Models\Tier::all());
+    });
 });
