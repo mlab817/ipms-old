@@ -15,6 +15,7 @@ class CreateOuInvestmentsTable extends Migration
     {
         Schema::create('ou_investments', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->foreignId('ou_id')->constrained('operating_units')->cascadeOnDelete();
             $table->decimal('y2016',20,2)->default(0);

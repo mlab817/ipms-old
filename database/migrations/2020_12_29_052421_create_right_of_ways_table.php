@@ -15,6 +15,7 @@ class CreateRightOfWaysTable extends Migration
     {
         Schema::create('right_of_ways', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->decimal('y2017',20,2)->default(0);
             $table->decimal('y2018',20,2)->default(0);
