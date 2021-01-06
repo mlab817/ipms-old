@@ -5,9 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PermissionController;
-use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\RegionInvestmentController;
+use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
 
 /*
@@ -33,13 +34,20 @@ Route::group(['prefix'=>'v1'], function($router) {
         return $request->user();
     });
 
-    Route::get('users', [UserController::class, 'index'])->name('api.users.index');
-    Route::get('users/{id}', [UserController::class, 'show'])->name('api.users.show');
-    Route::post('users/{id}/syncRoles', [UserController::class, 'syncRoles'])->name('api.users.syncRoles');
-    Route::post('users/{id}/syncPermissions', [UserController::class, 'syncPermissions'])->name('api.users.syncPermissions');
-    Route::put('users/{id}', [UserController::class, 'update'])->name('api.users.update');
-    Route::delete('users/{id}', [UserController::class, 'destroy'])->name('api.users.destroy');
-    Route::post('users', [UserController::class, 'store'])->name('api.users.store');
+    Route::group(['prefix' => 'users'], function($router) {
+        Route::get('/', [UserController::class, 'index'])->name('api.users.index');
+        Route::get('/{user}', [UserController::class, 'show'])->name('api.users.show');
+        Route::post('/{user}/syncRoles', [UserController::class, 'syncRoles'])->name('api.users.syncRoles');
+        Route::post('/{user}/syncPermissions', [UserController::class, 'syncPermissions'])->name('api.users.syncPermissions');
+        Route::put('/{user}', [UserController::class, 'update'])->name('api.users.update');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->name('api.users.destroy');
+        Route::post('/', [UserController::class, 'store'])->name('api.users.store');
+
+        Route::get('/{user}/profiles/{profile}', [ProfileController::class, 'show'])->name('api.users.profile.show');
+        Route::post('/{user}/profiles', [ProfileController::class, 'store'])->name('api.users.profile.store');
+        Route::put('/{user}/profiles/{profile}', [ProfileController::class, 'update'])->name('api.users.profile.update');
+        Route::delete('/{user}/profiles/{profile}', [ProfileController::class, 'destroy'])->name('api.users.profile.destroy');
+    });
 
     Route::group(['prefix' => 'projects'], function($router) {
         Route::get('/', [ProjectController::class,'index'])->name('api.projects.index');

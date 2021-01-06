@@ -6,6 +6,7 @@ use App\Traits\HasUuid;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Office extends Model
 {
@@ -19,8 +20,14 @@ class Office extends Model
         'email',
         'contact_numbers',
         'office_head_name',
-        'office_head_position'
+        'office_head_position',
+        'operating_unit_id',
     ];
+
+    public function operating_unit(): BelongsTo
+    {
+        return $this->belongsTo(OperatingUnit::class);
+    }
 
     /**
      * @return array
