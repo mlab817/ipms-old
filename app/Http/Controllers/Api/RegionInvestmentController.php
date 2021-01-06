@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\RegionInvestmentResource;
 use App\Models\Project;
 use App\Models\RegionInvestment;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 
 class RegionInvestmentController extends Controller
 {
@@ -27,11 +29,13 @@ class RegionInvestmentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @param Project $project
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, Project $project): JsonResponse
     {
-        //
+        // TODO: Make sure that UUID is triggered on save
+        return response()->json('', 500);
     }
 
     /**
@@ -64,11 +68,15 @@ class RegionInvestmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param Project $project
+     * @param RegionInvestment $regionInvestment
+     * @return JsonResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Project $project, RegionInvestment $regionInvestment): JsonResponse
     {
-        //
+        $regionInvestment->delete();
+
+        return response()->json(['message' => 'Successfully deleted resource'], 204);
     }
 }

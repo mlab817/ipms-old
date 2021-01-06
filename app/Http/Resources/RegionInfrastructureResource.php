@@ -2,8 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Controllers\Api\RegionInvestmentController;
-use App\Http\Controllers\RegionInfrastructureController;
+use App\Http\Controllers\Api\RegionInfrastructureController;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Spatie\ResourceLinks\HasLinks;
 

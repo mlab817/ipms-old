@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Resources\RegionInfrastructureResource;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RegionInfrastructureController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Project $project
+     * @return AnonymousResourceCollection
      */
-    public function index()
+    public function index(Project $project): AnonymousResourceCollection
     {
-        //
+        return RegionInfrastructureResource::collection($project->region_infrastructures);
     }
 
     /**

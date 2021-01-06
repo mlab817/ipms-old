@@ -6,10 +6,16 @@ use Illuminate\Support\Str;
 
 trait HasUuid
 {
-    public static function bootHasUuid()
+    protected static function bootHasUuid()
     {
         static::creating(function ($model) {
             $model->uuid = Str::uuid();
+        });
+
+        static::saving(function ($model) {
+            if (! $model->uuid) {
+                $model->uuid = Str::uuid();
+            }
         });
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\RegionInfrastructureController;
 use App\Http\Controllers\Api\RegionInvestmentController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
@@ -58,10 +59,25 @@ Route::group(['prefix'=>'v1'], function($router) {
 
         Route::get('/{project}/region_investments', [RegionInvestmentController::class,'index'])
             ->name('api.projects.region_investments.index');
+        Route::post('/{project}/region_investments', [RegionInvestmentController::class,'store'])
+            ->name('api.projects.region_investments.store');
         Route::get('/{project}/region_investments/{region_investment}', [RegionInvestmentController::class,'show'])
             ->name('api.projects.region_investments.show');
         Route::put('/{project}/region_investments/{region_investment}', [RegionInvestmentController::class,'update'])
             ->name('api.projects.region_investments.update');
+        Route::delete('/{project}/region_investments/{region_investment}', [RegionInvestmentController::class,'destroy'])
+            ->name('api.projects.region_investments.destroy');
+
+        Route::get('/{project}/region_infrastructures', [RegionInfrastructureController::class,'index'])
+            ->name('api.projects.region_infrastructures.index');
+        Route::post('/{project}/region_infrastructures', [RegionInfrastructureController::class,'store'])
+            ->name('api.projects.region_infrastructures.store');
+        Route::get('/{project}/region_infrastructures/{region_infrastructure}', [RegionInfrastructureController::class,'show'])
+            ->name('api.projects.region_infrastructures.show');
+        Route::put('/{project}/region_infrastructures/{region_infrastructure}', [RegionInfrastructureController::class,'update'])
+            ->name('api.projects.region_infrastructures.update');
+        Route::delete('/{project}/region_infrastructures/{region_infrastructure}', [RegionInfrastructureController::class,'destroy'])
+            ->name('api.projects.region_infrastructures.destroy');
     });
 
     Route::group(['prefix' => 'permissions'], function($router) {
