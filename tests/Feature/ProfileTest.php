@@ -51,4 +51,36 @@ class ProfileTest extends TestCase
 
         $response->dump();
     }
+
+    public function test_it_updates_user_profile()
+    {
+//        $this->withoutExceptionHandling();
+
+        $user = User::factory()
+            ->has(Profile::factory())
+            ->create();
+
+        $updatedProfile = [
+            'nickname'  => 'Power rangers',
+            'office_id' => Office::factory()->create()->id,
+            'avatar'    => $this->faker->imageUrl(),
+        ];
+
+        $response = $this
+            ->json('PUT', route('api.users.profile.update', $user->id), $updatedProfile)
+            ->assertStatus(200);
+
+        $response->dump();
+    }
+
+    public function test_it_deletes_user_profile()
+    {
+        $user = User::factory()
+            ->has(Profile::factory())
+            ->create();
+
+        $response = $this->json('DELETE', route('api.users.profile.destroy', $user->id))->assertStatus(204);
+
+        $response->dump();
+    }
 }

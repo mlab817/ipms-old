@@ -10,6 +10,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -153,7 +154,7 @@ class ProjectController extends Controller
      *
      * @param Project $project
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Project $project): JsonResponse
     {

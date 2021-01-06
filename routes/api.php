@@ -43,10 +43,10 @@ Route::group(['prefix'=>'v1'], function($router) {
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('api.users.destroy');
         Route::post('/', [UserController::class, 'store'])->name('api.users.store');
 
-        Route::get('/{user}/profiles/{profile}', [ProfileController::class, 'show'])->name('api.users.profile.show');
-        Route::post('/{user}/profiles', [ProfileController::class, 'store'])->name('api.users.profile.store');
-        Route::put('/{user}/profiles/{profile}', [ProfileController::class, 'update'])->name('api.users.profile.update');
-        Route::delete('/{user}/profiles/{profile}', [ProfileController::class, 'destroy'])->name('api.users.profile.destroy');
+        Route::get('/{user}/profile', [ProfileController::class, 'show'])->name('api.users.profile.show');
+        Route::post('/{user}/profile', [ProfileController::class, 'store'])->name('api.users.profile.store');
+        Route::put('/{user}/profile', [ProfileController::class, 'update'])->name('api.users.profile.update');
+        Route::delete('/{user}/profile', [ProfileController::class, 'destroy'])->name('api.users.profile.destroy');
     });
 
     Route::group(['prefix' => 'projects'], function($router) {

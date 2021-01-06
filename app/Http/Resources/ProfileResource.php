@@ -2,10 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Spatie\ResourceLinks\HasLinks;
 
 class ProfileResource extends JsonResource
 {
+    use HasLinks;
+
     /**
      * Transform the resource into an array.
      *
@@ -20,6 +24,7 @@ class ProfileResource extends JsonResource
             'nickname'  => $this->nickname,
             'avatar'    => $this->avatar,
             'office'    => new OfficeResource($this->office),
+            'links'     => $this->links(ProfileController::class),
         ];
     }
 }
