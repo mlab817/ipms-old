@@ -30,12 +30,16 @@ class RegionInvestmentController extends Controller
      *
      * @param Request $request
      * @param Project $project
-     * @return JsonResponse
+     * @return RegionInvestmentResource
      */
-    public function store(Request $request, Project $project): JsonResponse
+    public function store(Request $request, Project $project): RegionInvestmentResource
     {
         // TODO: Make sure that UUID is triggered on save
-        return response()->json('', 500);
+        $regionInvestment = new RegionInvestment;
+        $regionInvestment->fill($request->all());
+        $project->region_investments()->save($regionInvestment);
+
+        return new RegionInvestmentResource($regionInvestment);
     }
 
     /**

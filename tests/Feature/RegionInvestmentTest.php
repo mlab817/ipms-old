@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Models\Project;
 use App\Models\Region;
 use App\Models\RegionInvestment;
+use App\Models\User;
+use App\Observers\ProjectObserver;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -13,11 +15,22 @@ class RegionInvestmentTest extends TestCase
 {
     use RefreshDatabase;
 
+    const CONTRIBUTOR_EMAIL = 'contributor@example.com';
+
+    public function createTestProject()
+    {
+        return $project = Project::withoutEvents(function() {
+            return Project::factory()->create();
+        });
+    }
+
     public function test_it_returns_project_region_investments()
     {
-        $project = Project::factory()
-            ->has(RegionInvestment::factory()->count(2),'region_investments')
-            ->create();
+        $project = Project::withoutEvents(function() {
+                        return Project::factory()
+                            ->has(RegionInvestment::factory()->count(2), 'region_investments')
+                            ->create();
+                    });
 
         $response = $this->get(route('api.projects.region_investments.index',$project->slug))
             ->assertStatus(200);
@@ -27,7 +40,8 @@ class RegionInvestmentTest extends TestCase
 
     public function test_it_gets_project_region_investments_by_uuid()
     {
-        $project = Project::factory()->create();
+        $project = $this->createTestProject();
+
         $regionInvestment = RegionInvestment::factory()->create([
             'project_id' => $project->id,
         ]);
@@ -44,7 +58,8 @@ class RegionInvestmentTest extends TestCase
 
     public function test_it_updates_project_region_investments_by_uuid()
     {
-        $project = Project::factory()->create();
+        $project = $this->createTestProject();
+
         $regionInvestment = RegionInvestment::factory()->create([
             'project_id' => $project->id,
         ]);
@@ -62,7 +77,9 @@ class RegionInvestmentTest extends TestCase
             'y2025' => 2100000,
         ];
 
-        $response = $this->json('PUT', route('api.projects.region_investments.update',[
+        $response = $this
+            ->actingAs(User::where('email', self::CONTRIBUTOR_EMAIL)->first())
+            ->json('PUT', route('api.projects.region_investments.update',[
             'project' => $project->slug,
             'region_investment' => $regionInvestment->uuid,
         ]), $updatedData)->assertStatus(200);
@@ -73,12 +90,15 @@ class RegionInvestmentTest extends TestCase
 
     public function test_it_stores_project_region_investments()
     {
-        $project = Project::factory()->create();
+        $project = $this->createTestProject();
+
         $regionInvestment = [
             'region_id' => Region::all()->random()->id,
         ];
 
-        $response = $this->json('POST', route('api.projects.region_investments.store',[
+        $response = $this
+            ->actingAs(User::where('email', self::CONTRIBUTOR_EMAIL)->first())
+            ->json('POST', route('api.projects.region_investments.store',[
             'project' => $project->slug,
         ]), $regionInvestment)->assertStatus(201);
 
@@ -88,12 +108,15 @@ class RegionInvestmentTest extends TestCase
 
     public function test_it_deletes_project_region_investments_by_uuid()
     {
-        $project = Project::factory()->create();
+        $project = $this->createTestProject();
+
         $regionInvestment = RegionInvestment::factory()->create([
             'project_id' => $project->id,
         ]);
 
-        $response = $this->json('DELETE', route('api.projects.region_investments.destroy',[
+        $response = $this
+            ->actingAs(User::where('email', self::CONTRIBUTOR_EMAIL)->first())
+            ->json('DELETE', route('api.projects.region_investments.destroy',[
             'project' => $project->slug,
             'region_investment' => $regionInvestment->uuid,
         ]))->assertStatus(204);

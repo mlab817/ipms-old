@@ -16,7 +16,7 @@ class ProjectObserver
      */
     public function created(Project $project)
     {
-        $audit              = new ProjectAudit();
+        $audit              = new ProjectAudit;
         $audit->project_id  = $project->id;
         $audit->user_id     = Auth::id();
         $audit->action      = 'Created';
@@ -31,7 +31,7 @@ class ProjectObserver
      */
     public function updated(Project $project)
     {
-        $audit              = new ProjectAudit();
+        $audit              = new ProjectAudit;
         $audit->project_id  = $project->id;
         $audit->user_id     = Auth::id();
         $audit->action      = $project->wasChanged();
@@ -46,7 +46,7 @@ class ProjectObserver
      */
     public function deleted(Project $project)
     {
-        $audit              = new ProjectAudit();
+        $audit              = new ProjectAudit;
         $audit->project_id  = $project->id;
         $audit->user_id     = Auth::id();
         $audit->action      = 'Delete';
@@ -61,7 +61,7 @@ class ProjectObserver
      */
     public function restored(Project $project)
     {
-        $audit              = new ProjectAudit();
+        $audit              = new ProjectAudit;
         $audit->project_id  = $project->id;
         $audit->user_id     = Auth::id();
         $audit->action      = 'Restored';
@@ -76,7 +76,7 @@ class ProjectObserver
      */
     public function forceDeleted(Project $project)
     {
-        $audit              = new ProjectAudit();
+        $audit              = new ProjectAudit;
         $audit->project_id  = $project->id;
         $audit->user_id     = Auth::id();
         $audit->action      = 'Force Deleted';

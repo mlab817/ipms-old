@@ -17,12 +17,14 @@ class ProjectResource extends JsonResource
      * @param  Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id'                        => $this->id,
+            'uuid'                      => $this->uuid,
             'code'                      => $this->code,
             'title'                     => $this->title,
+            'slug'                      => $this->slug,
             'pap_type_id'               => $this->pap_type_id,
             'pap_type'                  => new PapTypeResource($this->pap_type),
             'regular_program'           => (boolean) $this->regular_program,
