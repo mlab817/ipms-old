@@ -6,6 +6,7 @@ use App\Models\FundingSource;
 use App\Models\Region;
 use App\Models\RegionInvestment;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class RegionInvestmentFactory extends Factory
 {
@@ -24,6 +25,7 @@ class RegionInvestmentFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid'  => Str::uuid(),
             'region_id' => Region::all()->random()->id,
             'y2016' => $this->faker->randomFloat() * 1000000,
             'y2017' => $this->faker->randomFloat() * 1000000,

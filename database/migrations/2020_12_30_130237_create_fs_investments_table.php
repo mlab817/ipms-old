@@ -15,7 +15,7 @@ class CreateFsInvestmentsTable extends Migration
     {
         Schema::create('fs_investments', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
+            $table->uuid('uuid')->nullable();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->foreignId('fs_id')->constrained('funding_sources')->cascadeOnDelete();
             $table->decimal('y2016',20,2)->default(0);

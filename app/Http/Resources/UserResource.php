@@ -2,11 +2,15 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Spatie\ResourceLinks\HasLinks;
 
 class UserResource extends JsonResource
 {
+    use HasLinks;
+
     /**
      * Transform the resource into an array.
      *
@@ -21,6 +25,7 @@ class UserResource extends JsonResource
             'name'          => $this->name,
             'roles'         => RoleResource::collection($this->roles),
             'permissions'   => PermissionResource::collection($this->permissions),
+            'links'         => $this->links(UserController::class),
         ];
     }
 }

@@ -15,7 +15,7 @@ class CreateRegionInvestmentsTable extends Migration
     {
         Schema::create('region_investments', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
+            $table->uuid('uuid')->index();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->foreignId('region_id')->constrained()->cascadeOnDelete();
             $table->decimal('y2016',20,2)->default(0);

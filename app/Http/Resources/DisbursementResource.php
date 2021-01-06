@@ -2,10 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\DisbursementController;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Spatie\ResourceLinks\HasLinks;
 
 class DisbursementResource extends JsonResource
 {
+    use HasLinks;
+
     /**
      * Transform the resource into an array.
      *
@@ -26,6 +30,7 @@ class DisbursementResource extends JsonResource
             'y2023' => (float) $this->y2023,
             'y2024' => (float) $this->y2024,
             'y2025' => (float) $this->y2025,
+            'links' => $this->links(DisbursementController::class),
         ];
     }
 }

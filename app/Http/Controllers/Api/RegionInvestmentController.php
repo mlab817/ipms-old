@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RegionInvestmentResource;
 use App\Models\Project;
+use App\Models\RegionInvestment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class RegionInvestmentController extends Controller
 {
@@ -24,8 +26,8 @@ class RegionInvestmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -35,31 +37,35 @@ class RegionInvestmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Project $project
+     * @param RegionInvestment $regionInvestment
+     * @return RegionInvestmentResource
      */
-    public function show($id)
+    public function show(Project $project, RegionInvestment $regionInvestment): RegionInvestmentResource
     {
-        //
+        return new RegionInvestmentResource($regionInvestment);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Project $project
+     * @param RegionInvestment $regionInvestment
+     * @return RegionInvestmentResource
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project, RegionInvestment $regionInvestment): RegionInvestmentResource
     {
-        //
+        $regionInvestment->update($request->all());
+
+        return new RegionInvestmentResource($regionInvestment);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

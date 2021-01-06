@@ -2,11 +2,15 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\Api\RegionInvestmentController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Spatie\ResourceLinks\HasLinks;
 
 class RegionInvestmentResource extends JsonResource
 {
+    use HasLinks;
+
     /**
      * Transform the resource into an array.
      *
@@ -17,6 +21,7 @@ class RegionInvestmentResource extends JsonResource
     {
         return [
             'id'        => $this->id,
+            'uuid'      => $this->uuid,
             'region_id' => $this->region_id,
             'region'    => new RegionResource($this->region),
             'y2016'     => (float) $this->y2016,
@@ -29,6 +34,7 @@ class RegionInvestmentResource extends JsonResource
             'y2023'     => (float) $this->y2023,
             'y2024'     => (float) $this->y2024,
             'y2025'     => (float) $this->y2025,
+            'links'     => $this->links(RegionInvestmentController::class),
         ];
     }
 }

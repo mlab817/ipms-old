@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "22e8c3edb9c7c08edafd51e1388a69ff",
+    "content-hash": "f2ade1b5b2279e9bb52f2bfe5eb5e979",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3462,6 +3462,72 @@
                 }
             ],
             "time": "2020-11-09T14:08:36+00:00"
+        },
+        {
+            "name": "spatie/laravel-resource-links",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-resource-links.git",
+                "reference": "e5bff9e6f009f45cccb85e843a8f5995552fcc5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-resource-links/zipball/e5bff9e6f009f45cccb85e843a8f5995552fcc5d",
+                "reference": "e5bff9e6f009f45cccb85e843a8f5995552fcc5d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~5.8.0|^6.0|^7.0|^8.0",
+                "illuminate/routing": "~5.8.0|^6.0|^7.0|^8.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.8.0|^4.0|^5.0|^6.0",
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\ResourceLinks\\ResourceLinksServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\ResourceLinks\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ruben Van Assche",
+                    "email": "ruben@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Add links to Laravel API resources",
+            "homepage": "https://github.com/spatie/laravel-resource-links",
+            "keywords": [
+                "laravel-resource-links",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-resource-links/issues",
+                "source": "https://github.com/spatie/laravel-resource-links/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-09-09T10:04:46+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

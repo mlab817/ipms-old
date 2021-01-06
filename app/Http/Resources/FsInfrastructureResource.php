@@ -2,10 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\FsInfrastructureController;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Spatie\ResourceLinks\HasLinks;
 
 class FsInfrastructureResource extends JsonResource
 {
+    use HasLinks;
+
     /**
      * Transform the resource into an array.
      *
@@ -18,16 +22,17 @@ class FsInfrastructureResource extends JsonResource
             'id'            => $this->id,
             'fs_id'         => $this->fs_id,
             'funding_source'=> new FundingSourceResource($this->funding_source),
-            'y2016'     => (float) $this->y2016,
-            'y2017'     => (float) $this->y2017,
-            'y2018'     => (float) $this->y2018,
-            'y2019'     => (float) $this->y2019,
-            'y2020'     => (float) $this->y2020,
-            'y2021'     => (float) $this->y2021,
-            'y2022'     => (float) $this->y2022,
-            'y2023'     => (float) $this->y2023,
-            'y2024'     => (float) $this->y2024,
-            'y2025'     => (float) $this->y2025,
+            'y2016'         => (float) $this->y2016,
+            'y2017'         => (float) $this->y2017,
+            'y2018'         => (float) $this->y2018,
+            'y2019'         => (float) $this->y2019,
+            'y2020'         => (float) $this->y2020,
+            'y2021'         => (float) $this->y2021,
+            'y2022'         => (float) $this->y2022,
+            'y2023'         => (float) $this->y2023,
+            'y2024'         => (float) $this->y2024,
+            'y2025'         => (float) $this->y2025,
+            'links'         => $this->links(FsInfrastructureController::class),
         ];
     }
 }

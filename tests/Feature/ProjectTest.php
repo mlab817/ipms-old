@@ -303,4 +303,50 @@ class ProjectTest extends TestCase
 
         $response->dump();
     }
+
+    public function test_it_gets_project_region_investments_by_uuid()
+    {
+        $project = Project::factory()->create();
+        $regionInvestment = RegionInvestment::factory()->create([
+            'project_id' => $project->id,
+        ]);
+
+        $response = $this->json('GET', route('api.projects.region_investments.show',[
+                'project' => $project->slug,
+                'region_investment' => $regionInvestment->uuid,
+            ]))
+            ->assertStatus(200);
+
+
+        $response->dump();
+    }
+
+    public function test_it_updates_project_region_investments_by_uuid()
+    {
+        $project = Project::factory()->create();
+        $regionInvestment = RegionInvestment::factory()->create([
+            'project_id' => $project->id,
+        ]);
+
+        $updatedData = [
+            'y2016' => 900000,
+            'y2017' => 1000000,
+            'y2018' => 1200000,
+            'y2019' => 1400000,
+            'y2020' => 1600000,
+            'y2021' => 1700000,
+            'y2022' => 1800000,
+            'y2023' => 1900000,
+            'y2024' => 2000000,
+            'y2025' => 2100000,
+        ];
+
+        $response = $this->json('PUT', route('api.projects.region_investments.update',[
+            'project' => $project->slug,
+            'region_investment' => $regionInvestment->uuid,
+        ]), $updatedData)->assertStatus(200);
+
+
+        $response->dump();
+    }
 }

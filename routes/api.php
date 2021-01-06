@@ -48,7 +48,12 @@ Route::group(['prefix'=>'v1'], function($router) {
         Route::put('/{project}', [ProjectController::class,'update'])->name('api.projects.update');
         Route::delete('/{project}', [ProjectController::class,'destroy'])->name('api.projects.delete');
 
-        Route::get('/{project}/region_investments', [RegionInvestmentController::class,'index'])->name('api.projects.region_investments.index');
+        Route::get('/{project}/region_investments', [RegionInvestmentController::class,'index'])
+            ->name('api.projects.region_investments.index');
+        Route::get('/{project}/region_investments/{region_investment}', [RegionInvestmentController::class,'show'])
+            ->name('api.projects.region_investments.show');
+        Route::put('/{project}/region_investments/{region_investment}', [RegionInvestmentController::class,'update'])
+            ->name('api.projects.region_investments.update');
     });
 
     Route::group(['prefix' => 'permissions'], function($router) {

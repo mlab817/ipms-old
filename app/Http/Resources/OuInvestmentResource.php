@@ -2,11 +2,15 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\OuInvestmentController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Spatie\ResourceLinks\HasLinks;
 
 class OuInvestmentResource extends JsonResource
 {
+    use HasLinks;
+
     /**
      * Transform the resource into an array.
      *
@@ -19,16 +23,17 @@ class OuInvestmentResource extends JsonResource
             'id'            => $this->id,
             'ou_id'         => $this->ou_id,
             'operating_unit'=> new OperatingUnitResource($this->operating_unit),
-            'y2016'     => (float) $this->y2016,
-            'y2017'     => (float) $this->y2017,
-            'y2018'     => (float) $this->y2018,
-            'y2019'     => (float) $this->y2019,
-            'y2020'     => (float) $this->y2020,
-            'y2021'     => (float) $this->y2021,
-            'y2022'     => (float) $this->y2022,
-            'y2023'     => (float) $this->y2023,
-            'y2024'     => (float) $this->y2024,
-            'y2025'     => (float) $this->y2025,
+            'y2016'         => (float) $this->y2016,
+            'y2017'         => (float) $this->y2017,
+            'y2018'         => (float) $this->y2018,
+            'y2019'         => (float) $this->y2019,
+            'y2020'         => (float) $this->y2020,
+            'y2021'         => (float) $this->y2021,
+            'y2022'         => (float) $this->y2022,
+            'y2023'         => (float) $this->y2023,
+            'y2024'         => (float) $this->y2024,
+            'y2025'         => (float) $this->y2025,
+            'links'         => $this->links(OuInvestmentController::class),
         ];
     }
 }

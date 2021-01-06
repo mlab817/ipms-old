@@ -2,11 +2,15 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Spatie\ResourceLinks\HasLinks;
 
 class ProjectResource extends JsonResource
 {
+    use HasLinks;
+
     /**
      * Transform the resource into an array.
      *
@@ -100,6 +104,7 @@ class ProjectResource extends JsonResource
             'created_at'                => (string) $this->created_at,
             'updated_at'                => (string) $this->updated_at,
             'permissions'               => (array) $this->permissions,
+            'links'                     => $this->links(ProjectController::class),
         ];
     }
 }

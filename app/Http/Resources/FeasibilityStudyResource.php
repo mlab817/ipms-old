@@ -2,11 +2,15 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\FeasibilityStudyController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Spatie\ResourceLinks\HasLinks;
 
 class FeasibilityStudyResource extends JsonResource
 {
+    use HasLinks;
+
     /**
      * Transform the resource into an array.
      *
@@ -29,6 +33,7 @@ class FeasibilityStudyResource extends JsonResource
             'y2023'             => (float) $this->y2023,
             'y2024'             => (float) $this->y2024,
             'y2025'             => (float) $this->y2025,
+            'links'             => $this->links(FeasibilityStudyController::class),
         ];
     }
 }
