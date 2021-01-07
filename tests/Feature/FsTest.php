@@ -104,7 +104,7 @@ class FsTest extends TestCase
         $response->dump();
     }
 
-    public function testUpdateRap()
+    public function testUpdateFs()
     {
         $project = $this->createTestProject();
         $fs = FeasibilityStudy::factory()->make();
@@ -133,7 +133,7 @@ class FsTest extends TestCase
         $response->dump();
     }
 
-    public function testDeleteRap()
+    public function testDeleteFs()
     {
         $project = $this->createTestProject();
         $fs = FeasibilityStudy::factory()->make();

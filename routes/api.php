@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\DisbursementController;
 use App\Http\Controllers\Api\FeasibilityStudyController;
+use App\Http\Controllers\Api\FsInfrastructureController;
 use App\Http\Controllers\Api\NepController;
 use App\Http\Controllers\Api\OuInfrastructureController;
 use App\Http\Controllers\Api\OuInvestmentController;
@@ -112,6 +113,17 @@ Route::group(['prefix'=>'v1'], function($router) {
             ->name('api.projects.region_infrastructures.update');
         Route::delete('/{project}/region_infrastructures/{regionInfrastructure}',[RegionInfrastructureController::class,'destroy'])
             ->name('api.projects.region_infrastructures.destroy');
+
+        Route::get('/{project}/fs_infrastructures',[FsInfrastructureController::class,'index'])
+            ->name('api.projects.fs_infrastructures.index');
+        Route::post('/{project}/fs_infrastructures',[FsInfrastructureController::class,'store'])
+            ->name('api.projects.fs_infrastructures.store');
+        Route::get('/{project}/fs_infrastructures/{fsInfrastructure}',[FsInfrastructureController::class,'show'])
+            ->name('api.projects.fs_infrastructures.show');
+        Route::put('/{project}/fs_infrastructures/{fsInfrastructure}',[FsInfrastructureController::class,'update'])
+            ->name('api.projects.fs_infrastructures.update');
+        Route::delete('/{project}/fs_infrastructures/{fsInfrastructure}',[FsInfrastructureController::class,'destroy'])
+            ->name('api.projects.fs_infrastructures.destroy');
 
         Route::get('/{project}/ou_investments',[OuInvestmentController::class,'index'])
             ->name('api.projects.ou_investments.index');

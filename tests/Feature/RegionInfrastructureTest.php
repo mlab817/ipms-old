@@ -113,7 +113,7 @@ class RegionInfrastructureTest extends TestCase
         $project->region_infrastructures()->save($regionInfrastructure);
 
         $response = $this
-            ->json('DELETE', route('api.projects.region_infrastructures.update', [
+            ->json('DELETE', route('api.projects.region_infrastructures.delete', [
                 'project'               => $project->slug,
                 'regionInfrastructure'  => $regionInfrastructure->uuid,
             ]))
