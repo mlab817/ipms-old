@@ -93,6 +93,10 @@ class User extends Authenticatable implements JWTSubject
 
     public function toSearchableArray(): array
     {
-        return $this->toArray();
+        return [
+            'id'    => $this->id,
+            'name'  => $this->name,
+            'email' => $this->email,
+        ];
     }
 }

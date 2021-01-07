@@ -15,10 +15,11 @@ class NepResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id'    => $this->id,
+            'uuid'  => $this->uuid,
             'y2016' => (float) $this->y2016,
             'y2017' => (float) $this->y2017,
             'y2018' => (float) $this->y2018,
@@ -29,7 +30,7 @@ class NepResource extends JsonResource
             'y2023' => (float) $this->y2023,
             'y2024' => (float) $this->y2024,
             'y2025' => (float) $this->y2025,
-            'links'     => $this->links(NepController::class),
+            'links' => $this->links(NepController::class),
         ];
     }
 }

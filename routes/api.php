@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\NepController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -78,6 +79,11 @@ Route::group(['prefix'=>'v1'], function($router) {
             ->name('api.projects.region_infrastructures.update');
         Route::delete('/{project}/region_infrastructures/{region_infrastructure}', [RegionInfrastructureController::class,'destroy'])
             ->name('api.projects.region_infrastructures.destroy');
+
+        Route::get('/{project}/nep',[NepController::class,'index'])->name('api.projects.nep.index');
+        Route::post('/{project}/nep',[NepController::class,'store'])->name('api.projects.nep.store');
+        Route::put('/{project}/nep',[NepController::class,'update'])->name('api.projects.nep.update');
+        Route::delete('/{project}/nep',[NepController::class,'destroy'])->name('api.projects.nep.destroy');
     });
 
     Route::group(['prefix' => 'permissions'], function($router) {
