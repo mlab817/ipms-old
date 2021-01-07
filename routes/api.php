@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\FeasibilityStudyController;
 use App\Http\Controllers\Api\NepController;
 use App\Http\Controllers\Api\OuInfrastructureController;
 use App\Http\Controllers\Api\OuInvestmentController;
@@ -120,6 +121,17 @@ Route::group(['prefix'=>'v1'], function($router) {
             ->name('api.projects.ou_investments.update');
         Route::delete('/{project}/ou_investments/{ouInvestment}',[OuInvestmentController::class,'destroy'])
             ->name('api.projects.ou_investments.destroy');
+
+        Route::get('/{project}/fs',[FeasibilityStudyController::class,'index'])
+            ->name('api.projects.fs.index');
+        Route::post('/{project}/fs',[FeasibilityStudyController::class,'store'])
+            ->name('api.projects.fs.store');
+        Route::get('/{project}/fs/{fs}',[FeasibilityStudyController::class,'show'])
+            ->name('api.projects.fs.show');
+        Route::put('/{project}/rap/{fs}',[FeasibilityStudyController::class,'update'])
+            ->name('api.projects.fs.update');
+        Route::delete('/{project}/fs/{fs}',[FeasibilityStudyController::class,'destroy'])
+            ->name('api.projects.fs.destroy');
 
         Route::get('/{project}/rap',[ResettlementActionPlanController::class,'index'])
             ->name('api.projects.rap.index');

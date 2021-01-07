@@ -19,6 +19,7 @@ class CreateFeasibilityStudiesTable extends Migration
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->foreignId('fs_status_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('needs_assistance')->default(0);
+            $table->decimal('y2016',20,2)->default(0);
             $table->decimal('y2017',20,2)->default(0);
             $table->decimal('y2018',20,2)->default(0);
             $table->decimal('y2019',20,2)->default(0);

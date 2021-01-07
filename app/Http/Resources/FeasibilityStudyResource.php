@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Controllers\FeasibilityStudyController;
+use App\Http\Controllers\Api\FeasibilityStudyController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Spatie\ResourceLinks\HasLinks;
@@ -24,6 +24,7 @@ class FeasibilityStudyResource extends JsonResource
             'needs_assistance'  => $this->needs_assistance,
             'fs_status_id'      => $this->fs_status_id,
             'fs_status'         => new FsStatusResource($this->fs_status),
+            'y2016'             => (float) $this->y2016,
             'y2017'             => (float) $this->y2017,
             'y2018'             => (float) $this->y2018,
             'y2019'             => (float) $this->y2019,
