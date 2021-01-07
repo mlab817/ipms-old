@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
 class Project extends Model
@@ -20,6 +21,7 @@ class Project extends Model
     use Searchable;
     use Sluggable;
     use Trackable;
+    use SoftDeletes;
 
     protected $guard_name = 'api';
 

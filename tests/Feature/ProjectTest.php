@@ -248,12 +248,11 @@ class ProjectTest extends TestCase
 
     public function test_admin_can_delete_a_project()
     {
-        $this->withoutExceptionHandling();
-
-        $project = Project::factory()->create();
+        $project = $this->createTestProject();
+        $user = User::where('email', self::ADMIN_EMAIL)->first();
 
         $response = $this
-            ->actingAs(User::where('email', self::ADMIN_EMAIL)->first())
+            ->actingAs($user)
             ->json('DELETE', route('api.projects.delete', $project->slug))
             ->assertStatus(204);
 
@@ -262,14 +261,12 @@ class ProjectTest extends TestCase
 
     public function test_owner_can_delete_own_project()
     {
-        $this->withoutExceptionHandling();
-
-        $user = User::factory()->create();
-
-        $project = Project::factory()->create();
-
-        $project->created_by = $user->id;
-        $project->save();
+        $project = $this->createTestProject();
+        $user = User::where('email', self::CONTRIBUTOR_EMAIL)->first();
+        Event::fakeFor(function() use ($project, $user) {
+            $project->created_by = $user->id;
+            $project->save();
+        });
 
         $response = $this
             ->actingAs($user)
