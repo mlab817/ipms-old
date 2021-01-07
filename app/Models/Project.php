@@ -343,9 +343,10 @@ class Project extends Model
     public function toSearchableArray(): array
     {
         return [
+            'id'                => $this->id,
             'title'             => $this->title,
-            'expected_outputs'  => $this->expected_outputs,
             'description'       => $this->description,
+            'expected_outputs'  => $this->expected_outputs,
             'risk'              => $this->risk,
             'pap_type'          => $this->pap_type ? $this->pap_type->name : '',
             'project_status'    => $this->project_status ? $this->project_status->name : '',

@@ -25,7 +25,7 @@ class ProjectCollection extends ResourceCollection
                     'id'            => $project->id,
                     'title'         => $project->title,
                     'slug'          => $project->slug,
-                    'description'   => Str::substr($project->description, 0, 100),
+                    'description'   => $project->description,
                     'permissions'   => (array) $project->permissions,
                     'updated_at'    => (string) $project->updated_at,
                     'creator'       => $project->creator ? new UserResource($project->creator) : null,
