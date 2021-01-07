@@ -2,7 +2,8 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Controllers\NepController;
+use App\Http\Controllers\Api\NepController;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Spatie\ResourceLinks\HasLinks;
 
@@ -12,7 +13,7 @@ class NepResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request): array

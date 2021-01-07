@@ -32,7 +32,7 @@ class OfficeFactory extends Factory
             'contact_numbers'       => $this->faker->phoneNumber,
             'office_head_name'      => $this->faker->name,
             'office_head_position'  => $this->faker->jobTitle,
-            'operating_unit_id'     => OperatingUnit::all()->random()->id,
+            'operating_unit_id'     => OperatingUnit::factory()->create()->id,
         ];
     }
 }

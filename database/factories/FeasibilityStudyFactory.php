@@ -24,7 +24,7 @@ class FeasibilityStudyFactory extends Factory
     {
         return [
             'needs_assistance'  => $this->faker->boolean,
-            'fs_status_id'      => FsStatus::all()->random()->id,
+            'fs_status_id'      => FsStatus::factory()->create()->id,
             'y2016'             => $this->faker->randomFloat() * 1000,
             'y2017'             => $this->faker->randomFloat() * 1000,
             'y2018'             => $this->faker->randomFloat() * 1000,

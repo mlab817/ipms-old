@@ -12,8 +12,12 @@ class SdgResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
-        return parent::toArray($request);
+        return [
+            'id'    => $this->id,
+            'name'  => $this->name,
+            'slug'  => $this->slug,
+        ];
     }
 }

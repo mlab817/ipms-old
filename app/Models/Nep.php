@@ -30,6 +30,11 @@ class Nep extends Model
         'y2025',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);

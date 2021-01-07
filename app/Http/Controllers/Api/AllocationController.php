@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Allocation;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class AllocationController extends Controller
@@ -12,7 +14,7 @@ class AllocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Project $project)
     {
         //
     }
@@ -23,7 +25,7 @@ class AllocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Project $project)
     {
         //
     }
@@ -34,7 +36,7 @@ class AllocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project, Allocation $allocation)
     {
         //
     }
@@ -46,7 +48,7 @@ class AllocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project, Allocation $allocation)
     {
         //
     }
@@ -57,7 +59,7 @@ class AllocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project, Allocation $allocation)
     {
         //
     }

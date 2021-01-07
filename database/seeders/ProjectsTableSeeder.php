@@ -35,6 +35,7 @@ class ProjectsTableSeeder extends Seeder
             ->has(RegionInfrastructure::factory()->count(2), 'region_infrastructures')
             ->has(FsInvestment::factory()->count(2), 'fs_investments')
             ->has(FsInfrastructure::factory()->count(2), 'fs_infrastructures')
+            ->count(50)
             ->create();
     }
 }

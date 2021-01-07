@@ -27,6 +27,11 @@ class NepController extends Controller
         return new NepResource($project->nep);
     }
 
+    public function show(Project $project, Nep $nep): NepResource
+    {
+        return new NepResource($nep);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

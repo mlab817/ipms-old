@@ -23,7 +23,7 @@ class FsInfrastructureFactory extends Factory
     public function definition(): array
     {
         return [
-            'fs_id' => FundingSource::all()->random()->id,
+            'fs_id' => FundingSource::factory()->create()->id,
             'y2016' => $this->faker->randomFloat() * 1000000,
             'y2017' => $this->faker->randomFloat() * 1000000,
             'y2018' => $this->faker->randomFloat() * 1000000,

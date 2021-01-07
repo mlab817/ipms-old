@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Controllers\AllocationController;
+use App\Http\Controllers\Api\AllocationController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Spatie\ResourceLinks\HasLinks;
@@ -17,10 +17,11 @@ class AllocationResource extends JsonResource
      * @param  Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id'    => $this->id,
+            'uuid'  => $this->uuid,
             'y2016' => (float) $this->y2016,
             'y2017' => (float) $this->y2017,
             'y2018' => (float) $this->y2018,

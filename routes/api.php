@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AllocationController;
 use App\Http\Controllers\Api\DisbursementController;
 use App\Http\Controllers\Api\FeasibilityStudyController;
 use App\Http\Controllers\Api\FsInfrastructureController;
@@ -89,9 +90,10 @@ Route::group(['prefix'=>'v1'], function($router) {
             ->name('api.projects.region_infrastructures.destroy');
 
         Route::get('/{project}/nep',[NepController::class,'index'])->name('api.projects.nep.index');
-        Route::post('/{project}/nep',[NepController::class,'store'])->name('api.projects.nep.store');
-        Route::put('/{project}/nep',[NepController::class,'update'])->name('api.projects.nep.update');
-        Route::delete('/{project}/nep',[NepController::class,'destroy'])->name('api.projects.nep.destroy');
+        Route::get('/{project}/nep/{nep}',[NepController::class,'show'])->name('api.projects.nep.show');
+        Route::post('/{project}/nep/{nep}',[NepController::class,'store'])->name('api.projects.nep.store');
+        Route::put('/{project}/nep/{nep}',[NepController::class,'update'])->name('api.projects.nep.update');
+        Route::delete('/{project}/nep/{nep}',[NepController::class,'destroy'])->name('api.projects.nep.destroy');
 
         Route::get('/{project}/ou_infrastructures',[OuInfrastructureController::class,'index'])
             ->name('api.projects.ou_infrastructures.index');
@@ -180,6 +182,17 @@ Route::group(['prefix'=>'v1'], function($router) {
             ->name('api.projects.row.update');
         Route::delete('/{project}/row/{row}',[RightOfWayController::class,'destroy'])
             ->name('api.projects.row.destroy');
+
+        Route::get('/{project}/allocation',[AllocationController::class,'index'])
+            ->name('api.projects.allocation.index');
+        Route::post('/{project}/allocation',[AllocationController::class,'store'])
+            ->name('api.projects.allocation.store');
+        Route::get('/{project}/allocation/{allocation}',[AllocationController::class,'show'])
+            ->name('api.projects.allocation.show');
+        Route::put('/{project}/allocation/{allocation}',[AllocationController::class,'update'])
+            ->name('api.projects.allocation.update');
+        Route::delete('/{project}/allocation/{allocation}',[AllocationController::class,'destroy'])
+            ->name('api.projects.allocation.destroy');
 
         Route::get('/{project}/disbursement',[DisbursementController::class,'index'])
             ->name('api.projects.disbursement.index');
