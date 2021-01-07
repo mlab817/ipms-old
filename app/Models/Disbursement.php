@@ -18,6 +18,7 @@ class Disbursement extends Model
 
     protected $fillable = [
         'project_id',
+        'y2016',
         'y2017',
         'y2018',
         'y2019',
@@ -28,6 +29,11 @@ class Disbursement extends Model
         'y2024',
         'y2025',
     ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
 
     public function project(): BelongsTo
     {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DisbursementController;
 use App\Http\Controllers\Api\FeasibilityStudyController;
 use App\Http\Controllers\Api\NepController;
 use App\Http\Controllers\Api\OuInfrastructureController;
@@ -155,6 +156,17 @@ Route::group(['prefix'=>'v1'], function($router) {
             ->name('api.projects.row.update');
         Route::delete('/{project}/row/{row}',[RightOfWayController::class,'destroy'])
             ->name('api.projects.row.destroy');
+
+        Route::get('/{project}/disbursement',[DisbursementController::class,'index'])
+            ->name('api.projects.disbursement.index');
+        Route::post('/{project}/disbursement',[DisbursementController::class,'store'])
+            ->name('api.projects.disbursement.store');
+        Route::get('/{project}/disbursement/{disbursement}',[DisbursementController::class,'show'])
+            ->name('api.projects.disbursement.show');
+        Route::put('/{project}/disbursement/{disbursement}',[DisbursementController::class,'update'])
+            ->name('api.projects.disbursement.update');
+        Route::delete('/{project}/disbursement/{disbursement}',[DisbursementController::class,'destroy'])
+            ->name('api.projects.disbursement.destroy');
     });
 
     Route::group(['prefix' => 'permissions'], function($router) {
