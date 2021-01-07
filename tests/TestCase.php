@@ -4,6 +4,8 @@ namespace Tests;
 
 use App\Models\Project;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Event;
+
 //use Illuminate\Support\Facades\Artisan;
 
 abstract class TestCase extends BaseTestCase
@@ -17,5 +19,12 @@ abstract class TestCase extends BaseTestCase
         // install jwt
 
         $this->seed();
+    }
+
+    public function createTestProject()
+    {
+        return $project = Event::fakeFor(function() {
+            return Project::factory()->create();
+        });
     }
 }

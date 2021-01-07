@@ -9,7 +9,6 @@ use App\Models\Project;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class NepController extends Controller
 {
@@ -45,17 +44,6 @@ class NepController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param Request $request
@@ -81,6 +69,8 @@ class NepController extends Controller
     {
         $nep->delete();
 
-        return response()->json(null, 204);
+        return response()->json([
+            'message'   => 'Success'
+        ], 200);
     }
 }

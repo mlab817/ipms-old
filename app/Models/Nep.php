@@ -18,6 +18,7 @@ class Nep extends Model
 
     protected $fillable = [
         'project_id',
+        'y2016',
         'y2017',
         'y2018',
         'y2019',

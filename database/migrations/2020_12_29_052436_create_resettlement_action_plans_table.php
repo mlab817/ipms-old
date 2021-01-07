@@ -17,6 +17,7 @@ class CreateResettlementActionPlansTable extends Migration
             $table->id();
             $table->uuid('uuid')->nullable();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
+            $table->decimal('y2016',20,2)->default(0);
             $table->decimal('y2017',20,2)->default(0);
             $table->decimal('y2018',20,2)->default(0);
             $table->decimal('y2019',20,2)->default(0);

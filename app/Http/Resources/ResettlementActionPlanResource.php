@@ -2,7 +2,8 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Controllers\ResettlementActionPlanController;
+use App\Http\Controllers\Api\ResettlementActionPlanController;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Spatie\ResourceLinks\HasLinks;
 
@@ -13,13 +14,14 @@ class ResettlementActionPlanResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id'                    => $this->id,
+            'y2016'                 => (float) $this->y2016,
             'y2017'                 => (float) $this->y2017,
             'y2018'                 => (float) $this->y2018,
             'y2019'                 => (float) $this->y2019,

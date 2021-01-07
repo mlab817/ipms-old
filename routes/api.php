@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\NepController;
+use App\Http\Controllers\Api\OuInfrastructureController;
+use App\Http\Controllers\Api\OuInvestmentController;
+use App\Http\Controllers\Api\ResettlementActionPlanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -84,6 +87,50 @@ Route::group(['prefix'=>'v1'], function($router) {
         Route::post('/{project}/nep',[NepController::class,'store'])->name('api.projects.nep.store');
         Route::put('/{project}/nep',[NepController::class,'update'])->name('api.projects.nep.update');
         Route::delete('/{project}/nep',[NepController::class,'destroy'])->name('api.projects.nep.destroy');
+
+        Route::get('/{project}/ou_infrastructures',[OuInfrastructureController::class,'index'])
+            ->name('api.projects.ou_infrastructures.index');
+        Route::post('/{project}/ou_infrastructures',[OuInfrastructureController::class,'store'])
+            ->name('api.projects.ou_infrastructures.store');
+        Route::get('/{project}/ou_infrastructures/{ouInfrastructure}',[OuInfrastructureController::class,'show'])
+            ->name('api.projects.ou_infrastructures.show');
+        Route::put('/{project}/ou_infrastructures/{ouInfrastructure}',[OuInfrastructureController::class,'update'])
+            ->name('api.projects.ou_infrastructures.update');
+        Route::delete('/{project}/ou_infrastructures/{ouInfrastructure}',[OuInfrastructureController::class,'destroy'])
+            ->name('api.projects.ou_infrastructures.destroy');
+
+        Route::get('/{project}/region_infrastructures',[RegionInfrastructureController::class,'index'])
+            ->name('api.projects.region_infrastructures.index');
+        Route::post('/{project}/region_infrastructures',[RegionInfrastructureController::class,'store'])
+            ->name('api.projects.region_infrastructures.store');
+        Route::get('/{project}/region_infrastructures/{regionInfrastructure}',[RegionInfrastructureController::class,'show'])
+            ->name('api.projects.region_infrastructures.show');
+        Route::put('/{project}/region_infrastructures/{regionInfrastructure}',[RegionInfrastructureController::class,'update'])
+            ->name('api.projects.region_infrastructures.update');
+        Route::delete('/{project}/region_infrastructures/{regionInfrastructure}',[RegionInfrastructureController::class,'destroy'])
+            ->name('api.projects.region_infrastructures.destroy');
+
+        Route::get('/{project}/ou_investments',[OuInvestmentController::class,'index'])
+            ->name('api.projects.ou_investments.index');
+        Route::post('/{project}/ou_investments',[OuInvestmentController::class,'store'])
+            ->name('api.projects.ou_investments.store');
+        Route::get('/{project}/ou_investments/{ouInvestment}',[OuInvestmentController::class,'show'])
+            ->name('api.projects.ou_investments.show');
+        Route::put('/{project}/ou_investments/{ouInvestment}',[OuInvestmentController::class,'update'])
+            ->name('api.projects.ou_investments.update');
+        Route::delete('/{project}/ou_investments/{ouInvestment}',[OuInvestmentController::class,'destroy'])
+            ->name('api.projects.ou_investments.destroy');
+
+        Route::get('/{project}/rap',[ResettlementActionPlanController::class,'index'])
+            ->name('api.projects.rap.index');
+        Route::post('/{project}/rap',[ResettlementActionPlanController::class,'store'])
+            ->name('api.projects.rap.store');
+        Route::get('/{project}/rap/{rap}',[ResettlementActionPlanController::class,'show'])
+            ->name('api.projects.rap.show');
+        Route::put('/{project}/rap/{rap}',[ResettlementActionPlanController::class,'update'])
+            ->name('api.projects.rap.update');
+        Route::delete('/{project}/rap/{rap}',[ResettlementActionPlanController::class,'destroy'])
+            ->name('api.projects.rap.destroy');
     });
 
     Route::group(['prefix' => 'permissions'], function($router) {

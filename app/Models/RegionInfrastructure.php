@@ -31,6 +31,11 @@ class RegionInfrastructure extends Model
         'y2025',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class);

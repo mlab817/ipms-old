@@ -50,8 +50,6 @@ class NepTest extends TestCase
      */
     public function testStoreNep()
     {
-        $this->withoutExceptionHandling();
-
         $project = $this->createTestProject();
         $nep = Nep::factory()->make()->toArray();
 
@@ -71,9 +69,26 @@ class NepTest extends TestCase
      */
     public function testUpdateNep()
     {
-        $response = $this->get('/');
+        $project = $this->createTestProject();
+        $project->nep()->save(Nep::factory()->make());
 
-        $response->assertStatus(200);
+        $nep = [
+            'y2016' => 10,
+            'y2017' => 20,
+            'y2018' => 30,
+            'y2019' => 40,
+            'y2020' => 50,
+            'y2021' => 60,
+            'y2022' => 70,
+            'y2023' => 80,
+            'y2024' => 90,
+            'y2025' => 100,
+        ];
+
+        $response = $this->json('PUT', route('api.projects.nep.update', $project->slug), $nep)
+            ->assertStatus(200);
+
+        $response->dump();
     }
 
     /**
@@ -83,8 +98,18 @@ class NepTest extends TestCase
      */
     public function testDeleteNep()
     {
-        $response = $this->get('/');
+        $project = $this->createTestProject();
+        $nep = Nep::factory()->make();
+        $project->nep()->save(Nep::factory()->make());
 
-        $response->assertStatus(200);
+        $response = $this->json('DELETE', route('api.projects.nep.destroy', [
+            'project' => $project->slug,
+            'nep' => $nep->uuid, ]))
+            ->assertStatus(200)
+            ->assertJson([
+                'message' => 'Success'
+            ]);
+
+        $response->dump();
     }
 }

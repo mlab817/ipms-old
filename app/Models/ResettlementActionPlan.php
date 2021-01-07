@@ -18,6 +18,7 @@ class ResettlementActionPlan extends Model
 
     protected $fillable = [
         'project_id',
+        'y2016',
         'y2017',
         'y2018',
         'y2019',
@@ -29,6 +30,11 @@ class ResettlementActionPlan extends Model
         'y2025',
         'affected_households',
     ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
 
     public function project(): BelongsTo
     {

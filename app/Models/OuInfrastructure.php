@@ -31,6 +31,11 @@ class OuInfrastructure extends Model
         'y2025',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     public function operating_unit(): BelongsTo
     {
         return $this->belongsTo(OperatingUnit::class,'ou_id','id');
