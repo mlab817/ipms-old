@@ -82,7 +82,7 @@ class RapTest extends TestCase
             'y2025' => 110,
         ];
 
-        $response = $this->json('PUT', route('api.projects.rap.show', [
+        $response = $this->json('PUT', route('api.projects.rap.update', [
             'project'   => $project->slug,
             'rap'       => $rap->uuid,
         ]), $data)->assertStatus(200);

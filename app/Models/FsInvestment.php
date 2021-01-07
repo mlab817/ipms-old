@@ -31,6 +31,11 @@ class FsInvestment extends Model
         'y2025',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     public function funding_source(): BelongsTo
     {
         return $this->belongsTo(FundingSource::class,'fs_id','id');

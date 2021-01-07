@@ -2,8 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Controllers\FsInvestmentController;
-use App\Models\FundingSource;
+use App\Http\Controllers\Api\FsInvestmentController;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Spatie\ResourceLinks\HasLinks;
 
@@ -21,6 +20,7 @@ class FsInvestmentResource extends JsonResource
     {
         return [
             'id'            => $this->id,
+            'uuid'          => $this->uuid,
             'fs_id'         => $this->fs_id,
             'funding_source'=> new FundingSourceResource($this->funding_source),
             'y2016'         => (float) $this->y2016,

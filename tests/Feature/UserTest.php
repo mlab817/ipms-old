@@ -78,7 +78,7 @@ class UserTest extends TestCase
         $response = $this->json('put', route('api.users.update', $id), $data);
 
         // check if status is 200
-        $response->assertStatus(500);
+        $response->assertStatus(200);
 
         // get user
         $user = User::find($id);

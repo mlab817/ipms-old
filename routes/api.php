@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\DisbursementController;
 use App\Http\Controllers\Api\FeasibilityStudyController;
 use App\Http\Controllers\Api\FsInfrastructureController;
+use App\Http\Controllers\Api\FsInvestmentController;
 use App\Http\Controllers\Api\NepController;
 use App\Http\Controllers\Api\OuInfrastructureController;
 use App\Http\Controllers\Api\OuInvestmentController;
@@ -125,6 +126,17 @@ Route::group(['prefix'=>'v1'], function($router) {
         Route::delete('/{project}/fs_infrastructures/{fsInfrastructure}',[FsInfrastructureController::class,'destroy'])
             ->name('api.projects.fs_infrastructures.destroy');
 
+        Route::get('/{project}/fs_investments',[FsInvestmentController::class,'index'])
+            ->name('api.projects.fs_investments.index');
+        Route::post('/{project}/fs_investments',[FsInvestmentController::class,'store'])
+            ->name('api.projects.fs_investments.store');
+        Route::get('/{project}/fs_investments/{fsInvestment}',[FsInvestmentController::class,'show'])
+            ->name('api.projects.fs_investments.show');
+        Route::put('/{project}/fs_investments/{fsInvestment}',[FsInvestmentController::class,'update'])
+            ->name('api.projects.fs_investments.update');
+        Route::delete('/{project}/fs_investments/{fsInvestment}',[FsInvestmentController::class,'destroy'])
+            ->name('api.projects.fs_investments.destroy');
+
         Route::get('/{project}/ou_investments',[OuInvestmentController::class,'index'])
             ->name('api.projects.ou_investments.index');
         Route::post('/{project}/ou_investments',[OuInvestmentController::class,'store'])
@@ -142,7 +154,7 @@ Route::group(['prefix'=>'v1'], function($router) {
             ->name('api.projects.fs.store');
         Route::get('/{project}/fs/{fs}',[FeasibilityStudyController::class,'show'])
             ->name('api.projects.fs.show');
-        Route::put('/{project}/rap/{fs}',[FeasibilityStudyController::class,'update'])
+        Route::put('/{project}/fs/{fs}',[FeasibilityStudyController::class,'update'])
             ->name('api.projects.fs.update');
         Route::delete('/{project}/fs/{fs}',[FeasibilityStudyController::class,'destroy'])
             ->name('api.projects.fs.destroy');
