@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\NepController;
 use App\Http\Controllers\Api\OuInfrastructureController;
 use App\Http\Controllers\Api\OuInvestmentController;
 use App\Http\Controllers\Api\ResettlementActionPlanController;
+use App\Http\Controllers\Api\RightOfWayController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -143,6 +144,17 @@ Route::group(['prefix'=>'v1'], function($router) {
             ->name('api.projects.rap.update');
         Route::delete('/{project}/rap/{rap}',[ResettlementActionPlanController::class,'destroy'])
             ->name('api.projects.rap.destroy');
+
+        Route::get('/{project}/row',[RightOfWayController::class,'index'])
+            ->name('api.projects.row.index');
+        Route::post('/{project}/row',[RightOfWayController::class,'store'])
+            ->name('api.projects.row.store');
+        Route::get('/{project}/row/{row}',[RightOfWayController::class,'show'])
+            ->name('api.projects.row.show');
+        Route::put('/{project}/row/{row}',[RightOfWayController::class,'update'])
+            ->name('api.projects.row.update');
+        Route::delete('/{project}/row/{row}',[RightOfWayController::class,'destroy'])
+            ->name('api.projects.row.destroy');
     });
 
     Route::group(['prefix' => 'permissions'], function($router) {

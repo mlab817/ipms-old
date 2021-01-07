@@ -21,7 +21,8 @@ class FeasibilityStudyResource extends JsonResource
     {
         return [
             'id'                => $this->id,
-            'needs_assistance'  => $this->needs_assistance,
+            'uuid'              => $this->uuid,
+            'needs_assistance'  => (bool) $this->needs_assistance,
             'fs_status_id'      => $this->fs_status_id,
             'fs_status'         => new FsStatusResource($this->fs_status),
             'y2016'             => (float) $this->y2016,

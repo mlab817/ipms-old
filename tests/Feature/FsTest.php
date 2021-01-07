@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\FeasibilityStudy;
+use App\Models\FsStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -10,6 +11,7 @@ use Tests\TestCase;
 class FsTest extends TestCase
 {
     use RefreshDatabase;
+    use WithFaker;
 
     public function testIndexFs()
     {
@@ -22,6 +24,9 @@ class FsTest extends TestCase
             ->assertJsonStructure([
                 'data' => [
                     'id',
+                    'needs_assistance',
+                    'fs_status_id',
+                    'fs_status',
                     'y2016',
                     'y2017',
                     'y2018',
@@ -43,19 +48,21 @@ class FsTest extends TestCase
         $project = $this->createTestProject();
 
         $data = [
-            'y2016' => 20,
-            'y2017' => 30,
-            'y2018' => 40,
-            'y2019' => 50,
-            'y2020' => 60,
-            'y2021' => 70,
-            'y2022' => 80,
-            'y2023' => 90,
-            'y2024' => 100,
-            'y2025' => 110,
+            'needs_assistance'  => $this->faker->boolean,
+            'fs_status_id'      => FsStatus::factory()->create()->id,
+            'y2016'             => 20,
+            'y2017'             => 30,
+            'y2018'             => 40,
+            'y2019'             => 50,
+            'y2020'             => 60,
+            'y2021'             => 70,
+            'y2022'             => 80,
+            'y2023'             => 90,
+            'y2024'             => 100,
+            'y2025'             => 110,
         ];
 
-        $response = $this->json('POST', route('api.projects.fs.index', $project->slug), $data)
+        $response = $this->json('POST', route('api.projects.fs.store', $project->slug), $data)
             ->assertStatus(201)
             ->assertJson([
                 'data'  => $data
@@ -78,6 +85,9 @@ class FsTest extends TestCase
             ->assertJsonStructure([
                 'data' => [
                     'id',
+                    'needs_assistance',
+                    'fs_status_id',
+                    'fs_status',
                     'y2016',
                     'y2017',
                     'y2018',
@@ -101,6 +111,8 @@ class FsTest extends TestCase
         $project->feasibility_study()->save($fs);
 
         $data = [
+            'needs_assistance'  => $this->faker->boolean,
+            'fs_status_id'  => FsStatus::factory()->create()->id,
             'y2016' => 20,
             'y2017' => 30,
             'y2018' => 40,
@@ -125,16 +137,16 @@ class FsTest extends TestCase
     {
         $project = $this->createTestProject();
         $fs = FeasibilityStudy::factory()->make();
-        $project->resettlement_action_plan()->save($fs);
+        $project->feasibility_study()->save($fs);
 
         $response = $this->json('DELETE', route('api.projects.fs.destroy', [
             'project'   => $project->slug,
             'fs'       => $fs->uuid,
         ]))
-            ->assertStatus(200)
-            ->assertJson([
-                'message' => 'Success'
-            ]);
+        ->assertStatus(200)
+        ->assertJson([
+            'message' => 'Success'
+        ]);
 
         $response->dump();
     }
