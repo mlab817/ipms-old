@@ -53,13 +53,14 @@ class NepController extends Controller
      *
      * @param Request $request
      * @param Project $project
+     * @param Nep $nep
      * @return NepResource
      */
-    public function update(Request $request, Project $project): NepResource
+    public function update(Request $request, Project $project, Nep $nep): NepResource
     {
-        $project->nep->update($request->all());
+        $nep->update($request->all());
 
-        return new NepResource($project->nep);
+        return new NepResource($nep);
     }
 
     /**

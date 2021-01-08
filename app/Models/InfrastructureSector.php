@@ -22,6 +22,11 @@ class InfrastructureSector extends Model
         'description',
     ];
 
+    public function children(): HasMany
+    {
+        return $this->hasMany(InfrastructureSubsector::class);
+    }
+
     public function infrastructure_subsectors(): HasMany
     {
         return $this->hasMany(InfrastructureSubsector::class);

@@ -255,6 +255,10 @@ Route::group(['prefix'=>'v1'], function($router) {
         return \App\Http\Resources\ImplementationModeResource::collection(\App\Models\ImplementationMode::all());
     });
 
+    Route::get('/infrastructure_sectors', function () {
+        return \App\Http\Resources\InfrastructureSectorResource::collection(\App\Models\InfrastructureSector::with('children')->get());
+    });
+
     Route::get('/operating_units', function () {
         return \App\Http\Resources\OperatingUnitResource::collection(\App\Models\OperatingUnit::all());
     });
@@ -265,6 +269,18 @@ Route::group(['prefix'=>'v1'], function($router) {
 
     Route::get('/pdp_chapters', function() {
         return \App\Http\Resources\PdpChapterResource::collection(\App\Models\PdpChapter::all());
+    });
+
+    Route::get('/pdp_indicators', function() {
+        $indicators = \App\Models\PdpIndicator::where('id','<=',20)->with(['children' => function($q) {
+            $q->with('children');
+        }, 'parent' => function ($q) {
+            $q->with('parent');
+        }])->get();
+//        return response()->json([
+//            'data' => $indicators
+//        ]);
+        return \App\Http\Resources\PdpIndicatorResource::collection($indicators);
     });
 
     Route::get('/pip_typologies', function() {

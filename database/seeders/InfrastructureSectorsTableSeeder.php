@@ -153,7 +153,7 @@ class InfrastructureSectorsTableSeeder extends Seeder
             $is->uuid           = $seed['uuid'];
             $is->name           = $seed['name'];
             $is->slug           = $seed['slug'];
-            $is->description    =  $seed['description'];
+            $is->description    = $seed['description'];
             $is->save();
 
             $is->infrastructure_subsectors()->createMany($seed['infrastructure_subsectors']);

@@ -2,13 +2,17 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\Api\ProjectController;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Str;
+use Spatie\ResourceLinks\HasLinks;
 
 class ProjectCollection extends ResourceCollection
 {
+    use HasLinks;
+
     public $collects = Project::class;
 
     /**

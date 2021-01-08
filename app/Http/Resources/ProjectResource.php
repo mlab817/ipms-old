@@ -6,10 +6,12 @@ use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Spatie\ResourceLinks\HasLinks;
+use Spatie\ResourceLinks\HasMeta;
 
 class ProjectResource extends JsonResource
 {
     use HasLinks;
+    use HasMeta;
 
     /**
      * Transform the resource into an array.
@@ -29,6 +31,7 @@ class ProjectResource extends JsonResource
             'pap_type'                  => new PapTypeResource($this->pap_type),
             'regular_program'           => (boolean) $this->regular_program,
             'description'               => $this->description,
+            'expected_outputs'          => $this->expected_outputs,
             'spatial_coverage_id'       => $this->spatial_coverage_id,
             'spatial_coverage'          => new SpatialCoverageResource($this->spatial_coverage),
             'regions'                   => RegionResource::collection($this->regions),
@@ -107,6 +110,13 @@ class ProjectResource extends JsonResource
             'updated_at'                => (string) $this->updated_at,
             'permissions'               => (array) $this->permissions,
             'links'                     => $this->links(ProjectController::class),
+        ];
+    }
+
+    public function meta()
+    {
+        return [
+            'links'     => self::collectionLinks(ProjectController::class)
         ];
     }
 }

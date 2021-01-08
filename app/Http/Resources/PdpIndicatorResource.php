@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SdgResource extends JsonResource
+class PdpIndicatorResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,11 @@ class SdgResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'id'            => $this->id,
-            'name'          => $this->name,
-            'slug'          => $this->slug,
-            'description'   => $this->description,
+            'id'        => $this->id,
+            'name'      => $this->name,
+            'value'     => $this->id,
+            'label'     => $this->name,
+            'children'  => PdpIndicatorResource::collection($this->children),
         ];
     }
 }
