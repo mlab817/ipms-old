@@ -31,7 +31,7 @@ class ProjectController extends Controller
      */
     public function index(Request $request): ProjectCollection
     {
-        $queryString = trim($request->query('query'));
+        $queryString = trim($request->query('q'));
 
         if ($queryString) {
             return new ProjectCollection(Project::search($queryString)->paginate(10));
