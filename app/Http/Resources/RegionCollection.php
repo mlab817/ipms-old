@@ -20,11 +20,11 @@ class RegionCollection extends ResourceCollection
         return [
             'data' => $this->collection->transform(function (Region $region) {
                 return [
-                    'id'                => $this->id,
-                    'name'              => $this->label,
-                    'label'             => $this->name,
-                    'investment'        => new InvestmentResource($this->investment),
-                    'infrastructure'    => new InvestmentResource($this->infrastructure),
+                    'id'                => $region->id,
+                    'name'              => $region->name,
+                    'label'             => $region->label,
+                    'investment'        => $region->investment ? new InvestmentResource($region->investment) : null,
+                    'infrastructure'    => $region->infrastructure ? new InvestmentResource($region->infrastructure) : null,
                 ];
             }),
         ];

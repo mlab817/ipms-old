@@ -19,13 +19,13 @@ class FundingSourceCollection extends ResourceCollection
     public function toArray($request): array
     {
         return [
-            'data'  => $this->collection->transform(function (Project $project) {
+            'data'  => $this->collection->transform(function (FundingSource $fundingSource) {
                 return [
-                    'id'                => $project->id,
-                    'title'             => $project->title,
-                    'slug'              => $project->slug,
-                    'investment'        => new InvestmentResource($this->investment),
-                    'infrastructure'    => new InvestmentResource($this->infrastructure),
+                    'id'                => $fundingSource->id,
+                    'name'             => $fundingSource->name,
+                    'slug'              => $fundingSource->slug,
+                    'investment'        => $fundingSource->investment ? new InvestmentResource($fundingSource->investment) : null,
+                    'infrastructure'    => $fundingSource->infrastructure ? new InvestmentResource($fundingSource->infrastructure) : null,
                 ];
             }),
         ];
