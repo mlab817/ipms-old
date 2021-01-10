@@ -13,6 +13,7 @@ use App\Models\FundingSource;
 use App\Models\Gad;
 use App\Models\ImplementationMode;
 use App\Models\Nep;
+use App\Models\OperatingUnit;
 use App\Models\PapType;
 use App\Models\PdpChapter;
 use App\Models\PipTypology;
@@ -21,6 +22,7 @@ use App\Models\Project;
 use App\Models\ProjectAudit;
 use App\Models\ProjectStatus;
 use App\Models\ReadinessLevel;
+use App\Models\Region;
 use App\Models\RegionInvestment;
 use App\Models\ResettlementActionPlan;
 use App\Models\RightOfWay;
@@ -59,17 +61,17 @@ class ProjectTest extends TestCase
         return [
             'code'                      => '',
             'title'                     => 'new project',
-            'pap_type_id'               => PapType::all()->random()->id,
+            'pap_type_id'               => PapType::factory()->create()->id,
             'regular_program'           => $this->faker->boolean,
             'description'               => $this->faker->paragraph(10),
             'expected_outputs'          => $this->faker->paragraph(10),
-            'spatial_coverage_id'       => SpatialCoverage::all()->random()->id,
+            'spatial_coverage_id'       => SpatialCoverage::factory()->create()->id,
             'iccable'                   => $this->faker->boolean,
             'pip'                       => $this->faker->boolean,
-            'pip_typology_id'           => PipTypology::all()->random()->id,
+            'pip_typology_id'           => PipTypology::factory()->create()->id,
             'research'                  => $this->faker->boolean,
             'cip'                       => $this->faker->boolean,
-            'cip_type_id'               => CipType::all()->random()->id,
+            'cip_type_id'               => CipType::factory()->create()->id,
             'trip'                      => $this->faker->boolean,
             'rdip'                      => $this->faker->boolean,
             'rdc_endorsement_required'  => $this->faker->boolean,
@@ -77,29 +79,74 @@ class ProjectTest extends TestCase
             'rdc_endorsed_date'         => $this->faker->date(),
             'other_infrastructure'      => $this->faker->word,
             'risk'                      => $this->faker->paragraph,
-            'pdp_chapter_id'            => PdpChapter::all()->random()->id,
+            'pdp_chapter_id'            => PdpChapter::factory()->create()->id,
             'no_pdp_indicator'          => $this->faker->boolean,
-            'gad_id'                    => Gad::all()->random()->id,
+            'gad_id'                    => Gad::factory()->create()->id,
             'target_start_year'         => $startYear,
             'target_end_year'           => $startYear + $this->faker->randomDigit,
             'has_fs'                    => $this->faker->boolean,
             'has_row'                   => $this->faker->boolean,
             'has_rap'                   => $this->faker->boolean,
             'employment_generated'      => $this->faker->word,
-            'funding_source_id'         => FundingSource::all()->random()->id,
-            'implementation_mode_id'    => ImplementationMode::all()->random()->id,
+            'funding_source_id'         => FundingSource::factory()->create()->id,
+            'implementation_mode_id'    => ImplementationMode::factory()->create()->id,
             'other_fs'                  => $this->faker->word,
-            'project_status_id'         => ProjectStatus::all()->random()->id,
+            'project_status_id'         => ProjectStatus::factory()->create()->id,
             'updates'                   => $this->faker->paragraph,
             'updates_date'              => $this->faker->date(),
             'uacs_code'                 => $this->faker->isbn13,
-            'tier_id'                   => Tier::all()->random()->id,
-            'approval_level_id'         => ApprovalLevel::all()->random()->id,
+            'tier_id'                   => Tier::factory()->create()->id,
+            'approval_level_id'         => ApprovalLevel::factory()->create()->id,
             'approval_date'             => $this->faker->date(),
             'regions'                   => [1,2,3],
             'funding_sources'           => [1],
             'funding_institutions'      => [1],
             'implementing_agencies'     => [1],
+            'region_investments'        => [
+                [
+                    'region_id'         => Region::factory()->create()->id,
+                    'y2016'                 => 0,
+                    'y2017'                 => 0,
+                    'y2018'                 => 0,
+                    'y2019'                 => 0,
+                    'y2020'                 => 0,
+                    'y2021'                 => 0,
+                    'y2022'                 => 0,
+                    'y2023'                 => 0,
+                    'y2024'                 => 0,
+                    'y2025'                 => 0,
+                ]
+            ],
+            'fs_investments'            => [
+                [
+                    'fs_id'                 => FundingSource::factory()->create()->id,
+                    'y2016'                 => 0,
+                    'y2017'                 => 0,
+                    'y2018'                 => 0,
+                    'y2019'                 => 0,
+                    'y2020'                 => 0,
+                    'y2021'                 => 0,
+                    'y2022'                 => 0,
+                    'y2023'                 => 0,
+                    'y2024'                 => 0,
+                    'y2025'                 => 0,
+                ]
+            ],
+            'ou_investments'            => [
+                [
+                    'ou_id'                 => OperatingUnit::factory()->create()->id,
+                    'y2016'                 => 0,
+                    'y2017'                 => 0,
+                    'y2018'                 => 0,
+                    'y2019'                 => 0,
+                    'y2020'                 => 0,
+                    'y2021'                 => 0,
+                    'y2022'                 => 0,
+                    'y2023'                 => 0,
+                    'y2024'                 => 0,
+                    'y2025'                 => 0,
+                ]
+            ],
             'feasibility_study'         => [
                 'fs_status_id'          => 2,
                 'needs_assistance'      => false,
@@ -219,8 +266,6 @@ class ProjectTest extends TestCase
      */
     public function test_it_creates_a_project()
     {
-//        $this->withoutExceptionHandling();
-
         $project = $this->createProjectInput();
 
         $response = $this

@@ -16,10 +16,9 @@ class RegionResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'id'        => $this->id,
-            'name'      => $this->label,
-            'label'     => $this->name,
-            'slug'      => $this->slug,
+            'id'                => $this->id,
+            'name'              => $this->label,
+            'label'             => $this->name,
         ];
     }
 }

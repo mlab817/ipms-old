@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\FsInvestmentController;
 use App\Http\Controllers\Api\NepController;
 use App\Http\Controllers\Api\OuInfrastructureController;
 use App\Http\Controllers\Api\OuInvestmentController;
+use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ResettlementActionPlanController;
 use App\Http\Controllers\Api\RightOfWayController;
 use Illuminate\Http\Request;
@@ -277,10 +278,12 @@ Route::group(['prefix'=>'v1'], function($router) {
         }, 'parent' => function ($q) {
             $q->with('parent');
         }])->get();
-//        return response()->json([
-//            'data' => $indicators
-//        ]);
+
         return \App\Http\Resources\PdpIndicatorResource::collection($indicators);
+    });
+
+    Route::get('/offices', function() {
+        return \App\Http\Resources\OfficeResource::collection(\App\Models\Office::all());
     });
 
     Route::get('/pip_typologies', function() {
@@ -313,5 +316,10 @@ Route::group(['prefix'=>'v1'], function($router) {
 
     Route::get('/tiers', function () {
         return \App\Http\Resources\TierResource::collection(\App\Models\Tier::all());
+    });
+
+    Route::group(['prefix' => 'reports'], function() {
+        Route::get('/funding_sources', [ReportController::class,'getInvestmentByFundingSource']);
+        Route::get('/regions', [ReportController::class,'getInvestmentByRegion']);
     });
 });

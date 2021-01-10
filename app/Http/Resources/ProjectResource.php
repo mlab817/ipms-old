@@ -103,6 +103,9 @@ class ProjectResource extends JsonResource
             'prerequisites'             => PrerequisiteResource::collection($this->prerequisites),
             'implementing_agencies'     => OperatingUnitResource::collection($this->implementing_agencies),
 
+            'investment'                => new InvestmentResource($this->investment),
+            'infrastructure'            => new InvestmentResource($this->infrastructure),
+
             'creator'                   => new UserResource($this->creator),
             'updater'                   => new UserResource($this->updater),
             'deleter'                   => new UserResource($this->deleter),
