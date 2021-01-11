@@ -57,7 +57,8 @@ null as approval_level_id,
 null as approval_date,
 project_preparation_document_id as preparation_document_id,
 null as preparation_document_others,
-technical_readiness_id as readiness_level_id
+technical_readiness_id as readiness_level_id,
+operating_unit_id as office_id
 FROM ipms.projects;
 
 TRUNCATE tdd.allocations;
@@ -360,18 +361,18 @@ null as created_at,
 null as updated_at
 from ipms.project_pdp_indicators;
 
-truncate tdd.pdp_indicators;
-insert into tdd.pdp_indicators
-select
-id,
-LEFT(uuid(),36) as uuid,
-name as name,
-null as description,
-replace(trim(lower(name)), ' ', '-') as slug,
-updated_at,
-created_at,
-null as parent_id
-from ipms.pdp_indicators;
+-- truncate tdd.pdp_indicators;
+-- insert into tdd.pdp_indicators
+-- select
+-- id,
+-- LEFT(uuid(),36) as uuid,
+-- name as name,
+-- null as description,
+-- replace(trim(lower(name)), ' ', '-') as slug,
+-- updated_at,
+-- created_at,
+-- null as parent_id
+-- from ipms.pdp_indicators;
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;

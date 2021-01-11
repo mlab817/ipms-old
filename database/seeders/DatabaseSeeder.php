@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(InfrastructureSectorsTableSeeder::class);
         $this->call(OperatingUnitTypesTableSeeder::class);
         $this->call(OperatingUnitsTableSeeder::class);
+        $this->call(OfficesTableSeeder::class);
         $this->call(PapTypesTableSeeder::class);
         $this->call(PdpChaptersTableSeeder::class);
         $this->call(PdpIndicatorsTableSeeder::class);
