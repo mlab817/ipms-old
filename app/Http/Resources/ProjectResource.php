@@ -83,6 +83,7 @@ class ProjectResource extends JsonResource
             'updates_date'              => (string) $this->updates_date,
             'uacs_code'                 => $this->uacs_code,
             'tier_id'                   => $this->tier_id,
+            'office'                    => new OfficeResource($this->office),
             'tier'                      => new TierResource($this->tier),
             'nep'                       => new NepResource($this->nep),
             'allocation'                => new AllocationResource($this->allocation),

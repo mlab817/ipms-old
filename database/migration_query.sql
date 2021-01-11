@@ -59,7 +59,13 @@ project_preparation_document_id as preparation_document_id,
 null as preparation_document_others,
 technical_readiness_id as readiness_level_id,
 operating_unit_id as office_id
-FROM ipms.projects;
+FROM ipms.projects
+-- WHERE banner_program_id IS NULL and prexc_activity_id IS NULL and deleted_at IS NULL and operating_unit_id NOT IN (12,13);
+WHERE pipol_code  IS NOT NULL;
+
+-- recode type
+UPDATE tdd.projects SET pap_type_id=2 WHERE pap_type_id=1; -- change programs to 1
+UPDATE tdd.projects SET pap_type_id=1 WHERE pap_type_id=3; -- change programs to 1
 
 TRUNCATE tdd.allocations;
 INSERT INTO tdd.allocations
@@ -79,7 +85,8 @@ gaa_2024 AS y2024,
 gaa_2025 AS y2025,
 created_at,
 updated_at
-FROM ipms.projects;
+FROM ipms.projects
+WHERE id IN (SELECT id FROM tdd.projects);
 
 TRUNCATE tdd.disbursements;
 INSERT INTO tdd.disbursements
@@ -99,7 +106,8 @@ disbursement_2024 AS y2024,
 disbursement_2025 AS y2025,
 created_at,
 updated_at
-FROM ipms.projects;
+FROM ipms.projects
+WHERE id IN (SELECT id FROM tdd.projects);
 
 TRUNCATE tdd.neps;
 INSERT INTO tdd.neps
@@ -119,7 +127,8 @@ nep_2024 AS y2024,
 nep_2025 AS y2025,
 created_at,
 updated_at
-FROM ipms.projects;
+FROM ipms.projects
+WHERE id IN (SELECT id FROM tdd.projects);
 
 TRUNCATE tdd.basis_project;
 INSERT INTO tdd.basis_project
@@ -128,7 +137,8 @@ basis_id AS basis_id,
 project_id AS project_id,
 created_at,
 updated_at
-FROM ipms.project_basis;
+FROM ipms.project_basis
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 TRUNCATE tdd.project_sdg;
 INSERT INTO tdd.project_sdg
@@ -137,7 +147,8 @@ sdg_id AS sdg_id,
 project_id AS project_id,
 created_at,
 updated_at
-FROM ipms.project_sdg;
+FROM ipms.project_sdg
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 TRUNCATE tdd.project_region;
 INSERT INTO tdd.project_region
@@ -146,10 +157,10 @@ region_id AS region_id,
 project_id AS project_id,
 null AS created_at,
 null AS updated_at
-FROM ipms.project_region;
+FROM ipms.project_region
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 -- needs rework
-SET FOREIGN_KEY_CHECKS=0;
 TRUNCATE tdd.infrastructure_subsector_project;
 INSERT INTO tdd.infrastructure_subsector_project
 SELECT
@@ -157,7 +168,8 @@ infra_subsector_id as is_id,
 project_id as project_id,
 created_at,
 updated_at
-FROM ipms.infrastructure_subsector_project;
+FROM ipms.infrastructure_subsector_project
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 TRUNCATE tdd.funding_source_project;
 INSERT INTO tdd.funding_source_project
@@ -166,7 +178,8 @@ funding_source_id,
 project_id as project_id,
 null as created_at,
 null as updated_at
-FROM ipms.project_funding_source;
+FROM ipms.project_funding_source
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 TRUNCATE tdd.funding_institution_project;
 INSERT INTO tdd.funding_institution_project
@@ -176,7 +189,7 @@ id as project_id,
 created_at,
 updated_at
 FROM ipms.projects
-WHERE id IS NOT NULL AND funding_institution_id IS NOT NULL;
+WHERE funding_institution_id IS NOT NULL AND id IN (SELECT id FROM tdd.projects);
 
 truncate tdd.feasibility_studies;
 insert into tdd.feasibility_studies
@@ -184,8 +197,10 @@ SELECT
 null as id,
 LEFT(uuid(),36) as uuid,
 id as project_id,
-fs_assistance as needs_assistance,
 ifnull(fs_status_id, 0) as fs_status_id,
+fs_assistance as needs_assistance,
+fs_start_date as fs_start_date,
+fs_end_date as fs_end_date,
 0 as y2016,
 ifnull(fs_target_2017, 0) as y2017,
 ifnull(fs_target_2018, 0) as y2018,
@@ -197,10 +212,9 @@ ifnull(fs_target_2023, 0) as y2023,
 ifnull(fs_target_2024, 0) as y2024,
 ifnull(fs_target_2025, 0) as y2025,
 created_at as created_at,
-updated_at as updated_at,
-fs_start_date as fs_start_date,
-fs_end_date as fs_end_date
-from ipms.projects;
+updated_at as updated_at
+from ipms.projects
+WHERE id IN (SELECT id FROM tdd.projects);
 
 truncate tdd.right_of_ways;
 insert into tdd.right_of_ways
@@ -221,7 +235,8 @@ ifnull(row_target_2025, 0) as y2025,
 row_affected as affected_households,
 created_at as created_at,
 updated_at as updated_at
-from ipms.projects;
+from ipms.projects
+WHERE id IN (SELECT id FROM tdd.projects);
 
 truncate tdd.resettlement_action_plans;
 insert into tdd.resettlement_action_plans
@@ -242,7 +257,8 @@ ifnull(rap_target_2025, 0) as y2025,
 rap_affected as affected_households,
 created_at as created_at,
 updated_at as updated_at
-from ipms.projects;
+from ipms.projects
+WHERE id IN (SELECT id FROM tdd.projects);
 
 truncate tdd.region_investments;
 insert into tdd.region_investments
@@ -263,7 +279,8 @@ SELECT
     investment_target_2025 as y2025,
     created_at as created_at,
     updated_at as updated_at
-from ipms.region_financials;
+from ipms.region_financials
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 truncate tdd.region_infrastructures;
 insert into tdd.region_infrastructures
@@ -284,7 +301,8 @@ SELECT
     infrastructure_target_2025 as y2025,
     created_at as created_at,
     updated_at as updated_at
-from ipms.region_financials;
+from ipms.region_financials
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 truncate tdd.fs_investments;
 insert into tdd.fs_investments
@@ -305,7 +323,8 @@ SELECT
     investment_target_2025 as y2025,
     created_at as created_at,
     updated_at as updated_at
-from ipms.funding_source_financials;
+from ipms.funding_source_financials
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 truncate tdd.fs_infrastructures;
 insert into tdd.fs_infrastructures
@@ -326,22 +345,26 @@ SELECT
     infrastructure_target_2025 as y2025,
     created_at as created_at,
     updated_at as updated_at
-from ipms.funding_source_financials;
+from ipms.funding_source_infrastructures
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 truncate tdd.project_ten_point_agenda;
 insert into tdd.project_ten_point_agenda
 select *
-from ipms.project_ten_point_agenda;
+from ipms.project_ten_point_agenda
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 truncate tdd.pdp_chapter_project;
 insert into tdd.pdp_chapter_project
 select *
-from ipms.project_pdp_chapter;
+from ipms.project_pdp_chapter
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 truncate tdd.basis_project;
 insert into tdd.basis_project
 select *
-from ipms.project_basis;
+from ipms.project_basis
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 truncate tdd.prerequisite_project;
 insert into tdd.prerequisite_project
@@ -350,7 +373,8 @@ project_id as project_id,
 tr_id as prerequisite_id,
 null as created_at,
 null as updated_at
-from ipms.project_technical_readiness;
+from ipms.project_technical_readiness
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 truncate tdd.pdp_indicator_project;
 insert into tdd.pdp_indicator_project
@@ -359,7 +383,8 @@ pdp_indicator_id as pi_id,
 project_id,
 null as created_at,
 null as updated_at
-from ipms.project_pdp_indicators;
+from ipms.project_pdp_indicators
+WHERE project_id IN (SELECT id FROM tdd.projects);
 
 -- truncate tdd.pdp_indicators;
 -- insert into tdd.pdp_indicators
@@ -373,6 +398,31 @@ from ipms.project_pdp_indicators;
 -- created_at,
 -- null as parent_id
 -- from ipms.pdp_indicators;
+
+truncate tdd.users;
+insert into tdd.users
+select 
+id,
+name,
+email,
+email_verified_at,
+password,
+remember_token,
+created_at,
+updated_at
+from ipms.users;
+
+truncate tdd.profiles;
+insert into tdd.profiles
+select 
+null as id,
+id as user_id,
+operating_unit_id as office_id,
+nickname as nickname,
+avatar as avatar,
+created_at,
+updated_at
+from ipms.users;
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;

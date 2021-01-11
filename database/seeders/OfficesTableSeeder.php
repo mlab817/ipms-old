@@ -820,6 +820,7 @@ class OfficesTableSeeder extends Seeder
             Office::create([
                 'id'                    => $seed['id'],
                 'name'                  => $seed['name'],
+                'acronym'               => $seed['acronym'],
                 'slug'                  => Str::slug($seed['name']),
                 'email'                 => $seed['email'],
                 'contact_numbers'        => $seed['telephone_number'],

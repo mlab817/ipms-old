@@ -19,6 +19,7 @@ class CreateOfficesTable extends Migration
             $table->foreignId('operating_unit_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('name');
             $table->string('slug')->nullable();
+            $table->string('acronym')->nullable();
             $table->string('email')->nullable();
             $table->string('contact_numbers')->nullable();
             $table->string('office_head_name')->nullable();

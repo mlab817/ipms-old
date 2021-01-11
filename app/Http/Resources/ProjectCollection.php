@@ -30,6 +30,8 @@ class ProjectCollection extends ResourceCollection
                     'title'         => $project->title,
                     'slug'          => $project->slug,
                     'description'   => $project->description,
+                    'pap_type'      => new PapTypeResource($project->pap_type),
+                    'office'        => new OfficeResource($project->office),
                     'permissions'   => (array) $project->permissions,
                     'updated_at'    => (string) $project->updated_at,
                     'creator'       => $project->creator ? new UserResource($project->creator) : null,

@@ -203,6 +203,11 @@ class Project extends Model
         return $this->hasOne(Nep::class);
     }
 
+    public function office(): BelongsTo
+    {
+        return $this->belongsTo(Office::class,'office_id');
+    }
+
     public function operating_unit(): BelongsTo
     {
         return $this->belongsTo(OperatingUnit::class);
@@ -378,12 +383,7 @@ class Project extends Model
             'id'                => $this->id,
             'title'             => $this->title,
             'description'       => $this->description,
-            'expected_outputs'  => $this->expected_outputs,
-            'risk'              => $this->risk,
-            'pap_type'          => $this->pap_type ? $this->pap_type->name : '',
-            'project_status'    => $this->project_status ? $this->project_status->name : '',
-            'funding_source'    => $this->funding_source ? $this->funding_source->name : '',
-            'updates'           => $this->updates,
+            'office'            => $this->office ? $this->office->name : null,
         ];
     }
 }

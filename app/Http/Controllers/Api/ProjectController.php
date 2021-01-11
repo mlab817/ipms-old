@@ -17,6 +17,20 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
+    /**
+     * Set default count for pagination
+     *
+     * @var int
+     */
+    public $defaultCount = 10;
+
+    /**
+     * Set maximum count for pagination
+     *
+     * @var int
+     */
+    public $maxCount = 50;
+
     public function __construct()
     {
         $this->middleware('auth:api')->except(['index','show']);
@@ -33,11 +47,18 @@ class ProjectController extends Controller
     {
         $queryString = trim($request->query('q'));
 
+        // if first is defined and it does not exceed the maxCount allowed,
+        // set perPage to first; otherwise, set it to maxCount;
+        // if first is not defined, just set it to default count
+        $perPage = $request->query('first')
+            ? ($request->query('first') <= $this->maxCount ? $request->query('first') : $this->maxCount)
+            : $this->defaultCount;
+
         if ($queryString) {
-            return new ProjectCollection(Project::search($queryString)->paginate(10));
+            return new ProjectCollection(Project::search($queryString)->orderBy('updated_at','DESC')->paginate($perPage));
         }
 
-        return new ProjectCollection(Project::with('creator')->paginate(10));
+        return new ProjectCollection(Project::with('creator')->orderBy('updated_at','DESC')->paginate($perPage));
     }
 
     /**
