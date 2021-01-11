@@ -107,9 +107,9 @@ return [
         'storage'  => storage_path(), //place where the index files will be stored
         'fuzziness' => env('TNTSEARCH_FUZZINESS', false),
         'fuzzy' => [
-            'prefix_length' => 1,
-            'max_expansions' => 50,
-            'distance' => 2
+            'prefix_length' => 2,
+            'max_expansions' => 500,
+            'distance' => 3
         ],
         'asYouType' => true,
         'searchBoolean' => env('TNTSEARCH_BOOLEAN', false),

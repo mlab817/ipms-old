@@ -382,8 +382,8 @@ class Project extends Model
         return [
             'id'                => $this->id,
             'title'             => $this->title,
-            'description'       => $this->description,
-            'office'            => $this->office ? $this->office->name : null,
+//            'description'       => $this->description,
+//            'office'            => $this->office ? $this->office->name : null,
         ];
     }
 }

@@ -55,9 +55,10 @@ class ProjectController extends Controller
             : $this->defaultCount;
 
         if ($queryString) {
-            return new ProjectCollection(Project::search($queryString)->orderBy('updated_at','DESC')->paginate($perPage));
+            return new ProjectCollection(Project::search($queryString)->paginate($perPage));
         }
 
+        // if there is no search query, return projects sorted by updated_at from the latest updated
         return new ProjectCollection(Project::with('creator')->orderBy('updated_at','DESC')->paginate($perPage));
     }
 
