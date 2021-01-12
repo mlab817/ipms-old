@@ -31,6 +31,7 @@ class ProjectResource extends JsonResource
             'pap_type'                  => new PapTypeResource($this->pap_type),
             'regular_program'           => (boolean) $this->regular_program,
             'description'               => $this->description,
+            'summary'                   => $this->summary,
             'expected_outputs'          => $this->expected_outputs,
             'spatial_coverage_id'       => $this->spatial_coverage_id,
             'spatial_coverage'          => new SpatialCoverageResource($this->spatial_coverage),

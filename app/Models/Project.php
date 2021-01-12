@@ -34,6 +34,7 @@ class Project extends Model
         'regular_program',
         // implementation bases
         'description',
+        'summary',
         'expected_outputs',
         // implementing_agencies
         'spatial_coverage_id',

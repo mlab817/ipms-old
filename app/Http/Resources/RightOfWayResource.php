@@ -31,8 +31,17 @@ class RightOfWayResource extends JsonResource
             'y2023'                 => (float) $this->y2023,
             'y2024'                 => (float) $this->y2024,
             'y2025'                 => (float) $this->y2025,
+            'total'                 => (float) ($this->y2016
+                                        + $this->y2017
+                                        + $this->y2018
+                                        + $this->y2019
+                                        + $this->y2020
+                                        + $this->y2021
+                                        + $this->y2022
+                                        + $this->y2023
+                                        + $this->y2024
+                                        + $this->y2025),
             'affected_households'   => $this->affected_households,
-            'links'                 => $this->links(RightOfWayController::class),
         ];
     }
 }
