@@ -55,6 +55,7 @@ class Project extends Model
         'other_infrastructure',
         // prerequisites
         'risk',
+        'mitigation_strategy',
         // infra cost
         'pdp_chapter_id',
         // pdp_chapters

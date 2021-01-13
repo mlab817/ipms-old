@@ -55,6 +55,7 @@ class ProjectResource extends JsonResource
             'infrastructure_subsectors' => $this->infrastructure_subsectors,
             'other_infrastructure'      => $this->other_infrastructure,
             'risk'                      => $this->risk,
+            'mitigation_strategy'       => $this->mitigation_strategy,
             'pdp_chapter_id'            => $this->pdp_chapter_id,
             'pdp_chapter'               => new PdpChapterResource($this->pdp_chapter),
             'pdp_chapters'               => PdpChapterResource::collection($this->pdp_chapters),
