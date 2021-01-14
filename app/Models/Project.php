@@ -362,6 +362,28 @@ class Project extends Model
 
     // relationships
 
+    public function scopeOwn($query)
+    {
+        $userId = auth() ? auth()->id() : null;
+
+        return $query->where('created_by', $userId);
+    }
+
+    public function scopeOffice($query)
+    {
+        $user = auth() ? auth()->user() : null;
+
+        if ($user) {
+            $officeId = $user->profile->office_id;
+
+            if ($officeId) {
+                $query->where('office_id', $officeId);
+            }
+        }
+
+        return $query;
+    }
+
     /**
      * @return array
      */
