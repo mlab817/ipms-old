@@ -10,6 +10,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -46,6 +47,21 @@ class ProjectController extends Controller
     public function index(Request $request): ProjectCollection
     {
         $queryString = trim($request->query('q'));
+        $queryScope = trim($request->query('scope'));
+
+        if ($queryScope == 'own')
+        {
+            $results = $this->own($queryString);
+
+            return new ProjectCollection($results->paginate());
+        }
+
+        if ($queryScope == 'office')
+        {
+            $results = $this->office($queryString);
+
+            return new ProjectCollection($results->paginate());
+        }
 
         // if first is defined and it does not exceed the maxCount allowed,
         // set perPage to first; otherwise, set it to maxCount;
@@ -55,11 +71,48 @@ class ProjectController extends Controller
             : $this->defaultCount;
 
         if ($queryString) {
-            return new ProjectCollection(Project::search($queryString)->paginate($perPage));
+            $results = Project::search($queryString);
+
+            return new ProjectCollection($results->paginate($perPage));
         }
 
         // if there is no search query, return projects sorted by updated_at from the latest updated
         return new ProjectCollection(Project::with('creator')->orderBy('updated_at','DESC')->paginate($perPage));
+    }
+
+    public function own($queryString = null): \Laravel\Scout\Builder
+    {
+        $auth = Auth::check();
+
+        if (! $auth)
+        {
+            abort(401);
+        }
+
+        if ($queryString) {
+            return Project::search($queryString)->query(function ($query) {
+                return $query->own();
+            });
+        }
+
+        return Project::own();
+    }
+
+    public function office($queryString = null): \Laravel\Scout\Builder
+    {
+        $auth = Auth::check();
+
+        if (!$auth) {
+            abort(401);
+        }
+
+        if ($queryString) {
+            return Project::search($queryString)->query(function ($query) {
+                return $query->office();
+            });
+        }
+
+        return Project::office();
     }
 
     /**

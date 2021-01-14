@@ -344,4 +344,20 @@ class ProjectTest extends TestCase
 
         $response->dump();
     }
+
+    public function test_it_returns_own_projects()
+    {
+        $user = User::where('email', self::CONTRIBUTOR_EMAIL)->first();
+        $project = Project::factory()->create([
+            'created_by' => $user->id,
+        ]);
+
+        $response = $this
+            ->actingAs($user)
+            ->json('get', route('api.projects.index', [
+                'scope' => 'own'
+            ]));
+
+        $response->assertStatus(200);
+    }
 }
