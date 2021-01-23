@@ -5,7 +5,6 @@
     <title>Chart with VueJS</title>
 </head>
 <body>
-{!! json_encode($chart) !!}
 <div id="app">
     {!! $chart->container() !!}
 </div>

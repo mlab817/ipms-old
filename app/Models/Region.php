@@ -22,9 +22,19 @@ class Region extends Model
         'description',
     ];
 
+    protected $appends = [
+        'total_investment',
+        'total_infrastructure',
+    ];
+
     public function region_investments(): HasMany
     {
         return $this->hasMany(RegionInvestment::class);
+    }
+
+    public function region_infrastructures(): HasMany
+    {
+        return $this->hasMany(RegionInfrastructure::class);
     }
 
     public function investment(): HasOne
@@ -42,6 +52,7 @@ class Region extends Model
             ->selectRaw('sum(y2023) as "y2023"')
             ->selectRaw('sum(y2024) as "y2024"')
             ->selectRaw('sum(y2025) as "y2025"')
+            ->selectRaw('sum(y2016+y2017+y2018+y2019+y2020+y2021+y2022+y2023+y2024+y2025) AS total')
             ->groupBy('region_id');
     }
 
@@ -60,23 +71,18 @@ class Region extends Model
             ->selectRaw('sum(y2023) as "y2023"')
             ->selectRaw('sum(y2024) as "y2024"')
             ->selectRaw('sum(y2025) as "y2025"')
-            ->groupBy('region_id');
-    }
-
-    public function total_investment()
-    {
-        return $this->hasOne(RegionInvestment::class,'region_id')
-            ->selectRaw('region_id')
             ->selectRaw('sum(y2016+y2017+y2018+y2019+y2020+y2021+y2022+y2023+y2024+y2025) AS total')
             ->groupBy('region_id');
     }
 
-    public function infrastructure_investment()
+    public function getTotalInvestmentAttribute(): float
     {
-        return $this->hasOne(RegionInfrastructure::class,'region_id')
-            ->selectRaw('region_id')
-            ->selectRaw('sum(y2016+y2017+y2018+y2019+y2020+y2021+y2022+y2023+y2024+y2025) AS total')
-            ->groupBy('region_id');
+        return $this->investment->total ?? 0;
+    }
+
+    public function getTotalInfrastructureAttribute(): float
+    {
+        return $this->infrastructure->total ?? 0;
     }
 
     /**

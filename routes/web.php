@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChartController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\SocialLoginController;
@@ -25,4 +26,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/auth/{provider}', [SocialLoginController::class, 'redirectToProvider'])->name('auth.redirectToProvider');
 Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'handleProviderCallback'])->name('auth.handleProviderCallback');
 
-Route::resource('chart', \App\Http\Controllers\ChartController::class);
+Route::get('chart/regions', [ChartController::class,'regions'])->name('chart.regions');
+Route::get('chart/funding_sources', [ChartController::class,'funding_sources'])->name('chart.funding_sources');
