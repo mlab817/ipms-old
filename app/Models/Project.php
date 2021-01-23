@@ -120,6 +120,11 @@ class Project extends Model
         'pdp_indicators',
     ];
 
+    protected $appends = [
+        'total_investment',
+        'total_infrastructure',
+    ];
+
     public function getRouteKeyName(): string
     {
         return 'slug';
@@ -328,6 +333,7 @@ class Project extends Model
             ->selectRaw('sum(y2023) as "y2023"')
             ->selectRaw('sum(y2024) as "y2024"')
             ->selectRaw('sum(y2025) as "y2025"')
+            ->selectRaw('sum(y2016+y2017+y2018+y2019+y2020+y2021+y2022+y2023+y2024+y2025) AS total')
             ->groupBy('project_id');
     }
 
@@ -344,7 +350,18 @@ class Project extends Model
             ->selectRaw('sum(y2023) as "y2023"')
             ->selectRaw('sum(y2024) as "y2024"')
             ->selectRaw('sum(y2025) as "y2025"')
+            ->selectRaw('sum(y2016+y2017+y2018+y2019+y2020+y2021+y2022+y2023+y2024+y2025) AS total')
             ->groupBy('project_id');
+    }
+
+    public function getTotalInvestmentAttribute(): float
+    {
+        return $this->investment->total ?? 0;
+    }
+
+    public function getTotalInfrastructureAttribute(): float
+    {
+        return $this->infrastructure->total ?? 0;
     }
 
     public function getPermissionsAttribute(): array

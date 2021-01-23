@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\OuInvestmentController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ResettlementActionPlanController;
 use App\Http\Controllers\Api\RightOfWayController;
+use App\Http\Controllers\Api\ChartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -321,5 +322,10 @@ Route::group(['prefix'=>'v1'], function($router) {
     Route::group(['prefix' => 'reports'], function() {
         Route::get('/funding_sources', [ReportController::class,'getInvestmentByFundingSource']);
         Route::get('/regions', [ReportController::class,'getInvestmentByRegion']);
+    });
+
+    Route::group(['prefix' => 'chart'], function() {
+        Route::get('/regions', [ChartController::class,'regions'])->name('chart.regions');
+        Route::get('/funding_sources', [ChartController::class,'funding_sources'])->name('chart.funding_sources');
     });
 });

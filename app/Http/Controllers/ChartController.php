@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ChartController extends Controller
 {
-    public function regions()
+    public function regions(Request $request)
     {
         $chart = new SampleChart;
 
@@ -19,6 +19,20 @@ class ChartController extends Controller
         $chart->labels($regions->pluck('name'));
         $chart->dataset('Total Investment', 'bar', $regions->pluck('total_investment'));
         $chart->dataset('Infrastructure Investment', 'bar', $regions->pluck('total_infrastructure'));
+        $chart->displayLegend(true);
+
+        if ($request->has('export') && $request->export == 'true') {
+            $chart->export(true);
+        }
+
+        // check if minimalist option is turned on
+        if ($request->has('minimalist') && $request->minimalist == 'true') {
+            $chart->minimalist(true);
+        }
+
+        if ($request->has('api') && $request->api == 'true') {
+            return $chart->api();
+        }
 
         return view('chart', compact('chart'));
     }
@@ -34,7 +48,7 @@ class ChartController extends Controller
         $chart->dataset('Total Investment', 'bar', $regions->pluck('total_investment'));
         $chart->dataset('Infrastructure Investment', 'bar', $regions->pluck('total_infrastructure'));
         $chart->loader(true);
-        
+
         return view('chart', compact('chart'));
     }
 }
