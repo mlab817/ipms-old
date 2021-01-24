@@ -21,9 +21,18 @@ class SpatialCoverage extends Model
         'description',
     ];
 
+    protected $appends = [
+        'project_count',
+    ];
+
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);
+    }
+
+    public function getProjectCountAttribute(): int
+    {
+        return $this->projects->count();
     }
 
     /**

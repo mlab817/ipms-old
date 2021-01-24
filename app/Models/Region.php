@@ -25,7 +25,13 @@ class Region extends Model
     protected $appends = [
         'total_investment',
         'total_infrastructure',
+        'project_count',
     ];
+
+    public function projects(): BelongsToMany
+    {
+        return $this->belongsToMany(Project::class,'project_region');
+    }
 
     public function region_investments(): HasMany
     {
@@ -73,6 +79,11 @@ class Region extends Model
             ->selectRaw('sum(y2025) as "y2025"')
             ->selectRaw('sum(y2016+y2017+y2018+y2019+y2020+y2021+y2022+y2023+y2024+y2025) AS total')
             ->groupBy('region_id');
+    }
+
+    public function getProjectCountAttribute(): int
+    {
+        return $this->projects->count();
     }
 
     public function getTotalInvestmentAttribute(): float

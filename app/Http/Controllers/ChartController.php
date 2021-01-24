@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Charts\SampleChart;
 use App\Models\FundingSource;
+use App\Models\Project;
 use App\Models\Region;
 use Illuminate\Http\Request;
 

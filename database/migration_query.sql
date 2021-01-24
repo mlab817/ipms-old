@@ -155,8 +155,8 @@ WHERE project_id IN (SELECT id FROM tdd.projects);
 TRUNCATE tdd.project_region;
 INSERT INTO tdd.project_region
 SELECT
-region_id AS region_id,
 project_id AS project_id,
+region_id AS region_id,
 null AS created_at,
 null AS updated_at
 FROM ipms.project_region

@@ -325,7 +325,17 @@ Route::group(['prefix'=>'v1'], function($router) {
     });
 
     Route::group(['prefix' => 'chart'], function() {
-        Route::get('/regions', [ChartController::class,'regions'])->name('chart.regions');
-        Route::get('/funding_sources', [ChartController::class,'funding_sources'])->name('chart.funding_sources');
+        Route::get('/regions', [ChartController::class,'regions'])
+            ->name('chart.regions');
+        Route::get('/funding_sources', [ChartController::class,'funding_sources'])
+            ->name('chart.funding_sources');
+        Route::get('/spatial_coverages', [ChartController::class,'spatial_coverages'])
+            ->name('chart.spatial_coverages');
+        Route::get('/pap_types', [ChartController::class,'pap_types'])
+            ->name('chart.pap_types');
+        Route::get('/implementation_start', [ChartController::class,'implementation_start'])
+            ->name('chart.implementation_start');
+        Route::get('/main_funding_source', [ChartController::class,'main_funding_source'])
+            ->name('chart.main_funding_source');
     });
 });
