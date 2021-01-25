@@ -157,8 +157,8 @@ WHERE project_id IN (SELECT id FROM cp125823_tdd.projects);
 TRUNCATE cp125823_tdd.project_region;
 INSERT INTO cp125823_tdd.project_region
 SELECT
-region_id AS region_id,
 project_id AS project_id,
+region_id AS region_id,
 null AS created_at,
 null AS updated_at
 FROM cp125823_ipms.project_region
