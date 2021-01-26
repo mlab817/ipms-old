@@ -17,6 +17,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/scout": "^8.5",
+        "laravel/telescope": "^4.4",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
         "socialiteproviders/discord": "^4.1",
@@ -31,7 +32,6 @@
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^0.0.5",
-        "laravel/telescope": "^4.4",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3"
