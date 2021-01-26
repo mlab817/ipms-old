@@ -337,5 +337,9 @@ Route::group(['prefix'=>'v1'], function($router) {
             ->name('chart.implementation_start');
         Route::get('/main_funding_source', [ChartController::class,'main_funding_source'])
             ->name('chart.main_funding_source');
+        Route::get('/office', [ChartController::class,'office'])
+            ->name('chart.office');
+        Route::get('/pip', [ChartController::class,'pip'])
+            ->name('chart.pip');
     });
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\FsInvestment;
 use App\Models\FundingSource;
+use App\Models\OperatingUnit;
 use App\Models\PapType;
 use App\Models\Project;
 use App\Models\Region;
@@ -92,6 +93,44 @@ class ChartController extends Controller
         return response()->json([
             'original'      => $data,
             'title'         => 'Number of Projects by Main Funding Source',
+            'categories'    => $data->keys(),
+            'data'          => $data->values(),
+        ]);
+    }
+
+    public function office(): JsonResponse
+    {
+        $data = DB::table('projects')
+            ->select(DB::raw('count(projects.id) as project_count, office_id, offices.acronym AS label'))
+            ->rightJoin('offices','projects.office_id','=','offices.id')
+            ->whereNotNull('office_id')
+            ->whereNull('deleted_at')
+            ->groupBy('office_id')
+            ->orderBy('project_count','DESC')
+            ->get()
+            ->pluck('project_count','label');
+
+        return response()->json([
+            'original'      => $data,
+            'title'         => 'Number of Projects by Office',
+            'categories'    => $data->keys(),
+            'data'          => $data->values(),
+        ]);
+    }
+
+    public function pip(): JsonResponse
+    {
+        $data = DB::table('projects')
+            ->select(DB::raw('count(projects.id) as project_count, pip as label'))
+            ->whereNull('deleted_at')
+            ->groupBy('pip')
+            ->orderBy('project_count','DESC')
+            ->get()
+            ->pluck('project_count','label');
+
+        return response()->json([
+            'original'      => $data,
+            'title'         => 'Number of Projects by PIP',
             'categories'    => $data->keys(),
             'data'          => $data->values(),
         ]);
