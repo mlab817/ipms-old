@@ -65,6 +65,66 @@ FROM ipms.projects
 -- WHERE banner_program_id IS NULL and prexc_activity_id IS NULL and deleted_at IS NULL and operating_unit_id NOT IN (12,13);
 WHERE pipol_code  IS NOT NULL;
 
+INSERT INTO tdd.projects
+SELECT
+    id,
+    LEFT(uuid(),36) as uuid,
+    pipol_code as code,
+    title,
+    ifnull(slug, concat(replace(trim(lower(title)), ' ', '-'),'-',id)),
+    type_id as pap_type_id,
+    regular as regular_program,
+    description,
+    null as summary,
+    expected_outputs,
+    spatial_coverage_id,
+    iccable,
+    pip,
+    research,
+    cip,
+    cip_type_id,
+    trip,
+    rdip,
+    rdc_required as rdc_endorsement_required,
+    rdc_endorsed,
+    rdc_endorsed_date,
+    null as other_infrastructure,
+    implementation_risk as risk,
+    null as mitigation_strategy,
+    pdp_chapter_id,
+    false as no_pdp_indicator,
+    gad_id,
+    target_start_year,
+    target_end_year,
+    has_fs,
+    has_row,
+    has_rap,
+    employment_generated,
+    main_funding_source_id as funding_source_id,
+    implementation_mode_id,
+    null as other_fs,
+    project_status_id,
+    updates,
+    updates_date,
+    uacs_code,
+    tier_id,
+    created_by,
+    updated_by,
+    deleted_by,
+    created_at,
+    updated_at,
+    deleted_at,
+    typology_id as pip_typology_id,
+    null as approval_level_id,
+    null as approval_date,
+    project_preparation_document_id as preparation_document_id,
+    null as preparation_document_others,
+    technical_readiness_id as readiness_level_id,
+    operating_unit_id as office_id
+FROM ipms.projects
+-- WHERE banner_program_id IS NULL and prexc_activity_id IS NULL and deleted_at IS NULL and operating_unit_id NOT IN (12,13);
+WHERE id IN (707,1060,574,976,848,1107,817,801,70,995,705,811,248,824,1194,306,72,752);
+
 -- recode type
 UPDATE tdd.projects SET pap_type_id=2 WHERE pap_type_id=1; -- change programs to 1
 UPDATE tdd.projects SET pap_type_id=1 WHERE pap_type_id=3; -- change programs to 1
