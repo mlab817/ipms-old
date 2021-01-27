@@ -7,7 +7,7 @@ SET time_zone = "+00:00";
 -- CREATE LOGIN cp125823_tdd WITH PASSWORD = '0123456@dapipd'; GO;
 
 TRUNCATE cp125823_tdd.projects;
-INSERT INTO tdd.projects
+INSERT INTO cp125823_tdd.projects
 SELECT
     id,
     LEFT(uuid(),36) as uuid,
