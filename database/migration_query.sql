@@ -7,66 +7,6 @@ SET time_zone = "+00:00";
 TRUNCATE tdd.projects;
 INSERT INTO tdd.projects
 SELECT
-id,
-LEFT(uuid(),36) as uuid,
-pipol_code as code,
-title,
-ifnull(slug, concat(replace(trim(lower(title)), ' ', '-'),'-',id)),
-type_id as pap_type_id,
-regular as regular_program,
-description,
-null as summary,
-expected_outputs,
-spatial_coverage_id,
-iccable,
-pip,
-research,
-cip,
-cip_type_id,
-trip,
-rdip,
-rdc_required as rdc_endorsement_required,
-rdc_endorsed,
-rdc_endorsed_date,
-null as other_infrastructure,
-implementation_risk as risk,
-null as mitigation_strategy,
-pdp_chapter_id,
-false as no_pdp_indicator,
-gad_id,
-target_start_year,
-target_end_year,
-has_fs,
-has_row,
-has_rap,
-employment_generated,
-main_funding_source_id as funding_source_id,
-implementation_mode_id,
-null as other_fs,
-project_status_id,
-updates,
-updates_date,
-uacs_code,
-tier_id,
-created_by,
-updated_by,
-deleted_by,
-created_at,
-updated_at,
-deleted_at,
-typology_id as pip_typology_id,
-null as approval_level_id,
-null as approval_date,
-project_preparation_document_id as preparation_document_id,
-null as preparation_document_others,
-technical_readiness_id as readiness_level_id,
-operating_unit_id as office_id
-FROM ipms.projects
--- WHERE banner_program_id IS NULL and prexc_activity_id IS NULL and deleted_at IS NULL and operating_unit_id NOT IN (12,13);
-WHERE pipol_code  IS NOT NULL;
-
-INSERT INTO tdd.projects
-SELECT
     id,
     LEFT(uuid(),36) as uuid,
     pipol_code as code,
@@ -123,7 +63,7 @@ SELECT
     operating_unit_id as office_id
 FROM ipms.projects
 -- WHERE banner_program_id IS NULL and prexc_activity_id IS NULL and deleted_at IS NULL and operating_unit_id NOT IN (12,13);
-WHERE id IN (707,1060,574,976,848,1107,817,801,70,995,705,811,248,824,1194,306,72,752);
+WHERE id IN (1,1,2,238,241,240,239,244,243,242,129,141,158,159,155,161,56,214,212,202,712,802,120,156,157,59,60,73,151,74,75,78,36,44,237,69,85,38,48,46,168,76,45,81,130,135,52,131,136,127,80,133,134,132,35,98,34,207,29,92,206,30,99,33,88,228,118,119,115,114,116,117,94,101,27,61,86,209,102,204,96,110,185,164,184,55,3,71,140,84,62,68,82,77,203,1503,139,232,236,138,234,32,128,150,152,146,154,153,160,143,144,148,147,1590,142,145,233,176,11,28,31,104,87,89,19,15,13,20,210,22,24,25,21,26,111,112,93,113,53,54,109,97,100,95,103,208,205,211,66,108,50,51,107,106,105,219,235,79,148,149,473,478,481,486,305,794,852,879,866,803,889,491,892,495,778,499,504,247,809,807,897,780,818,898,902,906,908,910,907,1065,974,1271,1268,1261,1259,1258,171,1256,1255,173,1253,1248,195,1247,1246,199,1221,748,201,146,1217,911,1378,1388,1386,1383,1413,379,732,779,707,1060,574,976,848,1107,817,801,70,995,705,811,248,824,1194,306,72,752);
 
 -- recode type
 UPDATE tdd.projects SET pap_type_id=2 WHERE pap_type_id=1; -- change programs to 1
