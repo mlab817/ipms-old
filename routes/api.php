@@ -341,5 +341,19 @@ Route::group(['prefix'=>'v1'], function($router) {
             ->name('chart.office');
         Route::get('/pip', [ChartController::class,'pip'])
             ->name('chart.pip');
+        Route::get('/pip_by_spatial_coverage', [ChartController::class,'pip_by_spatial_coverage'])
+            ->name('chart.pip_by_spatial_coverage');
+        Route::get('/pip_by_office', [ChartController::class,'pip_by_office'])
+            ->name('chart.by_office');
+        Route::get('/cip_by_office', [ChartController::class,'cip_by_office'])
+            ->name('chart.cip_by_office');
+        Route::get('/cip_by_spatial_coverage', [ChartController::class,'cip_by_spatial_coverage'])
+            ->name('chart.cip_by_spatial_coverage');
+        Route::get('/pip_by_implementation_mode', [ChartController::class,'pip_by_implementation_mode'])
+            ->name('chart.pip_by_implementation_mode');
+        Route::get('/cip_by_implementation_mode', [ChartController::class,'cip_by_implementation_mode'])
+            ->name('chart.cip_by_implementation_mode');
+        Route::get('/pip_by_main_pdp_chapter', [ChartController::class,'pip_by_main_pdp_chapter'])
+            ->name('chart.pip_by_main_pdp_chapter');
     });
 });
