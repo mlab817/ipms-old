@@ -355,5 +355,7 @@ Route::group(['prefix'=>'v1'], function($router) {
             ->name('chart.cip_by_implementation_mode');
         Route::get('/pip_by_main_pdp_chapter', [ChartController::class,'pip_by_main_pdp_chapter'])
             ->name('chart.pip_by_main_pdp_chapter');
+        Route::get('/pip_by_project_status', [ChartController::class,'pip_by_project_status'])
+            ->name('chart.pip_by_project_status');
     });
 });
