@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\TripController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\SocialLoginController;
@@ -28,3 +29,5 @@ Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'handlePr
 
 Route::get('chart/regions', [ChartController::class,'regions'])->name('chart.regions');
 Route::get('chart/funding_sources', [ChartController::class,'funding_sources'])->name('chart.funding_sources');
+
+Route::get('/trip',[TripController::class,'index'])->name('trip.index');
