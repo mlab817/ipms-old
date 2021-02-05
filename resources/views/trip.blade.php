@@ -25,6 +25,7 @@
             <table class="table table-bordered data-table">
                 <thead>
                 <tr>
+                    <th>Operating Unit</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Expected Outputs</th>
@@ -55,6 +56,7 @@
             serverSide: true,
             ajax: "{{ route('trip.index') }}",
             columns: [
+                {data: 'office', name: 'office', orderable: true, searchable: true},
                 {data: 'title', name: 'title', orderable: true, searchable: true},
                 {data: 'description', name: 'description', orderable: true, searchable: true},
                 {data: 'expected_outputs', name: 'expected_outputs', orderable: true, searchable: true},

@@ -14,25 +14,54 @@ use Yajra\DataTables\Services\DataTable;
 
 class TripDataTable extends DataTable
 {
-    /**
-     * Build DataTable class.
-     *
-     * @param mixed $query Results from query() method.
-     * @return DataTableAbstract
-     */
-    public function dataTable($query): DataTableAbstract
+    public function dataTable($query)
     {
         return datatables()
-            ->eloquent($query)
-            ->addColumn('action', 'trip.action');
+            ->query($query);
     }
 
     /**
-     * Optional method if you want to use html builder.
+     * Get query source of dataTable.
      *
-     * @return \Yajra\DataTables\Html\Builder
+     * @return \Illuminate\Database\Query\Builder
      */
-    public function html()
+    public function query(): \Illuminate\Database\Query\Builder
+    {
+        return DB::table('projects')
+            ->leftJoin('spatial_coverages','projects.spatial_coverage_id','=','spatial_coverages.id')
+            ->leftJoin('offices','projects.office_id','=','offices.id')
+            ->leftJoin('tiers','projects.tier_id','=','tiers.id')
+            ->leftJoin('implementation_modes','projects.implementation_mode_id','=','implementation_modes.id')
+            ->leftJoin('fs_investments','projects.id','=','fs_investments.project_id')
+            ->leftJoin('project_region','projects.id','=','project_region.project_id')
+            ->leftJoin('regions','project_region.region_id','=','regions.id')
+            ->selectRaw('projects.title, projects.description, projects.expected_outputs, projects.target_start_year, projects.target_end_year')
+            ->selectRaw('offices.name AS office')
+            ->selectRaw('spatial_coverages.name AS spatial_coverage')
+            ->selectRaw('GROUP_CONCAT(regions.label) AS regions')
+            ->selectRaw('tiers.name AS tier')
+            ->selectRaw('implementation_modes.name AS implementation_mode')
+            ->selectRaw('sum(fs_investments.y2022) AS y2022')
+            ->selectRaw('sum(fs_investments.y2023) AS y2023')
+            ->selectRaw('sum(fs_investments.y2024) AS y2024')
+            ->selectRaw('sum(
+                        fs_investments.y2016 +
+                        fs_investments.y2017 +
+                        fs_investments.y2018 +
+                        fs_investments.y2019 +
+                        fs_investments.y2020 +
+                        fs_investments.y2021 +
+                        fs_investments.y2022 +
+                        fs_investments.y2023 +
+                        fs_investments.y2024 +
+                        fs_investments.y2025
+                    ) AS total_project_cost
+                ')
+            ->where('projects.trip',true)
+            ->groupBy('projects.id');
+    }
+
+    public function html(): \Yajra\DataTables\Html\Builder
     {
         return $this->builder()
                     ->setTableId('trip-table')
@@ -41,7 +70,6 @@ class TripDataTable extends DataTable
                     ->dom('Bfrtip')
                     ->orderBy(1)
                     ->buttons(
-                        Button::make('create'),
                         Button::make('export'),
                         Button::make('print'),
                         Button::make('reset'),
@@ -54,14 +82,9 @@ class TripDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns()
+    protected function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('title'),
             Column::make('description'),
             Column::make('expected_outputs'),
@@ -83,7 +106,7 @@ class TripDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'Trip_' . date('YmdHis');
     }

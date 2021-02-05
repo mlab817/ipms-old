@@ -187,6 +187,7 @@ return [
         \TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 
         \Yajra\DataTables\DataTablesServiceProvider::class,
+        \Yajra\DataTables\ButtonsServiceProvider::class,
     ],
 
     /*

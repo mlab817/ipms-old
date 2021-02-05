@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\TripDataTable;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -9,7 +10,12 @@ use Yajra\DataTables\Facades\DataTables;
 
 class TripController extends Controller
 {
-    public function index(Request $request)
+    public function index(TripDataTable $dataTable)
+    {
+        return $dataTable->render('trip.index');
+    }
+
+    public function test(Request $request)
     {
         if ($request->ajax()) {
             $projects = DB::table('projects')
