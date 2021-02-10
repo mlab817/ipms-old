@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: EnigmaB_2
+font link: https://www.fontsquirrel.com/fonts/Enigmatic
+font author: Objets Dart
+font author site: http://www.objetsdart.ca
+
+
+icon designer: Alfredo @ IconsAlfredo.com
+icon designer link: /AlfredoCreates
+        
+{"bg":"#00242C","icon":"#81E291","font":"#FFFFFF","slogan":"#ffffff"}
+      
