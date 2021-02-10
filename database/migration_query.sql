@@ -145,8 +145,8 @@ WHERE project_id IN (SELECT id FROM tdd.projects);
 TRUNCATE tdd.project_sdg;
 INSERT INTO tdd.project_sdg
 SELECT
-sdg_id AS sdg_id,
 project_id AS project_id,
+sdg_id AS sdg_id,
 created_at,
 updated_at
 FROM ipms.project_sdg

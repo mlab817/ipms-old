@@ -16,15 +16,35 @@ use Illuminate\Support\Facades\DB;
 
 class ChartController extends Controller
 {
-    public function regions(): JsonResponse
+    public function pip_by_region(): JsonResponse
     {
-        $regions = Region::all()->pluck('project_count','label');
+        $data = DB::table('regions')
+            ->leftJoin('region_investments', 'region_investments.region_id','=','regions.id')
+            ->leftJoin('projects','region_investments.project_id','=','projects.id')
+            ->selectRaw('
+                regions.label AS label,
+                COUNT(region_investments.project_id) AS project_count,
+                IFNULL(SUM(region_investments.y2016),0) AS "2016",
+                IFNULL(SUM(region_investments.y2017),0) AS "2017",
+                IFNULL(SUM(region_investments.y2018),0) AS "2018",
+                IFNULL(SUM(region_investments.y2019),0) AS "2019",
+                IFNULL(SUM(region_investments.y2020),0) AS "2020",
+                IFNULL(SUM(region_investments.y2021),0) AS "2021",
+                IFNULL(SUM(region_investments.y2022),0) AS "2022",
+                IFNULL(SUM(region_investments.y2023),0) AS "2023",
+                IFNULL(SUM(region_investments.y2024),0) AS "2024",
+                IFNULL(SUM(region_investments.y2025),0) AS "2025",
+                IFNULL(SUM(region_investments.y2016+region_investments.y2017+region_investments.y2018+region_investments.y2019+region_investments.y2020+region_investments.y2021+region_investments.y2022+region_investments.y2023+region_investments.y2024+region_investments.y2025),0) AS total
+            ')
+            ->whereNull('projects.deleted_at')
+            ->groupBy('regions.id')
+            ->get();
 
         return response()->json([
-            'original'      => $regions,
+            'original'      => $data,
             'title'         => 'Number of Projects by Region',
-            'categories'    => $regions->keys(),
-            'data'          => $regions->values(),
+            'categories'    => $data->pluck('label'),
+            'data'          => $data->values(),
         ]);
     }
 
@@ -33,6 +53,38 @@ class ChartController extends Controller
         $fs = FundingSource::all();
 
         return response()->json($fs);
+    }
+
+    public function pip_by_sdg(): JsonResponse
+    {
+        $data = DB::table('sdgs')
+            ->leftJoin('project_sdg','sdgs.id','=','project_sdg.sdg_id')
+            ->leftJoin('projects','project_sdg.project_id','=','projects.id')
+            ->leftJoin('fs_investments', 'fs_investments.project_id','=','projects.id')
+            ->selectRaw('
+                sdgs.name AS label,
+                COUNT(projects.id) AS project_count,
+                IFNULL(SUM(fs_investments.y2016),0) AS "2016",
+                IFNULL(SUM(fs_investments.y2017),0) AS "2017",
+                IFNULL(SUM(fs_investments.y2018),0) AS "2018",
+                IFNULL(SUM(fs_investments.y2019),0) AS "2019",
+                IFNULL(SUM(fs_investments.y2020),0) AS "2020",
+                IFNULL(SUM(fs_investments.y2021),0) AS "2021",
+                IFNULL(SUM(fs_investments.y2022),0) AS "2022",
+                IFNULL(SUM(fs_investments.y2023),0) AS "2023",
+                IFNULL(SUM(fs_investments.y2024),0) AS "2024",
+                IFNULL(SUM(fs_investments.y2025),0) AS "2025",
+                IFNULL(SUM(fs_investments.y2016+fs_investments.y2017+fs_investments.y2018+fs_investments.y2019+fs_investments.y2020+fs_investments.y2021+fs_investments.y2022+fs_investments.y2023+fs_investments.y2024+fs_investments.y2025),0) AS total
+            ')
+            ->whereNull('projects.deleted_at')
+            ->groupBy('sdgs.id')
+            ->get();
+
+        return response()->json([
+            'original'  => $data,
+            'title'     => 'Investment Requirement by Year by Spatial Coverage',
+            'categories'=> $data->pluck('label'),
+        ]);
     }
 
     public function pip_by_project_status(): JsonResponse
@@ -62,7 +114,7 @@ class ChartController extends Controller
         return response()->json([
             'original'  => $data,
             'title'     => 'Investment Requirement by Year by Spatial Coverage',
-            'categories'=> $data->pluck('name'),
+            'categories'=> $data->pluck('label'),
         ]);
     }
 
@@ -93,20 +145,30 @@ class ChartController extends Controller
         return response()->json([
             'original'  => $data,
             'title'     => 'Investment Requirement by Year by Spatial Coverage',
-            'categories'=> $data->pluck('name'),
+            'categories'=> $data->pluck('label'),
         ]);
     }
 
     public function spatial_coverages(): JsonResponse
     {
         $data = DB::table('spatial_coverages')
-            ->selectRaw('
-                spatial_coverages.name,
-                COUNT(projects.id) AS project_count,
-                SUM(fs_investments.y2016+fs_investments.y2017+fs_investments.y2018+fs_investments.y2019+fs_investments.y2020+fs_investments.y2021+fs_investments.y2022+fs_investments.y2023+fs_investments.y2024+fs_investments.y2025) AS total
-            ')
             ->leftJoin('projects','spatial_coverages.id','=','projects.spatial_coverage_id')
             ->leftJoin('fs_investments', 'fs_investments.project_id','=','projects.id')
+            ->selectRaw('
+                spatial_coverages.name AS label,
+                COUNT(projects.id) AS project_count,
+                IFNULL(SUM(fs_investments.y2016),0) AS "2016",
+                IFNULL(SUM(fs_investments.y2017),0) AS "2017",
+                IFNULL(SUM(fs_investments.y2018),0) AS "2018",
+                IFNULL(SUM(fs_investments.y2019),0) AS "2019",
+                IFNULL(SUM(fs_investments.y2020),0) AS "2020",
+                IFNULL(SUM(fs_investments.y2021),0) AS "2021",
+                IFNULL(SUM(fs_investments.y2022),0) AS "2022",
+                IFNULL(SUM(fs_investments.y2023),0) AS "2023",
+                IFNULL(SUM(fs_investments.y2024),0) AS "2024",
+                IFNULL(SUM(fs_investments.y2025),0) AS "2025",
+                IFNULL(SUM(fs_investments.y2016+fs_investments.y2017+fs_investments.y2018+fs_investments.y2019+fs_investments.y2020+fs_investments.y2021+fs_investments.y2022+fs_investments.y2023+fs_investments.y2024+fs_investments.y2025),0) AS total
+            ')
             ->whereNull('projects.deleted_at')
             ->groupBy('spatial_coverages.id')
             ->get();
@@ -121,13 +183,32 @@ class ChartController extends Controller
 
     public function pap_types(): JsonResponse
     {
-        $data = PapType::all()->pluck('project_count', 'name');
+        $data = DB::table('pap_types')
+            ->leftJoin('projects','pap_types.id','=','projects.pap_type_id')
+            ->leftJoin('fs_investments', 'fs_investments.project_id','=','projects.id')
+            ->selectRaw('
+                pap_types.name AS label,
+                COUNT(projects.id) AS project_count,
+                IFNULL(SUM(fs_investments.y2016),0) AS "2016",
+                IFNULL(SUM(fs_investments.y2017),0) AS "2017",
+                IFNULL(SUM(fs_investments.y2018),0) AS "2018",
+                IFNULL(SUM(fs_investments.y2019),0) AS "2019",
+                IFNULL(SUM(fs_investments.y2020),0) AS "2020",
+                IFNULL(SUM(fs_investments.y2021),0) AS "2021",
+                IFNULL(SUM(fs_investments.y2022),0) AS "2022",
+                IFNULL(SUM(fs_investments.y2023),0) AS "2023",
+                IFNULL(SUM(fs_investments.y2024),0) AS "2024",
+                IFNULL(SUM(fs_investments.y2025),0) AS "2025",
+                IFNULL(SUM(fs_investments.y2016+fs_investments.y2017+fs_investments.y2018+fs_investments.y2019+fs_investments.y2020+fs_investments.y2021+fs_investments.y2022+fs_investments.y2023+fs_investments.y2024+fs_investments.y2025),0) AS total
+            ')
+            ->whereNull('projects.deleted_at')
+            ->groupBy('pap_types.id')
+            ->get();
 
         return response()->json([
-            'original'      => $data,
-            'title'         => 'Number of Projects by PAP Type',
-            'categories'    => $data->keys(),
-            'data'          => $data->values(),
+            'original'  => $data,
+            'title'     => 'Investment Requirement by Year by Spatial Coverage',
+            'categories'=> $data->pluck('name'),
         ]);
     }
 
