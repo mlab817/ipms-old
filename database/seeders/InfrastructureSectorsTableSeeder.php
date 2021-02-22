@@ -163,7 +163,43 @@ class InfrastructureSectorsTableSeeder extends Seeder
                 'name'                      => 'Others',
                 'slug'                      => Str::slug('Others'),
                 'description'               => '',
-                'infrastructure_subsectors' => [],
+                'infrastructure_subsectors' => [
+                    [
+                        'id'            => 61,
+                        'uuid'          => Str::uuid(),
+                        'name'          => 'Urban/Heritage Renewal',
+                        'slug'          => Str::slug('Urban/Heritage Renewal'),
+                        'description'   => '',
+                    ],
+                    [
+                        'id'            => 62,
+                        'uuid'          => Str::uuid(),
+                        'name'          => 'Reclamation',
+                        'slug'          => Str::slug('Reclamation'),
+                        'description'   => '',
+                    ],
+                    [
+                        'id'            => 63,
+                        'uuid'          => Str::uuid(),
+                        'name'          => 'Government Building',
+                        'slug'          => Str::slug('Government Building'),
+                        'description'   => '',
+                    ],
+                    [
+                        'id'            => 64,
+                        'uuid'          => Str::uuid(),
+                        'name'          => 'Multipurpose Facilities',
+                        'slug'          => Str::slug('Multipurpose Facilities'),
+                        'description'   => '',
+                    ],
+                    [
+                        'id'            => 65,
+                        'uuid'          => Str::uuid(),
+                        'name'          => 'Others',
+                        'slug'          => Str::slug('Others'),
+                        'description'   => '',
+                    ],
+                ],
             ],
         ];
 
