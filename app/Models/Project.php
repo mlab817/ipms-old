@@ -202,7 +202,7 @@ class Project extends Model
 
     public function infrastructure_subsectors(): BelongsToMany
     {
-        return $this->belongsToMany(InfrastructureSubsector::class,'infrastructure_subsector_project','is_id','project_id','id','id');
+        return $this->belongsToMany(InfrastructureSubsector::class,'infrastructure_subsector_project','project_id','is_id','id','id');
     }
 
     public function nep(): HasOne

@@ -52,7 +52,7 @@ class ProjectResource extends JsonResource
             'rdc_endorsement_required'  => $this->rdc_endorsement_required,
             'rdc_endorsed'              => (boolean) $this->rdc_endorsed,
             'rdc_endorsed_date'         => (string) $this->rdc_endorsed_date,
-            'infrastructure_subsectors' => $this->infrastructure_subsectors,
+            'infrastructure_subsectors' => InfrastructureSubsectorResource::collection($this->infrastructure_subsectors),
             'other_infrastructure'      => $this->other_infrastructure,
             'risk'                      => $this->risk,
             'mitigation_strategy'       => $this->mitigation_strategy,
