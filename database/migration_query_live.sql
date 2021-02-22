@@ -354,7 +354,11 @@ WHERE project_id IN (SELECT id FROM cp125823_tdd.projects);
 
 truncate cp125823_tdd.project_ten_point_agenda;
 insert into cp125823_tdd.project_ten_point_agenda
-select *
+select
+ten_point_agenda_id as tpa_id,
+project_id as project_id,
+created_at,
+updated_at
 from cp125823_ipms.project_ten_point_agenda
 WHERE project_id IN (SELECT id FROM cp125823_tdd.projects);
 

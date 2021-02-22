@@ -60,7 +60,7 @@ class ProjectResource extends JsonResource
             'pdp_chapter'               => new PdpChapterResource($this->pdp_chapter),
             'pdp_chapters'               => PdpChapterResource::collection($this->pdp_chapters),
             'no_pdp_indicator'          => (boolean) $this->no_pdp_indicator,
-            'pdp_indicators'            => $this->pdp_indicators,
+            'pdp_indicators'            => PdpIndicatorResource::collection($this->pdp_indicators),
             'gad_id'                    => $this->gad_id,
             'gad'                       => new GadResource($this->gad),
             'target_start_year'         => $this->target_start_year,
