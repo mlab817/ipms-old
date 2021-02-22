@@ -247,7 +247,7 @@ class Project extends Model
 
     public function pdp_indicators(): BelongsToMany
     {
-        return $this->belongsToMany(PdpIndicator::class,'pdp_indicator_project','pi_id','project_id');
+        return $this->belongsToMany(PdpIndicator::class,'pdp_indicator_project','project_id','pi_id');
     }
 
     public function pip_typology(): BelongsTo
