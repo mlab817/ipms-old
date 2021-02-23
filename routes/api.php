@@ -204,12 +204,12 @@ Route::group(['prefix'=>'v1'], function($router) {
             ->name('api.chart.funding_sources');
         Route::get('/spatial_coverages', [ChartController::class,'spatial_coverages'])
             ->name('api.chart.spatial_coverages');
-        Route::get('/pap_types', [ChartController::class,'pap_types'])
-            ->name('api.chart.pap_types');
+        Route::get('/pip_by_pap_type', [ChartController::class,'pip_by_pap_type'])
+            ->name('api.chart.pip_by_pap_type');
         Route::get('/implementation_start', [ChartController::class,'implementation_start'])
             ->name('api.chart.implementation_start');
-        Route::get('/main_funding_source', [ChartController::class,'main_funding_source'])
-            ->name('api.chart.main_funding_source');
+        Route::get('/pip_by_main_funding_source', [ChartController::class,'pip_by_main_funding_source'])
+            ->name('api.chart.pip_by_main_funding_source');
         Route::get('/office', [ChartController::class,'office'])
             ->name('api.chart.office');
         Route::get('/pip', [ChartController::class,'pip'])

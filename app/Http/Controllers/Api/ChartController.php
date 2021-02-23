@@ -81,9 +81,8 @@ class ChartController extends Controller
             ->get();
 
         return response()->json([
-            'original'  => $data,
-            'title'     => 'Investment Requirement by Year by Spatial Coverage',
-            'categories'=> $data->pluck('label'),
+            'data'  => $data,
+            'title' => 'No. of Projects and Investment Requirement by SDG'
         ]);
     }
 
@@ -112,9 +111,8 @@ class ChartController extends Controller
             ->get();
 
         return response()->json([
-            'original'  => $data,
-            'title'     => 'Investment Requirement by Year by Spatial Coverage',
-            'categories'=> $data->pluck('label'),
+            'data'  => $data,
+            'title'     => 'Investment Requirement by Year by Project Status',
         ]);
     }
 
@@ -143,9 +141,8 @@ class ChartController extends Controller
             ->get();
 
         return response()->json([
-            'original'  => $data,
+            'data'  => $data,
             'title'     => 'Investment Requirement by Year by Spatial Coverage',
-            'categories'=> $data->pluck('label'),
         ]);
     }
 
@@ -181,7 +178,7 @@ class ChartController extends Controller
         ]);
     }
 
-    public function pap_types(): JsonResponse
+    public function pip_by_pap_type(): JsonResponse
     {
         $data = DB::table('pap_types')
             ->leftJoin('projects','pap_types.id','=','projects.pap_type_id')
@@ -206,9 +203,8 @@ class ChartController extends Controller
             ->get();
 
         return response()->json([
-            'original'  => $data,
+            'data'  => $data,
             'title'     => 'Investment Requirement by Year by Spatial Coverage',
-            'categories'=> $data->pluck('name'),
         ]);
     }
 
@@ -231,23 +227,35 @@ class ChartController extends Controller
         ]);
     }
 
-    public function main_funding_source(): JsonResponse
+    public function pip_by_main_funding_source(): JsonResponse
     {
-        $data = DB::table('projects')
-            ->select(DB::raw('count(projects.id) as project_count, funding_source_id, funding_sources.name AS label'))
-            ->leftJoin('funding_sources','projects.funding_source_id','=','funding_sources.id')
-            ->whereNotNull('funding_source_id')
-            ->whereNull('deleted_at')
-            ->groupBy('funding_source_id')
-            ->orderBy('funding_source_id','ASC')
-            ->get()
-            ->pluck('project_count','label');
+        $data = DB::table('funding_sources')
+            ->leftJoin('projects','projects.funding_source_id','=','funding_sources.id')
+            ->leftJoin('fs_investments','fs_investments.project_id','=','projects.id')
+            ->selectRaw('
+                funding_sources.name AS label,
+                count(projects.id) as project_count,
+                IFNULL(SUM(fs_investments.y2016),0) AS "2016",
+                IFNULL(SUM(fs_investments.y2017),0) AS "2017",
+                IFNULL(SUM(fs_investments.y2018),0) AS "2018",
+                IFNULL(SUM(fs_investments.y2019),0) AS "2019",
+                IFNULL(SUM(fs_investments.y2020),0) AS "2020",
+                IFNULL(SUM(fs_investments.y2021),0) AS "2021",
+                IFNULL(SUM(fs_investments.y2022),0) AS "2022",
+                IFNULL(SUM(fs_investments.y2023),0) AS "2023",
+                IFNULL(SUM(fs_investments.y2024),0) AS "2024",
+                IFNULL(SUM(fs_investments.y2025),0) AS "2025",
+                IFNULL(SUM(fs_investments.y2016+fs_investments.y2017+fs_investments.y2018+fs_investments.y2019+fs_investments.y2020+fs_investments.y2021+fs_investments.y2022+fs_investments.y2023+fs_investments.y2024+fs_investments.y2025),0) AS total
+            ')
+            ->whereNotNull('projects.funding_source_id')
+            ->whereNull('projects.deleted_at')
+            ->groupBy('funding_sources.id')
+            ->get();
 
         return response()->json([
-            'original'      => $data,
-            'title'         => 'Number of Projects by Main Funding Source',
-            'categories'    => $data->keys(),
-            'data'          => $data->values(),
+            'data'  => $data,
+            'title' => 'Number of Projects by Main Funding Source',
+            'notes' => 'Projects without funding source tag are not included here'
         ]);
     }
 
