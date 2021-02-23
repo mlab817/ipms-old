@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\FsInvestmentController;
 use App\Http\Controllers\Api\NepController;
 use App\Http\Controllers\Api\OuInfrastructureController;
 use App\Http\Controllers\Api\OuInvestmentController;
+use App\Http\Controllers\Api\RegionController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ResettlementActionPlanController;
 use App\Http\Controllers\Api\RightOfWayController;
@@ -21,8 +22,17 @@ use App\Http\Resources\OperatingUnitResource;
 use App\Http\Resources\PapTypeResource;
 use App\Http\Resources\PdpChapterResource;
 use App\Http\Resources\PdpIndicatorResource;
+use App\Http\Resources\PipTypologyResource;
+use App\Http\Resources\PrerequisiteResource;
+use App\Http\Resources\ProjectStatusResource;
+use App\Http\Resources\RegionResource;
 use App\Models\Gad;
+use App\Models\Office;
 use App\Models\PdpIndicator;
+use App\Models\PipTypology;
+use App\Models\Prerequisite;
+use App\Models\ProjectStatus;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -157,24 +167,24 @@ Route::group(['prefix'=>'v1'], function($router) {
     });
 
     Route::get('/offices', function() {
-        return OfficeResource::collection(\App\Models\Office::all());
+        return OfficeResource::collection(Office::all());
     });
 
     Route::get('/pip_typologies', function() {
-        return \App\Http\Resources\PipTypologyResource::collection(\App\Models\PipTypology::all());
+        return PipTypologyResource::collection(PipTypology::all());
     });
 
     Route::get('/prerequisites', function() {
-        return \App\Http\Resources\PrerequisiteResource::collection(\App\Models\Prerequisite::all());
+        return PrerequisiteResource::collection(Prerequisite::all());
     });
 
     Route::get('/project_statuses', function() {
-        return \App\Http\Resources\ProjectStatusResource::collection(\App\Models\ProjectStatus::all());
+        return ProjectStatusResource::collection(ProjectStatus::all());
     });
 
-    Route::get('/regions', function() {
-        return \App\Http\Resources\RegionResource::collection(\App\Models\Region::all());
-    });
+    Route::get('/regions/{id}/projects', [RegionController::class,'show']);
+
+    Route::get('/regions', [RegionController::class,'index'])->name('api.regions.index');
 
     Route::get('/sdgs', function() {
         return \App\Http\Resources\SdgResource::collection(\App\Models\Sdg::all());

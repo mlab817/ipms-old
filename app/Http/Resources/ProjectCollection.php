@@ -37,6 +37,13 @@ class ProjectCollection extends ResourceCollection
                     'creator'       => $project->creator ? new UserResource($project->creator) : null,
                 ];
             }),
+            'pagination' => [
+                'total' => $this->total(),
+                'count' => $this->count(),
+                'per_page' => $this->perPage(),
+                'current_page' => $this->currentPage(),
+                'last_page' => $this->lastPage()
+            ],
         ];
     }
 }

@@ -22,11 +22,11 @@ class Region extends Model
         'description',
     ];
 
-    protected $appends = [
-        'total_investment',
-        'total_infrastructure',
-        'project_count',
-    ];
+//    protected $appends = [
+//        'total_investment',
+//        'total_infrastructure',
+//        'project_count',
+//    ];
 
     public function projects(): BelongsToMany
     {
