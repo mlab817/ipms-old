@@ -415,6 +415,8 @@ name,
 email,
 email_verified_at,
 password,
+null as two_factor_secret,
+null as two_factor_recovery_codes,
 remember_token,
 created_at,
 updated_at

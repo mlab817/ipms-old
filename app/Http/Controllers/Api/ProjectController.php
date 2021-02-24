@@ -161,7 +161,7 @@ class ProjectController extends Controller
 
         event(new CreateProjectEvent($project));
 
-        return new ProjectResource($project);
+        return $this->show($project);
     }
 
     /**
@@ -172,7 +172,52 @@ class ProjectController extends Controller
      */
     public function show(Project $project): ProjectResource
     {
-        return new ProjectResource($project);
+        return new ProjectResource(
+            $project->loadMissing([
+                'pap_type',
+                'spatial_coverage',
+                'regions',
+                'pip_typology',
+                'funding_sources',
+                'funding_source',
+                'preparation_document',
+                'feasibility_study',
+                'resettlement_action_plan',
+                'bases',
+                'sdgs',
+                'creator.profile',
+                'updater.profile',
+                'deleter.profile',
+                'region_investments.region',
+                'region_infrastructures.region',
+                'ou_infrastructures.operating_unit',
+                'ou_investments.operating_unit',
+                'fs_investments.funding_source',
+                'fs_infrastructures.funding_source',
+                'ten_point_agendas',
+                'prerequisites',
+                'implementing_agencies',
+//                'investment',
+//                'infrastructure',
+                'office',
+                'tier',
+                'nep',
+                'allocation',
+                'disbursement',
+                'implementation_mode',
+                'project_status',
+                'gad',
+                'feasibility_study',
+                'right_of_way',
+                'resettlement_action_plan',
+                'cip_type',
+                'approval_level',
+                'infrastructure_subsectors',
+                'pdp_chapter',
+                'pdp_chapters',
+                'pdp_indicators',
+            ])
+        );
     }
 
     /**

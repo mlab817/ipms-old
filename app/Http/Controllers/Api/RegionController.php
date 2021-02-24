@@ -20,9 +20,6 @@ class RegionController extends Controller
 
     public function show(Region $region): JsonResponse
     {
-//        $projects = Project::whereHas('regions', function ($query) use ($id) {
-//
-//        })->get();
         $projects = $region->projects()->with(['office','pap_type','regions'])->paginate(10);
 
         return response()->json(new ProjectCollection($projects));

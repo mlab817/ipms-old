@@ -91,39 +91,7 @@ class Project extends Model
         // disbursement
     ];
 
-    protected $with = [
-        'creator',
-        'updater',
-        'deleter',
-
-//        'regions',
-//        'bases',
-//        'funding_sources',
-//        'funding_institutions',
-//        'implementing_agencies',
-//        'pdp_chapters',
-//        'prerequisites',
-//        'sdgs',
-//        'ten_point_agendas',
-
-//        'nep',
-//        'allocation',
-//        'disbursement',
-
-//        'ou_investments',
-//        'ou_infrastructures',
-//        'region_investments',
-//        'region_infrastructures',
-//        'fs_investments',
-//        'fs_infrastructures',
-//        'infrastructure_subsectors',
-//        'pdp_indicators',
-//        'pap_type',
-    ];
-
     protected $appends = [
-//        'total_investment',
-//        'total_infrastructure',
         'permissions',
     ];
 

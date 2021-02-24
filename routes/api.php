@@ -1,18 +1,39 @@
 <?php
 
 use App\Http\Controllers\Api\AllocationController;
+use App\Http\Controllers\Api\ApprovalLevelController;
+use App\Http\Controllers\Api\BasisController;
+use App\Http\Controllers\Api\CipTypeController;
 use App\Http\Controllers\Api\DisbursementController;
 use App\Http\Controllers\Api\FeasibilityStudyController;
 use App\Http\Controllers\Api\FsInfrastructureController;
 use App\Http\Controllers\Api\FsInvestmentController;
+use App\Http\Controllers\Api\FsStatusController;
+use App\Http\Controllers\Api\FundingInstitutionController;
+use App\Http\Controllers\Api\FundingSourceController;
+use App\Http\Controllers\Api\GadController;
+use App\Http\Controllers\Api\ImplementationModeController;
+use App\Http\Controllers\Api\InfrastructureSectorController;
 use App\Http\Controllers\Api\NepController;
+use App\Http\Controllers\Api\OfficeController;
+use App\Http\Controllers\Api\OperatingUnitController;
 use App\Http\Controllers\Api\OuInfrastructureController;
 use App\Http\Controllers\Api\OuInvestmentController;
+use App\Http\Controllers\Api\PapTypeController;
+use App\Http\Controllers\Api\PdpChapterController;
+use App\Http\Controllers\Api\PdpIndicatorController;
+use App\Http\Controllers\Api\PipTypologyController;
+use App\Http\Controllers\Api\PrerequisiteController;
+use App\Http\Controllers\Api\ProjectStatusController;
 use App\Http\Controllers\Api\RegionController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ResettlementActionPlanController;
 use App\Http\Controllers\Api\RightOfWayController;
 use App\Http\Controllers\Api\ChartController;
+use App\Http\Controllers\Api\SdgController;
+use App\Http\Controllers\Api\SpatialCoverageController;
+use App\Http\Controllers\Api\TenPointAgendaController;
+use App\Http\Controllers\Api\TierController;
 use App\Http\Resources\FundingInstitutionResource;
 use App\Http\Resources\GadResource;
 use App\Http\Resources\ImplementationModeResource;
@@ -108,104 +129,54 @@ Route::group(['prefix'=>'v1'], function($router) {
         Route::post('/{name}/syncPermissions', [RoleController::class,'syncPermissions'])->name('api.roles.syncPermissions');
     });
 
-    Route::get('/approval_levels', function () {
-        return \App\Http\Resources\ApprovalLevelResource::collection(\App\Models\ApprovalLevel::all());
-    });
+    Route::get('/approval_levels', [ApprovalLevelController::class,'index'])->name('api.approval_levels.index');
 
-    Route::get('/bases', function () {
-        return \App\Http\Resources\BasisResource::collection(\App\Models\Basis::all());
-    });
+    Route::get('/bases', [BasisController::class,'index'])->name('api.bases.index');
 
-    Route::get('/cip_types', function () {
-        return \App\Http\Resources\CipTypeResource::collection(\App\Models\CipType::all());
-    });
+    Route::get('/cip_types', [CipTypeController::class,'index'])->name('api.cip_types.index');
 
-    Route::get('/fs_statuses', function () {
-        return \App\Http\Resources\FsStatusResource::collection(\App\Models\FsStatus::all());
-    });
+    Route::get('/fs_statuses', [FsStatusController::class,'index'])->name('api.fs_statuses.index');
 
-    Route::get('/funding_sources', function () {
-        return \App\Http\Resources\FundingSourceResource::collection(\App\Models\FundingSource::all());
-    });
+    Route::get('/funding_sources', [FundingSourceController::class,'index'])->name('api.funding_sources.index');
 
-    Route::get('/funding_institutions', function () {
-        return FundingInstitutionResource::collection(\App\Models\FundingInstitution::all());
-    });
+    Route::get('/funding_institutions', [FundingInstitutionController::class,'index'])->name('api.funding_institutions.index');
 
-    Route::get('/gads', function () {
-        return GadResource::collection(Gad::all());
-    });
+    Route::get('/gads', [GadController::class,'index'])->name('api.gads.index');
 
-    Route::get('/implementation_modes', function () {
-        return ImplementationModeResource::collection(\App\Models\ImplementationMode::all());
-    });
+    Route::get('/implementation_modes', [ImplementationModeController::class,'index'])->name('api.implementation_modes.index');
 
-    Route::get('/infrastructure_sectors', function () {
-        return InfrastructureSectorResource::collection(\App\Models\InfrastructureSector::with('children')->get());
-    });
+    Route::get('/infrastructure_sectors', [InfrastructureSectorController::class,'index'])->name('api.infrastructure_sectors.index');
 
-    Route::get('/operating_units', function () {
-        return OperatingUnitResource::collection(\App\Models\OperatingUnit::all());
-    });
+    Route::get('/operating_units', [OperatingUnitController::class,'index'])->name('api.operating_units.index');
 
-    Route::get('/pap_types', function() {
-        return PapTypeResource::collection(\App\Models\PapType::all());
-    });
+    Route::get('/pap_types/{pap_type}/projects', [PapTypeController::class,'show'])->name('api.pap_types.show');
+    Route::get('/pap_types', [PapTypeController::class,'index'])->name('api.pap_types.index');
 
-    Route::get('/pdp_chapters', function() {
-        return PdpChapterResource::collection(\App\Models\PdpChapter::all());
-    });
+    Route::get('/pdp_chapters/{pdp_chapter}/projects',[PdpChapterController::class, 'show'])->name('api.pdp_chapters.show');
+    Route::get('/pdp_chapters', [PdpChapterController::class, 'index'])->name('api.pdp_chapters.index');
 
-    Route::get('/pdp_indicators', function() {
-        $indicators = PdpIndicator::where('id','<=',20)->with(['children' => function($q) {
-            $q->with('children');
-        }, 'parent' => function ($q) {
-            $q->with('parent');
-        }])->get();
+    Route::get('/pdp_indicators', [PdpIndicatorController::class, 'index'])->name('api.pdp_indicators.index');
 
-        return PdpIndicatorResource::collection($indicators);
-    });
+    Route::get('/offices', [OfficeController::class,'index'])->name('api.offices.index');
 
-    Route::get('/offices', function() {
-        return OfficeResource::collection(Office::all());
-    });
+    Route::get('/pip_typologies', [PipTypologyController::class,'index'])->name('api.pip_typologies.index');
 
-    Route::get('/pip_typologies', function() {
-        return PipTypologyResource::collection(PipTypology::all());
-    });
+    Route::get('/prerequisites', [PrerequisiteController::class,'index'])->name('api.prerequisites.index');
 
-    Route::get('/prerequisites', function() {
-        return PrerequisiteResource::collection(Prerequisite::all());
-    });
-
-    Route::get('/project_statuses', function() {
-        return ProjectStatusResource::collection(ProjectStatus::all());
-    });
+    Route::get('/project_statuses', [ProjectStatusController::class,'index'])->name('api.project_statuses.index');
 
     Route::get('/regions/{region}/projects', [RegionController::class,'show']);
 
     Route::get('/regions', [RegionController::class,'index'])->name('api.regions.index');
 
-    Route::get('/sdgs', function() {
-        return \App\Http\Resources\SdgResource::collection(\App\Models\Sdg::all());
-    });
+    Route::get('/sdgs', [SdgController::class,'index'])->name('api.sdgs.index');
 
-    Route::get('/spatial_coverages', function() {
-        return \App\Http\Resources\SpatialCoverageResource::collection(\App\Models\SpatialCoverage::all());
-    });
+    Route::get('/spatial_coverages/{spatial_coverage}/projects', [SpatialCoverageController::class,'show'])->name('api.spatial_coverages.show');
+    Route::get('/spatial_coverages', [SpatialCoverageController::class,'index'])->name('api.spatial_coverages.index');
 
-    Route::get('/ten_point_agendas', function() {
-        return \App\Http\Resources\TenPointAgendaResource::collection(\App\Models\TenPointAgenda::all());
-    });
+    Route::get('/ten_point_agendas', [TenPointAgendaController::class,'index'])->name('api.ten_point_agenda.index');
 
-    Route::get('/tiers', function () {
-        return \App\Http\Resources\TierResource::collection(\App\Models\Tier::all());
-    });
-
-    Route::group(['prefix' => 'reports'], function() {
-        Route::get('/funding_sources', [ReportController::class,'getInvestmentByFundingSource']);
-        Route::get('/regions', [ReportController::class,'getInvestmentByRegion']);
-    });
+    Route::get('/tiers', [TierController::class,'index'])->name('api.tiers.index');
 
     Route::group(['prefix' => 'chart'], function() {
         Route::get('/pip_by_region', [ChartController::class,'pip_by_region'])
