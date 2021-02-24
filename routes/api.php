@@ -137,6 +137,8 @@ Route::group(['prefix'=>'v1'], function($router) {
 
     Route::get('/fs_statuses', [FsStatusController::class,'index'])->name('api.fs_statuses.index');
 
+    Route::get('/funding_sources/chart', [FundingSourceController::class,'chart'])->name('api.funding_sources.chart');
+    Route::get('/funding_sources/{funding_source}/projects', [FundingSourceController::class,'show'])->name('api.funding_sources.show');
     Route::get('/funding_sources', [FundingSourceController::class,'index'])->name('api.funding_sources.index');
 
     Route::get('/funding_institutions', [FundingInstitutionController::class,'index'])->name('api.funding_institutions.index');
@@ -149,6 +151,7 @@ Route::group(['prefix'=>'v1'], function($router) {
 
     Route::get('/operating_units', [OperatingUnitController::class,'index'])->name('api.operating_units.index');
 
+    Route::get('/pap_types/chart', [PapTypeController::class,'chart'])->name('api.pap_types.chart');
     Route::get('/pap_types/{pap_type}/projects', [PapTypeController::class,'show'])->name('api.pap_types.show');
     Route::get('/pap_types', [PapTypeController::class,'index'])->name('api.pap_types.index');
 
@@ -163,14 +166,16 @@ Route::group(['prefix'=>'v1'], function($router) {
 
     Route::get('/prerequisites', [PrerequisiteController::class,'index'])->name('api.prerequisites.index');
 
+    Route::get('/project_statuses/{project_status}/projects', [ProjectStatusController::class,'show'])->name('api.project_statuses.show');
     Route::get('/project_statuses', [ProjectStatusController::class,'index'])->name('api.project_statuses.index');
 
+    Route::get('/regions/chart', [RegionController::class,'chart'])->name('api.regions.chart');
     Route::get('/regions/{region}/projects', [RegionController::class,'show']);
-
     Route::get('/regions', [RegionController::class,'index'])->name('api.regions.index');
 
     Route::get('/sdgs', [SdgController::class,'index'])->name('api.sdgs.index');
 
+    Route::get('/spatial_coverages/chart', [SpatialCoverageController::class,'chart'])->name('api.spatial_coverages.chart');
     Route::get('/spatial_coverages/{spatial_coverage}/projects', [SpatialCoverageController::class,'show'])->name('api.spatial_coverages.show');
     Route::get('/spatial_coverages', [SpatialCoverageController::class,'index'])->name('api.spatial_coverages.index');
 

@@ -23,8 +23,8 @@ class UserResource extends JsonResource
             'id'            => $this->id,
             'email'         => $this->email,
             'name'          => $this->name,
-            'roles'         => RoleResource::collection($this->roles),
-            'permissions'   => PermissionResource::collection($this->permissions),
+            'roles'         => RoleResource::collection($this->whenLoaded('roles')),
+            'permissions'   => PermissionResource::collection($this->whenLoaded('permissions')),
             'links'         => $this->links(UserController::class),
         ];
     }

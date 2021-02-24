@@ -20,9 +20,23 @@ class ProjectStatus extends Model
         'description',
     ];
 
+    protected $appends = [
+        'count',
+    ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);
+    }
+
+    public function getCountAttribute(): int
+    {
+        return $this->projects->count();
     }
 
     /**

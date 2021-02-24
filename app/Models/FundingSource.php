@@ -27,6 +27,11 @@ class FundingSource extends Model
         'total_infrastructure',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function fs_investments(): HasMany
     {
         return $this->hasMany(FsInvestment::class,'fs_id','id');

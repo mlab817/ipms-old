@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectStatusResource;
 use App\Models\ProjectStatus;
 use Illuminate\Http\Request;
@@ -12,6 +13,13 @@ class ProjectStatusController extends Controller
 {
     public function index(): AnonymousResourceCollection
     {
-        return ProjectStatusResource::collection(ProjectStatus::all());
+        return ProjectStatusResource::collection(ProjectStatus::with('projects')->get());
+    }
+
+    public function show(ProjectStatus $projectStatus): ProjectCollection
+    {
+        $projects = $projectStatus->projects()->paginate();
+
+        return new ProjectCollection($projects);
     }
 }

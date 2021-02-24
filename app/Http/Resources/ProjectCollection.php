@@ -38,11 +38,11 @@ class ProjectCollection extends ResourceCollection
                 ];
             }),
             'pagination' => [
-                'total' => $this->total(),
-                'count' => $this->count(),
-                'per_page' => $this->perPage(),
-                'current_page' => $this->currentPage(),
-                'last_page' => $this->lastPage()
+                'total'         => $this->total(),
+                'count'         => $this->count(),
+                'per_page'      => $this->perPage(),
+                'current_page'  => $this->currentPage(),
+                'last_page'     => $this->lastPage()
             ],
         ];
     }
