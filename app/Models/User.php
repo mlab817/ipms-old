@@ -45,6 +45,7 @@ class User extends Authenticatable implements JWTSubject
     protected $with = [
         'profile',
         'permissions',
+        'roles',
     ];
 
     public function accounts(): HasMany

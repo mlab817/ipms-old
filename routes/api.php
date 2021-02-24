@@ -182,7 +182,7 @@ Route::group(['prefix'=>'v1'], function($router) {
         return ProjectStatusResource::collection(ProjectStatus::all());
     });
 
-    Route::get('/regions/{id}/projects', [RegionController::class,'show']);
+    Route::get('/regions/{region}/projects', [RegionController::class,'show']);
 
     Route::get('/regions', [RegionController::class,'index'])->name('api.regions.index');
 

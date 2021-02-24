@@ -18,12 +18,12 @@ class RegionController extends Controller
         return RegionResource::collection(Region::all());
     }
 
-    public function show($id): JsonResponse
+    public function show(Region $region): JsonResponse
     {
 //        $projects = Project::whereHas('regions', function ($query) use ($id) {
 //
 //        })->get();
-        $projects = Region::find($id)->projects()->paginate(10);
+        $projects = $region->projects()->with(['office','pap_type','regions'])->paginate(10);
 
         return response()->json(new ProjectCollection($projects));
     }
