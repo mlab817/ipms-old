@@ -25,7 +25,6 @@ class UserResource extends JsonResource
             'name'          => $this->name,
             'roles'         => RoleResource::collection($this->whenLoaded('roles')),
             'permissions'   => PermissionResource::collection($this->whenLoaded('permissions')),
-            'links'         => $this->links(UserController::class),
         ];
     }
 }

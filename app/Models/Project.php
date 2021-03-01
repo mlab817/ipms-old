@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\HasUuid;
 use App\Traits\Trackable;
+use Approval\Traits\RequiresApproval;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
 
 class Project extends Model
@@ -22,6 +24,7 @@ class Project extends Model
     use Sluggable;
     use Trackable;
     use SoftDeletes;
+    use RequiresApproval;
 
     protected $guard_name = 'api';
 
@@ -98,6 +101,12 @@ class Project extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function requiresApprovalWhen($modifications): bool
+    {
+        // require approval when editor is not owner of the project
+        return $this->created_by != Auth::id();
     }
 
     public function allocation(): HasOne

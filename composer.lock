@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "acfb1874ffb1a839a3225d6b6d809f48",
+    "content-hash": "4738397be619838953e3e3a15ef1ca12",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4367,6 +4367,55 @@
                 }
             ],
             "time": "2021-01-13T11:27:07+00:00"
+        },
+        {
+            "name": "stephenlake/laravel-approval",
+            "version": "v1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cloudcake/laravel-approval.git",
+                "reference": "e7527e1920eddab13d8c62c037999e6272b9c4e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cloudcake/laravel-approval/zipball/e7527e1920eddab13d8c62c037999e6272b9c4e2",
+                "reference": "e7527e1920eddab13d8c62c037999e6272b9c4e2",
+                "shasum": ""
+            },
+            "require-dev": {
+                "laravel/framework": "~5.5.0|~5.6.0|~5.7.0",
+                "orchestra/testbench": "~3.4.0|~3.5.0|~3.6.0",
+                "phpunit/phpunit": "~7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Approval\\ApprovalServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Approval\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Lake",
+                    "email": "stephen@closurecode.com"
+                }
+            ],
+            "description": "Attach approvals to any model to prevent unauthorised updates.",
+            "support": {
+                "issues": "https://github.com/cloudcake/laravel-approval/issues",
+                "source": "https://github.com/cloudcake/laravel-approval/tree/v1.1.4"
+            },
+            "time": "2020-12-31T07:29:44+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

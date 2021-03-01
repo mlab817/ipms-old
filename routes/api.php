@@ -183,6 +183,8 @@ Route::group(['prefix'=>'v1'], function($router) {
 
     Route::get('/tiers', [TierController::class,'index'])->name('api.tiers.index');
 
+    Route::get('/approval',[\App\Http\Controllers\Api\ApprovalController::class,'test']);
+
     Route::group(['prefix' => 'chart'], function() {
         Route::get('/pip_by_region', [ChartController::class,'pip_by_region'])
             ->name('api.chart.pip_by_region');

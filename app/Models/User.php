@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Approval\Models\Modification;
+use Approval\Traits\ApprovesChanges;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -18,6 +20,7 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
     use HasRoles;
     use Searchable;
+    use ApprovesChanges;
 
     protected $guard_name = 'api';
 
@@ -30,6 +33,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'active',
     ];
 
     /**
@@ -48,6 +52,26 @@ class User extends Authenticatable implements JWTSubject
 //        'roles',
     ];
 
+    /**
+     * @param Modification $modification
+     *
+     * @return bool
+     */
+    public function authorizedToApprove(Modification $modification): bool
+    {
+        return $this->hasRole('admin');
+    }
+
+    /**
+     * @param Modification $modification
+     *
+     * @return bool
+     */
+    public function authorizedToDisapprove(Modification $modification): bool
+    {
+        return $this->hasRole('admin');
+    }
+
     public function accounts(): HasMany
     {
         return $this->hasMany(LinkedSocialAccount::class);
@@ -56,6 +80,21 @@ class User extends Authenticatable implements JWTSubject
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class,'user_id','id');
+    }
+
+    public function isActive(): bool
+    {
+        return !!$this->active;
+    }
+
+    public function activate()
+    {
+        $this->active = true;
+    }
+
+    public function deactivate()
+    {
+        $this->active = false;
     }
 
     /**
