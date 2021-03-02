@@ -105,8 +105,12 @@ class Project extends Model
 
     public function requiresApprovalWhen($modifications): bool
     {
+        if ($modifications->is_update || $this->created_by != Auth::id()) {
+            return true;
+        }
+
         // require approval when editor is not owner of the project
-        return $this->created_by != Auth::id();
+        return false;
     }
 
     public function allocation(): HasOne

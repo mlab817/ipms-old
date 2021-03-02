@@ -47,7 +47,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $with = [
-        'profile',
+//        'profile',
 //        'permissions',
 //        'roles',
     ];

@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\FundingSourceController;
 use App\Http\Controllers\Api\GadController;
 use App\Http\Controllers\Api\ImplementationModeController;
 use App\Http\Controllers\Api\InfrastructureSectorController;
+use App\Http\Controllers\Api\ModificationController;
 use App\Http\Controllers\Api\NepController;
 use App\Http\Controllers\Api\OfficeController;
 use App\Http\Controllers\Api\OperatingUnitController;
@@ -183,7 +184,9 @@ Route::group(['prefix'=>'v1'], function($router) {
 
     Route::get('/tiers', [TierController::class,'index'])->name('api.tiers.index');
 
-    Route::get('/approval',[\App\Http\Controllers\Api\ApprovalController::class,'test']);
+    Route::post('/modifications/{modification}/approve',[ModificationController::class,'approve'])->name('api.modifications.approve');
+    Route::post('/modifications/{modification}/disapprove',[ModificationController::class,'disapprove'])->name('api.modifications.disapprove');
+    Route::get('/modifications',[ModificationController::class,'index'])->name('api.modifications.index');
 
     Route::group(['prefix' => 'chart'], function() {
         Route::get('/pip_by_region', [ChartController::class,'pip_by_region'])
