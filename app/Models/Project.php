@@ -403,11 +403,61 @@ class Project extends Model
 
     public function toSearchableArray(): array
     {
+        $bases = $this->bases()->get()->map(function ($basis) {
+            return $basis['name'];
+        });
+        $regions = $this->regions()->get()->map(function ($region) {
+            return $region['acronym'] .' - '. $region['name'];
+        });
+        $funding_institutions = $this->funding_institutions()->get()->map(function ($funding_institution) {
+            return $funding_institution['name'];
+        });
+        $funding_sources = $this->funding_sources()->get()->map(function ($funding_source) {
+            return $funding_source['name'];
+        });
+        $pdp_chapters = $this->pdp_chapters()->get()->map(function ($pdp_chapter) {
+            return $pdp_chapter['name'];
+        });
+        $prerequisites = $this->prerequisites()->get()->map(function ($prerequisite) {
+            return $prerequisite['name'];
+        });
+        $pdp_indicators = $this->pdp_indicators()->get()->map(function ($pdp_indicator) {
+            return $pdp_indicator['name'];
+        });
+        $sdgs = $this->sdgs()->get()->map(function ($sdg) {
+            return $sdg['name'];
+        });
+        $ten_point_agendas = $this->ten_point_agendas()->get()->map(function ($ten_point_agenda) {
+            return $ten_point_agenda['name'];
+        });
         return [
-            'id'                => $this->id,
-            'title'             => $this->title,
-//            'description'       => $this->description,
-//            'office'            => $this->office ? $this->office->name : null,
+            'id'                    => $this->id,
+            'title'                 => $this->title,
+            'description'           => $this->description,
+            'bases'                 => implode(' ', $bases->toArray()),
+            'funding_source'        => $this->funding_source['name'] ?? '',
+            'funding_institution'   => $this->funding_institution['name'] ?? '',
+            'tier'                  => $this->tier['name'] ?? '',
+            'approval_level'        => $this->approval_level['name'] ?? '',
+            'cip_type'              => $this->cip_type['name'] ?? '',
+            'spatial_coverage'      => $this->spatial_coverage['name'] ?? '',
+            'regions'               => implode(' ', $regions->toArray()),
+            'funding_institutions'  => implode(' ', $funding_institutions->toArray()),
+            'funding_sources'       => implode(' ', $funding_sources->toArray()),
+            'gad'                   => $this->gad['name'] ?? '',
+            'implementation_mode'   => $this->implementation_mode['name'] ?? '',
+            'office'                => $this->office['name'] ?? '',
+            'operating_unit'        => $this->operating_unit['name'] ?? '',
+            'pap_type'              => $this->pap_type['name'] ?? '',
+            'pdp_chapter'           => $this->pdp_chapter['name'] ?? '',
+            'pdp_chapters'          => implode(' ', $pdp_chapters->toArray()),
+            'pdp_indicators'        => implode(' ', $pdp_indicators->toArray()),
+            'pip_typology'          => $this->pip_typology['name'] ?? '',
+            'preparation_document'  => $this->preparation_document['name'] ?? '',
+            'prerequisites'         => implode(' ', $prerequisites->toArray()),
+            'project_status'        => $this->project_status['name'] ?? '',
+            'sdgs'                  => implode(' ', $sdgs->toArray()),
+            'ten_point_agendas'     => implode(' ', $ten_point_agendas->toArray()),
         ];
     }
 }

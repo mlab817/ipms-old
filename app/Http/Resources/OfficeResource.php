@@ -19,6 +19,11 @@ class OfficeResource extends JsonResource
      */
     public function toArray($request): array
     {
-        return parent::toArray($request);
+        return [
+            'id'                => $this->id,
+            'operating_unit'    => new OperatingUnitResource($this->operating_unit),
+            'name'              => $this->name,
+            'acronym'           => $this->acronym,
+        ];
     }
 }
