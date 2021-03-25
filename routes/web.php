@@ -1,10 +1,7 @@
 <?php
 
-use App\Http\Controllers\ChartController;
-use App\Http\Controllers\TripController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Auth\SocialLoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,14 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+require __DIR__.'/auth.php';
 
-Route::get('/auth/{provider}', [SocialLoginController::class, 'redirectToProvider'])->name('auth.redirectToProvider');
-Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'handleProviderCallback'])->name('auth.handleProviderCallback');
-
-Route::get('chart/regions', [ChartController::class,'regions'])->name('chart.regions');
-Route::get('chart/funding_sources', [ChartController::class,'funding_sources'])->name('chart.funding_sources');
-
-Route::get('/trip',[TripController::class,'index'])->name('trip.index');
+Route::resources([
+    'projects' => \App\Http\Controllers\ProjectController::class,
+]);

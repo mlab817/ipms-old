@@ -447,7 +447,7 @@ class Project extends Model
             'gad'                   => $this->gad['name'] ?? '',
             'implementation_mode'   => $this->implementation_mode['name'] ?? '',
             'office'                => $this->office['name'] ?? '',
-            'operating_unit'        => $this->operating_unit['name'] ?? '',
+            'operating_unit'        => $this->operating_unit['name'] ?? '' . $this->operating_unit['shortname'] ?? '',
             'pap_type'              => $this->pap_type['name'] ?? '',
             'pdp_chapter'           => $this->pdp_chapter['name'] ?? '',
             'pdp_chapters'          => implode(' ', $pdp_chapters->toArray()),
