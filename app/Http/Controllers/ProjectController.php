@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProjectRequest;
 use App\Models\Basis;
 use App\Models\PapType;
 use App\Models\Project;
@@ -51,11 +52,13 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreProjectRequest $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
+        dd($request);
+
         return redirect()->route('projects.index');
     }
 
@@ -84,7 +87,7 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  \App\Models\Project  $project
      * @return Response
      */
