@@ -41,7 +41,7 @@ class AuthController extends Controller
      *
      * @return JsonResponse
      */
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): JsonResponse
     {
         $user = User::create([
             'name'      => $request->input('name'),
@@ -49,7 +49,7 @@ class AuthController extends Controller
             'password'  => Hash::make($request->input('password')),
         ]);
 
-        $token = auth()->tokenById($user->id);
+        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
         return response()->json(compact('token'));
     }
@@ -61,9 +61,11 @@ class AuthController extends Controller
         return response()->json(compact('me'));
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        auth()->logout();
+        $token = $request->user()->token();
+
+        $token->revoke();
 
         return response()->json(['message' => 'Successfully logged out']);
     }

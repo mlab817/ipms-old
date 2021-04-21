@@ -8,7 +8,6 @@ use Spatie\ResourceLinks\HasLinks;
 
 class ProfileResource extends JsonResource
 {
-    use HasLinks;
 
     /**
      * Transform the resource into an array.

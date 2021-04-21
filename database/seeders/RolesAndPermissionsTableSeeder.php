@@ -50,29 +50,29 @@ class RolesAndPermissionsTableSeeder extends Seeder
             ->givePermissionTo(['projects.create']);
 
         // create users and assign role
-        $admin = User::create([
-            'name'      => 'Admin',
-            'email'     => 'admin@example.com',
-            'password'  => bcrypt('password'),
-        ]);
+//        $admin = User::create([
+//            'name'      => 'admin',
+//            'email'     => 'admin@example.com',
+//            'password'  => bcrypt('password'),
+//        ]);
 
-        $admin->assignRole('admin');
+//        $admin->assignRole('admin');
 
-        $contributor = User::create([
-            'name'      => 'Contributor',
-            'email'     => 'contributor@example.com',
-            'password'  => bcrypt('password'),
-        ]);
-
-        $contributor->assignRole('contributor');
-
-        $editor = User::create([
-            'name'      => 'Editor',
-            'email'     => 'editor@example.com',
-            'password'  => bcrypt('password'),
-        ]);
-
-        $editor->assignRole('editor');
+//        $contributor = User::create([
+//            'name'      => 'contributor',
+//            'email'     => 'contributor@example.com',
+//            'password'  => bcrypt('password'),
+//        ]);
+//
+//        $contributor->assignRole('contributor');
+//
+//        $editor = User::create([
+//            'name'      => 'Editor',
+//            'email'     => 'editor@example.com',
+//            'password'  => bcrypt('password'),
+//        ]);
+//
+//        $editor->assignRole('editor');
 
     }
 }

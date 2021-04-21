@@ -3,14 +3,21 @@
 namespace Tests;
 
 use App\Models\Project;
+use App\Models\User;
+use Database\Seeders\RolesAndPermissionsTableSeeder;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Event;
-
-//use Illuminate\Support\Facades\Artisan;
+use Laravel\Passport\Passport;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
+    use RefreshDatabase;
+
+    protected $user;
 
     public function setUp(): void
     {
@@ -18,13 +25,33 @@ abstract class TestCase extends BaseTestCase
 
         // install jwt
 
-        $this->seed();
+        // $this->seed();
+        Artisan::call('passport:install');
+
+        $this->user = User::factory()->create();
+
+        $this->seed(RolesAndPermissionsTableSeeder::class);
     }
 
-    public function createTestProject()
+    /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function loginUser()
     {
-        return $project = Event::fakeFor(function() {
-            return Project::factory()->create();
-        });
+        Passport::actingAs($this->user);
+    }
+
+    public function loginAsProjectCreator()
+    {
+        $this->user->givePermissionTo('projects.create');
+
+        Passport::actingAs($this->user);
+    }
+
+    public function loginAsAdmin()
+    {
+        $this->user->assignRole('admin');
+
+        Passport::actingAs($this->user);
     }
 }

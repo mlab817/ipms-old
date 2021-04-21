@@ -83,7 +83,7 @@ Route::group(['prefix'=>'v1'], function($router) {
         Route::post('authenticate', [AuthController::class, 'authenticate'])->name('api.authenticate');
         Route::post('register', [AuthController::class, 'register'])->name('api.register');
         Route::get('me', [AuthController::class, 'me'])->name('api.me');
-        Route::get('logout', [AuthController::class, 'logout'])->name('api.logout');
+        Route::post('logout', [AuthController::class, 'logout'])->name('api.logout');
     });
 
     Route::middleware('auth:api')->get('/user', function (Request $request) {

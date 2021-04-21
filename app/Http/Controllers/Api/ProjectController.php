@@ -46,38 +46,15 @@ class ProjectController extends Controller
      */
     public function index(Request $request): ProjectCollection
     {
-        $queryString = trim($request->query('q'));
-        $queryScope = trim($request->query('scope'));
-
-        if ($queryScope == 'own')
-        {
-            $results = $this->own($queryString);
-
-            return new ProjectCollection($results->paginate());
-        }
-
-        if ($queryScope == 'office')
-        {
-            $results = $this->office($queryString);
-
-            return new ProjectCollection($results->paginate());
-        }
-
-        // if first is defined and it does not exceed the maxCount allowed,
-        // set perPage to first; otherwise, set it to maxCount;
-        // if first is not defined, just set it to default count
-        $perPage = $request->query('first')
-            ? ($request->query('first') <= $this->maxCount ? $request->query('first') : $this->maxCount)
-            : $this->defaultCount;
-
-        if ($queryString) {
-            $results = Project::search($queryString);
-
-            return new ProjectCollection($results->paginate($perPage));
-        }
+//        $projects = Project::query()
+//            ->sort($request)
+//            ->filter($request)
+//            ->search($request);
 
         // if there is no search query, return projects sorted by updated_at from the latest updated
-        return new ProjectCollection(Project::with('creator')->orderBy('updated_at','DESC')->paginate($perPage));
+//        return new ProjectCollection($projects->paginate());
+
+        return new ProjectCollection(Project::paginate());
     }
 
     public function own($queryString = null): \Laravel\Scout\Builder

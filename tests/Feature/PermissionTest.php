@@ -20,7 +20,7 @@ class PermissionTest extends TestCase
         $permissions = Permission::factory()->count(5)->create();
 
         $response = $this
-            ->actingAs(User::where('email',self::ADMIN_EMAIL)->first())
+            ->actingAs(User::where('email', self::ADMIN_EMAIL)->first())
             ->json('GET', route('api.permissions.index'))
             ->assertStatus(200);
 

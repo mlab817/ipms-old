@@ -9,7 +9,6 @@ use Spatie\ResourceLinks\HasLinks;
 
 class RegionInvestmentResource extends JsonResource
 {
-    use HasLinks;
 
     /**
      * Transform the resource into an array.

@@ -9,7 +9,7 @@ use Spatie\ResourceLinks\HasLinks;
 
 class NepResource extends JsonResource
 {
-    use HasLinks;
+
     /**
      * Transform the resource into an array.
      *

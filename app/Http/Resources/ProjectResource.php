@@ -10,9 +10,6 @@ use Spatie\ResourceLinks\HasMeta;
 
 class ProjectResource extends JsonResource
 {
-    use HasLinks;
-    use HasMeta;
-
     /**
      * Transform the resource into an array.
      *
@@ -115,14 +112,6 @@ class ProjectResource extends JsonResource
             'created_at'                => (string) $this->created_at,
             'updated_at'                => (string) $this->updated_at,
             'permissions'               => (array) $this->permissions,
-            'links'                     => $this->links(ProjectController::class),
-        ];
-    }
-
-    public function meta()
-    {
-        return [
-            'links'     => self::collectionLinks(ProjectController::class)
         ];
     }
 }

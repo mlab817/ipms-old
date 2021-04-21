@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends \Spatie\Permission\Models\Permission
 {
     use HasFactory;
+
+    protected $guard_name = 'api';
 }
