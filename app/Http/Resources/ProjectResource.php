@@ -10,6 +10,8 @@ use Spatie\ResourceLinks\HasMeta;
 
 class ProjectResource extends JsonResource
 {
+    public static $wrap = 'project';
+
     /**
      * Transform the resource into an array.
      *

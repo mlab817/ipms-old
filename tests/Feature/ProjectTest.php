@@ -231,7 +231,6 @@ class ProjectTest extends TestCase
 
         $this->loginUser();
 
-        $this->seed(RolesAndPermissionsTableSeeder::class);
         $this->seed(ProjectsTableSeeder::class);
 
         $response = $this->get(route('api.projects.index'))
@@ -255,8 +254,6 @@ class ProjectTest extends TestCase
     {
         $this->loginUser();
 
-        $this->seed(RolesAndPermissionsTableSeeder::class);
-
         $response = $this
             ->postJson(route('api.projects.store'))
             ->assertStatus(403);
@@ -269,9 +266,9 @@ class ProjectTest extends TestCase
      *
      * @return void
      */
-    public function test_user_with_projects_create_permission_can_create_project()
+    public function test_user_with_projects_create_permission_can_create_project_and_returns_project()
     {
-//        $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
 
         $project = $this->createProjectInput();
 
@@ -283,11 +280,16 @@ class ProjectTest extends TestCase
         $response = $this
             ->json('POST', route('api.projects.store'), $project);
 
+        // check that a new model was created
         $response->assertStatus(201);
 
+        // check that it has been saved to the database
         $this->assertDatabaseHas('projects',[
             'title' => $project['title'],
         ]);
+
+        // check that the returned response has a project key
+        $this->assertArrayHasKey('project', $response->json());
     }
 
     /**
@@ -309,10 +311,9 @@ class ProjectTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $project = $this->createTestProject();
+        $project = Project::factory()->create();
 
         $response = $this
-            ->actingAs(User::factory()->create())
             ->json('GET', route('api.projects.show', $project->slug))
             ->assertStatus(200);
     }

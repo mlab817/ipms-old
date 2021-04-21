@@ -11,6 +11,7 @@ use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Models\User;
+use App\Services\ProjectService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -98,47 +99,13 @@ class ProjectController extends Controller
      * @param StoreProjectRequest $request
      * @return ProjectResource
      */
-    public function store(StoreProjectRequest $request): ProjectResource
+    public function store(StoreProjectRequest $request, ProjectService $service): ProjectResource
     {
-        $project = Project::create($request->validated());
-
-        $project->regions()->sync($request->regions);
-        $project->bases()->sync($request->bases);
-        $project->funding_sources()->sync($request->funding_sources);
-        $project->funding_institutions()->sync($request->funding_institutions);
-        $project->implementing_agencies()->sync($request->implementing_agencies);
-        $project->pdp_chapters()->sync($request->pdp_chapters);
-        $project->prerequisites()->sync($request->prerequisites);
-        $project->sdgs()->sync($request->sdgs);
-        $project->ten_point_agendas()->sync($request->ten_point_agendas);
-
-        if ($request->allocation) {
-            $project->allocation()->create($request->allocation);
-        }
-
-        if ($request->disbursement) {
-            $project->disbursement()->create($request->disbursement);
-        }
-
-        if ($request->feasibility_study) {
-            $project->feasibility_study()->create($request->feasibility_study);
-        }
-
-        if ($request->nep) {
-            $project->nep()->create($request->nep);
-        }
-
-        if ($request->resettlement_action_plan) {
-            $project->resettlement_action_plan()->create($request->resettlement_action_plan);
-        }
-
-        if ($request->right_of_way) {
-            $project->right_of_way()->create($request->right_of_way);
-        }
+        $project = $service->create($request->all());
 
         event(new CreateProjectEvent($project));
 
-        return $this->show($project);
+        return new ProjectResource($project);
     }
 
     /**
