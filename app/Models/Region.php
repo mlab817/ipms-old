@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Region extends Model
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
     use HasUuid;
     use Sluggable;

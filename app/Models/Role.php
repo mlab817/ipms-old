@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends \Spatie\Permission\Models\Role
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
 }
