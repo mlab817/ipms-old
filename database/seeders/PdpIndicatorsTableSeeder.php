@@ -18,9 +18,6 @@ class PdpIndicatorsTableSeeder extends Seeder
      */
     public function run()
     {
-        if (config('database.default') == 'pgsql') {
-            SET session_replication_role = 'replica';
-        }
         
         $file = File::get(__DIR__ . '/pdp_indicators.json');
         $json = json_decode($file, true);
@@ -41,8 +38,5 @@ class PdpIndicatorsTableSeeder extends Seeder
 
         Schema::enableForeignKeyConstraints();
         
-        if (config('database.default') == 'pgsql') {
-            SET session_replication_role = 'origin';
-        }
     }
 }
