@@ -14,18 +14,22 @@ use App\Http\Controllers\Api\FundingSourceController;
 use App\Http\Controllers\Api\GadController;
 use App\Http\Controllers\Api\ImplementationModeController;
 use App\Http\Controllers\Api\InfrastructureSectorController;
+use App\Http\Controllers\Api\InfrastructureSubsectorController;
 use App\Http\Controllers\Api\ModificationController;
 use App\Http\Controllers\Api\NepController;
 use App\Http\Controllers\Api\OfficeController;
 use App\Http\Controllers\Api\OperatingUnitController;
+use App\Http\Controllers\Api\OperatingUnitTypeController;
 use App\Http\Controllers\Api\OuInfrastructureController;
 use App\Http\Controllers\Api\OuInvestmentController;
 use App\Http\Controllers\Api\PapTypeController;
 use App\Http\Controllers\Api\PdpChapterController;
 use App\Http\Controllers\Api\PdpIndicatorController;
 use App\Http\Controllers\Api\PipTypologyController;
+use App\Http\Controllers\Api\PreparationDocumentController;
 use App\Http\Controllers\Api\PrerequisiteController;
 use App\Http\Controllers\Api\ProjectStatusController;
+use App\Http\Controllers\Api\ReadinessLevelController;
 use App\Http\Controllers\Api\RegionController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ResettlementActionPlanController;
@@ -149,8 +153,10 @@ Route::group(['prefix'=>'v1'], function($router) {
     Route::get('/implementation_modes', [ImplementationModeController::class,'index'])->name('api.implementation_modes.index');
 
     Route::get('/infrastructure_sectors', [InfrastructureSectorController::class,'index'])->name('api.infrastructure_sectors.index');
+    Route::get('/infrastructure_subsectors', [InfrastructureSubsectorController::class,'index'])->name('api.infrastructure_subsectors.index');
 
     Route::get('/operating_units', [OperatingUnitController::class,'index'])->name('api.operating_units.index');
+    Route::get('/operating_unit_types', [OperatingUnitTypeController::class,'index'])->name('api.operating_unit_types.index');
 
     Route::get('/pap_types/chart', [PapTypeController::class,'chart'])->name('api.pap_types.chart');
     Route::get('/pap_types/{pap_type}/projects', [PapTypeController::class,'show'])->name('api.pap_types.show');
@@ -165,10 +171,14 @@ Route::group(['prefix'=>'v1'], function($router) {
 
     Route::get('/pip_typologies', [PipTypologyController::class,'index'])->name('api.pip_typologies.index');
 
+    Route::get('/preparation_documents', [PreparationDocumentController::class,'index'])->name('api.preparation_documents.index');
+
     Route::get('/prerequisites', [PrerequisiteController::class,'index'])->name('api.prerequisites.index');
 
     Route::get('/project_statuses/{project_status}/projects', [ProjectStatusController::class,'show'])->name('api.project_statuses.show');
     Route::get('/project_statuses', [ProjectStatusController::class,'index'])->name('api.project_statuses.index');
+
+    Route::get('/readiness_levels', [ReadinessLevelController::class,'index'])->name('api.readiness_levels.index');
 
     Route::get('/regions/chart', [RegionController::class,'chart'])->name('api.regions.chart');
     Route::get('/regions/{region}/projects', [RegionController::class,'show']);

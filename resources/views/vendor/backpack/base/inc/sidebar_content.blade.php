@@ -30,3 +30,4 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('spatialcoverage') }}'><i class='nav-icon la la-question'></i> SpatialCoverages</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tenpointagenda') }}'><i class='nav-icon la la-question'></i> TenPointAgendas</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tier') }}'><i class='nav-icon la la-question'></i> Tiers</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('infrastructuresubsector') }}'><i class='nav-icon la la-question'></i> InfrastructureSubsectors</a></li>

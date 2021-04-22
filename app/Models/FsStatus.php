@@ -16,7 +16,6 @@ class FsStatus extends Model
     use Sluggable;
 
     protected $fillable = [
-        'uuid',
         'name',
         'slug',
         'description',

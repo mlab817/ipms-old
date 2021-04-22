@@ -21,38 +21,38 @@ class PapTypeCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
     {
         CRUD::setModel(\App\Models\PapType::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/paptype');
-        CRUD::setEntityNameStrings('paptype', 'pap_types');
+        CRUD::setEntityNameStrings('PAP type', 'PAP types');
     }
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
     protected function setupListOperation()
     {
+        CRUD::column('id');
         CRUD::column('name');
-        CRUD::column('slug');
         CRUD::column('description');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -61,19 +61,18 @@ class PapTypeCrudController extends CrudController
         CRUD::setValidation(PapTypeRequest::class);
 
         CRUD::field('name');
-        CRUD::field('slug');
         CRUD::field('description');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

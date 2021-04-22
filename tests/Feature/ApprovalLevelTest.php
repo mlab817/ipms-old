@@ -24,8 +24,6 @@ class ApprovalLevelTest extends TestCase
         $response
             ->assertStatus(200);
 
-        $response->dump();
-
         $response->assertJsonStructure(['data' => [
                 [
                     'id',

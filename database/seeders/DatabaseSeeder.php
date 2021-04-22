@@ -39,5 +39,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TenPointAgendasTableSeeder::class);
         $this->call(TiersTableSeeder::class);
         $this->call(RolesAndPermissionsTableSeeder::class);
+        $this->call(AdminUserTableSeeder::class);
     }
 }

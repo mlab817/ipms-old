@@ -60,6 +60,8 @@ class AuthTest extends TestCase
      */
     public function test_registered_user_can_login()
     {
+        $this->withoutExceptionHandling();
+
         $user = User::factory()->create();
 
         // attempt login

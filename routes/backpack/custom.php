@@ -44,4 +44,5 @@ Route::group([
     Route::crud('spatialcoverage', 'SpatialCoverageCrudController');
     Route::crud('tenpointagenda', 'TenPointAgendaCrudController');
     Route::crud('tier', 'TierCrudController');
+    Route::crud('infrastructuresubsector', 'InfrastructureSubsectorCrudController');
 }); // this should be the absolute last line of this file

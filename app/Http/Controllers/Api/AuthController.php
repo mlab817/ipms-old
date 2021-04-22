@@ -27,10 +27,17 @@ class AuthController extends Controller
     {
         $credentials = $request->only(['email','password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        // get user
+        $user = User::where('email', $credentials['email'])->first();
+
+        if (! $user) {
             return response()->json([
                 'error' => 'Incorrect credentials'
             ], 401);
+        }
+
+        if (Hash::check($credentials['password'], $user->password)) {
+            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
         }
 
         return response()->json(compact('token'));
