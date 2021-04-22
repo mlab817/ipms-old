@@ -969,7 +969,7 @@ var modern = (function (domGlobals) {
               type: 'container',
               name: name,
               layout: 'stack',
-              classes: 'sidebar-panel',
+              classes: 'sidebar.blade.php-panel',
               html: ''
             });
             container.prepend(panel);
@@ -1006,7 +1006,7 @@ var modern = (function (domGlobals) {
         items: [{
             type: 'toolbar',
             layout: 'stack',
-            classes: 'sidebar-toolbar',
+            classes: 'sidebar.blade.php-toolbar',
             items: buttons
           }]
       };

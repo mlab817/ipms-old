@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Amitav\SortAndFilter\SortAndFilter;
+use App\Traits\Auditable;
 use App\Traits\HasUuid;
-use App\Traits\Trackable;
 use Approval\Traits\RequiresApproval;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,14 +22,12 @@ class Project extends Model
     use HasFactory;
     use HasUuid;
     use Sluggable;
-    use Trackable;
     use SoftDeletes;
     use RequiresApproval;
     use SortAndFilter;
+    use Auditable;
 
     protected $guard_name = 'api';
-
-    public $asYouType = true;
 
     protected $fillable = [
         'code', // pipol code
@@ -97,6 +95,11 @@ class Project extends Model
 
     protected $appends = [
         'permissions',
+    ];
+
+    protected $casts = [
+        'updated_at' => 'datetime:Y-m-d h:m A',
+        'created_at' => 'datetime:Y-m-d h:m A',
     ];
 
     public function getRouteKeyName(): string

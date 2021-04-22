@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ProjectsDataTable;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\Basis;
 use App\Models\PapType;
@@ -17,22 +18,10 @@ class ProjectController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index(ProjectsDataTable $dataTable)
     {
-        $q = $request->query('q');
-        $per_page = $request->query('per_page') ?? 10;
-
-        if ($q) {
-            $projects = Project::search($q)->paginate($per_page);
-        } else {
-            $projects = Project::paginate($per_page);
-        }
-
-        $projects->load(['pap_type','creator']);
-
-        return view('projects.index', compact('projects'))
-            ->with('per_page', $per_page)
-            ->with('q', $q);
+        return $dataTable
+            ->render('projects.index', ['pageTitle' => 'Projects']);
     }
 
     /**
@@ -70,7 +59,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return view('projects.show', compact('project'))
+            ->with('pageTitle', $project->title);
     }
 
     /**
@@ -100,12 +90,14 @@ class ProjectController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Project  $project
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Project $project)
     {
         $project->delete();
 
-        return back();
+        session()->flash('message', 'Successfully deleted project');
+
+        return response()->json(['message' => 'Successfully deleted project']);
     }
 }

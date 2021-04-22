@@ -26,16 +26,17 @@ class ProjectsTableSeeder extends Seeder
     {
         Project::unsetEventDispatcher();
 
+
         Project::factory()
-//            ->has(RightOfWay::factory(),'right_of_way')
-//            ->has(ResettlementActionPlan::factory(),'resettlement_action_plan')
-//            ->has(FeasibilityStudy::factory(), 'feasibility_study')
-//            ->has(OuInvestment::factory()->count(2), 'ou_investments')
-//            ->has(OuInfrastructure::factory()->count(2), 'ou_infrastructures')
-//            ->has(RegionInvestment::factory()->count(2), 'region_investments')
-//            ->has(RegionInfrastructure::factory()->count(2), 'region_infrastructures')
-//            ->has(FsInvestment::factory()->count(2), 'fs_investments')
-//            ->has(FsInfrastructure::factory()->count(2), 'fs_infrastructures')
+            ->has(RightOfWay::factory(),'right_of_way')
+            ->has(ResettlementActionPlan::factory(),'resettlement_action_plan')
+            ->has(FeasibilityStudy::factory(), 'feasibility_study')
+            ->has(OuInvestment::factory()->count(2), 'ou_investments')
+            ->has(OuInfrastructure::factory()->count(2), 'ou_infrastructures')
+            ->has(RegionInvestment::factory()->count(2), 'region_investments')
+            ->has(RegionInfrastructure::factory()->count(2), 'region_infrastructures')
+            ->has(FsInvestment::factory()->count(2), 'fs_investments')
+            ->has(FsInfrastructure::factory()->count(2), 'fs_infrastructures')
             ->count(50)
             ->create();
     }

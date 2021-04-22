@@ -26569,7 +26569,7 @@
         uid: spec.uid,
         dom: {
           tag: 'div',
-          classes: ['tox-sidebar'],
+          classes: ['tox-sidebar.blade.php'],
           attributes: { role: 'complementary' }
         },
         components: [{
@@ -26583,10 +26583,10 @@
               Focusing.config({}),
               Sliding.config({
                 dimension: { property: 'width' },
-                closedClass: 'tox-sidebar--sliding-closed',
-                openClass: 'tox-sidebar--sliding-open',
-                shrinkingClass: 'tox-sidebar--sliding-shrinking',
-                growingClass: 'tox-sidebar--sliding-growing',
+                closedClass: 'tox-sidebar.blade.php--sliding-closed',
+                openClass: 'tox-sidebar.blade.php--sliding-open',
+                shrinkingClass: 'tox-sidebar.blade.php--sliding-shrinking',
+                growingClass: 'tox-sidebar.blade.php--sliding-growing',
                 onShrunk: function (slider) {
                   var optSlotContainer = Composing.getCurrent(slider);
                   optSlotContainer.each(SlotContainer.hideAllSlots);
@@ -26613,7 +26613,7 @@
           }],
         behaviours: derive$1([
           ComposingConfigs.childAt(0),
-          config('sidebar-sliding-events', [
+          config('sidebar.blade.php-sliding-events', [
             run(fixSize, function (comp, se) {
               set$2(comp.element, 'width', se.event.width);
             }),
@@ -29702,7 +29702,7 @@
       var partSidebar = OuterContainer.parts.sidebar({
         dom: {
           tag: 'div',
-          classes: ['tox-sidebar']
+          classes: ['tox-sidebar.blade.php']
         }
       });
       var partThrobber = OuterContainer.parts.throbber({
@@ -29717,7 +29717,7 @@
       var socketSidebarContainer = {
         dom: {
           tag: 'div',
-          classes: ['tox-sidebar-wrap']
+          classes: ['tox-sidebar.blade.php-wrap']
         },
         components: [
           partSocket,

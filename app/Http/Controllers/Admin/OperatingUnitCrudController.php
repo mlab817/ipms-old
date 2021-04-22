@@ -28,7 +28,7 @@ class OperatingUnitCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\OperatingUnit::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/operatingunit');
-        CRUD::setEntityNameStrings('operatingunit', 'operating_units');
+        CRUD::setEntityNameStrings('operating unit', 'operating units');
     }
 
     /**

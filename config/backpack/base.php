@@ -86,13 +86,13 @@ return [
     // ----
 
     // Body element classes.
-    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    // Try sidebar-hidden, sidebar-fixed, sidebar-compact, sidebar-lg-show
+    'body_class' => 'app aside-menu-fixed sidebar.blade.php-lg-show',
+    // Try sidebar.blade.php-hidden, sidebar.blade.php-fixed, sidebar.blade.php-compact, sidebar.blade.php-lg-show
 
     // Sidebar element classes.
-    'sidebar_class' => 'sidebar sidebar-pills bg-light',
-    // Remove "sidebar-transparent" for standard sidebar look
-    // Try "sidebar-light" or "sidebar-dark" for dark/light links
+    'sidebar_class' => 'sidebar.blade.php sidebar.blade.php-pills bg-light',
+    // Remove "sidebar.blade.php-transparent" for standard sidebar.blade.php look
+    // Try "sidebar.blade.php-light" or "sidebar.blade.php-dark" for dark/light links
     // You can also add a background class like bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan
 
     // ------

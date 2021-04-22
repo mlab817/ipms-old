@@ -2,39 +2,50 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
 
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
+            @include('partials.navbar')
 
-            <!-- Page Content -->
-            <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <div class="my-6">
-                    {{ $slot }}
+            @include('partials.sidebar')
+
+            <div class="content-wrapper">
+
+                @include('partials.header', ['pageTitle' => $pageTitle ?? 'Page Title',])
+
+                <section class="content">
+
+                    <div class="container-fluid">
+
+                        @yield('content')
+
+                    </div>
+
+                </section>
+
+            </div>
+
+            <footer class="main-footer">
+                <div class="float-right d-none d-sm-block">
+                    <b>Version</b> 3.0.0-alpha
                 </div>
-            </main>
+                <strong> &copy;</strong> {{ trans('global.allRightsReserved') }}
+            </footer>
+
         </div>
 
+        <script src="{{ mix('js/app.js') }}"></script>
+        <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
         @stack('scripts')
     </body>
 </html>
