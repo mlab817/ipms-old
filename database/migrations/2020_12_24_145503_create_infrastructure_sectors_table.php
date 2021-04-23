@@ -15,7 +15,6 @@ class CreateInfrastructureSectorsTable extends Migration
     {
         Schema::create('infrastructure_sectors', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('slug')->nullable();

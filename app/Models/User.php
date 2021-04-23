@@ -12,19 +12,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Laravel\Scout\Searchable;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
     use Notifiable;
-    use HasRoles;
     use Searchable;
     use ApprovesChanges;
     use HasApiTokens;
-
-    protected $guard_name = 'api';
 
     /**
      * The attributes that are mass assignable.

@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class OperatingUnit extends Model
 {
-    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
     use HasUuid;
     use Sluggable;

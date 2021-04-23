@@ -24,7 +24,6 @@ class Project extends Model
     use Sluggable;
     use SoftDeletes;
     use RequiresApproval;
-    use SortAndFilter;
     use Auditable;
 
     protected $guard_name = 'api';

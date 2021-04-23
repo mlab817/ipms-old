@@ -15,7 +15,6 @@ class CreateGadsTable extends Migration
     {
         Schema::create('gads', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('slug')->nullable();

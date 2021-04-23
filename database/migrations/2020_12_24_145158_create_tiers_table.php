@@ -15,7 +15,6 @@ class CreateTiersTable extends Migration
     {
         Schema::create('tiers', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('slug')->nullable();

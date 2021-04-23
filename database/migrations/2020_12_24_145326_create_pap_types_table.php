@@ -15,7 +15,6 @@ class CreatePapTypesTable extends Migration
     {
         Schema::create('pap_types', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('slug')->nullable();

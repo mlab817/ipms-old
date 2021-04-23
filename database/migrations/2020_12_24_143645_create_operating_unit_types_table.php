@@ -15,7 +15,6 @@ class CreateOperatingUnitTypesTable extends Migration
     {
         Schema::create('operating_unit_types', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
             $table->string('name');
             $table->string('slug')->nullable();
             $table->timestamps();

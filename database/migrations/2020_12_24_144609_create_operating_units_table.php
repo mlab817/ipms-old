@@ -15,7 +15,6 @@ class CreateOperatingUnitsTable extends Migration
     {
         Schema::create('operating_units', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
             $table->string('name');
             $table->string('slug')->nullable();
             $table->foreignId('operating_unit_type_id')->nullable()->constrained()->onDelete('set null');

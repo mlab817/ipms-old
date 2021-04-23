@@ -4,71 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe966b323a9f1ca0435cae06ec71a369",
+    "content-hash": "fcf3d04b3f6e2ffd7e490ede51eb519b",
     "packages": [
-        {
-            "name": "amitavroy/laravel-sort-and-filter",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/amitavroy/laravel-sort-and-filter.git",
-                "reference": "355e8f5898bd03c38d06081a19ffd18fbef76a5d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/amitavroy/laravel-sort-and-filter/zipball/355e8f5898bd03c38d06081a19ffd18fbef76a5d",
-                "reference": "355e8f5898bd03c38d06081a19ffd18fbef76a5d",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "orchestra/testbench": "^5.0",
-                "phpunit/phpunit": "^9.0",
-                "psalm/plugin-laravel": "^1.2",
-                "vimeo/psalm": "^3.11"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Amitav\\SortAndFilter\\SortAndFilterServiceProvider"
-                    ],
-                    "aliases": {
-                        "Skeleton": "Amitav\\SortAndFilter\\SkeletonFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Amitav\\SortAndFilter\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Amitav Roy",
-                    "email": "reachme@amitavroy.com",
-                    "homepage": "https://amitavroy.com",
-                    "role": "Developer"
-                }
-            ],
-            "homepage": "https://github.com/amitavroy/laravel-sort-and-filter",
-            "keywords": [
-                "amitavroy",
-                "laravel-sort-and-filter"
-            ],
-            "support": {
-                "issues": "https://github.com/amitavroy/laravel-sort-and-filter/issues",
-                "source": "https://github.com/amitavroy/laravel-sort-and-filter/tree/master"
-            },
-            "time": "2020-06-28T16:54:30+00:00"
-        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.0.3",
@@ -124,99 +61,6 @@
                 "source": "https://github.com/asm89/stack-cors/tree/v2.0.3"
             },
             "time": "2021-03-11T06:42:03+00:00"
-        },
-        {
-            "name": "backpack/crud",
-            "version": "4.1.42",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "9338f9711a393f82ecb09d68c0756bf24c56eafe"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/9338f9711a393f82ecb09d68c0756bf24c56eafe",
-                "reference": "9338f9711a393f82ecb09d68c0756bf24c56eafe",
-                "shasum": ""
-            },
-            "require": {
-                "composer/package-versions-deprecated": "^1.8",
-                "creativeorange/gravatar": "~1.0",
-                "doctrine/dbal": "^2.5|^3.0",
-                "guzzlehttp/guzzle": "^7.0|^6.3",
-                "laravel/framework": "^8.0|^7.0|^6.0",
-                "prologue/alerts": "^0.4.1"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^6.0|^5.0|^4.0|^3.0",
-                "phpunit/phpunit": "~8.0|~7.0|~9.0",
-                "scrutinizer/ocular": "~1.7|~1.1",
-                "spatie/laravel-translatable": "^4.0"
-            },
-            "suggest": {
-                "backpack/filemanager": "Required to use the browse and browse_multiple fields.",
-                "backpack/generators": "Required on localhost to easily generate CRUDs, models, controllers etc.",
-                "backpack/revise-operation": "Optional operation to remember all entry changes, undo and redo them (aka audit trait).",
-                "digitallyhappy/toggle-field-for-backpack": "Optional field to toggle a boolean. Prettier alternative to the checkbox field."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.0-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Backpack\\CRUD\\BackpackServiceProvider"
-                    ],
-                    "aliases": {
-                        "CRUD": "Backpack\\CRUD\\app\\Library\\CrudPanel\\CrudPanelFacade",
-                        "Widget": "Backpack\\CRUD\\app\\Library\\Widget"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Backpack\\CRUD\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "Cristian Tabacitu",
-                    "email": "tabacitu@backpackforlaravel.com",
-                    "homepage": "https://backpackforlaravel.com",
-                    "role": "Creator & Maintainer"
-                }
-            ],
-            "description": "Quickly build an admin interfaces using Laravel 7, CoreUI, Boostrap 4 and jQuery.",
-            "homepage": "https://github.com/laravel-backpack/CRUD",
-            "keywords": [
-                "Admin Interface",
-                "Content management system",
-                "admin panel",
-                "admin panel for laravel",
-                "backpack",
-                "base",
-                "bootstrap 4 admin panel laravel",
-                "bread",
-                "cms",
-                "content management framework",
-                "coreui for laravel",
-                "create",
-                "crud",
-                "delete",
-                "laravel admin",
-                "read",
-                "update"
-            ],
-            "support": {
-                "issues": "https://github.com/Laravel-Backpack/CRUD/issues",
-                "source": "https://github.com/Laravel-Backpack/CRUD/tree/4.1.42"
-            },
-            "time": "2021-04-18T18:53:11+00:00"
         },
         {
             "name": "brick/math",
@@ -347,142 +191,6 @@
                 "source": "https://github.com/cocur/slugify/tree/master"
             },
             "time": "2019-12-14T13:04:14+00:00"
-        },
-        {
-            "name": "composer/package-versions-deprecated",
-            "version": "1.11.99.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/package-versions-deprecated.git",
-                "reference": "7413f0b55a051e89485c5cb9f765fe24bb02a7b6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/7413f0b55a051e89485c5cb9f765fe24bb02a7b6",
-                "reference": "7413f0b55a051e89485c5cb9f765fe24bb02a7b6",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.1.0 || ^2.0",
-                "php": "^7 || ^8"
-            },
-            "replace": {
-                "ocramius/package-versions": "1.11.99"
-            },
-            "require-dev": {
-                "composer/composer": "^1.9.3 || ^2.0@dev",
-                "ext-zip": "^1.13",
-                "phpunit/phpunit": "^6.5 || ^7"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "class": "PackageVersions\\Installer",
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PackageVersions\\": "src/PackageVersions"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marco Pivetta",
-                    "email": "ocramius@gmail.com"
-                },
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be"
-                }
-            ],
-            "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "support": {
-                "issues": "https://github.com/composer/package-versions-deprecated/issues",
-                "source": "https://github.com/composer/package-versions-deprecated/tree/1.11.99.1"
-            },
-            "funding": [
-                {
-                    "url": "https://packagist.com",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/composer",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2020-11-11T10:22:58+00:00"
-        },
-        {
-            "name": "creativeorange/gravatar",
-            "version": "v1.0.20",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/creativeorange/gravatar.git",
-                "reference": "8c2c1a3a59fdf05f50c9d9413dd9d2d50835e017"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/creativeorange/gravatar/zipball/8c2c1a3a59fdf05f50c9d9413dd9d2d50835e017",
-                "reference": "8c2c1a3a59fdf05f50c9d9413dd9d2d50835e017",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^5|^6|^7|^8",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "nunomaduro/larastan": "^0.6.2",
-                "orchestra/testbench": "^5.4",
-                "php": ">=7.2"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Creativeorange\\Gravatar\\GravatarServiceProvider"
-                    ],
-                    "aliases": {
-                        "Gravatar": "Creativeorange\\Gravatar\\Facades\\Gravatar"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Creativeorange\\Gravatar\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jaco Tijssen",
-                    "email": "jaco@creativeorange.nl",
-                    "homepage": "https://www.creativeorange.nl",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A Laravel Gravatar package for retrieving gravatar image URLs or checking the existance of an image.",
-            "keywords": [
-                "avatar",
-                "gravatar",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/creativeorange/gravatar/issues",
-                "source": "https://github.com/creativeorange/gravatar/tree/v1.0.20"
-            },
-            "time": "2020-09-09T14:53:57+00:00"
         },
         {
             "name": "cviebrock/eloquent-sluggable",
@@ -719,32 +427,30 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.1.0",
+            "version": "2.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "5ba62e7e40df119424866064faf2cef66cb5232a"
+                "reference": "c800380457948e65bbd30ba92cc17cda108bf8c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/5ba62e7e40df119424866064faf2cef66cb5232a",
-                "reference": "5ba62e7e40df119424866064faf2cef66cb5232a",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/c800380457948e65bbd30ba92cc17cda108bf8c9",
+                "reference": "c800380457948e65bbd30ba92cc17cda108bf8c9",
                 "shasum": ""
             },
             "require": {
-                "composer/package-versions-deprecated": "^1.11.99",
                 "doctrine/cache": "^1.0",
                 "doctrine/deprecations": "^0.5.3",
                 "doctrine/event-manager": "^1.0",
-                "php": "^7.3 || ^8.0"
+                "ext-pdo": "*",
+                "php": "^7.1 || ^8"
             },
             "require-dev": {
                 "doctrine/coding-standard": "8.2.0",
                 "jetbrains/phpstorm-stubs": "2020.2",
                 "phpstan/phpstan": "0.12.81",
-                "phpstan/phpstan-strict-rules": "^0.12.2",
-                "phpunit/phpunit": "9.5.0",
-                "psalm/plugin-phpunit": "0.13.0",
+                "phpunit/phpunit": "^7.5.20|^8.5|9.5.0",
                 "squizlabs/php_codesniffer": "3.6.0",
                 "symfony/console": "^2.0.5|^3.0|^4.0|^5.0",
                 "vimeo/psalm": "4.6.4"
@@ -758,7 +464,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Doctrine\\DBAL\\": "src"
+                    "Doctrine\\DBAL\\": "lib/Doctrine/DBAL"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -801,13 +507,14 @@
                 "queryobject",
                 "sasql",
                 "sql",
+                "sqlanywhere",
                 "sqlite",
                 "sqlserver",
                 "sqlsrv"
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.1.0"
+                "source": "https://github.com/doctrine/dbal/tree/2.13.1"
             },
             "funding": [
                 {
@@ -823,7 +530,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-04-19T17:51:23+00:00"
+            "time": "2021-04-17T17:30:19+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -4346,76 +4053,6 @@
             "time": "2021-04-19T03:20:48+00:00"
         },
         {
-            "name": "prologue/alerts",
-            "version": "0.4.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/prologuephp/alerts.git",
-                "reference": "a6412e318c0171526bc8b25ef597f2cc61f5b800"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/prologuephp/alerts/zipball/a6412e318c0171526bc8b25ef597f2cc61f5b800",
-                "reference": "a6412e318c0171526bc8b25ef597f2cc61f5b800",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/config": "~5|~6|~7|~8",
-                "illuminate/session": "~5|~6|~7|~8",
-                "illuminate/support": "~5|~6|~7|~8",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~4.1"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Prologue\\Alerts\\AlertsServiceProvider"
-                    ],
-                    "aliases": {
-                        "Alert": "Prologue\\Alerts\\Facades\\Alert"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Prologue\\Alerts\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dries Vints",
-                    "email": "dries.vints@gmail.com",
-                    "homepage": "http://driesvints.com",
-                    "role": "Creator"
-                },
-                {
-                    "name": "Cristian Tabacitu",
-                    "email": "hello@tabacitu.ro",
-                    "homepage": "http://tabacitu.ro",
-                    "role": "Maintainer"
-                }
-            ],
-            "description": "Prologue Alerts is a package that handles global site messages.",
-            "keywords": [
-                "alerts",
-                "laravel",
-                "messages"
-            ],
-            "support": {
-                "issues": "https://github.com/prologuephp/alerts/issues",
-                "source": "https://github.com/prologuephp/alerts/tree/master"
-            },
-            "time": "2020-09-08T14:24:39+00:00"
-        },
-        {
             "name": "psr/container",
             "version": "1.1.1",
             "source": {
@@ -7632,154 +7269,6 @@
             "time": "2021-03-28T09:42:18+00:00"
         },
         {
-            "name": "teamtnt/laravel-scout-tntsearch-driver",
-            "version": "v11.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/teamtnt/laravel-scout-tntsearch-driver.git",
-                "reference": "d8c241c2315f494521fd3e6f3f1feb3396142d41"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/teamtnt/laravel-scout-tntsearch-driver/zipball/d8c241c2315f494521fd3e6f3f1feb3396142d41",
-                "reference": "d8c241c2315f494521fd3e6f3f1feb3396142d41",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/bus": "~5.4|^6.0|^7.0|^8.0",
-                "illuminate/contracts": "~5.4|^6.0|^7.0|^8.0",
-                "illuminate/pagination": "~5.4|^6.0|^7.0|^8.0",
-                "illuminate/queue": "~5.4|^6.0|^7.0|^8.0",
-                "illuminate/support": "~5.4|^6.0|^7.0|^8.0",
-                "laravel/scout": "7.*|^8.0|^8.3",
-                "php": ">=7.1",
-                "teamtnt/tntsearch": "2.7.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^7.0|^8.0|^9.0"
-            },
-            "suggest": {
-                "teamtnt/tntsearch": "Required to use the TNTSearch engine."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "TeamTNT\\Scout\\TNTSearchScoutServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "TeamTNT\\Scout\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "TNT Studio",
-                    "email": "info@tntstudio.hr"
-                }
-            ],
-            "description": "Driver for Laravel Scout search package based on https://github.com/teamtnt/tntsearch",
-            "keywords": [
-                "laravel",
-                "scout",
-                "search",
-                "tntsearch"
-            ],
-            "support": {
-                "issues": "https://github.com/teamtnt/laravel-scout-tntsearch-driver/issues",
-                "source": "https://github.com/teamtnt/laravel-scout-tntsearch-driver/tree/v11.2.0"
-            },
-            "time": "2021-03-11T14:26:46+00:00"
-        },
-        {
-            "name": "teamtnt/tntsearch",
-            "version": "v2.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/teamtnt/tntsearch.git",
-                "reference": "c7d0f67070ea22e835bb1416b85dee0f74780fdc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/teamtnt/tntsearch/zipball/c7d0f67070ea22e835bb1416b85dee0f74780fdc",
-                "reference": "c7d0f67070ea22e835bb1416b85dee0f74780fdc",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "ext-pdo_sqlite": "*",
-                "ext-sqlite3": "*",
-                "php": "~7.1|^8"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "7.*|8.*|9.*",
-                "symfony/var-dumper": "^4|^5.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "TeamTNT\\TNTSearch\\": "src"
-                },
-                "files": [
-                    "helper/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nenad Tičarić",
-                    "email": "nticaric@gmail.com",
-                    "homepage": "http://www.tntstudio.us",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A fully featured full text search engine written in PHP",
-            "homepage": "https://github.com/teamtnt/tntsearch",
-            "keywords": [
-                "Fuzzy search",
-                "bm25",
-                "fulltext",
-                "geosearch",
-                "search",
-                "stemming",
-                "teamtnt",
-                "text classification",
-                "tntsearch"
-            ],
-            "support": {
-                "issues": "https://github.com/teamtnt/tntsearch/issues",
-                "source": "https://github.com/teamtnt/tntsearch/tree/v2.7.0"
-            },
-            "funding": [
-                {
-                    "url": "https://ko-fi.com/nticaric",
-                    "type": "ko_fi"
-                },
-                {
-                    "url": "https://opencollective.com/tntsearch",
-                    "type": "open_collective"
-                },
-                {
-                    "url": "https://www.patreon.com/nticaric",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2021-03-11T15:26:17+00:00"
-        },
-        {
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "2.2.3",
             "source": {
@@ -8472,151 +7961,6 @@
     ],
     "packages-dev": [
         {
-            "name": "backpack/generators",
-            "version": "v3.1.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Laravel-Backpack/Generators.git",
-                "reference": "313b012399e98ece69942860d58a67e598de3662"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/313b012399e98ece69942860d58a67e598de3662",
-                "reference": "313b012399e98ece69942860d58a67e598de3662",
-                "shasum": ""
-            },
-            "require": {
-                "backpack/crud": "4.1.*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.0||^7.0",
-                "scrutinizer/ocular": "~1.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Backpack\\Generators\\GeneratorsServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Backpack\\Generators\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "Cristian Tone",
-                    "email": "cristitone@outlook.com",
-                    "homepage": "http://updivision.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Generate files for laravel projects",
-            "homepage": "https://github.com/laravel-backpack/generators",
-            "keywords": [
-                "config",
-                "generators",
-                "model",
-                "request",
-                "view"
-            ],
-            "support": {
-                "issues": "https://github.com/Laravel-Backpack/Generators/issues",
-                "source": "https://github.com/Laravel-Backpack/Generators/tree/v3.1.8"
-            },
-            "time": "2021-03-30T12:54:33+00:00"
-        },
-        {
-            "name": "barryvdh/laravel-debugbar",
-            "version": "v3.5.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "6420113d90bb746423fa70b9940e9e7c26ebc121"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/6420113d90bb746423fa70b9940e9e7c26ebc121",
-                "reference": "6420113d90bb746423fa70b9940e9e7c26ebc121",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/routing": "^6|^7|^8",
-                "illuminate/session": "^6|^7|^8",
-                "illuminate/support": "^6|^7|^8",
-                "maximebf/debugbar": "^1.16.3",
-                "php": ">=7.2",
-                "symfony/debug": "^4.3|^5",
-                "symfony/finder": "^4.3|^5"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.3.3",
-                "orchestra/testbench-dusk": "^4|^5|^6",
-                "phpunit/phpunit": "^8.5|^9.0",
-                "squizlabs/php_codesniffer": "^3.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.5-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Barryvdh\\Debugbar\\ServiceProvider"
-                    ],
-                    "aliases": {
-                        "Debugbar": "Barryvdh\\Debugbar\\Facade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Barryvdh\\Debugbar\\": "src/"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Barry vd. Heuvel",
-                    "email": "barryvdh@gmail.com"
-                }
-            ],
-            "description": "PHP Debugbar integration for Laravel",
-            "keywords": [
-                "debug",
-                "debugbar",
-                "laravel",
-                "profiler",
-                "webprofiler"
-            ],
-            "support": {
-                "issues": "https://github.com/barryvdh/laravel-debugbar/issues",
-                "source": "https://github.com/barryvdh/laravel-debugbar/tree/v3.5.5"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/barryvdh",
-                    "type": "github"
-                }
-            ],
-            "time": "2021-04-07T11:19:20+00:00"
-        },
-        {
             "name": "brianium/paratest",
             "version": "v6.2.0",
             "source": {
@@ -9206,62 +8550,6 @@
             "time": "2020-09-10T13:49:13+00:00"
         },
         {
-            "name": "laravel/breeze",
-            "version": "v1.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/breeze.git",
-                "reference": "b6e804b6b8e6f87e510622ed6ab9771e8219e4c2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/breeze/zipball/b6e804b6b8e6f87e510622ed6ab9771e8219e4c2",
-                "reference": "b6e804b6b8e6f87e510622ed6ab9771e8219e4c2",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/filesystem": "^8.0",
-                "illuminate/support": "^8.0",
-                "php": "^7.3|^8.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Laravel\\Breeze\\BreezeServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Breeze\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "Minimal Laravel authentication scaffolding with Blade and Tailwind.",
-            "keywords": [
-                "auth",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/laravel/breeze/issues",
-                "source": "https://github.com/laravel/breeze"
-            },
-            "time": "2021-04-13T14:54:44+00:00"
-        },
-        {
             "name": "laravel/sail",
             "version": "v0.0.5",
             "source": {
@@ -9319,71 +8607,6 @@
                 "source": "https://github.com/laravel/sail"
             },
             "time": "2020-12-07T20:58:56+00:00"
-        },
-        {
-            "name": "maximebf/debugbar",
-            "version": "v1.16.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "6d51ee9e94cff14412783785e79a4e7ef97b9d62"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/6d51ee9e94cff14412783785e79a4e7ef97b9d62",
-                "reference": "6d51ee9e94cff14412783785e79a4e7ef97b9d62",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1|^8",
-                "psr/log": "^1.0",
-                "symfony/var-dumper": "^2.6|^3|^4|^5"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7.5.20 || ^9.4.2"
-            },
-            "suggest": {
-                "kriswallsmith/assetic": "The best way to manage assets",
-                "monolog/monolog": "Log using Monolog",
-                "predis/predis": "Redis storage"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.16-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "DebugBar\\": "src/DebugBar/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Maxime Bouroumeau-Fuseau",
-                    "email": "maxime.bouroumeau@gmail.com",
-                    "homepage": "http://maximebf.com"
-                },
-                {
-                    "name": "Barry vd. Heuvel",
-                    "email": "barryvdh@gmail.com"
-                }
-            ],
-            "description": "Debug bar in the browser for php application",
-            "homepage": "https://github.com/maximebf/php-debugbar",
-            "keywords": [
-                "debug",
-                "debugbar"
-            ],
-            "support": {
-                "issues": "https://github.com/maximebf/php-debugbar/issues",
-                "source": "https://github.com/maximebf/php-debugbar/tree/v1.16.5"
-            },
-            "time": "2020-12-07T11:07:24+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -11323,75 +10546,6 @@
                 }
             ],
             "time": "2020-09-28T06:39:44+00:00"
-        },
-        {
-            "name": "symfony/debug",
-            "version": "v4.4.20",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/debug.git",
-                "reference": "157bbec4fd773bae53c5483c50951a5530a2cc16"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/157bbec4fd773bae53c5483c50951a5530a2cc16",
-                "reference": "157bbec4fd773bae53c5483c50951a5530a2cc16",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.3",
-                "psr/log": "~1.0",
-                "symfony/polyfill-php80": "^1.15"
-            },
-            "conflict": {
-                "symfony/http-kernel": "<3.4"
-            },
-            "require-dev": {
-                "symfony/http-kernel": "^3.4|^4.0|^5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Debug\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Provides tools to ease debugging PHP code",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/debug/tree/v4.4.20"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-01-28T16:54:48+00:00"
         },
         {
             "name": "theseer/tokenizer",

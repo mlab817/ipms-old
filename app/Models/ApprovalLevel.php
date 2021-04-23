@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ApprovalLevel extends Model
 {
-    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
+    use HasSlug;
+
+    protected $guarded = [];
+
+    protected $rules = [];
 }

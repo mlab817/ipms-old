@@ -15,7 +15,6 @@ class CreateTenPointAgendasTable extends Migration
     {
         Schema::create('ten_point_agendas', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('slug')->nullable();

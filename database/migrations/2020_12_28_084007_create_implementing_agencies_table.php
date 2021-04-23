@@ -15,7 +15,6 @@ class CreateImplementingAgenciesTable extends Migration
     {
         Schema::create('implementing_agencies', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
             $table->string('name');
             $table->string('slug')->nullable();
             $table->foreignId('operating_unit_id')->constrained()->cascadeOnDelete();

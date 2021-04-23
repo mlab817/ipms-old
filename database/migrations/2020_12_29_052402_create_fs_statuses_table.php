@@ -15,7 +15,6 @@ class CreateFsStatusesTable extends Migration
     {
         Schema::create('fs_statuses', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('slug')->nullable();

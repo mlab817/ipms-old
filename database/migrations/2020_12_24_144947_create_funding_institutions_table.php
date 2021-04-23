@@ -15,7 +15,6 @@ class CreateFundingInstitutionsTable extends Migration
     {
         Schema::create('funding_institutions', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('slug')->nullable();

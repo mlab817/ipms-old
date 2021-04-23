@@ -15,7 +15,6 @@ class CreateApprovalLevelsTable extends Migration
     {
         Schema::create('approval_levels', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('slug')->nullable();

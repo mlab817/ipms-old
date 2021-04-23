@@ -15,7 +15,7 @@ class SdgRequest extends FormRequest
     public function authorize()
     {
         // only allow updates if the user is logged in
-        return backpack_auth()->check();
+        return true;
     }
 
     /**
@@ -26,7 +26,8 @@ class SdgRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name'  => 'required|string|unique:approval_levels,name',
+            'slug'  => 'sometimes|string|unique:approval_levels,slug',
         ];
     }
 

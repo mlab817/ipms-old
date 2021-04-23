@@ -15,7 +15,6 @@ class CreateOfficesTable extends Migration
     {
         Schema::create('offices', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
             $table->foreignId('operating_unit_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('name');
             $table->string('slug')->nullable();

@@ -179,13 +179,6 @@ return [
         // Socialite provider for social login
         \Laravel\Socialite\SocialiteServiceProvider::class,
 
-        // Permission provider for roles and permissions
-        \Spatie\Permission\PermissionServiceProvider::class,
-
-        \Laravel\Scout\ScoutServiceProvider::class,
-
-        \TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
-
         \Approval\ApprovalServiceProvider::class,
 
         \Laravel\Passport\PassportServiceProvider::class,
