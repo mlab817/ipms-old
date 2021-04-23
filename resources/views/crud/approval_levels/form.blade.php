@@ -14,9 +14,9 @@
                             @error('name')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
                         </div>
                         <div class="form-group">
-                            <label for="slug">Slug</label>
-                            <input type="text" class="form-control @error('name'){{ 'is-invalid' }}@enderror" name="slug" id="slug" placeholder="Slug" value="{{ old('slug', $approval_level->slug) }}">
-                            @error('slug')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
+                            <label for="description">Description</label>
+                            <textarea class="form-control @error('description'){{ 'is-invalid' }}@enderror" name="description" id="description" placeholder="Description">{{ old('description', $approval_level->description) }}</textarea>
+                            @error('description')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
                         </div>
                     </div>
                     <div class="card-footer">

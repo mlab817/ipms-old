@@ -105,8 +105,8 @@ class ApprovalLevelController extends Controller
      */
     public function destroy(ApprovalLevel $approvalLevel)
     {
-        $appapprovalLevel->delete();
+        $approvalLevel->delete();
 
-        return redirect()->route('admin.approval_levels.index');
+        // return redirect()->route('admin.approval_levels.index');
     }
 }

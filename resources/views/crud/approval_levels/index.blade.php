@@ -12,6 +12,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
+                                        <th>Description</th>
                                         <th>Slug</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
@@ -21,11 +22,12 @@
                                         <tr>
                                             <td>{{ $item->id }}</td>
                                             <td>{{ $item->name }}</td>
+                                            <td>{{ $item->description }}</td>
                                             <td>{{ $item->slug }}</td>
                                             <td class="text-center">
                                                 <div class="btn btn-group-vertical">
                                                     <a href="{{ route('admin.approval_levels.edit', $item->id) }}" class="btn btn-primary">Edit</a>
-                                                    <button type="button" class="btn btn-danger">Delete</button>
+                                                    <button type="button" class="btn btn-danger" onClick="confirmDelete({{ $item->id }})">Delete</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -50,5 +52,32 @@
 @endsection
 
 @push('scripts')
+  <script type="text/javascript">
+    function confirmDelete(id) {
+      let res = confirm('Are you sure you want to delete this item?')
+      let url = "{{ route('admin.approval_levels.destroy', ':id') }}"
+      let deleteUrl = url.replace(':id', id)
 
+      if (res) {
+        $.ajax({
+          url: deleteUrl,
+          type: "delete",
+          data: {
+            _token: "{{ csrf_token() }}",
+          },
+          headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}",
+          },
+          success: function (data) {
+              // prompt user of success
+              window.location.reload();
+          },
+          error: function (data) {
+              console.log('Error:', data);
+          }
+        })
+      }
+
+    }
+  </script>
 @endpush

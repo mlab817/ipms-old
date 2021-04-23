@@ -2,16 +2,25 @@
 
 namespace App\Models;
 
-use App\Traits\HasSlug;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ApprovalLevel extends Model
 {
     use HasFactory;
-    use HasSlug;
+    use Sluggable;
 
     protected $guarded = [];
 
     protected $rules = [];
+
+    public function sluggable()
+    {
+      return [
+        'slug' => [
+          'source' => 'name'
+        ]
+      ];
+    }
 }
