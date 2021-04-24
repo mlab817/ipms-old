@@ -2,9 +2,11 @@
 
 namespace Tests;
 
+use App\Models\Admin;
 use App\Models\Project;
 use App\Models\User;
-use Database\Seeders\RolesAndPermissionsTableSeeder;
+use Database\Seeders\AdminUserTableSeeder;
+use Database\Seeders\RolesTableSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -30,7 +32,7 @@ abstract class TestCase extends BaseTestCase
 
         $this->user = User::factory()->create();
 
-        $this->seed(RolesAndPermissionsTableSeeder::class);
+        $this->seed(RolesTableSeeder::class);
     }
 
     /**

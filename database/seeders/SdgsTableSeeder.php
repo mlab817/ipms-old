@@ -107,7 +107,6 @@ class SdgsTableSeeder extends Seeder
             DB::table('sdgs')->insert([
                 'id'            => $sdg['id'],
                 'name'          => $sdg['name'],
-                'uuid'          => Str::uuid(),
                 'slug'          => Str::slug($sdg['name']),
                 'description'   => $sdg['description'],
             ]);

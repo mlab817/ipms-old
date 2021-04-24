@@ -1,21 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                {!! $dataTable->table(['class' => 'projects-table table table-bordered table-hover dataTable dtr-inline', 'role' => 'grid', 'width' => '100%'], false) !!}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="dataTables_wrapper dt-bootstrap4">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {!! $dataTable->table(['class' => 'projects-table table table-bordered table-hover table-striped dataTable dtr-inline', 'role' => 'grid', 'width' => '100%'], false) !!}
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                        <div class="card-footer clearfix justify-content-end">
+                            <a href="{{ route('projects.create') }}" class="btn btn-primary">Add New</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection
 
 @push('scripts')

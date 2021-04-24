@@ -21,25 +21,21 @@ class FsStatusesTableSeeder extends Seeder
         $seeds = [
             [
                 'id'        => 1,
-                'uuid'      => Str::uuid(),
                 'name'      => 'Ongoing',
                 'slug'      => Str::slug('Ongoing'),
             ],
             [
                 'id'        => 2,
-                'uuid'      => Str::uuid(),
                 'name'      => 'Completed',
                 'slug'      => Str::slug('Completed'),
             ],
             [
                 'id'        => 3,
-                'uuid'      => Str::uuid(),
                 'name'      => 'For Preparation',
                 'slug'      => Str::slug('For Preparation'),
             ],
             [
                 'id'        => 4,
-                'uuid'      => Str::uuid(),
                 'name'      => 'Not Applicable',
                 'slug'      => Str::slug('Not Applicable'),
             ],

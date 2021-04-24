@@ -72,7 +72,6 @@ class FundingInstitutionsTableSeeder extends Seeder
         foreach ($seeds as $seed) {
             DB::table('funding_institutions')->insert([
                 'name'          => $seed,
-                'uuid'          => Str::uuid(),
                 'slug'          => Str::slug($seed),
             ]);
         }

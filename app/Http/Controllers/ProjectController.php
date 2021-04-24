@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\DataTables\ProjectsDataTable;
 use App\Http\Requests\StoreProjectRequest;
+use App\Models\ApprovalLevel;
 use App\Models\Basis;
+use App\Models\CipType;
 use App\Models\PapType;
+use App\Models\PipTypology;
 use App\Models\Project;
+use App\Models\ProjectStatus;
+use App\Models\Region;
+use App\Models\SpatialCoverage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -33,9 +39,25 @@ class ProjectController extends Controller
     {
         $project = new Project;
 
+        $years = [];
+
+        for ($i =2016; $i <= 2023; $i++) {
+            array_push($years, $i);
+        }
+
         return view('projects.form', compact('project'))
-            ->with('pap_types', PapType::select('id AS value','name AS label')->get())
-            ->with('bases', Basis::select('id AS value','name AS label')->get());;
+            ->with('pageTitle', 'Add New Project')
+            ->with([
+                'pap_types'         => PapType::all(),
+                'bases'             => Basis::all(),
+                'project_statuses'  => ProjectStatus::all(),
+                'spatial_coverages' =>  SpatialCoverage::all(),
+                'regions'           =>  Region::all(),
+                'pip_typologies'    => PipTypology::all(),
+                'cip_types'         => CipType::all(),
+                'years'             => $years,
+                'approval_levels'   => ApprovalLevel::all(),
+            ]);
     }
 
     /**
@@ -46,8 +68,6 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        dd($request);
-
         return redirect()->route('projects.index');
     }
 

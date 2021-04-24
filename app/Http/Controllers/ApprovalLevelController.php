@@ -50,6 +50,10 @@ class ApprovalLevelController extends Controller
 
         ApprovalLevel::create($validatedData);
 
+        if ($request->ajax()) {
+            return response()->json(['message' => 'Successfully added item'], 200);
+        }
+
         return redirect()->route('admin.approval_levels.index');
     }
 
@@ -94,6 +98,10 @@ class ApprovalLevelController extends Controller
 
         $approvalLevel->update($validatedData);
 
+        if ($request->ajax()) {
+            return response()->json(['message' => 'Successfully updated item'], 200);
+        }
+
         return redirect()->route('admin.approval_levels.index');
     }
 
@@ -101,11 +109,15 @@ class ApprovalLevelController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(ApprovalLevel $approvalLevel)
+    public function destroy(Request $request, ApprovalLevel $approvalLevel)
     {
         $approvalLevel->delete();
+
+        if ($request->ajax()) {
+            return response()->json(['message' => 'Successfully deleted item'], 200);
+        }
 
         // return redirect()->route('admin.approval_levels.index');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Basis;
 use Illuminate\Http\Request;
 
 class BasisController extends Controller
@@ -13,7 +14,10 @@ class BasisController extends Controller
      */
     public function index()
     {
-        //
+        return view('crud.bases.index', [
+            'items' => Basis::all()
+        ])
+            ->with('pageTitle', 'Implementation Basis');
     }
 
     /**

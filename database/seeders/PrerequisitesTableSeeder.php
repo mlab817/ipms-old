@@ -29,7 +29,6 @@ class PrerequisitesTableSeeder extends Seeder
 
         foreach ($seeds as $seed) {
             DB::table('prerequisites')->insert([
-                'uuid'          => Str::uuid(),
                 'name'          => $seed,
                 'slug'          => Str::slug($seed),
             ]);

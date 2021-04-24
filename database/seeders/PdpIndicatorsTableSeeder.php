@@ -18,7 +18,7 @@ class PdpIndicatorsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
         $file = File::get(__DIR__ . '/pdp_indicators.json');
         $json = json_decode($file, true);
 
@@ -29,7 +29,6 @@ class PdpIndicatorsTableSeeder extends Seeder
         foreach ($json as $seed) {
             DB::table('pdp_indicators')->insert([
                 'id'        => $seed['id'],
-                'uuid'      => Str::uuid(),
                 'name'      => $seed['name'],
                 'slug'      => Str::slug($seed['name']),
                 'parent_id' => $seed['parent_id'] ?? null
@@ -37,6 +36,6 @@ class PdpIndicatorsTableSeeder extends Seeder
         }
 
         Schema::enableForeignKeyConstraints();
-        
+
     }
 }

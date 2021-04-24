@@ -54,9 +54,9 @@
 @push('scripts')
   <script type="text/javascript">
     function confirmDelete(id) {
-      let res = confirm('Are you sure you want to delete this item?')
-      let url = "{{ route('admin.approval_levels.destroy', ':id') }}"
-      let deleteUrl = url.replace(':id', id)
+      let res = confirm('Are you sure you want to delete this item?');
+      let url = "{{ route('admin.approval_levels.destroy', ':id') }}";
+      let deleteUrl = url.replace(':id', id);
 
       if (res) {
         $.ajax({
@@ -70,6 +70,7 @@
           },
           success: function (data) {
               // prompt user of success
+              alert(data)
               window.location.reload();
           },
           error: function (data) {

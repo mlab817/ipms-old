@@ -19,28 +19,24 @@ class TiersTableSeeder extends Seeder
             [
                 'id'            => 1,
                 'name'          => 'Tier 1 (Ongoing)',
-                'uuid'          => Str::uuid(),
                 'slug'          => Str::slug('Tier 1 (Ongoing)'),
                 'description'   => ''
             ],
             [
                 'id'            => 2,
                 'name'          => 'Tier 2 (New)',
-                'uuid'          => Str::uuid(),
                 'slug'          => Str::slug('Tier 2 (New)'),
                 'description'   => ''
             ],
             [
                 'id'            => 3,
                 'name'          => 'Tier 2 (Expanded)',
-                'uuid'          => Str::uuid(),
                 'slug'          => Str::slug('Tier 2 (Expanded)'),
                 'description'   => ''
             ],
             [
                 'id'            => 4,
                 'name'          => 'Not Applicable',
-                'uuid'          => Str::uuid(),
                 'slug'          => Str::slug('Not Applicable'),
                 'description'   => ''
             ],

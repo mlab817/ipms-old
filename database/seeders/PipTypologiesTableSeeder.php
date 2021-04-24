@@ -19,35 +19,30 @@ class PipTypologiesTableSeeder extends Seeder
             [
                 'id'            => 1,
                 'name'          => 'Capital Investment Program and Project',
-                'uuid'          => Str::uuid(),
                 'slug'          => Str::slug('Capital Investment Program and Project'),
                 'description'   => ''
             ],
             [
                 'id'            => 2,
                 'name'          => 'Technical Assistance Program/Project (such as Research and Development, Institutional Development, Human Resource Capacity Building, or System/Process Improvement PAPs)',
-                'uuid'          => Str::uuid(),
                 'slug'          => Str::slug('Technical Assistance Program/Project (such as Research and Development, Institutional Development, Human Resource Capacity Building, or System/Process Improvement PAPs)'),
                 'description'   => ''
             ],
             [
                 'id'            => 3,
                 'name'          => 'Relending Program/Project of GFIs to LGUs and Targets Beneficiary',
-                'uuid'          => Str::uuid(),
                 'slug'          => Str::slug('Relending Program/Project of GFIs to LGUs and Targets Beneficiary'),
                 'description'   => ''
             ],
             [
                 'id'            => 4,
                 'name'          => 'Government Facilities',
-                'uuid'          => Str::uuid(),
                 'slug'          => Str::slug('Government Facilities'),
                 'description'   => ''
             ],
             [
                 'id'            => 5,
                 'name'          => 'Not Applicable',
-                'uuid'          => Str::uuid(),
                 'slug'          => Str::slug('Not Applicable'),
                 'description'   => ''
             ],
