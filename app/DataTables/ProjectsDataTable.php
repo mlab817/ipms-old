@@ -76,6 +76,7 @@ class ProjectsDataTable extends DataTable
             Column::make('id'),
             Column::make('title'),
             Column::make('description'),
+            Column::make('total_project_cost'),
             Column::make('updated_at')
                 ->title('Last Updated')
                 ->addClass('text-center'),

@@ -37,6 +37,7 @@ class Project extends Model
         'description',
         'summary',
         'expected_outputs',
+        'total_project_cost',
         // implementing_agencies
         'spatial_coverage_id',
         'iccable',

@@ -67,6 +67,12 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="total_project_cost">Total Project Cost (in absolute PhP)</label>
+                                    <input-money class="form-control @error('total_project_cost') is-invalid @enderror" name="total_project_cost" value="what value" total-project-cost="{{ old('total_project_cost') }}"></input-money>
+                                    @error('total_project_cost')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                </div>
+
+                                <div class="form-group">
                                     <label for="project_status_id">Project Status</label>
                                     <select class="form-control @error('pap_type_id') is-invalid @enderror" name="project_status_id">
                                         <option value="" selected disabled>Select Project Status</option>
@@ -254,7 +260,17 @@
                     <!--/. Employment Generation -->
                 </div>
 
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
             </form>
         </div>
     </section>
 @endsection
+<script>
+    import InputMoney from "../../js/components/InputMoney";
+    export default {
+        components: {InputMoney}
+    }
+</script>
