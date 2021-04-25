@@ -16,7 +16,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="sidebar-mini layout-boxed">
+<body class="sidebar-mini layout-fixed">
 <div id="app" class="wrapper">
     @include('partials.sidebar')
 

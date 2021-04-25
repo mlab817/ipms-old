@@ -7,12 +7,21 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
 use App\Models\CipType;
+use App\Models\FundingInstitution;
+use App\Models\FundingSource;
+use App\Models\ImplementationMode;
+use App\Models\InfrastructureSector;
 use App\Models\PapType;
+use App\Models\PdpChapter;
+use App\Models\PdpIndicator;
 use App\Models\PipTypology;
 use App\Models\Project;
 use App\Models\ProjectStatus;
 use App\Models\Region;
+use App\Models\Sdg;
 use App\Models\SpatialCoverage;
+use App\Models\TenPointAgenda;
+use App\Models\Tier;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -48,15 +57,24 @@ class ProjectController extends Controller
         return view('projects.form', compact('project'))
             ->with('pageTitle', 'Add New Project')
             ->with([
-                'pap_types'         => PapType::all(),
-                'bases'             => Basis::all(),
-                'project_statuses'  => ProjectStatus::all(),
-                'spatial_coverages' =>  SpatialCoverage::all(),
-                'regions'           =>  Region::all(),
-                'pip_typologies'    => PipTypology::all(),
-                'cip_types'         => CipType::all(),
-                'years'             => $years,
-                'approval_levels'   => ApprovalLevel::all(),
+                'pap_types'                 => PapType::all(),
+                'bases'                     => Basis::all(),
+                'project_statuses'          => ProjectStatus::all(),
+                'spatial_coverages'         =>  SpatialCoverage::all(),
+                'regions'                   =>  Region::all(),
+                'pip_typologies'            => PipTypology::all(),
+                'cip_types'                 => CipType::all(),
+                'years'                     => $years,
+                'approval_levels'           => ApprovalLevel::all(),
+                'infrastructure_sectors'    =>  InfrastructureSector::with('children')->get(),
+                'pdp_chapters'              =>  PdpChapter::all(),
+                'sdgs'                      => Sdg::all(),
+                'ten_point_agendas'         => TenPointAgenda::all(),
+//                'pdp_indicators'          => PdpIndicator::select('id','name')->get(),
+                'funding_sources'           => FundingSource::all(),
+                'funding_institutions'      => FundingInstitution::all(),
+                'implementation_modes'      =>  ImplementationMode::all(),
+                'tiers'                     => Tier::all(),
             ]);
     }
 
@@ -68,6 +86,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        dd($request);
         try {
             $project = Project::create($request->all());
         } catch (\Exception $e) {

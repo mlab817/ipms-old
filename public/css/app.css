@@ -61562,3 +61562,17 @@ readers do not read off random characters that represent icons */
 .fa.fa-cab:before {
   content: "";
 }
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

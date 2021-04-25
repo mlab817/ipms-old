@@ -12,8 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 class InfrastructureSector extends Model
 {
     use HasFactory;
-    use HasUuid;
-//    use Sluggable;
+    use Sluggable;
 
     protected $fillable = [
         'name',

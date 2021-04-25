@@ -16553,37 +16553,36 @@ __webpack_require__.r(__webpack_exports__);
 // import { VMoney } from 'v-money'
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    value: [Number, String]
+    value: {
+      type: [Number, String],
+      "default": 0
+    },
+    type: {
+      type: String,
+      "default": 'text'
+    }
   },
-  // props: {
-  //     value: {
-  //         type: String,
-  //         default: 0
-  //     }
-  // },
-  // inheritAttrs: false,
-  // emits: ['update:value'],
-  //
+  inheritAttrs: false,
   computed: {
     classes: function classes() {
       return this.$attrs["class"] + 'text-right';
     },
     displayValue: {
       get: function get() {
-        console.log('get value');
         return this.$props.value;
       },
       set: function set(val) {
-        console.log('set value', val);
         this.$emit('update:modelValue', val);
       }
+    },
+    numberValue: function numberValue() {
+      this.convertInputToNumber(this.displayValue);
     }
   },
+  emits: ['update:modelValue'],
   mounted: function mounted() {
     console.log(this.$props.value);
-  } //
-  // },
-  //
+  },
   // data () {
   //     return {
   //         money: {
@@ -16600,19 +16599,16 @@ __webpack_require__.r(__webpack_exports__);
   //     money: VMoney
   // },
   //
-  // methods: {
-  //     convertInputToNumber(value) {
-  //         const thousandFixed = value
-  //             .replace(/(kr|\$|£|€)/g, '') // getting rid of currency
-  //             .trim()
-  //             .replace(/(.+)[.,](\d+)$/g, "$1x$2") // stripping number into $1: integer and $2: decimal part and putting it together with x as decimal point
-  //             .replace(/[.,]/g, '') // getting rid of . AND ,
-  //             .replace('x', '.'); // replacing x with .
-  //
-  //         return parseFloat(thousandFixed);
-  //     }
-  // }
+  methods: {
+    convertInputToNumber: function convertInputToNumber(value) {
+      var thousandFixed = value.replace(/(kr|\$|£|€)/g, '') // getting rid of currency
+      .trim().replace(/(.+)[.,](\d+)$/g, "$1x$2") // stripping number into $1: integer and $2: decimal part and putting it together with x as decimal point
+      .replace(/[.,]/g, '') // getting rid of . AND ,
+      .replace('x', '.'); // replacing x with .
 
+      return parseFloat(thousandFixed);
+    }
+  }
 });
 
 /***/ }),
@@ -16636,22 +16632,27 @@ var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" value: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.value) + " ", 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" value: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.numberValue) + " ", 1
   /* TEXT */
   ), _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" new value: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.displayValue) + " ", 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+    type: "hidden",
+    value: $options.numberValue,
+    name: _ctx.$attrs.name
+  }, null, 8
+  /* PROPS */
+  , ["value", "name"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
     type: "text",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $options.displayValue = $event;
     }),
-    "class": $options.classes,
-    name: _ctx.$attrs.name
-  }, null, 10
-  /* CLASS, PROPS */
-  , ["name"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $options.displayValue]])], 64
-  /* STABLE_FRAGMENT */
-  );
+    "class": $options.classes
+  }, null, 2
+  /* CLASS */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $options.displayValue, void 0, {
+    lazy: true
+  }]])]);
 }
 
 /***/ }),
