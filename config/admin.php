@@ -28,6 +28,11 @@ return [
                 'title' => 'Funding Institutions',
                 'route' =>  'admin.funding_institutions.index',
             ],
+            'regions' => [
+                'icon'  => 'nav-icon far fa-circle',
+                'title' => 'Regions',
+                'route' =>  'admin.regions.index',
+            ],
         ],
     ],
 ];

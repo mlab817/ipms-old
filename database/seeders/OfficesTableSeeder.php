@@ -823,7 +823,7 @@ class OfficesTableSeeder extends Seeder
                 'acronym'               => $seed['acronym'],
                 'slug'                  => Str::slug($seed['name']),
                 'email'                 => $seed['email'],
-                'contact_numbers'        => $seed['telephone_number'],
+                'contact_numbers'       => $seed['telephone_number'],
                 'office_head_name'      => $seed['agency_head_name'],
                 'office_head_position'  => $seed['agency_head_designation'],
                 'operating_unit_id'     => $seed['operating_unit_id'] ? $seed['operating_unit_id']  : 1,

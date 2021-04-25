@@ -17,6 +17,8 @@ class CreateRegionsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->nullable();
+            $table->string('label')->nullable();
+            $table->unsignedInteger('order')->nullable();
             $table->timestamps();
         });
     }

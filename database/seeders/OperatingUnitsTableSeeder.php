@@ -69,7 +69,6 @@ class OperatingUnitsTableSeeder extends Seeder
             DB::table('operating_units')->insert([
                 'name'                      => $seed['name'],
                 'slug'                      => Str::slug($seed['name']),
-                'uuid'                      => Str::uuid(),
                 'operating_unit_type_id'    => $seed['operating_unit_type_id'],
                 'label'                     => $seed['label']
             ]);
