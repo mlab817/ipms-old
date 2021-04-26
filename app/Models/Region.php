@@ -13,20 +13,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Region extends Model
 {
     use HasFactory;
-    use HasUuid;
     use Sluggable;
 
     protected $fillable = [
         'name',
-        'slug',
-        'description',
+        'label',
+        'order',
     ];
-
-//    protected $appends = [
-//        'total_investment',
-//        'total_infrastructure',
-//        'project_count',
-//    ];
 
     public function getRouteKeyName(): string
     {

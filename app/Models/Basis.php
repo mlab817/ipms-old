@@ -19,6 +19,11 @@ class Basis extends Model
         'description',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function projects(): BelongsToMany
     {
         return $this->belongsToMany(Project::class);

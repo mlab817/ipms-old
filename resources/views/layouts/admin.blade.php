@@ -34,8 +34,6 @@
     </div>
 
     <!-- Scripts -->
-{{--    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>--}}
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     @stack('scripts')
     <!--/. Scripts -->
 </body>

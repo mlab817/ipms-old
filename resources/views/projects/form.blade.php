@@ -115,10 +115,12 @@
 
                                 <div class="form-group">
                                     <label for="regions">Regions</label>
-                                    @foreach($regions as $option)
+                                    @foreach($regions->sortBy('order') as $option)
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="regions[]" value="{{ $option->id }}">
-                                        <label class="form-check-label">{{ $option->name }}</label>
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" name="regions[]" value="{{ $option->id }}" {{ in_array($option->id, old('regions') ?? []) ? 'checked' : '' }}>
+                                            {{ $option->name }}
+                                        </label>
                                     </div>
                                     @endforeach
                                     @error('regions')<span class="error invalid-feedback">{{ $message }}</span>@enderror
@@ -215,7 +217,7 @@
                                     <select class="form-control @error('target_start_year') is-invalid @enderror" name="target_start_year">
                                         <option value="" disabled selected>Select Year</option>
                                         @foreach($years as $option)
-                                            <option value="{{ $option }}">{{ $option }}</option>
+                                            <option value="{{ $option }}" {{ old('target_start_year') == $option ? 'selected' : '' }}>{{ $option }}</option>
                                         @endforeach
                                     </select>
                                     @error('target_start_year')<span class="error invalid-feedback">{{ $message }}</span>@enderror
@@ -225,7 +227,7 @@
                                     <select class="form-control @error('target_end_year') is-invalid @enderror" name="target_end_year">
                                         <option value="" disabled selected>Select Year</option>
                                         @foreach($years as $option)
-                                            <option value="{{ $option }}">{{ $option }}</option>
+                                            <option value="{{ $option }}" {{ old('target_end_year') == $option ? 'selected' : '' }}>{{ $option }}</option>
                                         @endforeach
                                     </select>
                                     @error('target_end_year')<span class="error invalid-feedback">{{ $message }}</span>@enderror
@@ -243,39 +245,30 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="iccable">Is the Project ICC-able?</label>
+                                    <label for="iccable">Is the Project ICC-able? <i class="text-danger fas fa-flag"></i></label>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" value="1" name="iccable">
+                                        <input type="radio" class="form-check-input" value="1" name="iccable" {{ old('iccable') == 1 ? 'checked' : '' }}>
                                         <label class="form-check-label">Yes</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" value="0" name="iccable">
+                                        <input type="radio" class="form-check-input" value="0" name="iccable" {{ old('iccable') == 0 ? 'checked' : '' }}>
                                         <label class="form-check-label">No</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="target_start_year">Level of Approval</label>
-                                    <select class="form-control" name="approval_level_id">
+                                    <select class="form-control @error('approval_level_id') is-invalid @enderror" name="approval_level_id">
                                         <option value="" disabled selected>Select Approval Level</option>
                                         @foreach($approval_levels as $option)
                                             <option value="{{ $option->id }}">{{ $option->name }}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="needs_assistance">Is the Project ICC-able?</label>
-                                    <div class="form-check">
-                                        <input type="radio" class="form-check-input" value="1" name="iccable">
-                                        <label class="form-check-label">Yes</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="radio" class="form-check-input" value="0" name="iccable">
-                                        <label class="form-check-label">No</label>
-                                    </div>
+                                    @error('approval_level_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="approval_date">Date of Submission/Approval</label>
-                                    <input type="date" class="form-control" name="approval_date">
+                                    <input type="date" class="form-control @error('approval_date') is-invalid @enderror" name="approval_date" value="{{ old('approval_date') }}">
+                                    @error('approval_date')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                 </div>
                             </div>
                         </div>

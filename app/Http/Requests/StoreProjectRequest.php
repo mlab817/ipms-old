@@ -40,13 +40,13 @@ class StoreProjectRequest extends FormRequest
             'cip'                               => 'nullable|bool',
             'cip_type_id'                       => 'required_if:cip,true',
             'iccable'                           => 'required_if:cip,true|bool',
-            'approval_level_id'                 => 'required_if:iccable,true|exists:approval_levels,id',
+            'approval_level_id'                 => 'required_if:iccable,1|exists:approval_levels,id',
             'approval_date'                     => 'required_with:approval_level_id',
             'trip'                              => 'nullable|bool',
             'rdip'                              => 'nullable|bool',
             'rdc_endorsement_required'          => 'required_if:rdip,true|bool',
             'rdc_endorsed'                      => 'required_if:rdc_endorsement_required,true|bool',
-            'rdc_endorsed_date'                 => 'required_if:rdc_endorsed,true|date',
+            'rdc_endorsed_date'                 => 'required_if:rdc_endorsed,1|date',
             'other_infrastructure'              => 'nullable',
             'risk'                              => 'required_if:trip,true',
             'pdp_chapter_id'                    => 'required_if:no_pdp_indicator,false',
@@ -101,12 +101,13 @@ class StoreProjectRequest extends FormRequest
             'updates_date'                      => 'required|date',
             'uacs_code'                         => 'sometimes|string',
             'tier_id'                           => 'required|exists:tiers,id',
-            'regions'                           => ['exclude_unless:spatial_coverage_id,2','array', function($attribute, $value, $fail) {
-                                                        $count = Region::whereIn('id', $value)->count();
-                                                        if (count($value) !== $count) {
-                                                            $fail($attribute . ' is invalid.');
-                                                        }
-                                                    }],
+//            'regions'                           => ['required_if:spatial_coverage_id,!=,4','array', function($attribute, $value, $fail) {
+//                                                        $count = Region::whereIn('id', $value)->count();
+//                                                        if (count($value) !== $count) {
+//                                                            $fail($attribute . ' is invalid.');
+//                                                        }
+//                                                    }],
+            'regions'                           => 'required',
             'bases'                             => 'sometimes|array',
             'funding_sources'                   => 'nullable|array',
             'funding_institutions'              => 'exclude_unless:funding_source_id,2|array',

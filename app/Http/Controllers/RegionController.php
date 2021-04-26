@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\RegionsDataTable;
+use App\Http\Requests\RegionStoreRequest;
+use App\Http\Requests\RegionUpdateRequest;
 use App\Models\Region;
 use Illuminate\Http\Request;
 
@@ -12,11 +15,10 @@ class RegionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(RegionsDataTable $dataTable)
     {
-        return view('crud.regions.index', [
-            'pageTitle' => 'Regions',
-            'regions' => Region::all(),
+        return $dataTable->render('crud.regions.index', [
+            'pageTitle' => 'Regions'
         ]);
     }
 
@@ -27,18 +29,25 @@ class RegionController extends Controller
      */
     public function create()
     {
-        //
+        return view('crud.regions.form', [
+            'pageTitle' => 'Add Region',
+            'route'     => route('admin.regions.store'),
+            'method'    => 'POST',
+            'region'    => new Region,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param RegionStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RegionStoreRequest $request)
     {
-        //
+        Region::create($request->all());
+
+        return redirect()->route('admin.regions.index');
     }
 
     /**
@@ -49,30 +58,37 @@ class RegionController extends Controller
      */
     public function show($id)
     {
-        //
+        // not in use
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Region $region
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($id)
+    public function edit(Region $region)
     {
-        //
+        return view('crud.regions.form', [
+            'pageTitle' => 'Edit Region',
+            'region'    => $region,
+            'method'    => 'PUT',
+            'route'     => route('admin.regions.update', $region->slug),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param RegionUpdateRequest $request
+     * @param Region $region
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(RegionUpdateRequest $request, Region $region): \Illuminate\Http\RedirectResponse
     {
-        //
+        $region->update($request->all());
+
+        return redirect()->route('admin.regions.index');
     }
 
     /**

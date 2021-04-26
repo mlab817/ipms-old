@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ApprovalLevelsDataTable;
 use App\Http\Requests\ApprovalLevelRequest;
 use App\Models\ApprovalLevel;
 use Illuminate\Http\Request;
@@ -13,12 +14,11 @@ class ApprovalLevelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ApprovalLevelsDataTable $dataTable)
     {
-        $items = ApprovalLevel::all();
-
-        return view('crud.approval_levels.index', compact('items'))
-            ->with('pageTitle', 'Approval Levels');
+        return $dataTable->render('crud.approval_levels.index', [
+                'pageTitle', 'Approval Levels'
+            ]);
     }
 
     /**

@@ -125,6 +125,12 @@ class RegionsTableSeeder extends Seeder
                 'slug'          => Str::slug('NO BREAKDOWN'),
                 'label'         => 'NB',
             ],
+            [
+                'id'            => 100,
+                'name'          => 'Not Applicable',
+                'slug'          => Str::slug('Not Applicable'),
+                'label'         => 'N/A'
+            ]
         ];
 
         Schema::disableForeignKeyConstraints();

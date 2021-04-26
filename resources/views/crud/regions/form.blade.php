@@ -11,23 +11,28 @@
                     @csrf
                     @method($method)
                     <div class="card-body">
-                        <input type="hidden" name="id" value="{{ old('id', $basis->id) }}">
+                        <input type="hidden" name="id" value="{{ old('id', $region->id) }}">
                         <div class="form-group">
-                            <label for="name">Name <i class="text-danger fas fa-flag"></i></label>
-                            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" placeholder="Name" value="{{ old('name', $basis->name) }}">
+                            <label for="name">Name</label>
+                            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" placeholder="Name" value="{{ old('name', $region->name) }}">
                             @error('name')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control @error('label') is-invalid @enderror" name="description" id="description" placeholder="Description">{{ old('label', $basis->label) }}</textarea>
+                            <label for="label">Label</label>
+                            <input class="form-control @error('label') is-invalid @enderror" type="text" name="label" id="label" placeholder="Label" value="{{ old('label', $region->label) }}">
                             @error('label')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="order">Order</label>
+                            <input class="form-control @error('order') is-invalid @enderror" type="number" name="order" id="order" placeholder="Order" value="{{ old('order', $region->order) }}">
+                            @error('order')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
                     </div>
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="{{ route('admin.bases.index') }}" class="btn mr-2">Back to List</a>
                     </div>
                 </form>
             </div>

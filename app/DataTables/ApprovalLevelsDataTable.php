@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\Project;
+use App\Models\ApprovalLevel;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ProjectsDataTable extends DataTable
+class ApprovalLevelsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,20 +21,9 @@ class ProjectsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('pap_type', function ($project) {
-                return $project->pap_type->name ?? '';
-            })
-            ->addColumn('created_by', function ($project) {
-                return $project->creator->name ?? '';
-            })
-            ->addColumn('action', function ($project) {
+            ->addColumn('action', function ($approvalLevel) {
                 return '
-                <div class="btn-group-vertical">
-                    <a href="' . route('projects.show', $project->slug) . '" class="btn btn-primary">View</a>
-                    <a href="' . route('projects.edit', $project->slug) . '" class="btn btn-secondary">Edit</a>
-                    <a href="' . route('trip.edit', $project->slug) . '" class="btn btn-success">TRIP</a>
-                    <button class="btn btn-danger" onClick="confirmDelete(\''. $project->slug .'\')">Delete</button>
-                </div>
+                    <a href="' . route('admin.approval_levels.edit', $approvalLevel->slug) .'" class="btn btn-secondary">Edit</a>
                 ';
             });
     }
@@ -42,10 +31,10 @@ class ProjectsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Project $model
+     * @param \App\Models\ApprovalLevel $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Project $model)
+    public function query(ApprovalLevel $model)
     {
         return $model->newQuery();
     }
@@ -58,7 +47,7 @@ class ProjectsDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('projects-table')
+                    ->setTableId('approvallevels-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
@@ -81,14 +70,8 @@ class ProjectsDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('title'),
-            Column::make('pap_type'),
+            Column::make('name'),
             Column::make('description'),
-            Column::make('total_project_cost'),
-            Column::make('created_by'),
-            Column::make('updated_at')
-                ->title('Last Updated')
-                ->addClass('text-center'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -104,6 +87,6 @@ class ProjectsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Projects_' . date('YmdHis');
+        return 'ApprovalLevels_' . date('YmdHis');
     }
 }

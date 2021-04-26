@@ -16,22 +16,25 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
+    <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+
     <script src="{{ mix('js/app.js') }}"></script>
 </head>
 <body class="layout-fixed">
-<div id="app" class="wrapper">
-    @include('partials.sidebar')
 
-    @include('partials.navbar')
+    <div id="app" class="wrapper">
+        @include('partials.sidebar')
 
-    <div class="content-wrapper">
-        @isset($pageTitle)
-            @include('partials.header', ['pageTitle' => $pageTitle ?? 'Default Page Title'])
-        @endisset
+        @include('partials.navbar')
 
-        @yield('content')
+        <div class="content-wrapper">
+            @isset($pageTitle)
+                @include('partials.header', ['pageTitle' => $pageTitle ?? 'Default Page Title'])
+            @endisset
+
+            @yield('content')
+        </div>
     </div>
-</div>
 
 <!-- Scripts -->
 @stack('scripts')

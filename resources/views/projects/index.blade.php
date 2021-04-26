@@ -15,9 +15,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer clearfix justify-content-end">
-                            <a href="{{ route('projects.create') }}" class="btn btn-primary">Add New</a>
-                        </div>
                     </div>
                 </div>
             </div>

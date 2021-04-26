@@ -3,28 +3,19 @@
 @section('content')
     <section class="content">
         <div class="container-fluid">
-            <div class="card">
-                <div class="card-body">
-                    <table class="table table-bordered" id="regions" style="width: 100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Label</th>
-                                <th>Order</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($regions as $item)
-                            <tr>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->label }}</td>
-                                <td>{{ $item->order }}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="dataTables_wrapper dt-bootstrap4">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {!! $dataTable->table(['class' => 'regions-table table table-bordered table-hover table-striped dataTable dtr-inline', 'role' => 'grid', 'width' => '100%'], false) !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -32,9 +23,6 @@
 @endsection
 
 @push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#regions').DataTable()
-        })
-    </script>
+    <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
+    {!! $dataTable->scripts() !!}
 @endpush
