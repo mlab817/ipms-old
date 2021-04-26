@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\TripDataTable;
+use App\Http\Requests\TripStoreRequest;
+use App\Models\FundingSource;
+use App\Models\InfrastructureSector;
 use App\Models\Project;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -57,5 +61,42 @@ class TripController extends Controller
         }
 
         return view('trip');
+    }
+
+    public function edit(Project $project)
+    {
+        return view('trip.edit', [
+            'pageTitle'                 => 'Edit TRIP Information: '. strtoupper($project->title),
+            'project'                   =>  $project->load('infrastructure_sectors','infrastructure_subsectors','resettlement_action_plan','right_of_way','region_infrastructures','fs_infrastructures'),
+            'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
+            'regions'                   => Region::all(),
+            'funding_sources'           => FundingSource::all(),
+        ]);
+    }
+
+    public function store(TripStoreRequest $request, Project $project)
+    {
+        // handle save
+        $project->risk                              = $request->risk;
+        $project->other_infrastructure              = $request->other_infrastructure;
+        $project->save();
+
+        $project->infrastructure_subsectors()->sync($request->infrastructure_subsectors);
+        $project->infrastructure_sectors()->sync($request->infrastructure_sectors);
+
+        if (is_null($project->region_infrastructures())) {
+            $project->region_infrastructures()->createMany($request->region_infrastructures);
+        }
+
+        if (is_null($project->fs_infrastructures())) {
+            $project->fs_infrastructures()->createMany($request->fs_infrastructures);
+        }
+
+        return redirect()->route('projects.index');
+    }
+
+    public function show()
+    {
+
     }
 }

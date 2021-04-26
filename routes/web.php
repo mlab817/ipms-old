@@ -24,6 +24,9 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
+Route::post('/projects/{project}/trip',[\App\Http\Controllers\TripController::class,'store'])->name('trip.store');
+Route::get('/projects/{project}/trip',[\App\Http\Controllers\TripController::class,'edit'])->name('trip.edit');
+
 Route::resources([
     'projects' => \App\Http\Controllers\ProjectController::class,
 ]);

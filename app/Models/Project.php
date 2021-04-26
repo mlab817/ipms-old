@@ -187,6 +187,11 @@ class Project extends Model
         return $this->belongsToMany(OperatingUnit::class,'implementing_agency_project','project_id','operating_unit_id','id','id');
     }
 
+    public function infrastructure_sectors(): BelongsToMany
+    {
+        return $this->belongsToMany(InfrastructureSector::class,'infrastructure_sector_project','project_id','is_id');
+    }
+
     public function infrastructure_subsectors(): BelongsToMany
     {
         return $this->belongsToMany(InfrastructureSubsector::class,'infrastructure_subsector_project','project_id','is_id','id','id');

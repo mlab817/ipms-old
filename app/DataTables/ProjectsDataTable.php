@@ -26,6 +26,7 @@ class ProjectsDataTable extends DataTable
                 <div class="btn-group-vertical">
                     <a href="' . route('projects.show', $project->slug) . '" class="btn btn-primary">View</a>
                     <a href="' . route('projects.edit', $project->slug) . '" class="btn btn-secondary">Edit</a>
+                    <a href="' . route('trip.edit', $project->slug) . '" class="btn btn-success">TRIP</a>
                     <button class="btn btn-danger" onClick="confirmDelete(\''. $project->slug .'\')">Delete</button>
                 </div>
                 ';

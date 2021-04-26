@@ -17,8 +17,10 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <script src="{{ mix('js/app.js') }}"></script>
 </head>
-<body>
+<body class="layout-fixed">
     <div class="wrapper">
         @include('partials.sidebar')
 
@@ -32,7 +34,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}"></script>
 {{--    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>--}}
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     @stack('scripts')

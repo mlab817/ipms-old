@@ -14,23 +14,26 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
+    <script src="{{ mix('js/app.js') }}"></script>
 </head>
-<body class="sidebar-mini layout-fixed">
+<body class="layout-fixed">
 <div id="app" class="wrapper">
     @include('partials.sidebar')
 
     @include('partials.navbar')
 
     <div class="content-wrapper">
-        @include('partials.header', ['pageTitle' => $pageTitle ?? 'Default Page Title'])
+        @isset($pageTitle)
+            @include('partials.header', ['pageTitle' => $pageTitle ?? 'Default Page Title'])
+        @endisset
 
         @yield('content')
     </div>
 </div>
 
 <!-- Scripts -->
-<script src="{{ asset('js/app.js') }}"></script>
 @stack('scripts')
 </body>
 </html>

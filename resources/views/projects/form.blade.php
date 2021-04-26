@@ -13,7 +13,7 @@
             <form action="{{ route('projects.store') }}" method="POST">
                 @csrf
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("General Information") }}</h3>
@@ -96,7 +96,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Spatial Coverage") }}</h3>
@@ -127,7 +127,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">Project for Inclusion in which Programming Document</h3>
@@ -204,14 +204,14 @@
                     </div>
 
                     <!-- Implementation Period -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Implementation Period") }}</h3>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="target_start_year">Start of Implementation</label>
+                                    <label for="target_start_year">Start of Implementation <i class="text-danger fas fa-flag"></i></label>
                                     <select class="form-control @error('target_start_year') is-invalid @enderror" name="target_start_year">
                                         <option value="" disabled selected>Select Year</option>
                                         @foreach($years as $option)
@@ -221,7 +221,7 @@
                                     @error('target_start_year')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="target_end_year">Year of Project Completion</label>
+                                    <label for="target_end_year">Year of Project Completion <i class="text-danger fas fa-flag"></i></label>
                                     <select class="form-control @error('target_end_year') is-invalid @enderror" name="target_end_year">
                                         <option value="" disabled selected>Select Year</option>
                                         @foreach($years as $option)
@@ -235,11 +235,11 @@
                     </div>
                     <!--/. Implementation Period -->
 
-                    <!-- Pre-Investment Requirement -->
-                    <div class="col-md-6">
+                    <!-- Approval Status -->
+                    <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">{{ __("Pre-Investment Requirement") }}</h3>
+                                <h3 class="card-title">{{ __("Approval Status") }}</h3>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
@@ -263,16 +263,133 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="needs_assistance">Is the Project ICC-able?</label>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" value="1" name="iccable">
+                                        <label class="form-check-label">Yes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" value="0" name="iccable">
+                                        <label class="form-check-label">No</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="approval_date">Date of Submission/Approval</label>
                                     <input type="date" class="form-control" name="approval_date">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--/. Pre-Investment Requirement -->
+                    <!--/. Approval Status -->
+
+                    <!-- Project Preparation Details -->
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">{{ __("Project Preparation Details") }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="preparation_document_id">Project Preparation Document</label>
+                                    <select name="preparation_document_id" id="preparation_document_id" class="form-control">
+                                        <option value="" selected disabled>Select document</option>
+                                        @foreach($preparation_documents as $option)
+                                            <option value="{{ $option->id }}">{{ $option->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="iccable">Does the project require feasibility study?</label>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" value="1" name="has_fs">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" value="0" name="has_fs">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fs_status_id">Status of feasibility Study?</label>
+                                    <select name="feasibility_study[fs_status_id]" id="fs_status_id" class="form-control">
+                                        <option value="" selected disabled>Select Status</option>
+                                        @foreach($fs_statuses as $option)
+                                            <option value="{{ $option->id }}">{{ $option->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="iccable">Does the conduct of feasibility study need assistance?</label>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" value="1" name="feasibility_study[needs_assistance]">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" value="0" name="feasibility_study[needs_assistance]">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th class="text-sm text-center">2017</th>
+                                                <th class="text-sm text-center">2018</th>
+                                                <th class="text-sm text-center">2019</th>
+                                                <th class="text-sm text-center">2020</th>
+                                                <th class="text-sm text-center">2021</th>
+                                                <th class="text-sm text-center">2022</th>
+                                                <th class="text-sm text-center">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th class="text-sm">FS Cost</th>
+                                                <td>
+                                                    <input type="number" class="form-control text-right" name="feasibility_study[y2017]">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control text-right" name="feasibility_study[y2018]">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control text-right" name="feasibility_study[y2019]">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control text-right" name="feasibility_study[y2020]">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control text-right" name="feasibility_study[y2021]">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control text-right" name="feasibility_study[y2022]">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control text-right" name="feasibility_study[total]">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="form-group">
+                                    <label for="feasibility_study[completion_date]">Expected/Target Date of Completion</label>
+                                    <input type="date" class="form-control" name="feasibility_study[completion_date]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/. Project Preparation Details -->
 
                     <!-- Employment Generation -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Employment Generation") }}</h3>
@@ -288,49 +405,8 @@
                     </div>
                     <!--/. Employment Generation -->
 
-                    <!-- Infrastructure Sector -->
-                    <div class="col-md-6">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">{{ __("Infrastructure Sector") }}</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="infrastructure_sectors">Infrastructure Sectors</label>
-                                    @foreach($infrastructure_sectors as $option)
-                                        <div class="form-check">
-                                            <label class="form-check-label" for="infrastructure_sector_{{ $option->id }}">
-                                                <input id="infrastructure_sector_{{ $option->id }}" type="checkbox" value="{{ $option->id }}" class="form-check-input" name="infrastructure_sectors[]">
-                                                {{ $option->name }}
-                                            </label>
-                                        </div>
-                                        @foreach($option->children as $child)
-                                            <div class="ml-4 form-check">
-                                                <label for="infrastructure_subsector_{{ $child->id }}" class="form-check-label">
-                                                    <input type="checkbox" id="infrastructure_subsector_{{ $child->id }}" value="{{ $child->id }}" name="infrastructure_subsectors[]" class="form-check-input">
-                                                    {{ $child->name }}
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    @endforeach
-                                </div>
-                                <div class="form-group">
-                                    <label for="other_infrastructure">Other Infrastructure</label>
-                                    <input type="text" class="form-control @error('other_infrastructure') is-invalid @enderror" name="other_infrastructure" id="other_infrastructure" placeholder="Other infrastructure" value="{{ old('other_infrastructure') }}">
-                                    @error('other_infrastructure')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="risk">Implementation Risk &amp; Mitigation Strategy</label>
-                                    <textarea rows="4" style="resize: none;"  class="form-control @error('risk') is-invalid @enderror" name="risk" placeholder="Implementation Risk and Mitigation Strategy">{{ old('risk') }}</textarea>
-                                    @error('risk')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/. Infrastructure Sector -->
-
                     <!-- Philippine Development Plan Chapter -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Philippine Development Plan") }}</h3>
@@ -362,7 +438,7 @@
                     <!--/. Philippine Development Plan Chapter -->
 
                     <!-- Philippine Development Plan Indicators -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Philippine Development Results Matrices Indicators") }}</h3>
@@ -381,7 +457,7 @@
                     <!--/. Philippine Development Plan Indicators -->
 
                     <!-- Sustainable Development Goals -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Sustainable Development Goals") }}</h3>
@@ -405,7 +481,7 @@
                     <!--/. Sustainable Development Goals -->
 
                     <!-- Ten Point Agenda -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Ten Point Agenda") }}</h3>
@@ -429,7 +505,7 @@
                     <!--/. Ten Point Agenda -->
 
                     <!-- Financial Information -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Financial Information") }}</h3>
@@ -500,7 +576,7 @@
                     <!--/. Financial Information -->
 
                     <!-- Status & Updates -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Status & Updates") }}</h3>
@@ -531,7 +607,7 @@
                                 <div class="row px-2 pb-2">
                                     <i class="text-danger fas fa-flag"></i> All fields are required.
                                 </div>
-                                <table class="table table-bordered">
+                                <table class="table-responsive">
                                     <thead>
                                     <tr>
                                         <th></th>
@@ -581,7 +657,7 @@
                                 <div class="row px-2 pb-2">
                                     <i class="text-danger fas fa-flag"></i> All fields are required.
                                 </div>
-                                <table class="table table-bordered">
+                                <table class="table-responsive">
                                     <thead>
                                     <tr>
                                         <th></th>
@@ -631,7 +707,7 @@
                                 <div class="row px-2 pb-2">
                                     <i class="text-danger fas fa-flag"></i> All fields are required.
                                 </div>
-                                <table class="table table-bordered">
+                                <table class="table-responsive">
                                     <thead>
                                         <tr>
                                             <th></th>

@@ -28,6 +28,7 @@ class CreateFeasibilityStudiesTable extends Migration
             $table->decimal('y2023',20,2)->default(0);
             $table->decimal('y2024',20,2)->default(0);
             $table->decimal('y2025',20,2)->default(0);
+            $table->date('completion_date')->nullable();
             $table->timestamps();
         });
     }

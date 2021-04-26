@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
 use App\Models\CipType;
+use App\Models\FsStatus;
 use App\Models\FundingInstitution;
 use App\Models\FundingSource;
 use App\Models\ImplementationMode;
@@ -15,6 +16,7 @@ use App\Models\PapType;
 use App\Models\PdpChapter;
 use App\Models\PdpIndicator;
 use App\Models\PipTypology;
+use App\Models\PreparationDocument;
 use App\Models\Project;
 use App\Models\ProjectStatus;
 use App\Models\Region;
@@ -75,6 +77,8 @@ class ProjectController extends Controller
                 'funding_institutions'      => FundingInstitution::all(),
                 'implementation_modes'      =>  ImplementationMode::all(),
                 'tiers'                     => Tier::all(),
+                'preparation_documents'     => PreparationDocument::all(),
+                'fs_statuses'               => FsStatus::all(),
             ]);
     }
 
