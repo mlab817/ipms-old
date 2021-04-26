@@ -102,9 +102,39 @@
                         @endforeach
                     </ul>
                 </li>
+                @auth
+                <li class="nav-item">
+                    <form id="logout" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                    </form>
+                    <a href="#" class="nav-link" role="button" onClick="confirmLogout()">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
+                </li>
+                @endauth
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
 </aside>
+
+@push('scripts')
+    <script type="text/javascript">
+        /*
+         * Function to confirm and handle logout
+         */
+
+        function confirmLogout() {
+            let confirmLogout = confirm('Are you sure you want to logout?')
+
+            if (confirmLogout) {
+                let logoutForm = document.getElementById('logout')
+                logoutForm.submit()
+            }
+        }
+    </script>
+@endpush
