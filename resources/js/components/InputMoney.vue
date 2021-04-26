@@ -1,13 +1,12 @@
 <template>
     <div>
-        value: {{ numberValue }} <br/> new value: {{ displayValue }}
-        <input type="hidden" :value="numberValue" :name="$attrs.name">
-        <input type="text" v-model.lazy="displayValue" :class="classes">
+        <input type="hidden" :value="convertInputToNumber(displayValue)" :name="$attrs.name">
+        <input type="text" v-model.lazy="displayValue" v-money="money" :class="$attrs.class">
     </div>
 </template>
 
 <script>
-// import { VMoney } from 'v-money'
+import { VMoney } from 'v-money'
 
 export default {
     props: {
@@ -15,66 +14,40 @@ export default {
             type: [Number, String],
             default: 0
         },
-        type: {
-            type: String,
-            default: 'text'
-        }
     },
 
     inheritAttrs: false,
 
-    computed: {
-        classes() {
-            return this.$attrs.class + 'text-right'
-        },
-
-        displayValue: {
-            get() {
-                return this.$props.value
-            },
-            set(val) {
-                this.$emit('update:modelValue', val)
+    data () {
+        return {
+            displayValue: 0,
+            money: {
+                decimal: '.',
+                thousands: ',',
+                prefix: '',
+                suffix: '',
+                precision: 0
             }
-        },
-
-        numberValue() {
-            this.convertInputToNumber(this.displayValue)
         }
     },
 
-    emits: ['update:modelValue'],
-
-    mounted() {
-        console.log(this.$props.value)
+    directives: {
+        money: VMoney
     },
 
-    // data () {
-    //     return {
-    //         money: {
-    //             decimal: '.',
-    //             thousands: ',',
-    //             prefix: '',
-    //             suffix: '',
-    //             precision: 2
-    //         }
-    //     }
-    // },
-    //
-    // directives: {
-    //     money: VMoney
-    // },
-    //
     methods: {
         convertInputToNumber(value) {
-            const thousandFixed = value
-                .replace(/(kr|\$|£|€)/g, '') // getting rid of currency
-                .trim()
-                .replace(/(.+)[.,](\d+)$/g, "$1x$2") // stripping number into $1: integer and $2: decimal part and putting it together with x as decimal point
-                .replace(/[.,]/g, '') // getting rid of . AND ,
-                .replace('x', '.'); // replacing x with .
+            if (value) {
+                const thousandFixed = value.replace(/[^\d\.\-]/g, "")
 
-            return parseFloat(thousandFixed);
+                return parseFloat(thousandFixed);
+            }
+            return 0;
         }
+    },
+
+    mounted() {
+        this.displayValue = this.value
     }
 }
 </script>

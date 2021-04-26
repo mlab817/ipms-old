@@ -64,6 +64,13 @@ Route::prefix('/admin')->name('admin.')->group(function () {
     ]);
 });
 
+Route::post('test', function(\Illuminate\Http\Request $request) {
+    $request->validate([
+        'testValue' => 'required|gt:1000',
+    ]);
+    dd($request->testValue);
+})->name('test');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

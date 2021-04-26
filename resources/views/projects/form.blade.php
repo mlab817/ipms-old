@@ -415,7 +415,7 @@
                                     <label for="ten_point_agendas">Ten Point Agenda</label>
                                     @foreach($ten_point_agendas as $option)
                                         <div class="form-check">
-                                            <label class="form-check-label" for="sdg_{{ $option->id }}">
+                                            <label class="form-check-label" for="tpa_{{ $option->id }}">
                                                 <input id="tpa_{{ $option->id }}" type="checkbox" value="{{ $option->id }}" class="form-check-input" name="ten_point_agendas[]">
                                                 {{ $option->name }}
                                                 <p class="text-xs">{{ $option->description }}</p>
@@ -448,8 +448,8 @@
                                     <label for="funding_sources">Other Funding Sources</label>
                                     @foreach($funding_sources as $option)
                                         <div class="form-check">
-                                            <label class="form-check-label" for="sdg_{{ $option->id }}">
-                                                <input id="tpa_{{ $option->id }}" type="checkbox" value="{{ $option->id }}" class="form-check-input" name="ten_point_agendas[]">
+                                            <label class="form-check-label" for="fs_{{ $option->id }}">
+                                                <input id="fs_{{ $option->id }}" type="checkbox" value="{{ $option->id }}" class="form-check-input" name="ten_point_agendas[]">
                                                 {{ $option->name }}
                                             </label>
                                         </div>
