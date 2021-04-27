@@ -10,7 +10,7 @@
                             <div class="dataTables_wrapper dt-bootstrap4">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        {!! $dataTable->table(['class' => 'approvallevels-table table table-bordered table-hover table-striped dataTable dtr-inline', 'role' => 'grid', 'width' => '100%'], false) !!}
+                                        {!! $dataTable->table(['class' => 'roles-table table table-bordered table-hover table-striped dataTable dtr-inline', 'role' => 'grid', 'width' => '100%'], false) !!}
                                     </div>
                                 </div>
                             </div>

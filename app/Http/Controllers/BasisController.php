@@ -17,7 +17,7 @@ class BasisController extends Controller
      */
     public function index(BasesDataTable $dataTable)
     {
-        return $dataTable->render('crud.bases.index', [
+        return $dataTable->render('admin.bases.index', [
             'pageTitle' => 'Basis for Implementation',
         ]);
     }
@@ -29,7 +29,7 @@ class BasisController extends Controller
      */
     public function create()
     {
-        return view('crud.bases.form', [
+        return view('admin.bases.form', [
             'pageTitle' => 'Create Implemenetation Basis',
             'basis'     => new Basis,
             'route'     => route('admin.bases.store'),
@@ -69,7 +69,7 @@ class BasisController extends Controller
      */
     public function edit(Basis $basis)
     {
-        return view('crud.bases.form', [
+        return view('admin.bases.form', [
             'pageTitle' => 'Edit Implementation Basis',
             'basis'     => $basis,
             'route'     => route('admin.bases.update', $basis->slug),

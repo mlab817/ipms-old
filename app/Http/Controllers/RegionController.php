@@ -17,7 +17,7 @@ class RegionController extends Controller
      */
     public function index(RegionsDataTable $dataTable)
     {
-        return $dataTable->render('crud.regions.index', [
+        return $dataTable->render('admin.regions.index', [
             'pageTitle' => 'Regions'
         ]);
     }
@@ -29,7 +29,7 @@ class RegionController extends Controller
      */
     public function create()
     {
-        return view('crud.regions.form', [
+        return view('admin.regions.form', [
             'pageTitle' => 'Add Region',
             'route'     => route('admin.regions.store'),
             'method'    => 'POST',
@@ -69,7 +69,7 @@ class RegionController extends Controller
      */
     public function edit(Region $region)
     {
-        return view('crud.regions.form', [
+        return view('admin.regions.form', [
             'pageTitle' => 'Edit Region',
             'region'    => $region,
             'method'    => 'PUT',

@@ -23,7 +23,7 @@ class Project extends Model
     use HasUuid;
     use Sluggable;
     use SoftDeletes;
-    use RequiresApproval;
+//    use RequiresApproval;
     use Auditable;
 
     protected $guard_name = 'api';
@@ -310,6 +310,11 @@ class Project extends Model
     public function tier(): BelongsTo
     {
         return $this->belongsTo(Tier::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class,'created_by','id');
     }
 
     public function investment(): HasOne

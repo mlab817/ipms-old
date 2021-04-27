@@ -13,17 +13,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class PdpIndicator extends Model
 {
     use HasFactory;
-    use HasUuid;
     use Sluggable;
 
     protected $fillable = [
         'name',
         'slug',
         'description',
-    ];
-
-    protected $with = [
-        'children',
+        'level',
     ];
 
     public function projects(): BelongsToMany

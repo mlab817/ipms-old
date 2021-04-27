@@ -8,6 +8,12 @@
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
+                @env('local')
+                    <div class="col text-sm my-2 text-center">
+                        <span class="text-danger">Username: <b>admin@admin.com</b></span> <br/>
+                        <span class="text-danger">Password: <b>password</b></span>
+                    </div>
+                @endenv
 
                 <form method="POST" action="{{ route('login') }}" class="mb-3">
                     @csrf

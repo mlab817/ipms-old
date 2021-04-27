@@ -14,6 +14,7 @@ try {
     require('datatables.net-bs4');
     require('datatables.net-buttons-bs4');
     require('admin-lte');
+    require('toastr');
 } catch (e) {}
 
 /**

@@ -16,8 +16,6 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
-    <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
-
     <script src="{{ mix('js/app.js') }}"></script>
 </head>
 <body class="layout-fixed">

@@ -182,6 +182,8 @@ return [
         \Approval\ApprovalServiceProvider::class,
 
         \Laravel\Passport\PassportServiceProvider::class,
+        
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*

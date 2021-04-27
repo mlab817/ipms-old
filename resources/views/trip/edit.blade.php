@@ -15,8 +15,9 @@
                 </div>
             @endif
 
-            <form action="{{ route('trip.store', ['project' => $project->slug]) }}" method="POST">
+            <form action="{{ route('trips.update', ['project' => $project->slug]) }}" method="POST">
                 @csrf
+                @method("PUT")
                 <div class="row">
                     <!-- Infrastructure Sector -->
                     <div class="col-md-12">
@@ -277,49 +278,49 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($regions as $fs)
-                                        <tr>
-                                            <th class="text-sm">
-                                                <input type="hidden"
-                                                       name="region_infrastructures[{{$fs->id}}][region_id]"
-                                                       value="{{ $fs->id }}">
-                                                {{ $fs->name }}
-                                            </th>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="region_infrastructures[{{$fs->id}}][y2016]"
-                                                       value="{{ old("region_infrastructures.{$fs->id}.y2016", 0) }}">
-                                            </td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="region_infrastructures[{{$fs->id}}][y2017]"
-                                                       value="{{ old("region_infrastructures.{$fs->id}.y2017", 0) }}">
-                                            </td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="region_infrastructures[{{$fs->id}}][y2018]"
-                                                       value="{{ old("region_infrastructures.{$fs->id}.y2018", 0) }}">
-                                            </td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="region_infrastructures[{{$fs->id}}][y2019]"
-                                                       value="{{ old("region_infrastructures.{$fs->id}.y2019", 0) }}">
-                                            </td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="region_infrastructures[{{$fs->id}}][y2020]"
-                                                       value="{{ old("region_infrastructures.{$fs->id}.y2020", 0) }}">
-                                            </td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="region_infrastructures[{{$fs->id}}][y2021]"
-                                                       value="{{ old("region_infrastructures.{$fs->id}.y2021", 0) }}">
-                                            </td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="region_infrastructures[{{$fs->id}}][y2022]"
-                                                       value="{{ old("region_infrastructures.{$fs->id}.y2022", 0) }}">
-                                            </td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="region_infrastructures[{{$fs->id}}][y2023]"
-                                                       value="{{ old("region_infrastructures.{$fs->id}.y2023", 0) }}">
-                                            </td>
-                                            <td><input type="number" class="form-control text-right"></td>
-                                        </tr>
-                                    @endforeach
+                                        @foreach ($regions as $fs)
+                                            <tr>
+                                                <th class="text-sm">
+                                                    <input type="hidden"
+                                                           name="region_infrastructures[{{$fs->id}}][region_id]"
+                                                           value="{{ $fs->id }}">
+                                                    {{ $fs->name }}
+                                                </th>
+                                                <td><input type="number" class="form-control text-right"
+                                                           name="region_infrastructures[{{$fs->id}}][y2016]"
+                                                           value="{{ old("region_infrastructures.{$fs->id}.y2016", 0) }}">
+                                                </td>
+                                                <td><input type="number" class="form-control text-right"
+                                                           name="region_infrastructures[{{$fs->id}}][y2017]"
+                                                           value="{{ old("region_infrastructures.{$fs->id}.y2017", 0) }}">
+                                                </td>
+                                                <td><input type="number" class="form-control text-right"
+                                                           name="region_infrastructures[{{$fs->id}}][y2018]"
+                                                           value="{{ old("region_infrastructures.{$fs->id}.y2018", 0) }}">
+                                                </td>
+                                                <td><input type="number" class="form-control text-right"
+                                                           name="region_infrastructures[{{$fs->id}}][y2019]"
+                                                           value="{{ old("region_infrastructures.{$fs->id}.y2019", 0) }}">
+                                                </td>
+                                                <td><input type="number" class="form-control text-right"
+                                                           name="region_infrastructures[{{$fs->id}}][y2020]"
+                                                           value="{{ old("region_infrastructures.{$fs->id}.y2020", 0) }}">
+                                                </td>
+                                                <td><input type="number" class="form-control text-right"
+                                                           name="region_infrastructures[{{$fs->id}}][y2021]"
+                                                           value="{{ old("region_infrastructures.{$fs->id}.y2021", 0) }}">
+                                                </td>
+                                                <td><input type="number" class="form-control text-right"
+                                                           name="region_infrastructures[{{$fs->id}}][y2022]"
+                                                           value="{{ old("region_infrastructures.{$fs->id}.y2022", 0) }}">
+                                                </td>
+                                                <td><input type="number" class="form-control text-right"
+                                                           name="region_infrastructures[{{$fs->id}}][y2023]"
+                                                           value="{{ old("region_infrastructures.{$fs->id}.y2023", 0) }}">
+                                                </td>
+                                                <td><input type="number" class="form-control text-right"></td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -399,6 +400,7 @@
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{{ route('projects.index') }}" class="btn">Go Back to List</a>
                 </div>
             </form>
         </div>

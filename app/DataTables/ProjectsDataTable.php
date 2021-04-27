@@ -21,6 +21,9 @@ class ProjectsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->order(function ($query) {
+                $query->orderBy('updated_at','DESC');
+            })
             ->addColumn('pap_type', function ($project) {
                 return $project->pap_type->name ?? '';
             })
@@ -28,12 +31,18 @@ class ProjectsDataTable extends DataTable
                 return $project->creator->name ?? '';
             })
             ->addColumn('action', function ($project) {
+                if ($project->trip_info) {
+                    $tripButton = '<a href="' . route('trips.edit', $project->slug) . '" class="btn btn-success">TRIP</a>';
+                } else {
+                    $tripButton = '<a href="' . route('trips.create', $project->slug) . '" class="btn btn-success">TRIP</a>';
+                }
+
                 return '
                 <div class="btn-group-vertical">
                     <a href="' . route('projects.show', $project->slug) . '" class="btn btn-primary">View</a>
-                    <a href="' . route('projects.edit', $project->slug) . '" class="btn btn-secondary">Edit</a>
-                    <a href="' . route('trip.edit', $project->slug) . '" class="btn btn-success">TRIP</a>
-                    <button class="btn btn-danger" onClick="confirmDelete(\''. $project->slug .'\')">Delete</button>
+                    <a href="' . route('projects.edit', $project->slug) . '" class="btn btn-secondary">Edit</a>'
+                    .$tripButton.
+                    '<button class="btn btn-danger" onClick="confirmDelete(\''. $project->slug .'\')">Delete</button>
                 </div>
                 ';
             });
@@ -80,12 +89,14 @@ class ProjectsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
+//            Column::make('id'),
             Column::make('title'),
             Column::make('pap_type'),
             Column::make('description'),
-            Column::make('total_project_cost'),
-            Column::make('created_by'),
+            Column::make('total_project_cost')
+                ->addClass('text-right'),
+            Column::make('created_by')
+                ->addClass('text-center'),
             Column::make('updated_at')
                 ->title('Last Updated')
                 ->addClass('text-center'),

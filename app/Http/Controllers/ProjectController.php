@@ -26,6 +26,7 @@ use App\Models\TenPointAgenda;
 use App\Models\Tier;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -56,7 +57,7 @@ class ProjectController extends Controller
             array_push($years, $i);
         }
 
-        return view('projects.form', compact('project'))
+        return view('projects.create', compact('project'))
             ->with('pageTitle', 'Add New Project')
             ->with([
                 'pap_types'                 => PapType::all(),
@@ -87,17 +88,17 @@ class ProjectController extends Controller
      *
      * @param StoreProjectRequest $request
      * @return Response
+     * @throws \Exception
      */
     public function store(StoreProjectRequest $request)
     {
-        dd($request);
-        try {
-            $project = Project::create($request->all());
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        $project = Project::create($request->validated());
 
-        return redirect()->route('projects.index');
+        $project->created_by = Auth::id();
+        $project->save();
+
+        return redirect()->route('projects.index')
+            ->with('message', 'Successfully added project.');
     }
 
     /**

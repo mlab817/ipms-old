@@ -28,6 +28,11 @@ return [
                 'title' => 'Funding Institutions',
                 'route' =>  'admin.funding_institutions.index',
             ],
+            'pdp_indicators' => [
+                'icon'  => 'nav-icon far fa-circle',
+                'title' => 'PDP Indicators',
+                'route' =>  'admin.pdp_indicators.index',
+            ],
             'regions' => [
                 'icon'  => 'nav-icon far fa-circle',
                 'title' => 'Regions',

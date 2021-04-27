@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\TripDataTable;
 use App\Http\Requests\TripStoreRequest;
+use App\Http\Requests\TripUpdateRequest;
 use App\Models\FundingSource;
 use App\Models\InfrastructureSector;
 use App\Models\Project;
@@ -19,55 +20,33 @@ class TripController extends Controller
         return $dataTable->render('trip.index');
     }
 
-    public function test(Request $request)
+    public function create(Project $project)
     {
-        if ($request->ajax()) {
-            $projects = DB::table('projects')
-                ->leftJoin('spatial_coverages','projects.spatial_coverage_id','=','spatial_coverages.id')
-                ->leftJoin('offices','projects.office_id','=','offices.id')
-                ->leftJoin('tiers','projects.tier_id','=','tiers.id')
-                ->leftJoin('implementation_modes','projects.implementation_mode_id','=','implementation_modes.id')
-                ->leftJoin('fs_investments','projects.id','=','fs_investments.project_id')
-                ->leftJoin('project_region','projects.id','=','project_region.project_id')
-                ->leftJoin('regions','project_region.region_id','=','regions.id')
-                ->selectRaw('projects.title, projects.description, projects.expected_outputs, projects.target_start_year, projects.target_end_year')
-                ->selectRaw('offices.name AS office')
-                ->selectRaw('spatial_coverages.name AS spatial_coverage')
-                ->selectRaw('GROUP_CONCAT(regions.label) AS regions')
-                ->selectRaw('tiers.name AS tier')
-                ->selectRaw('implementation_modes.name AS implementation_mode')
-                ->selectRaw('sum(fs_investments.y2022) AS y2022')
-                ->selectRaw('sum(fs_investments.y2023) AS y2023')
-                ->selectRaw('sum(fs_investments.y2024) AS y2024')
-                ->selectRaw('sum(
-                        fs_investments.y2016 +
-                        fs_investments.y2017 +
-                        fs_investments.y2018 +
-                        fs_investments.y2019 +
-                        fs_investments.y2020 +
-                        fs_investments.y2021 +
-                        fs_investments.y2022 +
-                        fs_investments.y2023 +
-                        fs_investments.y2024 +
-                        fs_investments.y2025
-                    ) AS total_project_cost
-                ')
-                ->where('projects.trip',true)
-                ->groupBy('projects.id')
-                ->get();
+        $project->load('infrastructure_sectors','infrastructure_subsectors','fs_infrastructures','region_infrastructures','right_of_way','resettlement_action_plan');
 
-            return DataTables::of($projects)
-                ->make(true);
-        }
-
-        return view('trip');
+        return view('trip.edit', [
+            'pageTitle'                 => 'Add TRIP Information: '. strtoupper($project->title),
+            'project'                   => $project,
+            'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
+            'regions'                   => Region::all(),
+            'funding_sources'           => FundingSource::all(),
+        ]);
     }
 
-    public function edit(Project $project)
+    public function show(string $slug)
     {
+        $project = Project::where('slug', $slug)->firstOrFail();
+
+        return $project;
+    }
+
+    public function edit(string $slug)
+    {
+        $project = Project::with('infrastructure_sectors','infrastructure_subsectors','fs_infrastructures','region_infrastructures','right_of_way','resettlement_action_plan')->where('slug', $slug)->firstOrFail();
+
         return view('trip.edit', [
             'pageTitle'                 => 'Edit TRIP Information: '. strtoupper($project->title),
-            'project'                   =>  $project->load('infrastructure_sectors','infrastructure_subsectors','resettlement_action_plan','right_of_way','region_infrastructures','fs_infrastructures'),
+            'project'                   => $project,
             'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
             'regions'                   => Region::all(),
             'funding_sources'           => FundingSource::all(),
@@ -79,24 +58,29 @@ class TripController extends Controller
         // handle save
         $project->risk                              = $request->risk;
         $project->other_infrastructure              = $request->other_infrastructure;
+        $project->trip_info                         = true;
+        $project->save();
+
+        $project->infrastructure_subsectors()->sync($request->infrastructure_subsectors);
+        $project->infrastructure_sectors()->sync($request->infrastructure_sectors);
+        $project->region_infrastructures()->createMany($request->region_infrastructures);
+        $project->fs_infrastructures()->createMany($request->fs_infrastructures);
+
+        return redirect()->route('projects.index')
+            ->with('message','Successfully added TRIP information');
+    }
+
+    public function update(TripUpdateRequest $request, Project $project)
+    {
+        // update info
+        $project->risk                              = $request->risk;
+        $project->other_infrastructure              = $request->other_infrastructure;
         $project->save();
 
         $project->infrastructure_subsectors()->sync($request->infrastructure_subsectors);
         $project->infrastructure_sectors()->sync($request->infrastructure_sectors);
 
-        if (is_null($project->region_infrastructures())) {
-            $project->region_infrastructures()->createMany($request->region_infrastructures);
-        }
-
-        if (is_null($project->fs_infrastructures())) {
-            $project->fs_infrastructures()->createMany($request->fs_infrastructures);
-        }
-
-        return redirect()->route('projects.index');
-    }
-
-    public function show()
-    {
-
+        return redirect()->route('projects.index')
+            ->with('message','Successfully updated TRIP information');
     }
 }

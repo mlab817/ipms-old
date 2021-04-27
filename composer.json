@@ -11,11 +11,14 @@
         "php": "^7.3|^8.0",
         "ext-json": "^7.4",
         "barryvdh/laravel-debugbar": "^3.5",
+        "barryvdh/laravel-snappy": "^0.4.8",
         "cviebrock/eloquent-sluggable": "^8.0",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "h4cc/wkhtmltoimage-amd64": "0.12.x",
+        "h4cc/wkhtmltopdf-amd64": "0.12.x",
         "laravel/framework": "^8.12",
         "laravel/passport": "^10.1",
         "laravel/scout": "^8.5",
@@ -29,6 +32,7 @@
         "yajra/laravel-datatables-buttons": "^4.13"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.10",
         "brianium/paratest": "^6.1",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
@@ -46,7 +50,8 @@
     "extra": {
         "laravel": {
             "dont-discover": [
-                "laravel/telescope"
+                "laravel/telescope",
+                "barryvdh/laravel-ide-helper"
             ]
         }
     },

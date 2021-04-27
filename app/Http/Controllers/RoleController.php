@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\RolesDataTable;
+use App\Http\Requests\RoleStoreRequest;
+use App\Http\Requests\RoleUpdateRequest;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
+    const INDEX_PAGE = 'admin.roles.index';
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(RolesDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.roles.index', [
+            'pageTitle' => 'Roles',
+        ]);
     }
 
     /**
@@ -23,7 +32,14 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.roles.create', [
+            'pageTitle' => 'Add Role',
+            'permissions' => Permission::all(),
+            'guards'        => [
+                'web'   => 'web',
+                'api'   => 'api',
+            ],
+        ]);
     }
 
     /**
@@ -32,9 +48,16 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleStoreRequest $request)
     {
-        //
+        $role = Role::create([
+            'name'          => $request->name,
+            'guard_name'    => $request->guard_name,
+        ]);
+
+        $role->givePermissionTo($request->permissions);
+
+        return redirect()->route(self::INDEX_PAGE);
     }
 
     /**
@@ -54,9 +77,17 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
-        //
+        return view('admin.roles.edit', [
+            'pageTitle' => 'Edit Role',
+            'permissions' => Permission::all(),
+            'guards'        => [
+                'web'   => 'web',
+                'api'   => 'api',
+            ],
+            'role' => $role,
+        ]);
     }
 
     /**
@@ -66,9 +97,16 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoleUpdateRequest $request, Role $role)
     {
-        //
+        $role->update([
+            'name' => $request->name,
+            'guard_name' => $request->guard_name,
+        ]);
+        
+        $role->givePermissionTo($request->permissions);
+        
+        return redirect()->route(self::INDEX_PAGE);
     }
 
     /**
@@ -77,8 +115,8 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
     }
 }

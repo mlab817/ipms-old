@@ -1,0 +1,46 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="862 392 125 138">
+    <g id="logo__item--business" class="logo__item">
+        <g class="logo__item__inner" transform="translate(864.546875 528.1130115158271) scale(1 1) rotate(0 0 0)">
+            <text dy="0" dominant-baseline="auto" alignment-baseline="auto" font-family="Montserrat" font-size="32px" fill="#929497" letter-spacing="0" font-weight="bold" font-style="normal">IPMSv2</text>
+        </g>
+    </g>
+    <g id="logo__item--logo_0" class="logo__item">
+        <g class="logo__item__inner" transform="translate(854.0280027076785 372.5) scale(1.400740078620997 1.400740078620997) rotate(0 0 0)">
+
+            <g>
+                <radialGradient id="SVGID_1_" cx="118.4023" cy="79.0264" r="176.9079" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" style="stop-color:#929497"></stop>
+                    <stop offset="0.6727" style="stop-color:#404041"></stop>
+                    <stop offset="1" style="stop-color:#231F20"></stop>
+                </radialGradient>
+                <path fill="url(#SVGID_1_)" d="M93.502,64.506c0,0-13.672,4.652-21.174,4.022l1.518,7.887l-4.421,2.929l-7.63-5.875l-4.784,1.007   L54.68,83.09l-6.055,0.161l-1.547-8.686c0,0-6.573-0.906-6.065-1.264c0.508-0.35-6.77,6.678-6.77,6.678l-5.437-3.272l2.464-8.859   l-4.559-3.734l-8.04,2.375l-3.417-4.683l6.262-6.323l-2.025-5.497l-6.701-7.303L7.833,45.94l1.212-12.304   C9.045,33.636,31.219,71.103,93.502,64.506z"></path>
+                <g>
+                    <radialGradient id="SVGID_2_" cx="57.9707" cy="-5.7754" r="77.713" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" style="stop-color:#26C2F2"></stop>
+                        <stop offset="0.1561" style="stop-color:#1DB7E9"></stop>
+                        <stop offset="0.4298" style="stop-color:#069AD1"></stop>
+                        <stop offset="0.4848" style="stop-color:#0193CB"></stop>
+                        <stop offset="1" style="stop-color:#0D497A"></stop>
+                    </radialGradient>
+                    <path fill="url(#SVGID_2_)" d="M60.837,61.571V30.605H44.781V58.02C49.485,59.561,54.823,60.804,60.837,61.571z"></path>
+                    <radialGradient id="SVGID_3_" cx="57.9688" cy="-5.7817" r="77.721" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" style="stop-color:#26C2F2"></stop>
+                        <stop offset="0.1561" style="stop-color:#1DB7E9"></stop>
+                        <stop offset="0.4298" style="stop-color:#069AD1"></stop>
+                        <stop offset="0.4848" style="stop-color:#0193CB"></stop>
+                        <stop offset="1" style="stop-color:#0D497A"></stop>
+                    </radialGradient>
+                    <path fill="url(#SVGID_3_)" d="M81.176,62.221V16.749H63.803v45.154C69.084,62.417,74.861,62.562,81.176,62.221z"></path>
+                    <radialGradient id="SVGID_4_" cx="57.9648" cy="-5.7725" r="77.709" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" style="stop-color:#26C2F2"></stop>
+                        <stop offset="0.1561" style="stop-color:#1DB7E9"></stop>
+                        <stop offset="0.4298" style="stop-color:#069AD1"></stop>
+                        <stop offset="0.4848" style="stop-color:#0193CB"></stop>
+                        <stop offset="1" style="stop-color:#0D497A"></stop>
+                    </radialGradient>
+                    <path fill="url(#SVGID_4_)" d="M40.493,56.473V40.281h-14.29v8.481C29.943,51.44,34.658,54.17,40.493,56.473z" data-part-id="logo__item--logo_0__3"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

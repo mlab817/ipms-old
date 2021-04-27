@@ -12,8 +12,9 @@ class DashboardController extends Controller
     {
         return view('dashboard', [
             'pageTitle'     => 'Dashboard',
-            'programCount'  =>  Project::where('pap_type_id', 1)->count(),
-            'projectCount'  =>  Project::where('pap_type_id', 2)->count(),
+            'programCount'  => Project::where('pap_type_id', 1)->count(),
+            'projectCount'  => Project::where('pap_type_id', 2)->count(),
+            'tripCount'     => Project::where('trip', 1)->count(),
             'userCount'     => User::count(),
         ]);
     }

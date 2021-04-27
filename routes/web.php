@@ -14,16 +14,17 @@ use TCG\Voyager\Facades\Voyager;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', 'login');
 
 Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
-Route::post('/projects/{project}/trip',[\App\Http\Controllers\TripController::class,'store'])->name('trip.store');
-Route::get('/projects/{project}/trip',[\App\Http\Controllers\TripController::class,'edit'])->name('trip.edit');
+Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
+Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');
+Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');
+Route::put('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'update'])->name('trips.update');
+Route::post('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'store'])->name('trips.store');
 
 Route::resources([
     'projects' => \App\Http\Controllers\ProjectController::class,
@@ -47,8 +48,8 @@ Route::prefix('/admin')->name('admin.')->group(function () {
         'operating_units'       => \App\Http\Controllers\OperatingUnitController::class,
         'operating_unit_types'  => \App\Http\Controllers\OperatingUnitTypeController::class,
         'pap_types'             => \App\Http\Controllers\PapTypeController::class,
-        'pdp_chapters'          => \App\Http\Controllers\Api\PdpChapterController::class,
-        'pdp_indicators'        => \App\Http\Controllers\Api\PdpIndicatorController::class,
+        'pdp_chapters'          => \App\Http\Controllers\PdpChapterController::class,
+        'pdp_indicators'        => \App\Http\Controllers\PdpIndicatorController::class,
         'permissions'           => \App\Http\Controllers\PermissionController::class,
         'pip_typologies'        => \App\Http\Controllers\PipTypologyController::class,
         'preparation_documents' => \App\Http\Controllers\PreparationDocumentController::class,

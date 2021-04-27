@@ -16,8 +16,8 @@ class ApprovalLevelController extends Controller
      */
     public function index(ApprovalLevelsDataTable $dataTable)
     {
-        return $dataTable->render('crud.approval_levels.index', [
-                'pageTitle', 'Approval Levels'
+        return $dataTable->render('admin.approval_levels.index', [
+                'pageTitle' => 'Approval Levels'
             ]);
     }
 
@@ -30,7 +30,7 @@ class ApprovalLevelController extends Controller
     {
         $approval_level = new ApprovalLevel;
 
-        return view('crud.approval_levels.form', compact('approval_level'))
+        return view('admin.approval_levels.form', compact('approval_level'))
             ->with('pageTitle', 'Add Approval Level')
             ->with('route', route('admin.approval_levels.store'))
             ->with('method', 'POST');
@@ -76,7 +76,7 @@ class ApprovalLevelController extends Controller
      */
     public function edit(ApprovalLevel $approvalLevel)
     {
-      return view('crud.approval_levels.form')
+      return view('admin.approval_levels.form')
         ->with('pageTitle', 'Edit Approval Level')
         ->with('approval_level', $approvalLevel)
         ->with('method', 'PATCH')
