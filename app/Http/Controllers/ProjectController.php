@@ -75,7 +75,10 @@ class ProjectController extends Controller
                 'pdp_chapters'              =>  PdpChapter::all(),
                 'sdgs'                      => Sdg::all(),
                 'ten_point_agendas'         => TenPointAgenda::all(),
-//                'pdp_indicators'          => PdpIndicator::select('id','name')->get(),
+                'pdp_indicators'            => PdpIndicator::with('children.children.children')
+                                                    ->where('level',1)
+                                                    ->orWhereNull('parent_id')
+                                                    ->select('id','name')->get(),
                 'funding_sources'           => FundingSource::all(),
                 'funding_institutions'      => FundingInstitution::all(),
                 'implementation_modes'      =>  ImplementationMode::all(),

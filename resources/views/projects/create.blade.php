@@ -83,7 +83,7 @@
                                 <div class="form-group">
                                     <label for="total_project_cost">Total Project Cost (in absolute PhP) <i class="text-danger fas fa-flag"></i></label>
                                     <!-- TODO: Replace with MoneyInput -->
-                                    <input type="number" class="form-control text-right @error('total_project_cost') is-invalid @enderror" name="total_project_cost" value="{{ old('total_project_cost') }}"></input>
+                                    <input type="text" class="money form-control @error('total_project_cost') is-invalid @enderror" name="total_project_cost" value="{{ old('total_project_cost', 0) }}">
                                     @error('total_project_cost')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                 </div>
 
@@ -125,155 +125,12 @@
                                     @foreach($regions->sortBy('order') as $option)
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="regions[]" value="{{ $option->id }}" {{ in_array($option->id, old('regions') ?? []) ? 'checked' : '' }}>
+                                                <input class="form-check-input @error('regions') text-danger @enderror" type="checkbox" name="regions[]" value="{{ $option->id }}" {{ in_array($option->id, old('regions') ?? []) ? 'checked' : '' }}>
                                                 {{ $option->name }}
                                             </label>
                                         </div>
                                     @endforeach
                                     @error('regions')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Project for Inclusion in which Programming Document</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="pip">Public Investment Program <i class="text-danger fas fa-flag"></i></label>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="pip" value="1" @if(old('pip') == 1) checked @endif>
-                                                    Yes
-                                                </label>
-                                            </div>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="pip" value="0" @if(old('pip') == 0) checked @endif>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group ml-4">
-                                            <label>Typology <i class="text-danger fas fa-flag"></i></label>
-                                            @foreach($pip_typologies as $option)
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input @error('pip_typology_id') text-danger @enderror" name="pip_typology_id" value="{{ $option->id }}" @if(old('pip_typology_id') == $option->id) checked @endif>
-                                                    <label class="form-check-label @error('pip_typology_id') text-danger @enderror">{{ $option->name }}</label>
-                                                    @error('pip_typology_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                </div>
-                                            @endforeach
-                                            @error('pip_typology_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="cip">Core Investment Program/Project <i class="text-danger fas fa-flag"></i></label>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="cip" value="1" @if(old('cip') == 1) checked @endif>
-                                                    Yes
-                                                </label>
-                                            </div>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="cip" value="0" @if(old('cip') == 0) checked @endif>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group ml-4">
-                                            <label>CIP Type <i class="text-danger fas fa-flag"></i></label>
-                                            @foreach($cip_types as $option)
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input type="radio" class="form-check-input" name="cip_type_id" value="{{ $option->id }}">
-                                                        {{ $option->name }}
-                                                    </label>
-                                                </div>
-                                            @endforeach
-                                            @error('cip_type_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="">Three-Year Rolling Infrastructure Program <i class="text-danger fas fa-flag"></i></label>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="trip" value="1" @if(old('trip') == 1) checked @endif>
-                                                    Yes
-                                                </label>
-                                            </div>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="trip" value="0" @if(old('trip') == 0) checked @endif>
-                                                    No
-                                                </label>
-                                            </div>
-                                            @error('trip')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="">Regional Development Investment Program <i class="text-danger fas fa-flag"></i></label>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="rdip" value="1" @if(old('rdip') == 1) checked @endif>
-                                                    Yes
-                                                </label>
-                                            </div>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="rdip" value="0" @if(old('rdip') == 0) checked @endif>
-                                                    No
-                                                </label>
-                                            </div>
-                                            @error('rdip')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                        </div>
-                                        <div class="form-group ml-4">
-                                            <label class="">Is RDC endorsement required? <i class="text-danger fas fa-flag"></i></label>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="rdc_endorsement_required" value="1" @if(old('rdc_endorsement_required') == 1) checked @endif>
-                                                    Yes
-                                                </label>
-                                            </div>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="rdc_endorsement_required" value="0" @if(old('rdc_endorsement_required') == 0) checked @endif>
-                                                    No
-                                                </label>
-                                            </div>
-                                            @error('rdc_endorsement_required')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                        </div>
-                                        <div class="form-group ml-4">
-                                            <label>Has the project been endorsed?</label>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="rdc_endorsed" value="1" @if(old('rdc_endorsed') == 1) checked @endif>
-                                                    Yes
-                                                </label>
-                                            </div>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="rdc_endorsed" value="0" @if(old('rdc_endorsed') == 0) checked @endif>
-                                                    No
-                                                </label>
-                                            </div>
-                                            @error('rdc_endorsement_required')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                        </div>
-                                        <div class="form-group ml-4">
-                                            <label for="rdc_endorsed_date">RDC Endorsement Date</label>
-                                            <input type="date" class="form-control @error('rdc_endorsed_date') is-invalid @enderror" name="rdc_endorsed_date" value="{{ old('rdc_endorsed_date') }}">
-                                            @error('rdc_endorsed_date')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -355,6 +212,75 @@
                     </div>
                     <!--/. Approval Status -->
 
+                    <!--/. Regional Development Investment Program -->
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Regional Development Investment Program</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="">Regional Development Investment Program <i class="text-danger fas fa-flag"></i></label>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="rdip" value="1" @if(old('rdip') == 1) checked @endif>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="rdip" value="0" @if(old('rdip') == 0) checked @endif>
+                                                    No
+                                                </label>
+                                            </div>
+                                            @error('rdip')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                        </div>
+                                        <div class="form-group ml-4">
+                                            <label class="">Is RDC endorsement required? <i class="text-danger fas fa-flag"></i></label>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="rdc_endorsement_required" value="1" @if(old('rdc_endorsement_required') == 1) checked @endif>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="rdc_endorsement_required" value="0" @if(old('rdc_endorsement_required') == 0) checked @endif>
+                                                    No
+                                                </label>
+                                            </div>
+                                            @error('rdc_endorsement_required')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                        </div>
+                                        <div class="form-group ml-4">
+                                            <label>Has the project been endorsed?</label>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="rdc_endorsed" value="1" @if(old('rdc_endorsed') == 1) checked @endif>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="rdc_endorsed" value="0" @if(old('rdc_endorsed') == 0) checked @endif>
+                                                    No
+                                                </label>
+                                            </div>
+                                            @error('rdc_endorsement_required')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                        </div>
+                                        <div class="form-group ml-4">
+                                            <label for="rdc_endorsed_date">RDC Endorsement Date</label>
+                                            <input type="date" class="form-control @error('rdc_endorsed_date') is-invalid @enderror" name="rdc_endorsed_date" value="{{ old('rdc_endorsed_date') }}">
+                                            @error('rdc_endorsed_date')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/. Regional Development Investment Program -->
+
                     <!-- Project Preparation Details -->
                     <div class="col-md-12">
                         <div class="card card-primary">
@@ -427,25 +353,25 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <input type="number" class="form-control text-right" name="feasibility_study[y2017]" value="{{ old('feasibility_study.y2017', 0) }}">
+                                                    <input type="text" class="money fs form-control text-right" name="feasibility_study[y2017]" value="{{ old('feasibility_study.y2017', 0) }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control text-right" name="feasibility_study[y2018]" value="{{ old('feasibility_study.y2018', 0) }}">
+                                                    <input type="text" class="money fs form-control text-right" name="feasibility_study[y2018]" value="{{ old('feasibility_study.y2018', 0) }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control text-right" name="feasibility_study[y2019]" value="{{ old('feasibility_study.y2019', 0) }}">
+                                                    <input type="text" class="money fs form-control text-right" name="feasibility_study[y2019]" value="{{ old('feasibility_study.y2019', 0) }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control text-right" name="feasibility_study[y2020]" value="{{ old('feasibility_study.y2020', 0) }}">
+                                                    <input type="text" class="money fs form-control text-right" name="feasibility_study[y2020]" value="{{ old('feasibility_study.y2020', 0) }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control text-right" name="feasibility_study[y2021]" value="{{ old('feasibility_study.y2021', 0) }}">
+                                                    <input type="text" class="money fs form-control text-right" name="feasibility_study[y2021]" value="{{ old('feasibility_study.y2021', 0) }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control text-right" name="feasibility_study[y2022]" value="{{ old('feasibility_study.y2022', 0) }}">
+                                                    <input type="text" class="money fs form-control text-right" name="feasibility_study[y2022]" value="{{ old('feasibility_study.y2022', 0) }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control text-right" name="feasibility_study[total]" value="{{ old('feasibility_study.total', 0) }}">
+                                                    <input type="text" class="money form-control text-right" id="fs_total" value="{{ old('feasibility_study.total', 0) }}">
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -513,16 +439,55 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">{{ __("Philippine Development Results Matrices Indicators") }}</h3>
+                                <h3 class="card-title">{{ __("Philippine Development Results Matrices (PDP-RM) Indicators") }}</h3>
                             </div>
                             <!-- TODO: PDP Indicators as Vue component -->
                             <div class="card-body">
-                                <p class="text-danger">Loading the indicators here causes the system to crash.</p>
                                 <div class="form-check">
-                                    <label for="no_pdp_indicator">
+                                    <label for="no_pdp_indicator" class="form-check-label">
                                         <input type="checkbox" value="1" id="no_pdp_indicator" name="no_pdp_indicator" class="form-check-input">
                                         No PDP Indicator applicable
                                     </label>
+                                </div>
+
+                                <div id="pdp_indicators_group" class="form-group mt-2">
+                                    @foreach ($pdp_indicators as $pi1)
+                                        <div id="pdp_chapter_{{$pi1->id}}" class="pdp_chapters" style="display: none;">
+                                            <span class="font-weight-bold">{{ $pi1->name }}</span>
+                                            @foreach($pi1->children as $pi2)
+                                                <div class="ml-4">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label" for="pdp_outcome_{{$pi2->id}}">
+                                                            <input type="checkbox" class="form-check-input pdp_indicators" value="{{$pi2->id}}">
+                                                            {{ $pi2->name }}
+                                                        </label>
+                                                    </div>
+                                                    <div>
+                                                    @foreach($pi2->children as $pi3)
+                                                        <div class="ml-4">
+                                                            <div class="form-check">
+                                                                <label class="form-check-label" for="pdp_suboutcome_{{$pi3->id}}">
+                                                                    <input type="checkbox" class="form-check-input pdp_indicators" value="{{$pi3->id}}">
+                                                                    {{ $pi3->name }}
+                                                                </label>
+                                                            </div>
+                                                            @foreach($pi3->children as $pi4)
+                                                                <div class="ml-4">
+                                                                    <div class="form-check">
+                                                                        <label class="form-check-label" for="pdp_output_{{$pi4->id}}">
+                                                                            <input type="checkbox" class="form-check-input pdp_indicators" value="{{$pi4->id}}">
+                                                                            {{ $pi4->name }}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @endforeach
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -798,39 +763,39 @@
                                     <tbody>
                                     <tr>
                                         <th class="text-sm">National Expenditure Program (NEP)</th>
-                                        <td><input type="number" class="form-control text-right" name="nep_2016" value="{{ old("nep_2016", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="nep_2017" value="{{ old("nep_2017", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="nep_2018" value="{{ old("nep_2018", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="nep_2019" value="{{ old("nep_2019", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="nep_2020" value="{{ old("nep_2020", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="nep_2021" value="{{ old("nep_2021", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="nep_2022" value="{{ old("nep_2022", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="nep_2023" value="{{ old("nep_2023", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="nep_total" value="{{ old("nep_total") }}"></td>
+                                        <td><input type="text" class="nep money form-control text-right" name="nep_2016" value="{{ old("nep_2016", 0) }}"></td>
+                                        <td><input type="text" class="nep money form-control text-right" name="nep_2017" value="{{ old("nep_2017", 0) }}"></td>
+                                        <td><input type="text" class="nep money form-control text-right" name="nep_2018" value="{{ old("nep_2018", 0) }}"></td>
+                                        <td><input type="text" class="nep money form-control text-right" name="nep_2019" value="{{ old("nep_2019", 0) }}"></td>
+                                        <td><input type="text" class="nep money form-control text-right" name="nep_2020" value="{{ old("nep_2020", 0) }}"></td>
+                                        <td><input type="text" class="nep money form-control text-right" name="nep_2021" value="{{ old("nep_2021", 0) }}"></td>
+                                        <td><input type="text" class="nep money form-control text-right" name="nep_2022" value="{{ old("nep_2022", 0) }}"></td>
+                                        <td><input type="text" class="nep money form-control text-right" name="nep_2023" value="{{ old("nep_2023", 0) }}"></td>
+                                        <td><input type="text" class="form-control text-right" id="nep_total" value="{{ old("nep_total") }}" readonly></td>
                                     </tr>
                                     <tr>
                                         <th class="text-sm">General Appropriations Act (GAA)</th>
-                                        <td><input type="number" class="form-control text-right" name="gaa_2016" value="{{ old("gaa_2016", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="gaa_2017" value="{{ old("gaa_2017", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="gaa_2018" value="{{ old("gaa_2018", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="gaa_2019" value="{{ old("gaa_2019", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="gaa_2020" value="{{ old("gaa_2020", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="gaa_2021" value="{{ old("gaa_2021", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="gaa_2022" value="{{ old("gaa_2022", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="gaa_2023" value="{{ old("gaa_2023", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="gaa_total" value="{{ old("gaa_total") }}"></td>
+                                        <td><input type="text" class="gaa money form-control text-right" name="gaa_2016" value="{{ old("gaa_2016", 0) }}"></td>
+                                        <td><input type="text" class="gaa money form-control text-right" name="gaa_2017" value="{{ old("gaa_2017", 0) }}"></td>
+                                        <td><input type="text" class="gaa money form-control text-right" name="gaa_2018" value="{{ old("gaa_2018", 0) }}"></td>
+                                        <td><input type="text" class="gaa money form-control text-right" name="gaa_2019" value="{{ old("gaa_2019", 0) }}"></td>
+                                        <td><input type="text" class="gaa money form-control text-right" name="gaa_2020" value="{{ old("gaa_2020", 0) }}"></td>
+                                        <td><input type="text" class="gaa money form-control text-right" name="gaa_2021" value="{{ old("gaa_2021", 0) }}"></td>
+                                        <td><input type="text" class="gaa money form-control text-right" name="gaa_2022" value="{{ old("gaa_2022", 0) }}"></td>
+                                        <td><input type="text" class="gaa money form-control text-right" name="gaa_2023" value="{{ old("gaa_2023", 0) }}"></td>
+                                        <td><input type="text" class="form-control text-right" id="gaa_total" value="{{ old("gaa_total") }}" readonly></td>
                                     </tr>
                                     <tr>
                                         <th class="text-sm">Actual Disbursement</th>
-                                        <td><input type="number" class="form-control text-right" name="disbursement_2016" value="{{ old("disbursement_2016", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="disbursement_2017" value="{{ old("disbursement_2017", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="disbursement_2018" value="{{ old("disbursement_2018", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="disbursement_2019" value="{{ old("disbursement_2019", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="disbursement_2020" value="{{ old("disbursement_2020", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="disbursement_2021" value="{{ old("disbursement_2021", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="disbursement_2022" value="{{ old("disbursement_2022", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="disbursement_2023" value="{{ old("disbursement_2023", 0) }}"></td>
-                                        <td><input type="number" class="form-control text-right" name="disbursement_total" value="{{ old("disbursement_total") }}"></td>
+                                        <td><input type="text" class="disbursement form-control text-right" name="disbursement_2016" value="{{ old("disbursement_2016", 0) }}"></td>
+                                        <td><input type="text" class="disbursement form-control text-right" name="disbursement_2017" value="{{ old("disbursement_2017", 0) }}"></td>
+                                        <td><input type="text" class="disbursement form-control text-right" name="disbursement_2018" value="{{ old("disbursement_2018", 0) }}"></td>
+                                        <td><input type="text" class="disbursement form-control text-right" name="disbursement_2019" value="{{ old("disbursement_2019", 0) }}"></td>
+                                        <td><input type="text" class="disbursement form-control text-right" name="disbursement_2020" value="{{ old("disbursement_2020", 0) }}"></td>
+                                        <td><input type="text" class="disbursement form-control text-right" name="disbursement_2021" value="{{ old("disbursement_2021", 0) }}"></td>
+                                        <td><input type="text" class="disbursement form-control text-right" name="disbursement_2022" value="{{ old("disbursement_2022", 0) }}"></td>
+                                        <td><input type="text" class="disbursement form-control text-right" name="disbursement_2023" value="{{ old("disbursement_2023", 0) }}"></td>
+                                        <td><input type="text" class="disbursement form-control text-right" id="disbursement_total" value="{{ old("disbursement_total") }}" readonly></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -853,3 +818,96 @@
         <i class="fas fa-chevron-up"></i>
     </a>
 @endsection
+
+@push('scripts')
+    <script>
+        function togglePdpIndicators(val)
+        {
+            let allPdpIndicators = $('input.pdp_indicators')
+            if (val) {
+                allPdpIndicators.prop('disabled', true)
+            } else {
+                allPdpIndicators.prop('disabled', false)
+            }
+        }
+
+        function showSelectedPdpIndicatorsByChapter(val)
+        {
+            if (val) {
+                $('.pdp_chapters').hide()
+                $('.pdp_indicators').prop('checked', false)
+                $("div#pdp_chapter_" + val).show()
+            }
+        }
+
+        function formatToMoney(value) {
+            console.log('formatToMoney initial value: ', value)
+            if (parseFloat(value) === 0) return 0
+            return value
+                .toString()
+                .replace(/^0+/,'')
+                .replace(/\D/g, '')
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        }
+
+        function sumRow(change) {
+            console.log(change)
+            let sum = 0
+            $('.' + change).each(function() {
+                const val = parseFloat($(this).val() && $(this).val().replace(/,/g, ''))
+                console.log('val: ', val)
+                sum += val
+                console.log('sum: ', sum)
+            })
+            const formatted = formatToMoney(sum)
+            console.log(formatted)
+            $("#" + change + "_total").val(formatted)
+        }
+
+        const htmlElements = {
+            pdpIndicatorCheckbox: $('#no_pdp_indicator'),
+            pdpChapterId: $('#pdp_chapter_id')
+        }
+
+        htmlElements.pdpIndicatorCheckbox.on('change', function(evt) {
+            let val = $(this).prop('checked')
+            togglePdpIndicators(val)
+        })
+
+        htmlElements.pdpChapterId.on('change', function(evt) {
+            // hide PDP indicators
+            showSelectedPdpIndicatorsByChapter(evt.target.value)
+        })
+
+        $('input.money').keyup(function (evt) {
+            if (event.which >= 37 && event.which <= 40) return
+
+            $(this).val(function (index, value) {
+                if (parseInt(value) === 0) return 0
+                return formatToMoney(value)
+            })
+        })
+
+        $(document).ready(function() {
+            let noPdpIndicator = htmlElements.pdpIndicatorCheckbox.prop('checked')
+            togglePdpIndicators(noPdpIndicator)
+        })
+
+        // get sum of fs cost
+        $(document).on('keyup', '.fs', function() {
+            sumRow('fs')
+        })
+
+        $(document).on('keyup', '.nep', function() {
+            sumRow('nep')
+        })
+
+        $(document).on('keyup', '.gaa', function() {
+            sumRow('gaa')
+        })
+
+        $(document).on('keyup', '.disbursement', function() {
+            sumRow('disbursement')
+        })
+    </script>
+@endpush

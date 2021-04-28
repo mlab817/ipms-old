@@ -10,7 +10,7 @@ import { VMoney } from 'v-money'
 
 export default {
     props: {
-        value: {
+        initialValue: {
             type: [Number, String],
             default: 0
         },
@@ -47,7 +47,8 @@ export default {
     },
 
     mounted() {
-        this.displayValue = this.value
+        this.displayValue = this.initialValue
+        console.log(this.displayValue)
     }
 }
 </script>

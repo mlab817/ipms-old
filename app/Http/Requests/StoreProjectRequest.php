@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Region;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class StoreProjectRequest extends FormRequest
 {
@@ -18,12 +19,27 @@ class StoreProjectRequest extends FormRequest
     }
 
     /**
+     * Prepare data before validation
+     * Also useful for formatting data
+     *
+     * @returns $this
+     */
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'total_project_cost' => str_replace(',', '', $this->total_project_cost)
+        ]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
     public function rules(): array
     {
+        // Note: The following fields will be moved to validation: pip, pip_typology_id, cip, cip_type_id, trip, rdip
+        // which will form part of the validation
         return [
             'code'                              => 'nullable|string',
             'title'                             => 'required|max:255',
@@ -32,16 +48,17 @@ class StoreProjectRequest extends FormRequest
             'bases'                             => 'required',
             'description'                       => 'required|max:1000',
             'expected_outputs'                  => 'required|max:1000',
-            'total_project_cost'                => 'required',
+            'total_project_cost'                => 'required|numeric',
             'project_status_id'                 => 'required|exists:project_statuses,id',
             'spatial_coverage_id'               => 'required|exists:spatial_coverages,id',
-            'pip'                               => 'required|bool',
-            'pip_typology_id'                   => 'required_if:pip,true',
-//            'research'                          => 'required_if:pip_typology_id,2',
-            'cip'                               => 'required|bool',
-            'cip_type_id'                       => 'required_if:cip,true',
-            'trip'                              => 'nullable|bool',
-            'rdip'                              => 'nullable|bool',
+            'regions'                           => 'required',
+//            'pip'                               => 'required|bool',
+//            'pip_typology_id'                   => 'required_if:pip,true',
+////            'research'                          => 'required_if:pip_typology_id,2',
+//            'cip'                               => 'required|bool',
+//            'cip_type_id'                       => 'required_if:cip,true',
+//            'trip'                              => 'nullable|bool',
+            'rdip'                              => 'required|bool',
             'rdc_endorsement_required'          => 'required_if:rdip,true|bool',
             'rdc_endorsed'                      => 'required_if:rdc_endorsement_required,true|bool',
             'rdc_endorsed_date'                 => 'nullable|required_if:rdc_endorsed,1|date',
@@ -69,31 +86,6 @@ class StoreProjectRequest extends FormRequest
             'feasibility_study.y2023'           => 'numeric|min:0',
             'feasibility_study.y2024'           => 'numeric|min:0',
             'feasibility_study.y2025'           => 'numeric|min:0',
-//            'has_row'                           => 'required|bool',
-//            'right_of_way'                      => 'required_if:has_row,true|exclude_if:has_row,false',
-//            'right_of_way.y2016'                => 'numeric|min:0',
-//            'right_of_way.y2017'                => 'numeric|min:0',
-//            'right_of_way.y2018'                => 'numeric|min:0',
-//            'right_of_way.y2019'                => 'numeric|min:0',
-//            'right_of_way.y2020'                => 'numeric|min:0',
-//            'right_of_way.y2021'                => 'numeric|min:0',
-//            'right_of_way.y2022'                => 'numeric|min:0',
-//            'right_of_way.y2023'                => 'numeric|min:0',
-//            'right_of_way.y2024'                => 'numeric|min:0',
-//            'right_of_way.y2025'                => 'numeric|min:0',
-//            'right_of_way.affected_households'  => 'nullable|string',
-//            'has_rap'                           => 'required|bool',
-//            'resettlement_action_plan'          => 'required_if:has_rap,true|exclude_if:has_rap,false',
-//            'resettlement_action_plan.y2017'    => 'numeric|min:0',
-//            'resettlement_action_plan.y2018'    => 'numeric|min:0',
-//            'resettlement_action_plan.y2019'    => 'numeric|min:0',
-//            'resettlement_action_plan.y2020'    => 'numeric|min:0',
-//            'resettlement_action_plan.y2021'    => 'numeric|min:0',
-//            'resettlement_action_plan.y2022'    => 'numeric|min:0',
-//            'resettlement_action_plan.y2023'    => 'numeric|min:0',
-//            'resettlement_action_plan.y2024'    => 'numeric|min:0',
-//            'resettlement_action_plan.y2025'    => 'numeric|min:0',
-//            'resettlement_action_plan.affected_households'  => 'nullable|string',
             'employment_generated'              => 'nullable|string',
             'funding_source_id'                 => 'required|exists:funding_sources,id',
             'implementation_mode_id'            => 'required|exists:implementation_modes,id',
@@ -102,13 +94,6 @@ class StoreProjectRequest extends FormRequest
             'updates_date'                      => 'required|date',
             'uacs_code'                         => 'nullable',
             'tier_id'                           => 'required|exists:tiers,id',
-//            'regions'                           => ['required_if:spatial_coverage_id,!=,4','array', function($attribute, $value, $fail) {
-//                                                        $count = Region::whereIn('id', $value)->count();
-//                                                        if (count($value) !== $count) {
-//                                                            $fail($attribute . ' is invalid.');
-//                                                        }
-//                                                    }],
-            'regions'                           => 'required',
             'funding_sources'                   => 'nullable|array',
             'funding_institutions'              => 'exclude_unless:funding_source_id,2|array',
             'implementing_agencies'             => 'sometimes|array',
