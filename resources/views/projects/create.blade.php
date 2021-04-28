@@ -371,7 +371,7 @@
                                                     <input type="text" class="money fs form-control text-right" name="feasibility_study[y2022]" value="{{ old('feasibility_study.y2022', 0) }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="money form-control text-right" id="fs_total" value="{{ old('feasibility_study.total', 0) }}">
+                                                    <input type="text" class="money form-control text-right" id="fs_total" value="{{ old('feasibility_study.total', 0) }}" readonly>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -667,18 +667,34 @@
                                                 <input type="hidden" name="fs_investments[{{$fs->id}}][fs_id]" value="{{ $fs->id }}">
                                                 {{ $fs->name }}
                                             </th>
-                                            <td><input type="number" class="form-control text-right" name="fs_investments[{{$fs->id}}][y2016]" value="{{ old("fs_investments.{$fs->id}.y2016", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right" name="fs_investments[{{$fs->id}}][y2017]" value="{{ old("fs_investments.{$fs->id}.y2017", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right" name="fs_investments[{{$fs->id}}][y2018]" value="{{ old("fs_investments.{$fs->id}.y2018", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right" name="fs_investments[{{$fs->id}}][y2019]" value="{{ old("fs_investments.{$fs->id}.y2019", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right" name="fs_investments[{{$fs->id}}][y2020]" value="{{ old("fs_investments.{$fs->id}.y2020", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right" name="fs_investments[{{$fs->id}}][y2021]" value="{{ old("fs_investments.{$fs->id}.y2021", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right" name="fs_investments[{{$fs->id}}][y2022]" value="{{ old("fs_investments.{$fs->id}.y2022", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right" name="fs_investments[{{$fs->id}}][y2023]" value="{{ old("fs_investments.{$fs->id}.y2023", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"></td>
+                                            <td><input type="text" class="fs_investments fs_investments_{{$fs->id}} money form-control text-right" name="fs_investments[{{$fs->id}}][y2016]" value="{{ old("fs_investments.{$fs->id}.y2016", 0) }}"></td>
+                                            <td><input type="text" class="fs_investments fs_investments_{{$fs->id}} money form-control text-right" name="fs_investments[{{$fs->id}}][y2017]" value="{{ old("fs_investments.{$fs->id}.y2017", 0) }}"></td>
+                                            <td><input type="text" class="fs_investments fs_investments_{{$fs->id}} money form-control text-right" name="fs_investments[{{$fs->id}}][y2018]" value="{{ old("fs_investments.{$fs->id}.y2018", 0) }}"></td>
+                                            <td><input type="text" class="fs_investments fs_investments_{{$fs->id}} money form-control text-right" name="fs_investments[{{$fs->id}}][y2019]" value="{{ old("fs_investments.{$fs->id}.y2019", 0) }}"></td>
+                                            <td><input type="text" class="fs_investments fs_investments_{{$fs->id}} money form-control text-right" name="fs_investments[{{$fs->id}}][y2020]" value="{{ old("fs_investments.{$fs->id}.y2020", 0) }}"></td>
+                                            <td><input type="text" class="fs_investments fs_investments_{{$fs->id}} money form-control text-right" name="fs_investments[{{$fs->id}}][y2021]" value="{{ old("fs_investments.{$fs->id}.y2021", 0) }}"></td>
+                                            <td><input type="text" class="fs_investments fs_investments_{{$fs->id}} money form-control text-right" name="fs_investments[{{$fs->id}}][y2022]" value="{{ old("fs_investments.{$fs->id}.y2022", 0) }}"></td>
+                                            <td><input type="text" class="fs_investments fs_investments_{{$fs->id}} money form-control text-right" name="fs_investments[{{$fs->id}}][y2023]" value="{{ old("fs_investments.{$fs->id}.y2023", 0) }}"></td>
+                                            <td><input type="text" class="form-control text-right" id="fs_investments_total_{{$fs->id}}" readonly></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Total</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>
+                                                <input type="text" class="form-control text-right" id="fs_investments_grand_total" readonly>
+                                            </th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -819,95 +835,4 @@
     </a>
 @endsection
 
-@push('scripts')
-    <script>
-        function togglePdpIndicators(val)
-        {
-            let allPdpIndicators = $('input.pdp_indicators')
-            if (val) {
-                allPdpIndicators.prop('disabled', true)
-            } else {
-                allPdpIndicators.prop('disabled', false)
-            }
-        }
-
-        function showSelectedPdpIndicatorsByChapter(val)
-        {
-            if (val) {
-                $('.pdp_chapters').hide()
-                $('.pdp_indicators').prop('checked', false)
-                $("div#pdp_chapter_" + val).show()
-            }
-        }
-
-        function formatToMoney(value) {
-            console.log('formatToMoney initial value: ', value)
-            if (parseFloat(value) === 0) return 0
-            return value
-                .toString()
-                .replace(/^0+/,'')
-                .replace(/\D/g, '')
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        }
-
-        function sumRow(change) {
-            console.log(change)
-            let sum = 0
-            $('.' + change).each(function() {
-                const val = parseFloat($(this).val() && $(this).val().replace(/,/g, ''))
-                console.log('val: ', val)
-                sum += val
-                console.log('sum: ', sum)
-            })
-            const formatted = formatToMoney(sum)
-            console.log(formatted)
-            $("#" + change + "_total").val(formatted)
-        }
-
-        const htmlElements = {
-            pdpIndicatorCheckbox: $('#no_pdp_indicator'),
-            pdpChapterId: $('#pdp_chapter_id')
-        }
-
-        htmlElements.pdpIndicatorCheckbox.on('change', function(evt) {
-            let val = $(this).prop('checked')
-            togglePdpIndicators(val)
-        })
-
-        htmlElements.pdpChapterId.on('change', function(evt) {
-            // hide PDP indicators
-            showSelectedPdpIndicatorsByChapter(evt.target.value)
-        })
-
-        $('input.money').keyup(function (evt) {
-            if (event.which >= 37 && event.which <= 40) return
-
-            $(this).val(function (index, value) {
-                if (parseInt(value) === 0) return 0
-                return formatToMoney(value)
-            })
-        })
-
-        $(document).ready(function() {
-            let noPdpIndicator = htmlElements.pdpIndicatorCheckbox.prop('checked')
-            togglePdpIndicators(noPdpIndicator)
-        })
-
-        // get sum of fs cost
-        $(document).on('keyup', '.fs', function() {
-            sumRow('fs')
-        })
-
-        $(document).on('keyup', '.nep', function() {
-            sumRow('nep')
-        })
-
-        $(document).on('keyup', '.gaa', function() {
-            sumRow('gaa')
-        })
-
-        $(document).on('keyup', '.disbursement', function() {
-            sumRow('disbursement')
-        })
-    </script>
-@endpush
+@include('projects.partials.script')
