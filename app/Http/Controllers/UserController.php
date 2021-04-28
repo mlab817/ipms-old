@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\UsersDataTable;
 use App\Http\Requests\UserStoreRequest;
+use App\Models\Office;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -33,6 +34,7 @@ class UserController extends Controller
         return view('admin.users.create', [
             'pageTitle' => 'Add New User',
             'roles'     => Role::all(),
+            'offices'   => Office::all(),
         ]);
     }
 
@@ -48,6 +50,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make('password'),
+            'office_id' => $request->office_id,
         ]);
 
         $user->assignRole($request->roles);
@@ -78,6 +81,7 @@ class UserController extends Controller
             'pageTitle' => 'Edit User',
             'roles'     => Role::all(),
             'user'      => $user,
+            'offices'   => Office::all(),
         ]);
     }
 
@@ -91,7 +95,8 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->update([
-            'name' => $request->name,
+            'name'      => $request->name,
+            'office_id' => $request->office_id,
         ]);
 
         $user->roles()->sync($request->roles);
@@ -105,8 +110,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
     }
 }

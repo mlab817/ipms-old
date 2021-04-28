@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ProjectsDataTable;
+use App\DataTables\Scopes\OfficeProjectsDataTableScope;
+use App\DataTables\Scopes\OwnProjectsDataTableScope;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
@@ -149,5 +151,22 @@ class ProjectController extends Controller
         session()->flash('message', 'Successfully deleted project');
 
         return response()->json(['message' => 'Successfully deleted project']);
+    }
+
+    /**
+     * Return user's own projects
+     */
+    public function own(ProjectsDataTable $dataTable)
+    {
+        return $dataTable
+            ->addScope(new OwnProjectsDataTableScope)
+            ->render('projects.index', ['pageTitle' => 'Own Projects']);
+    }
+
+    public function office(ProjectsDataTable $dataTable)
+    {
+        return $dataTable
+            ->addScope(new OfficeProjectsDataTableScope)
+            ->render('projects.index', ['pageTitle' => 'Office Projects']);
     }
 }

@@ -21,7 +21,14 @@ class PermissionsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'permissions.action');
+            ->addColumn('action', function ($permission) {
+                return '
+                    <a href="'. route('admin.permissions.edit', $permission->id) .'" class="btn btn-sm btn-info">
+                        <i class="fas fa-pencil-alt"></i>
+                        Edit
+                    </a>
+                ';
+            });
     }
 
     /**
@@ -65,15 +72,14 @@ class PermissionsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('name'),
+            Column::make('guard_name'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center'),
         ];
     }
 

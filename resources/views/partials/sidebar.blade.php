@@ -59,18 +59,34 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('projects.index') }}" class="nav-link @if(Route::current()->getName() == 'projects.index') active @endif">
-                                <i class="nav-icon fas fa-th"></i>
+                            <a href="{{ route('projects.create') }}" class="nav-link @if(Route::current()->getName() == 'projects.create') active @endif">
+                                <i class="nav-icon fas fa-pencil-alt"></i>
                                 <p>
-                                    View all Projects
+                                    Create New Project
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('projects.create') }}" class="nav-link @if(Route::current()->getName() == 'projects.create') active @endif">
+                            <a href="{{ route('projects.index') }}" class="nav-link @if(Route::current()->getName() == 'projects.index') active @endif">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
-                                    Create New Project
+                                    View All
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('projects.office') }}" class="nav-link @if(Route::current()->getName() == 'projects.office') active @endif">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    View Office
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('projects.own') }}" class="nav-link @if(Route::current()->getName() == 'projects.own') active @endif">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    View Own
                                 </p>
                             </a>
                         </li>
@@ -146,6 +162,14 @@
                     </ul>
                 </li>
                 @auth
+                <li class="nav-item">
+                    <a href="{{ route('settings') }}" class="nav-link">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>
+                            Settings
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <form id="logout" action="{{ route('logout') }}" method="POST">
                         @csrf

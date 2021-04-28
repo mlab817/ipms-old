@@ -21,6 +21,9 @@ class UsersDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->addColumn('office', function ($user) {
+                return $user->office->name ?? '';
+            })
             ->addColumn('roles', function($user) {
                 return $user->roles->pluck('name')->join(', ') ?? '';
             })
@@ -78,6 +81,8 @@ class UsersDataTable extends DataTable
             Column::make('name')
                 ->addClass('text-center'),
             Column::make('email')
+                ->addClass('text-center'),
+            Column::make('office')
                 ->addClass('text-center'),
             Column::make('roles')
                 ->addClass('text-center'),

@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Add New User</h3>
+                    <h3 class="card-title">{{ $pageTitle }}</h3>
                 </div>
                 <form action="{{ route('admin.users.update', ['user' => $user->id]) }}" method="POST">
                     @csrf
@@ -23,6 +23,17 @@
                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
                                    id="email" value="{{ old('email', $user->email) }}" disabled>
                             @error('email')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="office_id">Office <i class="text-danger fas fa-flag"></i></label>
+                            <select class="form-control @error('office_id') is-invalid @enderror" name="office_id" id="office_id">
+                                <option value="" selected disabled>Select Office</option>
+                                @foreach($offices as $office)
+                                    <option value="{{ $office->id }}" @if(old('office_id', $user->office_id) == $office->id) selected @endif>{{ $office->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('office_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">

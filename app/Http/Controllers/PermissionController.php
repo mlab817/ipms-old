@@ -2,18 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\PermissionsDataTable;
+use App\Http\Requests\PermissionStoreRequest;
+use App\Http\Requests\PermissionUpdateRequest;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
+    const INDEX_ROUTE = 'admin.permissions.index';
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PermissionsDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.permissions.index', [
+            'pageTitle' => 'Permissions'
+        ]);
     }
 
     /**
@@ -23,7 +31,10 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.permissions.create', [
+            'pageTitle' => 'Add Permission',
+            'guards' => Permission::GUARDS,
+        ]);
     }
 
     /**
@@ -32,9 +43,11 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermissionStoreRequest $request)
     {
-        //
+        Permission::create($request->only('name','guard_name'));
+
+        return redirect()->route(self::INDEX_ROUTE);
     }
 
     /**
@@ -54,9 +67,13 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Permission $permission)
     {
-        //
+        return view('admin.permissions.edit', [
+            'pageTitle' => 'Edit Permission',
+            'permission' => $permission,
+            'guards' => Permission::GUARDS,
+        ]);
     }
 
     /**
@@ -66,9 +83,11 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PermissionUpdateRequest $request, Permission $permission)
     {
-        //
+        $permission->update($request->only('name','guard_name'));
+
+        return redirect()->route(self::INDEX_ROUTE);
     }
 
     /**
@@ -77,8 +96,8 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Permission $permission)
     {
-        //
+        $permission->delete();
     }
 }

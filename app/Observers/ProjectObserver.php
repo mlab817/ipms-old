@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Auth;
 class ProjectObserver
 {
     /**
+     * Assign the user as the creator of the project
+     *
+     * @param Project $project
+     */
+    public function creating(Project $project)
+    {
+        $project->creator()->associate(auth()->user());
+    }
+
+    /**
      * Handle the Project "created" event.
      *
      * @param Project $project

@@ -20,6 +20,12 @@ Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->midd
 
 require __DIR__.'/auth.php';
 
+Route::post('/logout_other_devices', \App\Http\Controllers\Auth\LogoutOtherDevicesController::class)->name('logout_other_devices');
+Route::post('/change_password', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('change_password');
+Route::get('/settings',\App\Http\Controllers\SettingsController::class)->name('settings');
+
+Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');
+Route::get('/projects/own', [\App\Http\Controllers\ProjectController::class,'own'])->name('projects.own');
 Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
 Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');
 Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');

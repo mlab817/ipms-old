@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable
 {
@@ -31,6 +32,7 @@ class User extends Authenticatable
         'email',
         'password',
         'active',
+        'office_id',
     ];
 
     /**
@@ -72,6 +74,11 @@ class User extends Authenticatable
     public function accounts(): HasMany
     {
         return $this->hasMany(LinkedSocialAccount::class);
+    }
+
+    public function office(): BelongsTo
+    {
+        return $this->belongsTo(Office::class);
     }
 
     public function profile(): HasOne

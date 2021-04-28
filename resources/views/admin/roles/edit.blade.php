@@ -20,7 +20,7 @@
 
                         <div class="form-group">
                             <label for="guard_name">Guard Name <i class="text-danger fas fa-flag"></i></label>
-                            <select class="form-control @error('email') is-invalid @enderror" name="guard_name" id="guard_name">
+                            <select class="form-control @error('guard_name') is-invalid @enderror" name="guard_name" id="guard_name">
                                 @foreach ($guards as $key => $guard)
                                     <option value="{{ $key }}" @if(old('guard_name', $role->guard_name) == $key) selected @endif>{{ $guard }}</option>
                                 @endforeach

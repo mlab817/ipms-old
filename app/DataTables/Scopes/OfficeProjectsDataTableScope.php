@@ -1,0 +1,22 @@
+<?php
+
+
+namespace App\DataTables\Scopes;
+
+use Yajra\DataTables\Contracts\DataTableScope;
+
+class OfficeProjectsDataTableScope implements DataTableScope
+{
+    /**
+     * Filter projects by the office of the user
+     *
+     * @param \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|mixedF
+     */
+    public function apply($query)
+    {
+        $user = auth()->user();
+
+        return $query->where('office_id', $user->office_id);
+    }
+}
