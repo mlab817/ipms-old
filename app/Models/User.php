@@ -91,6 +91,11 @@ class User extends Authenticatable
         return !!$this->active;
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('admin');
+    }
+
     public function activate()
     {
         $this->active = true;

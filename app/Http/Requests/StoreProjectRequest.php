@@ -45,6 +45,7 @@ class StoreProjectRequest extends FormRequest
             'title'                             => 'required|max:255',
             'pap_type_id'                       => 'required|exists:pap_types,id',
             'regular_program'                   => 'required|bool',
+            'has_infra'                         => 'required|bool',
             'bases'                             => 'required',
             'description'                       => 'required|max:1000',
             'expected_outputs'                  => 'required|max:1000',

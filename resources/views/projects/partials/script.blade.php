@@ -82,7 +82,42 @@
             togglePdpIndicators(noPdpIndicator)
         })
 
-        const listenersForSum = ['fs', 'nep', 'gaa', 'disbursement']
+        const listenersForSum = [
+            'fs',
+            'nep',
+            'gaa',
+            'disbursement',
+            'fs_investments_2016',
+            'fs_investments_2017',
+            'fs_investments_2018',
+            'fs_investments_2019',
+            'fs_investments_2020',
+            'fs_investments_2021',
+            'fs_investments_2022',
+            'fs_investments_2023',
+            'fs_investments_1',
+            'fs_investments_2',
+            'fs_investments_3',
+            'fs_investments_4',
+            'fs_investments_5',
+            'fs_investments_6',
+            'fs_investments_7',
+            'fs_investments_8',
+            'fs_investments_9',
+            'region_investments_2016',
+            'region_investments_2017',
+            'region_investments_2018',
+            'region_investments_2019',
+            'region_investments_2020',
+            'region_investments_2021',
+            'region_investments_2022',
+            'region_investments_2023',
+            'region_investments',
+        ]
+
+        const regions = @json($regions->pluck('id')->toArray()).map(region => ('region_investments_' + region))
+
+        listenersForSum.push(...regions)
 
         listenersForSum.forEach(listener => {
             doc.on('keyup blur', '.' + listener, function() {
@@ -91,7 +126,7 @@
         })
 
         doc.on('keyup blur', '.fs_investments', function() {
-            sumRow('fs_investments', '#fs_investments_grand_total')
+            sumRow('fs_investments')
         })
     </script>
 @endpush

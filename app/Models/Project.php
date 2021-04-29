@@ -33,6 +33,7 @@ class Project extends Model
         'title',
         'pap_type_id',
         'regular_program',
+        'has_infra',
         // implementation bases
         'description',
         'summary',

@@ -11,6 +11,17 @@ class ProjectPolicy
     use HandlesAuthorization;
 
     /**
+     * If user is an admin, give him all permissions.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function before(User $user): bool
+    {
+        return $user->isAdmin();
+    }
+
+    /**
      * Determine whether the user can view any models.
      *
      * @param User|null $user
