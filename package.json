@@ -28,9 +28,12 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.3",
+        "@ttskch/select2-bootstrap4-theme": "^1.5.2",
         "cross-env": "^7.0.3",
         "datatables.net-bs4": "^1.10.24",
         "datatables.net-buttons-bs4": "^1.7.0",
+        "icheck-bootstrap": "^3.0.1",
+        "select2": "^4.1.0-rc.0",
         "toastr": "^2.1.4",
         "v-money": "^0.8.1"
     }

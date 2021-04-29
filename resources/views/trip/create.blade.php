@@ -251,6 +251,74 @@
                     </div>
                     <!--/. Pre-Investment Requirements -->
 
+                    <!-- Funding Source Breakdown -->
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">{{ __("Infrastructure Cost by Funding Source") }} </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row px-2 pb-2">
+                                    <i class="text-danger fas fa-flag"></i> All fields are required.
+                                </div>
+                                <table class="table-responsive">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-sm text-center">2016 &amp; Prior</th>
+                                        <th class="text-sm text-center">2017</th>
+                                        <th class="text-sm text-center">2018</th>
+                                        <th class="text-sm text-center">2019</th>
+                                        <th class="text-sm text-center">2020</th>
+                                        <th class="text-sm text-center">2021</th>
+                                        <th class="text-sm text-center">2022</th>
+                                        <th class="text-sm text-center">2023 &amp; Beyond</th>
+                                        <th class="text-sm text-center">Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($funding_sources as $fs)
+                                        <tr>
+                                            <th class="text-sm">
+                                                <input type="hidden"
+                                                       name="fs_infrastructures[{{$fs->id}}][funding_source_id]"
+                                                       value="{{ old($fs->id, $fs->id) }}">
+                                                {{ $fs->name }}
+                                            </th>
+                                            <td><input type="number" class="form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2016]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2016", 0) }}"></td>
+                                            <td><input type="number" class="form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2017]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2017", 0) }}"></td>
+                                            <td><input type="number" class="form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2018]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2018", 0) }}"></td>
+                                            <td><input type="number" class="form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2019]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2019", 0) }}"></td>
+                                            <td><input type="number" class="form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2020]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2020", 0) }}"></td>
+                                            <td><input type="number" class="form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2021]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2021", 0) }}"></td>
+                                            <td><input type="number" class="form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2022]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2022", 0) }}"></td>
+                                            <td><input type="number" class="form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2023]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2023", 0) }}"></td>
+                                            <td><input type="number" class="form-control text-right"></td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/. Regional Breakdown -->
+
                     <!-- Regional Breakdown -->
                     <div class="col-md-12">
                         <div class="card card-primary">
@@ -317,74 +385,6 @@
                                                        name="region_infrastructures[{{$fs->id}}][y2023]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2023", 0) }}">
                                             </td>
-                                            <td><input type="number" class="form-control text-right"></td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/. Regional Breakdown -->
-
-                    <!-- Funding Source Breakdown -->
-                    <div class="col-md-12">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">{{ __("Infrastructure Cost by Funding Source") }} </h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row px-2 pb-2">
-                                    <i class="text-danger fas fa-flag"></i> All fields are required.
-                                </div>
-                                <table class="table-responsive">
-                                    <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th class="text-sm text-center">2016 &amp; Prior</th>
-                                        <th class="text-sm text-center">2017</th>
-                                        <th class="text-sm text-center">2018</th>
-                                        <th class="text-sm text-center">2019</th>
-                                        <th class="text-sm text-center">2020</th>
-                                        <th class="text-sm text-center">2021</th>
-                                        <th class="text-sm text-center">2022</th>
-                                        <th class="text-sm text-center">2023 &amp; Beyond</th>
-                                        <th class="text-sm text-center">Total</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach ($funding_sources as $fs)
-                                        <tr>
-                                            <th class="text-sm">
-                                                <input type="hidden"
-                                                       name="fs_infrastructures[{{$fs->id}}][funding_source_id]"
-                                                       value="{{ old($fs->id, $fs->id) }}">
-                                                {{ $fs->name }}
-                                            </th>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="fs_infrastructures[{{$fs->id}}][y2016]"
-                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2016", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="fs_infrastructures[{{$fs->id}}][y2017]"
-                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2017", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="fs_infrastructures[{{$fs->id}}][y2018]"
-                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2018", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="fs_infrastructures[{{$fs->id}}][y2019]"
-                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2019", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="fs_infrastructures[{{$fs->id}}][y2020]"
-                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2020", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="fs_infrastructures[{{$fs->id}}][y2021]"
-                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2021", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="fs_infrastructures[{{$fs->id}}][y2022]"
-                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2022", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
-                                                       name="fs_infrastructures[{{$fs->id}}][y2023]"
-                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2023", 0) }}"></td>
                                             <td><input type="number" class="form-control text-right"></td>
                                         </tr>
                                     @endforeach

@@ -16,6 +16,9 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 // import toaster
 @import '~toastr';
 
+@import "~select2/dist/css/select2.css";
+@import '~@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4';
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

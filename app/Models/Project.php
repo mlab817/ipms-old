@@ -105,7 +105,7 @@ class Project extends Model
 
     public function getRouteKeyName(): string
     {
-        return 'slug';
+        return 'uuid';
     }
 
     public function requiresApprovalWhen($modifications): bool

@@ -12,6 +12,7 @@ use App\Models\CipType;
 use App\Models\FsStatus;
 use App\Models\FundingInstitution;
 use App\Models\FundingSource;
+use App\Models\Gad;
 use App\Models\ImplementationMode;
 use App\Models\InfrastructureSector;
 use App\Models\PapType;
@@ -26,6 +27,7 @@ use App\Models\Sdg;
 use App\Models\SpatialCoverage;
 use App\Models\TenPointAgenda;
 use App\Models\Tier;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -53,26 +55,18 @@ class ProjectController extends Controller
     {
         $project = new Project;
 
-        $years = [];
-
-        for ($i =2016; $i <= 2023; $i++) {
-            array_push($years, $i);
-        }
-
         return view('projects.create', compact('project'))
             ->with('pageTitle', 'Add New Project')
             ->with([
                 'pap_types'                 => PapType::all(),
                 'bases'                     => Basis::all(),
                 'project_statuses'          => ProjectStatus::all(),
-                'spatial_coverages'         =>  SpatialCoverage::all(),
-                'regions'                   =>  Region::all(),
-                'pip_typologies'            => PipTypology::all(),
-                'cip_types'                 => CipType::all(),
-                'years'                     => $years,
+                'spatial_coverages'         => SpatialCoverage::all(),
+                'regions'                   => Region::all(),
+                'gads'                      => Gad::all(),
+                'years'                     => config('ipms.editor.years'),
                 'approval_levels'           => ApprovalLevel::all(),
-                'infrastructure_sectors'    =>  InfrastructureSector::with('children')->get(),
-                'pdp_chapters'              =>  PdpChapter::all(),
+                'pdp_chapters'              => PdpChapter::all(),
                 'sdgs'                      => Sdg::all(),
                 'ten_point_agendas'         => TenPointAgenda::all(),
                 'pdp_indicators'            => PdpIndicator::with('children.children.children')
@@ -99,8 +93,35 @@ class ProjectController extends Controller
     {
         $project = Project::create($request->validated());
 
+        $project->bases()->sync($request->bases);
+        $project->regions()->sync($request->regions);
+        $project->funding_sources()->sync($request->funding_sources);
+        $project->sdgs()->sync($request->sdgs);
+        $project->pdp_chapters()->sync($request->pdp_chapters);
+        $project->ten_point_agendas()->sync($request->ten_point_agendas);
+
+        $project->fs_investments()->createMany($request->fs_investments);
+        $project->region_investments()->createMany($request->region_investments);
+
+        $project->nep()->create($request->nep);
+        $project->allocation()->create($request->allocation);
+        $project->disbursement()->create($request->disbursement);
+
         $project->created_by = Auth::id();
         $project->save();
+
+        if ($request->has('new')) {
+            return redirect()->route('projects.create');
+        }
+
+        if ($request->has('view')) {
+            return redirect()->route('projects.show', $project->uuid);
+        }
+
+        if ($request->has('edit')) {
+            return redirect()->route('projects.edit', $project->uuid);
+        }
+
 
         return redirect()->route('projects.index')
             ->with('message', 'Successfully added project.');
@@ -126,7 +147,35 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $project->load('bases','regions','pdp_chapters','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep');
+
+        return view('projects.edit', compact('project'))
+            ->with('pageTitle', 'Edit Project')
+            ->with([
+                'pap_types'                 => PapType::all(),
+                'bases'                     => Basis::all(),
+                'project_statuses'          => ProjectStatus::all(),
+                'spatial_coverages'         =>  SpatialCoverage::all(),
+                'regions'                   =>  Region::all(),
+                'pip_typologies'            => PipTypology::all(),
+                'cip_types'                 => CipType::all(),
+                'years'                     => config('ipms.editor.years'),
+                'approval_levels'           => ApprovalLevel::all(),
+                'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
+                'pdp_chapters'              => PdpChapter::all(),
+                'sdgs'                      => Sdg::all(),
+                'ten_point_agendas'         => TenPointAgenda::all(),
+                'pdp_indicators'            => PdpIndicator::with('children.children.children')
+                    ->where('level',1)
+                    ->orWhereNull('parent_id')
+                    ->select('id','name')->get(),
+                'funding_sources'           => FundingSource::all(),
+                'funding_institutions'      => FundingInstitution::all(),
+                'implementation_modes'      => ImplementationMode::all(),
+                'tiers'                     => Tier::all(),
+                'preparation_documents'     => PreparationDocument::all(),
+                'fs_statuses'               => FsStatus::all(),
+            ]);
     }
 
     /**

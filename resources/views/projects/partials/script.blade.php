@@ -1,50 +1,14 @@
 @push('scripts')
     <script>
-        function togglePdpIndicators(val)
-        {
-            let allPdpIndicators = $('input.pdp_indicators')
-            if (val) {
-                allPdpIndicators.prop('disabled', true)
-            } else {
-                allPdpIndicators.prop('disabled', false)
-            }
-        }
-
-        function showSelectedPdpIndicatorsByChapter(val)
-        {
-            if (val) {
-                $('.pdp_chapters').hide()
-                $('.pdp_indicators').prop('checked', false)
-                $("div#pdp_chapter_" + val).show()
-            }
-        }
-
         function formatToMoney(value) {
             console.log('formatToMoney initial value: ', value)
             if (parseFloat(value) === 0) return 0
             return value
                 .toString()
+                .replace(/\.00$/,'')
                 .replace(/^0+/,'')
                 .replace(/\D/g, '')
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        }
-
-        function sumRow(change, total_element = '') {
-            console.log(change)
-            let sum = 0
-            $('.' + change).each(function() {
-                const val = parseFloat($(this).val() && $(this).val().replace(/,/g, ''))
-                console.log('val: ', val)
-                sum += val
-                console.log('sum: ', sum)
-            })
-            const formatted = formatToMoney(sum)
-            console.log(formatted)
-            if (total_element) {
-                $(total_element).val(formatted)
-            } else {
-                $("#" + change + "_total").val(formatted)
-            }
         }
 
         const htmlElements = {
@@ -71,22 +35,12 @@
             })
         })
 
-        const doc = $(document)
-
-        doc.ready(function () {
-            console.log('test jQuery')
-        })
-
-        doc.ready(function() {
-            let noPdpIndicator = htmlElements.pdpIndicatorCheckbox.prop('checked')
-            togglePdpIndicators(noPdpIndicator)
-        })
-
         const listenersForSum = [
-            'fs',
             'nep',
-            'gaa',
+            'fs',
+            'allocation',
             'disbursement',
+            'fs_investments',
             'fs_investments_2016',
             'fs_investments_2017',
             'fs_investments_2018',
@@ -119,14 +73,89 @@
 
         listenersForSum.push(...regions)
 
-        listenersForSum.forEach(listener => {
-            doc.on('keyup blur', '.' + listener, function() {
-                sumRow(listener)
-            })
-        })
+        const $doc = $(document)
 
-        doc.on('keyup blur', '.fs_investments', function() {
-            sumRow('fs_investments')
+        // function initializeListeners() {
+        //     listenersForSum.forEach(listener => {
+        //         $doc.on('keyup blur', '.' + listener, function() {
+        //             sumRow(listener)
+        //         })
+        //     })
+        //     console.log('initialized')
+        // }
+
+        function initializeSelect2() {
+            $('select').select2({
+                theme: 'bootstrap4'
+            })
+        }
+
+        function filterPdpIndicators() {
+            let $noPdpIndicator = $('#no_pdp_indicator'),
+                $pdpChapterId = $('#pdp_chapter_id'),
+                $pdpIndicators = $('input.pdp_indicators')
+
+            // if there is no pdp indicator
+            if ($noPdpIndicator.val() === 1) {
+                if (val) {
+                    $pdpIndicators.prop('disabled', true)
+                } else {
+                    $pdpIndicators.prop('disabled', false)
+                }
+            }
+        }
+
+        function togglePdpIndicators(val)
+        {
+            let allPdpIndicators = $('input.pdp_indicators')
+            if (val) {
+                allPdpIndicators.prop('disabled', true)
+            } else {
+                allPdpIndicators.prop('disabled', false)
+            }
+        }
+
+        function showSelectedPdpIndicatorsByChapter(val)
+        {
+            if (val) {
+                $('.pdp_chapters').hide()
+                $('.pdp_indicators').prop('checked', false)
+                $("div#pdp_chapter_" + val).show()
+            }
+        }
+
+
+        function calculateSum(items) {
+            console.log('calculating sum of ', items)
+            // initialize sum variable
+            let sum = 0
+            // iterate over items
+            $('.' + items).each(function() {
+                // format the value first
+                let $this = $(this)
+                let val = parseFloat($this.val() ? $this.val().replace(/,/g, '') : 0)
+                sum += val
+            })
+            console.log('pustting ' + formatToMoney(sum) + ' to #' + items + '_total')
+            $('#' + items + '_total').val(formatToMoney(sum))
+        }
+
+        $doc.ready(function () {
+            let noPdpIndicator = htmlElements.pdpIndicatorCheckbox.prop('checked')
+            togglePdpIndicators(noPdpIndicator)
+
+            initializeSelect2()
+
+            filterPdpIndicators()
+
+            $('.money').each(function() {
+                $(this).val(formatToMoney($(this).val()))
+            })
+
+            listenersForSum.forEach(listener => {
+                console.log('calculating for ', listener)
+                calculateSum(listener)
+            })
         })
     </script>
 @endpush

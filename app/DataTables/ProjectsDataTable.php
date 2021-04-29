@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Project;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -27,22 +28,31 @@ class ProjectsDataTable extends DataTable
             ->addColumn('pap_type', function ($project) {
                 return $project->pap_type->name ?? '';
             })
+            ->editColumn('description', function ($project) {
+                if (strlen($project->description) > 100) {
+                    return Str::limit($project->description, 100);
+                }
+                return $project->description;
+            })
+            ->editColumn('total_project_cost', function ($project) {
+                return number_format($project->total_project_cost, 2);
+            })
             ->addColumn('created_by', function ($project) {
                 return $project->creator->name ?? '';
             })
             ->addColumn('action', function ($project) {
                 if ($project->trip_info) {
-                    $tripButton = '<a href="' . route('trips.edit', $project->slug) . '" class="btn btn-success">TRIP</a>';
+                    $tripButton = '<a href="' . route('trips.edit', $project->uuid) . '" class="btn btn-success">TRIP</a>';
                 } else {
-                    $tripButton = '<a href="' . route('trips.create', $project->slug) . '" class="btn btn-success">TRIP</a>';
+                    $tripButton = '<a href="' . route('trips.create', $project->uuid) . '" class="btn btn-success">TRIP</a>';
                 }
 
                 return '
                 <div class="btn-group-vertical">
-                    <a href="' . route('projects.show', $project->slug) . '" class="btn btn-primary">View</a>
-                    <a href="' . route('projects.edit', $project->slug) . '" class="btn btn-secondary">Edit</a>'
+                    <a href="' . route('projects.show', $project->uuid) . '" class="btn btn-primary">View</a>
+                    <a href="' . route('projects.edit', $project->uuid) . '" class="btn btn-secondary">Edit</a>'
                     .$tripButton.
-                    '<button class="btn btn-danger" onClick="confirmDelete(\''. $project->slug .'\')">Delete</button>
+                    '<button class="btn btn-danger" onClick="confirmDelete(\''. $project->uuid .'\')">Delete</button>
                 </div>
                 ';
             });
@@ -90,9 +100,12 @@ class ProjectsDataTable extends DataTable
     {
         return [
 //            Column::make('id'),
-            Column::make('title'),
-            Column::make('pap_type'),
-            Column::make('description'),
+            Column::make('title')
+                ->width('25%'),
+            Column::make('pap_type')
+                ->width('15%'),
+            Column::make('description')
+                ->width('25%'),
             Column::make('total_project_cost')
                 ->addClass('text-right'),
             Column::make('created_by')

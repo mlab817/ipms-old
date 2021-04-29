@@ -19,7 +19,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Email <i class="text-danger fas fa-flag"></i></label>
+                            <label for="email">Email <small>(Email can no longer be modified.)</small> <i class="text-danger fas fa-flag"></i></label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
                                    id="email" value="{{ old('email', $user->email) }}" disabled>
                             @error('email')<span class="error invalid-feedback">{{ $message }}</span>@enderror
