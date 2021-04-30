@@ -73,6 +73,8 @@
 
         listenersForSum.push(...regions)
 
+        console.log(listenersForSum)
+
         const $doc = $(document)
 
         // function initializeListeners() {
@@ -154,6 +156,12 @@
 
             listenersForSum.forEach(listener => {
                 console.log('calculating for ', listener)
+                calculateSum(listener)
+            })
+        })
+
+        listenersForSum.forEach(listener => {
+            $('.' + listener).on('keyup blur', function() {
                 calculateSum(listener)
             })
         })

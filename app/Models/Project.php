@@ -108,6 +108,11 @@ class Project extends Model
         return 'uuid';
     }
 
+    public function getRouteKey(): string
+    {
+        return $this->uuid;
+    }
+
     public function requiresApprovalWhen($modifications): bool
     {
         if (optional($modifications)->is_update || $this->created_by != Auth::id()) {

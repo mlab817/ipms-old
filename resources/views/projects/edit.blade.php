@@ -910,9 +910,8 @@
                                     @foreach ($project->fs_investments as $fs)
                                         <tr>
                                             <th class="text-sm">
-                                                <input type="hidden" name="fs_investments[{{ $fs->id }}][id]" value="{{ old('fs_investments.' . $fs->id . '.fs_id', $fs->fs_id ?? 0) }}">
                                                 <input type="hidden" name="fs_investments[{{ $fs->id }}][fs_id]"
-                                                       value="{{ old('fs_investments.' . $fs->id . '.fs_id', $fs->fs_id ?? 0) }}">
+                                                       value="{{ old('fs_investments.{$fs->id}.fs_id', $fs->fs_id ?? 0) }}">
                                                 {{ $fs->funding_source->name }}
                                             </th>
                                             <td><input type="text"
@@ -1037,49 +1036,49 @@
                                         <tr>
                                             <th class="text-sm">
                                                 <input type="hidden"
-                                                       name="region_investments[{{$ri->region_id}}][region_id]"
+                                                       name="region_investments[{{$ri->id}}][region_id]"
                                                        value="{{ $ri->region_id }}">
                                                 {{ $ri->region->name }}
                                             </th>
                                             <td><input type="text"
                                                        class="region_investments money region_investments_2016 region_investments_{{$ri->region_id}} form-control money text-right"
-                                                       name="region_investments[{{$ri->region_id}}][y2016]"
-                                                       value="{{ old("region_investments.{$ri->region_id}.y2016", $ri->y2016 ?? 0) }}">
+                                                       name="region_investments[{{$ri->id}}][y2016]"
+                                                       value="{{ old("region_investments.{$ri->id}.y2016", $ri->y2016 ?? 0) }}">
                                             </td>
                                             <td><input type="text"
                                                        class="region_investments money region_investments_2017 region_investments_{{$ri->region_id}} form-control money text-right"
-                                                       name="region_investments[{{$ri->region_id}}][y2017]"
-                                                       value="{{ old("region_investments.{$ri->region_id}.y2017", $ri->y2017 ?? 0) }}">
+                                                       name="region_investments[{{$ri->id}}][y2017]"
+                                                       value="{{ old("region_investments.{$ri->id}.y2017", $ri->y2017 ?? 0) }}">
                                             </td>
                                             <td><input type="text"
                                                        class="region_investments money region_investments_2018 region_investments_{{$ri->region_id}} form-control money text-right"
-                                                       name="region_investments[{{$ri->region_id}}][y2018]"
-                                                       value="{{ old("region_investments.{$ri->region_id}.y2018", $ri->y2018 ?? 0) }}">
+                                                       name="region_investments[{{$ri->id}}][y2018]"
+                                                       value="{{ old("region_investments.{$ri->id}.y2018", $ri->y2018 ?? 0) }}">
                                             </td>
                                             <td><input type="text"
                                                        class="region_investments money region_investments_2019 region_investments_{{$ri->region_id}} form-control money text-right"
-                                                       name="region_investments[{{$ri->region_id}}][y2019]"
-                                                       value="{{ old("region_investments.{$ri->region_id}.y2019", $ri->y2019 ?? 0) }}">
+                                                       name="region_investments[{{$ri->id}}][y2019]"
+                                                       value="{{ old("region_investments.{$ri->id}.y2019", $ri->y2019 ?? 0) }}">
                                             </td>
                                             <td><input type="text"
                                                        class="region_investments money region_investments_2020 region_investments_{{$ri->region_id}} form-control money text-right"
-                                                       name="region_investments[{{$ri->region_id}}][y2020]"
-                                                       value="{{ old("region_investments.{$ri->region_id}.y2020", $ri->y2020 ?? 0) }}">
+                                                       name="region_investments[{{$ri->id}}][y2020]"
+                                                       value="{{ old("region_investments.{$ri->id}.y2020", $ri->y2020 ?? 0) }}">
                                             </td>
                                             <td><input type="text"
                                                        class="region_investments money region_investments_2021 region_investments_{{$ri->region_id}} form-control money text-right"
-                                                       name="region_investments[{{$ri->region_id}}][y2021]"
-                                                       value="{{ old("region_investments.{$ri->region_id}.y2021", $ri->y2021 ?? 0) }}">
+                                                       name="region_investments[{{$ri->id}}][y2021]"
+                                                       value="{{ old("region_investments.{$ri->id}.y2021", $ri->y2021 ?? 0) }}">
                                             </td>
                                             <td><input type="text"
                                                        class="region_investments money region_investments_2022 region_investments_{{$ri->region_id}} form-control money text-right"
-                                                       name="region_investments[{{$ri->region_id}}][y2022]"
-                                                       value="{{ old("region_investments.{$ri->region_id}.y2022", $ri->y2022 ?? 0) }}">
+                                                       name="region_investments[{{$ri->id}}][y2022]"
+                                                       value="{{ old("region_investments.{$ri->id}.y2022", $ri->y2022 ?? 0) }}">
                                             </td>
                                             <td><input type="text"
                                                        class="region_investments money region_investments_2023 region_investments_{{$ri->region_id}} form-control money text-right"
-                                                       name="region_investments[{{$ri->region_id}}][y2023]"
-                                                       value="{{ old("region_investments.{$ri->region_id}.y2023", $ri->y2023 ?? 0) }}">
+                                                       name="region_investments[{{$ri->id}}][y2023]"
+                                                       value="{{ old("region_investments.{$ri->id}.y2023", $ri->y2023 ?? 0) }}">
                                             </td>
                                             <td><input type="text" class="form-control money text-right"
                                                        id="region_investments_{{$ri->region_id}}_total" readonly></td>

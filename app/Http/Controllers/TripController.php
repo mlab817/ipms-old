@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\DataTables\TripDataTable;
 use App\Http\Requests\TripStoreRequest;
 use App\Http\Requests\TripUpdateRequest;
+use App\Models\FsInfrastructure;
 use App\Models\FundingSource;
 use App\Models\InfrastructureSector;
 use App\Models\Project;
 use App\Models\Region;
+use App\Models\RegionInfrastructure;
 use App\Models\RightOfWay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -86,6 +88,22 @@ class TripController extends Controller
 
         $project->right_of_way()->update($request->right_of_way);
         $project->resettlement_action_plan()->update($request->resettlement_action_plan);
+
+//        dd($request->region_infrastructures);
+
+        foreach ($request->region_infrastructures as $item) {
+            $itemToUpdate = RegionInfrastructure::where('project_id', $project->id)
+                ->where('region_id', $item['region_id'])
+                ->first();
+            $itemToUpdate->update($item);
+        }
+
+        foreach ($request->fs_infrastructures as $item) {
+            $itemToUpdate = FsInfrastructure::where('project_id', $project->id)
+                ->where('fs_id', $item['fs_id'])
+                ->first();
+            $itemToUpdate->update($item);
+        }
 
         return redirect()->route('projects.index')
             ->with('message','Successfully updated TRIP information');

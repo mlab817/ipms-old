@@ -305,30 +305,30 @@
                                                        value="{{ $fsi->fs_id }}">
                                                 {{ $fsi->funding_source->name }}
                                             </th>
-                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->id }} fs_infrastructures_2016 money form-control text-right"
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->fs_id }} fs_infrastructures_2016 money form-control text-right"
                                                        name="fs_infrastructures[{{$fsi->id}}][y2016]"
-                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2016", 0) }}"></td>
-                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->id }} fs_infrastructures_2017 money form-control text-right"
+                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2016", $fsi->y2016 ?? 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->fs_id }} fs_infrastructures_2017 money form-control text-right"
                                                        name="fs_infrastructures[{{$fsi->id}}][y2017]"
-                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2017", 0) }}"></td>
-                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->id }} fs_infrastructures_2018 money form-control text-right"
+                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2017", $fsi->y2017 ?? 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->fs_id }} fs_infrastructures_2018 money form-control text-right"
                                                        name="fs_infrastructures[{{$fsi->id}}][y2018]"
-                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2018", 0) }}"></td>
-                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->id }} fs_infrastructures_2019 money form-control text-right"
+                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2018", $fsi->y2018 ?? 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->fs_id }} fs_infrastructures_2019 money form-control text-right"
                                                        name="fs_infrastructures[{{$fsi->id}}][y2019]"
-                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2019", 0) }}"></td>
-                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->id }} fs_infrastructures_2020 money form-control text-right"
+                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2019", $fsi->y2019 ?? 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->fs_id }} fs_infrastructures_2020 money form-control text-right"
                                                        name="fs_infrastructures[{{$fsi->id}}][y2020]"
-                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2020", 0) }}"></td>
-                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->id }} fs_infrastructures_2021 money form-control text-right"
+                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2020", $fsi->y2020 ?? 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->fs_id }} fs_infrastructures_2021 money form-control text-right"
                                                        name="fs_infrastructures[{{$fsi->id}}][y2021]"
-                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2021", 0) }}"></td>
-                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->id }} fs_infrastructures_2022 money form-control text-right"
+                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2021", $fsi->y2021 ?? 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->fs_id }} fs_infrastructures_2022 money form-control text-right"
                                                        name="fs_infrastructures[{{$fsi->id}}][y2022]"
-                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2022", 0) }}"></td>
-                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->id }} fs_infrastructures_2023 money form-control text-right"
+                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2022", $fsi->y2022 ?? 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fsi->fs_id }} fs_infrastructures_2023 money form-control text-right"
                                                        name="fs_infrastructures[{{$fsi->id}}][y2023]"
-                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2023", 0) }}"></td>
+                                                       value="{{ old("fs_infrastructures.{$fsi->id}.y2023", $fsi->y2023 ?? 0) }}"></td>
                                             <td><input type="text" class="form-control text-right" id="fs_infrastructures_{{ $fsi->fs_id }}_total" readonly></td>
                                         </tr>
                                     @endforeach
@@ -397,50 +397,48 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($regions as $fs)
-                                        @if($fs->id !== 100)
-                                            <tr>
-                                                <th class="text-sm">
-                                                    <input type="hidden"
-                                                           name="region_infrastructures[{{$fs->id}}][region_id]"
-                                                           value="{{ $fs->id }}">
-                                                    {{ $fs->name }}
-                                                </th>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2016 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2016]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2016", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2017 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2017]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2017", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2018 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2018]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2018", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2019 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2019]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2019", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2020 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2020]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2020", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2021 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2021]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2021", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2022 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2022]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2022", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2023 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2023]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2023", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="form-control text-right" id="region_infrastructures_{{$fs->id}}_total" readonly></td>
-                                            </tr>
-                                        @endif
+                                    @foreach ($project->region_infrastructures as $fs)
+                                        <tr>
+                                            <th class="text-sm">
+                                                <input type="hidden"
+                                                       name="region_infrastructures[{{$fs->id}}][region_id]"
+                                                       value="{{ $fs->region_id }}">
+                                                {{ $fs->region->name }}
+                                            </th>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2016 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2016]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2016", $fs->y2016 ?? 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2017 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2017]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2017", $fs->y2017 ?? 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2018 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2018]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2018", $fs->y2018 ?? 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2019 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2019]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2019", $fs->y2019 ?? 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2020 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2020]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2020", $fs->y2020 ?? 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2021 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2021]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2021", $fs->y2021 ?? 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2022 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2022]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2022", $fs->y2022 ?? 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2023 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2023]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2023", $fs->y2023 ?? 0) }}">
+                                            </td>
+                                            <td><input type="text" class="form-control text-right" id="region_infrastructures_{{$fs->id}}_total" readonly></td>
+                                        </tr>
                                     @endforeach
                                     </tbody>
                                     <tfoot>

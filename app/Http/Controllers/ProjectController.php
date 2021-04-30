@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\ProjectsDataTable;
 use App\DataTables\Scopes\OfficeProjectsDataTableScope;
 use App\DataTables\Scopes\OwnProjectsDataTableScope;
+use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
@@ -24,6 +25,7 @@ use App\Models\PreparationDocument;
 use App\Models\Project;
 use App\Models\ProjectStatus;
 use App\Models\Region;
+use App\Models\RegionInvestment;
 use App\Models\Sdg;
 use App\Models\SpatialCoverage;
 use App\Models\TenPointAgenda;
@@ -189,7 +191,7 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return Response
      */
-    public function update(Request $request, Project $project)
+    public function update(ProjectUpdateRequest $request, Project $project)
     {
         $project->update($request->all());
 
@@ -201,14 +203,15 @@ class ProjectController extends Controller
         $project->ten_point_agendas()->sync($request->ten_point_agendas);
 
         foreach ($request->fs_investments as $fs_investment) {
-            $fsToEdit = FsInvestment::where('id', $fs_investment['id']);
+            $fsToEdit = FsInvestment::where('project_id', $project->id)->where('fs_id', $fs_investment['fs_id'])->first();
             $fsToEdit->update($fs_investment);
 //            update(['id' => $fs_investment['id']], $fs_investment);
         }
 //
-//        foreach ($request->region_investments as $region_investment) {
-//            $project->region_investments()->update(['id' => $region_investment->id], $region_investment);
-//        }
+        foreach ($request->region_investments as $region_investment) {
+            $itemToEdit = RegionInvestment::where('project_id', $project->id)->where('region_id', $region_investment['region_id'])->first();
+            $itemToEdit->update($region_investment);
+        }
 
         $project->feasibility_study()->update($request->feasibility_study);
         $project->nep()->update($request->nep);
