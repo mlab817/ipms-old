@@ -47,7 +47,7 @@ class TripStoreRequest extends FormRequest
             'resettlement_action_plan.y2022'            => ['required','gte:0'],
             'resettlement_action_plan.affected_households'=> ['required','gte:0','numeric'],
             'fs_infrastructures'                        => ['required','array'],
-            'fs_infrastructures.*.funding_source_id'    => ['required'],
+            'fs_infrastructures.*.fs_id'                => ['required'],
             'fs_infrastructures.*.y2016'                => ['required','gte:0'],
             'fs_infrastructures.*.y2017'                => ['required','gte:0'],
             'fs_infrastructures.*.y2018'                => ['required','gte:0'],

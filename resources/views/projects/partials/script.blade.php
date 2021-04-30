@@ -136,7 +136,7 @@
                 let val = parseFloat($this.val() ? $this.val().replace(/,/g, '') : 0)
                 sum += val
             })
-            console.log('pustting ' + formatToMoney(sum) + ' to #' + items + '_total')
+
             $('#' + items + '_total').val(formatToMoney(sum))
         }
 

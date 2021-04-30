@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class FeasibilityStudy extends Model
 {
     use HasFactory;
-    use HasUuid;
 
     protected $fillable = [
         'project_id',
@@ -26,6 +25,7 @@ class FeasibilityStudy extends Model
         'y2023',
         'y2024',
         'y2025',
+        'completion_date',
     ];
 
     public function getRouteKeyName(): string

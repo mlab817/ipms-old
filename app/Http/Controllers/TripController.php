@@ -9,6 +9,7 @@ use App\Models\FundingSource;
 use App\Models\InfrastructureSector;
 use App\Models\Project;
 use App\Models\Region;
+use App\Models\RightOfWay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -24,7 +25,7 @@ class TripController extends Controller
     {
         $project->load('infrastructure_sectors','infrastructure_subsectors','fs_infrastructures','region_infrastructures','right_of_way','resettlement_action_plan');
 
-        return view('trip.edit', [
+        return view('trip.create', [
             'pageTitle'                 => 'Add TRIP Information: '. strtoupper($project->title),
             'project'                   => $project,
             'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
@@ -33,16 +34,16 @@ class TripController extends Controller
         ]);
     }
 
-    public function show(string $slug)
+    public function show(Project $project)
     {
-        $project = Project::where('slug', $slug)->firstOrFail();
-
         return $project;
     }
 
-    public function edit(string $slug)
+    public function edit(Project $project)
     {
-        $project = Project::with('infrastructure_sectors','infrastructure_subsectors','fs_infrastructures','region_infrastructures','right_of_way','resettlement_action_plan')->where('slug', $slug)->firstOrFail();
+        $project->load('infrastructure_sectors','infrastructure_subsectors','fs_infrastructures','region_infrastructures','right_of_way','resettlement_action_plan');
+
+//        dd($project->right_of_way);
 
         return view('trip.edit', [
             'pageTitle'                 => 'Edit TRIP Information: '. strtoupper($project->title),
@@ -63,6 +64,7 @@ class TripController extends Controller
 
         $project->infrastructure_subsectors()->sync($request->infrastructure_subsectors);
         $project->infrastructure_sectors()->sync($request->infrastructure_sectors);
+
         $project->region_infrastructures()->createMany($request->region_infrastructures);
         $project->fs_infrastructures()->createMany($request->fs_infrastructures);
 
@@ -75,10 +77,15 @@ class TripController extends Controller
         // update info
         $project->risk                              = $request->risk;
         $project->other_infrastructure              = $request->other_infrastructure;
+        $project->has_row                           = $request->has_row;
+        $project->has_rap                           = $request->has_rap;
         $project->save();
 
         $project->infrastructure_subsectors()->sync($request->infrastructure_subsectors);
         $project->infrastructure_sectors()->sync($request->infrastructure_sectors);
+
+        $project->right_of_way()->update($request->right_of_way);
+        $project->resettlement_action_plan()->update($request->resettlement_action_plan);
 
         return redirect()->route('projects.index')
             ->with('message','Successfully updated TRIP information');

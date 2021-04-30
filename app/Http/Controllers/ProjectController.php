@@ -9,6 +9,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
 use App\Models\CipType;
+use App\Models\FsInvestment;
 use App\Models\FsStatus;
 use App\Models\FundingInstitution;
 use App\Models\FundingSource;
@@ -34,6 +35,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
+    const PROJECTS_INDEX = 'projects.index';
+
     /**
      * Display a listing of the resource.
      *
@@ -103,6 +106,7 @@ class ProjectController extends Controller
         $project->fs_investments()->createMany($request->fs_investments);
         $project->region_investments()->createMany($request->region_investments);
 
+        $project->feasibility_study()->create($request->feasibility_study);
         $project->nep()->create($request->nep);
         $project->allocation()->create($request->allocation);
         $project->disbursement()->create($request->disbursement);
@@ -147,7 +151,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $project->load('bases','regions','pdp_chapters','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep');
+        $project->load('bases','regions','pdp_chapters','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep','feasibility_study');
 
         return view('projects.edit', compact('project'))
             ->with('pageTitle', 'Edit Project')
@@ -187,7 +191,31 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $project->update($request->all());
+
+        $project->bases()->sync($request->bases);
+        $project->regions()->sync($request->regions);
+        $project->funding_sources()->sync($request->funding_sources);
+        $project->sdgs()->sync($request->sdgs);
+        $project->pdp_chapters()->sync($request->pdp_chapters);
+        $project->ten_point_agendas()->sync($request->ten_point_agendas);
+
+        foreach ($request->fs_investments as $fs_investment) {
+            $fsToEdit = FsInvestment::where('id', $fs_investment['id']);
+            $fsToEdit->update($fs_investment);
+//            update(['id' => $fs_investment['id']], $fs_investment);
+        }
+//
+//        foreach ($request->region_investments as $region_investment) {
+//            $project->region_investments()->update(['id' => $region_investment->id], $region_investment);
+//        }
+
+        $project->feasibility_study()->update($request->feasibility_study);
+        $project->nep()->update($request->nep);
+        $project->allocation()->update($request->allocation);
+        $project->disbursement()->update($request->disbursement);
+
+        return redirect()->route(self::PROJECTS_INDEX);
     }
 
     /**

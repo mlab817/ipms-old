@@ -15,7 +15,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('trips.store', ['project' => $project->slug]) }}" method="POST">
+            <form action="{{ route('trips.store', ['project' => $project->uuid]) }}" method="POST" class="form-horizontal">
                 @csrf
                 <div class="row">
                     <!-- Infrastructure Sector -->
@@ -25,10 +25,11 @@
                                 <h3 class="card-title">{{ __("Infrastructure Sector") }}</h3>
                             </div>
                             <div class="card-body">
-                                <div class="form-group">
+                                <div class="form-group row">
                                     <label for="infrastructure_sectors"
-                                           class="@error('infrastructure_sectors') text-danger @enderror">Infrastructure
+                                           class="col-form-label col-sm-2 @error('infrastructure_sectors') text-danger @enderror">Infrastructure
                                         Sectors <i class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-10">
                                     @foreach($infrastructure_sectors as $option)
                                         <div class="form-check">
                                             <label
@@ -62,24 +63,29 @@
                                         class="error invalid-feedback">{{ $message }}</span>@enderror
                                     @error('infrastructure_subsectors')<span
                                         class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="other_infrastructure">Other Infrastructure</label>
-                                    <input type="text"
-                                           class="form-control @error('other_infrastructure') is-invalid @enderror"
-                                           name="other_infrastructure" id="other_infrastructure"
-                                           placeholder="Other infrastructure"
-                                           value="{{ old('other_infrastructure') }}">
-                                    @error('other_infrastructure')<span
-                                        class="error invalid-feedback">{{ $message }}</span>@enderror
+                                <div class="form-group row">
+                                    <label for="other_infrastructure" class="col-form-label col-sm-2">Other Infrastructure</label>
+                                    <div class="col-sm-10">
+                                        <input type="text"
+                                               class="form-control @error('other_infrastructure') is-invalid @enderror"
+                                               name="other_infrastructure" id="other_infrastructure"
+                                               placeholder="Other infrastructure"
+                                               value="{{ old('other_infrastructure') }}">
+                                        @error('other_infrastructure')<span
+                                            class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="risk">Implementation Risk &amp; Mitigation Strategy <i
+                                <div class="form-group row">
+                                    <label for="risk" class="col-form-label col-sm-2">Implementation Risk &amp; Mitigation Strategy <i
                                             class="text-danger fas fa-flag"></i></label>
-                                    <textarea rows="4" style="resize: none;"
-                                              class="form-control @error('risk') is-invalid @enderror" name="risk"
-                                              placeholder="Implementation Risk and Mitigation Strategy">{{ old('risk') }}</textarea>
-                                    @error('risk')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    <div class="col-sm-10">
+                                        <textarea rows="4" style="resize: none;"
+                                                  class="form-control @error('risk') is-invalid @enderror" name="risk"
+                                                  placeholder="Implementation Risk and Mitigation Strategy">{{ old('risk') }}</textarea>
+                                        @error('risk')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -93,26 +99,28 @@
                                 <h3 class="card-title">{{ __("Pre-Investment Requirement") }}</h3>
                             </div>
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="iccable">Does the project have a Right of Way Acquisition (ROWA)
+                                <div class="form-group row">
+                                    <label for="iccable" class="col-form-label col-sm-2">Does the project have a Right of Way Acquisition (ROWA)
                                         component?</label>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" value="1" name="has_row" @if(old('has_row') == 1) checked @endif>
-                                            Yes
-                                        </label>
+                                    <div class="col-sm-10">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" value="1" name="has_row" @if(old('has_row') == 1) checked @endif>
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" value="0" name="has_row" @if(old('has_row') == 1) checked @endif>
+                                                No
+                                            </label>
+                                        </div>
+                                        @error('has_row')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" value="0" name="has_row" @if(old('has_row') == 1) checked @endif>
-                                            No
-                                        </label>
-                                    </div>
-                                    @error('has_row')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Schedule of Right of Way Acquisition (ROWA) Cost</label>
-                                    <table>
+                                    <table class="col">
                                         <thead>
                                         <tr>
                                             <th class="text-sm text-center">2017</th>
@@ -127,68 +135,74 @@
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <input type="number" class="form-control text-right"
+                                                <input type="text" class="right_of_way money form-control text-right"
                                                        name="right_of_way[y2017]"
-                                                       value="{{ old('right_of_way.y2017', $project->right_of_way->y2017 ?? 0) }}">
+                                                       value="{{ old('right_of_way.y2017', 0) }}">
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control text-right"
+                                                <input type="text" class="right_of_way money form-control text-right"
                                                        name="right_of_way[y2018]"
-                                                       value="{{ old('right_of_way.y2018', $project->right_of_way->y2018 ?? 0) }}">
+                                                       value="{{ old('right_of_way.y2018', 0) }}">
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control text-right"
+                                                <input type="text" class="right_of_way money form-control text-right"
                                                        name="right_of_way[y2019]"
-                                                       value="{{ old('right_of_way.y2019', $project->right_of_way->y2019 ?? 0) }}">
+                                                       value="{{ old('right_of_way.y2019', 0) }}">
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control text-right"
+                                                <input type="text" class="right_of_way money form-control text-right"
                                                        name="right_of_way[y2020]"
-                                                       value="{{ old('right_of_way.y2020', $project->right_of_way->y2020 ?? 0) }}">
+                                                       value="{{ old('right_of_way.y2020', 0) }}">
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control text-right"
+                                                <input type="text" class="right_of_way money form-control text-right"
                                                        name="right_of_way[y2021]"
-                                                       value="{{ old('right_of_way.y2021', $project->right_of_way->y2021 ?? 0) }}">
+                                                       value="{{ old('right_of_way.y2021', 0) }}">
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control text-right"
+                                                <input type="text" class="right_of_way money form-control text-right"
                                                        name="right_of_way[y2022]"
-                                                       value="{{ old('right_of_way.y2022', $project->right_of_way->y2022 ?? 0) }}">
+                                                       value="{{ old('right_of_way.y2022', 0) }}">
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control text-right"
-                                                       name="right_of_way[total]">
+                                                <input type="text" class="form-control text-right"
+                                                       id="right_of_way_total">
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="form-group">
-                                    <label for="right_of_way[affected_households]">No. of affected households</label>
-                                    <input type="text" class="form-control" name="right_of_way[affected_households]" value="{{ old('right_of_way[affected_households]', $project->right_of_way->affected_households ?? 0) }}">
+                                <div class="form-group row">
+                                    <label for="right_of_way[affected_households]" class="col-sm-2">No. of affected households</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="right_of_way[affected_households]" value="{{ old('right_of_way[affected_households]', $project->right_of_way->affected_households ?? 0) }}">
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="iccable">Does the project have a Resettlement Action Plan (RAP)
+                                <div class="border-light border-primary border-top my-3"></div>
+
+                                <div class="form-group row">
+                                    <label for="iccable" class="col-form-label col-sm-2">Does the project have a Resettlement Action Plan (RAP)
                                         component?</label>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" value="1" name="has_rap" @if(old('has_rap') == 1 || $project->has_rap == 1) checked @endif>
-                                            Yes
-                                        </label>
+                                    <div class="col-sm-10">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" value="1" name="has_rap" @if(old('has_rap') == 1 || $project->has_rap == 1) checked @endif>
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" value="0" name="has_rap" @if(old('has_rap') == 0 || $project->has_rap == 0) checked @endif>
+                                                No
+                                            </label>
+                                        </div>
+                                        @error('has_rap')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" value="0" name="has_rap" @if(old('has_rap') == 0 || $project->has_rap == 0) checked @endif>
-                                            No
-                                        </label>
-                                    </div>
-                                    @error('has_rap')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Schedule of Resettlement Action Plan (RAP) Cost</label>
-                                    <table>
+                                    <table class="col">
                                         <thead>
                                         <tr>
                                             <th class="text-sm text-center">2017</th>
@@ -203,48 +217,50 @@
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <input type="number" class="form-control text-right"
+                                                <input type="text" class="resettlement_action_plan money form-control text-right"
                                                        name="resettlement_action_plan[y2017]"
-                                                       value="{{ old('resettlement_action_plan.y2017', $project->resettlement_action_plan->y2017 ?? 0) }}">
+                                                       value="{{ old('resettlement_action_plan.y2017', 0) }}">
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control text-right"
+                                                <input type="text" class="resettlement_action_plan money form-control text-right"
                                                        name="resettlement_action_plan[y2018]"
-                                                       value="{{ old('resettlement_action_plan.y2018', $project->resettlement_action_plan->y2018 ?? 0) }}">
+                                                       value="{{ old('resettlement_action_plan.y2018', 0) }}">
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control text-right"
+                                                <input type="text" class="resettlement_action_plan money form-control text-right"
                                                        name="resettlement_action_plan[y2019]"
-                                                       value="{{ old('resettlement_action_plan.y2019', $project->resettlement_action_plan->y2019 ?? 0) }}">
+                                                       value="{{ old('resettlement_action_plan.y2019', 0) }}">
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control text-right"
+                                                <input type="text" class="resettlement_action_plan money form-control text-right"
                                                        name="resettlement_action_plan[y2020]"
-                                                       value="{{ old('resettlement_action_plan.y2020', $project->resettlement_action_plan->y2020 ?? 0) }}">
+                                                       value="{{ old('resettlement_action_plan.y2020', 0) }}">
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control text-right"
+                                                <input type="text" class="resettlement_action_plan money form-control text-right"
                                                        name="resettlement_action_plan[y2021]"
-                                                       value="{{ old('resettlement_action_plan.y2021', $project->resettlement_action_plan->y2021 ?? 0) }}">
+                                                       value="{{ old('resettlement_action_plan.y2021', 0) }}">
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control text-right"
+                                                <input type="text" class="resettlement_action_plan money form-control text-right"
                                                        name="resettlement_action_plan[y2022]"
-                                                       value="{{ old('resettlement_action_plan.y2022', $project->resettlement_action_plan->y2022 ?? 0) }}">
+                                                       value="{{ old('resettlement_action_plan.y2022', 0) }}">
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control text-right"
-                                                       name="resettlement_action_plan[total]">
+                                                <input type="text" class="money form-control text-right"
+                                                       id="resettlement_action_plan_total">
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="form-group">
-                                    <label for="right_of_way[completion_date]">No. of affected households</label>
-                                    <input type="text" class="form-control"
-                                           name="resettlement_action_plan[affected_households]"
-                                           value="{{ old('resettlement_action_plan[affected_households]', $project->resettlement_action_plan->affected_households ?? 0) }}">
+                                <div class="form-group row">
+                                    <label for="right_of_way.completion_date" class="col-form-label col-sm-2">No. of affected households</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control"
+                                               name="resettlement_action_plan[affected_households]"
+                                               value="{{ old('resettlement_action_plan.affected_households', 0) }}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -264,7 +280,7 @@
                                 <table class="table-responsive">
                                     <thead>
                                     <tr>
-                                        <th></th>
+                                        <th class="text-sm text-center">Funding Source</th>
                                         <th class="text-sm text-center">2016 &amp; Prior</th>
                                         <th class="text-sm text-center">2017</th>
                                         <th class="text-sm text-center">2018</th>
@@ -281,38 +297,70 @@
                                         <tr>
                                             <th class="text-sm">
                                                 <input type="hidden"
-                                                       name="fs_infrastructures[{{$fs->id}}][funding_source_id]"
-                                                       value="{{ old($fs->id, $fs->id) }}">
+                                                       name="fs_infrastructures[{{$fs->id}}][fs_id]"
+                                                       value="{{ $fs->id }}">
                                                 {{ $fs->name }}
                                             </th>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2016 money form-control text-right"
                                                        name="fs_infrastructures[{{$fs->id}}][y2016]"
                                                        value="{{ old("fs_infrastructures.{$fs->id}.y2016", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2017 money form-control text-right"
                                                        name="fs_infrastructures[{{$fs->id}}][y2017]"
                                                        value="{{ old("fs_infrastructures.{$fs->id}.y2017", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2018 money form-control text-right"
                                                        name="fs_infrastructures[{{$fs->id}}][y2018]"
                                                        value="{{ old("fs_infrastructures.{$fs->id}.y2018", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2019 money form-control text-right"
                                                        name="fs_infrastructures[{{$fs->id}}][y2019]"
                                                        value="{{ old("fs_infrastructures.{$fs->id}.y2019", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2020 money form-control text-right"
                                                        name="fs_infrastructures[{{$fs->id}}][y2020]"
                                                        value="{{ old("fs_infrastructures.{$fs->id}.y2020", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2021 money form-control text-right"
                                                        name="fs_infrastructures[{{$fs->id}}][y2021]"
                                                        value="{{ old("fs_infrastructures.{$fs->id}.y2021", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2022 money form-control text-right"
                                                        name="fs_infrastructures[{{$fs->id}}][y2022]"
                                                        value="{{ old("fs_infrastructures.{$fs->id}.y2022", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2023 money form-control text-right"
                                                        name="fs_infrastructures[{{$fs->id}}][y2023]"
                                                        value="{{ old("fs_infrastructures.{$fs->id}.y2023", 0) }}"></td>
-                                            <td><input type="number" class="form-control text-right"></td>
+                                            <td><input type="text" class="form-control text-right" id="fs_infrastructures_{{ $fs->id }}_total" readonly></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Total</th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2016_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2017_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2018_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2019_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2020_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2021_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2022_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2023_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_total" readonly>
+                                        </th>
+                                    </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -332,7 +380,7 @@
                                 <table class="table-responsive">
                                     <thead>
                                     <tr>
-                                        <th></th>
+                                        <th class="text-sm text-center">Region</th>
                                         <th class="text-sm text-center">2016 &amp; Prior</th>
                                         <th class="text-sm text-center">2017</th>
                                         <th class="text-sm text-center">2018</th>
@@ -346,6 +394,7 @@
                                     </thead>
                                     <tbody>
                                     @foreach ($regions as $fs)
+                                        @if($fs->id !== 100)
                                         <tr>
                                             <th class="text-sm">
                                                 <input type="hidden"
@@ -353,42 +402,75 @@
                                                        value="{{ $fs->id }}">
                                                 {{ $fs->name }}
                                             </th>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2016 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2016]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2016", 0) }}">
                                             </td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2017 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2017]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2017", 0) }}">
                                             </td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2018 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2018]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2018", 0) }}">
                                             </td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2019 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2019]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2019", 0) }}">
                                             </td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2020 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2020]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2020", 0) }}">
                                             </td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2021 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2021]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2021", 0) }}">
                                             </td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2022 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2022]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2022", 0) }}">
                                             </td>
-                                            <td><input type="number" class="form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2023 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2023]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2023", 0) }}">
                                             </td>
-                                            <td><input type="number" class="form-control text-right"></td>
+                                            <td><input type="text" class="form-control text-right" id="region_infrastructures_{{$fs->id}}_total" readonly></td>
                                         </tr>
+                                        @endif
                                     @endforeach
                                     </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Total</th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2016_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2017_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2018_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2019_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2020_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2021_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2022_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2023_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_total" readonly>
+                                        </th>
+                                    </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -405,3 +487,5 @@
         </div>
     </section>
 @endsection
+
+@include('trip.script')

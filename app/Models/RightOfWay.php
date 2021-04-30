@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class RightOfWay extends Model
 {
     use HasFactory;
-    use HasUuid;
 
     protected $touches = [
         'project'
@@ -30,11 +29,6 @@ class RightOfWay extends Model
         'y2025',
         'affected_households',
     ];
-
-    public function getRouteKeyName(): string
-    {
-        return 'uuid';
-    }
 
     public function project(): BelongsTo
     {

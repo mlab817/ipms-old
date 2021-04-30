@@ -285,12 +285,12 @@ class Project extends Model
 
     public function resettlement_action_plan(): HasOne
     {
-        return $this->hasOne(ResettlementActionPlan::class);
+        return $this->hasOne(ResettlementActionPlan::class, 'project_id', 'id');
     }
 
     public function right_of_way(): HasOne
     {
-        return $this->hasOne(RightOfWay::class);
+        return $this->hasOne(RightOfWay::class, 'project_id', 'id');
     }
 
     public function spatial_coverage(): BelongsTo
