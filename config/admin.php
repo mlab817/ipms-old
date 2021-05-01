@@ -88,6 +88,11 @@ return [
                 'title' => 'Regions',
                 'route' =>  'admin.regions.index',
             ],
+            'sdgs' => [
+                'icon'  => 'nav-icon far fa-circle',
+                'title' => 'Sustainable Development Goals',
+                'route' =>  'admin.sdgs.index',
+            ],
             'spatial_coverages' => [
                 'icon'  => 'nav-icon far fa-circle',
                 'title' => 'Spatial Coverages',
@@ -95,7 +100,7 @@ return [
             ],
             'ten_point_agendas' => [
                 'icon'  => 'nav-icon far fa-circle',
-                'title' => 'Funding Institutions',
+                'title' => 'Ten Point Agendas',
                 'route' =>  'admin.ten_point_agendas.index',
             ],
         ],

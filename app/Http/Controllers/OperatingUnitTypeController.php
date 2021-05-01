@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\OperatingUnitTypesDataTable;
+use App\Models\OperatingUnitType;
 use Illuminate\Http\Request;
 
 class OperatingUnitTypeController extends Controller
@@ -26,7 +27,9 @@ class OperatingUnitTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.operating_unit_types.create', [
+            'pageTitle' => 'Add OU Type',
+        ]);
     }
 
     /**
@@ -37,7 +40,13 @@ class OperatingUnitTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        OperatingUnitType::create($request->all());
+
+        return redirect()->route('admin.operating_unit_types.index');
     }
 
     /**
@@ -57,9 +66,12 @@ class OperatingUnitTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(OperatingUnitType $operatingUnitType)
     {
-        //
+        return view('admin.operating_unit_types.edit', [
+            'pageTitle' => 'Edit OU Type',
+            'operating_unit_type' => $operatingUnitType,
+        ]);
     }
 
     /**
@@ -69,9 +81,15 @@ class OperatingUnitTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, OperatingUnitType $operatingUnitType)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $operatingUnitType->update($request->all());
+
+        return redirect()->route('admin.operating_unit_types.index');
     }
 
     /**
@@ -80,8 +98,10 @@ class OperatingUnitTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(OperatingUnitType $operatingUnitType)
     {
-        //
+        $operatingUnitType->delete();
+
+        return response()->noContent();
     }
 }

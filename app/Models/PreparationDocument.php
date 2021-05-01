@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class PreparationDocument extends Model
 {
     use HasFactory;
+    use Sluggable;
 
     protected $fillable = [
         'name',
@@ -16,8 +18,25 @@ class PreparationDocument extends Model
         'description',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);
+    }
+
+    /**
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
     }
 }

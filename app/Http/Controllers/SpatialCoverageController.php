@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\SpatialCoveragesDataTable;
+use App\Models\SpatialCoverage;
 use Illuminate\Http\Request;
 
 class SpatialCoverageController extends Controller
@@ -11,9 +13,11 @@ class SpatialCoverageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SpatialCoveragesDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.spatial_coverages.index', [
+            'pageTitle' => 'Spatial Coverages',
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class SpatialCoverageController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.spatial_coverages.create', [
+            'pageTitle' => 'Add Spatial Coverage',
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class SpatialCoverageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        SpatialCoverage::create($request->all());
+
+        return redirect()->route('admin.spatial_coverages.index');
     }
 
     /**
@@ -54,9 +66,12 @@ class SpatialCoverageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(SpatialCoverage $spatialCoverage)
     {
-        //
+        return view('admin.spatial_coverages.edit', [
+            'pageTitle' => 'Edit Spatial Coverage',
+            'spatial_coverage' => $spatialCoverage,
+        ]);
     }
 
     /**
@@ -66,9 +81,15 @@ class SpatialCoverageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, SpatialCoverage $spatialCoverage)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $spatialCoverage->update($request->all());
+
+        return redirect()->route('admin.spatial_coverages.index');
     }
 
     /**
@@ -77,8 +98,10 @@ class SpatialCoverageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(SpatialCoverage $spatialCoverage)
     {
-        //
+        $spatialCoverage->delete();
+
+        return response()->noContent();
     }
 }
