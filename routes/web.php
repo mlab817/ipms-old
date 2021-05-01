@@ -34,6 +34,7 @@ Route::post('/projects/{project}/trip', [\App\Http\Controllers\TripController::c
 
 Route::resources([
     'projects' => \App\Http\Controllers\ProjectController::class,
+    'reviews'   => \App\Http\Controllers\ReviewController::class,
 ]);
 
 Auth::routes();

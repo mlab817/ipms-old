@@ -298,6 +298,11 @@ class Project extends Model
         return $this->hasOne(RightOfWay::class, 'project_id', 'id');
     }
 
+    public function review(): HasOne
+    {
+        return $this->hasOne(Review::class,'project_id','id');
+    }
+
     public function spatial_coverage(): BelongsTo
     {
         return $this->belongsTo(SpatialCoverage::class);
