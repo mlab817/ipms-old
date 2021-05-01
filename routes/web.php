@@ -83,3 +83,11 @@ Route::post('test', function(\Illuminate\Http\Request $request) {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/email', function () {
+    $user = \App\Models\User::find(1);
+
+    event(new \App\Events\UserCreated($user));
+
+//    (new \App\Models\User(['email' => 'test@test.com']))->notify(new \App\Notifications\NewUserNotification($user));
+});

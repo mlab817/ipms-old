@@ -25,20 +25,26 @@ class ReviewsDataTable extends DataTable
                 return $project->pap_type->name ?? '';
             })
             ->addColumn('reviewed', function($project) {
-                if ($project->review->exists()) {
+                if ($project->review()->exists()) {
                     return 'Yes';
                 } else {
                     return 'No';
                 }
             })
             ->addColumn('reviewed_at', function ($project) {
-                if ($project->review->exists()) {
+                if ($project->review()->exists()) {
                     return $project->review->updated_at;
                 } else {
                     return '';
                 }
             })
-            ->addColumn('action', 'reviewsdatatable.action');
+            ->addColumn('action', function ($project) {
+                if ($project->review()->exists()) {
+                    return '<a href="'. route('reviews.edit', ['review' => $project->review->getRouteKey()]).'" class="btn btn-sm btn-info">Edit</a>';
+                } else {
+                    return '<a href="'. route('reviews.create', ['project' => $project->getRouteKey()]).'" class="btn btn-sm btn-info">Create</a>';
+                }
+            });
     }
 
     /**
@@ -66,7 +72,6 @@ class ReviewsDataTable extends DataTable
                     ->dom('Bfrtip')
                     ->orderBy(0)
                     ->buttons(
-                        Button::make('create'),
                         Button::make('export'),
                         Button::make('print'),
                         Button::make('reset'),

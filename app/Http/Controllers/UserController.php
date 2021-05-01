@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\UsersDataTable;
+use App\Events\UserCreated;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\Office;
 use App\Models\User;
@@ -54,6 +55,8 @@ class UserController extends Controller
         ]);
 
         $user->assignRole($request->roles);
+
+        event(new UserCreated($user));
 
         return redirect()->route('admin.users.index');
     }

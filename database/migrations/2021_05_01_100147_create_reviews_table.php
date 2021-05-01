@@ -15,6 +15,7 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->boolean('pip')->default(0);
             $table->foreignId('pip_typology_id')->nullable()->constrained()->nullOnDelete();

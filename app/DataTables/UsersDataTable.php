@@ -27,6 +27,9 @@ class UsersDataTable extends DataTable
             ->addColumn('roles', function($user) {
                 return $user->roles->pluck('name')->join(', ') ?? '';
             })
+            ->addColumn('avatar', function ($user) {
+                return '<img class="img-circle img-bordered-sm" src="'. $user->avatar .'" alt="user" width="50" height="50" />';
+            })
             ->addColumn('action', function ($user) {
                 return '
                     <a href="'. route('admin.users.edit', $user->id).'" class="btn btn-info btn-sm">
@@ -34,7 +37,8 @@ class UsersDataTable extends DataTable
                         Edit
                     </a>
                 ';
-            });
+            })
+            ->rawColumns(['avatar','action']);
     }
 
     /**
@@ -85,6 +89,8 @@ class UsersDataTable extends DataTable
             Column::make('office')
                 ->addClass('text-center'),
             Column::make('roles')
+                ->addClass('text-center'),
+            Column::computed('avatar')
                 ->addClass('text-center'),
             Column::computed('action')
                   ->exportable(false)

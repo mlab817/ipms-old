@@ -10,6 +10,7 @@ use App\Models\PipTypology;
 use App\Models\Project;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ReviewController extends Controller
 {
@@ -54,7 +55,7 @@ class ReviewController extends Controller
 
         $project->review()->updateOrCreate($request->except('_token','project'));
 
-        return redirect()->route('projects.index')->with('message', 'Successfully added review');
+        return redirect()->route('reviews.index')->with('message', 'Successfully added review');
     }
 
     /**
@@ -74,21 +75,27 @@ class ReviewController extends Controller
      * @param  \App\Models\review  $review
      * @return \Illuminate\Http\Response
      */
-    public function edit(review $review)
+    public function edit(Review $review)
     {
-        //
+        return view('reviews.edit', [
+           'review'         => $review,
+           'cip_types'      => CipType::all(),
+           'pip_typologies' => PipTypology::all(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\review  $review
-     * @return \Illuminate\Http\Response
+     * @param ReviewStoreRequest $request
+     * @param \App\Models\Review $review
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, review $review)
+    public function update(ReviewStoreRequest $request, Review $review): \Illuminate\Http\RedirectResponse
     {
-        //
+        $review->update($request->all());
+
+        return redirect()->route('reviews.index')->with('message', 'Successfully added review');
     }
 
     /**
@@ -97,8 +104,10 @@ class ReviewController extends Controller
      * @param  \App\Models\review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy(review $review)
+    public function destroy(Review $review)
     {
-        //
+        $review->delete();
+
+        return response()->noContent();
     }
 }

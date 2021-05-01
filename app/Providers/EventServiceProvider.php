@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\UserCreated;
+use App\Listeners\SendNewUserNotification;
 use App\Models\Project;
+use App\Notifications\SendEmailToNewUserNotification;
 use App\Observers\ProjectObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -24,7 +27,10 @@ class EventServiceProvider extends ServiceProvider
         SocialiteWasCalled::class => [
 //            'SocialiteProviders\\Discord\\DiscordExtendSocialite@handle',
 //            'SocialiteProviders\\Discord\\GoogleExtendSocialite@handle',
-        ]
+        ],
+        UserCreated::class => [
+            SendNewUserNotification::class,
+        ],
     ];
 
     /**

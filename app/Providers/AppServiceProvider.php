@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Project;
+use App\Models\User;
 use App\Observers\ProjectObserver;
+use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Telescope\TelescopeServiceProvider;
 
@@ -30,5 +32,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Project::observe(ProjectObserver::class);
+        User::observe(UserObserver::class);
     }
 }
