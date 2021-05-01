@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 class OperatingUnit extends Model
 {
     use HasFactory;
-    use HasUuid;
     use Sluggable;
 
     protected $fillable = [
@@ -27,9 +26,10 @@ class OperatingUnit extends Model
         'project_count',
     ];
 
-    protected $with = [
-        'operating_unit_type',
-    ];
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function offices(): HasMany
     {

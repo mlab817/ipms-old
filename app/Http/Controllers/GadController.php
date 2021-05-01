@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\GadsDataTable;
+use App\Models\Gad;
 use Illuminate\Http\Request;
 
 class GadController extends Controller
@@ -11,9 +13,11 @@ class GadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(GadsDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.gads.index', [
+            'pageTitle' => 'Gender & Development Classification',
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class GadController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.gads.create', [
+            'pageTitle' => 'Add GAD Classification',
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class GadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        Gad::create($request->all());
+
+        return redirect()->route('admin.gads.index');
     }
 
     /**
@@ -54,9 +66,12 @@ class GadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Gad $gad)
     {
-        //
+        return view('admin.gads.edit', [
+            'pageTitle' => 'Edit GAD Classification',
+            'gad' => $gad,
+        ]);
     }
 
     /**
@@ -66,9 +81,15 @@ class GadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Gad $gad)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $gad->update($request->all());
+
+        return redirect()->route('admin.gads.index');
     }
 
     /**
@@ -77,8 +98,10 @@ class GadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Gad $gad)
     {
-        //
+        $gad->delete();
+
+        return response()->noContent();
     }
 }

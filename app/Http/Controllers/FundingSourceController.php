@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\FundingSourcesDataTable;
+use App\Models\FundingSource;
 use Illuminate\Http\Request;
 
 class FundingSourceController extends Controller
@@ -11,9 +13,11 @@ class FundingSourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FundingSourcesDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.funding_sources.index', [
+            'pageTitle' => 'Funding Sources'
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class FundingSourceController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.funding_sources.create', [
+            'pageTitle' => 'Add Funding Source',
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class FundingSourceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        FundingSource::create($request->all());
+
+        return redirect()->route('admin.funding_sources.index');
     }
 
     /**
@@ -45,7 +57,7 @@ class FundingSourceController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -54,9 +66,12 @@ class FundingSourceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FundingSource $fundingSource)
     {
-        //
+        return view('admin.funding_sources.edit', [
+            'pageTitle' => 'Edit Funding Source',
+            'funding_source' => $fundingSource,
+        ]);
     }
 
     /**
@@ -66,9 +81,15 @@ class FundingSourceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, FundingSource $fundingSource)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $fundingSource->update($request->all());
+
+        return redirect()->route('admin.funding_sources.index');
     }
 
     /**

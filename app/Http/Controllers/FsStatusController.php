@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\FsStatusesDataTable;
+use App\Models\FsStatus;
 use Illuminate\Http\Request;
 
 class FsStatusController extends Controller
@@ -11,9 +13,11 @@ class FsStatusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FsStatusesDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.fs_statuses.index', [
+            'pageTitle' => 'Feasibility Study Statuses',
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class FsStatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.fs_statuses.create', [
+            'pageTitle' => 'Add FS Status',
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class FsStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        FsStatus::create($request->all());
+
+        return redirect()->route('admin.fs_statuses.index');
     }
 
     /**
@@ -54,9 +66,12 @@ class FsStatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FsStatus $fsStatus)
     {
-        //
+        return view('admin.fs_statuses.edit', [
+            'fs_status' => $fsStatus,
+            'pageTitle' => 'Edit FS Status',
+        ]);
     }
 
     /**
@@ -66,9 +81,15 @@ class FsStatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, FsStatus $fsStatus)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $fsStatus->update($request->all());
+
+        return redirect()->route('admin.fs_statuses.index');
     }
 
     /**

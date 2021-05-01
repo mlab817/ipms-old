@@ -52,6 +52,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
         'gads'                  => \App\Http\Controllers\GadController::class,
         'implementation_modes'  => \App\Http\Controllers\ImplementationModeController::class,
         'infrastructure_sectors'=> \App\Http\Controllers\InfrastructureSectorController::class,
+        'offices'               => \App\Http\Controllers\OfficeController::class,
         'operating_units'       => \App\Http\Controllers\OperatingUnitController::class,
         'operating_unit_types'  => \App\Http\Controllers\OperatingUnitTypeController::class,
         'pap_types'             => \App\Http\Controllers\PapTypeController::class,

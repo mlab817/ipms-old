@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ProjectStatusesDataTable;
+use App\Models\ProjectStatus;
 use Illuminate\Http\Request;
 
 class ProjectStatusController extends Controller
@@ -11,9 +13,9 @@ class ProjectStatusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ProjectStatusesDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.project_statuses.index');
     }
 
     /**
@@ -23,7 +25,9 @@ class ProjectStatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.project_statuses.create', [
+            'pageTitle' => 'Add Project Status'
+        ]);
     }
 
     /**
@@ -34,7 +38,11 @@ class ProjectStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['name' => 'required']);
+
+        ProjectStatus::create($request->all());
+
+        return redirect()->route('admin.project_statuses.index');
     }
 
     /**
@@ -54,9 +62,12 @@ class ProjectStatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ProjectStatus $projectStatus)
     {
-        //
+        return view('admin.project_statuses.edit', [
+            'pageTitle' => 'Edit Project Status',
+            'project_status' => $projectStatus,
+        ]);
     }
 
     /**
@@ -66,9 +77,15 @@ class ProjectStatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ProjectStatus $projectStatus)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $projectStatus->update($request->all());
+
+        return redirect()->route('admin.project_statuses.index');
     }
 
     /**
@@ -77,8 +94,10 @@ class ProjectStatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ProjectStatus $projectStatus)
     {
-        //
+        $projectStatus->delete();
+
+        return response()->noContent();
     }
 }

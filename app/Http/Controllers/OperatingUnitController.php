@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\OperatingUnitsDataTable;
+use App\Models\OperatingUnit;
+use App\Models\OperatingUnitType;
 use Illuminate\Http\Request;
 
 class OperatingUnitController extends Controller
@@ -11,9 +14,11 @@ class OperatingUnitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(OperatingUnitsDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.operating_units.index', [
+            'pageTitle' => 'Operating Units',
+        ]);
     }
 
     /**
@@ -23,7 +28,10 @@ class OperatingUnitController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.operating_units.create', [
+            'pageTitle' => 'Add Operating Unit',
+            'operating_unit_types' => OperatingUnitType::all(),
+        ]);
     }
 
     /**
@@ -34,7 +42,14 @@ class OperatingUnitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'operating_unit_type_id' => 'required',
+        ]);
+
+        OperatingUnit::create($request->all());
+
+        return redirect()->route('admin.operating_units.index');
     }
 
     /**
@@ -54,9 +69,13 @@ class OperatingUnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(OperatingUnit $operatingUnit)
     {
-        //
+        return view('admin.operating_units.edit', [
+            'pageTitle' => 'Edit Operating Unit',
+            'operating_unit' => $operatingUnit,
+            'operating_unit_types' => OperatingUnitType::all(),
+        ]);
     }
 
     /**
@@ -66,9 +85,16 @@ class OperatingUnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, OperatingUnit $operatingUnit)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'operating_unit_type_id' => 'required',
+        ]);
+
+        $operatingUnit->update($request->all());
+
+        return redirect()->route('admin.operating_units.index');
     }
 
     /**
@@ -77,8 +103,10 @@ class OperatingUnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(OperatingUnit $operatingUnit)
     {
-        //
+        $operatingUnit->delete();
+
+        return response()->noContent();
     }
 }

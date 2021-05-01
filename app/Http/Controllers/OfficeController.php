@@ -2,22 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\FundingInstitutionsDataTable;
-use App\Models\FundingInstitution;
+use App\Models\Office;
 use Illuminate\Http\Request;
 
-class FundingInstitutionController extends Controller
+class OfficeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(FundingInstitutionsDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->render('admin.funding_sources.index', [
-            'pageTitle' => 'Funding Institutions',
-        ]);
+        //
     }
 
     /**
@@ -27,9 +24,7 @@ class FundingInstitutionController extends Controller
      */
     public function create()
     {
-        return view('admin.funding_institutions.create', [
-            'pageTitle' => 'Add Funding Institution',
-        ]);
+        //
     }
 
     /**
@@ -46,10 +41,10 @@ class FundingInstitutionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Office  $office
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Office $office)
     {
         //
     }
@@ -57,10 +52,10 @@ class FundingInstitutionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Office  $office
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Office $office)
     {
         //
     }
@@ -69,10 +64,10 @@ class FundingInstitutionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Office  $office
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Office $office)
     {
         //
     }
@@ -80,11 +75,11 @@ class FundingInstitutionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Office  $office
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FundingInstitution $fundingInstitution)
+    public function destroy(Office $office)
     {
-        $fundingInstitution->delete();
+        //
     }
 }

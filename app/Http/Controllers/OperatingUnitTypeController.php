@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\OperatingUnitTypesDataTable;
 use Illuminate\Http\Request;
 
 class OperatingUnitTypeController extends Controller
@@ -11,9 +12,11 @@ class OperatingUnitTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(OperatingUnitTypesDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.operating_unit_types.index', [
+            'pageTitle' => 'Operating Unit Types',
+        ]);
     }
 
     /**
