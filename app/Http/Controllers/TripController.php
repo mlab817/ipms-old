@@ -8,6 +8,7 @@ use App\Http\Requests\TripUpdateRequest;
 use App\Models\FsInfrastructure;
 use App\Models\FundingSource;
 use App\Models\InfrastructureSector;
+use App\Models\Prerequisite;
 use App\Models\Project;
 use App\Models\Region;
 use App\Models\RegionInfrastructure;
@@ -33,6 +34,7 @@ class TripController extends Controller
             'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
             'regions'                   => Region::all(),
             'funding_sources'           => FundingSource::all(),
+            'prerequisites'             => Prerequisite::all(),
         ]);
     }
 
@@ -53,6 +55,7 @@ class TripController extends Controller
             'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
             'regions'                   => Region::all(),
             'funding_sources'           => FundingSource::all(),
+            'prerequisites'             => Prerequisite::all(),
         ]);
     }
 
@@ -66,6 +69,7 @@ class TripController extends Controller
 
         $project->infrastructure_subsectors()->sync($request->infrastructure_subsectors);
         $project->infrastructure_sectors()->sync($request->infrastructure_sectors);
+        $project->prerequisites()->sync($request->prerequisites);
 
         $project->region_infrastructures()->createMany($request->region_infrastructures);
         $project->fs_infrastructures()->createMany($request->fs_infrastructures);
@@ -104,6 +108,8 @@ class TripController extends Controller
                 ->first();
             $itemToUpdate->update($item);
         }
+
+        $project->prerequisites()->sync($request->prerequisites);
 
         return redirect()->route('projects.index')
             ->with('message','Successfully updated TRIP information');

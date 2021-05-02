@@ -65,6 +65,23 @@
                                         class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label for="prerequisites" class="col-form-label col-sm-2">Prerequisites</label>
+                                    <div class="col-sm-10">
+                                        @foreach($prerequisites as $option)
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="prerequisites[]" id="prerequisites" value="{{ $option->id }}" @if(in_array($option->id, old('prerequisities') ?? [])) checked @endif>
+                                                    {{ $option->name }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                        @error('prerequisites')<span
+                                            class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
                                     <label for="other_infrastructure" class="col-form-label col-sm-2">Other Infrastructure</label>
                                     <div class="col-sm-10">
@@ -77,6 +94,7 @@
                                             class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label for="risk" class="col-form-label col-sm-2">Implementation Risk &amp; Mitigation Strategy <i
                                             class="text-danger fas fa-flag"></i></label>

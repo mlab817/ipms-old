@@ -27,6 +27,7 @@ class TripStoreRequest extends FormRequest
             'infrastructure_sectors'                    => ['required','array'],
             'infrastructure_subsectors'                 => ['nullable','array'],
             'other_infrastructure'                      => ['required_if:infrastructure_subsectors.*,in:65'],
+            'prerequisites'                             => 'required|array',
             'risk'                                      => ['required','string'],
             'has_row'                                   => ['required','boolean'],
             'right_of_way'                              => ['required_if:has_row,true'],
