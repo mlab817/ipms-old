@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\User;
 use App\Observers\ProjectObserver;
 use App\Observers\UserObserver;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Telescope\TelescopeServiceProvider;
 
@@ -33,5 +34,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Project::observe(ProjectObserver::class);
         User::observe(UserObserver::class);
+
+        // blade directives
+        Blade::if('admin', function () {
+            return auth()->check() && auth()->user()->isAdmin();
+        });
     }
 }
