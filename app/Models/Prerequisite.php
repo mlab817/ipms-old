@@ -11,8 +11,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Prerequisite extends Model
 {
     use HasFactory;
-    use HasUuid;
     use Sluggable;
+
+    protected $fillable = ['name'];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function projects(): BelongsToMany
     {

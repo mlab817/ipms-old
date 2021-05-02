@@ -8,6 +8,7 @@ use App\Http\Requests\ReviewStoreRequest;
 use App\Models\CipType;
 use App\Models\PipTypology;
 use App\Models\Project;
+use App\Models\ReadinessLevel;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -40,6 +41,7 @@ class ReviewController extends Controller
             'project' => $project,
             'pip_typologies' => PipTypology::all(),
             'cip_types' => CipType::all(),
+            'readiness_levels' => ReadinessLevel::all(),
         ]);
     }
 
@@ -51,9 +53,11 @@ class ReviewController extends Controller
      */
     public function store(ReviewStoreRequest $request)
     {
+        dd('calling store');
+
         $project = Project::findOrFail($request->project_id);
 
-        $project->review()->updateOrCreate($request->except('_token','project'));
+        $project->review()->updateOrCreate($request->validated());
 
         return redirect()->route('reviews.index')->with('message', 'Successfully added review');
     }
@@ -78,9 +82,10 @@ class ReviewController extends Controller
     public function edit(Review $review)
     {
         return view('reviews.edit', [
-           'review'         => $review,
-           'cip_types'      => CipType::all(),
-           'pip_typologies' => PipTypology::all(),
+            'review'         => $review,
+            'cip_types'      => CipType::all(),
+            'pip_typologies' => PipTypology::all(),
+            'readiness_levels' => ReadinessLevel::all(),
         ]);
     }
 

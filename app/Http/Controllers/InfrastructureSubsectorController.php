@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\InfrastructureSubsectorsDataTable;
+use App\Models\InfrastructureSector;
+use App\Models\InfrastructureSubsector;
 use Illuminate\Http\Request;
 
 class InfrastructureSubsectorController extends Controller
@@ -11,9 +14,11 @@ class InfrastructureSubsectorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(InfrastructureSubsectorsDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.infrastructure_subsectors.index', [
+            'pageTitle' => 'Infrastructure Subsectors',
+        ]);
     }
 
     /**
@@ -23,7 +28,10 @@ class InfrastructureSubsectorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.infrastructure_subsectors.create', [
+            'pageTitle' => 'Add Infrastructure Subsector',
+            'infrastructure_sectors' => InfrastructureSector::all(),
+        ]);
     }
 
     /**
@@ -34,7 +42,14 @@ class InfrastructureSubsectorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'infrastructure_sector_id' => 'required',
+        ]);
+
+        InfrastructureSubsector::create($request->all());
+
+        return redirect()->route('admin.infrastructure_subsectors.index');
     }
 
     /**
@@ -54,9 +69,13 @@ class InfrastructureSubsectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(InfrastructureSubsector $infrastructureSubsector)
     {
-        //
+        return view('admin.infrastructure_subsectors.edit', [
+            'pageTitle' => 'Edit Infrastructure Subsector',
+            'infrastructure_sectors' => InfrastructureSector::all(),
+            'infrastructure_subsector' => $infrastructureSubsector,
+        ]);
     }
 
     /**
@@ -66,9 +85,16 @@ class InfrastructureSubsectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, InfrastructureSubsector $infrastructureSubsector)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'infrastructure_sector_id' => 'required',
+        ]);
+
+        $infrastructureSubsector->update($request->all());
+
+        return redirect()->route('admin.infrastructure_subsectors.index');
     }
 
     /**
@@ -77,8 +103,10 @@ class InfrastructureSubsectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(InfrastructureSubsector $infrastructureSubsector)
     {
-        //
+        $infrastructureSubsector->delete();
+
+        return response()->noContent();
     }
 }

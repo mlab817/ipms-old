@@ -12,6 +12,12 @@
             <form class="form-horizontal" action="{{ route('reviews.update', $review->getRouteKey()) }}" method="POST">
                 @csrf
                 @method('PUT')
+                <div class="card card-info">
+                    <div class="card-header">
+                        <div class="card-title">Reviewing: {{ $review->project->title }}</div>
+                    </div>
+                </div>
+
                 <div class="card card-primary">
                     <div class="card-header">
                         <h1 class="card-title">Project Classification</h1>
@@ -39,14 +45,12 @@
                         <div class="form-group row">
                             <label for="pip_typology_id" class="col-sm-3">PIP Typology</label>
                             <div class="col-sm-9">
-                                @foreach($pip_typologies as $option)
-                                    <div class="form-check">
-                                        <label for="pip_typology_{{ $option->id }}" class="form-check-label">
-                                            <input name="pip_typology_id" type="radio" id="pip_typology_{{ $option->id }}" class="form-check-input" value="{{ $option->id }}" @if(old('pip_typology_id', $review->pip_typology_id) == $option->id) checked @endif>
-                                            {{ $option->name }}
-                                        </label>
-                                    </div>
-                                @endforeach
+                                <select id="pip_typology_id" name="pip_typology_id" class="form-control @error('pip_typology_id') is-invalid @enderror">
+                                    <option value="" selected disabled>Select Typology</option>
+                                    @foreach($pip_typologies as $option)
+                                        <option value="{{ $option->id }}" @if(old('pip_typology_id', $review->pip_typology_id) == $option->id) selected @endif>{{ $option->name }}</option>
+                                    @endforeach
+                                </select>
                                 @error('pip_typology_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                             </div>
                         </div>
@@ -71,16 +75,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="pip_typology_id" class="col-sm-3">CIP Type</label>
+                            <label for="cip_type_id" class="col-sm-3">CIP Type</label>
                             <div class="col-sm-9">
-                                @foreach($cip_types as $option)
-                                    <div class="form-check">
-                                        <label for="cip_type_{{ $option->id }}" class="form-check-label">
-                                            <input name="cip_type_id" type="radio" id="cip_type_{{ $option->id }}" class="form-check-input" value="{{ $option->id }}" @if(old('cip_type_id', $review->cip_type_id) == $option->id) checked @endif>
-                                            {{ $option->name }}
-                                        </label>
-                                    </div>
-                                @endforeach
+                                <select id="cip_type_id" name="cip_type_id" class="form-control @error('cip_type_id') is-invalid @enderror">
+                                    <option value="" selected disabled>Select Typology</option>
+                                    @foreach($cip_types as $option)
+                                        <option value="{{ $option->id }}" @if(old('cip_type_id', $review->cip_type_id) == $option->id) selected @endif>{{ $option->name }}</option>
+                                    @endforeach
+                                </select>
                                 @error('cip_type_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                             </div>
                         </div>
@@ -101,6 +103,19 @@
                                     </label>
                                 </div>
                                 @error('trip')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="trip" class="col-form-label col-sm-3">Readiness Level</label>
+                            <div class="col-sm-9">
+                                <select id="readiness_level_id" name="readiness_level_id" class="form-control">
+                                    <option value="" selected disabled>Select Readiness Level</option>
+                                    @foreach($readiness_levels as $option)
+                                        <option value="{{ $option->id }}" @if(old('readiness_level_id', $review->readiness_level_id) == $option->id) selected @endif>{{ $option->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('readiness_level_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                             </div>
                         </div>
                     </div>

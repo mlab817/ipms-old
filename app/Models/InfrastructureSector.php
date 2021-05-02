@@ -21,6 +21,11 @@ class InfrastructureSector extends Model
         'description',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function children(): HasMany
     {
         return $this->hasMany(InfrastructureSubsector::class);

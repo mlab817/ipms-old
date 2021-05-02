@@ -24,12 +24,12 @@ class ReviewStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-
             'pip'               => 'required|bool',
             'pip_typology_id'   => 'required',
             'cip'               => 'required|bool',
             'cip_type_id'       => 'required',
             'trip'              => 'required|bool',
+            'readiness_level_id'=> 'required',
             'pipol_code'        => 'nullable',
             'pipol_url'         => 'nullable',
             'pipol_encoded'     => 'nullable|bool',

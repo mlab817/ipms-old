@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ReadinessLevelsDataTable;
+use App\Models\ReadinessLevel;
 use Illuminate\Http\Request;
 
 class ReadinessLevelController extends Controller
@@ -11,9 +13,11 @@ class ReadinessLevelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ReadinessLevelsDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.readiness_levels.index', [
+            'pageTitle' => 'Readiness Levels',
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class ReadinessLevelController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.readiness_levels.create', [
+            'pageTitle' => 'Add Readiness Level',
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class ReadinessLevelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        ReadinessLevel::create($request->all());
+
+        return redirect()->route('admin.readiness_levels.index');
     }
 
     /**
@@ -54,9 +66,12 @@ class ReadinessLevelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ReadinessLevel $readinessLevel)
     {
-        //
+        return view('admin.readiness_levels.edit', [
+            'pageTitle' => 'Edit Readiness Level',
+            'readiness_level' => $readinessLevel,
+        ]);
     }
 
     /**
@@ -66,9 +81,15 @@ class ReadinessLevelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ReadinessLevel $readinessLevel)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $readinessLevel->update($request->all());
+
+        return redirect()->route('admin.readiness_levels.index');
     }
 
     /**

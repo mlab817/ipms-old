@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\PrerequisitesDataTable;
+use App\Models\Prerequisite;
 use Illuminate\Http\Request;
 
 class PrerequisiteController extends Controller
@@ -11,9 +13,11 @@ class PrerequisiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PrerequisitesDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.prerequisites.index', [
+            'pageTitle' => 'Prerequisites',
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class PrerequisiteController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.prerequisites.create', [
+            'pageTitle' => 'Add Prerequisite'
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class PrerequisiteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        Prerequisite::create($request->all());
+
+        return redirect()->route('admin.prerequisites.index');
     }
 
     /**
@@ -54,9 +66,12 @@ class PrerequisiteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Prerequisite $prerequisite)
     {
-        //
+        return view('admin.prerequisites.edit', [
+            'pageTitle' => 'Edit Prerequisite',
+            'prerequisite' => $prerequisite
+        ]);
     }
 
     /**
@@ -66,9 +81,15 @@ class PrerequisiteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Prerequisite $prerequisite)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $prerequisite->update($request->all());
+
+        return redirect()->route('admin.prerequisites.index');
     }
 
     /**
@@ -77,8 +98,10 @@ class PrerequisiteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Prerequisite $prerequisite)
     {
-        //
+        $prerequisite->delete();
+
+        return response()->noContent();
     }
 }

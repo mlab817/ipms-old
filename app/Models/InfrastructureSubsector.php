@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class InfrastructureSubsector extends Model
 {
     use HasFactory;
-//    use HasUuid;
     use Sluggable;
 
     protected $fillable = [
@@ -22,6 +21,11 @@ class InfrastructureSubsector extends Model
         'description',
         'infrastructure_sector_id',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function infrastructure_sector(): BelongsTo
     {

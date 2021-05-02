@@ -11,8 +11,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class ReadinessLevel extends Model
 {
     use HasFactory;
-    use HasUuid;
     use Sluggable;
+
+    protected $fillable = [
+        'name',
+    ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function projects(): HasMany
     {

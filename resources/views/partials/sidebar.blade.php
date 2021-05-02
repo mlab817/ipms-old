@@ -9,12 +9,12 @@
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar text-sm">
         <!-- Sidebar user panel (optional) -->
         @auth
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('images/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ auth()->user()->avatar }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ auth()->user()->name }}</a>
@@ -49,8 +49,8 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item {{ request()->routeIs('projects.*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->routeIs('projects.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Projects
@@ -90,19 +90,24 @@
                                 </p>
                             </a>
                         </li>
+                        <div class="dropdown-divider"></div>
+                        <li class="nav-item">
+                            <a href="{{ route('reviews.index') }}" class="nav-link @if(Route::current()->getName() == 'reviews.index') active @endif">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Review Projects
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
 
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item {{ request()->routeIs('admin.*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->routeIs('admin.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Admin
@@ -137,11 +142,12 @@
                     </ul>
                 </li>
             </ul>
+
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Libraries
@@ -163,7 +169,7 @@
                 </li>
                 @auth
                 <li class="nav-item">
-                    <a href="{{ route('settings') }}" class="nav-link">
+                    <a href="{{ route('settings') }}" class="nav-link {{ request()->routeIs('settings') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Settings

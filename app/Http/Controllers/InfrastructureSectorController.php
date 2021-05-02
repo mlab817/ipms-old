@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\InfrastructureSectorsDataTable;
+use App\Models\InfrastructureSector;
 use Illuminate\Http\Request;
 
 class InfrastructureSectorController extends Controller
@@ -11,9 +13,11 @@ class InfrastructureSectorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(InfrastructureSectorsDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.infrastructure_sectors.index', [
+            'pageTitle' => 'Infrastructure Sector',
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class InfrastructureSectorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.infrastructure_sectors.create', [
+           'pageTitle' => 'Add Infrastructure Sector'
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class InfrastructureSectorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        InfrastructureSector::create($request->all());
+
+        return redirect()->route('admin.infrastructure_sectors.index');
     }
 
     /**
@@ -54,9 +66,12 @@ class InfrastructureSectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(InfrastructureSector $infrastructureSector)
     {
-        //
+        return view('admin.infrastructure_sectors.edit', [
+            'pageTitle' => 'Edit Infrastructure Sector',
+            'infrastructure_sector' => $infrastructureSector,
+        ]);
     }
 
     /**
@@ -66,9 +81,15 @@ class InfrastructureSectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, InfrastructureSector $infrastructureSector)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $infrastructureSector->update($request->all());
+
+        return redirect()->route('admin.infrastructure_sectors.index');
     }
 
     /**
@@ -77,8 +98,10 @@ class InfrastructureSectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(InfrastructureSector $infrastructureSector)
     {
-        //
+        $infrastructureSector->delete();
+
+        return response()->noContent();
     }
 }

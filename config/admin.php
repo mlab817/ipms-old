@@ -43,6 +43,16 @@ return [
                 'title' => 'Modes of Implementation',
                 'route' =>  'admin.implementation_modes.index',
             ],
+            'infrastructure_sectors' => [
+                'icon'  => 'nav-icon far fa-circle',
+                'title' => 'Infrastructure Sectors',
+                'route' =>  'admin.infrastructure_sectors.index',
+            ],
+            'infrastructure_subsectors' => [
+                'icon'  => 'nav-icon far fa-circle',
+                'title' => 'Infrastructure Subsectors',
+                'route' =>  'admin.infrastructure_subsectors.index',
+            ],
             'offices' => [
                 'icon'  => 'nav-icon far fa-circle',
                 'title' => 'Office',
@@ -83,10 +93,20 @@ return [
                 'title' => 'Preparation Documents',
                 'route' =>  'admin.preparation_documents.index',
             ],
+            'prerequisites' => [
+                'icon'  => 'nav-icon far fa-circle',
+                'title' => 'Prerequisites',
+                'route' =>  'admin.prerequisites.index',
+            ],
             'project_statuses' => [
                 'icon'  => 'nav-icon far fa-circle',
                 'title' => 'Project Statuses',
                 'route' =>  'admin.project_statuses.index',
+            ],
+            'readiness_levels' => [
+                'icon'  => 'nav-icon far fa-circle',
+                'title' => 'Readiness Levels',
+                'route' =>  'admin.readiness_levels.index',
             ],
             'regions' => [
                 'icon'  => 'nav-icon far fa-circle',
