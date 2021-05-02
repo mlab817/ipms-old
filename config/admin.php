@@ -38,6 +38,11 @@ return [
                 'title' => 'GAD Classification',
                 'route' =>  'admin.gads.index',
             ],
+            'implementation_modes' => [
+                'icon'  => 'nav-icon far fa-circle',
+                'title' => 'Modes of Implementation',
+                'route' =>  'admin.implementation_modes.index',
+            ],
             'offices' => [
                 'icon'  => 'nav-icon far fa-circle',
                 'title' => 'Office',
@@ -102,6 +107,11 @@ return [
                 'icon'  => 'nav-icon far fa-circle',
                 'title' => 'Ten Point Agendas',
                 'route' =>  'admin.ten_point_agendas.index',
+            ],
+            'tiers' => [
+                'icon'  => 'nav-icon far fa-circle',
+                'title' => 'Budget Tiers',
+                'route' =>  'admin.tiers.index',
             ],
         ],
     ],

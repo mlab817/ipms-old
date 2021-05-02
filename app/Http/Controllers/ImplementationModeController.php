@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ImplementationModesDataTable;
+use App\Models\ImplementationMode;
 use Illuminate\Http\Request;
 
 class ImplementationModeController extends Controller
@@ -11,9 +13,11 @@ class ImplementationModeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ImplementationModesDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.implementation_modes.index', [
+            'pageTitle' => 'Modes of Implementation',
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class ImplementationModeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.implementation_modes.create', [
+            'pageTitle' => 'Add Implementation Mode',
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class ImplementationModeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        ImplementationMode::create($request->all());
+
+        return redirect()->route('admin.implementation_modes.index');
     }
 
     /**
@@ -54,9 +66,12 @@ class ImplementationModeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ImplementationMode $implementationMode)
     {
-        //
+        return view('admin.implementation_modes.edit', [
+            'pageTitle' => 'Edit Implemenetation Mode',
+            'implementation_mode' => $implementationMode
+        ]);
     }
 
     /**
@@ -66,9 +81,15 @@ class ImplementationModeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ImplementationMode $implementationMode)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $implementationMode->update($request->all());
+
+        return redirect()->route('admin.implementation_modes.index');
     }
 
     /**
@@ -77,8 +98,10 @@ class ImplementationModeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ImplementationMode $implementationMode)
     {
-        //
+        $implementationMode->delete();
+
+        return response()->noContent();
     }
 }

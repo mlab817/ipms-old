@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class CipType extends Model
 {
     use HasFactory;
-    use HasUuid;
     use Sluggable;
 
     protected $fillable = [
@@ -19,6 +18,11 @@ class CipType extends Model
         'slug',
         'description',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function projects(): HasMany
     {

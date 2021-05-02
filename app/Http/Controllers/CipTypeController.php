@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\CipTypesDataTable;
+use App\Models\CipType;
 use Illuminate\Http\Request;
 
 class CipTypeController extends Controller
@@ -11,9 +13,11 @@ class CipTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(CipTypesDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.cip_types.index', [
+            'pageTitle' => 'CIP Types',
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class CipTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.cip_types.create', [
+            'pageTitle' => 'Add CIP Type',
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class CipTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        CipType::create($request->all());
+
+        return redirect()->route('admin.cip_types.index');
     }
 
     /**
@@ -54,9 +66,12 @@ class CipTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(CipType $cipType)
     {
-        //
+        return view('admin.cip_types.edit', [
+            'pageTitle' => 'Edit CIP Type',
+            'cip_type' => $cipType,
+        ]);
     }
 
     /**
@@ -66,9 +81,15 @@ class CipTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, CipType $cipType)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $cipType->update($request->all());
+
+        return redirect()->route('admin.cip_types.index');
     }
 
     /**
@@ -77,8 +98,10 @@ class CipTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CipType $cipType)
     {
-        //
+        $cipType->delete();
+
+        return response()->noContent();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\TiersDataTable;
+use App\Models\Tier;
 use Illuminate\Http\Request;
 
 class TierController extends Controller
@@ -11,9 +13,11 @@ class TierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(TiersDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.tiers.index', [
+            'pageTitle' => 'Budget Tiers'
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class TierController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tiers.create', [
+            'pageTitle' => 'Add Budget Tier'
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class TierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        Tier::create($request->all());
+
+        return redirect()->route('admin.tiers.index');
     }
 
     /**
@@ -45,7 +57,7 @@ class TierController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -54,9 +66,12 @@ class TierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tier $tier)
     {
-        //
+        return view('admin.tiers.edit', [
+            'pageTitle' => 'Edit Budget Tier',
+            'tier' => $tier,
+        ]);
     }
 
     /**
@@ -66,9 +81,15 @@ class TierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tier $tier)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $tier->update($request->all());
+
+        return redirect()->route('admin.tiers.index');
     }
 
     /**
@@ -77,8 +98,10 @@ class TierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tier $tier)
     {
-        //
+        $tier->delete();
+
+        return response()->noContent();
     }
 }
