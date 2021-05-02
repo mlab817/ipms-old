@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\SdgsDataTable;
+use App\Models\Sdg;
 use Illuminate\Http\Request;
 
 class SdgController extends Controller
@@ -11,9 +13,11 @@ class SdgController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SdgsDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.sdgs.index', [
+            'pageTitle' => 'Sustainable Development Goals',
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class SdgController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.sdgs.create', [
+            'pageTitle' => 'Add SDG',
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class SdgController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        Sdg::create($request->all());
+
+        return redirect()->route('admin.sdgs.index');
     }
 
     /**
@@ -54,9 +66,12 @@ class SdgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sdg $sdg)
     {
-        //
+        return view('admin.sdgs.edit', [
+            'pageTitle' => 'Edit SDG',
+            'sdg' => $sdg,
+        ]);
     }
 
     /**
@@ -66,9 +81,15 @@ class SdgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Sdg $sdg)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $sdg->update($request->all());
+
+        return redirect()->route('admin.sdgs.index');
     }
 
     /**

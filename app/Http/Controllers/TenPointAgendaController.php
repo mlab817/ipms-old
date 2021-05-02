@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\TenPointAgendasDataTable;
+use App\Models\TenPointAgenda;
 use Illuminate\Http\Request;
 
 class TenPointAgendaController extends Controller
@@ -11,9 +13,11 @@ class TenPointAgendaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(TenPointAgendasDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.ten_point_agendas.index', [
+            'pageTitle' => 'Ten Point Agenda',
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class TenPointAgendaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.ten_point_agendas.create', [
+            'pageTitle' => 'Add Ten Point Agenda',
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class TenPointAgendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        TenPointAgenda::create($request->all());
+
+        return redirect()->route('admin.ten_point_agendas.index');
     }
 
     /**
@@ -54,9 +66,12 @@ class TenPointAgendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(TenPointAgenda $tenPointAgenda)
     {
-        //
+        return view('admin.ten_point_agendas.edit', [
+            'pageTitle' => 'Edit Ten Point Agenda',
+            'ten_point_agenda' => $tenPointAgenda
+        ]);
     }
 
     /**
@@ -66,9 +81,11 @@ class TenPointAgendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, TenPointAgenda $tenPointAgenda)
     {
-        //
+        $tenPointAgenda->update($request->all());
+
+        return redirect()->route('admin.ten_point_agendas.index');
     }
 
     /**
@@ -77,8 +94,8 @@ class TenPointAgendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TenPointAgenda $tenPointAgenda)
     {
-        //
+        $tenPointAgenda->delete();
     }
 }
