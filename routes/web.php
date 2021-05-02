@@ -41,7 +41,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('/admin')->name('admin.')->group(function () {
+Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () {
     Route::resources([
         'approval_levels'       => \App\Http\Controllers\ApprovalLevelController::class,
         'bases'                 =>  \App\Http\Controllers\BasisController::class,

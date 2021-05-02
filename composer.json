@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "^1.7",
-        "barryvdh/laravel-debugbar": "^3.5",
         "barryvdh/laravel-snappy": "^0.4.8",
         "cviebrock/eloquent-sluggable": "^8.0",
         "doctrine/dbal": "^2.5",

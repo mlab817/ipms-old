@@ -18,10 +18,12 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
+        if (! auth()->check()) {
+            return redirect()->route('login');
+        }
 
-        if (!$user || !$user->hasRole('admin')) {
-            abort(403);
+        if (! auth()->user()->isAdmin()) {
+            abort(403, 'Only admins can visit this page.');
         }
 
         return $next($request);
