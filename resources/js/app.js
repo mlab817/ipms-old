@@ -4,8 +4,12 @@ import { createApp } from 'vue'
 
 const el = document.getElementById('app')
 
-const app = createApp({})
+const app = createApp({
+    components: {
+        'notification-button': () => import('./components/NotificationButton.vue'),
+    }
+})
 
-app.component('input-money', require('./components/InputMoney').default)
+console.log(app)
 
 app.mount(el)

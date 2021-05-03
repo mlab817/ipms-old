@@ -19,7 +19,7 @@
     <script src="{{ mix('js/app.js') }}"></script>
 </head>
 <body class="layout-fixed">
-    <div class="wrapper">
+    <div class="wrapper" id="app">
         @include('partials.sidebar')
 
         @include('partials.navbar')
