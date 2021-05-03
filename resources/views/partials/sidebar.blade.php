@@ -173,7 +173,7 @@
                     </ul>
                 </li>
                 @endrole
-                
+
                 @auth
                 <li class="nav-item">
                     <a href="{{ route('settings') }}" class="nav-link {{ request()->routeIs('settings') ? 'active' : '' }}">
