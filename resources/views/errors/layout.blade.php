@@ -1,57 +1,89 @@
-@extends('layouts.app')
-{{-- show error using sidebar.blade.php layout if looged in AND on an admin page; otherwise use a blank page --}}
-
 @php
   $title = 'Error '.$error_number;
 @endphp
 
-@section('after_styles')
-  <style>
-    .error_number {
-      font-size: 156px;
-      font-weight: 600;
-      line-height: 100px;
-    }
-    .error_number small {
-      font-size: 56px;
-      font-weight: 700;
-    }
+<!DOCTYPE html>
+<html lang="{{ config('app.locale') }}">
+<head>
+    <title>Error {{ $error_number }}</title>
 
-    .error_number hr {
-      margin-top: 60px;
-      margin-bottom: 0;
-      width: 50px;
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4b9ba14b0f.js" crossorigin="anonymous"></script>
 
-    .error_title {
-      margin-top: 40px;
-      font-size: 36px;
-      font-weight: 400;
-    }
+    <style>
 
-    .error_description {
-      font-size: 24px;
-      font-weight: 400;
-    }
-  </style>
-@endsection
+        body {
+            background-color: #95c2de;
+        }
 
-@section('content')
-<div class="row">
-  <div class="col-md-12 text-center">
-    <div class="error_number">
-      <small>ERROR</small><br>
-      {{ $error_number }}
-      <hr>
-    </div>
-    <div class="error_title text-muted">
-      @yield('title')
-    </div>
-    <div class="error_description text-muted">
-      <small>
-        @yield('description')
-     </small>
-    </div>
-  </div>
+        .mainbox {
+            background-color: #95c2de;
+            margin: auto;
+            height: 600px;
+            width: 600px;
+            position: relative;
+        }
+
+        .err {
+            color: #ffffff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 11rem;
+            position:absolute;
+            left: 20%;
+            top: 8%;
+        }
+
+        .far {
+            position: absolute;
+            font-size: 8.5rem;
+            left: 42%;
+            top: 15%;
+            color: #ffffff;
+        }
+
+        .err2 {
+            color: #ffffff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 11rem;
+            position:absolute;
+            left: 68%;
+            top: 8%;
+        }
+
+        .msg {
+            text-align: center;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 1.6rem;
+            position:absolute;
+            left: 16%;
+            top: 45%;
+            width: 75%;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="mainbox">
+    @if($error_number == 404)
+        <div class="err">4</div>
+        <i class="far fa-question-circle fa-spin"></i>
+        <div class="err2">4</div>
+        <div class="msg">Maybe this page moved? Got deleted? Is hiding out in quarantine? Never existed in the first place?<p>Let's go <a href="{{ route('dashboard') }}">home</a> and try from there.</p></div>
+    @else
+        <div class="err">{{ $error_number }}</div>
+        <div class="msg">
+            {!! isset($exception)? ($exception->getMessage()?$exception->getMessage():$default_error_message): $default_error_message !!}
+        </div>
+    @endif
+
 </div>
-@endsection
+</body>
+</html>

@@ -19,17 +19,10 @@ class ApprovalLevelTest extends TestCase
     {
         $this->seed(ApprovalLevelsTableSeeder::class);
 
-        $response = $this->getJson(route('api.approval_levels.index'));
+        $response = $this->get(route('admin.approval_levels.index'));
 
         $response
-            ->assertStatus(200);
-
-        $response->assertJsonStructure(['data' => [
-                [
-                    'id',
-                    'name',
-                    'slug',
-                ]
-            ]]);
+            ->assertStatus(200)
+            ->assertSee('Approval Levels');
     }
 }

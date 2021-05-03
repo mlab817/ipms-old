@@ -58,6 +58,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        abort_if(! auth()->user()->hasPermissionTo('projects.create'), 403, 'Unauthorized');
+
         $project = new Project;
 
         return view('projects.create', compact('project'))

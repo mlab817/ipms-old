@@ -14,6 +14,42 @@
     <!-- /.content-header -->
 
     <section class="content">
+        <div class="card card-primary">
+            <div class="card-header">
+                <div class="card-title">
+                    <h1 class="card-title">Roles &amp; Permissions</h1>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        Roles
+                    </div>
+                    <div class="col-sm-10">
+                        @foreach(auth()->user()->roles as $role)
+                            <span class="badge bg-info">
+                                {{ $role->name }}
+                            </span>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        Permissions
+                    </div>
+                    <div class="col-sm-10">
+                        @foreach(auth()->user()->getAllPermissions() as $perm)
+                            <span class="badge bg-info">
+                                {{ $perm->name }}
+                            </span>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
         @if (Session::has('success'))
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

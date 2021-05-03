@@ -58,6 +58,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @can('projects.create')
                         <li class="nav-item">
                             <a href="{{ route('projects.create') }}" class="nav-link @if(Route::current()->getName() == 'projects.create') active @endif">
                                 <i class="nav-icon fas fa-pencil-alt"></i>
@@ -66,6 +67,7 @@
                                 </p>
                             </a>
                         </li>
+                        @endcan
                         <li class="nav-item">
                             <a href="{{ route('projects.index') }}" class="nav-link @if(Route::current()->getName() == 'projects.index') active @endif">
                                 <i class="nav-icon fas fa-th"></i>
@@ -103,7 +105,7 @@
                 </li>
             </ul>
 
-            @admin
+            @role('admin')
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
@@ -143,11 +145,12 @@
                     </ul>
                 </li>
             </ul>
-            @endadmin
+            @endrole
 
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
+                @role('admin')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
@@ -169,6 +172,8 @@
                         @endforeach
                     </ul>
                 </li>
+                @endrole
+                
                 @auth
                 <li class="nav-item">
                     <a href="{{ route('settings') }}" class="nav-link {{ request()->routeIs('settings') ? 'active' : '' }}">

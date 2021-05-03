@@ -16,31 +16,35 @@ use TCG\Voyager\Facades\Voyager;
 
 Route::redirect('/', 'login');
 
-Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->middleware(['auth'])->name('dashboard');
+// Routes secured by authentication
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard');
 
-require __DIR__.'/auth.php';
+    Route::post('/logout_other_devices', \App\Http\Controllers\Auth\LogoutOtherDevicesController::class)->name('logout_other_devices');
+    Route::post('/change_password', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('change_password');
+    Route::get('/settings',\App\Http\Controllers\SettingsController::class)->name('settings');
 
-Route::post('/logout_other_devices', \App\Http\Controllers\Auth\LogoutOtherDevicesController::class)->name('logout_other_devices');
-Route::post('/change_password', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('change_password');
-Route::get('/settings',\App\Http\Controllers\SettingsController::class)->name('settings');
+    Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');
+    Route::get('/projects/own', [\App\Http\Controllers\ProjectController::class,'own'])->name('projects.own');
+    Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
+    Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');
+    Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');
+    Route::put('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'update'])->name('trips.update');
+    Route::post('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'store'])->name('trips.store');
+});
 
-Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');
-Route::get('/projects/own', [\App\Http\Controllers\ProjectController::class,'own'])->name('projects.own');
-Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
-Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');
-Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');
-Route::put('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'update'])->name('trips.update');
-Route::post('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'store'])->name('trips.store');
+// Resources secured by auth
+Route::middleware('auth')->group(function () {
+    Route::resources([
+        'projects' => \App\Http\Controllers\ProjectController::class,
+        'reviews'   => \App\Http\Controllers\ReviewController::class,
+    ]);
+});
 
-Route::resources([
-    'projects' => \App\Http\Controllers\ProjectController::class,
-    'reviews'   => \App\Http\Controllers\ReviewController::class,
-]);
+// auth routes with registration disabled
+Auth::routes(['register' => false]);
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+// Admin routes
 Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () {
     Route::resources([
         'approval_levels'       => \App\Http\Controllers\ApprovalLevelController::class,
@@ -75,21 +79,6 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
     ]);
 });
 
-Route::post('test', function(\Illuminate\Http\Request $request) {
-    $request->validate([
-        'testValue' => 'required|gt:1000',
-    ]);
-    dd($request->testValue);
-})->name('test');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/email', function () {
-    $user = \App\Models\User::find(1);
-
-    event(new \App\Events\UserCreated($user));
-
-//    (new \App\Models\User(['email' => 'test@test.com']))->notify(new \App\Notifications\NewUserNotification($user));
+Route::fallback(function () {
+    return view('errors.404');
 });
