@@ -29,7 +29,7 @@ class ReviewStoreRequest extends FormRequest
             'cip'               => 'required|bool',
             'cip_type_id'       => 'required',
             'trip'              => 'required|bool',
-            'readiness_level_id'=> 'required',
+            'readiness_level_id'=> 'nullable',
             'pipol_code'        => 'nullable',
             'pipol_url'         => 'nullable',
             'pipol_encoded'     => 'nullable|bool',

@@ -3,12 +3,16 @@
 @section('content')
     <div class="mt-3" />
 
-    @if(session()->has('message'))
-        {{ session('message') }}
-    @endif
-
     <section class="content">
         <div class="container-fluid">
+            @if($errors->any())
+                <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+            @endif
+
             <form class="form-horizontal" action="{{ route('reviews.update', $review->getRouteKey()) }}" method="POST">
                 @csrf
                 @method('PUT')
