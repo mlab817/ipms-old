@@ -40,21 +40,25 @@ class ProjectsDataTable extends DataTable
             ->addColumn('created_by', function ($project) {
                 return $project->creator->name ?? '';
             })
-            ->addColumn('action', function ($project) {
-                if ($project->trip_info) {
-                    $tripButton = '<a href="' . route('trips.edit', $project->uuid) . '" class="btn btn-success">TRIP</a>';
+//            ->addColumn('permissions', function ($row) {
+//                return json_encode($row->permissions);
+//            })
+            ->addColumn('action', function ($row) {
+                if ($row->trip_info) {
+                    $tripButton = '<a href="' . route('trips.edit', $row->uuid) . '" class="btn btn-success">TRIP</a>';
                 } else {
-                    $tripButton = '<a href="' . route('trips.create', $project->uuid) . '" class="btn btn-success">TRIP</a>';
+                    $tripButton = '<a href="' . route('trips.create', $row->uuid) . '" class="btn btn-success">TRIP</a>';
                 }
 
-                return '
-                <div class="btn-group-vertical">
-                    <a href="' . route('projects.show', $project->uuid) . '" class="btn btn-primary">View</a>
-                    <a href="' . route('projects.edit', $project->uuid) . '" class="btn btn-secondary">Edit</a>'
-                    .$tripButton.
-                    '<button class="btn btn-danger" onClick="confirmDelete(\''. $project->uuid .'\')">Delete</button>
-                </div>
-                ';
+                $viewButton = $row->permissions['view'] ? '<a href="' . route('projects.show', $row->uuid) . '" class="btn btn-primary">View</a>' : '';
+                $editButton = $row->permissions['update'] ? '<a href="' . route('projects.edit', $row->uuid) . '" class="btn btn-secondary">Edit</a>' . $tripButton : '';
+                $deleteButton = $row->permissions['delete'] ? '<button class="btn btn-danger" onClick="confirmDelete(\''. $row->uuid .'\')">Delete</button>' : '';
+
+                return '<div class="btn-group-vertical">'
+                    . $viewButton
+                    . $editButton
+                    . $deleteButton
+                    . '</div>';
             });
     }
 
@@ -113,6 +117,7 @@ class ProjectsDataTable extends DataTable
             Column::make('updated_at')
                 ->title('Last Updated')
                 ->addClass('text-center'),
+//            Column::make('permissions'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

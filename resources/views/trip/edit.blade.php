@@ -422,39 +422,39 @@
                                                        value="{{ $fs->region_id }}">
                                                 {{ $fs->region->name }}
                                             </th>
-                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2016 money form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->region_id}} region_infrastructures_2016 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2016]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2016", $fs->y2016 ?? 0) }}">
                                             </td>
-                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2017 money form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->region_id}} region_infrastructures_2017 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2017]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2017", $fs->y2017 ?? 0) }}">
                                             </td>
-                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2018 money form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->region_id}} region_infrastructures_2018 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2018]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2018", $fs->y2018 ?? 0) }}">
                                             </td>
-                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2019 money form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->region_id}} region_infrastructures_2019 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2019]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2019", $fs->y2019 ?? 0) }}">
                                             </td>
-                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2020 money form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->region_id}} region_infrastructures_2020 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2020]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2020", $fs->y2020 ?? 0) }}">
                                             </td>
-                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2021 money form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->region_id}} region_infrastructures_2021 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2021]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2021", $fs->y2021 ?? 0) }}">
                                             </td>
-                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2022 money form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->region_id}} region_infrastructures_2022 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2022]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2022", $fs->y2022 ?? 0) }}">
                                             </td>
-                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2023 money form-control text-right"
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->region_id}} region_infrastructures_2023 money form-control text-right"
                                                        name="region_infrastructures[{{$fs->id}}][y2023]"
                                                        value="{{ old("region_infrastructures.{$fs->id}.y2023", $fs->y2023 ?? 0) }}">
                                             </td>
-                                            <td><input type="text" class="form-control text-right" id="region_infrastructures_{{$fs->id}}_total" readonly></td>
+                                            <td><input type="text" class="form-control text-right" id="region_infrastructures_{{$fs->region_id}}_total" readonly></td>
                                         </tr>
                                     @endforeach
                                     </tbody>

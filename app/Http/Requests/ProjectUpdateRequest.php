@@ -90,6 +90,7 @@ class ProjectUpdateRequest extends FormRequest
                 'y2022'     => str_replace(',', '', $this->disbursement['y2022']),
                 'y2023'     => str_replace(',', '', $this->disbursement['y2023']),
             ],
+            'total_project_cost' => str_replace(',', '', $this->total_project_cost)
         ]);
     }
 

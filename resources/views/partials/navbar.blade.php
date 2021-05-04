@@ -96,8 +96,8 @@
             </div>
         </li>
 
-        <notification-button></notification-button>
         <!-- Notifications Dropdown Menu -->
+        @include('partials.notifications')
 
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -107,10 +107,4 @@
     </ul>
 </nav>
 <!-- /.navbar -->
-<script type="module">
-    import NotificationButton from "../../js/components/NotificationButton";
 
-    export default {
-        components: { NotificationButton }
-    }
-</script>

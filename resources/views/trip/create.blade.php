@@ -129,7 +129,7 @@
                                         </div>
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" value="0" name="has_row" @if(old('has_row') == 1) checked @endif>
+                                                <input type="radio" class="form-check-input" value="0" name="has_row" @if(old('has_row') == 0) checked @endif>
                                                 No
                                             </label>
                                         </div>
@@ -193,7 +193,7 @@
                                 <div class="form-group row">
                                     <label for="right_of_way[affected_households]" class="col-sm-2">No. of affected households</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="right_of_way[affected_households]" value="{{ old('right_of_way[affected_households]', $project->right_of_way->affected_households ?? 0) }}">
+                                        <input type="text" class="form-control" name="right_of_way[affected_households]" value="{{ old('right_of_way.affected_households') }}">
                                     </div>
                                 </div>
 
@@ -205,13 +205,13 @@
                                     <div class="col-sm-10">
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" value="1" name="has_rap" @if(old('has_rap') == 1 || $project->has_rap == 1) checked @endif>
+                                                <input type="radio" class="form-check-input" value="1" name="has_rap" @if(old('has_rap') == 1) checked @endif>
                                                 Yes
                                             </label>
                                         </div>
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" value="0" name="has_rap" @if(old('has_rap') == 0 || $project->has_rap == 0) checked @endif>
+                                                <input type="radio" class="form-check-input" value="0" name="has_rap" @if(old('has_rap') == 0) checked @endif>
                                                 No
                                             </label>
                                         </div>

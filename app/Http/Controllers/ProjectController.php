@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ProjectsDataTable;
+use App\DataTables\Scopes\AssignedProjectsDataTableScope;
 use App\DataTables\Scopes\OfficeProjectsDataTableScope;
 use App\DataTables\Scopes\OwnProjectsDataTableScope;
 use App\Http\Requests\ProjectUpdateRequest;
@@ -253,5 +254,12 @@ class ProjectController extends Controller
         return $dataTable
             ->addScope(new OfficeProjectsDataTableScope)
             ->render('projects.index', ['pageTitle' => 'Office Projects']);
+    }
+
+    public function assigned(ProjectsDataTable $dataTable)
+    {
+        return $dataTable
+            ->addScope(new AssignedProjectsDataTableScope)
+            ->render('projects.index', ['pageTitle' => 'Assigned Projects']);
     }
 }

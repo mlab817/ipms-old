@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/change_password', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('change_password');
     Route::get('/settings',\App\Http\Controllers\SettingsController::class)->name('settings');
 
+    Route::get('/projects/assigned', [\App\Http\Controllers\ProjectController::class,'assigned'])->name('projects.assigned');
     Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');
     Route::get('/projects/own', [\App\Http\Controllers\ProjectController::class,'own'])->name('projects.own');
     Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
@@ -31,6 +32,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');
     Route::put('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'update'])->name('trips.update');
     Route::post('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'store'])->name('trips.store');
+
+    Route::get('/trips', [\App\Http\Controllers\TripController::class, 'index'])->name('trips.index');
 });
 
 // Resources secured by auth
@@ -76,6 +79,8 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
         'ten_point_agendas'     => \App\Http\Controllers\TenPointAgendaController::class,
         'tiers'                 => \App\Http\Controllers\TierController::class,
         'users'                 => \App\Http\Controllers\UserController::class,
+        'projects'              => \App\Http\Controllers\AdminProjectController::class,
+        'projects.users'        => \App\Http\Controllers\ProjectUserController::class,
     ]);
 });
 

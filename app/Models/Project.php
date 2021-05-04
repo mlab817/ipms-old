@@ -323,6 +323,12 @@ class Project extends Model
         return $this->belongsTo(Tier::class);
     }
 
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class,'project_user_permission','project_id','user_id','id','id')
+            ->withPivot('read','update','delete','review','comment');
+    }
+
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class,'created_by','id');
@@ -407,6 +413,11 @@ class Project extends Model
         }
 
         return $query;
+    }
+
+    public function scopeTrip($query)
+    {
+        return $query->where('has_infra', true);
     }
 
     /**

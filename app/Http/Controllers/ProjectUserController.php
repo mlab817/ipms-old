@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\ProjectUserStoreRequest;
+use App\Http\Requests\ProjectUserUpdateRequest;
+use App\Models\Project;
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class ProjectUserController extends Controller
+{
+    public $project;
+
+    public function __construct(Project $project)
+    {
+        $this->project = $project;
+    }
+
+    public function index(Project $project)
+    {
+        return view('admin.projects.users.index', [
+            'pageTitle' => 'Manage Access: ' . $project->title,
+            'project' => $project,
+            'users' => $project->users
+        ]);
+    }
+
+    public function create(Project $project)
+    {
+        return view('admin.projects.users.create', [
+            'pageTitle' => 'Add User to Project',
+            'users' => User::all(),
+            'project' => $project,
+        ]);
+    }
+
+    public function store(ProjectUserStoreRequest $request, Project $project)
+    {
+        $project->users()->attach($request->user_id, [
+            'read' => $request->read ?? 0,
+            'update' => $request->update ?? 0,
+            'delete' => $request->delete ?? 0,
+            'review' => $request->review ?? 0,
+            'comment' => $request->comment ?? 0,
+        ]);
+
+        return redirect()->route('admin.projects.users.index', $project->getRouteKey());
+    }
+
+    public function show()
+    {
+
+    }
+
+    public function edit(Project $project, User $user)
+    {
+        $user = $project->users->find($user->id);
+
+        return view('admin.projects.users.edit', [
+            'project' => $project,
+            'user' => $user,
+        ]);
+    }
+
+    public function update(ProjectUserUpdateRequest $request, Project $project, User $user)
+    {
+        $project->users()->updateExistingPivot($user->id, [
+            'read'      => $request->read,
+            'update'    => $request->update,
+            'delete'    => $request->delete,
+            'review'    => $request->review,
+            'comment'   => $request->comment,
+        ]);
+
+        return redirect()->route('admin.projects.users.index', [
+            'project' => $project,
+        ]);
+    }
+
+    public function destroy(Project $project, User $user)
+    {
+        $project->users()->detach($user->id);
+
+        return redirect()->route('admin.projects.users.index', [
+            'project' => $project,
+        ]);
+    }
+}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\Scopes\TripsDataTableScope;
 use App\DataTables\TripDataTable;
 use App\Http\Requests\TripStoreRequest;
 use App\Http\Requests\TripUpdateRequest;
@@ -21,7 +22,9 @@ class TripController extends Controller
 {
     public function index(TripDataTable $dataTable)
     {
-        return $dataTable->render('trip.index');
+        return $dataTable
+            ->addScope(new TripsDataTableScope)
+            ->render('projects.index');
     }
 
     public function create(Project $project)
@@ -45,9 +48,9 @@ class TripController extends Controller
 
     public function edit(Project $project)
     {
-        $project->load('infrastructure_sectors','infrastructure_subsectors','fs_infrastructures','region_infrastructures','right_of_way','resettlement_action_plan');
+        abort_unless(auth()->user()->can('projects.update'), 403);
 
-//        dd($project->right_of_way);
+        $project->load('infrastructure_sectors','infrastructure_subsectors','fs_infrastructures','region_infrastructures','right_of_way','resettlement_action_plan');
 
         return view('trip.edit', [
             'pageTitle'                 => 'Edit TRIP Information: '. strtoupper($project->title),

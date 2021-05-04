@@ -92,6 +92,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('projects.assigned') }}" class="nav-link @if(Route::current()->getName() == 'projects.assigned') active @endif">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    View Assigned
+                                </p>
+                            </a>
+                        </li>
                         <div class="dropdown-divider"></div>
                         <li class="nav-item">
                             <a href="{{ route('reviews.index') }}" class="nav-link @if(Route::current()->getName() == 'reviews.index') active @endif">
@@ -139,6 +147,14 @@
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Permissions
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.projects.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.permissions.index') active @endif">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Projects
                                 </p>
                             </a>
                         </li>
