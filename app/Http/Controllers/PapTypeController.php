@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\PapTypesDataTable;
+use App\Models\PapType;
 use Illuminate\Http\Request;
 
 class PapTypeController extends Controller
@@ -11,9 +13,11 @@ class PapTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PapTypesDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.pap_types.index', [
+            'pageTitle' => 'PAP Types',
+        ]);
     }
 
     /**
@@ -77,8 +81,10 @@ class PapTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PapType $papType)
     {
-        //
+        $papType->delete();
+
+        return redirect()->route('admin.pap_types.index');
     }
 }

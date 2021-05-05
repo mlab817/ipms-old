@@ -26,8 +26,8 @@ class DashboardController extends Controller
             'pageTitle'     => 'Dashboard',
             'programCount'  => Project::where('pap_type_id', 1)->count(),
             'projectCount'  => Project::where('pap_type_id', 2)->count(),
-            'tripCount'     => Project::where('trip', 1)->count(),
-            'userCount'     => User::count(),
+            'tripCount'     => Review::where('trip', 1)->count(),
+            'pipCount'     => Review::where('pip', 1)->count(),
             'chart'         => $chart,
         ]);
     }

@@ -25,7 +25,6 @@ class OperatingUnitFactory extends Factory
         $company = $this->faker->company;
 
         return [
-            'uuid'  => Str::uuid(),
             'name'  => $company,
             'slug'  => Str::slug($company),
         ];

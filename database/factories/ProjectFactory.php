@@ -96,6 +96,8 @@ class ProjectFactory extends Factory
             'updates_date'                  => $this->faker->date(),
             'uacs_code'                     => $this->faker->ean13, // barcode
             'tier_id'                       => Tier::all()->random()->id,
+            'total_project_cost'            => $this->faker->randomFloat() * 1000,
+            'created_by'                    => User::factory()->create(),
         ];
     }
 }

@@ -1,36 +1,8 @@
-// Admin LTE
-@import '~admin-lte';
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
-// Bootstrap Datatable
-@import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
-@import "~datatables.net-buttons-bs4/css/buttons.bootstrap4.css";
+// Variables
+@import 'variables';
 
-// Font Awesome Icons
-$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/brands';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/v4-shims';
-
-// import toaster
-@import '~toastr';
-
-@import "~select2/dist/css/select2.css";
-@import '~@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4';
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-    -moz-appearance: textfield;
-}
-
-.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-    background-color: white;
-}
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';

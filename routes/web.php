@@ -20,8 +20,8 @@ Route::redirect('/', 'login');
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard');
 
-    Route::post('/logout_other_devices', \App\Http\Controllers\Auth\LogoutOtherDevicesController::class)->name('logout_other_devices');
-    Route::post('/change_password', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('change_password');
+//    Route::post('/logout_other_devices', \App\Http\Controllers\Auth\LogoutOtherDevicesController::class)->name('logout_other_devices');
+//    Route::post('/change_password', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('change_password');
     Route::get('/settings',\App\Http\Controllers\SettingsController::class)->name('settings');
 
     Route::get('/projects/assigned', [\App\Http\Controllers\ProjectController::class,'assigned'])->name('projects.assigned');
@@ -51,7 +51,6 @@ Route::middleware('auth')->group(function () {
 });
 
 // auth routes with registration disabled
-Auth::routes(['register' => false]);
 
 // Admin routes
 Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () {
@@ -89,6 +88,8 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
         'projects.users'        => \App\Http\Controllers\ProjectUserController::class,
     ]);
 });
+
+Auth::routes(['register' => false]);
 
 Route::fallback(function () {
     return view('errors.404');

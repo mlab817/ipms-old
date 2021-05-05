@@ -44,11 +44,11 @@
             <!-- /.col -->
             <div class="col-md-3 col-sm-6 col-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-danger"><i class="fas fa-users"></i></span>
+                    <span class="info-box-icon bg-danger"><i class="fas fa-tasks"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Users</span>
-                        <span class="info-box-number">{{ $userCount }}</span>
+                        <span class="info-box-text">PIP</span>
+                        <span class="info-box-number">{{ $pipCount }}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>

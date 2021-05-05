@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "^1.7",
-        "barryvdh/laravel-debugbar": "^3.5",
         "barryvdh/laravel-snappy": "^0.4.8",
         "beyondcode/laravel-websockets": "^1.12",
         "consoletvs/charts": "^6.5",
@@ -35,6 +34,7 @@
         "yajra/laravel-datatables-buttons": "^4.13"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.5",
         "barryvdh/laravel-ide-helper": "^2.10",
         "brianium/paratest": "^6.1",
         "facade/ignition": "^2.5",
