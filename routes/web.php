@@ -27,6 +27,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/projects/assigned', [\App\Http\Controllers\ProjectController::class,'assigned'])->name('projects.assigned');
     Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');
     Route::get('/projects/own', [\App\Http\Controllers\ProjectController::class,'own'])->name('projects.own');
+
+    Route::post('/projects/{project}/subprojects', [\App\Http\Controllers\SubprojectController::class, 'store'])->name('subprojects.store');
+    Route::get('/projects/{project}/subprojects', [\App\Http\Controllers\SubprojectController::class, 'index'])->name('subprojects.index');
+    Route::get('/projects/{project}/subprojects/create', [\App\Http\Controllers\SubprojectController::class, 'create'])->name('subprojects.create');
+
     Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
     Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');
     Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');
@@ -38,6 +43,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 // Resources secured by auth
 Route::middleware('auth')->group(function () {
+    Route::resource('subprojects',\App\Http\Controllers\SubprojectController::class)->except('index','create','store');
     Route::resources([
         'projects' => \App\Http\Controllers\ProjectController::class,
         'reviews'   => \App\Http\Controllers\ReviewController::class,

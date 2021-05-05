@@ -29,7 +29,7 @@ class ProjectUserController extends Controller
     public function create(Project $project)
     {
         return view('admin.projects.users.create', [
-            'pageTitle' => 'Add User to Project',
+            'pageTitle' => 'Add User Access to Project',
             'users' => User::all(),
             'project' => $project,
         ]);
@@ -60,6 +60,7 @@ class ProjectUserController extends Controller
         return view('admin.projects.users.edit', [
             'project' => $project,
             'user' => $user,
+            'pageTitle' => 'Edit User Access to Project',
         ]);
     }
 

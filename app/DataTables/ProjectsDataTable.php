@@ -45,13 +45,13 @@ class ProjectsDataTable extends DataTable
 //            })
             ->addColumn('action', function ($row) {
                 if ($row->trip_info) {
-                    $tripButton = '<a href="' . route('trips.edit', $row->uuid) . '" class="btn btn-success">TRIP</a>';
+                    $tripButton = '<a href="' . route('trips.edit', $row->uuid) . '" class="btn btn-success btn-sm">TRIP</a>';
                 } else {
-                    $tripButton = '<a href="' . route('trips.create', $row->uuid) . '" class="btn btn-success">TRIP</a>';
+                    $tripButton = '<a href="' . route('trips.create', $row->uuid) . '" class="btn btn-success btn-sm">TRIP</a>';
                 }
 
-                $viewButton = $row->permissions['view'] ? '<a href="' . route('projects.show', $row->uuid) . '" class="btn btn-primary">View</a>' : '';
-                $editButton = $row->permissions['update'] ? '<a href="' . route('projects.edit', $row->uuid) . '" class="btn btn-secondary">Edit</a>' . $tripButton : '';
+                $viewButton = $row->permissions['view'] ? '<a href="' . route('projects.show', $row->uuid) . '" class="btn btn-primary btn-sm">View</a>' : '';
+                $editButton = $row->permissions['update'] ? '<a href="' . route('projects.edit', $row->uuid) . '" class="btn btn-secondary btn-sm">Edit</a>' . $tripButton : '';
                 $deleteButton = $row->permissions['delete'] ? '<button class="btn btn-danger" onClick="confirmDelete(\''. $row->uuid .'\')">Delete</button>' : '';
 
                 return '<div class="btn-group-vertical">'

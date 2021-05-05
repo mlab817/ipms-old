@@ -151,7 +151,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.projects.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.permissions.index') active @endif">
+                            <a href="{{ route('admin.projects.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.projects.index') active @endif">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Projects

@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\Sdg;
+use App\Models\Subproject;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class SdgsDataTable extends DataTable
+class SubprojectsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,9 +21,12 @@ class SdgsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function($row) {
+            ->addColumn('operating_unit', function ($row) {
+                return $row->operating_unit->name ?? '';
+            })
+            ->addColumn('action', function ($row) {
                 return '
-                    <a href="'.route('admin.sdgs.edit', $row->slug).'" class="btn btn-info btn-sm">Edit</a>
+                    <a href="'. route('subprojects.edit', $row->id) .'" class="btn btn-primary btn-sm">Edit</a>
                 ';
             });
     }
@@ -31,10 +34,10 @@ class SdgsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Sdg $model
+     * @param \App\Models\Subproject $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Sdg $model)
+    public function query(Subproject $model)
     {
         return $model->newQuery();
     }
@@ -47,11 +50,11 @@ class SdgsDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('sdgs-table')
+                    ->setTableId('subprojects-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(0, 'asc')
+                    ->orderBy(1)
                     ->buttons(
                         Button::make('create'),
                         Button::make('export'),
@@ -70,8 +73,13 @@ class SdgsDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('name'),
+            Column::make('operating_unit'),
+            Column::make('title'),
             Column::make('description'),
+            Column::make('expected_outputs'),
+            Column::make('total_cost'),
+            Column::make('funding_year'),
+            Column::make('updated_at'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -87,6 +95,6 @@ class SdgsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Sdgs_' . date('YmdHis');
+        return 'Subprojects_' . date('YmdHis');
     }
 }

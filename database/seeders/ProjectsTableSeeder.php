@@ -26,7 +26,6 @@ class ProjectsTableSeeder extends Seeder
     {
         Project::unsetEventDispatcher();
 
-
         Project::factory()
             ->has(RightOfWay::factory(),'right_of_way')
             ->has(ResettlementActionPlan::factory(),'resettlement_action_plan')

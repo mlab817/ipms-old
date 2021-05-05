@@ -14,7 +14,7 @@
                             @error('name')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name">Description</label>
                             <textarea class="form-control @error('description'){{ 'is-invalid' }}@enderror" name="name" id="description" placeholder="Description">{{ old('name', $sdg->description) }}</textarea>
                             @error('description')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
                         </div>

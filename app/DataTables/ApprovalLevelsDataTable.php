@@ -23,7 +23,7 @@ class ApprovalLevelsDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function ($approvalLevel) {
                 return '
-                    <a href="' . route('admin.approval_levels.edit', $approvalLevel->slug) .'" class="btn btn-secondary">Edit</a>
+                    <a href="' . route('admin.approval_levels.edit', $approvalLevel->slug) .'" class="btn btn-secondary btn-sm">Edit</a>
                 ';
             });
     }

@@ -313,6 +313,11 @@ class Project extends Model
         return $this->belongsToMany(Sdg::class);
     }
 
+    public function subprojects(): HasMany
+    {
+        return $this->hasMany(Subproject::class);
+    }
+
     public function ten_point_agendas(): BelongsToMany
     {
         return $this->belongsToMany(TenPointAgenda::class,'project_ten_point_agenda','project_id','tpa_id','id','id');

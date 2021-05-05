@@ -12,7 +12,7 @@ use Spatie\Permission\Models\Role;
 class RoleController extends Controller
 {
     const INDEX_PAGE = 'admin.roles.index';
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +33,7 @@ class RoleController extends Controller
     public function create()
     {
         return view('admin.roles.create', [
-            'pageTitle' => 'Add Role',
+            'pageTitle' => 'Create Role',
             'permissions' => Permission::all(),
             'guards'        => [
                 'web'   => 'web',
@@ -103,9 +103,9 @@ class RoleController extends Controller
             'name' => $request->name,
             'guard_name' => $request->guard_name,
         ]);
-        
+
         $role->givePermissionTo($request->permissions);
-        
+
         return redirect()->route(self::INDEX_PAGE);
     }
 

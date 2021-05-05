@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Add PDP RM Indicator</h3>
+                    <h3 class="card-title">{{ $pageTitle }}</h3>
                 </div>
                 <form action="{{ route('admin.pdp_indicators.update', ['pdp_indicator' => $pdp_indicator->id]) }}" method="POST">
                     @csrf

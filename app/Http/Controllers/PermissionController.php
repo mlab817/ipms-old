@@ -32,7 +32,7 @@ class PermissionController extends Controller
     public function create()
     {
         return view('admin.permissions.create', [
-            'pageTitle' => 'Add Permission',
+            'pageTitle' => 'Create Permission',
             'guards' => Permission::GUARDS,
         ]);
     }

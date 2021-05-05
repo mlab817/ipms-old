@@ -30,7 +30,7 @@ class BasisController extends Controller
     public function create()
     {
         return view('admin.bases.form', [
-            'pageTitle' => 'Create Implemenetation Basis',
+            'pageTitle' => 'Create Implementation Basis',
             'basis'     => new Basis,
             'route'     => route('admin.bases.store'),
             'method'    => 'POST',
