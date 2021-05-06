@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
 
 // Admin routes
 Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () {
+    Route::get('', \App\Http\Controllers\AdminController::class)->name('index');
     Route::resources([
         'approval_levels'       => \App\Http\Controllers\ApprovalLevelController::class,
         'bases'                 =>  \App\Http\Controllers\BasisController::class,
