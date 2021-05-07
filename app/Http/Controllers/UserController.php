@@ -6,6 +6,7 @@ use App\DataTables\UsersDataTable;
 use App\Events\UserCreated;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\Office;
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,6 +14,11 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,6 +42,7 @@ class UserController extends Controller
             'pageTitle' => 'Add New User',
             'roles'     => Role::all(),
             'offices'   => Office::all(),
+            'permissions'=> Permission::all(),
         ]);
     }
 
@@ -55,6 +62,7 @@ class UserController extends Controller
         ]);
 
         $user->assignRole($request->roles);
+        $user->syncPermissions($request->permissions);
 
         event(new UserCreated($user));
 
@@ -85,6 +93,7 @@ class UserController extends Controller
             'roles'     => Role::all(),
             'user'      => $user,
             'offices'   => Office::all(),
+            'permissions'=> Permission::all(),
         ]);
     }
 
@@ -103,6 +112,7 @@ class UserController extends Controller
         ]);
 
         $user->roles()->sync($request->roles);
+        $user->syncPermissions($request->permissions);
 
         return redirect()->route('admin.users.index');
     }

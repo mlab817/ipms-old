@@ -66,6 +66,21 @@
                                 </div>
 
                                 <div class="form-group row">
+                                    <label for="has_subprojects" class="col-form-label col-sm-2">Does this PAP have subprojects/activities?  <i class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input" type="radio" name="has_subprojects" value="1" @if(old('has_subprojects') == 1) checked @endif>
+                                            <label class="form-check-label">Yes</label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input" type="radio" name="has_subprojects" value="0" @if(old('has_subprojects') == 0) checked @endif>
+                                            <label class="form-check-label">No</label>
+                                        </div>
+                                        @error('has_subprojects')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <label for="has_infra" class="col-form-label col-sm-2">Does this PAP have INFRASTRUCTURE component/s?  <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-10">
                                         <div class="form-check-inline">
@@ -135,6 +150,30 @@
 
                             </div>
 
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">{{ __("Implementing Agencies") }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label for="regions" class="col-form-label col-sm-2">Implementing Agencies <i class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-10">
+                                        @foreach($operating_units as $option)
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input @error('operating_units') text-danger @enderror" type="checkbox" name="operating_units[]" value="{{ $option->id }}" {{ in_array($option->id, old('operating_units') ?? []) ? 'checked' : '' }}>
+                                                    {{ $option->name }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                        @error('operating_units')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -545,7 +584,7 @@
                                                 <div class="ml-4">
                                                     <div class="form-check">
                                                         <label class="form-check-label" for="pdp_outcome_{{$pi2->id}}">
-                                                            <input type="checkbox" class="form-check-input pdp_indicators" value="{{$pi2->id}}" name="pdp_indicators[]" @if(in_array($pi2->id, old('pdp_indicators') ?? [])) checked @endif>
+                                                            <input type="checkbox" class="form-check-input pdp_indicators" id="pdp_outcome_{{$pi2->id}}" value="{{$pi2->id}}" name="pdp_indicators[]" @if(in_array($pi2->id, old('pdp_indicators') ?? [])) checked @endif>
                                                             {{ $pi2->name }}
                                                         </label>
                                                     </div>
@@ -554,7 +593,7 @@
                                                         <div class="ml-4">
                                                             <div class="form-check">
                                                                 <label class="form-check-label" for="pdp_suboutcome_{{$pi3->id}}">
-                                                                    <input type="checkbox" class="form-check-input pdp_indicators" value="{{$pi3->id}}" name="pdp_indicators[]" @if(in_array($pi3->id, old('pdp_indicators') ?? [])) checked @endif>
+                                                                    <input type="checkbox" class="form-check-input pdp_indicators" id="pdp_suboutcome_{{$pi3->id}}" value="{{$pi3->id}}" name="pdp_indicators[]" @if(in_array($pi3->id, old('pdp_indicators') ?? [])) checked @endif>
                                                                     {{ $pi3->name }}
                                                                 </label>
                                                             </div>
@@ -562,7 +601,7 @@
                                                                 <div class="ml-4">
                                                                     <div class="form-check">
                                                                         <label class="form-check-label" for="pdp_output_{{$pi4->id}}">
-                                                                            <input type="checkbox" class="form-check-input pdp_indicators" value="{{$pi4->id}}" name="pdp_indicators[]" @if(in_array($pi4->id, old('pdp_indicators') ?? [])) checked @endif>
+                                                                            <input type="checkbox" class="form-check-input pdp_indicators" id="pdp_output_{{$pi4->id}}" value="{{$pi4->id}}" name="pdp_indicators[]" @if(in_array($pi4->id, old('pdp_indicators') ?? [])) checked @endif>
                                                                             {{ $pi4->name }}
                                                                         </label>
                                                                     </div>

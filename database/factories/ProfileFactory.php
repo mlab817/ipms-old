@@ -25,7 +25,7 @@ class ProfileFactory extends Factory
         return [
             'nickname'  => $this->faker->name,
             'avatar'    => $this->faker->imageUrl(),
-            'office_id' => Office::factory(),
+            'office_id' => Office::all()->random()->id,
         ];
     }
 }

@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 
 class SubprojectController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Subproject::class);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,13 +24,11 @@ class SubprojectController extends Controller
      * @param Project $project
      * @return \Illuminate\Http\Response
      */
-    public function index(SubprojectsDataTable $dataTable, Project $project)
+    public function index(SubprojectsDataTable $dataTable)
     {
         return $dataTable
-            ->addScope(new ProjectDataTableScope($project))
             ->render('subprojects.index', [
-                'pageTitle' => 'Subprojects for '. $project->title,
-                'project'   => $project,
+                'pageTitle' => 'Subprojects',
             ]);
     }
 
@@ -35,15 +37,14 @@ class SubprojectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Project $project)
+    public function create()
     {
         return view('subprojects.create', [
             'pageTitle'         => 'Add Subproject',
-            'project'           => $project,
-            // TODO: Filter OUs only that are selected as implementer of the Project
-            // $project->implementing_agencies
             'operating_units'   => OperatingUnit::all(),
             'years'             => config('ipms.editor.years'),
+            // TODO: This can be scoped
+            'projects'          => Project::hasSubprojects()->get(),
         ]);
     }
 
@@ -53,13 +54,11 @@ class SubprojectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SubprojectStoreRequest $request, Project $project)
+    public function store(SubprojectStoreRequest $request)
     {
-        $project->subprojects()->create($request->all());
+        Subproject::create($request->all());
 
-        return redirect()->route('subprojects.index', [
-            'project' => $project
-        ]);
+        return redirect()->route('subprojects.index');
     }
 
     /**

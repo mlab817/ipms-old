@@ -41,6 +41,7 @@ class SubprojectUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'project_id'        => 'required|exists:projects,id',
             'title'             => 'required|max:191',
 //            'operating_unit_id' => 'required',
             'description'       => 'required',

@@ -143,12 +143,7 @@
         }
 
         $doc.ready(function () {
-            let noPdpIndicator = htmlElements.pdpIndicatorCheckbox.prop('checked')
-            togglePdpIndicators(noPdpIndicator)
-
             initializeSelect2()
-
-            filterPdpIndicators()
 
             $('.money').each(function() {
                 $(this).val(formatToMoney($(this).val()))

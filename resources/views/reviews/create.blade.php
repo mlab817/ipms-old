@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <div class="mt-3" />
@@ -7,17 +7,16 @@
         <div class="container-fluid">
             <form class="form-horizontal" action="{{ route('reviews.store') }}" method="POST">
                 @csrf
-                <div class="card card-info">
-                    <div class="card-header">
-                        <div class="card-title">Reviewing: {{ $project->title }}</div>
-                    </div>
-                </div>
 
                 <div class="card card-primary">
                     <div class="card-header">
                         <h1 class="card-title">Project Classification</h1>
                     </div>
                     <div class="card-body">
+                        <div class="row text-center mb-3">
+                            <a href="{{ route('projects.show', $project) }}" target="_blank">View Project Info</a>
+                        </div>
+
                         <input type="hidden" name="project_id" value="{{ $project->id }}">
 
                         <div class="form-group row">
@@ -120,7 +119,7 @@
 
                 <div class="card card-primary">
                     <div class="card-header">
-                        <div class="card-title">PIPOL Information &amp;amp; Status</div>
+                        <div class="card-title">PIPOL Information &amp; Status</div>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">

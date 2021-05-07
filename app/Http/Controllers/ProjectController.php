@@ -6,6 +6,7 @@ use App\DataTables\ProjectsDataTable;
 use App\DataTables\Scopes\AssignedProjectsDataTableScope;
 use App\DataTables\Scopes\OfficeProjectsDataTableScope;
 use App\DataTables\Scopes\OwnProjectsDataTableScope;
+use App\DataTables\Scopes\ProjectsDataTableScope;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\ApprovalLevel;
@@ -18,6 +19,7 @@ use App\Models\FundingSource;
 use App\Models\Gad;
 use App\Models\ImplementationMode;
 use App\Models\InfrastructureSector;
+use App\Models\OperatingUnit;
 use App\Models\PapType;
 use App\Models\PdpChapter;
 use App\Models\PdpIndicator;
@@ -38,7 +40,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
-    const PROJECTS_INDEX = 'projects.index';
+    const PROJECTS_INDEX = 'projects.own';
 
     /**
      * Display a listing of the resource.
@@ -87,6 +89,7 @@ class ProjectController extends Controller
                 'tiers'                     => Tier::all(),
                 'preparation_documents'     => PreparationDocument::all(),
                 'fs_statuses'               => FsStatus::all(),
+                'operating_units'           => OperatingUnit::all(),
             ]);
     }
 
@@ -106,7 +109,9 @@ class ProjectController extends Controller
         $project->funding_sources()->sync($request->funding_sources);
         $project->sdgs()->sync($request->sdgs);
         $project->pdp_chapters()->sync($request->pdp_chapters);
+        $project->pdp_indicators()->sync($request->pdp_indicators);
         $project->ten_point_agendas()->sync($request->ten_point_agendas);
+        $project->operating_units()->sync($request->operating_units);
 
         $project->fs_investments()->createMany($request->fs_investments);
         $project->region_investments()->createMany($request->region_investments);
@@ -156,7 +161,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $project->load('bases','regions','pdp_chapters','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep','feasibility_study');
+        $project->load('bases','regions','pdp_chapters','pdp_indicators','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep','feasibility_study');
 
         return view('projects.edit', compact('project'))
             ->with('pageTitle', 'Edit Project')
@@ -184,6 +189,7 @@ class ProjectController extends Controller
                 'tiers'                     => Tier::all(),
                 'preparation_documents'     => PreparationDocument::all(),
                 'fs_statuses'               => FsStatus::all(),
+                'operating_units'           => OperatingUnit::all(),
             ]);
     }
 
@@ -203,7 +209,9 @@ class ProjectController extends Controller
         $project->funding_sources()->sync($request->funding_sources);
         $project->sdgs()->sync($request->sdgs);
         $project->pdp_chapters()->sync($request->pdp_chapters);
+        $project->pdp_indicators()->sync($request->pdp_indicators);
         $project->ten_point_agendas()->sync($request->ten_point_agendas);
+        $project->operating_units()->sync($request->operating_units);
 
         foreach ($request->fs_investments as $fs_investment) {
             $fsToEdit = FsInvestment::where('project_id', $project->id)->where('fs_id', $fs_investment['fs_id'])->first();

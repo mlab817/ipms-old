@@ -153,6 +153,30 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
+                                <h3 class="card-title">{{ __("Implementing Agencies") }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label for="regions" class="col-form-label col-sm-2">Implementing Agencies <i class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-10">
+                                        @foreach($operating_units as $option)
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input @error('operating_units') text-danger @enderror" type="checkbox" name="operating_units[]" value="{{ $option->id }}" {{ in_array($option->id, old('operating_units', $project->operating_units()->pluck('id')->toArray() ?? []) ?? []) ? 'checked' : '' }}>
+                                                    {{ $option->name }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                        @error('operating_units')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
                                 <h3 class="card-title">{{ __("Spatial Coverage") }}</h3>
                             </div>
                             <div class="card-body">
@@ -618,7 +642,7 @@
 
                                 <div id="pdp_indicators_group" class="form-group mt-2">
                                     @foreach ($pdp_indicators as $pi1)
-                                        <div id="pdp_chapter_{{$pi1->id}}" class="pdp_chapters" style="display: none;">
+                                        <div id="pdp_chapter_{{$pi1->id}}" class="pdp_chapters">
                                             <span class="font-weight-bold">{{ $pi1->name }}</span>
                                             @foreach($pi1->children as $pi2)
                                                 <div class="ml-4">
@@ -626,7 +650,10 @@
                                                         <label class="form-check-label" for="pdp_outcome_{{$pi2->id}}">
                                                             <input type="checkbox"
                                                                    class="form-check-input pdp_indicators"
-                                                                   value="{{$pi2->id}}" name="pdp_indicators[]">
+                                                                   value="{{$pi2->id}}"
+                                                                   name="pdp_indicators[]"
+                                                                   id="pdp_outcome_{{$pi2->id}}"
+                                                                   @if(in_array($pi2->id, old('pdp_indicators', $project->pdp_indicators->pluck('id')->toArray() ?? []))) checked @endif>
                                                             {{ $pi2->name }}
                                                         </label>
                                                     </div>
@@ -639,7 +666,9 @@
                                                                         <input type="checkbox"
                                                                                class="form-check-input pdp_indicators"
                                                                                value="{{$pi3->id}}"
-                                                                               name="pdp_indicators[]">
+                                                                               name="pdp_indicators[]"
+                                                                               id="pdp_suboutcome_{{$pi3->id}}"
+                                                                               @if(in_array($pi3->id, old('pdp_indicators', $project->pdp_indicators->pluck('id')->toArray() ?? []))) checked @endif>
                                                                         {{ $pi3->name }}
                                                                     </label>
                                                                 </div>
@@ -651,7 +680,9 @@
                                                                                 <input type="checkbox"
                                                                                        class="form-check-input pdp_indicators"
                                                                                        value="{{$pi4->id}}"
-                                                                                       name="pdp_indicators[]">
+                                                                                       name="pdp_indicators[]"
+                                                                                       id="pdp_output_{{$pi4->id}}"
+                                                                                        @if(in_array($pi4->id, old('pdp_indicators', $project->pdp_indicators->pluck('id')->toArray() ?? []))) checked @endif>
                                                                                 {{ $pi4->name }}
                                                                             </label>
                                                                         </div>

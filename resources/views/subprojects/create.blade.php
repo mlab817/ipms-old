@@ -4,9 +4,22 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card card-primary">
-                <form action="{{ route('subprojects.store', $project) }}" class="form-horizontal" method="POST">
+                <form action="{{ route('subprojects.store') }}" class="form-horizontal" method="POST">
                     @csrf
                     <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-3" for="project_id">Mother PAP <i class="text-danger fas fa-flag"></i></label>
+                            <div class="col-sm-9">
+                                <select class="form-control @error('project_id') is-invalid @enderror" id="project_id" name="project_id">
+                                    <option value="" selected disabled>Select Mother PAP</option>
+                                    @foreach($projects as $option)
+                                        <option value="{{ $option->id }}" @if(old('project_id') == $option->id) selected @endif>{{ $option->title }}</option>
+                                    @endforeach
+                                </select>
+                                @error('project_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label class="col-form-label col-sm-3" for="operating_unit_id">Operating Unit <i class="text-danger fas fa-flag"></i></label>
                             <div class="col-sm-9">
@@ -123,7 +136,7 @@
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="{{ route('subprojects.index', ['project' => $project]) }}" class="btn">Back to List</a>
+                        <a href="{{ route('subprojects.index') }}" class="btn">Back to List</a>
                     </div>
                 </form>
             </div>

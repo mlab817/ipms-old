@@ -31,7 +31,7 @@ class SubprojectsTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser
                 ->loginAs(1)
-                ->visit(route('subprojects.create', Project::find(1)))
+                ->visit(route('subprojects.create'))
                 ->assertSee('Add Subproject')
                 ->screenshot('subprojects/subprojects-create');
         });
@@ -42,7 +42,7 @@ class SubprojectsTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser
                 ->loginAs(1)
-                ->visit(route('subprojects.edit', Subproject::find(1)))
+                ->visit(route('subprojects.edit', Subproject::factory()->create()))
                 ->assertSee('Edit Subproject')
                 ->screenshot('subprojects/subprojects-edit');
         });

@@ -24,11 +24,14 @@ class ReviewsDataTable extends DataTable
             ->addColumn('pap_type', function($project) {
                 return $project->pap_type->name ?? '';
             })
+            ->addColumn('office', function ($row) {
+                return $row->creator->office->name ?? '';
+            })
             ->addColumn('reviewed', function($project) {
                 if ($project->review()->exists()) {
-                    return 'Yes';
+                    return '<span class="badge badge-success">Yes</span>';
                 } else {
-                    return 'No';
+                    return '<span class="badge badge-danger">No</span>';
                 }
             })
             ->addColumn('reviewed_at', function ($project) {
@@ -44,7 +47,8 @@ class ReviewsDataTable extends DataTable
                 } else {
                     return '<a href="'. route('reviews.create', ['project' => $project->getRouteKey()]).'" class="btn btn-sm btn-info">Create</a>';
                 }
-            });
+            })
+            ->rawColumns(['reviewed','action']);
     }
 
     /**
@@ -88,6 +92,8 @@ class ReviewsDataTable extends DataTable
     {
         return [
             Column::make('title'),
+            Column::make('office')
+                ->addClass('text-center'),
             Column::make('pap_type')
                 ->addClass('text-center'),
             Column::make('reviewed')

@@ -30,8 +30,12 @@ class RolesTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser
                 ->loginAs(1)
-                ->visit(route('admin.roles.create'))
+                ->visit(route('admin.roles.index'))
+                ->press('Create')
                 ->assertSee('Create Role')
+                ->type('name', 'new role')
+                ->select('guard_name','web')
+                ->check('permissions[]',1)
                 ->screenshot('admin/roles-create');
         });
     }

@@ -26,7 +26,7 @@ class RegionInvestmentFactory extends Factory
     {
         return [
             'uuid'  => Str::uuid(),
-            'region_id' => Region::factory()->create()->id,
+            'region_id' => Region::all()->random()->id,
             'y2016' => $this->faker->randomFloat() * 1000000,
             'y2017' => $this->faker->randomFloat() * 1000000,
             'y2018' => $this->faker->randomFloat() * 1000000,

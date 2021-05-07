@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ApprovalLevel;
+use App\Models\Basis;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -15,14 +16,8 @@ class AdminController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $menuItems = collect();
-        $menuItems->push([
-            'title' => 'Approval Levels',
-            'value' =>  ApprovalLevel::count(),
-        ]);
-
         return view('admin.index', [
-            'menuItems' => []
+            'pageTitle' => 'Manage Libraries',
         ]);
     }
 }

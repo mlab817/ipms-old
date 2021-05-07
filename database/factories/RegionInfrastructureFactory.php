@@ -23,7 +23,7 @@ class RegionInfrastructureFactory extends Factory
     public function definition(): array
     {
         return [
-            'region_id' => Region::factory()->create()->id,
+            'region_id' => Region::all()->random()->id,
             'y2016'     => $this->faker->randomFloat() * 1000,
             'y2017'     => $this->faker->randomFloat() * 1000,
             'y2018'     => $this->faker->randomFloat() * 1000,

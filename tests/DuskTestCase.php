@@ -8,12 +8,14 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverDimension;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
 
 abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;
+    use DatabaseTransactions;
 
     /**
      * Prepare for Dusk test execution.

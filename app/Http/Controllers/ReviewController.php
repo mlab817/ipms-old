@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\ProjectsDataTable;
 use App\DataTables\ReviewsDataTable;
 use App\Http\Requests\ReviewStoreRequest;
 use App\Models\CipType;
@@ -11,10 +10,14 @@ use App\Models\Project;
 use App\Models\ReadinessLevel;
 use App\Models\Review;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 class ReviewController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Review::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +25,9 @@ class ReviewController extends Controller
      */
     public function index(ReviewsDataTable $dataTable)
     {
-        return $dataTable->render('reviews.index');
+        return $dataTable->render('reviews.index', [
+            'pageTitle' => 'Review PAPs',
+        ]);
     }
 
     /**
@@ -37,6 +42,7 @@ class ReviewController extends Controller
         $review = new Review();
 
         return view('reviews.create', [
+            'pageTitle' => 'Reviewing ' . $project->title,
             'review' => $review,
             'project' => $project,
             'pip_typologies' => PipTypology::all(),
@@ -53,7 +59,7 @@ class ReviewController extends Controller
      */
     public function store(ReviewStoreRequest $request)
     {
-        dd('calling store');
+//        dd('calling store');
 
         $project = Project::findOrFail($request->project_id);
 

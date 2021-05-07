@@ -52,7 +52,7 @@ class ProjectsDataTable extends DataTable
 
                 $viewButton = $row->permissions['view'] ? '<a href="' . route('projects.show', $row->uuid) . '" class="btn btn-primary btn-sm">View</a>' : '';
                 $editButton = $row->permissions['update'] ? '<a href="' . route('projects.edit', $row->uuid) . '" class="btn btn-secondary btn-sm">Edit</a>' . $tripButton : '';
-                $deleteButton = $row->permissions['delete'] ? '<button class="btn btn-danger" onClick="confirmDelete(\''. $row->uuid .'\')">Delete</button>' : '';
+                $deleteButton = $row->permissions['delete'] ? '<button class="btn btn-danger btn-sm" onClick="confirmDelete(\''. $row->uuid .'\')">Delete</button>' : '';
 
                 return '<div class="btn-group-vertical">'
                     . $viewButton

@@ -43,10 +43,10 @@ Route::group(['middleware' => 'auth'], function() {
 
 // Resources secured by auth
 Route::middleware('auth')->group(function () {
-    Route::resource('subprojects',\App\Http\Controllers\SubprojectController::class)->except('index','create','store');
     Route::resources([
-        'projects' => \App\Http\Controllers\ProjectController::class,
-        'reviews'   => \App\Http\Controllers\ReviewController::class,
+        'projects'      => \App\Http\Controllers\ProjectController::class,
+        'reviews'       => \App\Http\Controllers\ReviewController::class,
+        'subprojects'   =>  \App\Http\Controllers\SubprojectController::class,
     ]);
 });
 
@@ -87,6 +87,7 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
         'users'                 => \App\Http\Controllers\UserController::class,
         'projects'              => \App\Http\Controllers\AdminProjectController::class,
         'projects.users'        => \App\Http\Controllers\ProjectUserController::class,
+        'teams'                 => \App\Http\Controllers\TeamController::class,
     ]);
 });
 

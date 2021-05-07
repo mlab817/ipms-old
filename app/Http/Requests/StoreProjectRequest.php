@@ -172,6 +172,7 @@ class StoreProjectRequest extends FormRequest
             'fs_investments.*.y2023'            => 'required|min:0:numeric',
 //            'fs_investments.*.y2024'            => 'required|min:0:numeric',
 //            'fs_investments.*.y2025'            => 'required|min:0:numeric',
+            'has_subprojects'                   => 'nullable|bool',
         ];
     }
 

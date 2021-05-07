@@ -23,7 +23,6 @@ class PipTypologyFactory extends Factory
     public function definition()
     {
         return [
-            'uuid'          => Str::uuid(),
             'name'          => $this->faker->word,
             'description'   => '',
         ];

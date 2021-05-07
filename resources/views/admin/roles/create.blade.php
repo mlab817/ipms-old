@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ $pageTitle }}</h3>
                 </div>
-                <form action="{{ route('admin.roles.store') }}" method="POST">
+                <form action="{{ route('admin.teams.store') }}" method="POST">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -41,7 +41,7 @@
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="{{ route('admin.roles.index') }}" class="btn mr-2">Back to List</a>
+                        <a href="{{ route('admin.teams.index') }}" class="btn mr-2">Back to List</a>
                     </div>
                 </form>
             </div>

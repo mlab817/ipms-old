@@ -29,7 +29,7 @@ class SubprojectFactory extends Factory
             'title'             => $this->faker->sentence, // $this->faker->words,
             'description'       => $this->faker->paragraph, // $this->faker->paragraph(3),
             'expected_outputs'  => $this->faker->paragraph, // $this->faker->paragraph(2),
-            'total_cost'        => 1000, // $this->faker->randomFloat() * 1000,
+            'total_cost'        => $this->faker->randomFloat() * 1000,
             'funding_year'      => $this->faker->randomElement(config('ipms.editor.years')),
             'y2017'             => $this->faker->randomFloat() * 1000,
             'y2018'             => $this->faker->randomFloat() * 1000,

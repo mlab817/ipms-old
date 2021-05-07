@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
 
@@ -25,6 +26,10 @@ class Project extends Model
     use SoftDeletes;
 //    use RequiresApproval;
     use Auditable;
+
+    const PROGRAM = 1;
+
+    const PROJECT = 2;
 
     protected $guard_name = 'api';
 
@@ -92,6 +97,7 @@ class Project extends Model
         // nep
         // allocation
         // disbursement
+        'has_subprojects',
     ];
 
     protected $appends = [
@@ -213,9 +219,9 @@ class Project extends Model
         return $this->belongsTo(Office::class,'office_id');
     }
 
-    public function operating_unit(): BelongsTo
+    public function operating_units(): BelongsToMany
     {
-        return $this->belongsTo(OperatingUnit::class);
+        return $this->belongsToMany(OperatingUnit::class);
     }
 
     public function ou_investments(): HasMany
@@ -383,6 +389,28 @@ class Project extends Model
         return $this->infrastructure->total ?? 0;
     }
 
+    public function getImplementationLengthAttribute(): int
+    {
+        return (int) $this->target_end_year
+            - (int) $this->target_start_year
+            + 1;
+    }
+
+    public function getDisbursementTotalAttribute(): float
+    {
+        if ($this->disbursement()->exists()) {
+            return floatval($this->disbursement->y2016)
+                    + floatval($this->disbursement->y2017)
+                        + floatval($this->disbursement->y2018)
+                            + floatval($this->disbursement->y2019)
+                                + floatval($this->disbursement->y2020)
+                                    + floatval($this->disbursement->y2021)
+                                        + floatval($this->disbursement->y2022)
+                                            + floatval($this->disbursement->y2023);
+        }
+        return 0;
+    }
+
     public function getPermissionsAttribute(): array
     {
         $user = auth()->user();
@@ -423,6 +451,21 @@ class Project extends Model
     public function scopeTrip($query)
     {
         return $query->where('has_infra', true);
+    }
+
+    public function scopeProgram($query)
+    {
+        return $query->where('pap_type_id', self::PROGRAM);
+    }
+
+    public function scopeProject($query)
+    {
+        return $query->where('pap_type_id', self::PROJECT);
+    }
+
+    public function scopeHasSubprojects($query)
+    {
+        return $query->where('has_subprojects', true);
     }
 
     /**

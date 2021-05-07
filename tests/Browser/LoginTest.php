@@ -29,17 +29,16 @@ class LoginTest extends DuskTestCase
      */
     public function test_it_interacts_with_login_form()
     {
-        $user = User::find(1);
-
-        $this->browse(function (Browser $browser) use ($user) {
+        $this->browse(function (Browser $browser) {
             $browser->visit('/login')
-                ->type('email', $user->email)
+                ->type('email', 'admin@admin.com')
                 ->type('password', 'password')
                 ->check('remember')
                 ->screenshot('login-test')
-                ->press('Login');
+                ->press('Sign In')
+                ->assertPathIs('/dashboard');
 
-            $browser->assertAuthenticatedAs($user);
+            $browser->assertAuthenticatedAs(User::find(1));
         });
     }
 }

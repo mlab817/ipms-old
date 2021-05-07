@@ -29,13 +29,13 @@ class Review extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function readiness_level(): BelongsTo
     {
         return $this->belongsTo(ReadinessLevel::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

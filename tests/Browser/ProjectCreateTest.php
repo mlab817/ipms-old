@@ -16,7 +16,9 @@ class ProjectCreateTest extends DuskTestCase
     public function testExample()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit(route('projects.create'))
+            $browser
+                    ->loginAs(1)
+                    ->visit(route('projects.create'))
                     ->screenshot('projects-create-page')
                     ->assertSee('Add New Project');
         });
@@ -26,6 +28,7 @@ class ProjectCreateTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(route('projects.create'))
+                ->loginAs(1)
                 ->click('@submit-button')
                 ->assertSee('Add New Project')
                 ->assertSee('The PAP Title is required.')
@@ -36,7 +39,9 @@ class ProjectCreateTest extends DuskTestCase
     public function test_it_creates_project()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit(route('projects.create'))
+            $browser
+                ->loginAs(1)
+                ->visit(route('projects.create'))
                 ->type('title', 'New Project')
                 ->select('pap_type_id', '1')
                 ->radio('regular_program','1')

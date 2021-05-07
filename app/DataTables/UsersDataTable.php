@@ -27,6 +27,9 @@ class UsersDataTable extends DataTable
             ->addColumn('roles', function($user) {
                 return $user->roles->pluck('name')->join(', ') ?? '';
             })
+            ->addColumn('permissions', function($user) {
+                return $user->getAllPermissions()->pluck('name')->join('<br/>') ?? '';
+            })
             ->addColumn('avatar', function ($user) {
                 return '<img class="img-circle img-bordered-sm" src="'. $user->avatar .'" alt="user" width="50" height="50" />';
             })
@@ -38,7 +41,7 @@ class UsersDataTable extends DataTable
                     </a>
                 ';
             })
-            ->rawColumns(['avatar','action']);
+            ->rawColumns(['permissions','avatar','action']);
     }
 
     /**
@@ -89,6 +92,8 @@ class UsersDataTable extends DataTable
             Column::make('office')
                 ->addClass('text-center'),
             Column::make('roles')
+                ->addClass('text-center'),
+            Column::make('permissions')
                 ->addClass('text-center'),
             Column::computed('avatar')
                 ->addClass('text-center'),

@@ -44,6 +44,18 @@
                             </div>
                             @endforeach
                         </div>
+
+                        <div class="form-group">
+                            <label for="permissions">Permissions</label>
+                            @foreach ($permissions as $option)
+                                <div class="form-check">
+                                    <label for="permission_{{ $option->id }}" class="form-check-label">
+                                        <input id="permission_{{ $option->id }}" name="permissions[]" type="checkbox" class="form-check-input" value="{{ $option->id }}" @if(in_array($option->id, old('permissions') ?? [])) checked @endif>
+                                        {{ $option->name }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
 
                     <div class="card-footer">

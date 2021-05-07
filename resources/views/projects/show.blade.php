@@ -6,13 +6,6 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Projects Detail</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fas fa-minus"></i></button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                        <i class="fas fa-times"></i></button>
-                </div>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -21,8 +14,8 @@
                             <div class="col-12 col-sm-4">
                                 <div class="info-box bg-light">
                                     <div class="info-box-content">
-                                        <span class="info-box-text text-center text-muted">Estimated budget</span>
-                                        <span class="info-box-number text-center text-muted mb-0">2300</span>
+                                        <span class="info-box-text text-center text-muted">Target Investment</span>
+                                        <span class="info-box-number text-center text-muted mb-0">PhP {{ number_format($project->total_project_cost / 1000000, 2) }} M</span>
                                     </div>
                                 </div>
                             </div>
@@ -30,15 +23,17 @@
                                 <div class="info-box bg-light">
                                     <div class="info-box-content">
                                         <span class="info-box-text text-center text-muted">Total amount spent</span>
-                                        <span class="info-box-number text-center text-muted mb-0">2000</span>
+                                        <span class="info-box-number text-center text-muted mb-0">{{ $project->disbursement_total }}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <div class="info-box bg-light">
                                     <div class="info-box-content">
-                                        <span class="info-box-text text-center text-muted">Estimated project duration</span>
-                                        <span class="info-box-number text-center text-muted mb-0">20 <span>
+                                        <span class="info-box-text text-center text-muted">Duration (Years)</span>
+                                        <span class="info-box-number text-center text-muted mb-0">
+                                            {{ $project->implementation_length }}
+                                        <span>
                                     </div>
                                 </div>
                             </div>
@@ -109,14 +104,19 @@
                     </div>
                     <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
                         <h3 class="text-primary"><i class="fas fa-paint-brush"></i> AdminLTE v3</h3>
-                        <p class="text-muted">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                        <p class="text-muted">
+                            {{ $project->description }}
+                        </p>
+                        <p class="text-muted">
+                            {{ $project->expected_outputs }}
+                        </p>
                         <br>
                         <div class="text-muted">
-                            <p class="text-sm">Client Company
-                                <b class="d-block">Deveint Inc</b>
+                            <p class="text-sm">Office:
+                                <b class="d-block">{{ $project->creator->office->name ?? '' }}</b>
                             </p>
-                            <p class="text-sm">Project Leader
-                                <b class="d-block">Tony Chicken</b>
+                            <p class="text-sm">Added By:
+                                <b class="d-block">{{ $project->creator->name ?? '' }}</b>
                             </p>
                         </div>
 
@@ -148,5 +148,12 @@
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
+
+        @include('projects.project-details', ['project' => $project , 'pdp_indicators' => \App\Models\PdpIndicator::with('children.children')->whereNull('parent_id')->get()])
+
+        <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+            <i class="fas fa-chevron-up"></i>
+        </a>
+
     </section>
 @endsection
