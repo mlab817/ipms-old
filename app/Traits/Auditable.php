@@ -4,6 +4,8 @@ namespace App\Traits;
 
 use App\Models\AuditLog;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait Auditable
 {
@@ -24,13 +26,18 @@ trait Auditable
 
     protected static function audit($description, $model)
     {
-        AuditLog::create([
+        $model->audit_logs()->create([
             'description'  => $description,
-            'subject_id'   => $model->id ?? null,
-            'subject_type' => get_class($model) ?? null,
+//            'subject_id'   => $model->id ?? null,
+//            'subject_type' => get_class($model) ?? null,
             'user_id'      => auth()->id() ?? null,
             'properties'   => $model ?? null,
             'host'         => request()->ip() ?? null,
         ]);
+    }
+
+    public function audit_logs(): MorphMany
+    {
+        return $this->morphMany(AuditLog::class, 'auditable');
     }
 }

@@ -16,8 +16,9 @@ class CreateAuditLogsTable extends Migration
         Schema::create('audit_logs', function (Blueprint $table) {
             $table->id();
             $table->text('description');
-            $table->unsignedBigInteger('subject_id')->nullable();
-            $table->string('subject_type')->nullable();
+            $table->morphs('auditable');
+//            $table->unsignedBigInteger('subject_id')->nullable();
+//            $table->string('subject_type')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->text('properties')->nullable();
             $table->string('host', 45)->nullable();

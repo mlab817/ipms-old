@@ -151,6 +151,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        $project->load('audit_logs','regions','region_investments','bases','disbursement','nep','allocation','feasibility_study','right_of_way','resettlement_action_plan','ten_point_agendas','sdgs','pdp_chapters','pdp_indicators','operating_units');
+
         return view('projects.show', compact('project'))
             ->with('pageTitle', $project->title);
     }

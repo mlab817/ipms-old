@@ -24,14 +24,7 @@ class Project extends Model
     use HasUuid;
     use Sluggable;
     use SoftDeletes;
-//    use RequiresApproval;
     use Auditable;
-
-    const PROGRAM = 1;
-
-    const PROJECT = 2;
-
-    protected $guard_name = 'api';
 
     protected $fillable = [
         'code', // pipol code
@@ -451,16 +444,6 @@ class Project extends Model
     public function scopeTrip($query)
     {
         return $query->where('has_infra', true);
-    }
-
-    public function scopeProgram($query)
-    {
-        return $query->where('pap_type_id', self::PROGRAM);
-    }
-
-    public function scopeProject($query)
-    {
-        return $query->where('pap_type_id', self::PROJECT);
     }
 
     public function scopeHasSubprojects($query)
