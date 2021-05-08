@@ -31,21 +31,34 @@ class BasisTest extends DuskTestCase
             $browser
                 ->loginAs(1)
                 ->visit(route('admin.bases.create'))
+                ->type('name', 'New Basis')
+                ->press('Submit')
                 ->assertSee('Basis')
                 ->screenshot('admin/basis-create');
         });
+
+        $this->assertDatabaseHas('bases', ['name' => 'New Basis']);
     }
 
     public function test_it_shows_edit_form_for_implementation_basis()
     {
-        $basis = Basis::factory()->create();
+        $this->browse(function (Browser $browser) {
+            $basis = Basis::create(['name' => 'New Basis']);
 
-        $this->browse(function (Browser $browser) use ($basis) {
             $browser
                 ->loginAs(1)
-                ->visit(route('admin.bases.edit', $basis->slug))
+                ->visit(route('admin.bases.edit', 'new-basis'))
                 ->assertSee('Edit')
-                ->screenshot('admin/basis-edit');
+                ->type('name', 'New Basis 2')
+                ->type('description', 'second basis')
+                ->screenshot('admin/basis-edit')
+                ->press('Submit')
+                ->pause(2000);
         });
+
+        $this->assertDatabaseHas('bases', [
+            'name' => 'New Basis 2',
+            'description'   => 'second basis'
+        ]);
     }
 }

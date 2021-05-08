@@ -102,6 +102,6 @@ class CipTypeController extends Controller
     {
         $cipType->delete();
 
-        return response()->noContent();
+        return redirect()->route('admin.cip_types.index');
     }
 }

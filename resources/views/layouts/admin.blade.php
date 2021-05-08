@@ -33,6 +33,8 @@
         </div>
     </div>
 
+    @yield('modal')
+
     <!-- Scripts -->
     @stack('scripts')
     <!--/. Scripts -->
