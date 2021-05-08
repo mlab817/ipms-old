@@ -96,3 +96,7 @@ Auth::routes(['register' => false]);
 Route::fallback(function () {
     return view('errors.404');
 });
+
+Route::get('/getProjectManagers', function() {
+    return \App\Models\User::projectManager()->get();
+});

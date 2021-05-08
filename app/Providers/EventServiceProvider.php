@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\ProjectCreatedEvent;
 use App\Events\ProjectReviewedEvent;
 use App\Events\UserCreated;
+use App\Listeners\ProjectCreatedListener;
 use App\Listeners\SendNewUserNotification;
 use App\Listeners\SendNotificationToOwnerOfProjectReviewed;
 use App\Models\Project;
@@ -33,6 +35,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserCreated::class => [
             SendNewUserNotification::class,
+        ],
+        ProjectCreatedEvent::class => [
+            ProjectCreatedListener::class,
         ],
         ProjectReviewedEvent::class => [
             SendNotificationToOwnerOfProjectReviewed::class,

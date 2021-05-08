@@ -66,6 +66,11 @@
                 </div>
             </div>
         </div>
+
+            <div class="dropdown-divider"></div>
+            @foreach(auth()->user()->unreadNotifications as $notification)
+                {{ json_encode($notification->data['actionUrl']) }}
+            @endforeach
     </section>
 @endsection
 

@@ -7,6 +7,7 @@ use App\DataTables\Scopes\AssignedProjectsDataTableScope;
 use App\DataTables\Scopes\OfficeProjectsDataTableScope;
 use App\DataTables\Scopes\OwnProjectsDataTableScope;
 use App\DataTables\Scopes\ProjectsDataTableScope;
+use App\Events\ProjectCreatedEvent;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\ApprovalLevel;
@@ -136,6 +137,7 @@ class ProjectController extends Controller
             return redirect()->route('projects.edit', $project->uuid);
         }
 
+        event(new ProjectCreatedEvent($project));
 
         return redirect()->route('projects.index')
             ->with('message', 'Successfully added project.');
