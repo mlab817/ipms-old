@@ -4,11 +4,7 @@ import { createApp } from 'vue'
 
 const el = document.getElementById('app')
 
-const app = createApp({
-    components: {
-        'notification-button': () => import('./components/NotificationButton.vue'),
-    }
-})
+const app = createApp({})
 
 console.log(app)
 
