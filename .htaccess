@@ -5,10 +5,6 @@
 
 RewriteEngine On
 
-RewriteCond %{HTTP_HOST} dapmsipd\.org [NC]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://ipms-v2.dapmsipd.org/$1 [R,L]
-
 RewriteCond %{REQUEST_FILENAME} -d [OR]
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ ^$1 [N]
