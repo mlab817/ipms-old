@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\PdpIndicator;
+use App\Models\PipTypology;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class PdpIndicatorsDataTable extends DataTable
+class PipTypologiesDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,12 +21,9 @@ class PdpIndicatorsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('parent', function($pdpIndicator) {
-                return $pdpIndicator->parent->name ?? '';
-            })
             ->addColumn('action', function ($row) {
                 return '
-                    <a href="'.route('admin.pdp_indicators.edit', $row).'" class="btn btn-info btn-sm">Edit</a>
+                    <a href="'. route('admin.pip_typologies.edit', $row) .'" class="btn btn-info btn-sm">Edit</a>
                 ';
             });
     }
@@ -34,12 +31,12 @@ class PdpIndicatorsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\PdpIndicator $model
+     * @param \App\Models\PipTypology $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(PdpIndicator $model)
+    public function query(PipTypology $model)
     {
-        return $model->with('parent')->newQuery();
+        return $model->newQuery();
     }
 
     /**
@@ -50,11 +47,11 @@ class PdpIndicatorsDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('pdpindicators-table')
+                    ->setTableId('piptypologies-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(0, 'ASC')
+                    ->orderBy(1)
                     ->buttons(
                         Button::make('create'),
                         Button::make('export'),
@@ -72,20 +69,12 @@ class PdpIndicatorsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id')
-                ->addClass('text-center')
-                ->width('10%'),
-            Column::make('name')
-                ->width('35%'),
-            Column::make('parent')
-                ->width('35%'),
-            Column::make('level')
-                ->addClass('text-center')
-                ->width('10%'),
+            Column::make('name'),
+            Column::make('description'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width('10%')
+                ->width(60)
                 ->addClass('text-center'),
         ];
     }
@@ -97,6 +86,6 @@ class PdpIndicatorsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'PdpIndicators_' . date('YmdHis');
+        return 'PipTypologies_' . date('YmdHis');
     }
 }

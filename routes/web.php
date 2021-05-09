@@ -54,49 +54,50 @@ Route::middleware('auth')->group(function () {
 
 // Admin routes
 Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () {
-    Route::get('', \App\Http\Controllers\AdminController::class)->name('index');
+    Route::get('', \App\Http\Controllers\Admin\AdminController::class)->name('index');
     Route::resources([
-        'approval_levels'       => \App\Http\Controllers\ApprovalLevelController::class,
-        'bases'                 =>  \App\Http\Controllers\BasisController::class,
-        'cip_types'             =>  \App\Http\Controllers\CipTypeController::class,
-        'fs_statuses'           => \App\Http\Controllers\FsStatusController::class,
-        'funding_institutions'  =>  \App\Http\Controllers\FundingInstitutionController::class,
-        'funding_sources'       => \App\Http\Controllers\FundingSourceController::class,
-        'gads'                  => \App\Http\Controllers\GadController::class,
-        'implementation_modes'  => \App\Http\Controllers\ImplementationModeController::class,
-        'infrastructure_sectors'=> \App\Http\Controllers\InfrastructureSectorController::class,
-        'infrastructure_subsectors'=> \App\Http\Controllers\InfrastructureSubsectorController::class,
-        'offices'               => \App\Http\Controllers\OfficeController::class,
-        'operating_units'       => \App\Http\Controllers\OperatingUnitController::class,
-        'operating_unit_types'  => \App\Http\Controllers\OperatingUnitTypeController::class,
-        'pap_types'             => \App\Http\Controllers\PapTypeController::class,
-        'pdp_chapters'          => \App\Http\Controllers\PdpChapterController::class,
-        'pdp_indicators'        => \App\Http\Controllers\PdpIndicatorController::class,
-        'permissions'           => \App\Http\Controllers\PermissionController::class,
-        'pip_typologies'        => \App\Http\Controllers\PipTypologyController::class,
-        'preparation_documents' => \App\Http\Controllers\PreparationDocumentController::class,
-        'prerequisites'         => \App\Http\Controllers\PrerequisiteController::class,
-        'project_statuses'      => \App\Http\Controllers\ProjectStatusController::class,
-        'readiness_levels'      => \App\Http\Controllers\ReadinessLevelController::class,
-        'regions'               => \App\Http\Controllers\RegionController::class,
-        'roles'                 => \App\Http\Controllers\RoleController::class,
-        'sdgs'                  => \App\Http\Controllers\SdgController::class,
-        'spatial_coverages'     => \App\Http\Controllers\SpatialCoverageController::class,
-        'ten_point_agendas'     => \App\Http\Controllers\TenPointAgendaController::class,
-        'tiers'                 => \App\Http\Controllers\TierController::class,
-        'users'                 => \App\Http\Controllers\UserController::class,
-        'projects'              => \App\Http\Controllers\AdminProjectController::class,
-        'projects.users'        => \App\Http\Controllers\ProjectUserController::class,
-        'teams'                 => \App\Http\Controllers\TeamController::class,
+        'approval_levels'       => \App\Http\Controllers\Admin\ApprovalLevelController::class,
+        'bases'                 =>  \App\Http\Controllers\Admin\BasisController::class,
+        'cip_types'             =>  \App\Http\Controllers\Admin\CipTypeController::class,
+        'fs_statuses'           => \App\Http\Controllers\Admin\FsStatusController::class,
+        'funding_institutions'  =>  \App\Http\Controllers\Admin\FundingInstitutionController::class,
+        'funding_sources'       => \App\Http\Controllers\Admin\FundingSourceController::class,
+        'gads'                  => \App\Http\Controllers\Admin\GadController::class,
+        'implementation_modes'  => \App\Http\Controllers\Admin\ImplementationModeController::class,
+        'infrastructure_sectors'=> \App\Http\Controllers\Admin\InfrastructureSectorController::class,
+        'infrastructure_subsectors'=> \App\Http\Controllers\Admin\InfrastructureSubsectorController::class,
+        'offices'               => \App\Http\Controllers\Admin\OfficeController::class,
+        'operating_units'       => \App\Http\Controllers\Admin\OperatingUnitController::class,
+        'operating_unit_types'  => \App\Http\Controllers\Admin\OperatingUnitTypeController::class,
+        'pap_types'             => \App\Http\Controllers\Admin\PapTypeController::class,
+        'pdp_chapters'          => \App\Http\Controllers\Admin\PdpChapterController::class,
+        'pdp_indicators'        => \App\Http\Controllers\Admin\PdpIndicatorController::class,
+        'permissions'           => \App\Http\Controllers\Admin\PermissionController::class,
+        'pip_typologies'        => \App\Http\Controllers\Admin\PipTypologyController::class,
+        'preparation_documents' => \App\Http\Controllers\Admin\PreparationDocumentController::class,
+        'prerequisites'         => \App\Http\Controllers\Admin\PrerequisiteController::class,
+        'project_statuses'      => \App\Http\Controllers\Admin\ProjectStatusController::class,
+        'readiness_levels'      => \App\Http\Controllers\Admin\ReadinessLevelController::class,
+        'regions'               => \App\Http\Controllers\Admin\RegionController::class,
+        'roles'                 => \App\Http\Controllers\Admin\RoleController::class,
+        'sdgs'                  => \App\Http\Controllers\Admin\SdgController::class,
+        'spatial_coverages'     => \App\Http\Controllers\Admin\SpatialCoverageController::class,
+        'ten_point_agendas'     => \App\Http\Controllers\Admin\TenPointAgendaController::class,
+        'tiers'                 => \App\Http\Controllers\Admin\TierController::class,
+        'users'                 => \App\Http\Controllers\Admin\UserController::class,
+        'projects'              => \App\Http\Controllers\Admin\AdminProjectController::class,
+        'projects.users'        => \App\Http\Controllers\Admin\ProjectUserController::class,
+        'teams'                 => \App\Http\Controllers\Admin\TeamController::class,
     ]);
 });
 
 Auth::routes(['register' => false]);
 
-Route::fallback(function () {
-    return view('errors.404');
+Route::group(['middleware' => 'guest'], function() {
+    Route::get('/auth/google', [\App\Http\Controllers\Auth\SocialLoginController::class,'redirectToGoogle'])->name('auth.google');
+    Route::get('/auth/google/callback', [\App\Http\Controllers\Auth\SocialLoginController::class,'handleGoogleCallback'])->name('auth.google-callback');
 });
 
-Route::get('/getProjectManagers', function() {
-    return \App\Models\User::projectManager()->get();
+Route::fallback(function () {
+    return view('errors.404');
 });

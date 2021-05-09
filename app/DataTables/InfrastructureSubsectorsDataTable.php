@@ -74,7 +74,6 @@ class InfrastructureSubsectorsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
             Column::make('name'),
             Column::make('infrastructure_sector'),
             Column::computed('action')
