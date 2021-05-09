@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\FundingSourcesDataTable;
 use App\Models\FundingSource;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FundingSourceController extends Controller
 {
@@ -46,6 +47,8 @@ class FundingSourceController extends Controller
 
         FundingSource::create($request->all());
 
+        Alert::success('Success', 'Successfully saved item');
+
         return redirect()->route('admin.funding_sources.index');
     }
 
@@ -68,9 +71,8 @@ class FundingSourceController extends Controller
      */
     public function edit(FundingSource $fundingSource)
     {
-        return view('admin.funding_sources.edit', [
+        return view('admin.funding_sources.edit', compact('fundingSource'))->with([
             'pageTitle' => 'Edit Funding Source',
-            'funding_source' => $fundingSource,
         ]);
     }
 
@@ -89,7 +91,9 @@ class FundingSourceController extends Controller
 
         $fundingSource->update($request->all());
 
-        return redirect()->route('admin.funding_sources.index');
+        Alert::success('Success', 'Successfully updated item');
+
+        return back();
     }
 
     /**
@@ -98,8 +102,12 @@ class FundingSourceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(FundingSource $fundingSource)
     {
-        //
+        $fundingSource->delete();
+
+        Alert::success('Success', 'Successfully deleted item');
+
+        return redirect()->route('admin.funding_sources.index');
     }
 }

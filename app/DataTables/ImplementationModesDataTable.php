@@ -23,7 +23,7 @@ class ImplementationModesDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function ($row) {
                 return '
-                    <a href="' . route('admin.implementation_modes.edit', $row->slug) . '" class="btn btn-info">Edit</a>
+                    <a href="' . route('admin.implementation_modes.edit', $row) . '" class="btn btn-info btn-sm">Edit</a>
                 ';
             });
     }
@@ -69,8 +69,8 @@ class ImplementationModesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
             Column::make('name'),
+            Column::make('description'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

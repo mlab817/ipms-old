@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\ImplementationModesDataTable;
 use App\Models\ImplementationMode;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ImplementationModeController extends Controller
 {
@@ -46,6 +47,8 @@ class ImplementationModeController extends Controller
 
         ImplementationMode::create($request->all());
 
+        Alert::success('Success', 'Successfully saved item');
+
         return redirect()->route('admin.implementation_modes.index');
     }
 
@@ -68,9 +71,8 @@ class ImplementationModeController extends Controller
      */
     public function edit(ImplementationMode $implementationMode)
     {
-        return view('admin.implementation_modes.edit', [
+        return view('admin.implementation_modes.edit', compact('implementationMode'))->with([
             'pageTitle' => 'Edit Implemenetation Mode',
-            'implementation_mode' => $implementationMode
         ]);
     }
 
@@ -89,6 +91,8 @@ class ImplementationModeController extends Controller
 
         $implementationMode->update($request->all());
 
+        Alert::success('Success', 'Successfully updated item');
+
         return redirect()->route('admin.implementation_modes.index');
     }
 
@@ -102,6 +106,8 @@ class ImplementationModeController extends Controller
     {
         $implementationMode->delete();
 
-        return response()->noContent();
+        Alert::success('Success', 'Successfully deleted item');
+
+        return redirect()->route('admin.implementation_modes.index');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\GadsDataTable;
 use App\Models\Gad;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class GadController extends Controller
 {
@@ -45,6 +46,8 @@ class GadController extends Controller
         ]);
 
         Gad::create($request->all());
+
+        Alert::success('Success', 'Successfully saved item');
 
         return redirect()->route('admin.gads.index');
     }
@@ -89,7 +92,9 @@ class GadController extends Controller
 
         $gad->update($request->all());
 
-        return redirect()->route('admin.gads.index');
+        Alert::success('Success', 'Successfully updated item');
+
+        return back();
     }
 
     /**
@@ -102,6 +107,8 @@ class GadController extends Controller
     {
         $gad->delete();
 
-        return response()->noContent();
+        Alert::success('Success', 'Successfully deleted item');
+
+        return redirect()->route('admin.gads.index');
     }
 }

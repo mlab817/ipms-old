@@ -51,7 +51,7 @@
                     <form action="{{ route('admin.funding_institutions.destroy', $fundingInstitution) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger">Confirm</button>
+                        <button type="submit" class="btn btn-danger">Confirm</button>
                     </form>
                 </div>
             </div>

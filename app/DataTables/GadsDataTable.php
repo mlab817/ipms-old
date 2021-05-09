@@ -23,7 +23,7 @@ class GadsDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function($row) {
                 return '
-                    <a href="'. route('admin.gads.edit', $row->slug) .'" class="btn btn-info">Edit</a>
+                    <a href="'. route('admin.gads.edit', $row) .'" class="btn btn-info btn-sm">Edit</a>
                 ';
             });
     }
@@ -69,7 +69,6 @@ class GadsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
             Column::make('name'),
             Column::computed('action')
                 ->exportable(false)
