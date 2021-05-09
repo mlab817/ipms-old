@@ -6,6 +6,7 @@ use App\DataTables\ApprovalLevelsDataTable;
 use App\Http\Requests\ApprovalLevelRequest;
 use App\Models\ApprovalLevel;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ApprovalLevelController extends Controller
 {
@@ -28,12 +29,8 @@ class ApprovalLevelController extends Controller
      */
     public function create()
     {
-        $approval_level = new ApprovalLevel;
-
-        return view('admin.approval_levels.form', compact('approval_level'))
-            ->with('pageTitle', 'Add Approval Level')
-            ->with('route', route('admin.approval_levels.store'))
-            ->with('method', 'POST');
+        return view('admin.approval_levels.create')
+            ->with('pageTitle', 'Add Approval Level');
     }
 
     /**
@@ -53,6 +50,8 @@ class ApprovalLevelController extends Controller
         if ($request->ajax()) {
             return response()->json(['message' => 'Successfully added item'], 200);
         }
+
+        Alert::success('Success', 'Successfully saved item.');
 
         return redirect()->route('admin.approval_levels.index');
     }
@@ -76,11 +75,9 @@ class ApprovalLevelController extends Controller
      */
     public function edit(ApprovalLevel $approvalLevel)
     {
-      return view('admin.approval_levels.form')
+      return view('admin.approval_levels.edit')
         ->with('pageTitle', 'Edit Approval Level')
-        ->with('approval_level', $approvalLevel)
-        ->with('method', 'PATCH')
-        ->with('route', route('admin.approval_levels.update', $approvalLevel->id));
+        ->with('approval_level', $approvalLevel);
     }
 
     /**
@@ -102,7 +99,9 @@ class ApprovalLevelController extends Controller
             return response()->json(['message' => 'Successfully updated item'], 200);
         }
 
-        return redirect()->route('admin.approval_levels.index');
+        Alert::success('Success', 'Successfully updated item.');
+
+        return back();
     }
 
     /**
@@ -111,14 +110,12 @@ class ApprovalLevelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request, ApprovalLevel $approvalLevel)
+    public function destroy(ApprovalLevel $approvalLevel)
     {
         $approvalLevel->delete();
 
-        if ($request->ajax()) {
-            return response()->json(['message' => 'Successfully deleted item'], 200);
-        }
+        Alert::success('Success', 'Successfully deleted item.');
 
-        // return redirect()->route('admin.approval_levels.index');
+        return redirect()->route('admin.approval_levels.index');
     }
 }

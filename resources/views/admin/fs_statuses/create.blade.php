@@ -9,8 +9,13 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control @error('name'){{ 'is-invalid' }}@enderror" name="name" id="name" placeholder="Name" value="{{ old('name') }}">
+                            <input type="text" class="form-control @error('name'){{ 'is-invalid' }}@enderror" name="name" id="name" placeholder="Name" value="{{ old('name') }}" autofocus>
                             @error('name')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control @error('description'){{ 'is-invalid' }}@enderror" name="description" id="description" placeholder="Description" value="{{ old('description') }}">
+                            @error('description')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
                         </div>
                     </div>
                     <div class="card-footer">

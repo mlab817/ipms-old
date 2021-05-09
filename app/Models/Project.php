@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use Amitav\SortAndFilter\SortAndFilter;
 use App\Traits\Auditable;
 use App\Traits\HasUuid;
-use Approval\Traits\RequiresApproval;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

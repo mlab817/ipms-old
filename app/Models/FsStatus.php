@@ -15,7 +15,6 @@ class FsStatus extends Model
 
     protected $fillable = [
         'name',
-        'slug',
         'description',
     ];
 

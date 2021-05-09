@@ -23,7 +23,7 @@ class FsStatusesDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function($row) {
                 return '
-                    <a href="'. route('admin.fs_statuses.edit', $row->slug) .'" class="btn btn-info btn-sm">Edit</a>
+                    <a href="'. route('admin.fs_statuses.edit', $row) .'" class="btn btn-info btn-sm">Edit</a>
                 ';
             });
     }
@@ -69,8 +69,8 @@ class FsStatusesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
             Column::make('name'),
+            Column::make('description'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

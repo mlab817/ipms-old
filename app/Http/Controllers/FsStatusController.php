@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\FsStatusesDataTable;
 use App\Models\FsStatus;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FsStatusController extends Controller
 {
@@ -45,6 +46,8 @@ class FsStatusController extends Controller
         ]);
 
         FsStatus::create($request->all());
+
+        Alert::success('Success', 'Successfully saved item');
 
         return redirect()->route('admin.fs_statuses.index');
     }
@@ -89,7 +92,9 @@ class FsStatusController extends Controller
 
         $fsStatus->update($request->all());
 
-        return redirect()->route('admin.fs_statuses.index');
+        Alert::success('Success', 'Successfully updated item');
+
+        return back();
     }
 
     /**
@@ -98,8 +103,12 @@ class FsStatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(FsStatus $fsStatus)
     {
-        //
+        $fsStatus->delete();
+
+        Alert::success('Success', 'Successfully deleted item');
+
+        return redirect()->route('admin.fs_statuses.index');
     }
 }

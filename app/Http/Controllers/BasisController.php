@@ -7,6 +7,7 @@ use App\Http\Requests\BasisStoreRequest;
 use App\Http\Requests\BasisUpdateRequest;
 use App\Models\Basis;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BasisController extends Controller
 {
@@ -29,11 +30,8 @@ class BasisController extends Controller
      */
     public function create()
     {
-        return view('admin.bases.form', [
+        return view('admin.bases.create', [
             'pageTitle' => 'Create Implementation Basis',
-            'basis'     => new Basis,
-            'route'     => route('admin.bases.store'),
-            'method'    => 'POST',
         ]);
     }
 
@@ -46,6 +44,8 @@ class BasisController extends Controller
     public function store(BasisStoreRequest $request)
     {
         Basis::create($request->all());
+
+        Alert::success('Success', 'Successfully saved item.');
 
         return redirect()->route('admin.bases.index');
     }
@@ -69,11 +69,9 @@ class BasisController extends Controller
      */
     public function edit(Basis $basis)
     {
-        return view('admin.bases.form', [
+        return view('admin.bases.edit', [
             'pageTitle' => 'Edit Implementation Basis',
             'basis'     => $basis,
-            'route'     => route('admin.bases.update', $basis->slug),
-            'method'    => 'PUT',
         ]);
     }
 
@@ -88,7 +86,9 @@ class BasisController extends Controller
     {
         $basis->update($request->all());
 
-        return redirect()->route('admin.bases.index');
+        Alert::success('Success', 'Successfully updated item.');
+
+        return back();
     }
 
     /**
@@ -97,8 +97,12 @@ class BasisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Basis $basis)
     {
-        //
+        $basis->delete();
+
+        Alert::success('Success', 'Successfully deleted item.');
+
+        return redirect()->route('admin.bases.index');
     }
 }

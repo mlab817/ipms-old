@@ -4,7 +4,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card">
-                <form action="{{ route('admin.gads.store') }}" method="POST">
+                <form action="{{ route('admin.funding_institutions.store') }}" method="POST">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn mr-2" href="{{ route('admin.gads.index') }}">Back to List</a>
+                        <a class="btn mr-2" href="{{ route('admin.funding_institutions.index') }}">Back to List</a>
                     </div>
                 </form>
             </div>

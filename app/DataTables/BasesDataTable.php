@@ -24,9 +24,9 @@ class BasesDataTable extends DataTable
             ->order(function ($query) {
                 $query->orderBy('id');
             })
-            ->addColumn('action', function ($basis) {
+            ->addColumn('action', function ($row) {
                 return '
-                    <a href="'. route('admin.bases.edit', $basis->slug).'" class="btn btn-secondary btn-sm">Edit</a>
+                    <a href="'. route('admin.bases.edit', $row).'" class="btn btn-secondary btn-sm">Edit</a>
                 ';
             });
     }
@@ -72,7 +72,6 @@ class BasesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
             Column::make('name'),
             Column::make('description'),
             Column::computed('action')

@@ -15,7 +15,6 @@ class CipType extends Model
 
     protected $fillable = [
         'name',
-        'slug',
         'description',
     ];
 

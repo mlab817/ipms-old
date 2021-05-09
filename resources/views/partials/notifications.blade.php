@@ -28,12 +28,3 @@
         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
     </div>
 </li>
-
-@push('scripts')
-<script>
-    Echo.channel('test')
-        .listen('.test', (e) => {
-            console.log(e)
-        })
-</script>
-@endpush

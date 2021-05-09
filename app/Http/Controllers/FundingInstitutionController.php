@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\FundingInstitutionsDataTable;
 use App\Models\FundingInstitution;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FundingInstitutionController extends Controller
 {
@@ -40,7 +41,15 @@ class FundingInstitutionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:funding_institutions,name',
+        ]);
+
+        FundingInstitution::create($request->all());
+
+        Alert::success('Success', 'Successfully saved item');
+
+        return redirect()->route('admin.funding_institutions.index');
     }
 
     /**
@@ -60,9 +69,11 @@ class FundingInstitutionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FundingInstitution $fundingInstitution)
     {
-        //
+        return view('admin.funding_institutions.edit', compact('fundingInstitution'))->with([
+            'pageTitle' => 'Edit Funding Institution',
+        ]);
     }
 
     /**
@@ -72,9 +83,17 @@ class FundingInstitutionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, FundingInstitution $fundingInstitution)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:funding_institutions,name,' . $request->id,
+        ]);
+
+        $fundingInstitution->update($request->all());
+
+        Alert::success('Success', 'Successfully updated item');
+
+        return back();
     }
 
     /**
@@ -86,5 +105,9 @@ class FundingInstitutionController extends Controller
     public function destroy(FundingInstitution $fundingInstitution)
     {
         $fundingInstitution->delete();
+
+        Alert::success('Success', 'Successfully deleted item');
+
+        return redirect()->route('admin.funding_institutions.index');
     }
 }

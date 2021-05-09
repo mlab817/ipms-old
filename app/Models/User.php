@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Approval\Models\Modification;
-use Approval\Traits\ApprovesChanges;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -19,7 +17,6 @@ class User extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
-    use ApprovesChanges;
     use HasApiTokens;
     use HasRoles;
 

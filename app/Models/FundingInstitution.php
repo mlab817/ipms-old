@@ -12,12 +12,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class FundingInstitution extends Model
 {
     use HasFactory;
-    use HasUuid;
     use Sluggable;
 
     protected $fillable = [
         'name',
-        'slug',
         'description',
         'funding_source_id',
     ];

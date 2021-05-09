@@ -16,8 +16,6 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-
-    <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 <body class="layout-fixed">
     <div class="wrapper" id="app">
@@ -33,6 +31,12 @@
     </div>
 
     @yield('modal')
+
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+    <script src="{{ mix('js/app.js') }}"></script>
 
     <!-- Scripts -->
     @stack('scripts')

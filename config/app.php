@@ -179,8 +179,6 @@ return [
         // Socialite provider for social login
         \Laravel\Socialite\SocialiteServiceProvider::class,
 
-        \Approval\ApprovalServiceProvider::class,
-
         \Laravel\Passport\PassportServiceProvider::class,
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
