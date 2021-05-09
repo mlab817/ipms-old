@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 //    Route::post('/logout_other_devices', \App\Http\Controllers\Auth\LogoutOtherDevicesController::class)->name('logout_other_devices');
 //    Route::post('/change_password', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('change_password');
+    Route::post('/password/change', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('password.change');
     Route::get('/settings',\App\Http\Controllers\SettingsController::class)->name('settings');
 
     Route::get('/projects/assigned', [\App\Http\Controllers\ProjectController::class,'assigned'])->name('projects.assigned');
