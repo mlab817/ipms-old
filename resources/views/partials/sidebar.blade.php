@@ -214,6 +214,8 @@
 
 @push('scripts')
     <script type="text/javascript">
+        $('[data-widget="sidebar-search"]').SidebarSearch('toggle')
+        
         /*
          * Function to confirm and handle logout
          */
