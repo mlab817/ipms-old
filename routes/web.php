@@ -99,6 +99,12 @@ Route::group(['middleware' => 'guest'], function() {
     Route::get('/auth/google/callback', [\App\Http\Controllers\Auth\SocialLoginController::class,'handleGoogleCallback'])->name('auth.google-callback');
 });
 
+Route::get('email', function () {
+    $user = new User(['email' => 'mlab817@gmail.com']);
+    Mail::to($user)->send(new \App\Mail\TestEmail());
+
+});
+
 Route::fallback(function () {
     return view('errors.404');
 });
