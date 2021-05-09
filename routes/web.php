@@ -100,7 +100,7 @@ Route::group(['middleware' => 'guest'], function() {
 });
 
 Route::get('email', function () {
-    $user = new User(['email' => 'mlab817@gmail.com']);
+    $user = new App\Models\User(['email' => 'mlab817@gmail.com']);
     Mail::to($user)->send(new \App\Mail\TestEmail());
 
 });
