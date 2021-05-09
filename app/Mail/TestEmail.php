@@ -29,6 +29,6 @@ class TestEmail extends Mailable
     public function build()
     {
         return $this->from('admin@site.com')
-                    ->text('testing config');
+                    ->view('emails.test');
     }
 }
