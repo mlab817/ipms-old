@@ -214,8 +214,14 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $('[data-widget="sidebar-search"]').SidebarSearch('toggle')
-        
+        $('[data-widget="sidebar-search"]').SidebarSearch({
+            minLength: 3,
+            maxResults: 10,
+            notFoundText: 'Nothing found'
+        })
+
+        $('[data-widget="sidebar-search"]').SidebarSearch('search')
+
         /*
          * Function to confirm and handle logout
          */
