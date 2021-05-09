@@ -41,7 +41,7 @@ class TestEmailNotification extends Notification
     public function toMail($notifiable)
     {
         \Illuminate\Support\Facades\Log::info('email sent');
-        
+
         return (new MailMessage)
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
