@@ -38,6 +38,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProjectController extends Controller
 {
@@ -139,8 +140,9 @@ class ProjectController extends Controller
 
         event(new ProjectCreatedEvent($project));
 
-        return redirect()->route('projects.index')
-            ->with('message', 'Successfully added project.');
+        Alert::success('Success','Successfully saved project');
+
+        return redirect()->route('projects.show', $project);
     }
 
     /**
@@ -233,7 +235,9 @@ class ProjectController extends Controller
         $project->allocation()->update($request->allocation);
         $project->disbursement()->update($request->disbursement);
 
-        return redirect()->route(self::PROJECTS_INDEX);
+        Alert::success('Success', 'Successfully updated project');
+
+        return back();
     }
 
     /**
@@ -246,9 +250,9 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        session()->flash('message', 'Successfully deleted project');
+        Alert::success('Success', 'Successfully deleted project');
 
-        return response()->json(['message' => 'Successfully deleted project']);
+        return redirect()->route('projects.own');
     }
 
     /**

@@ -30,15 +30,6 @@
                                     Delete
                                 </button>
                             </div>
-                            <div>
-                                <form action="{{ route('admin.approval_levels.destroy', $approval_level) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">
-                                        Delete
-                                    </button>
-                                </form>
-                            </div>
                         </div>
                     </div>
                 </form>
@@ -65,7 +56,7 @@
                     <form action="{{ route('admin.approval_levels.destroy', $approval_level) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger">Confirm</button>
+                        <button type="submit" class="btn btn-danger">Confirm</button>
                     </form>
                 </div>
             </div>
