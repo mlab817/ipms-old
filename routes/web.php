@@ -101,8 +101,7 @@ Route::group(['middleware' => 'guest'], function() {
 
 Route::get('email', function () {
     $user = \App\Models\User::where('email','mlab817@gmail.com')->first();
-    Mail::to($user)->send(new \App\Mail\TestEmail());
-    \Illuminate\Support\Facades\Log::info('email sent');
+    $user->notify(new \App\Notifications\TestEmailNotification);
 
 });
 
