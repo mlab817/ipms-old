@@ -8,6 +8,8 @@ class SettingsController extends Controller
 {
     public function __invoke()
     {
-        return view('settings');
+        return view('settings')->with([
+            'pageTitle' => 'Settings'
+        ]);
     }
 }

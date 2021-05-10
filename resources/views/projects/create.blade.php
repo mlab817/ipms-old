@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <section class="content">
@@ -40,7 +40,7 @@
                                 <div class="form-group row">
                                     <label for="pap_type_id" class="col-form-label col-sm-2">PAP Type <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control @error('pap_type_id') is-invalid @enderror" name="pap_type_id">
+                                        <select class="form-control select2 @error('pap_type_id') is-invalid @enderror" name="pap_type_id">
                                             <option value="" selected disabled>Select PAP Type</option>
                                             @foreach($pap_types as $option)
                                                 <option value="{{ $option->id }}" @if(old('pap_type_id') == $option->id) selected @endif>{{ $option->name }}</option>
@@ -138,7 +138,7 @@
                                 <div class="form-group row">
                                     <label for="project_status_id" class="col-form-label col-sm-2">Project Status <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control @error('pap_type_id') is-invalid @enderror" name="project_status_id">
+                                        <select class="form-control select2 @error('pap_type_id') is-invalid @enderror" name="project_status_id">
                                             <option value="" selected disabled>Select Project Status</option>
                                             @foreach($project_statuses as $option)
                                                 <option value="{{ $option->id }}" @if(old('project_status_id') == $option->id) selected @endif>{{ $option->name }}</option>
@@ -186,7 +186,7 @@
                                 <div class="form-group row">
                                     <label for="spatial_coverage_id" class="col-form-label col-sm-2">Spatial Coverage <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-10">
-                                        <select name="spatial_coverage_id" id="spatial_coverage_id" class="form-control @error('spatial_coverage_id') is-invalid @enderror">
+                                        <select name="spatial_coverage_id" id="spatial_coverage_id" class="form-control select2 @error('spatial_coverage_id') is-invalid @enderror">
                                             <option value="" selected disabled>Select Spatial Coverage</option>
                                             @foreach($spatial_coverages as $option)
                                                 <option value="{{ $option->id }}" @if(old('spatial_coverage_id') == $option->id) selected @endif>{{ $option->name }}</option>
@@ -228,7 +228,7 @@
                                         <div class="form-group row">
                                             <label for="target_start_year" class="col-form-label col-sm-2">Start of Implementation <i class="text-danger fas fa-flag"></i></label>
                                             <div class="col-sm-10">
-                                                <select class="form-control @error('target_start_year') is-invalid @enderror" name="target_start_year">
+                                                <select class="form-control select2 @error('target_start_year') is-invalid @enderror" name="target_start_year">
                                                     <option value="" disabled selected>Select Year</option>
                                                     @foreach($years as $option)
                                                         <option value="{{ $option }}" {{ old('target_start_year') == $option ? 'selected' : '' }}>{{ $option }}</option>
@@ -242,7 +242,7 @@
                                         <div class="form-group row">
                                             <label for="target_end_year" class="col-form-label col-sm-2">Year of Project Completion <i class="text-danger fas fa-flag"></i></label>
                                             <div class="col-sm-10">
-                                                <select class="form-control @error('target_end_year') is-invalid @enderror" name="target_end_year">
+                                                <select class="form-control select2 @error('target_end_year') is-invalid @enderror" name="target_end_year">
                                                     <option value="" disabled selected>Select Year</option>
                                                     @foreach($years as $option)
                                                         <option value="{{ $option }}" {{ old('target_end_year') == $option ? 'selected' : '' }}>{{ $option }}</option>
@@ -281,7 +281,7 @@
                                 <div class="form-group row">
                                     <label for="approval_level_id" class="col-form-label col-sm-2">Level of Approval (For ICCable only)</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control @error('approval_level_id') is-invalid @enderror" name="approval_level_id">
+                                        <select class="form-control select2 @error('approval_level_id') is-invalid @enderror" name="approval_level_id">
                                             <option value="" disabled selected>Select Approval Level</option>
                                             @foreach($approval_levels as $option)
                                                 <option value="{{ $option->id }}" {{ old('approval_level_id') == $option->id ? 'selected' : '' }}>{{ $option->name }}</option>
@@ -300,7 +300,7 @@
                                 <div class="form-group row">
                                     <label for="gad_id" class="col-form-label col-sm-2">Gender &amp; Responsiveness <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control @error('gad_id') is-invalid @enderror" name="gad_id">
+                                        <select class="form-control select2 @error('gad_id') is-invalid @enderror" name="gad_id">
                                             <option value="" disabled selected>Select Approval Level</option>
                                             @foreach($gads as $option)
                                                 <option value="{{ $option->id }}" {{ old('gad_id') == $option->id ? 'selected' : '' }}>{{ $option->name }}</option>
@@ -401,7 +401,7 @@
                                 <div class="form-group row">
                                     <label for="preparation_document_id" class="col-form-label col-sm-2">Project Preparation Document</label>
                                     <div class="col-sm-10">
-                                        <select name="preparation_document_id" id="preparation_document_id" class="form-control">
+                                        <select name="preparation_document_id" id="preparation_document_id" class="form-control select2">
                                             <option value="" selected disabled>Select document</option>
                                             @foreach($preparation_documents as $option)
                                                 <option value="{{ $option->id }}">{{ $option->name }}</option>
@@ -429,7 +429,7 @@
                                 <div class="form-group row">
                                     <label for="fs_status_id" class="col-form-label col-sm-2">Status of Feasibility Study</label>
                                     <div class="col-sm-10">
-                                        <select name="feasibility_study[fs_status_id]" id="fs_status_id" class="form-control">
+                                        <select name="feasibility_study[fs_status_id]" id="fs_status_id" class="form-control select2">
                                             <option value="" selected disabled>Select Status</option>
                                             @foreach($fs_statuses as $option)
                                                 <option value="{{ $option->id }}">{{ $option->name }}</option>
@@ -535,7 +535,7 @@
                                 <div class="form-group row">
                                     <label for="pdp_chapter_id" class="col-form-label col-sm-2">Main philippine Development Chapter <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-10">
-                                        <select id="pdp_chapter_id" name="pdp_chapter_id" class="form-control @error('pdp_chapter_id') is-invalid @enderror">
+                                        <select id="pdp_chapter_id" name="pdp_chapter_id" class="form-control select2 @error('pdp_chapter_id') is-invalid @enderror">
                                             <option value="" disabled selected>Select Main PDP Chapter</option>
                                             @foreach($pdp_chapters as $option)
                                                 <option value="{{ $option->id }}" @if(old('pdp_chapter_id') == $option->id) selected @endif>{{ $option->name }}</option>
@@ -682,7 +682,7 @@
                                 <div class="form-group row">
                                     <label for="funding_source_id" class="col-form-label col-sm-2">Main Funding Source <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control @error('funding_source_id') is-invalid @enderror" name="funding_source_id">
+                                        <select class="form-control select2 @error('funding_source_id') is-invalid @enderror" name="funding_source_id">
                                             <option value="" disabled selected>Select Funding Source</option>
                                             @foreach($funding_sources as $option)
                                                 <option value="{{ $option->id }}" @if(old('funding_source_id') == $option->id) selected @endif>{{ $option->name }}</option>
@@ -713,7 +713,7 @@
                                 <div class="form-group row">
                                     <label for="implementation_mode_id" class="col-form-label col-sm-2">Mode of Implementation <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control @error('implementation_mode_id') is-invalid @enderror" name="implementation_mode_id">
+                                        <select class="form-control select2 @error('implementation_mode_id') is-invalid @enderror" name="implementation_mode_id">
                                             <option value="" disabled selected>Select Implementation Mode</option>
                                             @foreach($implementation_modes as $option)
                                                 <option value="{{ $option->id }}" @if(old('implementation_mode_id') == $option->id) selected @endif>{{ $option->name }}</option>
@@ -725,7 +725,7 @@
                                 <div class="form-group row">
                                     <label for="funding_institution_id" class="col-form-label col-sm-2">Funding Institution</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" name="funding_institution_id" @error('funding_institution_id') is-invalid @enderror>
+                                        <select class="form-control select2" name="funding_institution_id" @error('funding_institution_id') is-invalid @enderror>
                                             <option value="" disabled selected>Select Funding Institution</option>
                                             @foreach($funding_institutions as $option)
                                                 <option value="{{ $option->id }}" @if(old('funding_institution_id') == $option->id) selected @endif>{{ $option->name }}</option>
@@ -736,7 +736,7 @@
                                 <div class="form-group row">
                                     <label for="tier_id" class="col-form-label col-sm-2">Budget Tier <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control @error('tier_id') is-invalid @enderror" name="tier_id">
+                                        <select class="form-control select2 @error('tier_id') is-invalid @enderror" name="tier_id">
                                             <option value="" disabled selected>Select Budget Tier</option>
                                             @foreach($tiers as $option)
                                                 <option value="{{ $option->id }}" @if(old('tier_id') == $option->id) selected @enderror>{{ $option->name }}</option>
@@ -1021,18 +1021,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <div class="btn-group">
-                        <button type="submit" class="btn btn-primary" dusk="submit-button">Submit</button>
-                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu" role="menu" style="">
-                            <button type="submit" name="new" class="dropdown-item" href="#">Submit &amp; Create Another</button>
-                            <button type="submit" name="view" class="dropdown-item" href="#">Submit &amp; View</button>
-                            <button type="submit" name="edit" class="dropdown-item" href="#">Submit &amp; Edit</button>
-                            <button type="submit" name="back" class="dropdown-item" href="#">Submit &amp; Back to List</button>
-                        </div>
-                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
 
             </form>

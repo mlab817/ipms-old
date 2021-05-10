@@ -26,7 +26,7 @@ class BasesDataTable extends DataTable
             })
             ->addColumn('action', function ($row) {
                 return '
-                    <a href="'. route('admin.bases.edit', $row).'" class="btn btn-secondary btn-sm">Edit</a>
+                    <a href="'. route('admin.bases.edit', $row).'" class="btn btn-info btn-sm">Edit</a>
                 ';
             });
     }

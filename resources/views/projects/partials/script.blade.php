@@ -86,11 +86,11 @@
         //     console.log('initialized')
         // }
 
-        function initializeSelect2() {
-            $('select').select2({
-                theme: 'bootstrap4'
-            })
-        }
+        // function initializeSelect2() {
+        //     $('select').select2({
+        //         theme: 'bootstrap4'
+        //     })
+        // }
 
         function filterPdpIndicators() {
             let $noPdpIndicator = $('#no_pdp_indicator'),
@@ -143,7 +143,7 @@
         }
 
         $doc.ready(function () {
-            initializeSelect2()
+            // initializeSelect2()
 
             $('.money').each(function() {
                 $(this).val(formatToMoney($(this).val()))
