@@ -22,13 +22,13 @@ class InfrastructureSubsectorsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('infrastructure_sector', function ($row) {
-                if ($row->infrastructure_sector->exists()) {
-                    return $row->infrastructure_sector->name;
+                if ($row->infrastructure_sector) {
+                    return $row->infrastructure_sector->name ?? '';
                 }
             })
             ->addColumn('action', function ($row) {
                 return '
-                    <a href="'.route('admin.infrastructure_subsectors.edit', $row->slug).'" class="btn btn-info">Edit</a>
+                    <a href="'.route('admin.infrastructure_subsectors.edit', $row).'" class="btn btn-info btn-sm">Edit</a>
                 ';
             });
     }

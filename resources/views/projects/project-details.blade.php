@@ -1,4 +1,4 @@
-<form action="" class="form-horizontal">
+
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">{{ __("General Information") }}</h3>
@@ -992,4 +992,52 @@
             </div>
         </div>
     </div>
-</form>
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">{{ __("Attachments") }}</h3>
+        </div>
+        <div class="card-body">
+            @can('projects.update', $project)
+            <div class="col-12">
+                <form action="{{ route('projects.upload', $project) }}" method="POST" role="form" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="attachment">Upload File</label>
+                        <input type="file" name="attachment" id="attachment" accept=".xls,.xlsx" class="form-control @error('attachment') is-invalid @enderror">
+                        @error('attachment')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+            @endcan
+
+            <div class="col-12 mt-2">
+                <table class="table table-striped">
+                    <thead>
+                        <td>Title</td>
+                        <td>Link</td>
+                    </thead>
+                    <tbody>
+                        @forelse ($project->attachments as $att)
+                            <tr>
+                                <td>{{ $att->title }}</td>
+                                <td>
+                                    <a href="{{ route('attachments.download', $att) }}" target="_blank">Download</a>
+                                    <form action="{{ route('attachments.destroy', $att) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="2">No attachments.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

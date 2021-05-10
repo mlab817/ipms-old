@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class PapType extends Model
 {
     use HasFactory;
-    use HasUuid;
     use Sluggable;
 
     protected $fillable = [

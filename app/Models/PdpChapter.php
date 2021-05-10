@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class PdpChapter extends Model
 {
     use HasFactory;
-    use HasUuid;
     use Sluggable;
 
     protected $fillable = [

@@ -15,18 +15,19 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <div class="row justify-content-between">
-                            <div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <a class="btn mr-2" href="{{ route('admin.infrastructure_sectors.index') }}">Back to List</a>
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
-                                    Delete
-                                </button>
+                        <div class="col">
+                            <div class="row justify-content-between">
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <a class="btn mr-2" href="{{ route('admin.infrastructure_sectors.index') }}">Back to List</a>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </form>
             </div>

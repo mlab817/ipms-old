@@ -8,6 +8,7 @@ use App\Events\ProjectReviewedEvent;
 use App\Events\UserCreated;
 use App\Listeners\PasswordChangedListener;
 use App\Listeners\ProjectCreatedListener;
+use App\Listeners\ProjectReviewedListener;
 use App\Listeners\SendNewUserNotification;
 use App\Listeners\SendNotificationToOwnerOfProjectReviewed;
 use App\Models\Project;
@@ -41,11 +42,11 @@ class EventServiceProvider extends ServiceProvider
         ProjectCreatedEvent::class => [
             ProjectCreatedListener::class,
         ],
-        ProjectReviewedEvent::class => [
-            SendNotificationToOwnerOfProjectReviewed::class,
-        ],
         PasswordChangedEvent::class => [
             PasswordChangedListener::class,
+        ],
+        ProjectReviewedEvent::class => [
+            ProjectReviewedListener::class,
         ],
     ];
 

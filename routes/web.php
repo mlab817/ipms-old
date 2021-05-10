@@ -38,8 +38,14 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');
     Route::put('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'update'])->name('trips.update');
     Route::post('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'store'])->name('trips.store');
+    Route::post('/projects/{project}/upload', [\App\Http\Controllers\ProjectController::class,'upload'])->name('projects.upload');
 
     Route::get('/trips', [\App\Http\Controllers\TripController::class, 'index'])->name('trips.index');
+
+    Route::get('/notifications/{notificationId}', \App\Http\Controllers\NotificationController::class)->name('notifications.read');
+
+    Route::get('/attachments/{attachment}/download', [\App\Http\Controllers\ProjectAttachmentController::class,'download'])->name('attachments.download');
+    Route::delete('/attachments/{attachment}', [\App\Http\Controllers\ProjectAttachmentController::class,'destroy'])->name('attachments.destroy');
 });
 
 // Resources secured by auth

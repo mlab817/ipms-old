@@ -23,7 +23,7 @@ class PdpChaptersDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function ($row) {
                 return '
-                    <a href="'.route('admin.pdp_chapters.edit', $row->slug).'" class="btn btn-info">Edit</a>
+                    <a href="'.route('admin.pdp_chapters.edit', $row).'" class="btn btn-info btn-sm">Edit</a>
                 ';
             });
     }

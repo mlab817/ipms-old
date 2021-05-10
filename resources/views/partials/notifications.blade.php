@@ -7,7 +7,7 @@
         <span class="dropdown-header">{{ auth()->user()->unreadNotifications->count() }} Notifications</span>
         <div class="dropdown-divider"></div>
         @foreach(auth()->user()->unreadNotifications as $notification)
-        <a href="{{ $notification->data['actionUrl'] }}" class="dropdown-item">
+        <a href="{{ route('notifications.read', $notification) }}" class="dropdown-item">
             <div class="media">
                 <img src="{{ $notification->data['sender']['avatar'] }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                 <div class="media-body">

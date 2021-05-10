@@ -6,6 +6,7 @@ use App\DataTables\PapTypesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\PapType;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PapTypeController extends Controller
 {
@@ -28,7 +29,9 @@ class PapTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pap_types.create', [
+            'pageTitle' => 'Add PAP Type',
+        ]);
     }
 
     /**
@@ -39,7 +42,15 @@ class PapTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $papType = PapType::create($request->all());
+
+        Alert::success('Success', 'Successfully saved item');
+
+        return redirect()->route('admin.pap_types.index');
     }
 
     /**
@@ -59,9 +70,11 @@ class PapTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(PapType $papType)
     {
-        //
+        return view('admin.pap_types.edit', compact('papType'))->with([
+            'pageTitle' => 'Edit PAP Type',
+        ]);
     }
 
     /**
@@ -71,9 +84,17 @@ class PapTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, PapType $papType)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $papType->update($request->all());
+
+        Alert::success('Success', 'Successfully updated item');
+
+        return back();
     }
 
     /**
@@ -85,6 +106,8 @@ class PapTypeController extends Controller
     public function destroy(PapType $papType)
     {
         $papType->delete();
+
+        Alert::success('Success', 'Successfully deleted item');
 
         return redirect()->route('admin.pap_types.index');
     }

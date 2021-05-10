@@ -45,8 +45,8 @@ class PdpChapterController extends Controller
 
     public function edit(Request $request, PdpChapter $pdpChapter)
     {
-        return view('admin.pdp_chapters.edit', [
-            'pdp_chapter' => $pdpChapter,
+        return view('admin.pdp_chapters.edit', compact('pdpChapter'))->with([
+            'pageTitle' => 'Edit PDP Chapter',
         ]);
     }
 

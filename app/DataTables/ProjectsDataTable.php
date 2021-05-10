@@ -37,29 +37,35 @@ class ProjectsDataTable extends DataTable
             ->editColumn('total_project_cost', function ($project) {
                 return number_format($project->total_project_cost, 2);
             })
-            ->addColumn('created_by', function ($project) {
-                return $project->creator->name ?? '';
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at->diffForHumans(null, null, true);
             })
-//            ->addColumn('permissions', function ($row) {
-//                return json_encode($row->permissions);
-//            })
-            ->addColumn('action', function ($row) {
-                if ($row->trip_info) {
-                    $tripButton = '<a href="' . route('trips.edit', $row->uuid) . '" class="btn btn-success btn-sm">TRIP</a>';
-                } else {
-                    $tripButton = '<a href="' . route('trips.create', $row->uuid) . '" class="btn btn-success btn-sm">TRIP</a>';
+            ->addColumn('created_by', function ($project) {
+                $img = '<img src="'.$project->creator->avatar.'" class="img-circle img-bordered-sm" alt="user-img" width="50" height="50">';
+                return $img .'<br/><span class="text-muted text-sm">'. $project->creator->name . '</span>' ?? '';
+            })
+            ->addColumn('trip', function ($row) {
+                if ($row->has_infra) {
+                    if ($row->trip_info) {
+                        $tripButton = '<a href="' . route('trips.edit', $row) . '" class="btn btn-success">TRIP</a>';
+                    } else {
+                        $tripButton = '<a href="' . route('trips.create', $row) . '" class="btn btn-success">TRIP</a>';
+                    }
+                    return $tripButton;
                 }
+            })
+            ->addColumn('action', function ($row) {
+                $viewButton = $row->permissions['view'] ? '<a href="' . route('projects.show', $row) . '" class="btn btn-primary"><i class="fas fa-eye"></i></a>' : '';
+                $editButton = $row->permissions['update'] ? '<a href="' . route('projects.edit', $row) . '" class="btn btn-secondary"><i class="fas fa-edit"></i></a>' : '';
+                $deleteButton = $row->permissions['delete'] ? '<button class="btn btn-danger" onClick="confirmDelete(\''. $row->getRouteKey() .'\')"><i class="fas fa-trash"></i></button>' : '';
 
-                $viewButton = $row->permissions['view'] ? '<a href="' . route('projects.show', $row->uuid) . '" class="btn btn-primary btn-sm">View</a>' : '';
-                $editButton = $row->permissions['update'] ? '<a href="' . route('projects.edit', $row->uuid) . '" class="btn btn-secondary btn-sm">Edit</a>' . $tripButton : '';
-                $deleteButton = $row->permissions['delete'] ? '<button class="btn btn-danger btn-sm" onClick="confirmDelete(\''. $row->uuid .'\')">Delete</button>' : '';
-
-                return '<div class="btn-group-vertical">'
+                return '<div class="btn-group">'
                     . $viewButton
                     . $editButton
                     . $deleteButton
                     . '</div>';
-            });
+            })
+            ->rawColumns(['created_by','trip','action']);
     }
 
     /**
@@ -82,6 +88,9 @@ class ProjectsDataTable extends DataTable
     {
         return $this->builder()
                     ->setTableId('projects-table')
+                    ->parameters([
+                        'responsive' => true
+                    ])
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
@@ -117,6 +126,7 @@ class ProjectsDataTable extends DataTable
                 ->title('Last Updated')
                 ->addClass('text-center'),
 //            Column::make('permissions'),
+            Column::make('trip'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

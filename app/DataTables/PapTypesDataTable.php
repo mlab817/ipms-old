@@ -24,12 +24,6 @@ class PapTypesDataTable extends DataTable
             ->addColumn('action', function ($row) {
                 return '
                     <a class="btn btn-info btn-sm" href="'. route('admin.pap_types.edit', $row) .'">Edit</a>
-                    <form action="'. route('admin.pap_types.destroy', $row) .'" method="POST">
-                        <input type="hidden" name="_token" value="'.csrf_token().'">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger btn-sm" href="'. route('admin.pap_types.edit', $row) .'">Delete</button>
-                    </form>
-
                 ';
             });
     }
@@ -75,7 +69,7 @@ class PapTypesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
+//            Column::make('id'),
             Column::make('name'),
             Column::make('description'),
             Column::computed('action')

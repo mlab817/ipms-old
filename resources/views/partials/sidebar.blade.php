@@ -86,18 +86,18 @@
                 </li>
                 @endcan
 
-                @can('subprojects.view_index')
-                <div class="dropdown-divider"></div>
+{{--                @can('subprojects.view_index')--}}
+{{--                <div class="dropdown-divider"></div>--}}
 
-                <li class="nav-item">
-                    <a href="{{ route('subprojects.index') }}" class="nav-link @if(Route::current()->getName() == 'subprojects.index') active @endif">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Subprojects
-                        </p>
-                    </a>
-                </li>
-                @endcan
+{{--                <li class="nav-item">--}}
+{{--                    <a href="{{ route('subprojects.index') }}" class="nav-link @if(Route::current()->getName() == 'subprojects.index') active @endif">--}}
+{{--                        <i class="nav-icon fas fa-th"></i>--}}
+{{--                        <p>--}}
+{{--                            Subprojects--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                @endcan--}}
 
                 @can('reviews.view_index')
                 <div class="dropdown-divider"></div>

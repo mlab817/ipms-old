@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\InfrastructureSector;
 use App\Models\InfrastructureSubsector;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class InfrastructureSubsectorController extends Controller
 {
@@ -50,6 +51,8 @@ class InfrastructureSubsectorController extends Controller
 
         InfrastructureSubsector::create($request->all());
 
+        Alert::success('Success', 'Successfully saved item');
+
         return redirect()->route('admin.infrastructure_subsectors.index');
     }
 
@@ -72,10 +75,9 @@ class InfrastructureSubsectorController extends Controller
      */
     public function edit(InfrastructureSubsector $infrastructureSubsector)
     {
-        return view('admin.infrastructure_subsectors.edit', [
+        return view('admin.infrastructure_subsectors.edit', compact('infrastructureSubsector'))->with([
             'pageTitle' => 'Edit Infrastructure Subsector',
             'infrastructure_sectors' => InfrastructureSector::all(),
-            'infrastructure_subsector' => $infrastructureSubsector,
         ]);
     }
 
@@ -95,7 +97,9 @@ class InfrastructureSubsectorController extends Controller
 
         $infrastructureSubsector->update($request->all());
 
-        return redirect()->route('admin.infrastructure_subsectors.index');
+        Alert::success('Success', 'Successfully updated item');
+
+        return back();
     }
 
     /**
@@ -108,6 +112,8 @@ class InfrastructureSubsectorController extends Controller
     {
         $infrastructureSubsector->delete();
 
-        return response()->noContent();
+        Alert::success('Success', 'Successfully deleted item');
+
+        return redirect()->route('admin.infrastructure_subsectors.index');
     }
 }

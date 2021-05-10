@@ -336,6 +336,11 @@ class Project extends Model
         return $this->belongsTo(User::class,'created_by','id');
     }
 
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(Attachment::class);
+    }
+
     public function investment(): HasOne
     {
         return $this->hasOne(FsInvestment::class,'project_id')

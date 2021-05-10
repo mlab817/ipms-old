@@ -21,6 +21,9 @@ class ReviewsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->addColumn('title', function ($row) {
+                return '<a href="'. route('projects.show', $row) .'" style="text-decoration: none; color: black;">' . $row->title. '</a>';
+            })
             ->addColumn('pap_type', function($project) {
                 return $project->pap_type->name ?? '';
             })
@@ -45,10 +48,12 @@ class ReviewsDataTable extends DataTable
                 if ($project->review()->exists()) {
                     return '<a href="'. route('reviews.edit', ['review' => $project->review->getRouteKey()]).'" class="btn btn-sm btn-info">Edit</a>';
                 } else {
-                    return '<a href="'. route('reviews.create', ['project' => $project->getRouteKey()]).'" class="btn btn-sm btn-info">Create</a>';
+                    if (auth()->user()->can('reviews.create')) {
+                        return '<a href="'. route('reviews.create', ['project' => $project->getRouteKey()]).'" class="btn btn-sm btn-info">Create</a>';
+                    }
                 }
             })
-            ->rawColumns(['reviewed','action']);
+            ->rawColumns(['title','reviewed','action']);
     }
 
     /**

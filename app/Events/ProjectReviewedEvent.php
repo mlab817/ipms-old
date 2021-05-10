@@ -15,15 +15,15 @@ class ProjectReviewedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $project;
+    public $review;
 
     /**
      * Create a new event instance.
      *
-     * @param Project $project
+     * @param $review
      */
-    public function __construct(Project $project)
+    public function __construct($review)
     {
-        $this->project = $project;
+        $this->review = $review;
     }
 }

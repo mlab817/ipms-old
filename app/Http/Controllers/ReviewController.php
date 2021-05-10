@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ReviewsDataTable;
+use App\Events\ProjectReviewedEvent;
 use App\Http\Requests\ReviewStoreRequest;
 use App\Models\CipType;
 use App\Models\PipTypology;
@@ -10,6 +11,7 @@ use App\Models\Project;
 use App\Models\ReadinessLevel;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ReviewController extends Controller
 {
@@ -63,7 +65,11 @@ class ReviewController extends Controller
 
         $project = Project::findOrFail($request->project_id);
 
-        $project->review()->updateOrCreate($request->validated());
+        $review = $project->review()->updateOrCreate($request->validated());
+
+        event(new ProjectReviewedEvent($review));
+
+        Alert::success('Success', 'Review successfully saved');
 
         return redirect()->route('reviews.index')->with('message', 'Successfully added review');
     }

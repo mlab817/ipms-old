@@ -6,6 +6,7 @@ use App\DataTables\OperatingUnitTypesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\OperatingUnitType;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class OperatingUnitTypeController extends Controller
 {
@@ -47,6 +48,8 @@ class OperatingUnitTypeController extends Controller
 
         OperatingUnitType::create($request->all());
 
+        Alert::success('Success','Successfully saved item');
+
         return redirect()->route('admin.operating_unit_types.index');
     }
 
@@ -69,9 +72,8 @@ class OperatingUnitTypeController extends Controller
      */
     public function edit(OperatingUnitType $operatingUnitType)
     {
-        return view('admin.operating_unit_types.edit', [
+        return view('admin.operating_unit_types.edit', compact('operatingUnitType'))->with([
             'pageTitle' => 'Edit OU Type',
-            'operating_unit_type' => $operatingUnitType,
         ]);
     }
 
@@ -90,7 +92,9 @@ class OperatingUnitTypeController extends Controller
 
         $operatingUnitType->update($request->all());
 
-        return redirect()->route('admin.operating_unit_types.index');
+        Alert::success('Success','Successfully updated item');
+
+        return back();
     }
 
     /**
@@ -103,6 +107,8 @@ class OperatingUnitTypeController extends Controller
     {
         $operatingUnitType->delete();
 
-        return response()->noContent();
+        Alert::success('Success','Successfully deleted item');
+
+        return redirect()->route('admin.operating_unit_types.index');
     }
 }

@@ -38,6 +38,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProjectController extends Controller
@@ -253,6 +254,28 @@ class ProjectController extends Controller
         Alert::success('Success', 'Successfully deleted project');
 
         return redirect()->route('projects.own');
+    }
+
+    public function upload(Request $request, Project $project)
+    {
+        $request->validate([
+            'attachment' => 'file',
+        ]);
+
+        $attachment = $request->file('attachment');
+
+        $fileName = $attachment->getClientOriginalName();
+
+        if ($request->file('attachment')->storeAs('projects', $fileName)) {
+            $project->attachments()->create([
+                'title' => $fileName,
+                'download_url' => 'projects/' . $fileName,
+                'user_id' => auth()->id()
+            ]);
+            Alert::success('Success', 'Successfully uploaded file');
+        }
+
+        return back();
     }
 
     /**

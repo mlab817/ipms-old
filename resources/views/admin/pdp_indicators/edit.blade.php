@@ -7,13 +7,13 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ $pageTitle }}</h3>
                 </div>
-                <form action="{{ route('admin.pdp_indicators.update', ['pdp_indicator' => $pdp_indicator->id]) }}" method="POST">
+                <form action="{{ route('admin.pdp_indicators.update', $pdpIndicator) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Name <i class="text-danger fas fa-flag"></i></label>
-                            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" placeholder="Name" value="{{ old('name', $pdp_indicator->name) }}">
+                            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" placeholder="Name" value="{{ old('name', $pdpIndicator->name) }}">
                             @error('name')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
 
@@ -22,7 +22,7 @@
                             <select class="form-control @error('level') is-invalid @enderror" name="level" id="level">
                                 <option value="" selected disabled>Select Level</option>
                                 @foreach($levels as $key => $level)
-                                    <option value="{{ $key }}" {{ old('level', $pdp_indicator->level) == $key ? 'selected' : '' }}>{{ $level }}</option>
+                                    <option value="{{ $key }}" {{ old('level', $pdpIndicator->level) == $key ? 'selected' : '' }}>{{ $level }}</option>
                                 @endforeach
                             </select>
                             @error('level')<span class="error invalid-feedback">{{ $message }}</span>@enderror
@@ -33,7 +33,7 @@
                             <select class="form-control @error('label') is-invalid @enderror" name="parent_id" id="parent_id">
                                 <option value="" selected disabled>Select Parent Indicator</option>
                                 @foreach($pdp_indicators as $option)
-                                    <option value="{{ $option->id }}" {{ old('parent_id', $pdp_indicator->parent_id) == $option->id ? 'selected' : '' }}>{{ $option->name }}</option>
+                                    <option value="{{ $option->id }}" {{ old('parent_id', $pdpIndicator->parent_id) == $option->id ? 'selected' : '' }}>{{ $option->name }}</option>
                                 @endforeach
                                 {{ old('parent_id') }}
                             </select>
@@ -42,11 +42,50 @@
                     </div>
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="{{ route('admin.pdp_indicators.index') }}" class="btn mr-2">Back to List</a>
+                        <div class="col">
+                            <div class="row justify-content-between">
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <a class="btn mr-2" href="{{ route('admin.pdp_indicators.index') }}">Back to List</a>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </section>
+@endsection
+
+@section('modal')
+    <div class="modal fade" id="modal-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Delete</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this item?</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                    <form action="{{ route('admin.pdp_indicators.destroy', $pdpIndicator) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Confirm</button>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 @endsection
