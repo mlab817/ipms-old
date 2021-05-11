@@ -28,7 +28,14 @@ class UsersDataTable extends DataTable
                 return $user->roles->pluck('name')->join(', ') ?? '';
             })
             ->addColumn('permissions', function($user) {
-                return $user->getAllPermissions()->pluck('name')->join('<br/>') ?? '';
+                $htmlEl = '';
+                foreach ($user->getAllPermissions()->take(5) as $permission) {
+                    $htmlEl .= '<span class="badge badge-primary m-1">' . $permission->name . '</span>';
+                }
+                $permCount = $user->getAllPermissions()->count();
+
+                return $htmlEl . (($permCount > 5) ? ' +' . ($permCount - 5) .' others' : '');
+//                return $user->getAllPermissions()->take(5)->pluck('name')->join('<br/>') . ' +' . $user->getAllPermissions()->count() . ' others' ?? '';
             })
             ->addColumn('avatar', function ($user) {
                 return '<img class="img-circle img-bordered-sm" src="'. $user->avatar .'" alt="user" width="50" height="50" />';
@@ -52,7 +59,7 @@ class UsersDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->newQuery();
+        return $model->with('permissions','roles.permissions','office')->newQuery();
     }
 
     /**
@@ -94,7 +101,8 @@ class UsersDataTable extends DataTable
             Column::make('roles')
                 ->addClass('text-center'),
             Column::make('permissions')
-                ->addClass('text-center'),
+                ->addClass('text-center')
+                ->width(200),
             Column::computed('avatar')
                 ->addClass('text-center'),
             Column::computed('action')

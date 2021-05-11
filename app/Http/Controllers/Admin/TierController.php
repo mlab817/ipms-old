@@ -6,6 +6,7 @@ use App\DataTables\TiersDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Tier;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TierController extends Controller
 {
@@ -46,6 +47,8 @@ class TierController extends Controller
         ]);
 
         Tier::create($request->all());
+
+        Alert::success('Success','Successfully saved item');
 
         return redirect()->route('admin.tiers.index');
     }
@@ -90,7 +93,9 @@ class TierController extends Controller
 
         $tier->update($request->all());
 
-        return redirect()->route('admin.tiers.index');
+        Alert::success('Success','Successfully updated item');
+
+        return back();
     }
 
     /**
@@ -103,6 +108,8 @@ class TierController extends Controller
     {
         $tier->delete();
 
-        return response()->noContent();
+        Alert::success('Success','Successfully deleted item');
+
+        return redirect()->route('admin.tiers.index');
     }
 }

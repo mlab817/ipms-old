@@ -26,7 +26,7 @@ class RegionsDataTable extends DataTable
             })
             ->addColumn('action', function($region) {
                 return '
-                    <a href="' . route('admin.regions.edit', $region->slug) . '" class="btn btn-secondary">Edit</a>
+                    <a href="' . route('admin.regions.edit', $region) . '" class="btn btn-info btn-sm">Edit</a>
                 ';
             });
     }

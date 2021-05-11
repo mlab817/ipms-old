@@ -14,7 +14,7 @@
                         Roles
                     </div>
                     <div class="col-sm-10">
-                        @foreach(auth()->user()->roles as $role)
+                        @foreach($user->roles as $role)
                             <span class="badge bg-info">
                                 {{ $role->name }}
                             </span>
@@ -26,7 +26,7 @@
                         Permissions
                     </div>
                     <div class="col-sm-10">
-                        @foreach(auth()->user()->getAllPermissions() as $perm)
+                        @foreach($user->getAllPermissions() as $perm)
                             <span class="badge bg-info">
                                 {{ $perm->name }}
                             </span>

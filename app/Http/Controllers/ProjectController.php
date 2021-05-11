@@ -54,7 +54,7 @@ class ProjectController extends Controller
     public function index(ProjectsDataTable $dataTable)
     {
         return $dataTable
-            ->render('projects.index', ['pageTitle' => 'Projects']);
+            ->render('projects.index', ['pageTitle' => 'All Projects']);
     }
 
     /**

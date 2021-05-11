@@ -16,6 +16,7 @@ use App\Models\RegionInfrastructure;
 use App\Models\RightOfWay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
 class TripController extends Controller
@@ -77,8 +78,9 @@ class TripController extends Controller
         $project->region_infrastructures()->createMany($request->region_infrastructures);
         $project->fs_infrastructures()->createMany($request->fs_infrastructures);
 
-        return redirect()->route('projects.index')
-            ->with('message','Successfully added TRIP information');
+        Alert::success('Success', 'Successfully added TRIP information');
+
+        return redirect()->route('projects.index');
     }
 
     public function update(TripUpdateRequest $request, Project $project)
@@ -114,7 +116,8 @@ class TripController extends Controller
 
         $project->prerequisites()->sync($request->prerequisites);
 
-        return redirect()->route('projects.index')
-            ->with('message','Successfully updated TRIP information');
+        Alert::success('Success', 'Successfully updated TRIP information');
+
+        return redirect()->route('projects.index');
     }
 }

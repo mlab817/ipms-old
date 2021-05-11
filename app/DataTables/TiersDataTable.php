@@ -51,7 +51,7 @@ class TiersDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->buttons(
                         Button::make('create'),
                         Button::make('export'),
@@ -69,8 +69,8 @@ class TiersDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
             Column::make('name'),
+            Column::make('description'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

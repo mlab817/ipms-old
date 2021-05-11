@@ -22,17 +22,25 @@ class AdminProjectsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->addColumn('office', function ($row) {
+                return $row->creator->office->name ?? '';
+            })
             ->addColumn('added by', function ($row) {
-                return $row->creator->name ?? '';
+                $img = '<img src="' . $row->creator->avatar .'" width="50" height="50">';
+                return $img . '<br/><span class="text-muted text-sm">' . $row->creator->name . '</span>' ?? '';
             })
             ->addColumn('users', function ($row) {
                 // get all users that have access
+            })
+            ->addColumn('updated_at', function ($row) {
+                return $row->updated_at->diffForHumans(null, null, true);
             })
             ->addColumn('action', function ($row) {
                 return '
                     <a class="btn btn-info btn-sm" href="'. route('admin.projects.users.index', $row->getRouteKey()) .'">Manage</a>
                 ';
-            });
+            })
+            ->rawColumns(['added by','action']);
     }
 
     /**
@@ -43,7 +51,7 @@ class AdminProjectsDataTable extends DataTable
      */
     public function query(Project $model)
     {
-        return $model->newQuery();
+        return $model->with('creator.office','users')->newQuery();
     }
 
     /**
@@ -56,6 +64,7 @@ class AdminProjectsDataTable extends DataTable
         return $this->builder()
                     ->setTableId('adminprojects-table')
                     ->columns($this->getColumns())
+                    ->parameters(['responsive' => true])
                     ->minifiedAjax()
                     ->dom('Bfrtip')
                     ->orderBy(0, 'asc')
@@ -76,9 +85,12 @@ class AdminProjectsDataTable extends DataTable
     {
         return [
             Column::make('title'),
-            Column::make('added by'),
+            Column::make('office'),
+            Column::make('added by')
+                ->addClass('text-center'),
             Column::make('users'),
-            Column::make('updated_at'),
+            Column::make('updated_at')
+                ->addClass('text-center'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

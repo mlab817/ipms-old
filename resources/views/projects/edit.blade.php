@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <section class="content">
@@ -26,123 +26,141 @@
                             </div>
 
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="title">Project Title <i class="text-danger fas fa-flag"></i></label>
-                                    <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                           name="title" placeholder="Project Title"
-                                           value="{{ old('title', $project->title) }}">
-                                    @error('title')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                <div class="form-group row">
+                                    <label for="title" class="col-form-label col-sm-3">Project Title <i class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                               name="title" placeholder="Project Title"
+                                               value="{{ old('title', $project->title) }}">
+                                        @error('title')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="pap_type_id">PAP Type <i class="text-danger fas fa-flag"></i></label>
-                                    <select class="form-control @error('pap_type_id') is-invalid @enderror"
-                                            name="pap_type_id">
-                                        <option value="" selected disabled>Select PAP Type</option>
-                                        @foreach($pap_types as $option)
-                                            <option value="{{ $option->id }}"
-                                                    @if(old('pap_type_id', $project->pap_type_id) == $option->id) selected @endif>{{ $option->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('pap_type_id')<span
-                                        class="error invalid-feedback">{{ $message }}</span>@enderror
+                                <div class="form-group row">
+                                    <label for="pap_type_id" class="col-form-label col-sm-3">PAP Type <i class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control @error('pap_type_id') is-invalid @enderror"
+                                                name="pap_type_id">
+                                            <option value="" selected disabled>Select PAP Type</option>
+                                            @foreach($pap_types as $option)
+                                                <option value="{{ $option->id }}"
+                                                        @if(old('pap_type_id', $project->pap_type_id) == $option->id) selected @endif>{{ $option->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('pap_type_id')<span
+                                            class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="pap_type_id">Is this a regular program? <i
+                                <div class="form-group row">
+                                    <label for="pap_type_id" class="col-form-label col-sm-3">Is this a regular program? <i
                                             class="text-danger fas fa-flag"></i></label>
-                                    <div class="form-check-inline">
-                                        <input class="form-check-input" type="radio" name="regular_program" value="1"
-                                               @if(old('regular_program', $project->regular_program) == 1) checked @endif>
-                                        <label class="form-check-label">Yes</label>
-                                    </div>
-                                    <div class="form-check-inline">
-                                        <input class="form-check-input" type="radio" name="regular_program" value="0"
-                                               @if(old('regular_program', $project->regular_program) == 0) checked @endif>
-                                        <label class="form-check-label">No</label>
-                                    </div>
-                                    @error('regular_program')<span
-                                        class="error invalid-feedback">{{ $message }}</span>@enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="has_infra">Does this PAP have INFRASTRUCTURE component/s? <i
-                                            class="text-danger fas fa-flag"></i></label>
-                                    <div class="form-check-inline">
-                                        <input class="form-check-input" type="radio" name="has_infra" value="1"
-                                               @if(old('has_infra', $project->has_infra) == 1) checked @endif>
-                                        <label class="form-check-label">Yes</label>
-                                    </div>
-                                    <div class="form-check-inline">
-                                        <input class="form-check-input" type="radio" name="has_infra" value="0"
-                                               @if(old('has_infra', $project->has_infra) == 0) checked @endif>
-                                        <label class="form-check-label">No</label>
-                                    </div>
-                                    @error('has_infra')<span
-                                        class="error invalid-feedback">{{ $message }}</span>@enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="bases">Implementation Bases <i
-                                            class="text-danger fas fa-flag"></i></label>
-                                    @foreach($bases as $option)
-                                        <div class="form-check">
-                                            <label class="form-check-label @error('bases') text-danger @enderror">
-                                                <input type="checkbox"
-                                                       class="form-check-input @error('bases') text-danger @enderror"
-                                                       name="bases[]" value="{{ $option->id }}"
-                                                       @if(in_array($option->id, old('bases', $project->bases->pluck('id')->toArray() ?? []))) checked @endif>
-                                                {{ $option->name }}
-                                            </label>
+                                    <div class="col-sm-9">
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input" type="radio" name="regular_program" value="1"
+                                                   @if(old('regular_program', $project->regular_program) == 1) checked @endif>
+                                            <label class="form-check-label">Yes</label>
                                         </div>
-                                    @endforeach
-                                    @error('bases')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input" type="radio" name="regular_program" value="0"
+                                                   @if(old('regular_program', $project->regular_program) == 0) checked @endif>
+                                            <label class="form-check-label">No</label>
+                                        </div>
+                                        @error('regular_program')<span
+                                            class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="description">Description <i class="text-danger fas fa-flag"></i></label>
-                                    <textarea rows="4" style="resize: none;"
-                                              class="form-control @error('description') is-invalid @enderror"
-                                              name="description">{{ old('description', $project->description) }}</textarea>
-                                    @error('description')<span
-                                        class="error invalid-feedback">{{ $message }}</span>@enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="expected_outputs">Expected Outputs <i
+                                <div class="form-group row">
+                                    <label for="has_infra" class="col-form-label col-sm-3">Does this PAP have INFRASTRUCTURE component/s? <i
                                             class="text-danger fas fa-flag"></i></label>
-                                    <textarea rows="4" style="resize: none;"
-                                              class="form-control @error('expected_outputs') is-invalid @enderror"
-                                              name="expected_outputs">{{ old('expected_outputs', $project->expected_outputs) }}</textarea>
-                                    @error('expected_outputs')<span
-                                        class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    <div class="col-sm-9">
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input" type="radio" name="has_infra" value="1"
+                                                   @if(old('has_infra', $project->has_infra) == 1) checked @endif>
+                                            <label class="form-check-label">Yes</label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input" type="radio" name="has_infra" value="0"
+                                                   @if(old('has_infra', $project->has_infra) == 0) checked @endif>
+                                            <label class="form-check-label">No</label>
+                                        </div>
+                                        @error('has_infra')<span
+                                            class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="total_project_cost">Total Project Cost (in absolute PhP) <i
+                                <div class="form-group row">
+                                    <label for="bases" class="col-form-label col-sm-3">Implementation Bases <i
                                             class="text-danger fas fa-flag"></i></label>
-                                    <!-- TODO: Replace with MoneyInput -->
-                                    <input type="text"
-                                           class="money form-control @error('total_project_cost') is-invalid @enderror"
-                                           name="total_project_cost"
-                                           value="{{ old('total_project_cost', $project->total_project_cost) }}">
-                                    @error('total_project_cost')<span
-                                        class="error invalid-feedback">{{ $message }}</span>@enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="project_status_id">Project Status <i
-                                            class="text-danger fas fa-flag"></i></label>
-                                    <select class="form-control @error('pap_type_id') is-invalid @enderror"
-                                            name="project_status_id">
-                                        <option value="" selected disabled>Select Project Status</option>
-                                        @foreach($project_statuses as $option)
-                                            <option value="{{ $option->id }}"
-                                                    @if(old('project_status_id', $project->project_status_id) == $option->id) selected @endif>{{ $option->name }}</option>
+                                    <div class="col-sm-9">
+                                        @foreach($bases as $option)
+                                            <div class="form-check">
+                                                <label class="form-check-label @error('bases') text-danger @enderror">
+                                                    <input type="checkbox"
+                                                           class="form-check-input @error('bases') text-danger @enderror"
+                                                           name="bases[]" value="{{ $option->id }}"
+                                                           @if(in_array($option->id, old('bases', $project->bases->pluck('id')->toArray() ?? []))) checked @endif>
+                                                    {{ $option->name }}
+                                                </label>
+                                            </div>
                                         @endforeach
-                                    </select>
-                                    @error('project_status_id')<span
-                                        class="error invalid-feedback">{{ $message }}</span>@enderror
+                                        @error('bases')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="description" class="col-form-label col-sm-3">Description <i class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-9">
+                                        <textarea rows="4" style="resize: none;"
+                                                  class="form-control @error('description') is-invalid @enderror"
+                                                  name="description">{{ old('description', $project->description) }}</textarea>
+                                        @error('description')<span
+                                            class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="expected_outputs" class="col-form-label col-sm-3">Expected Outputs <i
+                                            class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-9">
+                                        <textarea rows="4" style="resize: none;"
+                                                  class="form-control @error('expected_outputs') is-invalid @enderror"
+                                                  name="expected_outputs">{{ old('expected_outputs', $project->expected_outputs) }}</textarea>
+                                        @error('expected_outputs')<span
+                                            class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="total_project_cost" class="col-form-label col-sm-3">Total Project Cost (in absolute PhP) <i
+                                            class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-9">
+                                        <!-- TODO: Replace with MoneyInput -->
+                                        <input type="text"
+                                               class="money form-control @error('total_project_cost') is-invalid @enderror"
+                                               name="total_project_cost"
+                                               value="{{ old('total_project_cost', $project->total_project_cost) }}">
+                                        @error('total_project_cost')<span
+                                            class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="project_status_id" class="col-form-label col-sm-3">Project Status <i
+                                            class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control @error('pap_type_id') is-invalid @enderror"
+                                                name="project_status_id">
+                                            <option value="" selected disabled>Select Project Status</option>
+                                            @foreach($project_statuses as $option)
+                                                <option value="{{ $option->id }}"
+                                                        @if(old('project_status_id', $project->project_status_id) == $option->id) selected @endif>{{ $option->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('project_status_id')<span
+                                            class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
                                 </div>
 
                             </div>
@@ -157,8 +175,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="regions" class="col-form-label col-sm-2">Implementing Agencies <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="regions" class="col-form-label col-sm-3">Implementing Agencies <i class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-9">
                                         @foreach($operating_units as $option)
                                             <div class="form-check">
                                                 <label class="form-check-label">
@@ -180,37 +198,41 @@
                                 <h3 class="card-title">{{ __("Spatial Coverage") }}</h3>
                             </div>
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="spatial_coverage_id">Spatial Coverage <i
+                                <div class="form-group row">
+                                    <label for="spatial_coverage_id" class="col-form-label col-sm-3">Spatial Coverage <i
                                             class="text-danger fas fa-flag"></i></label>
-                                    <select name="spatial_coverage_id" id="spatial_coverage_id"
-                                            class="form-control @error('spatial_coverage_id') is-invalid @enderror">
-                                        <option value="" selected disabled>Select Spatial Coverage</option>
-                                        @foreach($spatial_coverages as $option)
-                                            <option value="{{ $option->id }}"
-                                                    @if(old('spatial_coverage_id', $project->spatial_coverage_id) == $option->id) selected @endif>{{ $option->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('spatial_coverage_id')<span
-                                        class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    <div class="col-sm-9">
+                                        <select name="spatial_coverage_id" id="spatial_coverage_id"
+                                                class="form-control @error('spatial_coverage_id') is-invalid @enderror">
+                                            <option value="" selected disabled>Select Spatial Coverage</option>
+                                            @foreach($spatial_coverages as $option)
+                                                <option value="{{ $option->id }}"
+                                                        @if(old('spatial_coverage_id', $project->spatial_coverage_id) == $option->id) selected @endif>{{ $option->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('spatial_coverage_id')<span
+                                            class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="regions">Regions <i class="text-danger fas fa-flag"></i></label>
-                                    @foreach($regions->sortBy('order') as $option)
-                                        @if($option->id !== 99)
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input
-                                                        class="form-check-input @error('regions') text-danger @enderror"
-                                                        type="checkbox" name="regions[]"
-                                                        value="{{ $option->id }}" {{ in_array($option->id, old('regions', $project->regions->pluck('id')->toArray() ?? [])) ? 'checked' : '' }}>
-                                                    {{ $option->name }}
-                                                </label>
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                    @error('regions')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                <div class="form-group row">
+                                    <label for="regions" class="col-form-label col-sm-3">Regions <i class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-9">
+                                        @foreach($regions->sortBy('order') as $option)
+                                            @if($option->id !== 99)
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input
+                                                            class="form-check-input @error('regions') text-danger @enderror"
+                                                            type="checkbox" name="regions[]"
+                                                            value="{{ $option->id }}" {{ in_array($option->id, old('regions', $project->regions->pluck('id')->toArray() ?? [])) ? 'checked' : '' }}>
+                                                        {{ $option->name }}
+                                                    </label>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                        @error('regions')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -225,36 +247,40 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="target_start_year">Start of Implementation <i
+                                        <div class="form-group row">
+                                            <label for="target_start_year" class="col-form-label col-sm-6">Start of Implementation <i
                                                     class="text-danger fas fa-flag"></i></label>
-                                            <select
-                                                class="form-control @error('target_start_year') is-invalid @enderror"
-                                                name="target_start_year">
-                                                <option value="" disabled selected>Select Year</option>
-                                                @foreach($years as $option)
-                                                    <option
-                                                        value="{{ $option }}" @if(old('target_start_year', $project->target_start_year) == $option) selected @endif>{{ $option }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('target_start_year')<span
-                                                class="error invalid-feedback">{{ $message }}</span>@enderror
+                                            <div class="col-sm-6">
+                                                <select
+                                                    class="form-control @error('target_start_year') is-invalid @enderror"
+                                                    name="target_start_year">
+                                                    <option value="" disabled selected>Select Year</option>
+                                                    @foreach($years as $option)
+                                                        <option
+                                                            value="{{ $option }}" @if(old('target_start_year', $project->target_start_year) == $option) selected @endif>{{ $option }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('target_start_year')<span
+                                                    class="error invalid-feedback">{{ $message }}</span>@enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="target_end_year">Year of Project Completion <i
+                                        <div class="form-group row">
+                                            <label for="target_end_year" class="col-form-label col-sm-6">Year of Project Completion <i
                                                     class="text-danger fas fa-flag"></i></label>
-                                            <select class="form-control @error('target_end_year') is-invalid @enderror"
-                                                    name="target_end_year">
-                                                <option value="" disabled selected>Select Year</option>
-                                                @foreach($years as $option)
-                                                    <option
-                                                        value="{{ $option }}" @if(old('target_end_year', $project->target_end_year) == $option) selected @endif>{{ $option }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('target_end_year')<span
-                                                class="error invalid-feedback">{{ $message }}</span>@enderror
+                                            <div class="col-sm-6">
+                                                <select class="form-control @error('target_end_year') is-invalid @enderror"
+                                                        name="target_end_year">
+                                                    <option value="" disabled selected>Select Year</option>
+                                                    @foreach($years as $option)
+                                                        <option
+                                                            value="{{ $option }}" @if(old('target_end_year', $project->target_end_year) == $option) selected @endif>{{ $option }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('target_end_year')<span
+                                                    class="error invalid-feedback">{{ $message }}</span>@enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -271,9 +297,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="iccable" class="col-form-label col-sm-2">Is the Project ICC-able? <i
+                                    <label for="iccable" class="col-form-label col-sm-3">Is the Project ICC-able? <i
                                             class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <div class="form-check-inline">
                                             <input type="radio" class="form-check-input" value="1"
                                                    name="iccable" @if(old('iccable', $project->iccable) == 1) checked @endif>
@@ -289,8 +315,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="target_start_year" class="col-form-label col-sm-2">Level of Approval (For ICCable only)</label>
-                                    <div class="col-sm-10">
+                                    <label for="target_start_year" class="col-form-label col-sm-3">Level of Approval (For ICCable only)</label>
+                                    <div class="col-sm-9">
                                         <select class="form-control @error('approval_level_id') is-invalid @enderror"
                                                 name="approval_level_id">
                                             <option value="" disabled selected>Select Approval Level</option>
@@ -304,8 +330,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="approval_date" class="col-form-label col-sm-2">Date of Submission/Approval</label>
-                                    <div class="col-sm-10">
+                                    <label for="approval_date" class="col-form-label col-sm-3">Date of Submission/Approval</label>
+                                    <div class="col-sm-9">
                                         <input type="date" class="form-control @error('approval_date') is-invalid @enderror"
                                                name="approval_date" value="{{ old('approval_date', $project->approval_date) }}">
                                         @error('approval_date')<span
@@ -325,9 +351,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="col-form-label col-sm-2">Regional Development Investment Program <i
+                                    <label class="col-form-label col-sm-3">Regional Development Investment Program <i
                                             class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
                                                 <input class="form-check-input" type="radio" name="rdip" value="1"
@@ -348,9 +374,9 @@
                                 </div>
                                 <div class="ml-4">
                                     <div class="form-group row">
-                                        <label class="col-form-label col-sm-2">Is RDC endorsement required? <i
+                                        <label class="col-form-label col-sm-3">Is RDC endorsement required? <i
                                                 class="text-danger fas fa-flag"></i></label>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-9">
                                             <div class="form-check-inline">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="radio"
@@ -372,8 +398,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="rdc_endorsed" class="col-form-label col-sm-2">Has the project been endorsed?</label>
-                                        <div class="col-sm-10">
+                                        <label for="rdc_endorsed" class="col-form-label col-sm-3">Has the project been endorsed?</label>
+                                        <div class="col-sm-9">
                                             <div class="form-check-inline">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="radio" name="rdc_endorsed"
@@ -393,8 +419,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="rdc_endorsed_date" class="col-form-label col-sm-2">RDC Endorsement Date</label>
-                                        <div class="col-sm-10">
+                                        <label for="rdc_endorsed_date" class="col-form-label col-sm-3">RDC Endorsement Date</label>
+                                        <div class="col-sm-9">
                                             <input type="date"
                                                    class="form-control @error('rdc_endorsed_date') is-invalid @enderror"
                                                    name="rdc_endorsed_date" value="{{ old('rdc_endorsed_date') }}">
@@ -416,9 +442,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="preparation_document_id" class="col-form-label col-sm-2">Project
+                                    <label for="preparation_document_id" class="col-form-label col-sm-3">Project
                                         Preparation Document <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <select name="preparation_document_id" id="preparation_document_id"
                                                 class="form-control">
                                             <option value="" selected disabled>Select document</option>
@@ -431,9 +457,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="has_fs" class="col-form-label col-sm-2">Does the project require
+                                    <label for="has_fs" class="col-form-label col-sm-3">Does the project require
                                         feasibility study? <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
                                                 <input type="radio" class="form-check-input" value="1"
@@ -453,9 +479,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="fs_status_id" class="col-form-label col-sm-2">Status of Feasibility
+                                    <label for="fs_status_id" class="col-form-label col-sm-3">Status of Feasibility
                                         Study (Only if FS is required)</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <select name="feasibility_study[fs_status_id]" id="fs_status_id"
                                                 class="form-control">
                                             <option value="" selected disabled>Select Status</option>
@@ -468,9 +494,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="feasibility_study.needs_assistance" class="col-form-label col-sm-2">Does the conduct of feasibility
+                                    <label for="feasibility_study.needs_assistance" class="col-form-label col-sm-3">Does the conduct of feasibility
                                         study need assistance?</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
                                                 <input type="radio" class="form-check-input" value="1"
@@ -545,9 +571,9 @@
                                     </table>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="feasibility_study[completion_date]" class="col-form-label col-sm-2">Expected/Target
+                                    <label for="feasibility_study[completion_date]" class="col-form-label col-sm-3">Expected/Target
                                         Date of Completion of FS</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <input type="date" class="form-control"
                                                name="feasibility_study[completion_date]"
                                                value="{{ old('feasibility_study.completion_date', $project->feasibility_study->completion_date ?? '') }}">
@@ -566,9 +592,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="employment_generated" class="col-form-label col-sm-2">No. of persons to
+                                    <label for="employment_generated" class="col-form-label col-sm-3">No. of persons to
                                         be employed after completion of the project</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <input class="form-control @error('employment_generated') is-invalid @enderror"
                                                type="number" name="employment_generated"
                                                value="{{ old('employment_generated', $project->employment_generated) }}">
@@ -589,9 +615,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="pdp_chapter_id" class="col-form-label col-sm-2">Main philippine
+                                    <label for="pdp_chapter_id" class="col-form-label col-sm-3">Main philippine
                                         Development Chapter <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <select id="pdp_chapter_id" name="pdp_chapter_id"
                                                 class="form-control @error('pdp_chapter_id') is-invalid @enderror">
                                             <option value="" disabled selected>Select Main PDP Chapter</option>
@@ -603,9 +629,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="infrastructure_sectors" class="col-form-label col-sm-2">Other PDP
+                                    <label for="infrastructure_sectors" class="col-form-label col-sm-3">Other PDP
                                         Chapters</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         @foreach($pdp_chapters as $option)
                                             <div class="form-check">
                                                 <label class="form-check-label" for="pdp_chapter_{{ $option->id }}">
@@ -709,9 +735,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="sdgs" class="col-form-label col-sm-2">Sustainable Development Goals <i
+                                    <label for="sdgs" class="col-form-label col-sm-3">Sustainable Development Goals <i
                                             class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         @foreach($sdgs as $option)
                                             <div class="form-check">
                                                 <label class="form-check-label" for="sdg_{{ $option->id }}">
@@ -739,9 +765,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="ten_point_agendas" class="col-form-label col-sm-2">Ten Point Agenda <i
+                                    <label for="ten_point_agendas" class="col-form-label col-sm-3">Ten Point Agenda <i
                                             class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         @foreach($ten_point_agendas as $option)
                                             <div class="form-check">
                                                 <label class="form-check-label" for="tpa_{{ $option->id }}">
@@ -770,9 +796,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="funding_source_id" class="col-form-label col-sm-2">Main Funding Source
+                                    <label for="funding_source_id" class="col-form-label col-sm-3">Main Funding Source
                                         <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <select class="form-control @error('funding_source_id') is-invalid @enderror"
                                                 name="funding_source_id">
                                             <option value="" disabled selected>Select Funding Source</option>
@@ -785,9 +811,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="funding_sources" class="col-form-label col-sm-2">Other Funding
+                                    <label for="funding_sources" class="col-form-label col-sm-3">Other Funding
                                         Sources</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         @foreach($funding_sources as $option)
                                             <div class="form-check">
                                                 <label class="form-check-label" for="fs_{{ $option->id }}">
@@ -803,9 +829,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="other_fs" class="col-form-label col-sm-2">Other Funding Source
+                                    <label for="other_fs" class="col-form-label col-sm-3">Other Funding Source
                                         (specify)</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <input type="text" class="form-control" name="other_fs" id="other_fs"
                                                placeholder="Other funding source (please specify)"
                                                value="{{ old('other_fs', $project->other_fs) }}">
@@ -814,9 +840,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="implementation_mode_id" class="col-form-label col-sm-2">Mode of
+                                    <label for="implementation_mode_id" class="col-form-label col-sm-3">Mode of
                                         Implementation <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <select
                                             class="form-control @error('implementation_mode_id') is-invalid @enderror"
                                             name="implementation_mode_id">
@@ -831,10 +857,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="funding_institution_id" class="col-form-label col-sm-2">Funding
+                                    <label for="funding_institution_id" class="col-form-label col-sm-3">Funding
                                         Institution</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control" name="funding_institution_id">
+                                    <div class="col-sm-9">
+                                        <select class="form-control select2" name="funding_institution_id">
                                             <option value="" disabled selected>Select Funding Institution</option>
                                             @foreach($funding_institutions as $option)
                                                 <option value="{{ $option->id }}"
@@ -846,9 +872,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="tier_id" class="col-form-label col-sm-2">Budget Tier <i
+                                    <label for="tier_id" class="col-form-label col-sm-3">Budget Tier <i
                                             class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <select class="form-control @error('tier_id') is-invalid @enderror"
                                                 name="tier_id">
                                             <option value="" disabled selected>Select Budget Tier</option>
@@ -862,8 +888,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="uacs_code" class="col-form-label col-sm-2">UACS Code</label>
-                                    <div class="col-sm-10">
+                                    <label for="uacs_code" class="col-form-label col-sm-3">UACS Code</label>
+                                    <div class="col-sm-9">
                                         <input type="text" class="form-control @error('uacs_code') is-invalid @enderror"
                                                name="uacs_code" id="uacs_code" placeholder="UACS Code"
                                                value="{{ old('uacs_code', $project->uacs_code) }}">
@@ -884,9 +910,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="updates" class="col-form-label col-sm-2">Updates <i
+                                    <label for="updates" class="col-form-label col-sm-3">Updates <i
                                             class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <textarea rows="4" style="resize: none;"
                                                   class="form-control @error('updates') is-invalid @enderror"
                                                   id="updates"
@@ -896,9 +922,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="updates_date" class="col-form-label col-sm-2">As of <i
+                                    <label for="updates_date" class="col-form-label col-sm-3">As of <i
                                             class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <input type="date"
                                                class="form-control @error('updates_date') is-invalid @enderror"
                                                id="updates_date" name="updates_date"

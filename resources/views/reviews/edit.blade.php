@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <div class="mt-3" />
@@ -13,18 +13,13 @@
                 </ul>
             @endif
 
-            <form class="form-horizontal" action="{{ route('reviews.update', $review->getRouteKey()) }}" method="POST">
+            <form class="form-horizontal" action="{{ route('reviews.update', $review) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="card card-info">
-                    <div class="card-header">
-                        <div class="card-title">Reviewing: {{ $review->project->title }}</div>
-                    </div>
-                </div>
 
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h1 class="card-title">Project Classification</h1>
+                        <h1 class="card-title">PAP Classification</h1>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">

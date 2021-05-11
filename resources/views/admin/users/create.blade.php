@@ -4,9 +4,6 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Add New User</h3>
-                </div>
                 <form action="{{ route('admin.users.store') }}" method="POST">
                     @csrf
                     <div class="card-body">
@@ -24,7 +21,7 @@
 
                         <div class="form-group">
                             <label for="office_id">Office <i class="text-danger fas fa-flag"></i></label>
-                            <select class="form-control @error('office_id') is-invalid @enderror" name="office_id" id="office_id">
+                            <select class="form-control select2 @error('office_id') is-invalid @enderror" name="office_id" id="office_id">
                                 <option value="" selected disabled>Select Office</option>
                                 @foreach($offices as $office)
                                     <option value="{{ $office->id }}" @if(old('office_id') == $office->id) selected @endif>{{ $office->name }}</option>

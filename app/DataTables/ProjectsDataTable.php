@@ -76,7 +76,7 @@ class ProjectsDataTable extends DataTable
      */
     public function query(Project $model)
     {
-        return $model->newQuery();
+        return $model->with('creator.office','pap_type')->newQuery();
     }
 
     /**

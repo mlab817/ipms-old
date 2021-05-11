@@ -9,7 +9,8 @@ class SettingsController extends Controller
     public function __invoke()
     {
         return view('settings')->with([
-            'pageTitle' => 'Settings'
+            'pageTitle' => 'Settings',
+            'user'      => auth()->user(),
         ]);
     }
 }

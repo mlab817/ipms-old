@@ -99,6 +99,7 @@ class ProjectFactory extends Factory
             'total_project_cost'            => $this->faker->randomFloat() * 1000,
             'created_by'                    => User::all()->random()->id,
             'has_subprojects'               => $this->faker->boolean,
+            'has_infra'                     => $this->faker->boolean,
         ];
     }
 }

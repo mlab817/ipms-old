@@ -22,7 +22,7 @@ class ReviewsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('title', function ($row) {
-                return '<a href="'. route('projects.show', $row) .'" style="text-decoration: none; color: black;">' . $row->title. '</a>';
+                return '<a href="'. route('projects.show', $row) .'">' . $row->title. '</a>';
             })
             ->addColumn('pap_type', function($project) {
                 return $project->pap_type->name ?? '';
@@ -37,15 +37,15 @@ class ReviewsDataTable extends DataTable
                     return '<span class="badge badge-danger">No</span>';
                 }
             })
-            ->addColumn('reviewed_at', function ($project) {
-                if ($project->review()->exists()) {
-                    return $project->review->updated_at;
+            ->addColumn('reviewed_on', function ($project) {
+                if ($project->review) {
+                    return $project->review->updated_at->diffForHumans(null, null, true);
                 } else {
                     return '';
                 }
             })
             ->addColumn('action', function ($project) {
-                if ($project->review()->exists()) {
+                if ($project->review) {
                     return '<a href="'. route('reviews.edit', ['review' => $project->review->getRouteKey()]).'" class="btn btn-sm btn-info">Edit</a>';
                 } else {
                     if (auth()->user()->can('reviews.create')) {
@@ -64,7 +64,7 @@ class ReviewsDataTable extends DataTable
      */
     public function query(Project $model): \Illuminate\Database\Eloquent\Builder
     {
-        return $model->with('review')->newQuery();
+        return $model->with('review','pap_type','creator.office','creator.roles','creator.permissions')->newQuery();
     }
 
     /**
@@ -103,7 +103,7 @@ class ReviewsDataTable extends DataTable
                 ->addClass('text-center'),
             Column::make('reviewed')
                 ->addClass('text-center'),
-            Column::make('reviewed_at')
+            Column::make('reviewed_on')
                 ->addClass('text-center'),
             Column::computed('action')
                 ->exportable(false)

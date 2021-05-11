@@ -23,8 +23,8 @@
     {!! $dataTable->table() !!}
 </div>
 
-</body>
-
 {!! $dataTable->scripts() !!}
+
+</body>
 
 </html>

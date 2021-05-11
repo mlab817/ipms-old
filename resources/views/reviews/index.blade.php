@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="card card-primary">
                 <div class="card-body">
-                    {{ $dataTable->table(['width' => '100%']) }}
+                    {{ $dataTable->table(['width' => '100%','class' => 'table table-striped']) }}
                 </div>
             </div>
         </div>
