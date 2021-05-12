@@ -102,7 +102,7 @@ class ProjectUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'                              => 'nullable|string',
+//            'code'                              => 'nullable|string',
             'title'                             => 'required|max:255',
             'pap_type_id'                       => 'required|exists:pap_types,id',
             'regular_program'                   => 'required|bool',

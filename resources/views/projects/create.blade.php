@@ -9,7 +9,7 @@
                     Please check the form for errors.
                     <ul>
                     @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                        <li>{!! $error !!}</li>
                     @endforeach
                     </ul>
                 </div>
@@ -32,7 +32,7 @@
                                 <div class="form-group row">
                                     <label for="title" class="col-form-label col-sm-2">Project Title <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Project Title" value="{{ old('title') }}">
+                                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Project Title" value="{{ old('title') }}">
                                         @error('title')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>

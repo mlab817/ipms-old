@@ -8,6 +8,7 @@ use App\DataTables\Scopes\OfficeProjectsDataTableScope;
 use App\DataTables\Scopes\OwnProjectsDataTableScope;
 use App\DataTables\Scopes\ProjectsDataTableScope;
 use App\Events\ProjectCreatedEvent;
+use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\ApprovalLevel;
@@ -103,7 +104,7 @@ class ProjectController extends Controller
      * @return Response
      * @throws \Exception
      */
-    public function store(StoreProjectRequest $request)
+    public function store(ProjectStoreRequest $request)
     {
         $project = Project::create($request->validated());
 
@@ -126,18 +127,6 @@ class ProjectController extends Controller
 
         $project->created_by = Auth::id();
         $project->save();
-
-        if ($request->has('new')) {
-            return redirect()->route('projects.create');
-        }
-
-        if ($request->has('view')) {
-            return redirect()->route('projects.show', $project->uuid);
-        }
-
-        if ($request->has('edit')) {
-            return redirect()->route('projects.edit', $project->uuid);
-        }
 
         event(new ProjectCreatedEvent($project));
 

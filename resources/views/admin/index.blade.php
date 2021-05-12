@@ -12,7 +12,7 @@
                             <p>Approval Levels</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.approval_levels.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -26,7 +26,7 @@
                             <p>Bases for Implementation</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.bases.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -40,7 +40,7 @@
                             <p>Types of CIP</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.cip_types.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -54,7 +54,7 @@
                             <p>Status of FS</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.fs_statuses.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -68,7 +68,7 @@
                             <p>Funding Institutions</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.funding_institutions.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -82,7 +82,7 @@
                             <p>Funding Sources</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.funding_sources.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -96,7 +96,7 @@
                             <p>GAD Classification</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.gads.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -110,7 +110,7 @@
                             <p>Modes of Implementation</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.implementation_modes.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -124,7 +124,7 @@
                             <p>Infrastructure Sectors</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.infrastructure_sectors.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -138,7 +138,7 @@
                             <p>Infrastructure Subsectors</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.infrastructure_subsectors.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -152,7 +152,7 @@
                             <p>Offices</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.offices.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -166,7 +166,7 @@
                             <p>Operating Units</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.operating_units.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -180,7 +180,7 @@
                             <p>Operating Unit Types</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.operating_unit_types.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -194,7 +194,7 @@
                             <p>PAP Types</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.pap_types.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -208,7 +208,7 @@
                             <p>PDP Chapters</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.pdp_chapters.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -222,7 +222,7 @@
                             <p>PDP RM Indicators</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.pdp_indicators.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -236,7 +236,7 @@
                             <p>PIP Typologies</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.pip_typologies.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -250,7 +250,7 @@
                             <p>Preparation Documents</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.preparation_documents.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -264,7 +264,7 @@
                             <p>Project Statuses</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.project_statuses.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -278,7 +278,7 @@
                             <p>Readiness Levels</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.readiness_levels.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -292,7 +292,7 @@
                             <p>Regions</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.regions.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -306,7 +306,7 @@
                             <p>Sustainable Development Goals</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.sdgs.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -320,7 +320,7 @@
                             <p>Ten Point Agenda</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.ten_point_agendas.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -334,7 +334,7 @@
                             <p>Budget Tier</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-code"></i>
+                            <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.tiers.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>

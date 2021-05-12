@@ -24,9 +24,9 @@ class RegionsDataTable extends DataTable
             ->order(function ($query) {
                 $query->orderBy('order', 'ASC');
             })
-            ->addColumn('action', function($region) {
+            ->addColumn('action', function($row) {
                 return '
-                    <a href="' . route('admin.regions.edit', $region) . '" class="btn btn-info btn-sm">Edit</a>
+                    <a href="' . route('admin.regions.edit', $row) . '" class="btn btn-info btn-sm">Edit</a>
                 ';
             });
     }

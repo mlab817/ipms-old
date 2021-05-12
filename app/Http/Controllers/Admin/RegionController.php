@@ -30,11 +30,8 @@ class RegionController extends Controller
      */
     public function create()
     {
-        return view('admin.regions.form', [
+        return view('admin.regions.create', [
             'pageTitle' => 'Add Region',
-            'route'     => route('admin.regions.store'),
-            'method'    => 'POST',
-            'region'    => new Region,
         ]);
     }
 
@@ -70,7 +67,7 @@ class RegionController extends Controller
      */
     public function edit(Region $region)
     {
-        return view('admin.regions.form', [
+        return view('admin.regions.edit', [
             'pageTitle' => 'Edit Region',
             'region'    => $region,
             'method'    => 'PUT',

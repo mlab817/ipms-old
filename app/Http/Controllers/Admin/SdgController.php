@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\SdgsDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SdgStoreRequest;
+use App\Http\Requests\SdgUpdateRequest;
 use App\Models\Sdg;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SdgController extends Controller
 {
@@ -39,13 +42,11 @@ class SdgController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SdgStoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-
         Sdg::create($request->all());
+
+        Alert::success('Success', 'Successfully saved item');
 
         return redirect()->route('admin.sdgs.index');
     }
@@ -82,15 +83,13 @@ class SdgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sdg $sdg)
+    public function update(SdgUpdateRequest $request, Sdg $sdg)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-
         $sdg->update($request->all());
 
-        return redirect()->route('admin.sdgs.index');
+        Alert::success('Success', 'Successfully updated item');
+
+        return back();
     }
 
     /**
@@ -99,8 +98,12 @@ class SdgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sdg $sdg)
     {
-        //
+        $sdg->delete();
+
+        Alert::success('Success', 'Successfully deleted item');
+
+        return redirect()->route('admin.sdgs.index');
     }
 }

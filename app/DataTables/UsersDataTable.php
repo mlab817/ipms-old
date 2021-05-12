@@ -71,6 +71,9 @@ class UsersDataTable extends DataTable
     {
         return $this->builder()
                     ->setTableId('users-table')
+                    ->parameters([
+                        'responsive' => true,
+                    ])
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')

@@ -2,31 +2,94 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Region;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 
-class StoreProjectRequest extends FormRequest
+class ProjectStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
 
     /**
-     * Prepare data before validation
-     * Also useful for formatting data
-     *
-     * @returns $this
+     * Prepare input for validation
      */
     public function prepareForValidation()
     {
         $this->merge([
+            'feasibility_study'     => [
+                'needs_assistance'  => $this->feasibility_study['needs_assistance'],
+//                'y2016'     => str_replace(',', '', $this->feasibility_study['y2016']),
+                'y2017'     => str_replace(',', '', $this->feasibility_study['y2017']),
+                'y2018'     => str_replace(',', '', $this->feasibility_study['y2018']),
+                'y2019'     => str_replace(',', '', $this->feasibility_study['y2019']),
+                'y2020'     => str_replace(',', '', $this->feasibility_study['y2020']),
+                'y2021'     => str_replace(',', '', $this->feasibility_study['y2021']),
+                'y2022'     => str_replace(',', '', $this->feasibility_study['y2022']),
+//                'y2023'     => str_replace(',', '', $this->feasibility_study['y2023']),
+                'completion_date'  => $this->feasibility_study['completion_date'],
+            ],
+            'region_investments'    => collect($this->region_investments)->map(function($ri) {
+                return [
+                    'region_id' => $ri['region_id'],
+                    'y2016'     => str_replace(',', '', $ri['y2016']),
+                    'y2017'     => str_replace(',', '', $ri['y2017']),
+                    'y2018'     => str_replace(',', '', $ri['y2018']),
+                    'y2019'     => str_replace(',', '', $ri['y2019']),
+                    'y2020'     => str_replace(',', '', $ri['y2020']),
+                    'y2021'     => str_replace(',', '', $ri['y2021']),
+                    'y2022'     => str_replace(',', '', $ri['y2022']),
+                    'y2023'     => str_replace(',', '', $ri['y2023']),
+                ];
+            }),
+            'fs_investments'        => collect($this->fs_investments)->map(function($fi) {
+                return [
+                    'fs_id'     => $fi['fs_id'],
+                    'y2016'     => str_replace(',', '', $fi['y2016']),
+                    'y2017'     => str_replace(',', '', $fi['y2017']),
+                    'y2018'     => str_replace(',', '', $fi['y2018']),
+                    'y2019'     => str_replace(',', '', $fi['y2019']),
+                    'y2020'     => str_replace(',', '', $fi['y2020']),
+                    'y2021'     => str_replace(',', '', $fi['y2021']),
+                    'y2022'     => str_replace(',', '', $fi['y2022']),
+                    'y2023'     => str_replace(',', '', $fi['y2023']),
+                ];
+            }),
+            'nep'                   => [
+                'y2016'     => str_replace(',', '', $this->nep['y2016']),
+                'y2017'     => str_replace(',', '', $this->nep['y2017']),
+                'y2018'     => str_replace(',', '', $this->nep['y2018']),
+                'y2019'     => str_replace(',', '', $this->nep['y2019']),
+                'y2020'     => str_replace(',', '', $this->nep['y2020']),
+                'y2021'     => str_replace(',', '', $this->nep['y2021']),
+                'y2022'     => str_replace(',', '', $this->nep['y2022']),
+                'y2023'     => str_replace(',', '', $this->nep['y2023']),
+            ],
+            'allocation'            => [
+                'y2016'     => str_replace(',', '', $this->allocation['y2016']),
+                'y2017'     => str_replace(',', '', $this->allocation['y2017']),
+                'y2018'     => str_replace(',', '', $this->allocation['y2018']),
+                'y2019'     => str_replace(',', '', $this->allocation['y2019']),
+                'y2020'     => str_replace(',', '', $this->allocation['y2020']),
+                'y2021'     => str_replace(',', '', $this->allocation['y2021']),
+                'y2022'     => str_replace(',', '', $this->allocation['y2022']),
+                'y2023'     => str_replace(',', '', $this->allocation['y2023']),
+            ],
+            'disbursement'          => [
+                'y2016'     => str_replace(',', '', $this->disbursement['y2016']),
+                'y2017'     => str_replace(',', '', $this->disbursement['y2017']),
+                'y2018'     => str_replace(',', '', $this->disbursement['y2018']),
+                'y2019'     => str_replace(',', '', $this->disbursement['y2019']),
+                'y2020'     => str_replace(',', '', $this->disbursement['y2020']),
+                'y2021'     => str_replace(',', '', $this->disbursement['y2021']),
+                'y2022'     => str_replace(',', '', $this->disbursement['y2022']),
+                'y2023'     => str_replace(',', '', $this->disbursement['y2023']),
+            ],
             'total_project_cost' => str_replace(',', '', $this->total_project_cost)
         ]);
     }
@@ -36,12 +99,9 @@ class StoreProjectRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
-        // Note: The following fields will be moved to validation: pip, pip_typology_id, cip, cip_type_id, trip, rdip
-        // which will form part of the validation
         return [
-            'code'                              => 'nullable|string',
             'title'                             => 'required|max:255',
             'pap_type_id'                       => 'required|exists:pap_types,id',
             'regular_program'                   => 'required|bool',
@@ -173,18 +233,6 @@ class StoreProjectRequest extends FormRequest
 //            'fs_investments.*.y2024'            => 'required|min:0:numeric',
 //            'fs_investments.*.y2025'            => 'required|min:0:numeric',
             'has_subprojects'                   => 'nullable|bool',
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'title.required'        => 'The PAP Title is required.',
-            'pap_type_id.required'  => 'The PAP Type is required.',
-            'pap_type_id.exists'    => 'The given PAP Type is not valid.',
-            'target_end_year.gte'   => 'The target end year must not be in the past.',
-            'cip_type_id.required'  => 'The type of CIP is required.',
-            'regions.required'      => 'The regions field is required. Choose Not Applicable if there are no regions covered by this PAP.',
         ];
     }
 }
