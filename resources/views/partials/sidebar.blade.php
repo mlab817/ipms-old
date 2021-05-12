@@ -182,6 +182,17 @@
                 </li>
                 @endcan
 
+                @can('audit_logs.view_index')
+                    <li class="nav-item">
+                        <a href="{{ route('admin.audit_logs.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.audit_logs.index') active @endif">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Audit Logs
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+
                 @auth
                 <div class="dropdown-divider"></div>
 

@@ -47,17 +47,18 @@ class ProjectsDataTable extends DataTable
             ->addColumn('trip', function ($row) {
                 if ($row->has_infra) {
                     if ($row->trip_info) {
-                        $tripButton = '<a href="' . route('trips.edit', $row) . '" class="btn btn-success">TRIP</a>';
+                        $tripButton = '<a href="' . route('trips.edit', $row) . '" class="btn btn-success btn-sm">TRIP</a>';
                     } else {
-                        $tripButton = '<a href="' . route('trips.create', $row) . '" class="btn btn-success">TRIP</a>';
+                        $tripButton = '<a href="' . route('trips.create', $row) . '" class="btn btn-success btn-sm">TRIP</a>';
                     }
                     return $tripButton;
                 }
             })
             ->addColumn('action', function ($row) {
-                $viewButton = $row->permissions['view'] ? '<a href="' . route('projects.show', $row) . '" class="btn btn-primary"><i class="fas fa-eye"></i></a>' : '';
-                $editButton = $row->permissions['update'] ? '<a href="' . route('projects.edit', $row) . '" class="btn btn-secondary"><i class="fas fa-edit"></i></a>' : '';
-                $deleteButton = $row->permissions['delete'] ? '<button class="btn btn-danger" onClick="confirmDelete(\''. $row->getRouteKey() .'\')"><i class="fas fa-trash"></i></button>' : '';
+                $user = auth()->user();
+                $viewButton = $user->can('view', $row) ? '<a href="' . route('projects.show', $row) . '" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>' : '';
+                $editButton = $user->can('update', $row) ? '<a href="' . route('projects.edit', $row) . '" class="btn btn-secondary btn-sm"><i class="fas fa-edit"></i></a>' : '';
+                $deleteButton = $user->can('delete', $row) ? '<button class="btn btn-danger btn-sm" onClick="confirmDelete(\''. $row->getRouteKey() .'\')"><i class="fas fa-trash"></i></button>' : '';
 
                 return '<div class="btn-group">'
                     . $viewButton

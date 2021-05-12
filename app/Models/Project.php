@@ -91,10 +91,6 @@ class Project extends Model
         'has_subprojects',
     ];
 
-    protected $appends = [
-        'permissions',
-    ];
-
     protected $casts = [
         'updated_at' => 'datetime:Y-m-d h:m A',
         'created_at' => 'datetime:Y-m-d h:m A',

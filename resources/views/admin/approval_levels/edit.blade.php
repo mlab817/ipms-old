@@ -9,7 +9,7 @@
                     @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name" class="required">Name</label>
                             <input type="text" class="form-control @error('name'){{ 'is-invalid' }}@enderror" name="name" id="name" placeholder="Name" value="{{ old('name', $approval_level->name) }}" autofocus>
                             @error('name')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
                         </div>

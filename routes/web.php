@@ -63,11 +63,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () {
     Route::get('', \App\Http\Controllers\Admin\AdminController::class)->name('index');
     Route::resources([
+        'audit_logs'            => \App\Http\Controllers\AuditLogController::class,
         'approval_levels'       => \App\Http\Controllers\Admin\ApprovalLevelController::class,
-        'bases'                 =>  \App\Http\Controllers\Admin\BasisController::class,
-        'cip_types'             =>  \App\Http\Controllers\Admin\CipTypeController::class,
+        'bases'                 => \App\Http\Controllers\Admin\BasisController::class,
+        'cip_types'             => \App\Http\Controllers\Admin\CipTypeController::class,
         'fs_statuses'           => \App\Http\Controllers\Admin\FsStatusController::class,
-        'funding_institutions'  =>  \App\Http\Controllers\Admin\FundingInstitutionController::class,
+        'funding_institutions'  => \App\Http\Controllers\Admin\FundingInstitutionController::class,
         'funding_sources'       => \App\Http\Controllers\Admin\FundingSourceController::class,
         'gads'                  => \App\Http\Controllers\Admin\GadController::class,
         'implementation_modes'  => \App\Http\Controllers\Admin\ImplementationModeController::class,

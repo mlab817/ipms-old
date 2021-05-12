@@ -80,12 +80,22 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'teams.view']);
         Permission::create(['name' => 'teams.update']);
         Permission::create(['name' => 'teams.delete']);
+        Permission::create(['name' => 'audit_logs.view_index']);
+        Permission::create(['name' => 'audit_logs.create']);
+        Permission::create(['name' => 'audit_logs.view']);
+        Permission::create(['name' => 'audit_logs.update']);
+        Permission::create(['name' => 'audit_logs.delete']);
 
         Schema::enableForeignKeyConstraints();
 
-        $this->call(AdminUserTableSeeder::class);
-
-        $user = User::find(1);
+//        $this->call(AdminUserTableSeeder::class);
+        $user = User::updateOrCreate([
+            'email' => 'admin@admin.com'
+        ], [
+            'name'  => 'Admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('password'),
+        ]);
 
         $user->givePermissionTo(Permission::all());
     }

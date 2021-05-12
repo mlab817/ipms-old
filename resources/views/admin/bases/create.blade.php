@@ -4,14 +4,11 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">{{ $pageTitle }}</h3>
-                </div>
                 <form action="{{ route('admin.bases.store') }}" method="POST">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="name">Name <i class="text-danger fas fa-flag"></i></label>
+                            <label for="name" class="required">Name </label>
                             <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" placeholder="Name" value="{{ old('name') }}">
                             @error('name')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
