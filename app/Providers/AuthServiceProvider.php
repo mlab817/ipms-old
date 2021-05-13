@@ -44,14 +44,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         \Gate::define('projects.review', function (User $user, Project $project) {
-//            \Log::info($project);
             // check if user assigned projects contain assigned project
-            $canReview = $user->assigned_projects()->where('project_id', $project->id)->first()->pivot->review ?? false;
-            Log::info($canReview);
+            $userCanReview = $user->assigned_projects()->where('project_id', $project->id)->first()->pivot->review ?? false;
 
-            // if assigned project is found
-            // check if user is allowed to review
-            if ($canReview) {
+            if ($userCanReview) {
                 return true;
             }
 

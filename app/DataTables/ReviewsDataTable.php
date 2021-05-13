@@ -45,12 +45,10 @@ class ReviewsDataTable extends DataTable
                 }
             })
             ->addColumn('action', function ($project) {
-                if ($project->review) {
-                    if (auth()->user()->can('reviews.create') || auth()->user()->can('projects.review', $project)) {
+                if (auth()->user()->can('reviews.create') || auth()->user()->can('projects.review', $project)) {
+                    if ($project->review) {
                         return '<a href="' . route('reviews.edit', ['review' => $project->review->getRouteKey()]) . '" class="btn btn-sm btn-info">Edit</a>';
-                    }
-                } else {
-                    if (auth()->user()->can('reviews.create') || auth()->user()->can('projects.review', $project)) {
+                    } else {
                         return '<a href="'. route('reviews.create', ['project' => $project->getRouteKey()]).'" class="btn btn-sm btn-info">Create</a>';
                     }
                 }
