@@ -35,6 +35,7 @@ use App\Models\Sdg;
 use App\Models\SpatialCoverage;
 use App\Models\TenPointAgenda;
 use App\Models\Tier;
+use App\Notifications\ProjectDeletedNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -236,8 +237,16 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Project $project)
+    public function destroy(Project $project, Request $request)
     {
+        $creator = $project->creator;
+        if ($creator) {
+             if ($creator->id !== $request->user->id) {
+                $creator->notify(new ProjectDeletedNotification($project, $request->user, $request->reason));
+            }
+
+        }
+
         $project->delete();
 
         Alert::success('Success', 'Successfully deleted project');

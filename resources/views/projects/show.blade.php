@@ -10,7 +10,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('projects.own') }}">Projects</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('projects.own') }}">Own Projects</a></li>
                     <li class="breadcrumb-item active">{{ $project->title }}</li>
                 </ol>
             </div><!-- /.col -->

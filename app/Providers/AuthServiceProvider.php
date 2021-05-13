@@ -14,8 +14,8 @@ use App\Policies\ReviewPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\SubprojectPolicy;
 use App\Policies\UserPolicy;
+use Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Log;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
@@ -43,7 +43,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        \Gate::define('projects.review', function (User $user, Project $project) {
+        Gate::define('projects.review', function (User $user, Project $project) {
             // check if user assigned projects contain assigned project
             $userCanReview = $user->assigned_projects()->where('project_id', $project->id)->first()->pivot->review ?? false;
 

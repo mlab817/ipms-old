@@ -1,5 +1,24 @@
 @extends('layouts.admin')
 
+@section('content-header')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Edit TRIP: {{$project->title}}</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('projects.own') }}">Review PAPs</a></li>
+                        <li class="breadcrumb-item active">Edit TRIP</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+@endsection
+
 @section('content')
     <section class="content">
         <div class="container-fluid">
@@ -293,9 +312,6 @@
                                 <h3 class="card-title">{{ __("Infrastructure Cost by Funding Source") }} </h3>
                             </div>
                             <div class="card-body">
-                                <div class="row px-2 pb-2">
-                                    <i class="text-danger fas fa-flag"></i> All fields are required.
-                                </div>
                                 <div class="table-responsive"></div>
                                 <table class="table table-striped table-sm">
                                     <thead>
@@ -396,9 +412,6 @@
                                 <h3 class="card-title">{{ __("Infrastructure Cost by Region") }} </h3>
                             </div>
                             <div class="card-body">
-                                <div class="row px-2 pb-2">
-                                    <i class="text-danger fas fa-flag"></i> All fields are required.
-                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-sm" id="region_infrastructures">
                                         <thead>

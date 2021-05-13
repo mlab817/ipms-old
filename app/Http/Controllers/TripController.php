@@ -80,7 +80,7 @@ class TripController extends Controller
 
         Alert::success('Success', 'Successfully added TRIP information');
 
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.own');
     }
 
     public function update(TripUpdateRequest $request, Project $project)
@@ -118,6 +118,6 @@ class TripController extends Controller
 
         Alert::success('Success', 'Successfully updated TRIP information');
 
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.own');
     }
 }

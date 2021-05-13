@@ -1348,7 +1348,20 @@
                 </div>
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="col">
+                        <div class="row justify-content-between">
+                            <div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{ route('projects.own') }}" class="btn">Back to List</a>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </form>
@@ -1358,6 +1371,37 @@
     <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
         <i class="fas fa-chevron-up"></i>
     </a>
+@endsection
+
+@section('modal')
+    <div class="modal fade" id="modal-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Delete</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="{{ route('projects.destroy', $project) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-body">
+                        <div class="for-group">
+                            <label>Reason for deletion</label>
+                            <input class="form-control" name="reason" id="reason" placeholder="Reason for deletion (e.g. duplicate)" autofocus required>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Confirm</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 @endsection
 
 @include('projects.partials.script')

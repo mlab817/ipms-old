@@ -1,5 +1,24 @@
 @extends('layouts.admin')
 
+@section('content-header')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Add TRIP: {{$project->title}}</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('projects.own') }}">Review PAPs</a></li>
+                        <li class="breadcrumb-item active">Add TRIP</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+@endsection
+
 @section('content')
     <section class="content">
         <div class="container-fluid">
@@ -27,8 +46,8 @@
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="infrastructure_sectors"
-                                           class="col-form-label col-sm-3 @error('infrastructure_sectors') text-danger @enderror">Infrastructure
-                                        Sectors <i class="text-danger fas fa-flag"></i></label>
+                                           class="col-form-label col-sm-3 required @error('infrastructure_sectors') text-danger @enderror">Infrastructure
+                                        Sectors</label>
                                     <div class="col-sm-9">
                                     @foreach($infrastructure_sectors as $option)
                                         <div class="form-check">
@@ -85,7 +104,7 @@
                                         @foreach($prerequisites as $option)
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="prerequisites[]" id="prerequisites" value="{{ $option->id }}" @if(in_array($option->id, old('prerequisities') ?? [])) checked @endif>
+                                                    <input type="checkbox" class="form-check-input" name="prerequisites[]" id="prerequisites_{{$option->id}}" value="{{ $option->id }}" @if(in_array($option->id, old('prerequisities') ?? [])) checked @endif>
                                                     {{ $option->name }}
                                                 </label>
                                             </div>
@@ -96,8 +115,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="risk" class="col-form-label col-sm-3">Implementation Risk &amp; Mitigation Strategy <i
-                                            class="text-danger fas fa-flag"></i></label>
+                                    <label for="risk" class="col-form-label col-sm-3 required">Implementation Risk &amp; Mitigation Strategy </label>
                                     <div class="col-sm-9">
                                         <textarea rows="4" style="resize: none;"
                                                   class="form-control @error('risk') is-invalid @enderror" name="risk"
@@ -191,9 +209,9 @@
                                     </table>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="right_of_way[affected_households]" class="col-sm-3">No. of affected households</label>
+                                    <label for="right_of_way[affected_households]" class="col-sm-3 required">No. of affected households</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="right_of_way[affected_households]" value="{{ old('right_of_way.affected_households') }}">
+                                        <input type="number" class="form-control" name="right_of_way[affected_households]" value="{{ old('right_of_way.affected_households', 0) }}">
                                     </div>
                                 </div>
 
@@ -291,97 +309,92 @@
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Infrastructure Cost by Funding Source") }} </h3>
                             </div>
-                            <div class="card-body">
-                                <div class="row px-2 pb-2">
-                                    <i class="text-danger fas fa-flag"></i> All fields are required.
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-sm" id="fs_infrastructures_table">
-                                        <thead>
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover table-sm table-valign-middle" id="fs_infrastructures_table">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-sm text-center">Funding Source</th>
+                                        <th class="text-sm text-center">2016 &amp; Prior</th>
+                                        <th class="text-sm text-center">2017</th>
+                                        <th class="text-sm text-center">2018</th>
+                                        <th class="text-sm text-center">2019</th>
+                                        <th class="text-sm text-center">2020</th>
+                                        <th class="text-sm text-center">2021</th>
+                                        <th class="text-sm text-center">2022</th>
+                                        <th class="text-sm text-center">2023 &amp; Beyond</th>
+                                        <th class="text-sm text-center">Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($funding_sources as $fs)
                                         <tr>
-                                            <th class="text-sm text-center">Funding Source</th>
-                                            <th class="text-sm text-center">2016 &amp; Prior</th>
-                                            <th class="text-sm text-center">2017</th>
-                                            <th class="text-sm text-center">2018</th>
-                                            <th class="text-sm text-center">2019</th>
-                                            <th class="text-sm text-center">2020</th>
-                                            <th class="text-sm text-center">2021</th>
-                                            <th class="text-sm text-center">2022</th>
-                                            <th class="text-sm text-center">2023 &amp; Beyond</th>
-                                            <th class="text-sm text-center">Total</th>
+                                            <td class="text-sm px-2 text-nowrap">
+                                                <input type="hidden"
+                                                       name="fs_infrastructures[{{$fs->id}}][fs_id]"
+                                                       value="{{ $fs->id }}">
+                                                {{ $fs->name }}
+                                            </th>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2016 money form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2016]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2016", 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2017 money form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2017]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2017", 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2018 money form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2018]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2018", 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2019 money form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2019]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2019", 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2020 money form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2020]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2020", 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2021 money form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2021]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2021", 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2022 money form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2022]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2022", 0) }}"></td>
+                                            <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2023 money form-control text-right"
+                                                       name="fs_infrastructures[{{$fs->id}}][y2023]"
+                                                       value="{{ old("fs_infrastructures.{$fs->id}.y2023", 0) }}"></td>
+                                            <td><input type="text" class="form-control text-right" id="fs_infrastructures_{{ $fs->id }}_total" readonly></td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach ($funding_sources as $fs)
-                                            <tr>
-                                                <td class="text-sm px-2 text-nowrap">
-                                                    <input type="hidden"
-                                                           name="fs_infrastructures[{{$fs->id}}][fs_id]"
-                                                           value="{{ $fs->id }}">
-                                                    {{ $fs->name }}
-                                                </th>
-                                                <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2016 money form-control text-right"
-                                                           name="fs_infrastructures[{{$fs->id}}][y2016]"
-                                                           value="{{ old("fs_infrastructures.{$fs->id}.y2016", 0) }}"></td>
-                                                <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2017 money form-control text-right"
-                                                           name="fs_infrastructures[{{$fs->id}}][y2017]"
-                                                           value="{{ old("fs_infrastructures.{$fs->id}.y2017", 0) }}"></td>
-                                                <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2018 money form-control text-right"
-                                                           name="fs_infrastructures[{{$fs->id}}][y2018]"
-                                                           value="{{ old("fs_infrastructures.{$fs->id}.y2018", 0) }}"></td>
-                                                <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2019 money form-control text-right"
-                                                           name="fs_infrastructures[{{$fs->id}}][y2019]"
-                                                           value="{{ old("fs_infrastructures.{$fs->id}.y2019", 0) }}"></td>
-                                                <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2020 money form-control text-right"
-                                                           name="fs_infrastructures[{{$fs->id}}][y2020]"
-                                                           value="{{ old("fs_infrastructures.{$fs->id}.y2020", 0) }}"></td>
-                                                <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2021 money form-control text-right"
-                                                           name="fs_infrastructures[{{$fs->id}}][y2021]"
-                                                           value="{{ old("fs_infrastructures.{$fs->id}.y2021", 0) }}"></td>
-                                                <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2022 money form-control text-right"
-                                                           name="fs_infrastructures[{{$fs->id}}][y2022]"
-                                                           value="{{ old("fs_infrastructures.{$fs->id}.y2022", 0) }}"></td>
-                                                <td><input type="text" class="fs_infrastructures fs_infrastructures_{{ $fs->id }} fs_infrastructures_2023 money form-control text-right"
-                                                           name="fs_infrastructures[{{$fs->id}}][y2023]"
-                                                           value="{{ old("fs_infrastructures.{$fs->id}.y2023", 0) }}"></td>
-                                                <td><input type="text" class="form-control text-right" id="fs_infrastructures_{{ $fs->id }}_total" readonly></td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Total</th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="fs_infrastructures_2016_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="fs_infrastructures_2017_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="fs_infrastructures_2018_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="fs_infrastructures_2019_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="fs_infrastructures_2020_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="fs_infrastructures_2021_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="fs_infrastructures_2022_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="fs_infrastructures_2023_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="fs_infrastructures_total" readonly>
-                                            </th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+                                    @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Total</th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2016_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2017_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2018_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2019_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2020_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2021_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2022_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_2023_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="fs_infrastructures_total" readonly>
+                                        </th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -393,107 +406,102 @@
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Infrastructure Cost by Region") }} </h3>
                             </div>
-                            <div class="card-body">
-                                <div class="row px-2 pb-2">
-                                    <i class="text-danger fas fa-flag"></i> All fields are required.
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-sm" id="region_infrastructures_table">
-                                        <thead>
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover table-sm table-valign-middle" id="region_infrastructures_table">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-sm text-center">Region</th>
+                                        <th class="text-sm text-center">2016 &amp; Prior</th>
+                                        <th class="text-sm text-center">2017</th>
+                                        <th class="text-sm text-center">2018</th>
+                                        <th class="text-sm text-center">2019</th>
+                                        <th class="text-sm text-center">2020</th>
+                                        <th class="text-sm text-center">2021</th>
+                                        <th class="text-sm text-center">2022</th>
+                                        <th class="text-sm text-center">2023 &amp; Beyond</th>
+                                        <th class="text-sm text-center">Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($regions->sortBy('order') as $fs)
+                                        @if($fs->id !== 100)
                                         <tr>
-                                            <th class="text-sm text-center">Region</th>
-                                            <th class="text-sm text-center">2016 &amp; Prior</th>
-                                            <th class="text-sm text-center">2017</th>
-                                            <th class="text-sm text-center">2018</th>
-                                            <th class="text-sm text-center">2019</th>
-                                            <th class="text-sm text-center">2020</th>
-                                            <th class="text-sm text-center">2021</th>
-                                            <th class="text-sm text-center">2022</th>
-                                            <th class="text-sm text-center">2023 &amp; Beyond</th>
-                                            <th class="text-sm text-center">Total</th>
+                                            <td class="text-sm px-2 text-nowrap">
+                                                <input type="hidden"
+                                                       name="region_infrastructures[{{$fs->id}}][region_id]"
+                                                       value="{{ $fs->id }}">
+                                                {{ $fs->label }}
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2016 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2016]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2016", 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2017 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2017]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2017", 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2018 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2018]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2018", 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2019 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2019]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2019", 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2020 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2020]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2020", 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2021 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2021]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2021", 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2022 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2022]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2022", 0) }}">
+                                            </td>
+                                            <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2023 money form-control text-right"
+                                                       name="region_infrastructures[{{$fs->id}}][y2023]"
+                                                       value="{{ old("region_infrastructures.{$fs->id}.y2023", 0) }}">
+                                            </td>
+                                            <td><input type="text" class="form-control text-right" id="region_infrastructures_{{$fs->id}}_total" readonly></td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach ($regions->sortBy('order') as $fs)
-                                            @if($fs->id !== 100)
-                                            <tr>
-                                                <td class="text-sm px-2 text-nowrap">
-                                                    <input type="hidden"
-                                                           name="region_infrastructures[{{$fs->id}}][region_id]"
-                                                           value="{{ $fs->id }}">
-                                                    {{ $fs->label }}
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2016 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2016]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2016", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2017 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2017]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2017", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2018 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2018]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2018", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2019 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2019]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2019", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2020 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2020]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2020", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2021 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2021]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2021", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2022 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2022]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2022", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="region_infrastructures region_infrastructures_{{$fs->id}} region_infrastructures_2023 money form-control text-right"
-                                                           name="region_infrastructures[{{$fs->id}}][y2023]"
-                                                           value="{{ old("region_infrastructures.{$fs->id}.y2023", 0) }}">
-                                                </td>
-                                                <td><input type="text" class="form-control text-right" id="region_infrastructures_{{$fs->id}}_total" readonly></td>
-                                            </tr>
-                                            @endif
-                                        @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Total</th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="region_infrastructures_2016_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="region_infrastructures_2017_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="region_infrastructures_2018_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="region_infrastructures_2019_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="region_infrastructures_2020_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="region_infrastructures_2021_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="region_infrastructures_2022_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="region_infrastructures_2023_total" readonly>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="money form-control text-right" id="region_infrastructures_total" readonly>
-                                            </th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+                                        @endif
+                                    @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Total</th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2016_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2017_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2018_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2019_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2020_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2021_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2022_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_2023_total" readonly>
+                                        </th>
+                                        <th>
+                                            <input type="text" class="money form-control text-right" id="region_infrastructures_total" readonly>
+                                        </th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     </div>

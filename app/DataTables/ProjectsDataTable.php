@@ -41,8 +41,8 @@ class ProjectsDataTable extends DataTable
                 return $row->updated_at->diffForHumans(null, null, true);
             })
             ->addColumn('created_by', function ($project) {
-                $img = '<img src="'.$project->creator->avatar.'" class="img-circle img-bordered-sm" alt="user-img" width="50" height="50">';
-                return $img .'<br/><span class="text-muted text-sm">'. $project->creator->name . '</span>' ?? '';
+                $img = $project->creator ? '<img src="'.$project->creator->avatar.'" class="img-circle img-bordered-sm" alt="user-img" width="50" height="50">' : '';
+                return $project->creator ? $img .'<br/><span class="text-muted text-sm">'. $project->creator->name . '</span>' ?? '' : '';
             })
             ->addColumn('trip', function ($row) {
                 if ($row->has_infra) {
