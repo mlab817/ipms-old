@@ -1,5 +1,24 @@
 @extends('layouts.admin')
 
+@section('content-header')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Add New PAP</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('projects.own') }}">Own Projects</a></li>
+                        <li class="breadcrumb-item active">Add New PAP</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+@endsection
+
 @section('content')
     <section class="content">
         <div class="container-fluid">
@@ -16,7 +35,7 @@
             @endif
 
             <div class="row p-2">
-                <p><i class="text-danger fas fa-flag"></i>  These fields are required.</p>
+                <p>These fields are required. <span class="text-danger text-weight-bold">*</span></p>
             </div>
 
             <form action="{{ route('projects.store') }}" method="POST" class="form-horizontal">
@@ -30,16 +49,16 @@
 
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="title" class="col-form-label col-sm-2">Project Title <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="title" class="col-form-label col-sm-3 required">Project Title </label>
+                                    <div class="col-sm-9">
                                         <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Project Title" value="{{ old('title') }}">
                                         @error('title')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="pap_type_id" class="col-form-label col-sm-2">PAP Type <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="pap_type_id" class="col-form-label col-sm-3 required">PAP Type </label>
+                                    <div class="col-sm-9">
                                         <select class="form-control select2 @error('pap_type_id') is-invalid @enderror" name="pap_type_id">
                                             <option value="" selected disabled>Select PAP Type</option>
                                             @foreach($pap_types as $option)
@@ -51,8 +70,8 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="pap_type_id" class="col-form-label col-sm-2">Is this a regular program?  <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="pap_type_id" class="col-form-label col-sm-3 required">Is this a regular program? </label>
+                                    <div class="col-sm-9">
                                         <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="regular_program" value="1" @if(old('regular_program') == 1) checked @endif>
                                             <label class="form-check-label">Yes</label>
@@ -66,8 +85,8 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="has_subprojects" class="col-form-label col-sm-2">Does this PAP have subprojects/activities?  <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="has_subprojects" class="col-form-label col-sm-3 required">Does this PAP have subprojects/activities? </label>
+                                    <div class="col-sm-9">
                                         <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="has_subprojects" value="1" @if(old('has_subprojects') == 1) checked @endif>
                                             <label class="form-check-label">Yes</label>
@@ -81,8 +100,8 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="has_infra" class="col-form-label col-sm-2">Does this PAP have INFRASTRUCTURE component/s?  <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="has_infra" class="col-form-label col-sm-3 required">Does this PAP have INFRASTRUCTURE component/s? </label>
+                                    <div class="col-sm-9">
                                         <div class="form-check-inline">
                                             <input class="form-check-input" type="radio" name="has_infra" value="1" @if(old('has_infra') == 1) checked @endif>
                                             <label class="form-check-label">Yes</label>
@@ -96,8 +115,8 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="bases" class="col-form-label col-sm-2">Implementation Bases <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="bases" class="col-form-label col-sm-3 required">Implementation Bases </label>
+                                    <div class="col-sm-9">
                                         @foreach($bases as $option)
                                             <div class="form-check">
                                                 <label class="form-check-label @error('bases') text-danger @enderror">
@@ -111,33 +130,33 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="description" class="col-form-label col-sm-2">Description  <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="description" class="col-form-label col-sm-3 required">Description </i></label>
+                                    <div class="col-sm-9">
                                         <textarea rows="4" style="resize: none;"  class="form-control @error('description') is-invalid @enderror" name="description">{{ old('description') }}</textarea>
                                         @error('description')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="expected_outputs" class="col-form-label col-sm-2">Expected Outputs <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="expected_outputs" class="col-form-label col-sm-3 required">Expected Outputs </label>
+                                    <div class="col-sm-9">
                                         <textarea rows="4" style="resize: none;"  class="form-control @error('expected_outputs') is-invalid @enderror" name="expected_outputs">{{ old('expected_outputs') }}</textarea>
                                         @error('expected_outputs')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="total_project_cost" class="col-form-label col-sm-2">Total Project Cost (in absolute PhP) <i class="text-danger fas fa-flag"></i></label>
+                                    <label for="total_project_cost" class="col-form-label col-sm-3 required">Total Project Cost (in absolute PhP) </label>
                                     <!-- TODO: Replace with MoneyInput -->
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <input type="text" class="money form-control @error('total_project_cost') is-invalid @enderror" name="total_project_cost" value="{{ old('total_project_cost', 0) }}">
                                         @error('total_project_cost')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="project_status_id" class="col-form-label col-sm-2">Project Status <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="project_status_id" class="col-form-label col-sm-3 required">Project Status </label>
+                                    <div class="col-sm-9">
                                         <select class="form-control select2 @error('pap_type_id') is-invalid @enderror" name="project_status_id">
                                             <option value="" selected disabled>Select Project Status</option>
                                             @foreach($project_statuses as $option)
@@ -160,8 +179,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="regions" class="col-form-label col-sm-2">Implementing Agencies <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="regions" class="col-form-label col-sm-3 required">Implementing Agencies (including own office) </label>
+                                    <div class="col-sm-9">
                                         @foreach($operating_units as $option)
                                             <div class="form-check">
                                                 <label class="form-check-label">
@@ -184,8 +203,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="spatial_coverage_id" class="col-form-label col-sm-2">Spatial Coverage <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="spatial_coverage_id" class="col-form-label col-sm-3 required">Spatial Coverage </label>
+                                    <div class="col-sm-9">
                                         <select name="spatial_coverage_id" id="spatial_coverage_id" class="form-control select2 @error('spatial_coverage_id') is-invalid @enderror">
                                             <option value="" selected disabled>Select Spatial Coverage</option>
                                             @foreach($spatial_coverages as $option)
@@ -197,8 +216,8 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="regions" class="col-form-label col-sm-2">Regions <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="regions" class="col-form-label col-sm-3 required">Regions </label>
+                                    <div class="col-sm-9">
                                         @foreach($regions->sortBy('order') as $option)
                                             @if($option->id !== 99)
                                             <div class="form-check">
@@ -226,8 +245,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label for="target_start_year" class="col-form-label col-sm-2">Start of Implementation <i class="text-danger fas fa-flag"></i></label>
-                                            <div class="col-sm-10">
+                                            <label for="target_start_year" class="col-form-label col-sm-3 required">Start of Implementation </label>
+                                            <div class="col-sm-9">
                                                 <select class="form-control select2 @error('target_start_year') is-invalid @enderror" name="target_start_year">
                                                     <option value="" disabled selected>Select Year</option>
                                                     @foreach($years as $option)
@@ -240,8 +259,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label for="target_end_year" class="col-form-label col-sm-2">Year of Project Completion <i class="text-danger fas fa-flag"></i></label>
-                                            <div class="col-sm-10">
+                                            <label for="target_end_year" class="col-form-label col-sm-3 required">Year of Project Completion </label>
+                                            <div class="col-sm-9">
                                                 <select class="form-control select2 @error('target_end_year') is-invalid @enderror" name="target_end_year">
                                                     <option value="" disabled selected>Select Year</option>
                                                     @foreach($years as $option)
@@ -266,8 +285,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="iccable" class="col-form-label col-sm-2">Is the Project ICC-able? <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="iccable" class="col-form-label col-sm-3 required">Is the Project ICC-able? </label>
+                                    <div class="col-sm-9">
                                         <div class="form-check-inline">
                                             <input type="radio" class="form-check-input" value="1" name="iccable" {{ old('iccable') == 1 ? 'checked' : '' }}>
                                             <label class="form-check-label">Yes</label>
@@ -279,8 +298,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="approval_level_id" class="col-form-label col-sm-2">Level of Approval (For ICCable only)</label>
-                                    <div class="col-sm-10">
+                                    <label for="approval_level_id" class="col-form-label col-sm-3">Level of Approval (For ICCable only)</label>
+                                    <div class="col-sm-9">
                                         <select class="form-control select2 @error('approval_level_id') is-invalid @enderror" name="approval_level_id">
                                             <option value="" disabled selected>Select Approval Level</option>
                                             @foreach($approval_levels as $option)
@@ -291,15 +310,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="approval_date" class="col-form-label col-sm-2">Date of Submission/Approval</label>
+                                    <label for="approval_date" class="col-form-label col-sm-3">Date of Submission/Endorsement/Approval</label>
                                     <div class="col-sm-4">
                                         <input type="date" class="form-control @error('approval_date') is-invalid @enderror" name="approval_date" value="{{ old('approval_date') }}">
                                         @error('approval_date')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="gad_id" class="col-form-label col-sm-2">Gender &amp; Responsiveness <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="gad_id" class="col-form-label col-sm-3 required">Gender &amp; Responsiveness </label>
+                                    <div class="col-sm-9">
                                         <select class="form-control select2 @error('gad_id') is-invalid @enderror" name="gad_id">
                                             <option value="" disabled selected>Select Approval Level</option>
                                             @foreach($gads as $option)
@@ -324,8 +343,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label class="col-form-label col-sm-2" for="rdip">Regional Development Investment Program <i class="text-danger fas fa-flag"></i></label>
-                                            <div class="col-sm-10">
+                                            <label class="col-form-label col-sm-3 required" for="rdip">Regional Development Investment Program </label>
+                                            <div class="col-sm-9">
                                                 <div class="form-check-inline">
                                                     <label class="form-check-label">
                                                         <input class="form-check-input" type="radio" name="rdip" value="1" @if(old('rdip') == 1) checked @endif>
@@ -342,8 +361,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row ml-4">
-                                            <label class="col-form-label col-sm-2" for="rdc_endorsement_required">Is RDC endorsement required? <i class="text-danger fas fa-flag"></i></label>
-                                            <div class="col-sm-10">
+                                            <label class="col-form-label col-sm-3" for="rdc_endorsement_required">Is RDC endorsement required? </label>
+                                            <div class="col-sm-9">
                                                 <div class="form-check-inline">
                                                     <label class="form-check-label">
                                                         <input class="form-check-input" type="radio" name="rdc_endorsement_required" value="1" @if(old('rdc_endorsement_required') == 1) checked @endif>
@@ -360,8 +379,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row ml-4">
-                                            <label class="col-form-label col-sm-2" for="rdc_endorsed">Has the project been endorsed?</label>
-                                            <div class="col-sm-10">
+                                            <label class="col-form-label col-sm-3" for="rdc_endorsed">Has the project been endorsed?</label>
+                                            <div class="col-sm-9">
                                                 <div class="form-check-inline">
                                                     <label class="form-check-label">
                                                         <input class="form-check-input" type="radio" name="rdc_endorsed" value="1" @if(old('rdc_endorsed') == 1) checked @endif>
@@ -378,8 +397,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row ml-4">
-                                            <label class="col-form-label col-sm-2" for="rdc_endorsed_date">RDC Endorsement Date</label>
-                                            <div class="col-sm-10">
+                                            <label class="col-form-label col-sm-3" for="rdc_endorsed_date">RDC Endorsement Date</label>
+                                            <div class="col-sm-9">
                                                 <input type="date" class="form-control @error('rdc_endorsed_date') is-invalid @enderror" name="rdc_endorsed_date" value="{{ old('rdc_endorsed_date') }}">
                                                 @error('rdc_endorsed_date')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                             </div>
@@ -399,8 +418,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="preparation_document_id" class="col-form-label col-sm-2">Project Preparation Document</label>
-                                    <div class="col-sm-10">
+                                    <label for="preparation_document_id" class="col-form-label col-sm-3">Project Preparation Document</label>
+                                    <div class="col-sm-9">
                                         <select name="preparation_document_id" id="preparation_document_id" class="form-control select2">
                                             <option value="" selected disabled>Select document</option>
                                             @foreach($preparation_documents as $option)
@@ -410,8 +429,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="iccable" class="col-form-label col-sm-2">Does the project require feasibility study? <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="iccable" class="col-form-label col-sm-3">Does the project require feasibility study? </label>
+                                    <div class="col-sm-9">
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
                                                 <input type="radio" class="form-check-input" value="1" name="has_fs" {{ old('has_fs') == 1 ? 'checked' : '' }}>
@@ -427,8 +446,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="fs_status_id" class="col-form-label col-sm-2">Status of Feasibility Study</label>
-                                    <div class="col-sm-10">
+                                    <label for="fs_status_id" class="col-form-label col-sm-3">Status of Feasibility Study</label>
+                                    <div class="col-sm-9">
                                         <select name="feasibility_study[fs_status_id]" id="fs_status_id" class="form-control select2">
                                             <option value="" selected disabled>Select Status</option>
                                             @foreach($fs_statuses as $option)
@@ -438,8 +457,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="iccable" class="col-form-label col-sm-2">Does the conduct of feasibility study need assistance?</label>
-                                    <div class="col-sm-10">
+                                    <label for="iccable" class="col-form-label col-sm-3">Does the conduct of feasibility study need assistance?</label>
+                                    <div class="col-sm-9">
                                         <div class="form-check-inline">
                                             <label class="form-check-label">
                                                 <input type="radio" class="form-check-input" value="1" name="feasibility_study[needs_assistance]" @if(old('feasibility_study[need_assistance]') == 1) checked @endif>
@@ -496,8 +515,8 @@
                                     </table>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="feasibility_study[completion_date]" class="col-form-label col-sm-2">Expected/Target Date of Completion of FS</label>
-                                    <div class="col-sm-10">
+                                    <label for="feasibility_study[completion_date]" class="col-form-label col-sm-3">Expected/Target Date of Completion of FS</label>
+                                    <div class="col-sm-9">
                                         <input type="date" class="form-control" name="feasibility_study[completion_date]" value="{{ old('feasibility_study.completion_date') }}">
                                     </div>
                                 </div>
@@ -514,8 +533,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="employment_generated" class="col-sm-2">No. of persons to be employed after completion of the project</label>
-                                    <div class="col-sm-10">
+                                    <label for="employment_generated" class="col-form-label col-sm-3 required">No. of persons to be employed after completion of the project</label>
+                                    <div class="col-sm-9">
                                         <input class="form-control @error('employment_generated') is-invalid @enderror" type="number" name="employment_generated" value="{{ old('employment_generated') }}">
                                         @error('employment_generated')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
@@ -533,8 +552,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="pdp_chapter_id" class="col-form-label col-sm-2">Main philippine Development Chapter <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="pdp_chapter_id" class="col-form-label col-sm-3 required">Main philippine Development Chapter </label>
+                                    <div class="col-sm-9">
                                         <select id="pdp_chapter_id" name="pdp_chapter_id" class="form-control select2 @error('pdp_chapter_id') is-invalid @enderror">
                                             <option value="" disabled selected>Select Main PDP Chapter</option>
                                             @foreach($pdp_chapters as $option)
@@ -544,8 +563,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="infrastructure_sectors" class="col-sm-2">Other PDP Chapters</label>
-                                    <div class="col-sm-10">
+                                    <label for="infrastructure_sectors" class="col-sm-3">Other PDP Chapters</label>
+                                    <div class="col-sm-9">
                                         @foreach($pdp_chapters as $option)
                                             <div class="form-check">
                                                 <label class="form-check-label" for="pdp_chapter_{{ $option->id }}">
@@ -628,8 +647,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="sdgs" class="col-form-label col-sm-2">Sustainable Development Goals</label>
-                                    <div class="col-sm-10">
+                                    <label for="sdgs" class="col-form-label col-sm-3">Sustainable Development Goals</label>
+                                    <div class="col-sm-9">
                                         @foreach($sdgs as $option)
                                             <div class="form-check">
                                                 <label class="form-check-label" for="sdg_{{ $option->id }}">
@@ -654,8 +673,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="ten_point_agendas" class="col-form-label col-sm-2">Ten Point Agenda</label>
-                                    <div class="col-sm-10">
+                                    <label for="ten_point_agendas" class="col-form-label col-sm-3">Ten Point Agenda</label>
+                                    <div class="col-sm-9">
                                         @foreach($ten_point_agendas as $option)
                                             <div class="form-check">
                                                 <label class="form-check-label" for="tpa_{{ $option->id }}">
@@ -680,8 +699,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="funding_source_id" class="col-form-label col-sm-2">Main Funding Source <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="funding_source_id" class="col-form-label col-sm-3 required">Main Funding Source </label>
+                                    <div class="col-sm-9">
                                         <select class="form-control select2 @error('funding_source_id') is-invalid @enderror" name="funding_source_id">
                                             <option value="" disabled selected>Select Funding Source</option>
                                             @foreach($funding_sources as $option)
@@ -691,8 +710,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="funding_sources" class="col-form-label col-sm-2">Other Funding Sources</label>
-                                    <div class="col-sm-10">
+                                    <label for="funding_sources" class="col-form-label col-sm-3">Other Funding Sources</label>
+                                    <div class="col-sm-9">
                                         @foreach($funding_sources as $option)
                                             <div class="form-check">
                                                 <label class="form-check-label" for="fs_{{ $option->id }}">
@@ -704,15 +723,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="other_fs" class="col-form-label col-sm-2">Other Funding Source (specify)</label>
-                                    <div class="col-sm-10">
+                                    <label for="other_fs" class="col-form-label col-sm-3">Other Funding Source (specify)</label>
+                                    <div class="col-sm-9">
                                         <input type="text" class="form-control" name="other_fs" id="other_fs" placeholder="Other funding source (please specify)" value="{{ old('other_fs') }}">
                                         @error('other_fs')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="implementation_mode_id" class="col-form-label col-sm-2">Mode of Implementation <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="implementation_mode_id" class="col-form-label col-sm-3 required">Mode of Implementation </label>
+                                    <div class="col-sm-9">
                                         <select class="form-control select2 @error('implementation_mode_id') is-invalid @enderror" name="implementation_mode_id">
                                             <option value="" disabled selected>Select Implementation Mode</option>
                                             @foreach($implementation_modes as $option)
@@ -723,8 +742,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="funding_institution_id" class="col-form-label col-sm-2">Funding Institution</label>
-                                    <div class="col-sm-10">
+                                    <label for="funding_institution_id" class="col-form-label col-sm-3">Funding Institution</label>
+                                    <div class="col-sm-9">
                                         <select class="form-control select2" name="funding_institution_id" @error('funding_institution_id') is-invalid @enderror>
                                             <option value="" disabled selected>Select Funding Institution</option>
                                             @foreach($funding_institutions as $option)
@@ -734,8 +753,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="tier_id" class="col-form-label col-sm-2">Budget Tier <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="tier_id" class="col-form-label col-sm-3 required">Budget Tier </label>
+                                    <div class="col-sm-9">
                                         <select class="form-control select2 @error('tier_id') is-invalid @enderror" name="tier_id">
                                             <option value="" disabled selected>Select Budget Tier</option>
                                             @foreach($tiers as $option)
@@ -746,8 +765,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="uacs_code" class="col-form-label col-sm-2">UACS Code</label>
-                                    <div class="col-sm-10">
+                                    <label for="uacs_code" class="col-form-label col-sm-3">UACS Code</label>
+                                    <div class="col-sm-9">
                                         <input type="text" class="form-control @error('uacs_code') is-invalid @enderror" name="uacs_code" id="uacs_code" placeholder="UACS Code" value="{{ old('uacs_code') }}">
                                         @error('uacs_code')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
@@ -765,15 +784,15 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="updates" class="col-form-label col-sm-2">Updates <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="updates" class="col-form-label col-sm-3 required">Updates </label>
+                                    <div class="col-sm-9">
                                         <textarea rows="4" style="resize: none;" class="form-control @error('updates') is-invalid @enderror" id="updates" name="updates">{{ old('updates') }}</textarea>
                                         @error('updates')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="updates_date" class="col-form-label col-sm-2">As of <i class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-10">
+                                    <label for="updates_date" class="col-form-label col-sm-3 required">As of </label>
+                                    <div class="col-sm-9">
                                         <input type="date" class="form-control @error('updates_date') is-invalid @enderror" id="updates_date" name="updates_date" value="{{ old('updates_date') }}">
                                         @error('updates_date')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
@@ -790,9 +809,6 @@
                                 <h3 class="card-title">{{ __("Investment Required by Funding Source") }} </h3>
                             </div>
                             <div class="card-body">
-                                <div class="row px-2 pb-2">
-                                    <i class="text-danger fas fa-flag"></i> All fields are required.
-                                </div>
                                 <table class="table table-responsive table-sm">
                                     <thead>
                                     <tr>
@@ -872,9 +888,6 @@
                                 <h3 class="card-title">{{ __("Investment Required by Region") }} </h3>
                             </div>
                             <div class="card-body">
-                                <div class="row px-2 pb-2">
-                                    <i class="text-danger fas fa-flag"></i> All fields are required.
-                                </div>
                                 <table class="table table-responsive table-sm">
                                     <thead>
                                     <tr>
@@ -957,9 +970,6 @@
                                 <h3 class="card-title">{{ __("Financial Status") }}</h3>
                             </div>
                             <div class="card-body">
-                                <div class="row px-2 pb-2">
-                                    <i class="text-danger fas fa-flag"></i> All fields are required.
-                                </div>
                                 <table class="table table-responsive table-sm">
                                     <thead>
                                     <tr>

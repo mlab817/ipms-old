@@ -13,14 +13,14 @@ class ProjectCreateTest extends DuskTestCase
      *
      * @return void
      */
-    public function testExample()
+    public function test_it_shows_create_project_form()
     {
         $this->browse(function (Browser $browser) {
             $browser
                     ->loginAs(1)
                     ->visit(route('projects.create'))
                     ->screenshot('projects-create-page')
-                    ->assertSee('Add New Project');
+                    ->assertSee('Add New PAP');
         });
     }
 
@@ -29,7 +29,7 @@ class ProjectCreateTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(route('projects.create'))
                 ->loginAs(1)
-                ->click('@submit-button')
+                ->click('Submit')
                 ->assertSee('Add New Project')
                 ->assertSee('The PAP Title is required.')
                 ->screenshot('validation errors');

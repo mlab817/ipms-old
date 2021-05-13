@@ -11,6 +11,8 @@ return [
     | the application is accepting CRUD. Useful to disable CRUD
     | once the System closes.
     */
+    'email'         => env('IPMS_EMAIL',''),
+    'contact_info'  => env('IPMS_CONTACT_INFO', ''),
     'permissions' => [
         'projects' => [
             'create'        => true,

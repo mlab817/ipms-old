@@ -1,5 +1,24 @@
 @extends('layouts.admin')
 
+@section('content-header')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Add User</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Users</a></li>
+                        <li class="breadcrumb-item active">Add User</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+@endsection
+
 @section('content')
     <section class="content">
         <div class="container-fluid">
@@ -8,19 +27,19 @@
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="name">Name <i class="text-danger fas fa-flag"></i></label>
+                            <label for="name" class="required">Name </label>
                             <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" placeholder="Juan dela Cruz" value="{{ old('name') }}">
                             @error('name')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Email <i class="text-danger fas fa-flag"></i></label>
+                            <label for="email">Email </label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="example@email.com">
                             @error('email')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="office_id">Office <i class="text-danger fas fa-flag"></i></label>
+                            <label for="office_id" class="required">Office </label>
                             <select class="form-control select2 @error('office_id') is-invalid @enderror" name="office_id" id="office_id">
                                 <option value="" selected disabled>Select Office</option>
                                 @foreach($offices as $office)
@@ -43,8 +62,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="permissions">Permissions</label>
-                            @foreach ($permissions as $option)
+                            <label for="permissions" class="required">Permissions</label>
+                            @foreach ($permissions->sortBy('name', -1) as $option)
                                 <div class="form-check">
                                     <label for="permission_{{ $option->id }}" class="form-check-label">
                                         <input id="permission_{{ $option->id }}" name="permissions[]" type="checkbox" class="form-check-input" value="{{ $option->id }}" @if(in_array($option->id, old('permissions') ?? [])) checked @endif>

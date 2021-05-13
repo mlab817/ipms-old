@@ -35,11 +35,9 @@
         <div class="form-group row">
             <label for="bases" class="col-sm-3">Implementation Bases </label>
             <div class="col-sm-9">
-                <ul>
-                    @foreach($project->bases as $item)
-                        <li>{{ $item->name }}</li>
-                    @endforeach
-                </ul>
+                @foreach($project->bases as $item)
+                    <span class="badge badge-primary">{{ $item->name }}</span>
+                @endforeach
             </div>
         </div>
 
@@ -84,13 +82,11 @@
         <div class="form-group row">
             <label for="regions" class="col-form-label col-sm-3">Implementing Agencies </label>
             <div class="col-sm-9">
-                <ul>
-                    @foreach($project->operating_units as $item)
-                        <li>
-                            {{ $item->name }}
-                        </li>
-                    @endforeach
-                </ul>
+                @foreach($project->operating_units as $item)
+                    <span class="badge badge-primary">
+                        {{ $item->name }}
+                    </span>
+                @endforeach
             </div>
         </div>
     </div>
@@ -111,11 +107,9 @@
         <div class="form-group row">
             <label for="regions" class="col-sm-3">Regions </label>
             <div class="col-sm-9">
-                <ul>
-                    @foreach($project->regions as $item)
-                        <li>{{ $item->name }}</li>
-                    @endforeach
-                </ul>
+                @foreach($project->regions as $item)
+                    <span class="badge badge-primary">{{ $item->name }}</span>
+                @endforeach
             </div>
         </div>
     </div>
@@ -232,16 +226,16 @@
     </div>
     <div class="card-body">
         <div class="form-group row">
-            <label for="preparation_document_id" class="col-form-label col-sm-2">Project
+            <label for="preparation_document_id" class="col-form-label col-sm-3">Project
                 Preparation Document </label>
-            <div class="col-sm-10">
+            <div class="col-sm-9">
                 {{ $project->preparation_document->name ?? '' }}
             </div>
         </div>
         <div class="form-group row">
-            <label for="has_fs" class="col-form-label col-sm-2">Does the project require
+            <label for="has_fs" class="col-form-label col-sm-3">Does the project require
                 feasibility study? </label>
-            <div class="col-sm-10">
+            <div class="col-sm-9">
                 <div class="form-check-inline">
                     <label class="form-check-label">
                         {{ $project->has_fs == 1 ? 'Yes' : 'No' }}
@@ -250,20 +244,20 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="fs_status_id" class="col-form-label col-sm-2">Status of Feasibility
+            <label for="fs_status_id" class="col-form-label col-sm-3">Status of Feasibility
                 Study (Only if FS is required)</label>
-            <div class="col-sm-10">
-                {{ $project->feasibility_study->fs_status->name ?? '' }}
+            <div class="col-sm-9">
+                {{ $project->feasibility_study ? ($project->feasibility_study->fs_status->name ?? '') : '' }}
             </div>
         </div>
         <div class="form-group row">
-            <label for="feasibility_study.needs_assistance" class="col-form-label col-sm-2">Does the conduct of
+            <label for="feasibility_study.needs_assistance" class="col-form-label col-sm-3">Does the conduct of
                 feasibility
                 study need assistance?</label>
-            <div class="col-sm-10">
+            <div class="col-sm-9">
                 <div class="form-check-inline">
                     <label class="form-check-label">
-                        {{ $project->feasibility_study->need_assistance == 1 ? 'Yes' : 'No' }}
+                        {{ $project->feasibility_study ? ($project->feasibility_study->need_assistance == 1 ? 'Yes' : 'No') : '' }}
                     </label>
                 </div>
             </div>
@@ -319,9 +313,9 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="feasibility_study[completion_date]" class="col-form-label col-sm-2">Expected/Target
+            <label for="feasibility_study[completion_date]" class="col-form-label col-sm-3">Expected/Target
                 Date of Completion of FS</label>
-            <div class="col-sm-10">
+            <div class="col-sm-9">
                 {{ $project->feasibility_study->completion_date ?? '' }}
             </div>
         </div>
@@ -363,11 +357,9 @@
             <label for="infrastructure_sectors" class="col-form-label col-sm-3">Other PDP
                 Chapters</label>
             <div class="col-sm-9">
-                <ul>
-                    @foreach($project->pdp_chapters as $option)
-                        <li>{{ $option->name }}</li>
-                    @endforeach
-                </ul>
+                @foreach($project->pdp_chapters as $option)
+                    <span class="badge badge-primary">{{ $option->name }}</span>
+                @endforeach
             </div>
         </div>
     </div>
@@ -390,59 +382,8 @@
         </div>
 
         <div id="pdp_indicators_group" class="form-group mt-2">
-            @foreach ($pdp_indicators as $pi1)
-                <div id="pdp_chapter_{{$pi1->id}}" class="pdp_chapters">
-                    <span class="font-weight-bold">{{ $pi1->name }}</span>
-                    @foreach($pi1->children as $pi2)
-                        <div class="ml-4">
-                            <div class="form-check">
-                                <label class="form-check-label" for="pdp_outcome_{{$pi2->id}}">
-                                    <input type="checkbox"
-                                           class="form-check-input pdp_indicators"
-                                           value="{{$pi2->id}}"
-                                           name="pdp_indicators[]"
-                                           id="pdp_outcome_{{$pi2->id}}"
-                                           @if(in_array($pi2->id, old('pdp_indicators', $project->pdp_indicators->pluck('id')->toArray() ?? []))) checked @endif>
-                                    {{ $pi2->name }}
-                                </label>
-                            </div>
-                            <div>
-                                @foreach($pi2->children as $pi3)
-                                    <div class="ml-4">
-                                        <div class="form-check">
-                                            <label class="form-check-label"
-                                                   for="pdp_suboutcome_{{$pi3->id}}">
-                                                <input type="checkbox"
-                                                       class="form-check-input pdp_indicators"
-                                                       value="{{$pi3->id}}"
-                                                       name="pdp_indicators[]"
-                                                       id="pdp_suboutcome_{{$pi3->id}}"
-                                                       @if(in_array($pi3->id, old('pdp_indicators', $project->pdp_indicators->pluck('id')->toArray() ?? []))) checked @endif>
-                                                {{ $pi3->name }}
-                                            </label>
-                                        </div>
-                                        @foreach($pi3->children as $pi4)
-                                            <div class="ml-4">
-                                                <div class="form-check">
-                                                    <label class="form-check-label"
-                                                           for="pdp_output_{{$pi4->id}}">
-                                                        <input type="checkbox"
-                                                               class="form-check-input pdp_indicators"
-                                                               value="{{$pi4->id}}"
-                                                               name="pdp_indicators[]"
-                                                               id="pdp_output_{{$pi4->id}}"
-                                                               @if(in_array($pi4->id, old('pdp_indicators', $project->pdp_indicators->pluck('id')->toArray() ?? []))) checked @endif>
-                                                        {{ $pi4->name }}
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
+            @foreach($project->pdp_indicators as $pi)
+                <span class="badge badge-primary">{{ $pi->name }}</span>
             @endforeach
         </div>
     </div>
@@ -456,13 +397,11 @@
     </div>
     <div class="card-body">
         <div class="form-group row">
-            <label for="sdgs" class="col-form-label col-sm-2">Sustainable Development Goals
-                <div class="col-sm-10">
-                    <ul>
-                        @foreach($project->sdgs as $option)
-                            <li>{{ $option->name }}</li>
-                        @endforeach
-                    </ul>
+            <label for="sdgs" class="col-form-label col-sm-3">Sustainable Development Goals </label>
+                <div class="col-sm-9">
+                    @foreach($project->sdgs as $option)
+                        <span class="badge badge-primary">{{ $option->name }}</span>
+                    @endforeach
                 </div>
         </div>
     </div>
@@ -476,13 +415,11 @@
     </div>
     <div class="card-body">
         <div class="form-group row">
-            <label for="ten_point_agendas" class="col-form-label col-sm-2">Ten Point Agenda
-                <div class="col-sm-10">
-                    <ul>
-                        @foreach($project->ten_point_agendas as $option)
-                            <li>{{ $option->name }}</li>
-                        @endforeach
-                    </ul>
+            <label for="ten_point_agendas" class="col-form-label col-sm-3">Ten Point Agenda </label>
+                <div class="col-sm-9">
+                    @foreach($project->ten_point_agendas as $option)
+                        <span class="badge badge-primary">{{ $option->name }}</span>
+                    @endforeach
                 </div>
         </div>
     </div>
@@ -503,27 +440,21 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="funding_sources" class="col-form-label col-sm-2">Other Funding
+            <label for="funding_sources" class="col-form-label col-sm-3">Other Funding
                 Sources</label>
-            <div class="col-sm-10">
-                <ul>
-                    @foreach($project->funding_sources as $option)
-                        <li>
-                            {{ $option->name }}
-                        </li>
-                    @endforeach
-                </ul>
+            <div class="col-sm-9">
+                @foreach($project->funding_sources as $option)
+                    <span class="badge badge-primary">
+                        {{ $option->name }}
+                    </span>
+                @endforeach
             </div>
         </div>
         <div class="form-group row">
             <label for="other_fs" class="col-form-label col-sm-3">Other Funding Source
                 (specify)</label>
             <div class="col-sm-9">
-                <ul>
-                    @foreach($project->funding_sources as $option)
-                        <li>{{ $option->name }}</li>
-                    @endforeach
-                </ul>
+                {{ $project->other_fs }}
             </div>
         </div>
         <div class="form-group row">

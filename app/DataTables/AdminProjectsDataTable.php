@@ -26,8 +26,8 @@ class AdminProjectsDataTable extends DataTable
                 return $row->creator->office->name ?? '';
             })
             ->addColumn('added by', function ($row) {
-                $img = '<img src="' . $row->creator->avatar .'" width="50" height="50">';
-                return $img . '<br/><span class="text-muted text-sm">' . $row->creator->name . '</span>' ?? '';
+                $img =  $row->creator ? '<img src="' . $row->creator->avatar .'" width="50" height="50">' : '';
+                return $row->creator ? $img . '<br/><span class="text-muted text-sm">' . $row->creator->name ?? '' . '</span>' ?? '' : '';
             })
             ->addColumn('users', function ($row) {
                 // get all users that have access

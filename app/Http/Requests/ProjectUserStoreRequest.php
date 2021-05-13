@@ -28,7 +28,7 @@ class ProjectUserStoreRequest extends FormRequest
             'user_id'   => [
                 'required',
                 'exists:users,id',
-                'unique:project_user_permission,user_id,NULL,id,project_id,1'
+//                'unique:project_user_permission,user_id,NULL,id,project_id,1'
             ],
             'read'      => 'nullable|bool',
             'update'    => 'nullable|bool',

@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\UsersDataTable;
 use App\Events\UserCreated;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserDeleteRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\Office;
 use App\Models\Permission;
 use App\Models\User;
+use App\Notifications\UserDeletedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -124,10 +127,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(UserDeleteRequest $request, User $user)
     {
         $user->delete();
 
-        return response()->noContent();
+        $user->notify(new UserDeletedNotification($request->reason));
+
+        Alert::success('User has been deleted');
+
+        return redirect()->route('admin.users.index');
     }
 }

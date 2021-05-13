@@ -108,3 +108,11 @@ div.dt-button-collection {
     background-color: rgba(128, 128, 128, 0.1);
     font-weight: bolder;
 }
+
+@media print {
+    body {
+        margin: 2em;
+        color: #fff;
+        background-color: #000;
+    }
+}

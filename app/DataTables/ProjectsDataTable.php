@@ -26,7 +26,7 @@ class ProjectsDataTable extends DataTable
                 $query->orderBy('updated_at','DESC');
             })
             ->addColumn('pap_type', function ($project) {
-                return $project->pap_type->name ?? '';
+                return '<span class="badge badge-'. ($project->pap_type->name == 'Project' ? 'success' : 'danger').' ">'.$project->pap_type->name.'</span>';
             })
             ->editColumn('description', function ($project) {
                 if (strlen($project->description) > 100) {
@@ -66,7 +66,7 @@ class ProjectsDataTable extends DataTable
                     . $deleteButton
                     . '</div>';
             })
-            ->rawColumns(['created_by','trip','action']);
+            ->rawColumns(['pap_type','created_by','trip','action']);
     }
 
     /**
@@ -116,7 +116,8 @@ class ProjectsDataTable extends DataTable
             Column::make('title')
                 ->width('25%'),
             Column::make('pap_type')
-                ->width('15%'),
+                ->addClass('text-center')
+                ->width('10%'),
             Column::make('description')
                 ->width('25%'),
             Column::make('total_project_cost')

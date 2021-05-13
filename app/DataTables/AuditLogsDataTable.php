@@ -21,11 +21,24 @@ class AuditLogsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->addColumn('description', function ($row) {
+                $color = '';
+                $desc = $row->description;
+                if ($desc == 'created') {
+                    $color = 'success';
+                } else if ($desc == 'updated') {
+                    $color = 'primary';
+                } else if ($desc == 'deleted') {
+                    $color = 'danger';
+                }
+                return "<span class=\"badge badge-{$color}\">$desc</span>";
+            })
             ->addColumn('action', function ($row) {
                 return '
                     <a href="'. route('admin.audit_logs.show', $row).'" class="btn btn-sm btn-info">View</a>
                 ';
-            });
+            })
+            ->rawColumns(['description','action']);
     }
 
     /**

@@ -1,5 +1,24 @@
 @extends('layouts.admin')
 
+@section('content-header')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Add Review</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('reviews.index') }}">Review PAPs</a></li>
+                        <li class="breadcrumb-item active">Add Review</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+@endsection
+
 @section('content')
     <div class="mt-3" />
 
@@ -20,7 +39,7 @@
                         <input type="hidden" name="project_id" value="{{ $project->id }}">
 
                         <div class="form-group row">
-                            <label for="pip" class="col-form-label col-sm-3">Public Investment Program</label>
+                            <label for="pip" class="col-form-label col-sm-3 required">Public Investment Program</label>
                             <div class="col-sm-9">
                                 <div class="form-check-inline">
                                     <label for="pip_1" class="form-check-label">
@@ -39,7 +58,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="pip_typology_id" class="col-sm-3">PIP Typology</label>
+                            <label for="pip_typology_id" class="col-form-label col-sm-3 required">PIP Typology</label>
                             <div class="col-sm-9">
                                 <select id="pip_typology_id" name="pip_typology_id" class="form-control @error('pip_typology_id') is-invalid @enderror">
                                     <option value="" selected disabled>Select Typology</option>
@@ -52,7 +71,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="cip" class="col-form-label col-sm-3">Core Investment Program/Project</label>
+                            <label for="cip" class="col-form-label col-sm-3 required">Core Investment Program/Project</label>
                             <div class="col-sm-9">
                                 <div class="form-check-inline">
                                     <label for="cip_1" class="form-check-label">
@@ -71,7 +90,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="cip_type_id" class="col-sm-3">CIP Type</label>
+                            <label for="cip_type_id" class="col-form-label col-sm-3 required">CIP Type</label>
                             <div class="col-sm-9">
                                 <select id="cip_type_id" name="cip_type_id" class="form-control @error('cip_type_id') is-invalid @enderror">
                                     <option value="" selected disabled>Select Typology</option>
@@ -84,7 +103,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="trip" class="col-form-label col-sm-3">Three-Year Rolling Infrastructure Program/Project</label>
+                            <label for="trip" class="col-form-label col-sm-3 required">Three-Year Rolling Infrastructure Program/Project</label>
                             <div class="col-sm-9">
                                 <div class="form-check-inline">
                                     <label for="trip_1" class="form-check-label">
@@ -103,7 +122,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="trip" class="col-form-label col-sm-3">Readiness Level</label>
+                            <label for="trip" class="col-form-label col-sm-3 required">Readiness Level</label>
                             <div class="col-sm-9">
                                 <select id="readiness_level_id" name="readiness_level_id" class="form-control @error('readiness_level_id') is-invalid @enderror">
                                     <option value="" selected disabled>Select Readiness Level</option>

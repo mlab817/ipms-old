@@ -15,6 +15,7 @@ use App\Policies\RolePolicy;
 use App\Policies\SubprojectPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Log;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
@@ -41,6 +42,21 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        \Gate::define('projects.review', function (User $user, Project $project) {
+//            \Log::info($project);
+            // check if user assigned projects contain assigned project
+            $canReview = $user->assigned_projects()->where('project_id', $project->id)->first()->pivot->review ?? false;
+            Log::info($canReview);
+
+            // if assigned project is found
+            // check if user is allowed to review
+            if ($canReview) {
+                return true;
+            }
+
+            return false;
+        });
 
         Passport::routes();
     }
