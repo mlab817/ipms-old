@@ -1355,9 +1355,11 @@
                                 <a href="{{ route('projects.own') }}" class="btn">Back to List</a>
                             </div>
                             <div>
+                                @can('projects.delete', $project)
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
                                     Delete
                                 </button>
+                                @endcan
                             </div>
                         </div>
                     </div>
