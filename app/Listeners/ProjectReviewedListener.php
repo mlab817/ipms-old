@@ -34,6 +34,8 @@ class ProjectReviewedListener
         $user = $review->project->creator;
 
         // send notification
-        $user->notify(new ProjectReviewedNotification($review));
+        if ($user) {
+            $user->notify(new ProjectReviewedNotification($review, auth()->user()));
+        }
     }
 }

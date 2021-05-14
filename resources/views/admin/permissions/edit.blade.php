@@ -1,14 +1,29 @@
 @extends('layouts.admin')
 
+@section('content-header')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Edit Permission</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.permissions.index') }}">Permissions</a></li>
+                        <li class="breadcrumb-item active">Edit Permission</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+@endsection
+
 @section('content')
     <section class="content">
         <div class="container-fluid">
             <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">{{ $pageTitle }}</h3>
-                </div>
-
-                <form action="{{ route('admin.permissions.update', $permission->id) }}" method="POST">
+                <form action="{{ route('admin.permissions.update', $permission) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
@@ -35,11 +50,49 @@
                     </div>
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="{{ route('admin.permissions.index') }}" class="btn mr-2">Back to List</a>
+                        <div class="row justify-content-between mx-0">
+                            <div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a class="btn mr-2" href="{{ route('admin.permissions.index') }}">Back to List</a>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </section>
+@endsection
+
+
+@section('modal')
+    <div class="modal fade" id="modal-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Delete</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this item?</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                    <form action="{{ route('admin.permissions.destroy', $permission) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Confirm</button>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 @endsection

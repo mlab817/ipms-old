@@ -277,6 +277,20 @@
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="small-box bg-info">
                         <div class="inner">
+                            <h3>{{ \App\Models\Prerequisite::count() }}</h3>
+
+                            <p>Prerequisites</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <a href="{{ route('admin.prerequisites.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="small-box bg-info">
+                        <div class="inner">
                             <h3>{{ \App\Models\ProjectStatus::count() }}</h3>
 
                             <p>Project Statuses</p>
@@ -313,6 +327,20 @@
                             <i class="fas fa-code"></i>
                         </div>
                         <a href="{{ route('admin.regions.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>{{ \App\Models\SpatialCoverage::count() }}</h3>
+
+                            <p>Spatial Coverages</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <a href="{{ route('admin.spatial_coverages.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 

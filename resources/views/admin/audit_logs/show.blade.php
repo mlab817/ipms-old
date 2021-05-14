@@ -48,8 +48,12 @@
                             <td>{{ $auditLog->auditable_id }}</td>
                         </tr>
                         <tr>
-                            <th>Properties</th>
-                            <td style="word-break: break-all;">{{ $auditLog->properties }}</td>
+                            <th>Original Properties</th>
+                            <td style="word-break: break-all;">{{ $auditLog->original }}</td>
+                        </tr>
+                        <tr>
+                            <th>Modified Properties</th>
+                            <td style="word-break: break-all;">{{ $auditLog->modified }}</td>
                         </tr>
                         <tr>
                             <th>Host</th>

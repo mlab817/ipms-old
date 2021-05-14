@@ -33,6 +33,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card-footer">
+                            <p class="text-muted text-sm">
+                                <b>Note:</b> For Office projects, the user will be able to view projects added by their office which
+                                is based on which office the user is affiliated/assigned to when they added the project. For Own projects,
+                                the user will be able to view the projects they added.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

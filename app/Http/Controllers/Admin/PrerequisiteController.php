@@ -6,6 +6,7 @@ use App\DataTables\PrerequisitesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Prerequisite;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PrerequisiteController extends Controller
 {
@@ -46,6 +47,8 @@ class PrerequisiteController extends Controller
         ]);
 
         Prerequisite::create($request->all());
+
+        Alert::success('Success','Successfully added item');
 
         return redirect()->route('admin.prerequisites.index');
     }
@@ -90,7 +93,9 @@ class PrerequisiteController extends Controller
 
         $prerequisite->update($request->all());
 
-        return redirect()->route('admin.prerequisites.index');
+        Alert::success('Success','Successfully updated item');
+
+        return back();
     }
 
     /**
@@ -103,6 +108,8 @@ class PrerequisiteController extends Controller
     {
         $prerequisite->delete();
 
-        return response()->noContent();
+        Alert::success('Success','Successfully deleted item');
+
+        return redirect()->route('admin.prerequisites.index');
     }
 }

@@ -7,20 +7,23 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ProjectReviewedNotification extends Notification
+class ProjectReviewedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     public $review;
+
+    public $user;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($review)
+    public function __construct($review, $user)
     {
         $this->review = $review;
+        $this->user = $user;
     }
 
     /**
@@ -45,7 +48,7 @@ class ProjectReviewedNotification extends Notification
         return [
             'sender'    => $this->review->user,
             'subject'   => 'Project Reviewed',
-            'message'   => $this->review->user->name . ' reviewed your project: ' . $this->review->project->title,
+            'message'   => $this->user->name . ' reviewed your project: ' . $this->review->project->title,
             'actionUrl' => route('projects.show', $this->review->project),
         ];
     }

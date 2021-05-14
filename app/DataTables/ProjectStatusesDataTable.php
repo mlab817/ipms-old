@@ -23,7 +23,7 @@ class ProjectStatusesDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function($row) {
                 return '
-                    <a href="'.route('admin.project_statuses.edit', $row->slug).'" class="btn btn-info">Edit</a>
+                    <a href="'.route('admin.project_statuses.edit', $row->slug).'" class="btn btn-info btn-sm">Edit</a>
                 ';
             });
     }
@@ -69,8 +69,8 @@ class ProjectStatusesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
             Column::make('name'),
+            Column::make('description'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

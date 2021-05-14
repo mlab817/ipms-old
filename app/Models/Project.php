@@ -14,9 +14,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Scout\Searchable;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class Project extends Model
+class Project extends Model implements Searchable
 {
     use HasFactory;
     use HasUuid;
@@ -460,5 +461,19 @@ class Project extends Model
                 'source' => 'title',
             ]
         ];
+    }
+
+    /**
+     * @return SearchResult
+     */
+    public function getSearchResult(): SearchResult
+    {
+        $url = route('projects.show', $this->getRouteKey());
+
+        return new SearchResult(
+            $this,
+            $this->title,
+            $url,
+        );
     }
 }

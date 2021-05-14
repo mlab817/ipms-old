@@ -15,7 +15,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ReviewController extends Controller
 {
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->authorizeResource(Review::class);
     }
@@ -29,60 +29,11 @@ class ReviewController extends Controller
     {
         return $dataTable->render('reviews.index', [
             'pageTitle' => 'Review PAPs',
+            'pipCount' => Review::where('pip', true)->count(),
+            'tripCount'=> Review::where('trip', true)->count(),
+            'reviewedCount' => Project::whereHas('review')->count(),
+            'projectCount'  => Project::count(),
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        $project = Project::where('uuid', $request->query('project'))->firstOrFail();
-
-        $review = new Review();
-
-        return view('reviews.create', [
-            'pageTitle' => 'Reviewing ' . $project->title,
-            'review' => $review,
-            'project' => $project,
-            'pip_typologies' => PipTypology::all(),
-            'cip_types' => CipType::all(),
-            'readiness_levels' => ReadinessLevel::all(),
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param ReviewStoreRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(ReviewStoreRequest $request)
-    {
-//        dd('calling store');
-
-        $project = Project::findOrFail($request->project_id);
-
-        $review = $project->review()->updateOrCreate($request->validated());
-
-        event(new ProjectReviewedEvent($review));
-
-        Alert::success('Success', 'Review successfully saved');
-
-        return redirect()->route('reviews.index')->with('message', 'Successfully added review');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\review  $review
-     * @return \Illuminate\Http\Response
-     */
-    public function show(review $review)
-    {
-        //
     }
 
     /**

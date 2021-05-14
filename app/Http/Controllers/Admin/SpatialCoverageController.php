@@ -6,6 +6,7 @@ use App\DataTables\SpatialCoveragesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\SpatialCoverage;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SpatialCoverageController extends Controller
 {
@@ -47,6 +48,8 @@ class SpatialCoverageController extends Controller
 
         SpatialCoverage::create($request->all());
 
+        Alert::success('Success', 'Succesfully saved item');
+
         return redirect()->route('admin.spatial_coverages.index');
     }
 
@@ -64,15 +67,12 @@ class SpatialCoverageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param SpatialCoverage $spatialCoverage
      * @return \Illuminate\Http\Response
      */
     public function edit(SpatialCoverage $spatialCoverage)
     {
-        return view('admin.spatial_coverages.edit', [
-            'pageTitle' => 'Edit Spatial Coverage',
-            'spatial_coverage' => $spatialCoverage,
-        ]);
+        return view('admin.spatial_coverages.edit', compact('spatialCoverage'));
     }
 
     /**
@@ -90,7 +90,9 @@ class SpatialCoverageController extends Controller
 
         $spatialCoverage->update($request->all());
 
-        return redirect()->route('admin.spatial_coverages.index');
+        Alert::success('Success', 'Succesfully updated item');
+
+        return back();
     }
 
     /**
@@ -103,6 +105,8 @@ class SpatialCoverageController extends Controller
     {
         $spatialCoverage->delete();
 
-        return response()->noContent();
+        Alert::success('Success', 'Succesfully deleted item');
+
+        return redirect()->route('admin.spatial_coverages.index');
     }
 }

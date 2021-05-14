@@ -7,28 +7,41 @@ use App\Models\Project;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function __invoke()
     {
-        $data = collect([]); // Could also be an array
+        // get daily data of added projects
+        $chartData = DB::table('projects')
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+            ->orderBy('date','ASC')
+            ->groupBy('date')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->date  => $item->count];
+            });
 
+        // create chart
         $chart = new SampleChart;
-        $chart->labels(['One', 'Two', 'Three']);
-        $chart->dataset('My dataset 1', 'line', [1, 2, 3, 4]);
-        $chart->dataset('My dataset 2', 'line', [4, 3, 2, 1]);
+        $chart->labels($chartData->keys());
+        $chart->dataset('Projects Added Daily', 'bar', $chartData->values());
 
         return view('dashboard', [
             'pageTitle'     => 'Dashboard',
-            'programCount'  => Project::where('pap_type_id', 1)->count(),
-            'projectCount'  => Project::where('pap_type_id', 2)->count(),
             'tripCount'     => Review::where('trip', 1)->count(),
+            'projectCount'  => Project::count(),
+            'reviewCount'   => Review::count(),
+            'encodedCount'  => Review::where('pipol_encoded', true)->count(),
+            'validatedCount'=> Review::where('pipol_validated', true)->count(),
+            'finalizedCount'=> Review::where('pipol_finalized', true)->count(),
+            'endorsedCount' => Review::where('pipol_endorsed', true)->count(),
             'pipCount'      => Review::where('pip', 1)->count(),
             'userCount'     => User::count(),
             'chart'         => $chart,
-            'reviews'       => Review::latest()->take(5)->get(),
-            'latestProjects'=> Project::latest()->take(5)->get(),
+            'reviews'       => Review::with('user')->latest()->take(5)->get(),
+            'latestProjects'=> Project::with('pap_type','project_status','creator.office')->latest()->take(5)->get(),
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use App\Traits\HasUuid;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,7 @@ class ImplementingAgency extends Model
     use HasFactory;
     use HasUuid;
     use Sluggable;
+    use Auditable;
 
     protected $fillable = [];
 

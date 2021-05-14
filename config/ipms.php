@@ -13,6 +13,7 @@ return [
     */
     'email'         => env('IPMS_EMAIL',''),
     'contact_info'  => env('IPMS_CONTACT_INFO', ''),
+    'allow_google_login' => env('ALLOW_GOOGLE_LOGIN', false),
     'permissions' => [
         'projects' => [
             'create'        => true,

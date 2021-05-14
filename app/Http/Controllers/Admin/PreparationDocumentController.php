@@ -6,6 +6,7 @@ use App\DataTables\PreparationDocumentsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\PreparationDocument;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PreparationDocumentController extends Controller
 {
@@ -47,6 +48,8 @@ class PreparationDocumentController extends Controller
 
         PreparationDocument::create($request->all());
 
+        Alert::success('Success', 'Successfully saved item');
+
         return redirect()->route('admin.preparation_documents.index');
     }
 
@@ -69,10 +72,7 @@ class PreparationDocumentController extends Controller
      */
     public function edit(PreparationDocument $preparationDocument)
     {
-        return view('admin.preparation_documents.edit', [
-            'pageTitle' => 'Edit Preparation Document',
-            'preparation_document' => $preparationDocument,
-        ]);
+        return view('admin.preparation_documents.edit', compact('preparationDocument'));
     }
 
     /**
@@ -90,6 +90,8 @@ class PreparationDocumentController extends Controller
 
         $preparationDocument->update($request->all());
 
+        Alert::success('Success', 'Successfully updated item');
+
         return redirect()->route('admin.preparation_documents.index');
     }
 
@@ -103,6 +105,8 @@ class PreparationDocumentController extends Controller
     {
         $preparationDocument->delete();
 
-        return response()->noContent();
+        Alert::success('Success', 'Successfully deleted item');
+
+        return redirect()->route('admin.preparation_documents.index');
     }
 }

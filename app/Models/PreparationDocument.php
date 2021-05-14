@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ class PreparationDocument extends Model
 {
     use HasFactory;
     use Sluggable;
+    use Auditable;
 
     protected $fillable = [
         'name',

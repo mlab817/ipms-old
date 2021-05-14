@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ProjectDeletedNotification extends Notification
+class ProjectDeletedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 

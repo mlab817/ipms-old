@@ -31,7 +31,12 @@ trait Auditable
 //            'subject_id'   => $model->id ?? null,
 //            'subject_type' => get_class($model) ?? null,
             'user_id'      => auth()->id() ?? null,
-            'properties'   => $model->getChanges() ?? null,
+//            'properties'   => json_encode([
+//                'original' => $model->getOriginal() ?? null,
+//                'modified' => $model->getChanges() ?? null
+//            ]),
+            'original'     => $model->getOriginal() ?? null,
+            'modified'     => $model->getChanges() ?? null,
             'host'         => request()->ip() ?? null,
         ]);
     }

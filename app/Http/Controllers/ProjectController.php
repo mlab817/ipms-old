@@ -8,8 +8,10 @@ use App\DataTables\Scopes\OfficeProjectsDataTableScope;
 use App\DataTables\Scopes\OwnProjectsDataTableScope;
 use App\DataTables\Scopes\ProjectsDataTableScope;
 use App\Events\ProjectCreatedEvent;
+use App\Events\ProjectReviewedEvent;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
+use App\Http\Requests\ReviewStoreRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
@@ -29,8 +31,10 @@ use App\Models\PipTypology;
 use App\Models\PreparationDocument;
 use App\Models\Project;
 use App\Models\ProjectStatus;
+use App\Models\ReadinessLevel;
 use App\Models\Region;
 use App\Models\RegionInvestment;
+use App\Models\Review;
 use App\Models\Sdg;
 use App\Models\SpatialCoverage;
 use App\Models\TenPointAgenda;
@@ -46,6 +50,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 class ProjectController extends Controller
 {
     const PROJECTS_INDEX = 'projects.own';
+
+    public function __construct()
+    {
+        $this->authorizeResource(Project::class);
+    }
 
     /**
      * Display a listing of the resource.
@@ -252,6 +261,30 @@ class ProjectController extends Controller
         Alert::success('Success', 'Successfully deleted project');
 
         return redirect()->route('projects.own');
+    }
+
+    public function review(Request $request, Project $project)
+    {
+        return view('reviews.create', [
+            'pageTitle' => 'Reviewing ' . $project->title,
+            'project' => $project,
+            'pip_typologies' => PipTypology::all(),
+            'cip_types' => CipType::all(),
+            'readiness_levels' => ReadinessLevel::all(),
+        ]);
+    }
+
+    public function storeReview(ReviewStoreRequest $request, Project $project)
+    {
+        abort_if(!(auth()->user()->can('reviews.create') || auth()->user()->can('projects.review', $project)), 403);
+
+        $review = $project->review()->updateOrCreate($request->validated());
+
+        event(new ProjectReviewedEvent($review));
+
+        Alert::success('Success', 'Review successfully saved');
+
+        return redirect()->route('reviews.index')->with('message', 'Successfully added review');
     }
 
     public function upload(Request $request, Project $project)

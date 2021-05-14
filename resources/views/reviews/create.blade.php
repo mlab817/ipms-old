@@ -24,7 +24,7 @@
 
     <section class="content">
         <div class="container-fluid">
-            <form class="form-horizontal" action="{{ route('reviews.store') }}" method="POST">
+            <form class="form-horizontal" action="{{ route('reviews.store', $project) }}" method="POST">
                 @csrf
 
                 <div class="card card-primary">
@@ -35,8 +35,6 @@
                         <div class="row text-center mb-3">
                             <a href="{{ route('projects.show', $project) }}" target="_blank">View Project Info</a>
                         </div>
-
-                        <input type="hidden" name="project_id" value="{{ $project->id }}">
 
                         <div class="form-group row">
                             <label for="pip" class="col-form-label col-sm-3 required">Public Investment Program</label>
@@ -199,6 +197,7 @@
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{{ route('reviews.index') }}" class="btn">Back to List</a>
                 </div>
 
             </form>

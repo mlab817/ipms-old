@@ -25,21 +25,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/password/change', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('password.change');
     Route::get('/settings',\App\Http\Controllers\SettingsController::class)->name('settings');
 
-    Route::get('/projects/assigned', [\App\Http\Controllers\ProjectController::class,'assigned'])->name('projects.assigned');
-    Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');
-    Route::get('/projects/own', [\App\Http\Controllers\ProjectController::class,'own'])->name('projects.own');
-
-    Route::post('/projects/{project}/subprojects', [\App\Http\Controllers\SubprojectController::class, 'store'])->name('subprojects.store');
-    Route::get('/projects/{project}/subprojects', [\App\Http\Controllers\SubprojectController::class, 'index'])->name('subprojects.index');
-    Route::get('/projects/{project}/subprojects/create', [\App\Http\Controllers\SubprojectController::class, 'create'])->name('subprojects.create');
-
-    Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
-    Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');
-    Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');
-    Route::put('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'update'])->name('trips.update');
-    Route::post('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'store'])->name('trips.store');
-    Route::post('/projects/{project}/upload', [\App\Http\Controllers\ProjectController::class,'upload'])->name('projects.upload');
-
     Route::get('/trips', [\App\Http\Controllers\TripController::class, 'index'])->name('trips.index');
 
     Route::get('/notifications/{notificationId}', \App\Http\Controllers\NotificationController::class)->name('notifications.read');
@@ -50,12 +35,36 @@ Route::group(['middleware' => 'auth'], function() {
 
 // Resources secured by auth
 Route::middleware('auth')->group(function () {
-    Route::resources([
-        'projects'      => \App\Http\Controllers\ProjectController::class,
-        'reviews'       => \App\Http\Controllers\ReviewController::class,
-        'subprojects'   =>  \App\Http\Controllers\SubprojectController::class,
-    ]);
+    // other index routes
+    Route::get('/projects/assigned', [\App\Http\Controllers\ProjectController::class,'assigned'])->name('projects.assigned');
+    Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');
+    Route::get('/projects/own', [\App\Http\Controllers\ProjectController::class,'own'])->name('projects.own');
+
+    // Subprojects
+    Route::post('/projects/{project}/subprojects', [\App\Http\Controllers\SubprojectController::class, 'store'])->name('subprojects.store');
+    Route::get('/projects/{project}/subprojects', [\App\Http\Controllers\SubprojectController::class, 'index'])->name('subprojects.index');
+    Route::get('/projects/{project}/subprojects/create', [\App\Http\Controllers\SubprojectController::class, 'create'])->name('subprojects.create');
+
+    // TRIP
+    Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
+    Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');
+    Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');
+    Route::put('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'update'])->name('trips.update');
+    Route::post('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'store'])->name('trips.store');
+
+    // Upload
+    Route::post('/projects/{project}/upload', [\App\Http\Controllers\ProjectController::class,'upload'])->name('projects.upload');
+
+    // Review
+    Route::post('/projects/{project}/review', [\App\Http\Controllers\ProjectController::class,'storeReview'])->name('reviews.store');
+    Route::get('/projects/{project}/review/create', [\App\Http\Controllers\ProjectController::class,'review'])->name('reviews.create');
+
+    Route::resource('projects', \App\Http\Controllers\ProjectController::class)->except('index');
+    Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create','show');
+    Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
 });
+
+
 
 // auth routes with registration disabled
 
@@ -98,6 +107,8 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
         'teams'                 => \App\Http\Controllers\Admin\TeamController::class,
     ]);
 });
+
+Route::post('/search', \App\Http\Controllers\GlobalSearchController::class)->name('search');
 
 Auth::routes(['register' => false]);
 

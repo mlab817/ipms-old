@@ -37,6 +37,16 @@ class ReviewsDataTable extends DataTable
                     return '<span class="badge badge-danger">No</span>';
                 }
             })
+            ->addColumn('pip', function($row) {
+                if ($row->review) {
+                    return $row->review->pip ? '<i class="text-success fas fa-check-circle"></i>' : '<i class="text-danger fas fa-times-circle"></i>';
+                }
+            })
+            ->addColumn('trip', function ($row) {
+                if ($row->review) {
+                    return $row->review->trip ? '<i class="text-success fas fa-check-circle"></i>' : '<i class="text-danger fas fa-times-circle"></i>';
+                }
+            })
             ->addColumn('reviewed_on', function ($project) {
                 if ($project->review) {
                     return $project->review->updated_at->diffForHumans(null, null, true);
@@ -47,13 +57,13 @@ class ReviewsDataTable extends DataTable
             ->addColumn('action', function ($project) {
                 if (auth()->user()->can('reviews.create') || auth()->user()->can('projects.review', $project)) {
                     if ($project->review) {
-                        return '<a href="' . route('reviews.edit', ['review' => $project->review->getRouteKey()]) . '" class="btn btn-sm btn-info">Edit</a>';
+                        return '<a href="' . route('reviews.edit', ['review' => $project->review->getRouteKey()]) . '" class="btn btn-sm btn-secondary">Edit</a>';
                     } else {
                         return '<a href="'. route('reviews.create', ['project' => $project->getRouteKey()]).'" class="btn btn-sm btn-info">Create</a>';
                     }
                 }
             })
-            ->rawColumns(['title','reviewed','action']);
+            ->rawColumns(['title','pip','trip','reviewed','action']);
     }
 
     /**
@@ -102,6 +112,10 @@ class ReviewsDataTable extends DataTable
             Column::make('pap_type')
                 ->addClass('text-center'),
             Column::make('reviewed')
+                ->addClass('text-center'),
+            Column::make('pip')
+                ->addClass('text-center'),
+            Column::make('trip')
                 ->addClass('text-center'),
             Column::make('reviewed_on')
                 ->addClass('text-center'),

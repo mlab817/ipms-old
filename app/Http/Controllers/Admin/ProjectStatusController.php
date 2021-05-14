@@ -65,10 +65,7 @@ class ProjectStatusController extends Controller
      */
     public function edit(ProjectStatus $projectStatus)
     {
-        return view('admin.project_statuses.edit', [
-            'pageTitle' => 'Edit Project Status',
-            'project_status' => $projectStatus,
-        ]);
+        return view('admin.project_statuses.edit', compact('projectStatus'));
     }
 
     /**

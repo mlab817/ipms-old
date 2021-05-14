@@ -105,7 +105,7 @@ class UsersDataTable extends DataTable
                 ->addClass('text-center'),
             Column::make('permissions')
                 ->addClass('text-center')
-                ->width(200),
+                ->width('30%'),
             Column::computed('avatar')
                 ->addClass('text-center'),
             Column::computed('action')

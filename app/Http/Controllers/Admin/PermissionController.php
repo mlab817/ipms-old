@@ -8,6 +8,7 @@ use App\Http\Requests\PermissionStoreRequest;
 use App\Http\Requests\PermissionUpdateRequest;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PermissionController extends Controller
 {
@@ -53,6 +54,8 @@ class PermissionController extends Controller
     {
         Permission::create($request->only('name','guard_name'));
 
+        Alert::success('Success','Sucessfully saved item');
+
         return redirect()->route(self::INDEX_ROUTE);
     }
 
@@ -93,7 +96,9 @@ class PermissionController extends Controller
     {
         $permission->update($request->only('name','guard_name'));
 
-        return redirect()->route(self::INDEX_ROUTE);
+        Alert::success('Success','Sucessfully updated item');
+
+        return back();
     }
 
     /**
@@ -105,5 +110,9 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
+
+        Alert::success('Success','Sucessfully deleted item');
+
+        return redirect()->route('admin.permissions.index');
     }
 }

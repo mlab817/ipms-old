@@ -65,7 +65,7 @@
         @endif
 
         <!-- Horizontal Form -->
-        <div class="card card-info">
+        <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">Change Password</h3>
             </div>
@@ -108,42 +108,11 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-info">Change Password</button>
+                    <button type="submit" class="btn btn-primary">Change Password</button>
                 </div>
                 <!-- /.card-footer -->
             </form>
         </div>
 
-{{--        <!-- Horizontal Form -->--}}
-{{--        <div class="card card-danger">--}}
-{{--            <div class="card-header">--}}
-{{--                <h3 class="card-title">Logout Other Devices</h3>--}}
-{{--            </div>--}}
-{{--            <!-- /.card-header -->--}}
-
-{{--            <!-- form start -->--}}
-{{--            <form class="form-horizontal" action="{{ route('logout_other_devices') }}" method="POST">--}}
-{{--                @csrf--}}
-{{--                <div class="card-body">--}}
-{{--                    <div class="row">--}}
-{{--                        <p>To ensure security of your account, you may logout other devices logged in by pressing the button below.</p>--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group row">--}}
-{{--                        <label class="col-sm-2 col-form-label" for="password_logout">--}}
-{{--                            Password--}}
-{{--                        </label>--}}
-{{--                        <div class="col-sm-10">--}}
-{{--                            <input id="password_logout" class="form-control @error('password_logout') is-invalid @enderror" type="password" name="password_logout" placeholder="********" >--}}
-{{--                            @error('password_logout')<span class="error invalid-feedback">{{ $message }}</span>@enderror--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <!-- /.card-body -->--}}
-{{--                <div class="card-footer">--}}
-{{--                    <button type="submit" class="btn btn-danger">Logout Other Devices</button>--}}
-{{--                </div>--}}
-{{--                <!-- /.card-footer -->--}}
-{{--            </form>--}}
-{{--        </div>--}}
     </section>
 @endsection

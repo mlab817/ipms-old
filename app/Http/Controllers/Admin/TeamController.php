@@ -9,6 +9,7 @@ use App\Http\Requests\TeamUpdateRequest;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TeamController extends Controller
 {
@@ -48,6 +49,8 @@ class TeamController extends Controller
         $team = Team::create($request->all());
 
         $team->users()->sync($request->users);
+
+        Alert::success('Success', 'Successfully saved item');
 
         return redirect()->route('admin.teams.index');
     }
@@ -91,7 +94,9 @@ class TeamController extends Controller
 
         $team->users()->sync($request->users);
 
-        return redirect()->route('admin.teams.index');
+        Alert::success('Success', 'Successfully updated item');
+
+        return back();
     }
 
     /**
@@ -102,6 +107,10 @@ class TeamController extends Controller
      */
     public function destroy(Team $team)
     {
-        //
+        $team->delete();
+
+        Alert::success('Success', 'Successfully deleted item');
+
+        return redirect()->route('admin.teams.index');
     }
 }

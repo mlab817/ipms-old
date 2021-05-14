@@ -17,7 +17,7 @@ class FundingInstitutionController extends Controller
      */
     public function index(FundingInstitutionsDataTable $dataTable)
     {
-        return $dataTable->render('admin.funding_sources.index', [
+        return $dataTable->render('admin.funding_institutions.index', [
             'pageTitle' => 'Funding Institutions',
         ]);
     }

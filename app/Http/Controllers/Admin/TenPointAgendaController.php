@@ -69,10 +69,7 @@ class TenPointAgendaController extends Controller
      */
     public function edit(TenPointAgenda $tenPointAgenda)
     {
-        return view('admin.ten_point_agendas.edit', [
-            'pageTitle' => 'Edit Ten Point Agenda',
-            'ten_point_agenda' => $tenPointAgenda
-        ]);
+        return view('admin.ten_point_agendas.edit', compact('tenPointAgenda'));
     }
 
     /**

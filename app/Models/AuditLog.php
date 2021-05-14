@@ -17,12 +17,15 @@ class AuditLog extends Model
         'subject_id',
         'subject_type',
         'user_id',
-        'properties',
+//        'properties',
+        'original',
+        'modified',
         'host',
     ];
 
     protected $casts = [
-        'properties' => 'collection',
+        'original' => 'collection',
+        'modified' => 'collection',
     ];
 
     protected function serializeDate(DateTimeInterface $date)

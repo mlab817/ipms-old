@@ -77,9 +77,8 @@ class PdpIndicatorController extends Controller
      */
     public function edit(PdpIndicator $pdpIndicator)
     {
-        return view('admin.pdp_indicators.edit', [
+        return view('admin.pdp_indicators.edit', compact('pdpIndicator'))->with([
             'pageTitle' => 'Edit PDP RM Indicator',
-            'pdp_indicator' => $pdpIndicator,
             'levels'    => [
                 1 => 'Chapter',
                 2 => 'Outcome',

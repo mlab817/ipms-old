@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use App\Traits\HasUuid;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,8 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class SpatialCoverage extends Model
 {
     use HasFactory;
-    use HasUuid;
     use Sluggable;
+    use Auditable;
 
     protected $fillable = [
         'name',

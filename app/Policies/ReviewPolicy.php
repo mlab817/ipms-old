@@ -49,7 +49,7 @@ class ReviewPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Project $project)
     {
         return $user->can('reviews.create');
     }
