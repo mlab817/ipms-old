@@ -68,7 +68,13 @@ class UserController extends Controller
         $user->assignRole($request->roles);
         $user->syncPermissions($request->permissions);
 
+        if ($request->has('activated')) {
+            $user->activate();
+        }
+
         event(new UserCreated($user));
+
+        Alert::success('Succes','User successfully created');
 
         return redirect()->route('admin.users.index');
     }
@@ -117,6 +123,14 @@ class UserController extends Controller
 
         $user->roles()->sync($request->roles);
         $user->syncPermissions($request->permissions);
+
+        if ($request->has('activated')) {
+            $user->activate();
+        } else {
+            $user->deactivate();
+        }
+
+        Alert::success('Success','User successfully updated');
 
         return redirect()->route('admin.users.index');
     }

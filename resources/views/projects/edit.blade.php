@@ -1389,9 +1389,9 @@
                     @csrf
                     @method('DELETE')
                     <div class="modal-body">
-                        <div class="for-group">
-                            <label>Reason for deletion</label>
-                            <input class="form-control" name="reason" id="reason" placeholder="Reason for deletion (e.g. duplicate)" autofocus required>
+                        <div class="form-group">
+                            <label class="col-form-label required">Reason for deletion</label>
+                            <textarea class="form-control" rows="4" name="reason" id="reason" placeholder="Reason for deletion (e.g. duplicate)" autofocus required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">

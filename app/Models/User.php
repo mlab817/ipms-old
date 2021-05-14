@@ -35,6 +35,7 @@ class User extends Authenticatable
         'password',
         'active',
         'office_id',
+        'activated_at',
     ];
 
     /**
@@ -52,26 +53,6 @@ class User extends Authenticatable
 //        'permissions',
 //        'roles',
     ];
-
-    /**
-     * @param Modification $modification
-     *
-     * @return bool
-     */
-    public function authorizedToApprove(Modification $modification): bool
-    {
-        return $this->hasRole('admin');
-    }
-
-    /**
-     * @param Modification $modification
-     *
-     * @return bool
-     */
-    public function authorizedToDisapprove(Modification $modification): bool
-    {
-        return $this->hasRole('admin');
-    }
 
     public function accounts(): HasMany
     {
@@ -106,12 +87,14 @@ class User extends Authenticatable
 
     public function activate()
     {
-        $this->active = true;
+        $this->activated_at = now();
+        $this->save();
     }
 
     public function deactivate()
     {
-        $this->active = false;
+        $this->activated_at = null;
+        $this->save();
     }
 
     public function scopeProjectManager($query)

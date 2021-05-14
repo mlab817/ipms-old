@@ -56,6 +56,15 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="form-check-inline">
+                                <label for="activated" class="check-form-label">
+                                    <input type="checkbox" name="activated" id="activated" @if(old('activated', !is_null($user->activated_at)))  checked @endif }}>
+                                    <span class="ml-1">Activate</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="roles">Roles</label>
                             @foreach ($roles as $role)
                                 <div class="form-check">

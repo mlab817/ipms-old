@@ -39,6 +39,7 @@ use App\Models\Sdg;
 use App\Models\SpatialCoverage;
 use App\Models\TenPointAgenda;
 use App\Models\Tier;
+use App\Models\User;
 use App\Notifications\ProjectDeletedNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -248,10 +249,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project, Request $request)
     {
-        $creator = $project->creator;
-        if ($creator) {
-             if ($creator->id !== $request->user->id) {
-                $creator->notify(new ProjectDeletedNotification($project, $request->user, $request->reason));
+        if ($project->created_by) {
+             if ($project->created_by !== $request->user()->id) {
+                 $creator = User::find($project->created_by);
+                 $creator->notify(new ProjectDeletedNotification($project, $request->user, $request->reason));
             }
 
         }

@@ -13,6 +13,14 @@
 
                 <form action="{{ route('login') }}" method="post">
                     @csrf
+
+                    @if (session('message'))
+                        <div class="alert alert-danger">
+                            <h5><i class="icon fas fa-ban"></i> Error!</h5>
+                            {{ session('message') }}
+                        </div>
+                    @endif
+
                     <div class="input-group mb-3">
                         <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                         <div class="input-group-append">

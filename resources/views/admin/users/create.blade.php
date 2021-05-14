@@ -39,6 +39,15 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="form-check-inline">
+                                <label for="activated" class="check-form-label">
+                                    <input type="checkbox" name="activated" id="activated" @if(old('activated'))  checked @endif }}>
+                                    <span class="ml-1">Activate</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="office_id" class="required">Office </label>
                             <select class="form-control select2 @error('office_id') is-invalid @enderror" name="office_id" id="office_id">
                                 <option value="" selected disabled>Select Office</option>

@@ -196,11 +196,55 @@
                 </div>
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="{{ route('reviews.index') }}" class="btn">Back to List</a>
+                    <div class="col">
+                        <div class="row justify-content-between">
+                            <div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{ route('reviews.index') }}" class="btn">Back to List</a>
+                            </div>
+                            <div>
+                                @if(auth()->user()->can('delete', $project))
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
+                                    Delete
+                                </button>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </form>
         </div>
     </section>
+@endsection
+
+@section('modal')
+    <div class="modal fade" id="modal-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Delete</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="{{ route('projects.destroy', $project) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="reason" class="col-form-label required">Reason for deletion</label>
+                            <textarea class="form-control" name="reason" id="reason" rows="4" placeholder="Reason for deletion (e.g. duplicate)" autofocus required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Confirm</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 @endsection
