@@ -20,6 +20,7 @@ class CreateInfrastructureSubsectorsTable extends Migration
             $table->string('slug')->nullable();
             $table->foreignId('infrastructure_sector_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

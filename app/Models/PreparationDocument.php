@@ -7,12 +7,14 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PreparationDocument extends Model
 {
     use HasFactory;
     use Sluggable;
     use Auditable;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',

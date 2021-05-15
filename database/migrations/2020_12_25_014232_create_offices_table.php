@@ -24,6 +24,7 @@ class CreateOfficesTable extends Migration
             $table->string('office_head_name')->nullable();
             $table->string('office_head_position')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

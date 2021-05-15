@@ -19,6 +19,7 @@ class CreateImplementingAgenciesTable extends Migration
             $table->string('slug')->nullable();
             $table->foreignId('operating_unit_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

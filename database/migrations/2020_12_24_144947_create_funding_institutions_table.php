@@ -20,6 +20,7 @@ class CreateFundingInstitutionsTable extends Migration
             $table->string('slug')->nullable();
             $table->foreignId('funding_source_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

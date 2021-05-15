@@ -19,6 +19,7 @@ class CreateTiersTable extends Migration
             $table->text('description')->nullable();
             $table->string('slug')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

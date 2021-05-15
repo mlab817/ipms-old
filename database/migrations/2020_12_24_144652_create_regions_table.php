@@ -20,6 +20,7 @@ class CreateRegionsTable extends Migration
             $table->string('label')->nullable();
             $table->unsignedInteger('order')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

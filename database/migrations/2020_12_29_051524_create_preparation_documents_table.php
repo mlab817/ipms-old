@@ -19,6 +19,7 @@ class CreatePreparationDocumentsTable extends Migration
             $table->string('description')->nullable();
             $table->string('slug')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

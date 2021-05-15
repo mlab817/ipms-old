@@ -19,6 +19,7 @@ class CreateOperatingUnitsTable extends Migration
             $table->string('slug')->nullable();
             $table->foreignId('operating_unit_type_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
