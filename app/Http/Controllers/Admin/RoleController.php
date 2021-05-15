@@ -119,7 +119,7 @@ class RoleController extends Controller
             'guard_name' => $request->guard_name,
         ]);
 
-        $role->givePermissionTo($request->permissions);
+        $role->syncPermissions($request->permissions);
 
         $role->description = $request->description;
         $role->save();

@@ -12,7 +12,7 @@ class ProjectPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can view index.
      *
      * @param User|null $user
      * @return mixed
@@ -29,9 +29,25 @@ class ProjectPolicy
      * @param Project $project
      * @return mixed
      */
-    public function view(?User $user, Project $project): bool
+    public function view(User $user, Project $project): bool
     {
-        return true;
+        // if the user has permission to view any project
+        if ($user->hasPermissionTo('projects.view_any')) {
+            return true;
+        }
+
+        // if user has permission to view office
+        // and his office is same as the office of the project
+        if ($project->office_id == $user->office_id) {
+            return true;
+        }
+
+        // if the user can view own and is the owner
+        if ($project->created_by == $user->id) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

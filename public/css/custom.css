@@ -116,3 +116,20 @@ div.dt-button-collection {
         background-color: #000;
     }
 }
+
+.sidebar-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.2em;
+}
+
+.more-info {
+    width: 15px;
+    height: 15px;
+    margin-left: 0.2em;
+}
+
+.admin-icon {
+    width: 120px;
+    height: 120px;
+}

@@ -22,18 +22,19 @@ class PermissionsTableSeeder extends Seeder
         DB::table('permissions')->truncate();
 
         Permission::create(['name' => 'projects.create']);
-        Permission::create(['name' => 'projects.view_index']);
-        Permission::create(['name' => 'projects.view_office']);
+
         Permission::create(['name' => 'projects.view_any']);
-        Permission::create(['name' => 'projects.view_own']);
-        Permission::create(['name' => 'projects.update']);
-        Permission::create(['name' => 'projects.update_own']);
-        Permission::create(['name' => 'projects.update_office']);
         Permission::create(['name' => 'projects.update_any']);
-        Permission::create(['name' => 'projects.delete']);
-        Permission::create(['name' => 'projects.delete_own']);
-        Permission::create(['name' => 'projects.delete_office']);
         Permission::create(['name' => 'projects.delete_any']);
+
+        Permission::create(['name' => 'projects.view_office']);
+        Permission::create(['name' => 'projects.update_office']);
+        Permission::create(['name' => 'projects.delete_office']);
+
+        Permission::create(['name' => 'projects.view_own']);
+        Permission::create(['name' => 'projects.update_own']);
+        Permission::create(['name' => 'projects.delete_own']);
+
         Permission::create(['name' => 'subprojects.create']);
         Permission::create(['name' => 'subprojects.view_index']);
         Permission::create(['name' => 'subprojects.view_office']);

@@ -26,7 +26,6 @@ class RoleStoreRequest extends FormRequest
         return [
             'name'          => 'required|unique:roles,name',
             'guard_name'    => 'required|in:api,web',
-            'permissions.*' => 'required',
         ];
     }
 }

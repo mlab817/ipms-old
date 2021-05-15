@@ -45,6 +45,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -313,6 +314,8 @@ class ProjectController extends Controller
      */
     public function own(ProjectsDataTable $dataTable)
     {
+        abort_if(! auth()->user()->can('projects.view_own'), 403);
+
         return $dataTable
             ->addScope(new OwnProjectsDataTableScope)
             ->render('projects.index', ['pageTitle' => 'Own Projects']);
@@ -320,6 +323,8 @@ class ProjectController extends Controller
 
     public function office(ProjectsDataTable $dataTable)
     {
+        abort_if(! auth()->user()->can('projects.view_office'), 403);
+
         return $dataTable
             ->addScope(new OfficeProjectsDataTableScope)
             ->render('projects.index', ['pageTitle' => 'Office Projects']);
