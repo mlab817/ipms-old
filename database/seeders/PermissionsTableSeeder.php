@@ -98,5 +98,6 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $user->givePermissionTo(Permission::all());
+        $user->assignRole('admin');
     }
 }

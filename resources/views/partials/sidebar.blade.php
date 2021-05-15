@@ -99,99 +99,101 @@
 {{--                </li>--}}
 {{--                @endcan--}}
 
-                @can('reviews.view_index')
-                <div class="dropdown-divider"></div>
+                @admin
+                    @can('reviews.view_index')
+                    <div class="dropdown-divider"></div>
 
-                <li class="nav-item">
-                    <a href="{{ route('reviews.index') }}" class="nav-link @if(Route::current()->getName() == 'reviews.index') active @endif">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Review PAPs
-                        </p>
-                    </a>
-                </li>
-                @endcan
-
-                <div class="dropdown-divider"></div>
-
-                <li class="nav-header">Admin</li>
-
-                @can('projects.manage')
-                <li class="nav-item">
-                    <a href="{{ route('admin.projects.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.projects.index') active @endif">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Manage Projects
-                        </p>
-                    </a>
-                </li>
-                @endcan
-
-                @can('users.view_index')
-                <li class="nav-item">
-                    <a href="{{ route('admin.users.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.users.index') active @endif">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Manage Users
-                        </p>
-                    </a>
-                </li>
-                @endcan
-
-                @can('teams.view_index')
                     <li class="nav-item">
-                        <a href="{{ route('admin.teams.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.teams.index') active @endif">
+                        <a href="{{ route('reviews.index') }}" class="nav-link @if(Route::current()->getName() == 'reviews.index') active @endif">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Manage Teams
+                                Review PAPs
                             </p>
                         </a>
                     </li>
-                @endcan
+                    @endcan
 
-                @can('roles.view_index')
-                <li class="nav-item">
-                    <a href="{{ route('admin.roles.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.roles.index') active @endif">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Manage Roles
-                        </p>
-                    </a>
-                </li>
-                @endcan
+                    <div class="dropdown-divider"></div>
 
-                @can('permissions.view_index')
-                <li class="nav-item">
-                    <a href="{{ route('admin.permissions.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.permissions.index') active @endif">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Manage Permissions
-                        </p>
-                    </a>
-                </li>
-                @endcan
+                    <li class="nav-header">Admin</li>
 
-                @can('libraries.view_index')
-                <li class="nav-item">
-                    <a href="{{ route('admin.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.index') active @endif">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Manage Libraries
-                        </p>
-                    </a>
-                </li>
-                @endcan
-
-                @can('audit_logs.view_index')
+                    @can('projects.manage')
                     <li class="nav-item">
-                        <a href="{{ route('admin.audit_logs.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.audit_logs.index') active @endif">
+                        <a href="{{ route('admin.projects.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.projects.index') active @endif">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Audit Logs
+                                Manage Projects
                             </p>
                         </a>
                     </li>
-                @endcan
+                    @endcan
+
+                    @can('users.view_index')
+                    <li class="nav-item">
+                        <a href="{{ route('admin.users.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.users.index') active @endif">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Manage Users
+                            </p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('teams.view_index')
+                        <li class="nav-item">
+                            <a href="{{ route('admin.teams.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.teams.index') active @endif">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Manage Teams
+                                </p>
+                            </a>
+                        </li>
+                    @endcan
+
+                    @can('roles.view_index')
+                    <li class="nav-item">
+                        <a href="{{ route('admin.roles.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.roles.index') active @endif">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Manage Roles
+                            </p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('permissions.view_index')
+                    <li class="nav-item">
+                        <a href="{{ route('admin.permissions.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.permissions.index') active @endif">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Manage Permissions
+                            </p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('libraries.view_index')
+                    <li class="nav-item">
+                        <a href="{{ route('admin.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.index') active @endif">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Manage Libraries
+                            </p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('audit_logs.view_index')
+                        <li class="nav-item">
+                            <a href="{{ route('admin.audit_logs.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.audit_logs.index') active @endif">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Audit Logs
+                                </p>
+                            </a>
+                        </li>
+                    @endcan
+                @endadmin
 
                 @auth
                 <div class="dropdown-divider"></div>
