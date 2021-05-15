@@ -104,7 +104,7 @@
                                     <span class="progress-text">Projects Reviewed</span>
                                     <span class="float-right"><b>{{$reviewCount}}</b>/{{$projectCount}}</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-success" style="width: {{ $reviewCount / $projectCount * 100  }}%"></div>
+                                        <div class="progress-bar bg-success" style="width: {{ $projectCount ? $reviewCount / $projectCount * 100 : 0  }}%"></div>
                                     </div>
                                 </div>
 
@@ -112,7 +112,7 @@
                                     PIPOL Encoded
                                     <span class="float-right"><b>{{$encodedCount}}</b>/{{$projectCount}}</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-primary" style="width: {{ $encodedCount / $projectCount * 100 }}%"></div>
+                                        <div class="progress-bar bg-primary" style="width: {{ $projectCount ? $encodedCount / $projectCount * 100 : 0 }}%"></div>
                                     </div>
                                 </div>
                                 <!-- /.progress-group -->
@@ -121,7 +121,7 @@
                                     PIPOL Finalized
                                     <span class="float-right"><b>{{$finalizedCount}}</b>/{{$projectCount}}</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-danger" style="width: {{ $finalizedCount / $projectCount * 100  }}%"></div>
+                                        <div class="progress-bar bg-danger" style="width: {{ $projectCount ? $finalizedCount / $projectCount * 100 : 0 }}%"></div>
                                     </div>
                                 </div>
 
@@ -130,7 +130,7 @@
                                     PIPOL Endorsed
                                     <span class="float-right"><b>{{$endorsedCount}}</b>/{{$projectCount}}</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-warning" style="width: {{ $endorsedCount / $projectCount * 100 }}%"></div>
+                                        <div class="progress-bar bg-warning" style="width: {{ $projectCount ? $endorsedCount / $projectCount * 100 : 0 }}%"></div>
                                     </div>
                                 </div>
                                 <!-- /.progress-group -->
@@ -140,7 +140,7 @@
                                     PIPOL Validated
                                     <span class="float-right"><b>{{$validatedCount}}</b>/{{$projectCount}}</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-secondary" style="width: {{ $validatedCount / $projectCount * 100 }}%"></div>
+                                        <div class="progress-bar bg-secondary" style="width: {{ $projectCount ? $validatedCount / $projectCount * 100 : 0 }}%"></div>
                                     </div>
                                 </div>
                                 <!-- /.progress-group -->
