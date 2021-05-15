@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\UsersDataTable;
 use App\Events\UserCreated;
+use App\Events\UserUpdatedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserDeleteRequest;
 use App\Http\Requests\UserStoreRequest;
@@ -132,6 +133,8 @@ class UserController extends Controller
         } else {
             $user->deactivate();
         }
+
+        event(new UserUpdatedEvent($user));
 
         Alert::success('Success','User successfully updated');
 

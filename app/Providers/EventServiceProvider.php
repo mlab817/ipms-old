@@ -6,11 +6,13 @@ use App\Events\PasswordChangedEvent;
 use App\Events\ProjectCreatedEvent;
 use App\Events\ProjectReviewedEvent;
 use App\Events\UserCreated;
+use App\Events\UserUpdatedEvent;
 use App\Listeners\PasswordChangedListener;
 use App\Listeners\ProjectCreatedListener;
 use App\Listeners\ProjectReviewedListener;
 use App\Listeners\SendNewUserNotification;
 use App\Listeners\SendNotificationToOwnerOfProjectReviewed;
+use App\Listeners\UserUpdatedListener;
 use App\Models\Project;
 use App\Notifications\NotifyOwnerOfProjectReviewed;
 use App\Notifications\SendEmailToNewUserNotification;
@@ -47,6 +49,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ProjectReviewedEvent::class => [
             ProjectReviewedListener::class,
+        ],
+        UserUpdatedEvent::class => [
+            UserUpdatedListener::class,
         ],
     ];
 

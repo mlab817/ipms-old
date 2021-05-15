@@ -23,6 +23,48 @@
         <div class="card card-primary">
             <div class="card-header">
                 <div class="card-title">
+                    <h1 class="card-title">Profile</h1>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-sm-2">
+                        Name
+                    </label>
+                    <div class="col-sm-10">
+                        {{ $user->name }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2">
+                        Email
+                    </label>
+                    <div class="col-sm-10">
+                        {{ $user->email }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2">
+                        Office
+                    </label>
+                    <div class="col-sm-10">
+                        {{ $user->office->name ?? '' }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2">
+                        Date Joined
+                    </label>
+                    <div class="col-sm-10">
+                        {{ $user->created_at->format('M d, Y') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-primary">
+            <div class="card-header">
+                <div class="card-title">
                     <h1 class="card-title">Roles &amp; Permissions</h1>
                 </div>
             </div>
@@ -53,16 +95,6 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <section class="content">
-        @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h5><i class="icon fas fa-check"></i> Success!</h5>
-                {{ Session::get('success') }}
-            </div>
-        @endif
 
         <!-- Horizontal Form -->
         <div class="card card-primary">

@@ -27,8 +27,6 @@ Route::group(['middleware' => ['auth','password.changed']], function() {
 
     Route::get('/trips', [\App\Http\Controllers\TripController::class, 'index'])->name('trips.index');
 
-    Route::get('/notifications/{notificationId}', \App\Http\Controllers\NotificationController::class)->name('notifications.read');
-
     Route::get('/attachments/{attachment}/download', [\App\Http\Controllers\ProjectAttachmentController::class,'download'])->name('attachments.download');
     Route::delete('/attachments/{attachment}', [\App\Http\Controllers\ProjectAttachmentController::class,'destroy'])->name('attachments.destroy');
 });
@@ -62,6 +60,7 @@ Route::middleware(['auth','password.changed'])->group(function () {
     Route::resource('projects', \App\Http\Controllers\ProjectController::class)->except('index');
     Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create','show');
     Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
+    Route::resource('notifications',\App\Http\Controllers\NotificationController::class)->only('index','show');
 });
 
 Route::post('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'update'])->name('change_password_update');
