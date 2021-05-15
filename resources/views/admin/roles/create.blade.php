@@ -27,6 +27,12 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="description">Description </label>
+                            <input class="form-control @error('description') is-invalid @enderror" type="text" name="description" id="description" placeholder="Description" value="{{ old('description') }}">
+                            @error('description')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="permissions">Permissions <i class="text-danger fas fa-flag"></i></label>
                             @foreach ($permissions as $permission)
                                 <div class="form-check">

@@ -22,7 +22,11 @@ class RolesDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('permissions', function ($role) {
-                return $role->permissions->pluck('name')->join(', ') ?? '';
+                $htmlEl = '';
+                foreach ($role->permissions as $item) {
+                    $htmlEl .= "<span class=\"badge badge-primary ml-1\">{$item->name}</span>";
+                }
+                return $htmlEl;
             })
             ->addColumn('action', function ($role) {
                 return '
@@ -31,7 +35,8 @@ class RolesDataTable extends DataTable
                         Edit
                     </a>
                 ';
-            });
+            })
+            ->rawColumns(['permissions','action']);
     }
 
     /**
@@ -78,6 +83,7 @@ class RolesDataTable extends DataTable
             Column::make('name'),
             Column::make('guard_name'),
             Column::make('permissions'),
+            Column::make('description'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)

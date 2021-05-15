@@ -52,7 +52,10 @@ class PermissionController extends Controller
      */
     public function store(PermissionStoreRequest $request)
     {
-        Permission::create($request->only('name','guard_name'));
+        $permission = Permission::create($request->only('name','guard_name'));
+
+        $permission->description = $request->description;
+        $permission->save();
 
         Alert::success('Success','Sucessfully saved item');
 
@@ -95,6 +98,9 @@ class PermissionController extends Controller
     public function update(PermissionUpdateRequest $request, Permission $permission)
     {
         $permission->update($request->only('name','guard_name'));
+
+        $permission->description = $request->description;
+        $permission->save();
 
         Alert::success('Success','Sucessfully updated item');
 

@@ -17,12 +17,12 @@ use TCG\Voyager\Facades\Voyager;
 Route::redirect('/', 'login');
 
 // Routes secured by authentication
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => ['auth','password.changed']], function() {
     Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard');
 
 //    Route::post('/logout_other_devices', \App\Http\Controllers\Auth\LogoutOtherDevicesController::class)->name('logout_other_devices');
 //    Route::post('/change_password', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('change_password');
-    Route::post('/password/change', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('password.change');
+    Route::post('/auth/password/change', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('password.change');
     Route::get('/settings',\App\Http\Controllers\SettingsController::class)->name('settings');
 
     Route::get('/trips', [\App\Http\Controllers\TripController::class, 'index'])->name('trips.index');
@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 // Resources secured by auth
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','password.changed'])->group(function () {
     // other index routes
     Route::get('/projects/assigned', [\App\Http\Controllers\ProjectController::class,'assigned'])->name('projects.assigned');
     Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');
@@ -64,7 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
 });
 
-
+Route::post('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'update'])->name('change_password_update');
+Route::get('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'index'])->name('change_password_index');
 
 // auth routes with registration disabled
 

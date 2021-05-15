@@ -30,20 +30,27 @@
                             <i class="fas fa-info"></i>
                             Note: Use plural for models for consistent naming convention.
                         </p>
+
                         <div class="form-group">
-                            <label for="name">Name <i class="text-danger fas fa-flag"></i></label>
+                            <label for="name" class="required">Name </label>
                             <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" placeholder="Admin" value="{{ old('name') }}">
                             @error('name')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="guard_name">Guard Name <i class="text-danger fas fa-flag"></i></label>
+                            <label for="guard_name" class="required">Guard Name </label>
                             <select class="form-control @error('guard_name') is-invalid @enderror" name="guard_name" id="guard_name">
                                 @foreach ($guards as $guard)
                                     <option value="{{ $guard }}" @if(old('guard_name') == $guard) selected @endif>{{ $guard }}</option>
                                 @endforeach
                             </select>
                             @error('guard_name')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description </label>
+                            <input class="form-control @error('description') is-invalid @enderror" type="text" name="description" id="description" placeholder="Description" value="{{ old('description') }}">
+                            @error('description')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
                     </div>
 

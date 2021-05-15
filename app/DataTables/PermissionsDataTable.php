@@ -75,6 +75,7 @@ class PermissionsDataTable extends DataTable
             Column::make('id'),
             Column::make('name'),
             Column::make('guard_name'),
+            Column::make('description'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

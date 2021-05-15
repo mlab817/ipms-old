@@ -47,6 +47,12 @@
                             </select>
                             @error('guard_name')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
+
+                        <div class="form-group">
+                            <label for="description">Description </label>
+                            <input class="form-control @error('description') is-invalid @enderror" type="text" name="description" id="description" placeholder="Description" value="{{ old('description', $permission->description) }}">
+                            @error('description')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                        </div>
                     </div>
 
                     <div class="card-footer">

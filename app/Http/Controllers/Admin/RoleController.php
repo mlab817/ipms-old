@@ -7,13 +7,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleStoreRequest;
 use App\Http\Requests\RoleUpdateRequest;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Permission;
 use App\Models\Role;
 
 class RoleController extends Controller
 {
-    const INDEX_PAGE = 'admin.roles.index';
-
+    /**
+     * Authorize Role class
+     *
+     * RoleController constructor.
+     */
     public function __construct()
     {
         $this->authorizeResource(Role::class);
@@ -63,7 +67,12 @@ class RoleController extends Controller
 
         $role->givePermissionTo($request->permissions);
 
-        return redirect()->route(self::INDEX_PAGE);
+        $role->description = $request->description;
+        $role->save();
+
+        Alert::success('Sucess', 'Successfully saved item');
+
+        return redirect()->route('admin.roles.index');
     }
 
     /**
@@ -112,7 +121,12 @@ class RoleController extends Controller
 
         $role->givePermissionTo($request->permissions);
 
-        return redirect()->route(self::INDEX_PAGE);
+        $role->description = $request->description;
+        $role->save();
+
+        Alert::success('Sucess', 'Successfully updated item');
+
+        return redirect()->back();
     }
 
     /**
@@ -124,5 +138,9 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
+
+        Alert::success('Sucess', 'Successfully deleted item');
+
+        return redirect()->route('admin.roles.index');
     }
 }

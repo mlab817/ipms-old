@@ -269,7 +269,9 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer clearfix">
+                        @can('reviews.view_index')
                         <a href="{{ route('reviews.index') }}" class="btn btn-sm btn-secondary float-right">View All Reviews</a>
+                        @endcan
                     </div>
                     <!-- /.card-footer -->
                 </div>
