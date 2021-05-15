@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Log;
 
 class ProjectPolicy
 {
@@ -55,6 +56,8 @@ class ProjectPolicy
         if (! config('ipms.permissions.projects.create')) {
             return $this->deny('Sorry, the System is currently not accepting new submissions');
         }
+
+        Log::info($user->hasPermissionTo('projects.create'));
 
         return $user->hasPermissionTo('projects.create');
     }
