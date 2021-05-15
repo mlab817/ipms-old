@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Notifications\UserDeletedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
 
@@ -58,10 +59,12 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
+        $password = Str::random(8); // generate password with length of 8 characters
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make('password'),
+            'password' => Hash::make($password),
             'office_id' => $request->office_id,
         ]);
 
@@ -72,9 +75,9 @@ class UserController extends Controller
             $user->activate();
         }
 
-        event(new UserCreated($user));
+        event(new UserCreated($user, $password));
 
-        Alert::success('Succes','User successfully created');
+        Alert::success('Success','User successfully created');
 
         return redirect()->route('admin.users.index');
     }

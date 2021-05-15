@@ -28,6 +28,6 @@ class SendNewUserNotification
      */
     public function handle(UserCreated $event)
     {
-        $event->user->notify(new NewUserNotification($event->user));
+        $event->user->notify(new NewUserNotification($event->user, $event->password));
     }
 }

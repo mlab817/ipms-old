@@ -14,14 +14,17 @@ class NewUserNotification extends Notification implements ShouldQueue
 
     public $user;
 
+    public $password;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, string $password)
     {
-        $this->user = $user;
+        $this->user     = $user;
+        $this->password = $password;
     }
 
     /**
@@ -46,7 +49,7 @@ class NewUserNotification extends Notification implements ShouldQueue
         return (new MailMessage)
                     ->subject('Welcome to IPMS v2')
                     ->line('The IPMS Admin has added you as a user to the System. Click the link below to start using the System.')
-                    ->line('You may use your email ' . $this->user->email . ' to login with password: password. Please change your password ASAP to avoid security issue.')
+                    ->line('You may use your email ' . $this->user->email . ' to login with password: <strong>'. $this->password . '</strong>. Please change your password ASAP to avoid security issue.')
                     ->action('Login', route('login'))
                     ->line('Thank you for using our application!');
     }
