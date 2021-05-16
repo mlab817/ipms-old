@@ -202,7 +202,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($latestProjects as $project)
+                                @forelse($latestProjects as $project)
                                 <tr>
                                     <td class="text-sm"><a href="{{ route('projects.show', $project) }}">{{ $project->title }}</a></td>
                                     <td class="text-center text-sm">
@@ -222,7 +222,11 @@
                                         <img src="{{ $project->creator->avatar ?? '' }}" class="img-avatar img-circle" alt="{{ $project->creator->name ?? '' }}" width="50" height="50">
                                     </td>
                                 </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="100%">No projects found.</td>
+                                    </tr>
+                                @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -231,8 +235,11 @@
                     <!-- /.card-body -->
                     <div class="card-footer">
                         @can('projects.view_own')
-                        <a href="{{ route('projects.own') }}" class="btn btn-sm btn-secondary float-right ml-1">View Own Projects</a>
+                        <a href="{{ route('projects.own') }}" class="btn btn-sm btn-secondary float-right ml-1">View Own PAPs</a>
                         @endcan
+                            @can('reviews.view_office')
+                                <a href="{{ route('projects.office') }}" class="btn btn-sm btn-secondary float-right ml-1">View Office PAPs</a>
+                            @endcan
                         @can('reviews.view_index')
                         <a href="{{ route('reviews.index') }}" class="btn btn-sm btn-secondary float-right">Review PAPs</a>
                         @endcan
@@ -241,6 +248,7 @@
                 </div>
             </div>
 
+            @can('reviews.view_index')
             <div class="col-lg-6">
                 <div class="card h-100">
                     <div class="card-header border-transparent">
@@ -265,7 +273,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($reviews as $review)
+                                @forelse($reviews as $review)
                                 <tr>
                                     <td class="text-sm">
                                         <a href="{{ route('projects.show', $review->project) }}">{{ $review->project->title }}</a>
@@ -279,7 +287,11 @@
                                         {{ $review->comments }}
                                     </td>
                                 </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="100%">No reviews found.</td>
+                                    </tr>
+                                @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -294,6 +306,7 @@
                     <!-- /.card-footer -->
                 </div>
             </div>
+            @endcan
 
         </div>
 

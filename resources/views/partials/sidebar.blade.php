@@ -109,8 +109,7 @@
 {{--                </li>--}}
 {{--                @endcan--}}
 
-                @admin
-                    @can('reviews.view_index')
+                @can('reviews.view_index')
                     <div class="dropdown-divider"></div>
 
                     <li class="nav-item">
@@ -124,8 +123,9 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
+                @endcan
 
+                @admin
                     <div class="dropdown-divider"></div>
 
                     <li class="nav-header">Admin</li>
