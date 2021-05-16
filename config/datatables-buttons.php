@@ -59,6 +59,7 @@ return [
     'parameters'    => [
         'dom'     => 'Bfrtip',
         'order'   => [[0, 'desc']],
+        'responsive' => true,
         'buttons' => [
             'create',
             'export',
@@ -75,7 +76,7 @@ return [
         /*
          * Default columns to generate when not set.
          */
-        'columns' => 'id,add your columns,created_at,updated_at',
+        'columns' => 'id,name,created_at,updated_at',
 
         /*
          * Default buttons to generate when not set.

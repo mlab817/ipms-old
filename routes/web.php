@@ -106,6 +106,7 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
         'projects.users'        => \App\Http\Controllers\Admin\ProjectUserController::class,
         'teams'                 => \App\Http\Controllers\Admin\TeamController::class,
     ]);
+    Route::post('offices/export',[\App\Http\Controllers\Admin\OfficeController::class,'index'])->name('offices.export');
 });
 
 Route::post('/search', \App\Http\Controllers\GlobalSearchController::class)->name('search');
