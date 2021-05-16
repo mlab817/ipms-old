@@ -38,12 +38,16 @@ class ProjectPolicy
 
         // if user has permission to view office
         // and his office is same as the office of the project
-        if ($project->office_id == $user->office_id) {
+        if ($user->hasPermissionTo('projects.view_office')
+            && $project->office_id == $user->office_id
+        ) {
             return true;
         }
 
         // if the user can view own and is the owner
-        if ($project->created_by == $user->id) {
+        if ($user->hasPermissionTo('projects.view_own')
+            && $project->created_by == $user->id
+        ) {
             return true;
         }
 
@@ -61,8 +65,6 @@ class ProjectPolicy
         if (! config('ipms.permissions.projects.create')) {
             return $this->deny('Sorry, the System is currently not accepting new submissions');
         }
-
-        Log::info($user->hasPermissionTo('projects.create'));
 
         return $user->hasPermissionTo('projects.create');
     }
@@ -84,7 +86,14 @@ class ProjectPolicy
             return true;
         }
 
-        if ($user->id == $project->created_by) {
+        if ($user->hasPermissionTo('projects.update_office')
+            && $user->office_id == $project->office_id
+        ) {
+            return true;
+        }
+
+        if ($user->hasPermissionTo('projects.update_own')
+            && $user->id == $project->created_by) {
             return true;
         }
 
@@ -110,8 +119,16 @@ class ProjectPolicy
             return true;
         }
 
+        if ($user->hasPermissionTo('projects.delete_office')
+            && $user->office_id == $project->office_id
+        ) {
+            return true;
+        }
+
         // if user is owner of the project
-        if ($user->id == $project->created_by) {
+        if ($user->hasPermissionTo('projects.delete_own')
+            && $user->id == $project->created_by
+        ) {
             return true;
         }
 
@@ -132,6 +149,24 @@ class ProjectPolicy
             return $this->deny('Sorry, the System is currently not restoring deleted submissions');
         }
 
+        // if user is able to delete any project
+        if ($user->hasPermissionTo('projects.delete_any')) {
+            return true;
+        }
+
+        if ($user->hasPermissionTo('projects.delete_office')
+            && $user->office_id == $project->office_id
+        ) {
+            return true;
+        }
+
+        // if user is owner of the project
+        if ($user->hasPermissionTo('projects.delete_own')
+            && $user->id == $project->created_by
+        ) {
+            return true;
+        }
+
         return false;
     }
 
@@ -147,6 +182,24 @@ class ProjectPolicy
         // check global permissions first
         if (! config('ipms.permissions.projects.forceDelete')) {
             return $this->deny('Sorry, the System is currently not allowing permanent deletion of submissions');
+        }
+
+        // if user is able to delete any project
+        if ($user->hasPermissionTo('projects.delete_any')) {
+            return true;
+        }
+
+        if ($user->hasPermissionTo('projects.delete_office')
+            && $user->office_id == $project->office_id
+        ) {
+            return true;
+        }
+
+        // if user is owner of the project
+        if ($user->hasPermissionTo('projects.delete_own')
+            && $user->id == $project->created_by
+        ) {
+            return true;
         }
 
         return false;

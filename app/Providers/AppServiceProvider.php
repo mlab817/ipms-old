@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Project;
+use App\Models\Review;
 use App\Models\User;
 use App\Observers\ProjectObserver;
+use App\Observers\ReviewObserver;
 use App\Observers\UserObserver;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
@@ -35,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(125);
 
+        Review::observe(ReviewObserver::class);
         Project::observe(ProjectObserver::class);
         User::observe(UserObserver::class);
 

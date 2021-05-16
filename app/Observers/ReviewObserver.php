@@ -22,6 +22,13 @@ class ReviewObserver
         //
     }
 
+    public function updating(Review $review)
+    {
+        if (is_null($review->user_id)) {
+            $review->user_id = auth()->id();
+        }
+    }
+
     /**
      * Handle the Review "updated" event.
      *

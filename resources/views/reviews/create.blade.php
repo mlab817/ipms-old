@@ -26,6 +26,7 @@
         <div class="container-fluid">
             <form class="form-horizontal" action="{{ route('reviews.store', $project) }}" method="POST">
                 @csrf
+                <input type="hidden" name="project_id" value="{{ $project->id }}">
 
                 <div class="card card-primary">
                     <div class="card-header">

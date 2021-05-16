@@ -88,17 +88,5 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'audit_logs.delete']);
 
         Schema::enableForeignKeyConstraints();
-
-//        $this->call(AdminUserTableSeeder::class);
-        $user = User::updateOrCreate([
-            'email' => 'admin@admin.com'
-        ], [
-            'name'  => 'Admin',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('password'),
-        ]);
-
-        $user->givePermissionTo(Permission::all());
-        $user->assignRole('admin');
     }
 }

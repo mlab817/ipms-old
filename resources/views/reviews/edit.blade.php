@@ -36,6 +36,8 @@
                 @csrf
                 @method('PUT')
 
+                <input type="hidden" name="project_id" value="{{ $review->project->id }}">
+
                 <div class="card card-primary">
                     <div class="card-header">
                         <h1 class="card-title">PAP Classification</h1>

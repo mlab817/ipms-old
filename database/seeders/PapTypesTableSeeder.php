@@ -28,18 +28,6 @@ class PapTypesTableSeeder extends Seeder
                 'slug'          => Str::slug('Project'),
                 'description'   => 'A project is a special undertaking carried out within a definite time frame and intended to result in some pre -determined measure of goods and services.',
             ],
-            [
-                'id'            => 3,
-                'name'          => 'Activity',
-                'slug'          => Str::slug('Activity'),
-                'description'   => '',
-            ],
-            [
-                'id'            => 4,
-                'name'          => 'Subproject',
-                'slug'          => Str::slug('Subproject'),
-                'description'   => '',
-            ],
         ];
 
         DB::table('pap_types')->insert($seeds);

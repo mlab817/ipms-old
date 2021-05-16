@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReviewStoreRequest extends FormRequest
+class ReviewUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
@@ -21,10 +21,11 @@ class ReviewStoreRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
+        $projectIdRequired = 'required|unique:reviews,project_id,' . $this->project_id . ',project_id';
         return [
-            'project_id'        => 'required|unique:reviews,project_id',
+            'project_id'        => $projectIdRequired,
             'pip'               => 'required|bool',
             'pip_typology_id'   => 'required',
             'cip'               => 'required|bool',

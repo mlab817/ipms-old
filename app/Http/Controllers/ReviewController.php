@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\ReviewsDataTable;
 use App\Events\ProjectReviewedEvent;
 use App\Http\Requests\ReviewStoreRequest;
+use App\Http\Requests\ReviewUpdateRequest;
 use App\Models\CipType;
 use App\Models\PipTypology;
 use App\Models\Project;
@@ -60,11 +61,13 @@ class ReviewController extends Controller
      * @param \App\Models\Review $review
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ReviewStoreRequest $request, Review $review): \Illuminate\Http\RedirectResponse
+    public function update(ReviewUpdateRequest $request, Review $review): \Illuminate\Http\RedirectResponse
     {
         $review->update($request->all());
 
-        return redirect()->route('reviews.index')->with('message', 'Successfully added review');
+        Alert::success('Success', 'Successfully updated item.');
+
+        return back();
     }
 
     /**
@@ -77,6 +80,8 @@ class ReviewController extends Controller
     {
         $review->delete();
 
-        return response()->noContent();
+        Alert::success('Success', 'Successfully deleted item');
+
+        return redirect()->route('reviews.index');
     }
 }

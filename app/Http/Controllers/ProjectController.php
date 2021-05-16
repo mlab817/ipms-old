@@ -278,7 +278,7 @@ class ProjectController extends Controller
     {
         abort_if(!(auth()->user()->can('reviews.create') || auth()->user()->can('projects.review', $project)), 403);
 
-        $review = $project->review()->updateOrCreate($request->validated());
+        $review = Review::create($request->all());
 
         event(new ProjectReviewedEvent($review));
 

@@ -56,9 +56,22 @@ class ProjectsDataTable extends DataTable
             })
             ->addColumn('action', function ($row) {
                 $user = auth()->user();
-                $viewButton = $user->can('view', $row) ? '<a href="' . route('projects.show', $row) . '" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>' : '';
-                $editButton = $user->can('update', $row) ? '<a href="' . route('projects.edit', $row) . '" class="btn btn-secondary btn-sm"><i class="fas fa-edit"></i></a>' : '';
-                $deleteButton = $user->can('delete', $row) ? '<button class="btn btn-danger btn-sm" onClick="confirmDelete(\''. $row->getRouteKey() .'\')"><i class="fas fa-trash"></i></button>' : '';
+                $viewButton = $user->can('view', $row) ? '<a href="' . route('projects.show', $row) . '" class="btn btn-primary btn-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                    </svg>
+                </a>' : '';
+                $editButton = $user->can('update', $row) ? '<a href="' . route('projects.edit', $row) . '" class="btn btn-secondary btn-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                    </svg>
+                </a>' : '';
+                $deleteButton = $user->can('delete', $row) ? '<button class="btn btn-danger btn-sm" onClick="confirmDelete(\''. $row->getRouteKey() .'\')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                </button>' : '';
 
                 return '<div class="btn-group">'
                     . $viewButton

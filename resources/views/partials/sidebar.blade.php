@@ -68,8 +68,6 @@
                     </li>
                 @endcan
 
-                <div class="dropdown-divider"></div>
-
                 @can('projects.view_office')
                 <li class="nav-item">
                     <a href="{{ route('projects.office') }}" class="nav-link @if(Route::current()->getName() == 'projects.office') active @endif">
@@ -126,104 +124,101 @@
                 @endcan
 
                 @admin
-                    <div class="dropdown-divider"></div>
-
-                    <li class="nav-header">Admin</li>
-
-                    @can('projects.manage')
-                    <li class="nav-item">
-                        <a href="{{ route('admin.projects.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.projects.index') active @endif">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M5 12a1 1 0 102 0V6.414l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L5 6.414V12zM15 8a1 1 0 10-2 0v5.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L15 13.586V8z" />
-                            </svg>
-                            <p>
-                                Manage Projects
-                            </p>
-                        </a>
-                    </li>
-                    @endcan
-
-                    @can('users.view_index')
-                    <li class="nav-item">
-                        <a href="{{ route('admin.users.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.users.index') active @endif">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                            </svg>
-                            <p>
-                                Manage Users
-                            </p>
-                        </a>
-                    </li>
-                    @endcan
-
-                    @can('teams.view_index')
-                        <li class="nav-item">
-                            <a href="{{ route('admin.teams.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.teams.index') active @endif">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-                                </svg>
-                                <p>
-                                    Manage Teams
-                                </p>
-                            </a>
-                        </li>
-                    @endcan
-
-                    @can('roles.view_index')
-                    <li class="nav-item">
-                        <a href="{{ route('admin.roles.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.roles.index') active @endif">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
-                            </svg>
-                            <p>
-                                Manage Roles
-                            </p>
-                        </a>
-                    </li>
-                    @endcan
-
-                    @can('permissions.view_index')
-                    <li class="nav-item">
-                        <a href="{{ route('admin.permissions.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.permissions.index') active @endif">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
-                            </svg>
-                            <p>
-                                Manage Permissions
-                            </p>
-                        </a>
-                    </li>
-                    @endcan
-
-                    @can('libraries.view_index')
-                    <li class="nav-item">
-                        <a href="{{ route('admin.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.index') active @endif">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10.496 2.132a1 1 0 00-.992 0l-7 4A1 1 0 003 8v7a1 1 0 100 2h14a1 1 0 100-2V8a1 1 0 00.496-1.868l-7-4zM6 9a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1zm3 1a1 1 0 012 0v3a1 1 0 11-2 0v-3zm5-1a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1z" clip-rule="evenodd" />
-                            </svg>
-                            <p>
-                                Manage Libraries
-                            </p>
-                        </a>
-                    </li>
-                    @endcan
-
-                    @can('audit_logs.view_index')
-                        <li class="nav-item">
-                            <a href="{{ route('admin.audit_logs.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.audit_logs.index') active @endif">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
-                                </svg>
-                                <p>
-                                    Audit Logs
-                                </p>
-                            </a>
-                        </li>
-                    @endcan
+                <li class="nav-header">Admin</li>
                 @endadmin
 
+                @can('projects.manage')
+                <li class="nav-item">
+                    <a href="{{ route('admin.projects.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.projects.index') active @endif">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M5 12a1 1 0 102 0V6.414l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L5 6.414V12zM15 8a1 1 0 10-2 0v5.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L15 13.586V8z" />
+                        </svg>
+                        <p>
+                            Manage Projects
+                        </p>
+                    </a>
+                </li>
+                @endcan
+
+                @can('users.view_index')
+                <li class="nav-item">
+                    <a href="{{ route('admin.users.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.users.index') active @endif">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                        </svg>
+                        <p>
+                            Manage Users
+                        </p>
+                    </a>
+                </li>
+                @endcan
+
+                @can('teams.view_index')
+                    <li class="nav-item">
+                        <a href="{{ route('admin.teams.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.teams.index') active @endif">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                            </svg>
+                            <p>
+                                Manage Teams
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('roles.view_index')
+                <li class="nav-item">
+                    <a href="{{ route('admin.roles.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.roles.index') active @endif">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+                        </svg>
+                        <p>
+                            Manage Roles
+                        </p>
+                    </a>
+                </li>
+                @endcan
+
+                @can('permissions.view_index')
+                <li class="nav-item">
+                    <a href="{{ route('admin.permissions.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.permissions.index') active @endif">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                        </svg>
+                        <p>
+                            Manage Permissions
+                        </p>
+                    </a>
+                </li>
+                @endcan
+
+                @can('libraries.view_index')
+                <li class="nav-item">
+                    <a href="{{ route('admin.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.index') active @endif">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.496 2.132a1 1 0 00-.992 0l-7 4A1 1 0 003 8v7a1 1 0 100 2h14a1 1 0 100-2V8a1 1 0 00.496-1.868l-7-4zM6 9a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1zm3 1a1 1 0 012 0v3a1 1 0 11-2 0v-3zm5-1a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        <p>
+                            Manage Libraries
+                        </p>
+                    </a>
+                </li>
+                @endcan
+
+                @can('audit_logs.view_index')
+                    <li class="nav-item">
+                        <a href="{{ route('admin.audit_logs.index') }}" class="nav-link @if(Route::current()->getName() == 'admin.audit_logs.index') active @endif">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
+                            </svg>
+                            <p>
+                                Audit Logs
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+
                 @auth
-                <div class="dropdown-divider"></div>
 
                     <li class="nav-item">
                         <a href="{{ route('settings') }}" class="nav-link {{ request()->routeIs('settings') ? 'active' : '' }}">
