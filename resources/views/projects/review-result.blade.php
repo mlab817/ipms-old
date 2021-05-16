@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card card-info">
     <div class="card-header">
         <h1 class="card-title">Review Result</h1>
         <div class="card-tools">

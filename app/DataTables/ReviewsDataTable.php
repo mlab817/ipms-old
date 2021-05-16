@@ -21,9 +21,6 @@ class ReviewsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('title', function ($row) {
-                return '<a href="'. route('projects.show', $row) .'">' . $row->title. '</a>';
-            })
             ->addColumn('pap_type', function($project) {
                 return $project->pap_type->name ?? '';
             })
@@ -83,7 +80,12 @@ class ReviewsDataTable extends DataTable
                     }
                 }
             })
-            ->rawColumns(['title','pip','trip','reviewed','action']);
+            ->addColumn('view', function ($project) {
+                if ($project->review) {
+                    return '<a href="' . route('reviews.show', $project->review) .'" class="btn btn-success btn-sm">View</a>';
+                }
+            })
+            ->rawColumns(['pip','trip','reviewed','action','view']);
     }
 
     /**
@@ -144,6 +146,7 @@ class ReviewsDataTable extends DataTable
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
+            Column::make('view'),
         ];
     }
 

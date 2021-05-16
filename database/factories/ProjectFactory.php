@@ -13,6 +13,7 @@ use App\Models\FundingSource;
 use App\Models\Gad;
 use App\Models\ImplementationMode;
 use App\Models\Nep;
+use App\Models\Office;
 use App\Models\OperatingUnit;
 use App\Models\PapType;
 use App\Models\PdpChapter;
@@ -100,6 +101,7 @@ class ProjectFactory extends Factory
             'created_by'                    => User::all()->random()->id,
             'has_subprojects'               => $this->faker->boolean,
             'has_infra'                     => $this->faker->boolean,
+            'office_id'                     => Office::all()->random()->id,
         ];
     }
 }

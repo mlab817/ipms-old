@@ -34,6 +34,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card-footer">
+                            <p class="text-muted">
+                                <strong>Note: </strong>Operating units map directly to the operating units accounted in the GAA. Offices, on the other hand, refers to the Office the user belongs to (e.g. program, division, project office, unit, etc).
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

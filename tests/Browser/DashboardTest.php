@@ -26,8 +26,7 @@ class DashboardTest extends DuskTestCase
                     ->assertSee('Users')
                     ->assertSee('Overall Status')
                     ->assertSee('Latest Projects')
-                    ->assertSee('Latest Reviews')
-                    ->screenshot('dashboard');
+                    ->screenshot('dashboard/dashboard-page');
         });
     }
 }

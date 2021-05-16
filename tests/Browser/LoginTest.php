@@ -3,6 +3,7 @@
 namespace Tests\Browser;
 
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -20,7 +21,8 @@ class LoginTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/login')
                     ->assertSee('IPMSv2')
-                    ->assertSee('Sign in to start your session');
+                    ->assertSee('Sign in to start your session')
+                    ->screenshot('login/login-page');
         });
     }
 
@@ -34,11 +36,22 @@ class LoginTest extends DuskTestCase
                 ->type('email', 'admin@admin.com')
                 ->type('password', 'password')
                 ->check('remember')
-                ->screenshot('login-test')
+                ->screenshot('login/login-page-interaction')
                 ->press('Sign In')
-                ->assertPathIs('/dashboard');
+                ->assertPathIs('/dashboard')
+                ->screenshot('login/login-page-success');
 
             $browser->assertAuthenticatedAs(User::find(1));
+        });
+    }
+
+    public function test_it_shows_forgot_password_page()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/login')
+                ->clickLink('I forgot my password')
+                ->assertPathIs('/password/reset')
+                ->screenshot('login/password-reset-page');
         });
     }
 }

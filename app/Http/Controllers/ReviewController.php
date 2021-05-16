@@ -37,6 +37,16 @@ class ReviewController extends Controller
         ]);
     }
 
+    public function show(Review $review)
+    {
+        // can pass project and review
+        return view('projects.show')
+            ->with([
+                'review' => $review,
+                'project'=> $review->project,
+            ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

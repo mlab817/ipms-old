@@ -28,7 +28,7 @@
                 @csrf
                 <input type="hidden" name="project_id" value="{{ $project->id }}">
 
-                <div class="card card-primary">
+                <div class="card card-info">
                     <div class="card-header">
                         <h1 class="card-title">Project Classification</h1>
                     </div>
@@ -135,7 +135,7 @@
                     </div>
                 </div>
 
-                <div class="card card-primary">
+                <div class="card card-info">
                     <div class="card-header">
                         <div class="card-title">PIPOL Information &amp; Status</div>
                     </div>

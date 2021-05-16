@@ -39,9 +39,9 @@ Route::middleware(['auth','password.changed'])->group(function () {
     Route::get('/projects/own', [\App\Http\Controllers\ProjectController::class,'own'])->name('projects.own');
 
     // Subprojects
-    Route::post('/projects/{project}/subprojects', [\App\Http\Controllers\SubprojectController::class, 'store'])->name('subprojects.store');
-    Route::get('/projects/{project}/subprojects', [\App\Http\Controllers\SubprojectController::class, 'index'])->name('subprojects.index');
-    Route::get('/projects/{project}/subprojects/create', [\App\Http\Controllers\SubprojectController::class, 'create'])->name('subprojects.create');
+//    Route::post('/projects/{project}/subprojects', [\App\Http\Controllers\SubprojectController::class, 'store'])->name('subprojects.store');
+//    Route::get('/projects/{project}/subprojects', [\App\Http\Controllers\SubprojectController::class, 'index'])->name('subprojects.index');
+//    Route::get('/projects/{project}/subprojects/create', [\App\Http\Controllers\SubprojectController::class, 'create'])->name('subprojects.create');
 
     // TRIP
     Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
@@ -58,7 +58,7 @@ Route::middleware(['auth','password.changed'])->group(function () {
     Route::get('/projects/{project}/review/create', [\App\Http\Controllers\ProjectController::class,'review'])->name('reviews.create');
 
     Route::resource('projects', \App\Http\Controllers\ProjectController::class)->except('index');
-    Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create','show');
+    Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
     Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
     Route::resource('notifications',\App\Http\Controllers\NotificationController::class)->only('index','show');
 });

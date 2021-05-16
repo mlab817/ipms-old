@@ -97,7 +97,7 @@
 
             </div>
 
-            <div class="card card-primary">
+            <div class="card card-info">
                 <div class="card-body">
                     {{ $dataTable->table(['width' => '100%']) }}
                 </div>
