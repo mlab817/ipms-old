@@ -68,30 +68,34 @@
                     </li>
                 @endcan
 
-                @can('projects.view_office')
-                <li class="nav-item">
-                    <a href="{{ route('projects.office') }}" class="nav-link @if(Route::current()->getName() == 'projects.office') active @endif">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                        </svg>
-                        <p>
-                            View My Office PAPs
-                        </p>
-                    </a>
-                </li>
-                @endcan
+                @if(auth()->user()->can('projects.view_office') || auth()->user()->can('projects.view_own'))
+                    <div class="dropdown-divider"></div>
 
-                @can('projects.view_own')
-                <li class="nav-item">
-                    <a href="{{ route('projects.own') }}" class="nav-link @if(Route::current()->getName() == 'projects.own') active @endif">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z" />
-                        </svg>
-                        <p>
-                            View Own PAPs
-                        </p>
-                    </a>
-                </li>
+                    @can('projects.view_office')
+                    <li class="nav-item">
+                        <a href="{{ route('projects.office') }}" class="nav-link @if(Route::current()->getName() == 'projects.office') active @endif">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                            <p>
+                                View My Office PAPs
+                            </p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('projects.view_own')
+                    <li class="nav-item">
+                        <a href="{{ route('projects.own') }}" class="nav-link @if(Route::current()->getName() == 'projects.own') active @endif">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z" />
+                            </svg>
+                            <p>
+                                View Own PAPs
+                            </p>
+                        </a>
+                    </li>
+                    @endcan
                 @endcan
 
 {{--                @can('subprojects.view_index')--}}
@@ -123,9 +127,10 @@
                     </li>
                 @endcan
 
-                @admin
+                @canany('projects.manage','users.view_index','teams.view_index','roles.view_index','permissions.view_index','libraries.view_index','audit_logs.view_index')
+                <div class="dropdown-divider"></div>
                 <li class="nav-header">Admin</li>
-                @endadmin
+                @endcanany
 
                 @can('projects.manage')
                 <li class="nav-item">
@@ -219,6 +224,7 @@
                 @endcan
 
                 @auth
+                    <div class="dropdown-divider"></div>
 
                     <li class="nav-item">
                         <a href="{{ route('settings') }}" class="nav-link {{ request()->routeIs('settings') ? 'active' : '' }}">

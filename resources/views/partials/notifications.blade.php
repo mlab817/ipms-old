@@ -11,16 +11,16 @@
         @foreach(auth()->user()->unreadNotifications as $notification)
         <a href="{{ route('notifications.show', $notification) }}" class="dropdown-item">
             <div class="media">
-                <img src="{{ $notification->data['sender']['avatar'] }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                <img src="{{ $notification->data['sender']['avatar'] ?? '' }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                 <div class="media-body">
                     <h3 class="dropdown-item-title">
-                        {{ $notification->data['subject'] }}
+                        {{ $notification->data['subject'] ?? '' }}
                     </h3>
                     <!-- TODO: Fix problem with overflowing text -->
-                    <p class="text-sm text-truncate">{{ $notification->data['message'] }}</p>
+                    <p class="text-sm text-truncate">{!! $notification->data['message'] ?? '' !!}</p>
                     <p class="text-xs text-muted">
                         <i class="far fa-clock mr-1"></i>
-                        {{ $notification->created_at->diffForHumans(null, null, true) }}
+                        {{ $notification->created_at ? $notification->created_at->diffForHumans(null, null, true) : '' }}
                     </p>
                 </div>
             </div>

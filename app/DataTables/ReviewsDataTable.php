@@ -64,9 +64,13 @@ class ReviewsDataTable extends DataTable
                         ';
                 }
             })
-            ->addColumn('reviewed_on', function ($project) {
+            ->addColumn('reviewed_details', function ($project) {
                 if ($project->review) {
-                    return $project->review->updated_at->diffForHumans(null, null, true);
+                    $reviewer = $project->review->user->name ?? '';
+                    return $reviewer
+                        . '<br/><small class="text-muted">'
+                        . $project->review->updated_at->diffForHumans(null, null, true)
+                        . '</small>';
                 } else {
                     return '';
                 }
@@ -86,7 +90,7 @@ class ReviewsDataTable extends DataTable
                     return '<a href="' . route('reviews.show', $project->review) .'" class="btn btn-success btn-sm">View</a>';
                 }
             })
-            ->rawColumns(['pip','trip','reviewed','action','view']);
+            ->rawColumns(['pip','trip','reviewed','reviewed_details','action','view']);
     }
 
     /**
@@ -140,7 +144,7 @@ class ReviewsDataTable extends DataTable
                 ->addClass('text-center'),
             Column::make('trip')
                 ->addClass('text-center'),
-            Column::make('reviewed_on')
+            Column::make('reviewed_details')
                 ->addClass('text-center'),
             Column::computed('action')
                 ->exportable(false)

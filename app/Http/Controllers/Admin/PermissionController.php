@@ -97,8 +97,6 @@ class PermissionController extends Controller
      */
     public function update(PermissionUpdateRequest $request, Permission $permission)
     {
-        $permission->update($request->only('name','guard_name'));
-
         $permission->description = $request->description;
         $permission->save();
 

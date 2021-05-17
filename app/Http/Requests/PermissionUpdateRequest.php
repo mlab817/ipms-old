@@ -26,19 +26,20 @@ class PermissionUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
-                'required',
-                'string',
-            ],
-            'guard_name' => [
-                'required',
-                'in:'. collect(Permission::GUARDS)->implode(','),
-                Rule::unique('permissions')->where(function ($query) {
-                    return $query
-                        ->whereName($this->get('name'))
-                        ->whereGuardName($this->get('guard_name'));
-                })->ignore($this->get('id'))
-            ]
+//            'name' => [
+//                'required',
+//                'string',
+//            ],
+//            'guard_name' => [
+//                'required',
+//                'in:'. collect(Permission::GUARDS)->implode(','),
+//                Rule::unique('permissions')->where(function ($query) {
+//                    return $query
+//                        ->whereName($this->get('name'))
+//                        ->whereGuardName($this->get('guard_name'));
+//                })->ignore($this->get('id'))
+//            ],
+            'description' => 'required',
         ];
     }
 

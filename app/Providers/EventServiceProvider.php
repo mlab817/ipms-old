@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use App\Events\PasswordChangedEvent;
 use App\Events\ProjectCreatedEvent;
+use App\Events\ProjectOwnerChangedEvent;
 use App\Events\ProjectReviewedEvent;
 use App\Events\UserCreated;
 use App\Events\UserUpdatedEvent;
 use App\Listeners\PasswordChangedListener;
 use App\Listeners\ProjectCreatedListener;
+use App\Listeners\ProjectOwnerChangedListener;
 use App\Listeners\ProjectReviewedListener;
 use App\Listeners\SendNewUserNotification;
 use App\Listeners\SendNotificationToOwnerOfProjectReviewed;
@@ -52,6 +54,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserUpdatedEvent::class => [
             UserUpdatedListener::class,
+        ],
+        ProjectOwnerChangedEvent::class => [
+            ProjectOwnerChangedListener::class,
         ],
     ];
 

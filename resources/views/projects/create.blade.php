@@ -53,6 +53,7 @@
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Project Title" value="{{ old('title') }}">
                                         @error('title')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                        <ul id="search-results"></ul>
                                     </div>
                                 </div>
 
@@ -1046,3 +1047,34 @@
 @endsection
 
 @include('projects.partials.script')
+
+@push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js" integrity="sha512-JZSo0h5TONFYmyLMqp8k4oPhuo6yNk9mHM+FY50aBjpypfofqtEWsAgRDQm94ImLCzSaHeqNvYuD9382CEn2zw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('input[name=title]').keyup($.debounce(500, function (e) {
+            let title = e.target.value
+
+            if (title && title.length > 3) {
+                // run search
+                $.post("{{ route('projects.search') }}",
+                    {
+                        _token: "{{ csrf_token() }}",
+                        search: title
+                    },
+                    function(data, status) {
+                        console.log(data)
+                        console.log(status)
+                        if (data.length) {
+                            let target = $('#search-results')
+                            data.forEach(res => {
+                                target.append(
+                                    `<li><a href="${res.url}">${res.title}</a></li>`
+                                )
+                            })
+                        }
+                    }
+                )
+            }
+        }))
+    </script>
+@endpush

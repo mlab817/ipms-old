@@ -57,6 +57,7 @@ Route::middleware(['auth','password.changed'])->group(function () {
     Route::post('/projects/{project}/review', [\App\Http\Controllers\ProjectController::class,'storeReview'])->name('reviews.store');
     Route::get('/projects/{project}/review/create', [\App\Http\Controllers\ProjectController::class,'review'])->name('reviews.create');
 
+    Route::post('/projects/search', [\App\Http\Controllers\ProjectController::class,'search'])->name('projects.search');
     Route::resource('projects', \App\Http\Controllers\ProjectController::class)->except('index');
     Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
     Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
@@ -89,7 +90,7 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
         'pap_types'             => \App\Http\Controllers\Admin\PapTypeController::class,
         'pdp_chapters'          => \App\Http\Controllers\Admin\PdpChapterController::class,
         'pdp_indicators'        => \App\Http\Controllers\Admin\PdpIndicatorController::class,
-        'permissions'           => \App\Http\Controllers\Admin\PermissionController::class,
+//        'permissions'           => \App\Http\Controllers\Admin\PermissionController::class,
         'pip_typologies'        => \App\Http\Controllers\Admin\PipTypologyController::class,
         'preparation_documents' => \App\Http\Controllers\Admin\PreparationDocumentController::class,
         'prerequisites'         => \App\Http\Controllers\Admin\PrerequisiteController::class,
@@ -106,6 +107,7 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
         'projects.users'        => \App\Http\Controllers\Admin\ProjectUserController::class,
         'teams'                 => \App\Http\Controllers\Admin\TeamController::class,
     ]);
+    Route::resource('permissions',\App\Http\Controllers\Admin\PermissionController::class)->except('create','show');
     Route::post('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwnerPost'])->name('projects.changeOwner.post');
     Route::get('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwner'])->name('projects.changeOwner.get');
     Route::post('offices/export',[\App\Http\Controllers\Admin\OfficeController::class,'index'])->name('offices.export');

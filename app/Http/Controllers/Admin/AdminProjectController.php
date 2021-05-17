@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\AdminProjectsDataTable;
+use App\Events\ProjectOwnerChangedEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\User;
@@ -50,16 +51,23 @@ class AdminProjectController extends Controller
 
     public function changeOwnerPost(Request $request, Project $project)
     {
+        $originalCreator = User::find($project->created_by);
+
         $request->validate([
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $user = User::find($request->user_id);
+        $newOwner = User::find($request->user_id);
 
         // update the project
-        $project->created_by = $user->id;
-        $project->office_id = $user->office_id;
+        $project->created_by = $newOwner->id;
+        $project->office_id = $newOwner->office_id;
         $project->save();
+
+        $users = collect([$originalCreator, $newOwner]);
+
+        // notify old and new
+        event(new ProjectOwnerChangedEvent($project, $users));
 
         Alert::success('Success','Successfully changed owner of project');
 

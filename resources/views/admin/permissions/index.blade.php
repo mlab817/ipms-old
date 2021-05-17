@@ -33,6 +33,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card-footer">
+                            <p class="text-muted">
+                                <strong>Note: </strong>Only the description of the permissions can be edited. The permissions are sensitive so it is better to leave them alone.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

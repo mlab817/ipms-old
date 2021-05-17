@@ -48,6 +48,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use Spatie\Searchable\Search;
 
 class ProjectController extends Controller
 {
@@ -337,5 +338,20 @@ class ProjectController extends Controller
         return $dataTable
             ->addScope(new AssignedProjectsDataTableScope)
             ->render('projects.index', ['pageTitle' => 'Assigned Projects']);
+    }
+
+    public function search(Request $request)
+    {
+        $searchTerm = $request->search;
+
+        $searchResults = (new Search())
+            ->registerModel(Project::class, 'title')
+            ->search($searchTerm);
+
+        if ($request->ajax()) {
+            return response()->json($searchResults);
+        }
+
+        return $searchResults;
     }
 }
