@@ -30,8 +30,7 @@ class ProjectUserController extends Controller
     public function create(Project $project)
     {
         return view('admin.projects.users.create', [
-            'pageTitle' => 'Add User Access to Project',
-            'users' => User::all(),
+            'users' => User::where('id', '<>', $project->created_by)->select('id','name','email')->get(),
             'project' => $project,
         ]);
     }

@@ -20,7 +20,11 @@ class ReviewPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('reviews.view_index');
+        if ($user->can('reviews.view_index')) {
+            return true;
+        }
+
+        return $this->deny('You do not have this permission: reviews.view_index');
     }
 
     /**
@@ -40,7 +44,7 @@ class ReviewPolicy
             return true;
         }
 
-        return false;
+        return $this->deny('You need the permission reviews.view_any or be the owner of the review.');
     }
 
     /**
@@ -51,7 +55,11 @@ class ReviewPolicy
      */
     public function create(User $user, Project $project)
     {
-        return $user->can('reviews.create');
+        if ($user->can('reviews.create')) {
+            return true;
+        };
+
+        return $this->deny('You need the permission reviews.create.');
     }
 
     /**

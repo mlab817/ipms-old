@@ -265,6 +265,8 @@ class ProjectController extends Controller
 
     public function review(Request $request, Project $project)
     {
+        abort_if(!(auth()->user()->can('reviews.create') || auth()->user()->can('review', $project)), 403);
+
         return view('reviews.create', [
             'pageTitle' => 'Reviewing ' . $project->title,
             'project' => $project,

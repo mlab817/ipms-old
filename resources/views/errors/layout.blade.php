@@ -1,7 +1,3 @@
-@php
-  $title = 'Error '.$error_number;
-@endphp
-
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
 <head>

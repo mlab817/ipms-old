@@ -28,6 +28,9 @@ class ProjectsDataTable extends DataTable
             ->addColumn('pap_type', function ($project) {
                 return '<span class="badge badge-'. ($project->pap_type->name == 'Project' ? 'success' : 'danger').' ">'.$project->pap_type->name.'</span>';
             })
+            ->addColumn('office', function ($row) {
+                return $row->office->name ?? '';
+            })
             ->editColumn('description', function ($project) {
                 if (strlen($project->description) > 100) {
                     return Str::limit($project->description, 100);
@@ -131,6 +134,8 @@ class ProjectsDataTable extends DataTable
             Column::make('pap_type')
                 ->addClass('text-center')
                 ->width('10%'),
+            Column::make('office')
+                ->addClass('text-center'),
             Column::make('description')
                 ->width('25%'),
             Column::make('total_project_cost')

@@ -204,4 +204,15 @@ class ProjectPolicy
 
         return false;
     }
+
+    public function review(User $user, Project $project)
+    {
+        $userCanReview = $user->can('reviews.create') || ($user->assigned_projects()->where('project_id', $project->id)->first()->pivot->review ?? false);
+
+        if ($userCanReview) {
+            return true;
+        }
+
+        return $this->deny('User is not assigned to review project');
+    }
 }

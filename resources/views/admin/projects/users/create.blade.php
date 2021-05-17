@@ -1,5 +1,25 @@
 @extends('layouts.admin')
 
+@section('content-header')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Manage Project Access</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.projects.index') }}">Manage Projects</a></li>
+                        <li class="breadcrumb-item active">Manage Project Access</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+@endsection
+
 @section('content')
     <section class="content">
         <div class="container-fluid">
@@ -64,7 +84,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn mr-2" href="{{ route('admin.projects.index') }}">Back to List</a>
+                        <a class="btn mr-2" href="{{ route('admin.projects.users.index', $project) }}">Back to Project</a>
                     </div>
                 </form>
             </div>

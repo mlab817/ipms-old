@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\AdminProjectsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminProjectController extends Controller
 {
@@ -19,27 +21,6 @@ class AdminProjectController extends Controller
         return $dataTable->render('admin.projects.index', [
             'pageTitle' => 'Manage Projects',
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -59,38 +40,29 @@ class AdminProjectController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Project $project
-     * @param $userId
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Project $project)
+    public function changeOwner(Project $project)
     {
-
+        return view('admin.projects.change-owner', compact('project'))
+            ->with([
+                'users' => User::where('id','<>', $project->created_by)->select('id','name')->get(),
+            ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function changeOwnerPost(Request $request, Project $project)
     {
-        //
-    }
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $user = User::find($request->user_id);
+
+        // update the project
+        $project->created_by = $user->id;
+        $project->office_id = $user->office_id;
+        $project->save();
+
+        Alert::success('Success','Successfully changed owner of project');
+
+        return back();
     }
 }

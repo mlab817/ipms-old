@@ -106,6 +106,8 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
         'projects.users'        => \App\Http\Controllers\Admin\ProjectUserController::class,
         'teams'                 => \App\Http\Controllers\Admin\TeamController::class,
     ]);
+    Route::post('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwnerPost'])->name('projects.changeOwner.post');
+    Route::get('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwner'])->name('projects.changeOwner.get');
     Route::post('offices/export',[\App\Http\Controllers\Admin\OfficeController::class,'index'])->name('offices.export');
 });
 

@@ -40,6 +40,19 @@ class ReviewerTest extends DuskTestCase
         });
     }
 
+    public function test_it_shows_review_paps_to_reviewer()
+    {
+        $user = User::factory()->create();
+        $user->assignRole('reviewer');
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser
+                ->loginAs($user->id)
+                ->visit('/reviews')
+                ->assertPathIs('/reviews')
+                ->screenshot('/reviews/index');
+        });
+    }
+
     public function test_it_shows_review_paps_index_when_visited_as_reviewer()
     {
         $this->browse(function (Browser $browser) {

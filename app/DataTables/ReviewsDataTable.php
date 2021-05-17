@@ -72,16 +72,17 @@ class ReviewsDataTable extends DataTable
                 }
             })
             ->addColumn('action', function ($project) {
-                if (auth()->user()->can('reviews.create') || auth()->user()->can('projects.review', $project)) {
+                // ProjectPolicy::review()
+                if (auth()->user()->can('review', $project)) {
                     if ($project->review) {
-                        return '<a href="' . route('reviews.edit', ['review' => $project->review->getRouteKey()]) . '" class="btn btn-sm btn-secondary">Edit</a>';
+                        return '<a href="' . route('reviews.edit', ['review' => $project->review]) . '" class="btn btn-sm btn-secondary">Edit</a>';
                     } else {
-                        return '<a href="'. route('reviews.create', ['project' => $project->getRouteKey()]).'" class="btn btn-sm btn-info">Create</a>';
+                        return '<a href="'. route('reviews.create', ['project' => $project]).'" class="btn btn-sm btn-info">Create</a>';
                     }
                 }
             })
             ->addColumn('view', function ($project) {
-                if ($project->review) {
+                if ($project->review && auth()->user()->can('view', $project->review)) {
                     return '<a href="' . route('reviews.show', $project->review) .'" class="btn btn-success btn-sm">View</a>';
                 }
             })

@@ -1,16 +1,34 @@
 @extends('layouts.admin')
 
+@section('content-header')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Manage Project Access</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.projects.index') }}">Manage Projects</a></li>
+                        <li class="breadcrumb-item active">Manage Project Access</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+@endsection
+
 @section('content')
     <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="card card-primary">
-                        <div class="card-header">
-                            <h1 class="card-title">Manage Access</h1>
-                        </div>
                         <div class="card-body">
-                            <a class="btn btn-primary" href="{{ route('admin.projects.users.create', $project->uuid) }}">Add User</a>
+                            <a class="btn btn-info" href="{{ route('admin.projects.changeOwner.get', $project) }}">Change Owner</a>
+                            <a class="btn btn-primary" href="{{ route('admin.projects.users.create', $project) }}">Add User</a>
                             <table class="table table-striped">
                                 <thead>
                                     <tr>

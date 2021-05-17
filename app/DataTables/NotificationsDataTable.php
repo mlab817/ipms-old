@@ -29,10 +29,10 @@ class NotificationsDataTable extends DataTable
                 return $row->data['message'];
             })
             ->addColumn('read_at', function ($row) {
-                return $row->read_at->diffForHumans(null, null, true) ?? '';
+                return $row->read_at ? $row->read_at->diffForHumans(null, null, true) : '';
             })
             ->addColumn('created_at', function ($row) {
-                return $row->created_at->diffForHumans(null, null, true) ?? '';
+                return $row->created_at ? $row->created_at->diffForHumans(null, null, true) : '';
             })
             ->addColumn('action', function ($row) {
                 return $row->read_at ? '' : '
@@ -61,6 +61,7 @@ class NotificationsDataTable extends DataTable
     {
         return $this->builder()
                     ->setTableId('notificationsdatatable-table')
+                    ->parameters(['responsive' => true])
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
@@ -88,8 +89,8 @@ class NotificationsDataTable extends DataTable
 //            Column::make('notifiable_id'),
             Column::make('sender'),
             Column::make('message'),
-            Column::make('read_at'),
             Column::make('created_at'),
+            Column::make('read_at'),
 //            Column::make('updated_at'),
             Column::computed('action')
                 ->exportable(false)

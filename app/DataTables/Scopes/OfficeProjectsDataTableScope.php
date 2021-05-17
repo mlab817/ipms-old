@@ -9,6 +9,7 @@ class OfficeProjectsDataTableScope implements DataTableScope
 {
     /**
      * Filter projects by the office of the user
+     * Excluding PAPs that do not have office tag
      *
      * @param \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|mixedF
@@ -17,6 +18,8 @@ class OfficeProjectsDataTableScope implements DataTableScope
     {
         $user = auth()->user();
 
-        return $query->where('office_id', $user->office_id);
+        return $query
+            ->whereNotNull('office_id')
+            ->where('office_id', $user->office_id);
     }
 }

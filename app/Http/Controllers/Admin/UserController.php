@@ -134,6 +134,8 @@ class UserController extends Controller
             $user->deactivate();
         }
 
+        \Log::info('user being updated: ' . $user);
+
         event(new UserUpdatedEvent($user));
 
         Alert::success('Success','User successfully updated');

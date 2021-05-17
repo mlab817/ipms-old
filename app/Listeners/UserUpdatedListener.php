@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Events\UserUpdatedEvent;
 use App\Notifications\UserUpdatedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -21,10 +22,10 @@ class UserUpdatedListener
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param UserUpdatedEvent $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserUpdatedEvent $event)
     {
         $user = $event->user;
 

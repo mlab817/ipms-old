@@ -51,10 +51,14 @@
 
                         <div class="form-group">
                             <label for="permissions">Permissions <i class="text-danger fas fa-flag"></i></label>
+                            <div class="row">
+                                <button type="button" id="check" class="btn btn-flat btn-sm btn-secondary">Check All</button>
+                                <button type="button" id="uncheck" class="btn btn-flat btn-sm btn-danger">Clear</button>
+                            </div>
                             @foreach ($permissions as $permission)
                                 <div class="form-check">
                                     <label for="permission_{{ $permission->id }}" class="form-check-label">
-                                        <input id="permission_{{ $permission->id }}" name="permissions[]" type="checkbox" class="form-check-input" value="{{ $permission->id }}" @if(in_array($permission->id, old('permissions') ?? [])) checked @endif>
+                                        <input id="permission_{{ $permission->id }}" name="permissions[]" type="checkbox" class="form-check-input permissions" value="{{ $permission->id }}" @if(in_array($permission->id, old('permissions') ?? [])) checked @endif>
                                         {{ $permission->name }}
                                     </label>
                                 </div>
@@ -71,3 +75,17 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#check').click(function() {
+            let checkPermissions = $('.permissions')
+            checkPermissions.attr({ checked: true })
+        })
+
+        $('#uncheck').click(function() {
+            let checkPermissions = $('.permissions')
+            checkPermissions.attr({ checked: false })
+        })
+    </script>
+@endpush

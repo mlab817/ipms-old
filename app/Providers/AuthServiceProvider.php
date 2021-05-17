@@ -43,16 +43,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('projects.review', function (User $user, Project $project) {
-            // check if user assigned projects contain assigned project
-            $userCanReview = $user->assigned_projects()->where('project_id', $project->id)->first()->pivot->review ?? false;
-
-            if ($userCanReview) {
-                return true;
-            }
-
-            return false;
-        });
+//        Gate::define('projects.review', function (User $user, Project $project) {
+//            // check if user assigned projects contain assigned project
+//            $userCanReview = $user->assigned_projects()->where('project_id', $project->id)->first()->pivot->review ?? false;
+//
+//            if ($userCanReview) {
+//                return true;
+//            }
+//
+//            return false;
+//        });
 
         Passport::routes();
     }
