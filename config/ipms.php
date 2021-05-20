@@ -11,9 +11,11 @@ return [
     | the application is accepting CRUD. Useful to disable CRUD
     | once the System closes.
     */
-    'email'         => env('IPMS_EMAIL',''),
-    'contact_info'  => env('IPMS_CONTACT_INFO', ''),
-    'allow_google_login' => env('ALLOW_GOOGLE_LOGIN', false),
+    'email'                 => env('IPMS_EMAIL',''),
+    'contact_info'          => env('IPMS_CONTACT_INFO', ''),
+    'allow_google_login'    => env('ALLOW_GOOGLE_LOGIN', false),
+    'allow_multiple_login'  => env('ALLOW_MULTIPLE_LOGIN', false),
+    'ipms_manual_url'       => env('IPMS_MANUAL_URL',''),
     'permissions' => [
         'projects' => [
             'create'        => true,

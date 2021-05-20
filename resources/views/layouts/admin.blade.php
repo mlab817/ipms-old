@@ -83,5 +83,27 @@
     <!-- Scripts -->
     @stack('scripts')
     <!--/. Scripts -->
+
+    <script type="text/javascript">
+        function checkUserLogin() {
+            $.ajax({
+                url: "{{ route('auth.check') }}",
+                type: 'GET',
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                error: (error) => {
+                    console.log('error: ', error)
+                    alert('User has been logged out');
+                    window.location.reload()
+                }
+            })
+        }
+
+        // check if user is logged in every 1 min (60s)
+        setInterval(() => {
+            checkUserLogin()
+        }, 60000)
+    </script>
 </body>
 </html>
