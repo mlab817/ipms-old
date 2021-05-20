@@ -26,11 +26,16 @@ class AdminProjectsDataTable extends DataTable
                 return $row->creator->office->name ?? '';
             })
             ->addColumn('added by', function ($row) {
-                $img =  $row->creator ? '<img src="' . $row->creator->avatar .'" width="50" height="50">' : '';
+                $img =  $row->creator ? '<img src="' . $row->creator->avatar .'" width="40" height="40">' : '';
                 return $row->creator ? $img . '<br/><span class="text-muted text-sm">' . $row->creator->name ?? '' . '</span>' ?? '' : '';
             })
             ->addColumn('users', function ($row) {
                 // get all users that have access
+                $userList = '<ul class="list-inline">';
+                foreach ($row->users->take(5) as $user) {
+                    $userList .= '<li class="list-inline-item"><img alt="avatar" class="table-avatar img-circle" src="'. $user->avatar .'" width="40" height="40"></li>';
+                }
+                return $userList . '</ul>' . ($row->users->count() > 5 ? (' +' . ($row->users->count() - 5 )) . ' others' : '');
             })
             ->addColumn('updated_at', function ($row) {
                 return $row->updated_at->diffForHumans(null, null, true);
@@ -40,7 +45,7 @@ class AdminProjectsDataTable extends DataTable
                     <a class="btn btn-info btn-sm" href="'. route('admin.projects.users.index', $row->getRouteKey()) .'">Manage</a>
                 ';
             })
-            ->rawColumns(['added by','action']);
+            ->rawColumns(['users','added by','action']);
     }
 
     /**
@@ -88,7 +93,8 @@ class AdminProjectsDataTable extends DataTable
             Column::make('office'),
             Column::make('added by')
                 ->addClass('text-center'),
-            Column::make('users'),
+            Column::make('users')
+                ->addClass('text-center'),
             Column::make('updated_at')
                 ->addClass('text-center'),
             Column::computed('action')

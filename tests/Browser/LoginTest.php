@@ -62,4 +62,18 @@ class LoginTest extends DuskTestCase
                 ->screenshot('login/google-signin-page');
         });
     }
+
+    public function test_it_shows_change_password_page_on_first_login()
+    {
+        $user = User::factory()->create();
+        $user->activate();
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser
+                ->loginAs($user->id)
+                ->visit('/')
+                ->assertSee('Change Password')
+                ->screenshot('login/change-password');
+        });
+    }
 }

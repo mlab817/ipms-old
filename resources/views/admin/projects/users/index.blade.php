@@ -25,7 +25,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-primary">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h1 class="card-title">{{ $project->title }}</h1><br/>
+                            by <strong>{{ $project->office->name ?? '-' }}</strong>
+                        </div>
                         <div class="card-body">
                             <a class="btn btn-info" href="{{ route('admin.projects.changeOwner.get', $project) }}">Change Owner</a>
                             <a class="btn btn-primary" href="{{ route('admin.projects.users.create', $project) }}">Add User</a>
@@ -47,36 +51,48 @@
                                         <td>{{ $user->name }}</td>
                                         <td class="text-center">
                                             @if($user->pivot->read)
-                                                <i class="text-primary fas fa-check-square"></i>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm text-success" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                </svg>
                                             @endif
                                         </td>
                                         <td class="text-center">
                                             @if($user->pivot->update)
-                                                <i class="text-primary fas fa-check-square"></i>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm text-success" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                </svg>
                                             @endif
                                         </td>
                                         <td class="text-center">
                                             @if($user->pivot->delete)
-                                                <i class="text-primary fas fa-check-square"></i>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm text-success" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                </svg>
                                             @endif
                                         </td>
                                         <td class="text-center">
                                             @if($user->pivot->review)
-                                                <i class="text-primary fas fa-check-square"></i>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm text-success" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                </svg>
                                             @endif
                                         </td>
                                         <td class="text-center">
                                             @if($user->pivot->comment)
-                                                <i class="text-primary fas fa-check-square"></i>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm text-success" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                </svg>
                                             @endif
                                         </td>
                                         <td>
-                                            <a class="btn btn-info btn-sm" href="{{ route('admin.projects.users.edit', ['project' => $project->uuid, 'user' => $user]) }}">Edit</a>
-                                            <form action="{{ route('admin.projects.users.destroy', ['project' => $project->uuid, 'user' => $user]) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                            </form>
+                                            <div class="row">
+                                                <a class="btn btn-info btn-sm" href="{{ route('admin.projects.users.edit', ['project' => $project->uuid, 'user' => $user]) }}">Edit</a>
+                                                <form action="{{ route('admin.projects.users.destroy', ['project' => $project->uuid, 'user' => $user]) }}" method="POST" class="ml-1">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
@@ -89,6 +105,9 @@
                                 @endforelse
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ route('admin.projects.index') }}" class="btn">Back to List</a>
                         </div>
                     </div>
                 </div>

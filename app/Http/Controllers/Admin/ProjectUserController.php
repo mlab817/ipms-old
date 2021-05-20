@@ -29,8 +29,13 @@ class ProjectUserController extends Controller
 
     public function create(Project $project)
     {
+        $removeUser = $project->users;
+        $removeUser->push($project->creator);
+
+        $users = User::select('id','name')->whereNotIn('id', $removeUser->pluck('id')->toArray())->get();
+
         return view('admin.projects.users.create', [
-            'users' => User::where('id', '<>', $project->created_by)->select('id','name','email')->get(),
+            'users' => $users,
             'project' => $project,
         ]);
     }
