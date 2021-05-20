@@ -20,7 +20,6 @@ class LoginTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/login')
-                    ->assertSee('IPMSv2')
                     ->assertSee('Sign in to start your session')
                     ->screenshot('login/login-page');
         });
@@ -52,6 +51,15 @@ class LoginTest extends DuskTestCase
                 ->clickLink('I forgot my password')
                 ->assertPathIs('/password/reset')
                 ->screenshot('login/password-reset-page');
+        });
+    }
+
+    public function test_it_shows_sign_in_via_google_page()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/login')
+                ->click('a[href="https://rest.example.com/auth/google"]')
+                ->screenshot('login/google-signin-page');
         });
     }
 }

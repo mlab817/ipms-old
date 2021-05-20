@@ -46,7 +46,7 @@ class ProjectAttachmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Attachment $attachment)
     {
         //
     }
@@ -80,13 +80,17 @@ class ProjectAttachmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Attachment $attachment)
+    public function destroy(Attachment $attachment, Request $request)
     {
         Storage::delete($attachment->download_url);
 
         $attachment->delete();
 
         Alert::success('Success', 'Successfully deleted attachment');
+
+        if ($request->ajax()) {
+            return response()->json('Success', 200);
+        }
 
         return back();
     }

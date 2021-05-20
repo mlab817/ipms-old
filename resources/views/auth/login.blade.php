@@ -5,7 +5,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="#" class="h1">{{ config('app.name') }}</a>
+                <img src="{{ asset('images/logo-blue.svg') }}" width="100px" alt="ipms-logo">
             </div>
 
             <div class="card-body">
@@ -16,13 +16,13 @@
 
                     @if (session('message'))
                         <div class="alert alert-danger">
-                            <h5><i class="icon fas fa-ban"></i> Error!</h5>
+                            Error!</h5>
                             {{ session('message') }}
                         </div>
                     @endif
 
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <input type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span>
@@ -40,7 +40,7 @@
                     </span>
                     @enderror
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                        <input type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span>
@@ -83,12 +83,17 @@
 
                 <!-- /.social-auth-links -->
                 @if (Route::has('password.request'))
-                <p class="mb-1">
+                <p class="mb-1 text-sm">
                     <a href="{{ route('password.request') }}">I forgot my password</a>
                 </p>
                 @endif
             </div>
             <!-- /.card-body -->
+            <div class="card-footer text-center">
+                <span class="text-muted text-sm">
+                    &copy; 2021 Investment Programming Division
+                </span>
+            </div>
         </div>
         <!-- /.card -->
     </div>

@@ -31,6 +31,7 @@ class ReviewUpdateRequest extends FormRequest
             'cip'               => 'required|bool',
             'cip_type_id'       => 'required',
             'trip'              => 'required|bool',
+            'ifp'               => 'required|bool',
             'readiness_level_id'=> 'required',
             'pipol_code'        => 'nullable',
             'pipol_url'         => 'nullable',

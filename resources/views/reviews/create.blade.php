@@ -20,10 +20,20 @@
 @endsection
 
 @section('content')
-    <div class="mt-3" />
-
     <section class="content">
         <div class="container-fluid">
+            @if($errors->any())
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
+            <div class="row pr-2 pb-3 justify-content-end">
+{{--                <a href="{{ route('projects.show', $project) }}" target="_blank" class="btn btn-outline-info">View Project Info (New Tab)</a>--}}
+                <button type="button" class="btn btn-outline-info" onclick="openPopup()">View Project Info</button>
+            </div>
             <form class="form-horizontal" action="{{ route('reviews.store', $project) }}" method="POST">
                 @csrf
                 <input type="hidden" name="project_id" value="{{ $project->id }}">
@@ -33,9 +43,6 @@
                         <h1 class="card-title">Project Classification</h1>
                     </div>
                     <div class="card-body">
-                        <div class="row text-center mb-3">
-                            <a href="{{ route('projects.show', $project) }}" target="_blank">View Project Info</a>
-                        </div>
 
                         <div class="form-group row">
                             <label for="pip" class="col-form-label col-sm-3 required">Public Investment Program</label>
@@ -121,6 +128,25 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="ifp" class="col-form-label col-sm-3 required">Infrastructure Flagship Project(IFP)</label>
+                            <div class="col-sm-9">
+                                <div class="form-check-inline">
+                                    <label for="trip_1" class="form-check-label">
+                                        <input id="ifp_1" type="radio" class="form-check-input" name="ifp" value="1" @if(old('ifp') == 1) checked @endif>
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <label for="trip_0" class="form-check-label">
+                                        <input id="ifp_0" type="radio" class="form-check-input" name="ifp" value="0" @if(old('ifp') == 0) checked @endif>
+                                        No
+                                    </label>
+                                </div>
+                                @error('ifp')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="trip" class="col-form-label col-sm-3 required">Readiness Level</label>
                             <div class="col-sm-9">
                                 <select id="readiness_level_id" name="readiness_level_id" class="form-control @error('readiness_level_id') is-invalid @enderror">
@@ -200,7 +226,7 @@
                     <div class="col">
                         <div class="row justify-content-between">
                             <div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-info">Submit</button>
                                 <a href="{{ route('reviews.index') }}" class="btn">Back to List</a>
                             </div>
                             <div>
@@ -249,3 +275,14 @@
         <!-- /.modal-dialog -->
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        let targetUrl = "{{ route('projects.show', $project) }}";
+        let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=0,height=0,left=-1000,top=-1000`;
+
+        function openPopup() {
+            window.open(targetUrl, "{{ $project->title }}", params);
+        }
+    </script>
+@endpush

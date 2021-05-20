@@ -21,8 +21,8 @@ class ReviewsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('pap_type', function($project) {
-                return $project->pap_type->name ?? '';
+            ->addColumn('pap_type', function ($project) {
+                return '<span class="badge badge-'. ($project->pap_type->name == 'Project' ? 'success' : 'danger').' ">'.$project->pap_type->name.'</span>';
             })
             ->addColumn('office', function ($row) {
                 return $row->creator->office->name ?? '';
@@ -90,7 +90,7 @@ class ReviewsDataTable extends DataTable
                     return '<a href="' . route('reviews.show', $project->review) .'" class="btn btn-success btn-sm">View</a>';
                 }
             })
-            ->rawColumns(['pip','trip','reviewed','reviewed_details','action','view']);
+            ->rawColumns(['pip','trip','pap_type','reviewed','reviewed_details','action','view']);
     }
 
     /**

@@ -34,12 +34,18 @@
                 </div>
             @endif
 
-            <div class="row p-2">
-                <p>These fields are required. <span class="text-danger text-weight-bold">*</span></p>
-            </div>
-
             <form action="{{ route('projects.store') }}" method="POST" class="form-horizontal">
                 @csrf
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="callout callout-info">
+                            <h5>Instruction:</h5>
+
+                            <p>All fields with red asterisk (<span class="text-danger">*</span>) are required. Also check for potential existing PAPs in the system. The system does
+                            not accept decimal places (.00) so input only whole numbers.</p>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-primary">
@@ -49,11 +55,11 @@
 
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="title" class="col-form-label col-sm-3 required">Project Title </label>
+                                    <label for="title" class="col-form-label col-sm-3 required">PAP Title </label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Project Title" value="{{ old('title') }}">
                                         @error('title')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                        <ul id="search-results"></ul>
+                                        <div class="list-group" id="search-results"></div>
                                     </div>
                                 </div>
 
@@ -317,11 +323,12 @@
                                         @error('approval_date')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label for="gad_id" class="col-form-label col-sm-3 required">Gender &amp; Responsiveness </label>
                                     <div class="col-sm-9">
                                         <select class="form-control select2 @error('gad_id') is-invalid @enderror" name="gad_id">
-                                            <option value="" disabled selected>Select Approval Level</option>
+                                            <option value="" disabled selected>Select GAD Classification</option>
                                             @foreach($gads as $option)
                                                 <option value="{{ $option->id }}" {{ old('gad_id') == $option->id ? 'selected' : '' }}>{{ $option->name }}</option>
                                             @endforeach
@@ -640,6 +647,52 @@
                     </div>
                     <!--/. Philippine Development Plan Indicators -->
 
+                    <!-- COVID 19 info -->
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">{{ __("COVID-19 Information") }}</h3>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-3 required" for="covid">Is it responsive to COVID-19/New Normal Intervention? </label>
+                                    <div class="col-sm-9">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="radio" name="covid" value="1" @if(old('covid') == 1) checked @endif>
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="radio" name="covid" value="0" @if(old('covid') == 0) checked @endif>
+                                                No
+                                            </label>
+                                        </div>
+                                        @error('covid')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="covid_interventions" class="col-form-label col-sm-3">Included in which of the following document: </label>
+                                    <div class="col-sm-9">
+                                        @foreach($covidInterventions as $option)
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="covid_{{ $option->id }}">
+                                                    <input id="covid_{{ $option->id }}" type="checkbox" value="{{ $option->id }}" class="form-check-input" name="covid_interventions[]"
+                                                           @if(in_array($option->id, old('covid_interventions') ?? [])) checked @endif>
+                                                    {{ $option->name }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/. COVID 19 info -->
+
                     <!-- Sustainable Development Goals -->
                     <div class="col-md-12">
                         <div class="card card-primary">
@@ -647,10 +700,12 @@
                                 <h3 class="card-title">{{ __("Sustainable Development Goals") }}</h3>
                             </div>
                             <div class="card-body">
-                                <div class="form-group row">
-                                    <label for="sdgs" class="col-form-label col-sm-3">Sustainable Development Goals</label>
-                                    <div class="col-sm-9">
-                                        @foreach($sdgs as $option)
+                                <div class="row">
+                                    <p class="text-sm text-muted">Select all that applies</p>
+                                </div>
+                                <div class="row">
+                                    @foreach($sdgs as $option)
+                                        <div class="col-sm-6">
                                             <div class="form-check">
                                                 <label class="form-check-label" for="sdg_{{ $option->id }}">
                                                     <input id="sdg_{{ $option->id }}" type="checkbox" value="{{ $option->id }}" class="form-check-input" name="sdgs[]">
@@ -658,8 +713,8 @@
                                                     <p class="text-xs">{{ $option->description }}</p>
                                                 </label>
                                             </div>
-                                        @endforeach
-                                    </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -673,10 +728,12 @@
                                 <h3 class="card-title">{{ __("Ten Point Agenda") }}</h3>
                             </div>
                             <div class="card-body">
-                                <div class="form-group row">
-                                    <label for="ten_point_agendas" class="col-form-label col-sm-3">Ten Point Agenda</label>
-                                    <div class="col-sm-9">
-                                        @foreach($ten_point_agendas as $option)
+                                <div class="row">
+                                    <p class="text-sm text-muted">Select all that applies</p>
+                                </div>
+                                <div class="row">
+                                    @foreach($ten_point_agendas as $option)
+                                        <div class="col-sm-6">
                                             <div class="form-check">
                                                 <label class="form-check-label" for="tpa_{{ $option->id }}">
                                                     <input id="tpa_{{ $option->id }}" type="checkbox" value="{{ $option->id }}" class="form-check-input" name="ten_point_agendas[]">
@@ -684,8 +741,8 @@
                                                     <p class="text-xs">{{ $option->description }}</p>
                                                 </label>
                                             </div>
-                                        @endforeach
-                                    </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -1054,7 +1111,7 @@
         $('input[name=title]').keyup($.debounce(500, function (e) {
             let title = e.target.value
 
-            if (title && title.length > 3) {
+            if (title && title.length >= 3) {
                 // run search
                 $.post("{{ route('projects.search') }}",
                     {
@@ -1064,16 +1121,26 @@
                     function(data, status) {
                         console.log(data)
                         console.log(status)
+                        let target = $('#search-results')
                         if (data.length) {
-                            let target = $('#search-results')
+                            target.empty()
+                            target.append('<label class="text-muted">Found the following potential matches:</label>')
                             data.forEach(res => {
                                 target.append(
-                                    `<li><a href="${res.url}">${res.title}</a></li>`
+                                    `<a href="${res.url}" target="_blank">${res.title}</a>`
                                 )
                             })
+                        } else {
+                            target.empty()
+                            target.append(
+                                '<p>Nothing found.</p>'
+                            )
                         }
                     }
                 )
+            } else {
+                let target = $('#search-results')
+                target.empty()
             }
         }))
     </script>

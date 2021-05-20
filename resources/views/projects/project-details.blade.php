@@ -1,4 +1,4 @@
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("General Information") }}</h3>
     </div>
@@ -74,7 +74,7 @@
 
 </div>
 
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Implementing Agencies") }}</h3>
     </div>
@@ -92,7 +92,7 @@
     </div>
 </div>
 
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Spatial Coverage") }}</h3>
     </div>
@@ -116,7 +116,7 @@
 </div>
 
 <!-- Implementation Period -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Implementation Period") }}</h3>
     </div>
@@ -144,7 +144,7 @@
 <!--/. Implementation Period -->
 
 <!-- Approval Status -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Approval Status") }}</h3>
     </div>
@@ -174,7 +174,7 @@
 <!--/. Approval Status -->
 
 <!--/. Regional Development Investment Program -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">Regional Development Investment Program</h3>
     </div>
@@ -220,7 +220,7 @@
 <!--/. Regional Development Investment Program -->
 
 <!-- Project Preparation Details -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Project Preparation Details") }}</h3>
     </div>
@@ -324,7 +324,7 @@
 <!--/. Project Preparation Details -->
 
 <!-- Employment Generation -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Employment Generation") }}</h3>
     </div>
@@ -341,7 +341,7 @@
 <!--/. Employment Generation -->
 
 <!-- Philippine Development Plan Chapter -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Philippine Development Plan") }}</h3>
     </div>
@@ -367,7 +367,7 @@
 <!--/. Philippine Development Plan Chapter -->
 
 <!-- Philippine Development Plan Indicators -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Philippine Development Results Matrices (PDP-RM) Indicators") }}</h3>
     </div>
@@ -391,7 +391,7 @@
 <!--/. Philippine Development Plan Indicators -->
 
 <!-- Sustainable Development Goals -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Sustainable Development Goals") }}</h3>
     </div>
@@ -409,7 +409,7 @@
 <!--/. Sustainable Development Goals -->
 
 <!-- Ten Point Agenda -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Ten Point Agenda") }}</h3>
     </div>
@@ -427,7 +427,7 @@
 <!--/. Ten Point Agenda -->
 
 <!-- Financial Information -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Financial Information") }}</h3>
     </div>
@@ -488,7 +488,7 @@
 <!--/. Financial Information -->
 
 <!-- Status & Updates -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Status & Updates") }}</h3>
     </div>
@@ -510,9 +510,9 @@
 <!--/. Status & Updates -->
 
 <!-- Funding Source Breakdown -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
-        <h3 class="card-title">{{ __("Investment Required by Funding Source") }} </h3>
+        <h3 class="card-title">{{ __("Total Investment Required by Funding Source") }} </h3>
     </div>
     <div class="card-body table-responsive p-0">
         <table class="table table-hover table-valign-middle">
@@ -588,9 +588,9 @@
 <!--/. Funding Source Breakdown -->
 
 <!-- Regional Breakdown -->
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
-        <h3 class="card-title">{{ __("Investment Required by Region") }} </h3>
+        <h3 class="card-title">{{ __("Total Investment Required by Region") }} </h3>
     </div>
     <div class="card-body table-responsive p-0">
         <table class="table table-hover table-valign-middle">
@@ -665,7 +665,7 @@
 </div>
 <!--/. Regional Breakdown -->
 
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Financial Status") }}</h3>
     </div>
@@ -760,53 +760,78 @@
     </div>
 </div>
 
-<div class="card card-primary">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("Attachments") }}</h3>
     </div>
-    <div class="card-body">
-        @can('projects.update', $project)
-            <div class="col-12">
-                <form action="{{ route('projects.upload', $project) }}" method="POST" role="form"
-                      enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label for="attachment">Upload File</label>
-                        <input type="file" name="attachment" id="attachment" accept=".xls,.xlsx"
-                               class="form-control @error('attachment') is-invalid @enderror">
-                        @error('attachment')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                    </div>
-                    <button type="submit" class="btn btn-primary">Upload</button>
-                </form>
-            </div>
-        @endcan
-
-        <div class="col-12 mt-2">
-            <table class="table table-striped">
-                <thead>
-                <td>Title</td>
-                <td>Link</td>
-                </thead>
-                <tbody>
-                @forelse ($project->attachments as $att)
-                    <tr>
-                        <td>{{ $att->title }}</td>
-                        <td>
-                            <a href="{{ route('attachments.download', $att) }}" target="_blank">Download</a>
-                            <form action="{{ route('attachments.destroy', $att) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="2">No attachments.</td>
-                    </tr>
-                @endforelse
-                </tbody>
-            </table>
-        </div>
+    <div class="card-body p-0">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            @forelse ($project->attachments as $att)
+                <tr>
+                    <td>{{ $att->title }}</td>
+                    <td class="row">
+                        <a href="{{ route('attachments.download', $att) }}" class="btn btn-primary" target="_blank">Download</a>
+                        <button type="button" class="btn btn-danger ml-2" onclick="deleteAttachment({{ $att->id }})">Delete</button>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="2">No attachments.</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
     </div>
+
+    @can('update', $project)
+    <div class="card-body">
+        <form action="{{ route('projects.upload', $project) }}" method="POST" role="form"
+              enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="attachment">Upload File</label>
+                <div class="my-3">
+                    <input type="file" class="form-control-file @error('attachment') is-invalid @enderror" name="attachment" id="attachment">
+                </div>
+                <button type="submit" class="btn btn-primary">Upload</button>
+                @error('attachment')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+            </div>
+        </form>
+    </div>
+    @endcan
 </div>
+
+@push('scripts')
+<script>
+    function deleteAttachment(id) {
+        let response = confirm('Are you sure you want to delete this attachment? This action cannot be undone.')
+
+        if (response) {
+            // go delete
+            // alert(`delete ${id}`)
+            let placeholderUrl = "{{ route('attachments.destroy', ':url' ) }}"
+            let deleteUrl = placeholderUrl.replace(':url', id)
+            // alert(deleteUrl)
+
+            $.ajax({
+                url: deleteUrl,
+                type: 'DELETE',
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(result) {
+                    console.log(result)
+                    window.location.reload()
+                }
+            })
+        }
+    }
+</script>
+@endpush

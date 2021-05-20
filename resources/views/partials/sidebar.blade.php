@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
         <div class="brand-image img-circle">
-            <img src="{{ asset('images/logo.svg') }}" alt="AdminLTE Logo" width="35px">
+            <img src="{{ asset('images/logo-dark.png') }}" class="text-info" alt="AdminLTE Logo" width="35px">
         </div>
         <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span>
     </a>

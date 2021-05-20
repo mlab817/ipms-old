@@ -116,18 +116,18 @@ class RegionsTableSeeder extends Seeder
                 'order'         => 2,
             ],
             [
-                'id'            => 14,
-                'name'          => 'Autonomous Region in Muslim Mindanao',
-                'slug'          => Str::slug('AUTONOMOUS REGION IN MUSLIM MINDANAO (ARMM)'),
-                'label'         => 'ARMM',
-                'order'         => 16,
-            ],
-            [
                 'id'            => 13,
                 'name'          => 'CARAGA',
                 'slug'          => Str::slug('REGION XIII (Caraga)'),
                 'label'         => 'CARAGA',
                 'order'         => 16,
+            ],
+            [
+                'id'            => 14,
+                'name'          => 'Autonomous Region in Muslim Mindanao',
+                'slug'          => Str::slug('AUTONOMOUS REGION IN MUSLIM MINDANAO (ARMM)'),
+                'label'         => 'ARMM',
+                'order'         => 17,
             ],
             [
                 'id'            => 41,

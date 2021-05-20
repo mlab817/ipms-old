@@ -511,7 +511,7 @@
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="{{ route('projects.index') }}" class="btn">Go Back to List</a>
+                    <a href="{{ route('projects.own') }}" class="btn">Go Back to List</a>
                 </div>
             </form>
         </div>

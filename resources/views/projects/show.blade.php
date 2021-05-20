@@ -13,6 +13,9 @@
                     @can('projects.view_own')
                     <li class="breadcrumb-item"><a href="{{ route('projects.own') }}">Own Projects</a></li>
                     @endcan
+                    @can('reviews.view_index')
+                    <li class="breadcrumb-item"><a href="{{ route('reviews.index') }}">Review PAPs</a></li>
+                    @endcan
                     <li class="breadcrumb-item active">{{ $project->title }}</li>
                 </ol>
             </div><!-- /.col -->
@@ -26,6 +29,8 @@
         <!-- Default box -->
 
         @include('projects.project-details', ['project' => $project , 'pdp_indicators' => \App\Models\PdpIndicator::with('children.children')->whereNull('parent_id')->get()])
+
+        @includeWhen($project->has_infra, 'projects.trip-info', ['project' => $project])
 
         <!-- Include review result if it exists -->
         @includeWhen($project->review()->exists(), 'projects.review-result', ['review' => $project->review])

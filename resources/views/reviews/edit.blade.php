@@ -20,8 +20,6 @@
 @endsection
 
 @section('content')
-    <div class="mt-3" />
-
     <section class="content">
         <div class="container-fluid">
             @if($errors->any())
@@ -31,6 +29,11 @@
                 @endforeach
                 </ul>
             @endif
+
+            <div class="row pr-2 pb-3 justify-content-end">
+                {{--                <a href="{{ route('projects.show', $project) }}" target="_blank" class="btn btn-outline-info">View Project Info (New Tab)</a>--}}
+                <button type="button" class="btn btn-outline-info" onclick="openPopup()">View Project Info</button>
+            </div>
 
             <form class="form-horizontal" action="{{ route('reviews.update', $review) }}" method="POST">
                 @csrf
@@ -125,6 +128,26 @@
                                 @error('trip')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="ifp" class="col-form-label col-sm-3 required">Infrastructure Flagship Project(IFP)</label>
+                            <div class="col-sm-9">
+                                <div class="form-check-inline">
+                                    <label for="trip_1" class="form-check-label">
+                                        <input id="ifp_1" type="radio" class="form-check-input" name="ifp" value="1" @if(old('ifp', $project->ifp) == 1) checked @endif>
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <label for="trip_0" class="form-check-label">
+                                        <input id="ifp_0" type="radio" class="form-check-input" name="ifp" value="0" @if(old('ifp', $project->ifp) == 0) checked @endif>
+                                        No
+                                    </label>
+                                </div>
+                                @error('ifp')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+
 
                         <div class="form-group row">
                             <label for="trip" class="col-form-label col-sm-3">Readiness Level</label>

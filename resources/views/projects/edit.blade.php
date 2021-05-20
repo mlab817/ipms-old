@@ -37,6 +37,18 @@
             <form action="{{ route('projects.update', $project->uuid) }}" method="POST">
                 @csrf
                 @method('PUT')
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="callout callout-info">
+                            <h5>Instruction:</h5>
+
+                            <p>All fields with red asterisk (<span class="text-danger">*</span>) are required. The system does
+                                not accept decimal places (.00) so input only whole numbers.</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-primary">
@@ -46,7 +58,7 @@
 
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="title" class="col-form-label col-sm-3">Project Title <i class="text-danger fas fa-flag"></i></label>
+                                    <label for="title" class="col-form-label col-sm-3">PAP Title <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control @error('title') is-invalid @enderror"
                                                name="title" placeholder="Project Title"
@@ -87,6 +99,21 @@
                                         </div>
                                         @error('regular_program')<span
                                             class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="has_subprojects" class="col-form-label col-sm-3 required">Does this PAP have subprojects/activities? </label>
+                                    <div class="col-sm-9">
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input" type="radio" name="has_subprojects" value="1" @if(old('has_subprojects', $project->has_subprojects) == 1) checked @endif>
+                                            <label class="form-check-label">Yes</label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input" type="radio" name="has_subprojects" value="0" @if(old('has_subprojects', $project->has_subprojects) == 0) checked @endif>
+                                            <label class="form-check-label">No</label>
+                                        </div>
+                                        @error('has_subprojects')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
 
@@ -355,6 +382,19 @@
                                                name="approval_date" value="{{ old('approval_date', $project->approval_date) }}">
                                         @error('approval_date')<span
                                             class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="gad_id" class="col-form-label col-sm-3 required">Gender Responsiveness </label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control select2 @error('gad_id') is-invalid @enderror" name="gad_id">
+                                            <option value="" disabled selected>Select GAD Classification</option>
+                                            @foreach($gads as $option)
+                                                <option value="{{ $option->id }}" {{ old('gad_id', $project->gad_id) == $option->id ? 'selected' : '' }}>{{ $option->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('gad_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
                             </div>
@@ -745,6 +785,57 @@
                         </div>
                     </div>
                     <!--/. Philippine Development Plan Indicators -->
+
+                    <!-- COVID 19 info -->
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">{{ __("COVID-19 Information") }}</h3>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-3 required" for="covid">Is it responsive to COVID-19/New Normal Intervention? </label>
+                                    <div class="col-sm-9">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="radio" name="covid" value="1" @if(old('covid', $project->covid) == 1) checked @endif>
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="radio" name="covid" value="0" @if(old('covid', $project->covid) == 0) checked @endif>
+                                                No
+                                            </label>
+                                        </div>
+                                        @error('covid')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="covid_interventions" class="col-form-label col-sm-3">Included in which of the following document: </label>
+                                    <div class="col-sm-9">
+                                        @foreach($covidInterventions as $option)
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="covid_{{ $option->id }}">
+                                                    <input
+                                                        id="covid_{{ $option->id }}"
+                                                        type="checkbox"
+                                                        value="{{ $option->id }}"
+                                                        class="form-check-input"
+                                                        name="covid_interventions[]"
+                                                        @if(in_array($option->id, old('covid_interventions', $project->covid_interventions()->pluck('id')->toArray() ?? []))) checked @endif>
+                                                    {{ $option->name }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/. COVID 19 info -->
 
                     <!-- Sustainable Development Goals -->
                     <div class="col-md-12">

@@ -1,46 +1,42 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="862 392 125 138">
-    <g id="logo__item--business" class="logo__item">
-        <g class="logo__item__inner" transform="translate(864.546875 528.1130115158271) scale(1 1) rotate(0 0 0)">
-            <text dy="0" dominant-baseline="auto" alignment-baseline="auto" font-family="Montserrat" font-size="32px" fill="#929497" letter-spacing="0" font-weight="bold" font-style="normal">IPMSv2</text>
-        </g>
-    </g>
-    <g id="logo__item--logo_0" class="logo__item">
-        <g class="logo__item__inner" transform="translate(854.0280027076785 372.5) scale(1.400740078620997 1.400740078620997) rotate(0 0 0)">
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="200.000000pt" height="200.000000pt" viewBox="0 0 200.000000 200.000000"
+ preserveAspectRatio="xMidYMid meet">
 
-            <g>
-                <radialGradient id="SVGID_1_" cx="118.4023" cy="79.0264" r="176.9079" gradientUnits="userSpaceOnUse">
-                    <stop offset="0" style="stop-color:#929497"></stop>
-                    <stop offset="0.6727" style="stop-color:#404041"></stop>
-                    <stop offset="1" style="stop-color:#231F20"></stop>
-                </radialGradient>
-                <path fill="url(#SVGID_1_)" d="M93.502,64.506c0,0-13.672,4.652-21.174,4.022l1.518,7.887l-4.421,2.929l-7.63-5.875l-4.784,1.007   L54.68,83.09l-6.055,0.161l-1.547-8.686c0,0-6.573-0.906-6.065-1.264c0.508-0.35-6.77,6.678-6.77,6.678l-5.437-3.272l2.464-8.859   l-4.559-3.734l-8.04,2.375l-3.417-4.683l6.262-6.323l-2.025-5.497l-6.701-7.303L7.833,45.94l1.212-12.304   C9.045,33.636,31.219,71.103,93.502,64.506z"></path>
-                <g>
-                    <radialGradient id="SVGID_2_" cx="57.9707" cy="-5.7754" r="77.713" gradientUnits="userSpaceOnUse">
-                        <stop offset="0" style="stop-color:#26C2F2"></stop>
-                        <stop offset="0.1561" style="stop-color:#1DB7E9"></stop>
-                        <stop offset="0.4298" style="stop-color:#069AD1"></stop>
-                        <stop offset="0.4848" style="stop-color:#0193CB"></stop>
-                        <stop offset="1" style="stop-color:#0D497A"></stop>
-                    </radialGradient>
-                    <path fill="url(#SVGID_2_)" d="M60.837,61.571V30.605H44.781V58.02C49.485,59.561,54.823,60.804,60.837,61.571z"></path>
-                    <radialGradient id="SVGID_3_" cx="57.9688" cy="-5.7817" r="77.721" gradientUnits="userSpaceOnUse">
-                        <stop offset="0" style="stop-color:#26C2F2"></stop>
-                        <stop offset="0.1561" style="stop-color:#1DB7E9"></stop>
-                        <stop offset="0.4298" style="stop-color:#069AD1"></stop>
-                        <stop offset="0.4848" style="stop-color:#0193CB"></stop>
-                        <stop offset="1" style="stop-color:#0D497A"></stop>
-                    </radialGradient>
-                    <path fill="url(#SVGID_3_)" d="M81.176,62.221V16.749H63.803v45.154C69.084,62.417,74.861,62.562,81.176,62.221z"></path>
-                    <radialGradient id="SVGID_4_" cx="57.9648" cy="-5.7725" r="77.709" gradientUnits="userSpaceOnUse">
-                        <stop offset="0" style="stop-color:#26C2F2"></stop>
-                        <stop offset="0.1561" style="stop-color:#1DB7E9"></stop>
-                        <stop offset="0.4298" style="stop-color:#069AD1"></stop>
-                        <stop offset="0.4848" style="stop-color:#0193CB"></stop>
-                        <stop offset="1" style="stop-color:#0D497A"></stop>
-                    </radialGradient>
-                    <path fill="url(#SVGID_4_)" d="M40.493,56.473V40.281h-14.29v8.481C29.943,51.44,34.658,54.17,40.493,56.473z" data-part-id="logo__item--logo_0__3"></path>
-                </g>
-            </g>
-        </g>
-    </g>
+<g transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M881 1654 c-119 -32 -242 -135 -295 -248 -96 -203 -29 -452 156 -576
+178 -119 411 -104 566 35 237 214 190 608 -90 751 -104 53 -230 67 -337 38z
+m212 -59 c125 -33 208 -99 263 -211 102 -205 19 -437 -191 -535 -125 -59 -266
+-47 -385 33 -208 139 -235 431 -56 606 105 103 237 142 369 107z"/>
+<path d="M752 1418 c-17 -17 -17 -349 0 -366 14 -14 474 -17 496 -4 9 7 12 52
+10 193 l-3 184 -245 3 c-183 2 -249 -1 -258 -10z m448 -183 l0 -135 -200 0
+-200 0 0 135 0 135 200 0 200 0 0 -135z"/>
+<path d="M1031 1265 l-61 -58 -23 21 c-26 24 -57 29 -57 9 0 -15 71 -87 86
+-87 5 0 41 31 79 70 64 65 68 71 53 86 -15 16 -21 13 -77 -41z"/>
+<path d="M887 993 c-4 -3 -7 -15 -7 -25 0 -16 10 -18 120 -18 101 0 122 3 127
+16 3 9 0 20 -8 25 -16 10 -222 12 -232 2z"/>
+<path d="M190 576 c0 -30 3 -35 28 -38 26 -3 27 -5 27 -68 0 -63 -1 -65 -27
+-68 -25 -3 -28 -8 -28 -38 l0 -34 95 0 95 0 0 35 c0 31 -3 35 -25 35 -24 0
+-25 2 -25 70 0 68 1 70 25 70 22 0 25 4 25 35 l0 35 -95 0 -95 0 0 -34z"/>
+<path d="M440 470 l0 -140 39 0 c39 0 40 1 43 38 3 37 3 37 55 42 72 8 88 25
+88 101 0 86 -18 99 -136 99 l-89 0 0 -140z m145 40 c0 -21 -5 -26 -32 -28 -31
+-3 -33 -1 -33 28 0 29 2 31 33 28 27 -2 32 -7 32 -28z"/>
+<path d="M712 473 l3 -138 43 -3 42 -3 0 78 c1 75 1 77 16 51 9 -18 23 -28 38
+-28 15 0 28 10 37 28 13 26 14 23 17 -50 l3 -78 39 0 40 0 0 140 0 140 -42 0
+c-39 0 -45 -3 -63 -37 -11 -20 -24 -38 -30 -40 -5 -1 -20 15 -33 37 -21 37
+-26 40 -68 40 l-45 0 3 -137z"/>
+<path d="M1072 594 c-18 -12 -22 -25 -22 -68 0 -64 15 -81 83 -90 31 -5 47
+-12 47 -22 0 -11 -15 -14 -65 -14 l-65 0 0 -35 0 -35 84 0 c109 0 131 15 131
+89 0 27 -5 55 -11 61 -7 7 -35 17 -64 23 -77 17 -77 37 -1 37 l61 0 0 35 0 35
+-78 0 c-54 0 -84 -5 -100 -16z"/>
+<path d="M1310 538 c0 -55 6 -89 27 -140 l26 -68 67 0 68 0 26 71 c19 51 26
+89 26 140 l0 69 -40 0 -40 0 0 -59 c0 -56 -14 -116 -31 -135 -19 -21 -34 18
+-39 102 l-5 87 -42 3 -43 3 0 -73z"/>
+<path d="M1610 575 l0 -35 55 0 c68 0 75 -21 13 -39 -68 -20 -78 -35 -78 -108
+l0 -63 105 0 105 0 0 35 0 35 -66 0 c-78 0 -82 16 -10 40 27 9 54 24 62 35 19
+25 18 85 -2 113 -14 20 -24 22 -100 22 l-84 0 0 -35z"/>
+</g>
 </svg>

@@ -90,6 +90,8 @@ class Project extends Model implements Searchable
         // allocation
         // disbursement
         'has_subprojects',
+        'covid',
+        'ifp',
     ];
 
     protected $casts = [
@@ -135,6 +137,11 @@ class Project extends Model implements Searchable
     public function cip_type(): BelongsTo
     {
         return $this->belongsTo(CipType::class);
+    }
+
+    public function covid_interventions(): BelongsToMany
+    {
+        return $this->belongsToMany(CovidIntervention::class);
     }
 
     public function disbursement(): HasOne

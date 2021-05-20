@@ -16,6 +16,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
 use App\Models\CipType;
+use App\Models\CovidIntervention;
 use App\Models\FsInvestment;
 use App\Models\FsStatus;
 use App\Models\FundingInstitution;
@@ -105,6 +106,7 @@ class ProjectController extends Controller
                 'preparation_documents'     => PreparationDocument::all(),
                 'fs_statuses'               => FsStatus::all(),
                 'operating_units'           => OperatingUnit::all(),
+                'covidInterventions'        => CovidIntervention::all(),
             ]);
     }
 
@@ -117,6 +119,8 @@ class ProjectController extends Controller
      */
     public function store(ProjectStoreRequest $request)
     {
+        dd($request);
+
         $project = Project::create($request->validated());
 
         $project->bases()->sync($request->bases);
@@ -127,6 +131,7 @@ class ProjectController extends Controller
         $project->pdp_indicators()->sync($request->pdp_indicators);
         $project->ten_point_agendas()->sync($request->ten_point_agendas);
         $project->operating_units()->sync($request->operating_units);
+        $project->covid_interventions()->sync($request->covid_interventions);
 
         $project->fs_investments()->createMany($request->fs_investments);
         $project->region_investments()->createMany($request->region_investments);
@@ -178,6 +183,7 @@ class ProjectController extends Controller
                 'project_statuses'          => ProjectStatus::all(),
                 'spatial_coverages'         =>  SpatialCoverage::all(),
                 'regions'                   =>  Region::all(),
+                'gads'                      => Gad::all(),
                 'pip_typologies'            => PipTypology::all(),
                 'cip_types'                 => CipType::all(),
                 'years'                     => config('ipms.editor.years'),
@@ -197,6 +203,7 @@ class ProjectController extends Controller
                 'preparation_documents'     => PreparationDocument::all(),
                 'fs_statuses'               => FsStatus::all(),
                 'operating_units'           => OperatingUnit::all(),
+                'covidInterventions'        => CovidIntervention::all(),
             ]);
     }
 
@@ -219,6 +226,7 @@ class ProjectController extends Controller
         $project->pdp_indicators()->sync($request->pdp_indicators);
         $project->ten_point_agendas()->sync($request->ten_point_agendas);
         $project->operating_units()->sync($request->operating_units);
+        $project->covid_interventions()->sync($request->covid_interventions);
 
         foreach ($request->fs_investments as $fs_investment) {
             $fsToEdit = FsInvestment::where('project_id', $project->id)->where('fs_id', $fs_investment['fs_id'])->first();
