@@ -59,6 +59,7 @@ class RolesDataTable extends DataTable
     {
         return $this->builder()
                     ->setTableId('roles-table')
+                    ->parameters(['responsive' => true])
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
@@ -82,7 +83,8 @@ class RolesDataTable extends DataTable
         return [
             Column::make('name'),
             Column::make('guard_name'),
-            Column::make('permissions'),
+            Column::make('permissions')
+                ->addClass('text-center'),
             Column::make('description'),
             Column::computed('action')
                   ->exportable(false)

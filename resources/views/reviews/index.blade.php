@@ -99,7 +99,7 @@
 
             <div class="card card-info">
                 <div class="card-body">
-                    {{ $dataTable->table(['width' => '100%','class'=>'table table-hover']) }}
+                    {{ $dataTable->table(['width' => '100%','class'=>'table table-hover table-valign-middle']) }}
                 </div>
                 <div class="card-footer">
                     <p class="text-muted text-sm">

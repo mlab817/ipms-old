@@ -343,6 +343,8 @@ class ProjectController extends Controller
 
     public function assigned(ProjectsDataTable $dataTable)
     {
+        abort_if(! auth()->user()->can('projects.view_assigned'), 403);
+
         return $dataTable
             ->addScope(new AssignedProjectsDataTableScope)
             ->render('projects.index', ['pageTitle' => 'Assigned Projects']);

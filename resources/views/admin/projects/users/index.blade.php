@@ -33,7 +33,7 @@
                         <div class="card-body">
                             <a class="btn btn-info" href="{{ route('admin.projects.changeOwner.get', $project) }}">Change Owner</a>
                             <a class="btn btn-primary" href="{{ route('admin.projects.users.create', $project) }}">Add User</a>
-                            <table class="table table-striped">
+                            <table class="table table-striped table-valign-middle">
                                 <thead>
                                     <tr>
                                         <td>User</td>

@@ -24,7 +24,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">
-                    {!! $dataTable->table(['width' => '100%']) !!}
+                    {!! $dataTable->table(['width' => '100%', 'class' => 'table-valign-middle']) !!}
                 </div>
             </div>
         </div>

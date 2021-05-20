@@ -79,6 +79,7 @@
                             </svg>
                             <p>
                                 View My Office PAPs
+                                <span class="badge badge-info right">{{ \App\Models\Project::where('office_id', auth()->user()->office_id)->count() }}</span>
                             </p>
                         </a>
                     </li>
@@ -92,6 +93,7 @@
                             </svg>
                             <p>
                                 View Own PAPs
+                                <span class="badge badge-info right">{{ \App\Models\Project::where('created_by', auth()->id())->count() }}</span>
                             </p>
                         </a>
                     </li>
@@ -105,6 +107,7 @@
                                 </svg>
                                 <p>
                                     View Assigned PAPs
+                                    <span class="badge badge-info right">{{ auth()->user()->assigned_projects->count() }}</span>
                                 </p>
                             </a>
                         </li>
@@ -135,6 +138,7 @@
                             </svg>
                             <p>
                                 Review PAPs
+                                <span class="badge badge-info right">{{ \App\Models\Project::count()  }}</span>
                             </p>
                         </a>
                     </li>
@@ -153,6 +157,7 @@
                         </svg>
                         <p>
                             Manage Projects
+                            <span class="badge badge-info right">{{ \App\Models\Project::count()  }}</span>
                         </p>
                     </a>
                 </li>
@@ -166,6 +171,7 @@
                         </svg>
                         <p>
                             Manage Users
+                            <span class="badge badge-info right">{{ \App\Models\User::count()  }}</span>
                         </p>
                     </a>
                 </li>
@@ -192,6 +198,7 @@
                         </svg>
                         <p>
                             Manage Roles
+                            <span class="badge badge-info right">{{ \App\Models\Role::count()  }}</span>
                         </p>
                     </a>
                 </li>
@@ -205,6 +212,7 @@
                         </svg>
                         <p>
                             Manage Permissions
+                            <span class="badge badge-info right">{{ \App\Models\Permission::count()  }}</span>
                         </p>
                     </a>
                 </li>
@@ -231,6 +239,7 @@
                             </svg>
                             <p>
                                 Audit Logs
+                                <span class="badge badge-info right">{{ \App\Models\AuditLog::count()  }}</span>
                             </p>
                         </a>
                     </li>
