@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth','password.changed']], function() {
 
     Route::get('/attachments/{attachment}/download', [\App\Http\Controllers\ProjectAttachmentController::class,'download'])->name('attachments.download');
     Route::delete('/attachments/{attachment}', [\App\Http\Controllers\ProjectAttachmentController::class,'destroy'])->name('attachments.destroy');
+
+    Route::get('/auth/check', \App\Http\Controllers\CheckUserLoginController::class)->name('auth.check');
 });
 
 // Resources secured by auth

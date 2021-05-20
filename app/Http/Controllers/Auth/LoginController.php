@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -36,5 +39,17 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Override default authenticated method to logout existing user session
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        // if multiple login is disabled
+        // logout other devices
+        if (! config('ipms.allow_multiple_login')) {
+            Auth::logoutOtherDevices($request->password);
+        }
     }
 }
