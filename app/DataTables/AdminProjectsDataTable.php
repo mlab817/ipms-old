@@ -23,7 +23,7 @@ class AdminProjectsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('office', function ($row) {
-                return $row->creator->office->name ?? '';
+                return $row->office->name ?? '';
             })
             ->addColumn('added by', function ($row) {
                 $img =  $row->creator ? '<img src="' . $row->creator->avatar .'" width="40" height="40">' : '';
