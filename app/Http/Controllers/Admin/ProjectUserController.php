@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectUserStoreRequest;
 use App\Http\Requests\ProjectUserUpdateRequest;
 use App\Models\Project;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProjectUserController extends Controller
 {
@@ -32,16 +34,22 @@ class ProjectUserController extends Controller
         $removeUser = $project->users;
         $removeUser->push($project->creator);
 
-        $users = User::select('id','name')->whereNotIn('id', $removeUser->pluck('id')->toArray())->get();
+//        $users = User::select('id','name')->whereNotIn('id', $removeUser->pluck('id')->toArray())->get();
+
+        $roles = Role::with(['users' => function($query) use ($removeUser) {
+            $query->with('office')->whereNotIn('id', $removeUser->pluck('id')->toArray());
+        }])->get();
 
         return view('admin.projects.users.create', [
-            'users' => $users,
-            'project' => $project,
+//            'users' => $users,
+            'project' => $project->load('office','creator'),
+            'roles' => $roles,
         ]);
     }
 
     public function store(ProjectUserStoreRequest $request, Project $project)
     {
+        // TODO: This does not trigger AuditLog
         $project->users()->attach($request->user_id, [
             'read' => $request->read ?? 0,
             'update' => $request->update ?? 0,
@@ -49,6 +57,8 @@ class ProjectUserController extends Controller
             'review' => $request->review ?? 0,
             'comment' => $request->comment ?? 0,
         ]);
+
+        Alert::success('Success','Successfully added user access to project');
 
         return redirect()->route('admin.projects.users.index', $project->getRouteKey());
     }
@@ -78,6 +88,8 @@ class ProjectUserController extends Controller
             'review'    => $request->review,
             'comment'   => $request->comment,
         ]);
+
+        Alert::success('Success','Successfully updated user access to project');
 
         return redirect()->route('admin.projects.users.index', [
             'project' => $project,

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\AssignedProjectsDataTable;
 use App\DataTables\ProjectsDataTable;
 use App\DataTables\Scopes\AssignedProjectsDataTableScope;
 use App\DataTables\Scopes\OfficeProjectsDataTableScope;
@@ -341,7 +342,7 @@ class ProjectController extends Controller
             ->render('projects.index', ['pageTitle' => 'Office Projects']);
     }
 
-    public function assigned(ProjectsDataTable $dataTable)
+    public function assigned(AssignedProjectsDataTable $dataTable)
     {
         abort_if(! auth()->user()->can('projects.view_assigned'), 403);
 

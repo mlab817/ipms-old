@@ -5,7 +5,7 @@
 
     <div class="card-body">
         <div class="form-group row">
-            <label for="title" class="col-sm-3">Project Title </label>
+            <label for="title" class="col-sm-3">PAP Title </label>
             <div class="col-sm-9">
                 {{ $project->title }}
             </div>

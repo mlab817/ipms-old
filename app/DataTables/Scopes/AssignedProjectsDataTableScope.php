@@ -14,8 +14,6 @@ class AssignedProjectsDataTableScope implements DataTableScope
      */
     public function apply($query)
     {
-        $user = auth()->user();
-
-        return $query->whereIn('id', $user->assigned_projects);
+        return $query->whereIn('id', auth()->user()->assigned_projects);
     }
 }

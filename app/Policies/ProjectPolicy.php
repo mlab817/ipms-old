@@ -51,6 +51,13 @@ class ProjectPolicy
             return true;
         }
 
+        // TODO: this might throw an error
+        if ($project = $user->assigned_projects()->find($project->id)) {
+            if ($project->pivot->read) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -97,6 +104,13 @@ class ProjectPolicy
             return true;
         }
 
+        // TODO: this might throw an error
+        if ($project = $user->assigned_projects()->find($project->id)) {
+            if ($project->pivot->update) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -130,6 +144,13 @@ class ProjectPolicy
             && $user->id == $project->created_by
         ) {
             return true;
+        }
+
+        // TODO: this might throw an error
+        if ($project = $user->assigned_projects()->find($project->id)) {
+            if ($project->pivot->delete) {
+                return true;
+            }
         }
 
         return false;

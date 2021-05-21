@@ -34,18 +34,44 @@
                                 <input class="form-control" type="text" disabled name="project" value="{{ $project->title }}">
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="office" class="col-form-label col-sm-3">Office</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" disabled name="office" value="{{ $project->office->name ?? 'N/A' }}">
+                            </div>
+                        </div>
+
+
+                        {{--                        <div class="form-group row">--}}
+{{--                            <label for="user_id" class="col-form-label col-sm-3">User</label>--}}
+{{--                            <div class="col-sm-9">--}}
+{{--                                <select class="form-control @error('user_id'){{ 'is-invalid' }}@enderror" name="user_id" id="user_id">--}}
+{{--                                    <option value="" disabled selected>Select user</option>--}}
+{{--                                    @foreach($users as $user)--}}
+{{--                                        <option value="{{ $user->id }}">{{ $user->name }}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                                @error('user_id')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
                         <div class="form-group row">
                             <label for="user_id" class="col-form-label col-sm-3">User</label>
                             <div class="col-sm-9">
                                 <select class="form-control @error('user_id'){{ 'is-invalid' }}@enderror" name="user_id" id="user_id">
                                     <option value="" disabled selected>Select user</option>
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @foreach($roles as $role)
+                                        <optgroup label="{{ strtoupper($role->name) }}"></optgroup>
+                                        @foreach($role->users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->office->name ?? 'N/A' }})</option>
+                                        @endforeach
                                     @endforeach
                                 </select>
                                 @error('user_id')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="permissions" class="col-form-label col-sm-3">Permissions</label>
                             <div class="col-sm-9">

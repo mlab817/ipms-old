@@ -10,7 +10,9 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        @can('projects.view_own')
                         <li class="breadcrumb-item"><a href="{{ route('projects.own') }}">Own Projects</a></li>
+                        @endcan
                         <li class="breadcrumb-item active">Edit PAP</li>
                     </ol>
                 </div><!-- /.col -->
