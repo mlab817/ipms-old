@@ -22,10 +22,11 @@ class ReviewsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('pap_type', function ($project) {
-                return '<span class="badge badge-'. ($project->pap_type->name == 'Project' ? 'success' : 'danger').' ">'.$project->pap_type->name.'</span>';
+                $papType = $project->pap_type->name ?? '';
+                return '<span class="badge badge-'. ($papType == 'Project' ? 'success' : 'danger').' ">'. $papType.'</span>';
             })
             ->addColumn('office', function ($row) {
-                return $row->creator->office->name ?? '';
+                return $row->office->acronym ?? '';
             })
             ->addColumn('reviewed', function($project) {
                 if ($project->review()->exists()) {
@@ -113,6 +114,7 @@ class ReviewsDataTable extends DataTable
     {
         return $this->builder()
                     ->setTableId('reviewsdatatable-table')
+                    ->parameters(['responsive' => true])
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')

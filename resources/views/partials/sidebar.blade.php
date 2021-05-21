@@ -79,7 +79,7 @@
                             </svg>
                             <p>
                                 View My Office PAPs
-                                <span class="badge badge-info right">{{ \App\Models\Project::where('office_id', auth()->user()->office_id)->count() }}</span>
+                                <span class="badge badge-info right">{{ \App\Models\Project::whereNotNull('office_id')->where('office_id', auth()->user()->office_id)->count() }}</span>
                             </p>
                         </a>
                     </li>

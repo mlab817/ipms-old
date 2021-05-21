@@ -26,6 +26,7 @@ class Project extends Model implements Searchable
     use Auditable;
 
     protected $fillable = [
+        'uuid',
         'code', // pipol code
         'title',
         'pap_type_id',
@@ -94,6 +95,7 @@ class Project extends Model implements Searchable
         'ifp',
         'research',
         'ict',
+        'office_id',
     ];
 
     protected $casts = [

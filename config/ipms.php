@@ -50,6 +50,7 @@ return [
         'projects.view_own',
         'projects.update_own',
         'projects.delete_own',
+        'projects.view_assigned',
         'subprojects.create',
         'subprojects.view_index',
         'subprojects.view_office',

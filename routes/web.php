@@ -78,6 +78,7 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
         'approval_levels'       => \App\Http\Controllers\Admin\ApprovalLevelController::class,
         'bases'                 => \App\Http\Controllers\Admin\BasisController::class,
         'cip_types'             => \App\Http\Controllers\Admin\CipTypeController::class,
+        'covid_interventions'   => \App\Http\Controllers\Admin\CovidInterventionController::class,
         'fs_statuses'           => \App\Http\Controllers\Admin\FsStatusController::class,
         'funding_institutions'  => \App\Http\Controllers\Admin\FundingInstitutionController::class,
         'funding_sources'       => \App\Http\Controllers\Admin\FundingSourceController::class,

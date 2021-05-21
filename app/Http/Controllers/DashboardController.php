@@ -41,7 +41,7 @@ class DashboardController extends Controller
             'userCount'     => User::count(),
             'chart'         => $chart,
             'reviews'       => Review::with('user')->latest()->take(5)->get(),
-            'latestProjects'=> Project::with('pap_type','project_status','creator.office')->latest()->take(5)->get(),
+            'latestProjects'=> Project::with('pap_type','project_status','creator.office','office')->latest()->take(5)->get(),
         ]);
     }
 }

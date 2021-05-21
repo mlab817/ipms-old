@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TenPointAgendasTableSeeder::class);
         $this->call(TiersTableSeeder::class);
 //        $this->call(AdminUserTableSeeder::class);
+        $this->call(CovidInterventionsTableSeeder::class);
 
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);

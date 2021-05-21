@@ -209,9 +209,9 @@
                                         {{ $project->creator->office->name ?? '' }}
                                     </td>
                                     <td class="text-center">
-                                        @if(strtolower($project->pap_type->name) == 'project')
+                                        @if(strtolower($project->pap_type->name ?? '') == 'project')
                                         <span class="badge badge-success">Project</span>
-                                        @elseif(strtolower($project->pap_type->name) == 'program')
+                                        @elseif(strtolower($project->pap_type->name ?? '') == 'program')
                                         <span class="badge badge-danger">Program</span>
                                         @endif
                                     </td>

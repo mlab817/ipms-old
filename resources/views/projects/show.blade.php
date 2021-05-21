@@ -16,7 +16,7 @@
                     @can('reviews.view_index')
                     <li class="breadcrumb-item"><a href="{{ route('reviews.index') }}">Review PAPs</a></li>
                     @endcan
-                    <li class="breadcrumb-item active">{{ $project->title }}</li>
+                    <li class="breadcrumb-item active">{{ \Illuminate\Support\Str::limit($project->title, 50) }}</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->

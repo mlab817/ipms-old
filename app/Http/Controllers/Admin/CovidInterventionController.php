@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CovidInterventionsDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\CovidIntervention;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CovidInterventionController extends Controller
 {
@@ -12,9 +15,9 @@ class CovidInterventionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(CovidInterventionsDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.covid_interventions.index');
     }
 
     /**
@@ -24,7 +27,7 @@ class CovidInterventionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.covid_interventions.create');
     }
 
     /**
@@ -35,7 +38,15 @@ class CovidInterventionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $covidIntervention = CovidIntervention::create($request->all());
+
+        Alert::success('Success','Successfully saved item');
+
+        return redirect()->route('admin.covid_interventions.index');
     }
 
     /**
@@ -55,9 +66,9 @@ class CovidInterventionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(CovidIntervention $covidIntervention)
     {
-        //
+        return view('admin.covid_interventions.edit', compact('covidIntervention'));
     }
 
     /**
@@ -67,9 +78,17 @@ class CovidInterventionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, CovidIntervention $covidIntervention)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $covidIntervention->update($request->all());
+
+        Alert::success('Success','Successfully updated item');
+
+        return back();
     }
 
     /**
@@ -78,8 +97,12 @@ class CovidInterventionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CovidIntervention $covidIntervention)
     {
-        //
+        $covidIntervention->delete();
+
+        Alert::success('Success','Successfully deleted item');
+
+        return redirect()->route('admin.covid_interventions.index');
     }
 }
