@@ -50,21 +50,3 @@
     </ul>
 </nav>
 <!-- /.navbar -->
-
-@push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js" integrity="sha512-JZSo0h5TONFYmyLMqp8k4oPhuo6yNk9mHM+FY50aBjpypfofqtEWsAgRDQm94ImLCzSaHeqNvYuD9382CEn2zw==" crossorigin="anonymous"></script>
-    <script>
-        $('input[name=search]').on('keyup', $.debounce(250, function(evt) {
-            let searchTerm = evt.target.value
-            let searchUrl = '{{ route('search') }}'
-
-            if (searchTerm) {
-                // run ajax call
-                $.post(searchUrl, { search: searchTerm, _token: '{{ csrf_token() }}' }, function (data, status) {
-                    console.log(data)
-                    console.log(status)
-                })
-            }
-        }));
-    </script>
-@endpush

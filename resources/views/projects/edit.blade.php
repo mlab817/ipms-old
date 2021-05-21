@@ -53,7 +53,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("General Information") }}</h3>
                             </div>
@@ -63,7 +63,7 @@
                                     <label for="title" class="col-form-label col-sm-3">PAP Title <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                               name="title" placeholder="Project Title"
+                                               name="title" placeholder="PAP Title"
                                                value="{{ old('title', $project->title) }}">
                                         @error('title')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
@@ -217,7 +217,7 @@
                     </div>
 
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Implementing Agencies") }}</h3>
                             </div>
@@ -241,7 +241,93 @@
                     </div>
 
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title">{{ __("Other PAP Information") }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-3 required" for="research">Is it a Research and Development Program/Project? </label>
+                                    <div class="col-sm-9">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="radio" name="research" value="1" @if(old('research', $project->research) == 1) checked @endif>
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="radio" name="research" value="0" @if(old('research', $project->research) == 0) checked @endif>
+                                                No
+                                            </label>
+                                        </div>
+                                        @error('research')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-3 required" for="ict">Is it an ICT Program/Project? </label>
+                                    <div class="col-sm-9">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="radio" name="ict" value="1" @if(old('ict', $project->ict) == 1) checked @endif>
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="radio" name="ict" value="0" @if(old('ict', $project->ict) == 0) checked @endif>
+                                                No
+                                            </label>
+                                        </div>
+                                        @error('ict')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-3 required" for="covid">Is it responsive to COVID-19/New Normal Intervention? </label>
+                                    <div class="col-sm-9">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="radio" name="covid" value="1" @if(old('covid', $project->covid) == 1) checked @endif>
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="radio" name="covid" value="0" @if(old('covid', $project->covid) == 0) checked @endif>
+                                                No
+                                            </label>
+                                        </div>
+                                        @error('covid')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="covid_interventions" class="col-form-label col-sm-3">Included in which of the following document: </label>
+                                    <div class="col-sm-9">
+                                        @foreach($covidInterventions as $option)
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="covid_{{ $option->id }}">
+                                                    <input
+                                                        id="covid_{{ $option->id }}"
+                                                        type="checkbox"
+                                                        value="{{ $option->id }}"
+                                                        class="form-check-input"
+                                                        name="covid_interventions[]"
+                                                        @if(in_array($option->id, old('covid_interventions', $project->covid_interventions()->pluck('id')->toArray() ?? []))) checked @endif>
+                                                    {{ $option->name }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Spatial Coverage") }}</h3>
                             </div>
@@ -288,7 +374,7 @@
 
                     <!-- Implementation Period -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Implementation Period") }}</h3>
                             </div>
@@ -339,7 +425,7 @@
 
                     <!-- Approval Status -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Approval Status") }}</h3>
                             </div>
@@ -406,7 +492,7 @@
 
                     <!--/. Regional Development Investment Program -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">Regional Development Investment Program</h3>
                             </div>
@@ -497,7 +583,7 @@
 
                     <!-- Project Preparation Details -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Project Preparation Details") }}</h3>
                             </div>
@@ -647,7 +733,7 @@
 
                     <!-- Employment Generation -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Employment Generation") }}</h3>
                             </div>
@@ -670,7 +756,7 @@
 
                     <!-- Philippine Development Plan Chapter -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Philippine Development Plan") }}</h3>
                             </div>
@@ -713,7 +799,7 @@
 
                     <!-- Philippine Development Plan Indicators -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Philippine Development Results Matrices (PDP-RM) Indicators") }}</h3>
                             </div>
@@ -788,60 +874,9 @@
                     </div>
                     <!--/. Philippine Development Plan Indicators -->
 
-                    <!-- COVID 19 info -->
-                    <div class="col-md-12">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">{{ __("COVID-19 Information") }}</h3>
-                            </div>
-                            <div class="card-body">
-
-                                <div class="form-group row">
-                                    <label class="col-form-label col-sm-3 required" for="covid">Is it responsive to COVID-19/New Normal Intervention? </label>
-                                    <div class="col-sm-9">
-                                        <div class="form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="radio" name="covid" value="1" @if(old('covid', $project->covid) == 1) checked @endif>
-                                                Yes
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="radio" name="covid" value="0" @if(old('covid', $project->covid) == 0) checked @endif>
-                                                No
-                                            </label>
-                                        </div>
-                                        @error('covid')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="covid_interventions" class="col-form-label col-sm-3">Included in which of the following document: </label>
-                                    <div class="col-sm-9">
-                                        @foreach($covidInterventions as $option)
-                                            <div class="form-check">
-                                                <label class="form-check-label" for="covid_{{ $option->id }}">
-                                                    <input
-                                                        id="covid_{{ $option->id }}"
-                                                        type="checkbox"
-                                                        value="{{ $option->id }}"
-                                                        class="form-check-input"
-                                                        name="covid_interventions[]"
-                                                        @if(in_array($option->id, old('covid_interventions', $project->covid_interventions()->pluck('id')->toArray() ?? []))) checked @endif>
-                                                    {{ $option->name }}
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/. COVID 19 info -->
-
                     <!-- Sustainable Development Goals -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Sustainable Development Goals") }}</h3>
                             </div>
@@ -871,7 +906,7 @@
 
                     <!-- Ten Point Agenda -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Ten Point Agenda") }}</h3>
                             </div>
@@ -902,7 +937,7 @@
 
                     <!-- Financial Information -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Financial Information") }}</h3>
                             </div>
@@ -1016,7 +1051,7 @@
 
                     <!-- Status & Updates -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Status & Updates") }}</h3>
                             </div>
@@ -1026,9 +1061,10 @@
                                             class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-9">
                                         <textarea rows="4" style="resize: none;"
-                                                  class="form-control @error('updates') is-invalid @enderror"
-                                                  id="updates"
-                                                  name="updates">{{ old('updates', $project->updates) }}</textarea>
+                                                class="form-control @error('updates') is-invalid @enderror"
+                                                id="updates"
+                                                name="updates"
+                                                placeholder="For proposed program/project, please indicate the physical status of the program/project in terms of project preparation, approval, funding, etc. If ongoing or completed, please provide information on the delivery of outputs, percentage of completion and financial status/ accomplishment in terms of utilization rate.">{{ old('updates', $project->updates) }}</textarea>
                                         @error('updates')<span
                                             class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
@@ -1052,7 +1088,7 @@
 
                     <!-- Funding Source Breakdown -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Investment Required by Funding Source") }} </h3>
                             </div>
@@ -1177,7 +1213,7 @@
 
                     <!-- Regional Breakdown -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Investment Required by Region") }} </h3>
                             </div>
@@ -1303,7 +1339,7 @@
 
                     <!-- Financial Status -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Financial Status") }}</h3>
                             </div>

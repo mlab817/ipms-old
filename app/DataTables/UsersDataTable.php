@@ -108,6 +108,8 @@ class UsersDataTable extends DataTable
                 ->width('30%'),
             Column::computed('avatar')
                 ->addClass('text-center'),
+            Column::make('activated_at')
+                ->addClass('text-center'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)

@@ -92,6 +92,8 @@ class Project extends Model implements Searchable
         'has_subprojects',
         'covid',
         'ifp',
+        'research',
+        'ict',
     ];
 
     protected $casts = [

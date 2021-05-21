@@ -233,6 +233,10 @@ class ProjectStoreRequest extends FormRequest
 //            'fs_investments.*.y2024'            => 'required|min:0:numeric',
 //            'fs_investments.*.y2025'            => 'required|min:0:numeric',
             'has_subprojects'                   => 'nullable|bool',
+            'ict'                               => 'required|bool',
+            'covid'                             => 'required|bool',
+            'covid_interventions'               => 'nullable',
+            'research'                          => 'required|bool',
         ];
     }
 }

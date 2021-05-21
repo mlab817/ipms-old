@@ -23,18 +23,18 @@
         @endauth
 
         <!-- SidebarSearch Form -->
-        <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+        <form class="form-inline" action="{{ route('search.index') }}" method="GET">
+            <div class="input-group">
+                <input name="search" class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
-                    <button class="btn btn-sidebar">
+                    <button class="btn btn-sidebar" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>
                     </button>
                 </div>
             </div>
-        </div>
+        </form>
 
         <!-- Project Menu -->
         <nav class="mt-2">

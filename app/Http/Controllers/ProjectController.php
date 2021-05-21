@@ -120,8 +120,6 @@ class ProjectController extends Controller
      */
     public function store(ProjectStoreRequest $request)
     {
-        dd($request);
-
         $project = Project::create($request->validated());
 
         $project->bases()->sync($request->bases);

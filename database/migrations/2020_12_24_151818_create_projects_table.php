@@ -17,8 +17,8 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->uuid('uuid')->nullable();
             $table->string('code')->nullable();
-            $table->string('title');
-            $table->string('slug')->nullable();
+            $table->text('title');
+            $table->text('slug')->nullable();
             $table->foreignId('pap_type_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('regular_program')->default(0);
             $table->text('description')->nullable();
