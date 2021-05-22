@@ -51,6 +51,7 @@ return [
         'projects.update_own',
         'projects.delete_own',
         'projects.view_assigned',
+        'projects.import',
         'subprojects.create',
         'subprojects.view_index',
         'subprojects.view_office',
@@ -103,4 +104,5 @@ return [
         'audit_logs.update',
         'audit_logs.delete',
     ],
+    'v1' => env('IPMS_V1_URL', ''),
 ];

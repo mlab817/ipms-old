@@ -81,13 +81,20 @@ class AuditLogsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
-            Column::make('description'),
-            Column::make('auditable_type'),
-            Column::make('auditable_id'),
-            Column::make('user_id'),
-            Column::make('host'),
-            Column::make('created_at'),
+            Column::make('id')
+                ->addClass('text-sm text-center'),
+            Column::make('description')
+                ->addClass('text-sm text-center'),
+            Column::make('auditable_type')
+                ->addClass('text-sm text-center'),
+            Column::make('auditable_id')
+                ->addClass('text-sm text-center'),
+            Column::make('user_id')
+                ->addClass('text-sm text-center'),
+            Column::make('host')
+                ->addClass('text-sm text-center'),
+            Column::make('created_at')
+                ->addClass('text-sm text-center'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

@@ -104,6 +104,10 @@ class ProjectPolicy
             return true;
         }
 
+        if ($user->hasPermissionTo('projects.import')) {
+            return true;
+        }
+
         // TODO: this might throw an error
         if ($project = $user->assigned_projects()->find($project->id)) {
             if ($project->pivot->update) {

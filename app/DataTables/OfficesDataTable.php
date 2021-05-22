@@ -73,6 +73,7 @@ class OfficesDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id'),
             Column::make('name'),
             Column::make('operating_unit'),
             Column::make('acronym'),

@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Project;
 use App\Models\ProjectAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ProjectObserver
 {
@@ -16,82 +17,8 @@ class ProjectObserver
     public function creating(Project $project)
     {
         $project->creator()->associate(auth()->user());
+
         // add office_id to project so users can detect it as office projects
         $project->office_id = auth()->user()->office_id;
-    }
-
-    /**
-     * Handle the Project "created" event.
-     *
-     * @param Project $project
-     * @return void
-     */
-    public function created(Project $project)
-    {
-        $audit              = new ProjectAudit;
-        $audit->project_id  = $project->id;
-        $audit->user_id     = Auth::id();
-        $audit->action      = 'Created';
-        $audit->save();
-    }
-
-    /**
-     * Handle the Project "updated" event.
-     *
-     * @param Project $project
-     * @return void
-     */
-    public function updated(Project $project)
-    {
-        $audit              = new ProjectAudit;
-        $audit->project_id  = $project->id;
-        $audit->user_id     = Auth::id();
-        $audit->action      = $project->wasChanged();
-        $audit->save();
-    }
-
-    /**
-     * Handle the Project "deleted" event.
-     *
-     * @param Project $project
-     * @return void
-     */
-    public function deleted(Project $project)
-    {
-        $audit              = new ProjectAudit;
-        $audit->project_id  = $project->id;
-        $audit->user_id     = Auth::id();
-        $audit->action      = 'Delete';
-        $audit->save();
-    }
-
-    /**
-     * Handle the Project "restored" event.
-     *
-     * @param Project $project
-     * @return void
-     */
-    public function restored(Project $project)
-    {
-        $audit              = new ProjectAudit;
-        $audit->project_id  = $project->id;
-        $audit->user_id     = Auth::id();
-        $audit->action      = 'Restored';
-        $audit->save();
-    }
-
-    /**
-     * Handle the Project "force deleted" event.
-     *
-     * @param Project $project
-     * @return void
-     */
-    public function forceDeleted(Project $project)
-    {
-        $audit              = new ProjectAudit;
-        $audit->project_id  = $project->id;
-        $audit->user_id     = Auth::id();
-        $audit->action      = 'Force Deleted';
-        $audit->save();
     }
 }

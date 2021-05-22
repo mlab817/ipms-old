@@ -25,13 +25,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="dataTables_wrapper dt-bootstrap4">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        {!! $dataTable->table(['class' => 'projects-table table-valign-middle table table-bordered table-hover table-striped dataTable dtr-inline', 'role' => 'grid', 'width' => '100%'], false) !!}
-                                    </div>
-                                </div>
-                            </div>
+                            {!! $dataTable->table(['class' => 'projects-table table-valign-middle table table-bordered table-hover table-striped', 'role' => 'grid', 'width' => '100%'], false) !!}
                         </div>
                         <div class="card-footer">
                             <p class="text-muted text-sm">

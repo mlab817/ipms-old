@@ -40,6 +40,11 @@ class UsersDataTable extends DataTable
             ->addColumn('avatar', function ($user) {
                 return '<img class="img-circle img-bordered-sm" src="'. $user->avatar .'" alt="user" width="50" height="50" />';
             })
+            ->addColumn('activated_at', function ($row) {
+                return $row->activated_at
+                    ? $row->activated_at->diffForHumans(null, null, true)
+                    : '';
+            })
             ->addColumn('action', function ($user) {
                 return '
                     <a href="'. route('admin.users.edit', $user->id).'" class="btn btn-info btn-sm">
@@ -95,6 +100,8 @@ class UsersDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id')
+                ->addClass('text-center'),
             Column::make('name')
                 ->addClass('text-center'),
             Column::make('email')

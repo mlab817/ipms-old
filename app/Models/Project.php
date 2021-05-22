@@ -26,6 +26,7 @@ class Project extends Model implements Searchable
     use Auditable;
 
     protected $fillable = [
+        'ipms_id',
         'uuid',
         'code', // pipol code
         'title',

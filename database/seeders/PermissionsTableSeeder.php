@@ -37,6 +37,8 @@ class PermissionsTableSeeder extends Seeder
 
         Permission::create(['name' => 'projects.view_assigned']);
 
+        Permission::create(['name' => 'projects.import']);
+
         Permission::create(['name' => 'subprojects.create']);
         Permission::create(['name' => 'subprojects.view_index']);
         Permission::create(['name' => 'subprojects.view_office']);

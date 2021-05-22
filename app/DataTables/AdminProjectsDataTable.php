@@ -26,7 +26,7 @@ class AdminProjectsDataTable extends DataTable
                 return $row->office->acronym ?? '';
             })
             ->addColumn('added by', function ($row) {
-                $img =  $row->creator ? '<img src="' . $row->creator->avatar .'" width="40" height="40">' : '';
+                $img =  $row->creator ? '<img src="' . $row->creator->avatar .'" class="img-circle" width="40" height="40">' : '';
                 return $row->creator ? $img . '<br/><span class="text-muted text-sm">' . $row->creator->name ?? '' . '</span>' ?? '' : '';
             })
             ->addColumn('users', function ($row) {
@@ -72,8 +72,11 @@ class AdminProjectsDataTable extends DataTable
                     ->parameters(['responsive' => true])
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(0, 'asc')
+                    ->orderBy(0, 'desc')
                     ->buttons(
+                        Button::make('create')
+                            ->text('Import')
+                            ->action("window.location = '" . route('projects.import.index') ."';"),
                         Button::make('export'),
                         Button::make('print'),
                         Button::make('reset'),
@@ -89,19 +92,23 @@ class AdminProjectsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('title'),
-            Column::make('office'),
+            Column::make('id')
+                ->addClass('text-sm text-center'),
+            Column::make('title')
+                ->addClass('text-sm text-center'),
+            Column::make('office')
+                ->addClass('text-sm text-center'),
             Column::make('added by')
-                ->addClass('text-center'),
+                ->addClass('text-sm text-center'),
             Column::make('users')
-                ->addClass('text-center'),
+                ->addClass('text-sm text-center'),
             Column::make('updated_at')
-                ->addClass('text-center'),
+                ->addClass('text-sm text-center'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
-                ->addClass('text-center'),
+                ->addClass('text-sm text-center'),
         ];
     }
 

@@ -59,6 +59,9 @@ Route::middleware(['auth','password.changed'])->group(function () {
     Route::post('/projects/{project}/review', [\App\Http\Controllers\ProjectController::class,'storeReview'])->name('reviews.store');
     Route::get('/projects/{project}/review/create', [\App\Http\Controllers\ProjectController::class,'review'])->name('reviews.create');
 
+    Route::get('projects/import', [\App\Http\Controllers\ProjectImportController::class,'index'])->name('projects.import.index');
+    Route::post('projects/import', [\App\Http\Controllers\ProjectImportController::class,'import'])->name('projects.import.import');
+
     Route::resource('projects', \App\Http\Controllers\ProjectController::class)->except('index');
     Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
     Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);

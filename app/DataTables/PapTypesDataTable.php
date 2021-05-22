@@ -69,7 +69,7 @@ class PapTypesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-//            Column::make('id'),
+            Column::make('id'),
             Column::make('name'),
             Column::make('description'),
             Column::computed('action')
