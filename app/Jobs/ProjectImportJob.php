@@ -90,7 +90,7 @@ class ProjectImportJob implements ShouldQueue
                 'updates'                   => $data['updates'],
                 'updates_date'              => $data['updates_date'],
                 'gad_id'                    => !in_array($data['gad_id'], Gad::all()->pluck('id')->toArray()) ? null : $data['gad_id'],
-                'has_infra'                 => $data['infrastructure'],
+                'has_infra'                 => $data['trip'],
                 'rdip'                      => $data['rdip'],
                 'rdc_endorsement_required'  => $data['rdc_required'],
                 'rdc_endorsed'              => $data['rdc_endorsed'],
@@ -108,7 +108,7 @@ class ProjectImportJob implements ShouldQueue
                 'pdp_chapter_id'            => !in_array($data['pdp_chapter_id'], PdpChapter::all()->pluck('id')->toArray()) ? null : $data['pdp_chapter_id'],
                 'implementation_mode_id'    => !in_array($data['implementation_mode_id'], ImplementationMode::all()->pluck('id')->toArray()) ? null : $data['implementation_mode_id'],
                 'office_id'                 => !in_array($data['operating_unit_id'], Office::all()->pluck('id')->toArray()) ? null : $data['operating_unit_id'],
-
+                'total_project_cost'        => round(floatval($data['investment_target_total'] ?? 0)),
                 'relations'                 => [
                     'bases'                     => collect($data['bases'])->pluck('id'),
                     'sdgs'                      => collect($data['sustainable_development_goals'])->pluck('id'),
@@ -154,6 +154,8 @@ class ProjectImportJob implements ShouldQueue
                     'y2018' => round(floatval($data['nep_2018'])) ?? 0,
                     'y2019' => round(floatval($data['nep_2019'])) ?? 0,
                     'y2020' => round(floatval($data['nep_2020'])) ?? 0,
+                    'y2021' => round(floatval($data['nep_2021'])) ?? 0,
+                    'y2022' => round(floatval($data['nep_2022'])) ?? 0,
                 ],
 
                 'allocation' => [
@@ -162,6 +164,8 @@ class ProjectImportJob implements ShouldQueue
                     'y2018' => round(floatval($data['gaa_2018'])) ?? 0,
                     'y2019' => round(floatval($data['gaa_2019'])) ?? 0,
                     'y2020' => round(floatval($data['gaa_2020'])) ?? 0,
+                    'y2021' => round(floatval($data['gaa_2021'])) ?? 0,
+                    'y2022' => round(floatval($data['gaa_2022'])) ?? 0,
                 ],
 
                 'disbursement' => [
@@ -170,11 +174,62 @@ class ProjectImportJob implements ShouldQueue
                     'y2018' => round(floatval($data['disbursement_2018'])) ?? 0,
                     'y2019' => round(floatval($data['disbursement_2019'])) ?? 0,
                     'y2020' => round(floatval($data['disbursement_2020'])) ?? 0,
+                    'y2021' => round(floatval($data['disbursement_2021'])) ?? 0,
                 ],
+
+                'region_investments' => !empty($data['region_financials']) ? collect($data['region_financials'])->map(function ($item) {
+                    return [
+                        'region_id' => $item['region_id'],
+                        'y2016' => round(floatval($item['investment_target_2016'])) ?? 0,
+                        'y2017' => round(floatval($item['investment_target_2017'])) ?? 0,
+                        'y2018' => round(floatval($item['investment_target_2018'])) ?? 0,
+                        'y2019' => round(floatval($item['investment_target_2019'])) ?? 0,
+                        'y2020' => round(floatval($item['investment_target_2020'])) ?? 0,
+                        'y2021' => round(floatval($item['investment_target_2021'])) ?? 0,
+                        'y2022' => round(floatval($item['investment_target_2022'])) ?? 0,
+                        'y2023' => round(floatval($item['investment_target_2023'])) ?? 0,
+                    ];
+                }) : collect([]),
+
+                'fs_infrastructures' => !empty($data['funding_source_infrastructures']) ? collect($data['funding_source_infrastructures'])->map(function ($item) {
+                    return [
+                        'fs_id' => $item['funding_source_id'],
+                        'y2016' => round(floatval($item['infrastructure_target_2016'])) ?? 0,
+                        'y2017' => round(floatval($item['infrastructure_target_2017'])) ?? 0,
+                        'y2018' => round(floatval($item['infrastructure_target_2018'])) ?? 0,
+                        'y2019' => round(floatval($item['infrastructure_target_2019'])) ?? 0,
+                        'y2020' => round(floatval($item['infrastructure_target_2020'])) ?? 0,
+                        'y2021' => round(floatval($item['infrastructure_target_2021'])) ?? 0,
+                        'y2022' => round(floatval($item['infrastructure_target_2022'])) ?? 0,
+                        'y2023' => round(floatval($item['infrastructure_target_2023'])) ?? 0,
+                    ];
+                }) : collect([]),
+
+                'fs_investments' => !empty($data['funding_source_financials']) ? collect($data['funding_source_financials'])->map(function ($item) {
+                    return [
+                        'fs_id' => $item['funding_source_id'],
+                        'y2016' => round(floatval($item['investment_target_2016'])) ?? 0,
+                        'y2017' => round(floatval($item['investment_target_2017'])) ?? 0,
+                        'y2018' => round(floatval($item['investment_target_2018'])) ?? 0,
+                        'y2019' => round(floatval($item['investment_target_2019'])) ?? 0,
+                        'y2020' => round(floatval($item['investment_target_2020'])) ?? 0,
+                        'y2021' => round(floatval($item['investment_target_2021'])) ?? 0,
+                        'y2022' => round(floatval($item['investment_target_2022'])) ?? 0,
+                        'y2023' => round(floatval($item['investment_target_2023'])) ?? 0,
+                    ];
+                }) : collect([]),
             ]);
 
             $project->created_by = $this->user->id;
             $project->save();
+
+            $project->audit_logs()->create([
+                'description'  => 'imported',
+                'user_id'      => $this->user->id,
+                'original'     => $project->getOriginal() ?? null,
+                'modified'     => $project->getChanges() ?? null,
+                'host'         => request()->ip() ?? null,
+            ]);
 
             return $project;
         });
@@ -182,9 +237,9 @@ class ProjectImportJob implements ShouldQueue
         $this->user->notify(new ProjectImportSuccessNotification($project));
     }
 
-    public function failed($exception = null)
+    public function failed(\Exception $exception)
     {
         // only send project title
-        $this->user->notify(new ProjectImportFailedNotification($this->id));
+        $this->user->notify(new ProjectImportFailedNotification($this->id, $exception->getMessage()));
     }
 }

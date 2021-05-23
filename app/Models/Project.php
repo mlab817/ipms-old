@@ -93,7 +93,7 @@ class Project extends Model implements Searchable
         // disbursement
         'has_subprojects',
         'covid',
-        'ifp',
+//        'ifp',
         'research',
         'ict',
         'office_id',

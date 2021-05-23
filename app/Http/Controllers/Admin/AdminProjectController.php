@@ -60,8 +60,8 @@ class AdminProjectController extends Controller
         $newOwner = User::find($request->user_id);
 
         // update the project
-        $project->created_by = $newOwner->id;
-        $project->office_id = $newOwner->office_id;
+        $project->created_by    = $newOwner->id;
+//        $project->office_id     = $newOwner->office_id;
         $project->save();
 
         $users = collect([$originalCreator, $newOwner]);

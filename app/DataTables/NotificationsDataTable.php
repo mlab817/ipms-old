@@ -23,10 +23,10 @@ class NotificationsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('sender', function ($row) {
-                return $row->data['sender']['name'];
+                return isset($row->data['sender']) ? $row->data['sender']['name'] : '';
             })
             ->addColumn('message', function ($row) {
-                return $row->data['message'];
+                return $row->data['message'] ?? '';
             })
             ->addColumn('read_at', function ($row) {
                 return $row->read_at ? $row->read_at->diffForHumans(null, null, true) : '';
@@ -35,7 +35,7 @@ class NotificationsDataTable extends DataTable
                 return $row->created_at ? $row->created_at->diffForHumans(null, null, true) : '';
             })
             ->addColumn('action', function ($row) {
-                return $row->read_at ? '' : '
+                return '
                     <a href="'. route('notifications.show', $row) .'" class="btn btn-sm btn-info">Read</a>
                 ';
             });

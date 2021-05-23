@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIfpAndCovidColumnToProjectsTable extends Migration
+class AddCovidColumnToProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddIfpAndCovidColumnToProjectsTable extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->boolean('ifp')->default(0);
+//            $table->boolean('ifp')->default(0);
             $table->boolean('covid')->default(0);
         });
     }
@@ -27,7 +27,7 @@ class AddIfpAndCovidColumnToProjectsTable extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->dropColumn(['ifp','covid']);
+            $table->dropColumn(['covid']);
         });
     }
 }

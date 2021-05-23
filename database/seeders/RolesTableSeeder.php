@@ -61,9 +61,6 @@ class RolesTableSeeder extends Seeder
             'projects.view_office',
             'projects.update_office',
             'projects.delete_office',
-            'projects.view_own',
-            'projects.update_own',
-            'projects.delete_own',
         ]);
 
         $pipFocal = Role::create([
@@ -73,9 +70,6 @@ class RolesTableSeeder extends Seeder
         $pipFocal->givePermissionTo([
             'projects.create',
             'projects.view_office',
-            'projects.view_own',
-            'projects.update_own',
-            'projects.delete_own',
         ]);
 
         $mainReviewer = Role::create([
@@ -87,10 +81,8 @@ class RolesTableSeeder extends Seeder
             'reviews.view_index',
             'reviews.view_office',
             'reviews.view_any',
-            'reviews.update_own',
             'reviews.update_office',
             'reviews.update_any',
-            'reviews.delete_own',
             'reviews.delete_office',
             'reviews.delete_any',
             'projects.view_any',
@@ -106,9 +98,7 @@ class RolesTableSeeder extends Seeder
             'reviews.create',
             'reviews.view_index',
             'reviews.view_office',
-            'reviews.update_own',
             'reviews.update_office',
-            'reviews.delete_own',
             'reviews.delete_office',
             'projects.view_any',
             'projects.update_any',

@@ -13,14 +13,18 @@ class ProjectImportFailedNotification extends Notification
 
     public $id;
 
+    public $errorMessage;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(int $id)
+    public function __construct(int $id, string $errorMessage)
     {
         $this->id = $id;
+
+        $this->errorMessage = $errorMessage;
     }
 
     /**
@@ -43,7 +47,10 @@ class ProjectImportFailedNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'sender'    => config('ipms.system_user'),
+            'subject'   => 'Project Import Failed',
+            'message'   => $this->errorMessage,
+            'actionUrl' => route('projects.import.index'),
         ];
     }
 }

@@ -44,7 +44,10 @@ class ProjectImportSuccessNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'sender'        => config('ipms.system_user'),
+            'subject'       => 'Project Imported',
+            'message'       => 'Successfully imported ' . $this->project->title,
+            'actionUrl'     => $this->project ? route('projects.show', $this->project) : null,
         ];
     }
 }

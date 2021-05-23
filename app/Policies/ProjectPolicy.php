@@ -44,10 +44,7 @@ class ProjectPolicy
             return true;
         }
 
-        // if the user can view own and is the owner
-        if ($user->hasPermissionTo('projects.view_own')
-            && $project->created_by == $user->id
-        ) {
+        if ($project->created_by == $user->id) {
             return true;
         }
 
@@ -99,8 +96,7 @@ class ProjectPolicy
             return true;
         }
 
-        if ($user->hasPermissionTo('projects.update_own')
-            && $user->id == $project->created_by) {
+        if ($user->id == $project->created_by) {
             return true;
         }
 
@@ -144,9 +140,7 @@ class ProjectPolicy
         }
 
         // if user is owner of the project
-        if ($user->hasPermissionTo('projects.delete_own')
-            && $user->id == $project->created_by
-        ) {
+        if ($user->id == $project->created_by) {
             return true;
         }
 
@@ -186,9 +180,7 @@ class ProjectPolicy
         }
 
         // if user is owner of the project
-        if ($user->hasPermissionTo('projects.delete_own')
-            && $user->id == $project->created_by
-        ) {
+        if ($user->id == $project->created_by) {
             return true;
         }
 
@@ -221,9 +213,7 @@ class ProjectPolicy
         }
 
         // if user is owner of the project
-        if ($user->hasPermissionTo('projects.delete_own')
-            && $user->id == $project->created_by
-        ) {
+        if ($user->id == $project->created_by) {
             return true;
         }
 
