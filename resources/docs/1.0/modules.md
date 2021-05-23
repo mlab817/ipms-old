@@ -36,6 +36,19 @@ The Review PAP module allows the IPD to properly assess and categorize PAPs enco
 ![Reviewer Module](/images/screenshots/reviewer/reviews/index.png)
 ![Create Review Module](/images/screenshots/reviewer/reviews/create.png)
 
+To facilitate transfer of data from IPMS version 1 to the new system,
+IPMS v2 has a function Import Project Module shown below. To copy data
+from version 1 to the new version, the user just have to determine and
+input the ID of the project from the old System. Only users with `projects.import`
+permission can access this functionality.
+
+![Import Projects Module](/images/screenshots/projects/import/index.png)
+
+Upon inputting the ID, the `ProjectImportJob` will be triggered and added to the queue. 
+The job will check for a project with the given ID and copy the data into the v2. 
+The user that triggered the import will be the creator for the imported PAP. The user
+will receive a `DatabaseNotification` on whether the import job was successful or not.
+
 ## III. Admin
 
 One of the functionalities strengthened in v2 is the admin capabilities. The v2 adds the ability to manage libraries (those that appear in dropdown and checkboxes) through a user interface. It also adds the ability to create users, roles, and permissions. Audit logs have also been added to track changes made to database entries. Admin can also manage projects by changing their owner and giving restricted access to other users who otherwise have no access to the PAP by default.

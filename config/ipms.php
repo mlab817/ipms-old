@@ -89,10 +89,11 @@ return [
         'audit_logs.view',
         'audit_logs.update',
         'audit_logs.delete',
+        'exports.view_index',
     ],
     'v1' => env('IPMS_V1_URL', ''),
     'system_user'   => [
         'name'      => 'System',
-        'avatar'    => public_path() .'/images/system.png',
+        'avatar'    => config('app.asset_url') .'/images/system.png',
     ],
 ];

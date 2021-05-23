@@ -1,6 +1,12 @@
 <div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">{{ __("General Information") }}</h3>
+
+        @if($project->ipms_id)
+        <div class="card-tools">
+            <a href="{{ config('ipms.v1') .'/api/projects/' . $project->ipms_id }}" target="_blank" class="btn btn-outline-primary">View Data Source</a>
+        </div>
+        @endif
     </div>
 
     <div class="card-body">
@@ -44,14 +50,14 @@
         <div class="form-group row">
             <label for="description" class="col-sm-3">Description </label>
             <div class="col-sm-9">
-                {{ $project->description }}
+                {!! $project->description !!}
             </div>
         </div>
 
         <div class="form-group row">
             <label for="expected_outputs" class="col-sm-3">Expected Outputs </label>
             <div class="col-sm-9">
-                {{ $project->expected_outputs }}
+                {!! $project->expected_outputs !!}
             </div>
         </div>
 
@@ -496,7 +502,7 @@
         <div class="form-group row">
             <label for="updates" class="col-form-label col-sm-3">Updates </label>
             <div class="col-sm-9">
-                {{ $project->updates }}
+                {!! $project->updates !!}
             </div>
         </div>
         <div class="form-group row">

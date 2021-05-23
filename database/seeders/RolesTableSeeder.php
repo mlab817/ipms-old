@@ -49,7 +49,8 @@ class RolesTableSeeder extends Seeder
             'audit_logs.create',
             'audit_logs.view',
             'audit_logs.update',
-            'audit_logs.delete'
+            'audit_logs.delete',
+            'exports.view_index',
         ]);
 
         $mainPipFocal = Role::create([

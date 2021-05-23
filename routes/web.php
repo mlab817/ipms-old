@@ -73,6 +73,13 @@ Route::get('password/change', [\App\Http\Controllers\Auth\PasswordChangeControll
 
 // auth routes with registration disabled
 
+Route::middleware('can:projects.manage')->prefix('/admin')->name('admin.')->group(function() {
+    Route::resource('projects', \App\Http\Controllers\Admin\AdminProjectController::class);
+    Route::resource('projects.users', \App\Http\Controllers\Admin\ProjectUserController::class);
+    Route::post('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwnerPost'])->name('projects.changeOwner.post');
+    Route::get('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwner'])->name('projects.changeOwner.get');
+});
+
 // Admin routes
 Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () {
     Route::get('', \App\Http\Controllers\Admin\AdminController::class)->name('index');
@@ -108,17 +115,24 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
         'ten_point_agendas'     => \App\Http\Controllers\Admin\TenPointAgendaController::class,
         'tiers'                 => \App\Http\Controllers\Admin\TierController::class,
         'users'                 => \App\Http\Controllers\Admin\UserController::class,
-        'projects'              => \App\Http\Controllers\Admin\AdminProjectController::class,
-        'projects.users'        => \App\Http\Controllers\Admin\ProjectUserController::class,
         'teams'                 => \App\Http\Controllers\Admin\TeamController::class,
     ]);
     Route::resource('permissions',\App\Http\Controllers\Admin\PermissionController::class)->except('create','show');
-    Route::post('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwnerPost'])->name('projects.changeOwner.post');
-    Route::get('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwner'])->name('projects.changeOwner.get');
     Route::post('offices/export',[\App\Http\Controllers\Admin\OfficeController::class,'index'])->name('offices.export');
 });
 
 Route::group(['middleware'=>'auth'], function () {
+    Route::middleware('can:exports.view_index')->prefix('/exports')->name('exports.')->group(function() {
+        Route::get('',[\App\Http\Controllers\ExportController::class,'index'])->name('index');
+        Route::get('/fs_infrastructures',[\App\Http\Controllers\ExportController::class,'fs_infrastructures'])->name('fs_infrastructures');
+        Route::get('/fs_investments',[\App\Http\Controllers\ExportController::class,'fs_investments'])->name('fs_investments');
+        Route::get('/region_investments',[\App\Http\Controllers\ExportController::class,'region_investments'])->name('region_investments');
+        Route::get('/regions',[\App\Http\Controllers\ExportController::class,'regions'])->name('regions');
+        Route::get('/ten_point_agendas',[\App\Http\Controllers\ExportController::class,'ten_point_agendas'])->name('ten_point_agendas');
+        Route::get('/sdgs', [\App\Http\Controllers\ExportController::class,'sdgs'])->name('sdgs');
+        Route::get('/projects', [\App\Http\Controllers\ExportController::class,'projects'])->name('projects');
+    });
+
     Route::resource('search', \App\Http\Controllers\SearchController::class);
 });
 

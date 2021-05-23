@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('projects.own') }}">Review PAPs</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('projects.own') }}">Own Projects</a></li>
                         <li class="breadcrumb-item active">Add TRIP</li>
                     </ol>
                 </div><!-- /.col -->
@@ -39,7 +39,7 @@
                 <div class="row">
                     <!-- Infrastructure Sector -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Infrastructure Sector") }}</h3>
                             </div>
@@ -130,7 +130,7 @@
 
                     <!-- Pre-Investment Requirements -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Pre-Investment Requirement") }}</h3>
                             </div>
@@ -305,7 +305,7 @@
 
                     <!-- Funding Source Breakdown -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Infrastructure Cost by Funding Source") }} </h3>
                             </div>
@@ -402,7 +402,7 @@
 
                     <!-- Regional Breakdown -->
                     <div class="col-md-12">
-                        <div class="card card-primary">
+                        <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">{{ __("Infrastructure Cost by Region") }} </h3>
                             </div>
@@ -511,7 +511,7 @@
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="{{ route('projects.own') }}" class="btn">Go Back to List</a>
+                    <a href="{{ route('projects.own') }}" class="btn">Back to List</a>
                 </div>
             </form>
         </div>

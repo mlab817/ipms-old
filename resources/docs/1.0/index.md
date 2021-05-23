@@ -1,5 +1,6 @@
-- ## User Manual
+- ## Getting Started
     - [Introduction](/{{route}}/{{version}}/introduction)
-    - [IPMS System Features](/{{route}}/{{version}}/features)
     - [Getting Started](/{{route}}/{{version}}/getting-started)
-    - [Modules](/{{route}}/{{version}}/modules)
+    - [Overview](/{{route}}/{{version}}/overview)
+- ## Modules
+    - [Encoder](/{{route}}/{{version}}/modules/encoder)

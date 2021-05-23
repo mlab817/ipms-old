@@ -5,13 +5,13 @@
         </svg>
         <span class="badge badge-danger navbar-badge">{{ auth()->user()->unreadNotifications->count() }}</span>
     </a>
-    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+    <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
         <span class="dropdown-header">{{ auth()->user()->unreadNotifications->count() }} Notifications</span>
         <div class="dropdown-divider"></div>
         @foreach(auth()->user()->unreadNotifications as $notification)
         <a href="{{ route('notifications.show', $notification) }}" class="dropdown-item">
             <div class="media">
-                <img src="{{ $notification->data['sender']['avatar'] ?? '' }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                <img src="{{ $notification->data['sender']['avatar'] ?? '' }}" alt="User Avatar" class="mr-3 img-circle" width="35" height="35">
                 <div class="media-body">
                     <h3 class="dropdown-item-title">
                         {{ $notification->data['subject'] ?? '' }}
