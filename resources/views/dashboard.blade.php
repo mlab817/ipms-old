@@ -237,9 +237,9 @@
                         @can('projects.view_own')
                         <a href="{{ route('projects.own') }}" class="btn btn-sm btn-secondary float-right ml-1">View Own PAPs</a>
                         @endcan
-                            @can('reviews.view_office')
-                                <a href="{{ route('projects.office') }}" class="btn btn-sm btn-secondary float-right ml-1">View Office PAPs</a>
-                            @endcan
+                        @can('projects.view_office')
+                            <a href="{{ route('projects.office') }}" class="btn btn-sm btn-secondary float-right ml-1">View Office PAPs</a>
+                        @endcan
                         @can('reviews.view_index')
                         <a href="{{ route('reviews.index') }}" class="btn btn-sm btn-secondary float-right">Review PAPs</a>
                         @endcan
