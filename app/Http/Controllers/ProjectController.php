@@ -263,9 +263,11 @@ class ProjectController extends Controller
         }
 
         if ($project->created_by) {
-            if ($project->created_by !== $request->user()->id) {
+            if ($project->created_by !== auth()->id()) {
                 $creator = User::find($project->created_by);
-                $creator->notify(new ProjectDeletedNotification($project, $request->user, $request->reason));
+                if ($creator) {
+                    $creator->notify(new ProjectDeletedNotification($project, auth()->user(), $request->reason));
+                }
             }
         }
 
