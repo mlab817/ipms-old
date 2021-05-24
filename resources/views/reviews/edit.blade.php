@@ -242,3 +242,14 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        let targetUrl = "{{ route('projects.show', $project) }}";
+        let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=0,height=0,left=-1000,top=-1000`;
+
+        function openPopup() {
+            window.open(targetUrl, "{{ $project->title }}", params);
+        }
+    </script>
+@endpush
