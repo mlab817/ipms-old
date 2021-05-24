@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.audit_logs.index') }}">Audit Logs</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('audit_logs.index') }}">Audit Logs</a></li>
                         <li class="breadcrumb-item active">View Audit Log</li>
                     </ol>
                 </div><!-- /.col -->
