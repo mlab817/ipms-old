@@ -35,7 +35,7 @@ class AuditLogsDataTable extends DataTable
             })
             ->addColumn('action', function ($row) {
                 return '
-                    <a href="'. route('admin.audit_logs.show', $row).'" class="btn btn-sm btn-info">View</a>
+                    <a href="'. route('audit_logs.show', $row).'" class="btn btn-sm btn-info">View</a>
                 ';
             })
             ->rawColumns(['description','action']);

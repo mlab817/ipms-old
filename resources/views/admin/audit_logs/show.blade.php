@@ -67,7 +67,7 @@
                 </table>
             </div>
             <div class="card-footer">
-                <a href="{{ route('admin.audit_logs.index') }}" class="btn">Back to List</a>
+                <a href="{{ route('audit_logs.index') }}" class="btn">Back to List</a>
             </div>
         </div>
     </section>
