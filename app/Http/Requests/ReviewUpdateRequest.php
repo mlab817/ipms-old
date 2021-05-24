@@ -33,6 +33,7 @@ class ReviewUpdateRequest extends FormRequest
             'trip'              => 'required|bool',
             'ifp'               => 'required|bool',
             'readiness_level_id'=> 'required',
+            'pipol_title'       => 'nullable',
             'pipol_code'        => 'nullable',
             'pipol_url'         => 'nullable',
             'pipol_encoded'     => 'nullable|bool',

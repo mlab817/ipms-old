@@ -70,7 +70,12 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="pip" class="col-form-label col-sm-3">PIPOL Status</label>
+                <label for="pip" class="col-form-label col-sm-3">PIPOL Title</label>
+                <div class="col-sm-9">
+                    {{ $review->pipol_title }}
+                </div>
+            </div>
+            <div class="form-group row">
                 <div class="column pl-3">
                     <div class="row">
                         <label for="pipol_encoded" class="form-check-label">
@@ -108,12 +113,12 @@
             </div>
             <div class="form-group row">
                 <label for="pip" class="col-form-label col-sm-3">Comments</label>
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-12">
                     {{ $review->comments }}
                 </div>
             </div>
             <div class="form-group row">
-                <label for="pip" class="col-form-label col-sm-3">Reviewed By</label>
+                <label for="user" class="col-form-label col-sm-3">Reviewed By</label>
                 <div class="col-sm-6">
                     {{ $review->user->name ?? '' }}
                 </div>

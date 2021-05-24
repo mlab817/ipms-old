@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\FundingSource;
 use App\Models\Project;
 use App\Models\Region;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class ProjectCreateService
 {
@@ -12,7 +14,6 @@ class ProjectCreateService
 
     public function create(array $data)
     {
-//        \Log::info(json_encode( $data ));
         $this->project = Project::create($data);
 
         $this->createRelated($data['relations']);

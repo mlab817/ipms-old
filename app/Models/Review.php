@@ -16,12 +16,12 @@ class Review extends Model
 
     protected $guarded = [];
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'uuid';
     }
 
-    public function getRouteKey()
+    public function getRouteKey(): string
     {
         return $this->uuid;
     }

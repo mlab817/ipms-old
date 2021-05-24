@@ -170,6 +170,14 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
+                            <label for="pipol_title" class="col-form-label col-sm-3">PIPOL Title</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="pipol_title" class="form-control @error('pipol_title') is-invalid @enderror" name="pipol_title" value="{{ old('pipol_title', $review->pipol_title) }}" placeholder="Title of the PAP as encoded in the PIPOL">
+                                @error('pipol_title')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="pipol_code" class="col-form-label col-sm-3">PIPOL Code</label>
                             <div class="col-sm-9">
                                 <input type="text" id="pipol_code" class="form-control" name="pipol_code" value="{{ old('pipol_code', $review->pipol_code) }}" placeholder="2020-12345-12345">

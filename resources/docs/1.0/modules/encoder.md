@@ -1,4 +1,4 @@
-# Encoders
+# Encoder
 
 ---
 

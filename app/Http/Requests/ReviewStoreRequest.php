@@ -33,6 +33,7 @@ class ReviewStoreRequest extends FormRequest
             'ifp'               => 'required|bool',
             'readiness_level_id'=> 'required',
             'pipol_code'        => 'nullable',
+            'pipol_title'       => 'nullable',
             'pipol_url'         => 'nullable',
             'pipol_encoded'     => 'nullable|bool',
             'pipol_finalized'   => 'nullable|bool',
