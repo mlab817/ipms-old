@@ -615,7 +615,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($project->region_investments as $ri)
+            @foreach ($project->region_investments->sortBy('region.order') as $ri)
                 <tr>
                     <td class="text-sm text-nowrap">
                         {{ $ri->region->label ?? '' }}

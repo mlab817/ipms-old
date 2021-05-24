@@ -89,6 +89,9 @@ class RolesTableSeeder extends Seeder
             'projects.view_any',
             'projects.update_any',
             'projects.delete_any',
+            'projects.manage',
+            'projects.import',
+            'exports.view_index',
         ]);
 
         $reviewer = Role::create([

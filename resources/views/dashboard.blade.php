@@ -175,6 +175,55 @@
         </div>
         <!-- /.row -->
 
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Progress by Staff</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width: 30px">#</th>
+                        <th>User</th>
+                        <th>Total Projects Added</th>
+                        <th>Total Projects Reviewed</th>
+                        <th>Progress</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php
+                        $i = 1;
+                    @endphp
+                    @forelse($users as $user)
+                        <tr>
+                            <td>{{ $i++ }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->projects_count }}</td>
+                            <td>{{ $user->reviews_count }}</td>
+                            <td>
+                                <div class="progress progress-xs">
+                                    <div class="progress-bar bg-warning" style="width: {{ $user->projects_count > 0 ? round($user->reviews_count / $user->projects_count * 100) : 0 }}%"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-danger">{{ $user->projects_count > 0 ? round($user->reviews_count / $user->projects_count * 100) : 0 }}%</span>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="100%">No users found.</td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <p class="text-sm text-muted">Note: This will only be used during this updating since the reviewers are expected to encode and review their own PAPs.</p>
+            </div>
+        </div>
+
         <div class="row">
 
             <div class="col-lg-6">

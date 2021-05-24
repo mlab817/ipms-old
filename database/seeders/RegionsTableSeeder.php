@@ -26,7 +26,7 @@ class RegionsTableSeeder extends Seeder
             ],
             [
                 'id'            => 2,
-                'name'          => 'Cagayan Valley)',
+                'name'          => 'Cagayan Valley',
                 'slug'          => Str::slug('REGION II (CAGAYAN VALLEY)'),
                 'label'         => 'Region II',
                 'order'         => 4,
@@ -141,14 +141,14 @@ class RegionsTableSeeder extends Seeder
                 'name'          => 'No Breakdown',
                 'slug'          => Str::slug('NO BREAKDOWN'),
                 'label'         => 'NB',
-                'order'         => 17,
+                'order'         => 18,
             ],
             [
                 'id'            => 100,
                 'name'          => 'Not Applicable',
                 'slug'          => Str::slug('Not Applicable'),
                 'label'         => 'N/A',
-                'order'         => 18,
+                'order'         => 19,
             ]
         ];
 

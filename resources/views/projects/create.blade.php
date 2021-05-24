@@ -36,6 +36,12 @@
                 </div>
             @endif
 
+            @can('projects.import')
+            <div class="row p-2 mb-3">
+                <a href="{{ route('projects.import.index') }}" >or Import Project from V1 instead</a>
+            </div>
+            @endcan
+
             <form action="{{ route('projects.store') }}" method="POST" class="form-horizontal">
                 @csrf
                 <div class="row">

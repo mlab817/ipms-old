@@ -272,7 +272,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($project->region_infrastructures as $ri)
+            @foreach ($project->region_infrastructures->sortBy('region.order') as $ri)
                 <tr>
                     <td class="text-sm text-nowrap">
                         {{ $ri->region->label ?? '' }}

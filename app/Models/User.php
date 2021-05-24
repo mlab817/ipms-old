@@ -70,6 +70,16 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class,'user_id','id');
     }
 
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class,'created_by','id');
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class,'user_id','id');
+    }
+
     public function assigned_projects(): BelongsToMany
     {
         return $this->belongsToMany(Project::class,'project_user_permission','user_id','project_id')

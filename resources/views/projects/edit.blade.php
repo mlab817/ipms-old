@@ -1237,14 +1237,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($project->region_investments as $ri)
+                                    @foreach ($project->region_investments->sortBy('region.order') as $ri)
                                         <tr>
-                                            <th class="text-sm">
+                                            <td class="text-sm text-nowrap">
                                                 <input type="hidden"
                                                        name="region_investments[{{$ri->id}}][region_id]"
                                                        value="{{ $ri->region_id }}">
-                                                {{ $ri->region->name }}
-                                            </th>
+                                                {{ $ri->region->label }}
+                                            </td>
                                             <td><input type="text"
                                                        class="region_investments money region_investments_2016 region_investments_{{$ri->region_id}} form-control money text-right"
                                                        name="region_investments[{{$ri->id}}][y2016]"
