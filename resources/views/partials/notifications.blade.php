@@ -8,7 +8,7 @@
     <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
         <span class="dropdown-header">{{ auth()->user()->unreadNotifications->count() }} Notifications</span>
         <div class="dropdown-divider"></div>
-        @foreach(auth()->user()->unreadNotifications as $notification)
+        @foreach(auth()->user()->unreadNotifications->take(5) as $notification)
         <a href="{{ route('notifications.show', $notification) }}" class="dropdown-item">
             <div class="media">
                 <img src="{{ $notification->data['sender']['avatar'] ?? '' }}" alt="User Avatar" class="mr-3 img-circle" width="35" height="35">
