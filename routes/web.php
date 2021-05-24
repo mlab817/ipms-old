@@ -84,7 +84,6 @@ Route::middleware('can:projects.manage')->prefix('/admin')->name('admin.')->grou
 Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () {
     Route::get('', \App\Http\Controllers\Admin\AdminController::class)->name('index');
     Route::resources([
-        'audit_logs'            => \App\Http\Controllers\AuditLogController::class,
         'approval_levels'       => \App\Http\Controllers\Admin\ApprovalLevelController::class,
         'bases'                 => \App\Http\Controllers\Admin\BasisController::class,
         'cip_types'             => \App\Http\Controllers\Admin\CipTypeController::class,
@@ -122,6 +121,7 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
 });
 
 Route::group(['middleware'=>'auth'], function () {
+    Route::resource('audit_logs',\App\Http\Controllers\AuditLogController::class)->only('index','show');
     Route::middleware('can:exports.view_index')->prefix('/exports')->name('exports.')->group(function() {
         Route::get('',[\App\Http\Controllers\ExportController::class,'index'])->name('index');
         Route::get('/fs_infrastructures',[\App\Http\Controllers\ExportController::class,'fs_infrastructures'])->name('fs_infrastructures');

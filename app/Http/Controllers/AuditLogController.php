@@ -15,6 +15,8 @@ class AuditLogController extends Controller
      */
     public function index(AuditLogsDataTable $dataTable)
     {
+        abort_if(! auth()->user()->hasPermissionTo('audit_logs.view_index'));
+
         return $dataTable->render('admin.audit_logs.index', [
             'pageTitle' => 'Audit Logs',
         ]);
@@ -49,6 +51,8 @@ class AuditLogController extends Controller
      */
     public function show(AuditLog $auditLog)
     {
+        abort_if(! auth()->user()->hasPermissionTo('audit_logs.view'));
+
         return view('admin.audit_logs.show', compact('auditLog'))
             ->with([
                 'pageTitle' => 'Audit Log',
