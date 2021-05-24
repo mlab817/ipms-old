@@ -56,11 +56,12 @@ class ReviewController extends Controller
     public function edit(Review $review)
     {
         return view('reviews.edit', [
-            'pageTitle'      => 'Reviewing: ' . $review->project->title,
-            'review'         => $review,
-            'cip_types'      => CipType::all(),
-            'pip_typologies' => PipTypology::all(),
-            'readiness_levels' => ReadinessLevel::all(),
+            'pageTitle'         => 'Reviewing: ' . $review->project->title,
+            'review'            => $review,
+            'cip_types'         => CipType::all(),
+            'pip_typologies'    => PipTypology::all(),
+            'readiness_levels'  => ReadinessLevel::all(),
+            'project'           => $review->project,
         ]);
     }
 

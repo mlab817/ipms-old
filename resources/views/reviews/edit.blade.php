@@ -134,13 +134,13 @@
                             <div class="col-sm-9">
                                 <div class="form-check-inline">
                                     <label for="trip_1" class="form-check-label">
-                                        <input id="ifp_1" type="radio" class="form-check-input" name="ifp" value="1" @if(old('ifp', $project->ifp) == 1) checked @endif>
+                                        <input id="ifp_1" type="radio" class="form-check-input" name="ifp" value="1" @if(old('ifp', $review->ifp) == 1) checked @endif>
                                         Yes
                                     </label>
                                 </div>
                                 <div class="form-check-inline">
                                     <label for="trip_0" class="form-check-label">
-                                        <input id="ifp_0" type="radio" class="form-check-input" name="ifp" value="0" @if(old('ifp', $project->ifp) == 0) checked @endif>
+                                        <input id="ifp_0" type="radio" class="form-check-input" name="ifp" value="0" @if(old('ifp', $review->ifp) == 0) checked @endif>
                                         No
                                     </label>
                                 </div>
