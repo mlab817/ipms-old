@@ -1524,6 +1524,9 @@
                             <label class="col-form-label required">Reason for deletion</label>
                             <textarea class="form-control" rows="4" name="reason" id="reason" placeholder="Reason for deletion (e.g. duplicate)" autofocus required></textarea>
                         </div>
+                        @if(config('ipms.force_delete'))
+                            <p class="text-danger">The system is currently set to permanently delete PAPs. Proceed with caution.</p>
+                        @endif
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>

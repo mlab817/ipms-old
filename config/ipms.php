@@ -16,6 +16,7 @@ return [
     'allow_google_login'    => env('ALLOW_GOOGLE_LOGIN', false),
     'allow_multiple_login'  => env('ALLOW_MULTIPLE_LOGIN', false),
     'ipms_manual_url'       => env('IPMS_MANUAL_URL',''),
+    'force_delete'          => env('IPMS_FORCE_DELETE', false),
     'permissions' => [
         'projects' => [
             'create'        => true,
