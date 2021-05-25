@@ -85,7 +85,7 @@ class PdpIndicatorController extends Controller
                 3 => 'Suboutcome',
                 4 => 'Output',
             ],
-            'pdp_indicators'    => PdpIndicator::whereNull('parent_id')->get(),
+            'pdp_indicators'    => PdpIndicator::all(),
         ]);
     }
 
