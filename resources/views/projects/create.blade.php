@@ -673,7 +673,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="infrastructure_sectors" class="col-sm-3">Other PDP Chapters</label>
+                                    <label for="infrastructure_sectors" class="col-sm-3 required">Other PDP Chapters
+                                        <span class="text-sm text-muted">Please select at least one</span></label>
                                     <div class="col-sm-9">
                                         @foreach($pdp_chapters as $option)
                                             <div class="form-check">
@@ -707,7 +708,7 @@
 
                                 <div id="pdp_indicators_group" class="form-group mt-2">
                                     @foreach ($pdp_indicators as $pi1)
-                                        <div id="pdp_chapter_{{$pi1->id}}" class="pdp_chapters" style="display: none;">
+                                        <div id="pdp_chapter_{{$pi1->id}}" class="pdp_chapters">
                                             <span class="font-weight-bold">{{ $pi1->name }}</span>
                                             @foreach($pi1->children as $pi2)
                                                 <div class="ml-4">
@@ -824,7 +825,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="funding_sources" class="col-form-label col-sm-3">Other Funding Sources</label>
+                                    <label for="funding_sources" class="col-form-label col-sm-3 required">Other Funding Sources</label>
                                     <div class="col-sm-9">
                                         @foreach($funding_sources as $option)
                                             <div class="form-check">

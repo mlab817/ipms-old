@@ -775,7 +775,7 @@
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="pdp_chapter_id" class="col-form-label col-sm-3">Main philippine
-                                        Development Chapter <i class="text-danger fas fa-flag"></i></label>
+                                        Development Chapter </label>
                                     <div class="col-sm-9">
                                         <select id="pdp_chapter_id" name="pdp_chapter_id"
                                                 class="form-control @error('pdp_chapter_id') is-invalid @enderror">
@@ -788,8 +788,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="infrastructure_sectors" class="col-form-label col-sm-3">Other PDP
-                                        Chapters</label>
+                                    <label for="other_pdp_chapters" class="col-form-label col-sm-3 required">Other PDP
+                                        Chapters <span class="text-sm text-muted">Select at least one</span></label>
                                     <div class="col-sm-9">
                                         @foreach($pdp_chapters as $option)
                                             <div class="form-check">
@@ -969,7 +969,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="funding_sources" class="col-form-label col-sm-3">Other Funding
+                                    <label for="funding_sources" class="col-form-label col-sm-3 required">Other Funding
                                         Sources</label>
                                     <div class="col-sm-9">
                                         @foreach($funding_sources as $option)

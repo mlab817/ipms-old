@@ -95,16 +95,15 @@ class ProjectController extends Controller
                 'gads'                      => Gad::all(),
                 'years'                     => config('ipms.editor.years'),
                 'approval_levels'           => ApprovalLevel::all(),
-                'pdp_chapters'              => PdpChapter::all(),
+                'pdp_chapters'              => PdpChapter::orderBy('name')->get(),
                 'sdgs'                      => Sdg::all(),
                 'ten_point_agendas'         => TenPointAgenda::all(),
                 'pdp_indicators'            => PdpIndicator::with('children.children.children')
                                                     ->where('level',1)
-                                                    ->orWhereNull('parent_id')
                                                     ->select('id','name')->get(),
                 'funding_sources'           => FundingSource::all(),
                 'funding_institutions'      => FundingInstitution::all(),
-                'implementation_modes'      =>  ImplementationMode::all(),
+                'implementation_modes'      => ImplementationMode::all(),
                 'tiers'                     => Tier::all(),
                 'preparation_documents'     => PreparationDocument::all(),
                 'fs_statuses'               => FsStatus::all(),
@@ -200,20 +199,19 @@ class ProjectController extends Controller
                 'pap_types'                 => PapType::all(),
                 'bases'                     => Basis::all(),
                 'project_statuses'          => ProjectStatus::all(),
-                'spatial_coverages'         =>  SpatialCoverage::all(),
-                'regions'                   =>  Region::all(),
+                'spatial_coverages'         => SpatialCoverage::all(),
+                'regions'                   => Region::all(),
                 'gads'                      => Gad::all(),
                 'pip_typologies'            => PipTypology::all(),
                 'cip_types'                 => CipType::all(),
                 'years'                     => config('ipms.editor.years'),
                 'approval_levels'           => ApprovalLevel::all(),
                 'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
-                'pdp_chapters'              => PdpChapter::all(),
+                'pdp_chapters'              => PdpChapter::orderBy('name')->get(),
                 'sdgs'                      => Sdg::all(),
                 'ten_point_agendas'         => TenPointAgenda::all(),
                 'pdp_indicators'            => PdpIndicator::with('children.children.children')
                     ->where('level',1)
-                    ->orWhereNull('parent_id')
                     ->select('id','name')->get(),
                 'funding_sources'           => FundingSource::all(),
                 'funding_institutions'      => FundingInstitution::all(),

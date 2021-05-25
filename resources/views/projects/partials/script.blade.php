@@ -1,16 +1,5 @@
 @push('scripts')
     <script>
-        function formatToMoney(value) {
-            console.log('formatToMoney initial value: ', value)
-            if (parseFloat(value) === 0) return 0
-            return value
-                .toString()
-                .replace(/\.00$/,'')
-                .replace(/^0+/,'')
-                .replace(/\D/g, '')
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        }
-
         const htmlElements = {
             pdpIndicatorCheckbox: $('#no_pdp_indicator'),
             pdpChapterId: $('#pdp_chapter_id')
@@ -25,6 +14,53 @@
             // hide PDP indicators
             showSelectedPdpIndicatorsByChapter(evt.target.value)
         })
+
+        function filterPdpIndicators() {
+            let $noPdpIndicator = $('#no_pdp_indicator'),
+                $pdpChapterId = $('#pdp_chapter_id'),
+                $pdpIndicators = $('input.pdp_indicators')
+
+            // if there is no pdp indicator
+            if ($noPdpIndicator.val() === 1) {
+                if (val) {
+                    $pdpIndicators.prop('disabled', true)
+                } else {
+                    $pdpIndicators.prop('disabled', false)
+                }
+            }
+        }
+
+        function togglePdpIndicators(val)
+        {
+            let allPdpIndicators = $('input.pdp_indicators')
+            if (val) {
+                allPdpIndicators.prop('disabled', true)
+            } else {
+                allPdpIndicators.prop('disabled', false)
+            }
+        }
+
+        function showSelectedPdpIndicatorsByChapter(val)
+        {
+            if (val) {
+                // $('.pdp_chapters').hide()
+                $('.pdp_indicators').prop('checked', false)
+                // $("div#pdp_chapter_" + val).show()
+            }
+        }
+    </script>
+
+    <script>
+        function formatToMoney(value) {
+            console.log('formatToMoney initial value: ', value)
+            if (parseFloat(value) === 0) return 0
+            return value
+                .toString()
+                .replace(/\.00$/,'')
+                .replace(/^0+/,'')
+                .replace(/\D/g, '')
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        }
 
         $('input.money').keyup(function (evt) {
             if (event.which >= 37 && event.which <= 40) return
@@ -76,56 +112,6 @@
         console.log(listenersForSum)
 
         const $doc = $(document)
-
-        // function initializeListeners() {
-        //     listenersForSum.forEach(listener => {
-        //         $doc.on('keyup blur', '.' + listener, function() {
-        //             sumRow(listener)
-        //         })
-        //     })
-        //     console.log('initialized')
-        // }
-
-        // function initializeSelect2() {
-        //     $('select').select2({
-        //         theme: 'bootstrap4'
-        //     })
-        // }
-
-        function filterPdpIndicators() {
-            let $noPdpIndicator = $('#no_pdp_indicator'),
-                $pdpChapterId = $('#pdp_chapter_id'),
-                $pdpIndicators = $('input.pdp_indicators')
-
-            // if there is no pdp indicator
-            if ($noPdpIndicator.val() === 1) {
-                if (val) {
-                    $pdpIndicators.prop('disabled', true)
-                } else {
-                    $pdpIndicators.prop('disabled', false)
-                }
-            }
-        }
-
-        function togglePdpIndicators(val)
-        {
-            let allPdpIndicators = $('input.pdp_indicators')
-            if (val) {
-                allPdpIndicators.prop('disabled', true)
-            } else {
-                allPdpIndicators.prop('disabled', false)
-            }
-        }
-
-        function showSelectedPdpIndicatorsByChapter(val)
-        {
-            if (val) {
-                $('.pdp_chapters').hide()
-                $('.pdp_indicators').prop('checked', false)
-                $("div#pdp_chapter_" + val).show()
-            }
-        }
-
 
         function calculateSum(items) {
             console.log('calculating sum of ', items)
