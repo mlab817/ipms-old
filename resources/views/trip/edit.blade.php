@@ -22,6 +22,10 @@
 @section('content')
     <section class="content">
         <div class="container-fluid">
+            <div class="callout callout-info">
+                {{ $project->title }}
+            </div>
+
             @if($errors->any())
                 <div class="callout callout-danger">
                     <h5><i class="fas fa-info"></i> Error:</h5>
@@ -47,8 +51,8 @@
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="infrastructure_sectors"
-                                           class="col-form-label col-sm-3 @error('infrastructure_sectors') text-danger @enderror">Infrastructure
-                                        Sectors <i class="text-danger fas fa-flag"></i></label>
+                                           class="col-form-label col-sm-3 required @error('infrastructure_sectors') text-danger @enderror">Infrastructure
+                                        Sectors </label>
                                     <div class="col-sm-9">
                                         @foreach($infrastructure_sectors as $option)
                                             <div class="form-check">
@@ -115,7 +119,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="risk" class="col-form-label col-sm-3">Implementation Risk &amp; Mitigation Strategy <i
+                                    <label for="risk" class="col-form-label col-sm-3 required">Implementation Risk &amp; Mitigation Strategy <i
                                             class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-9">
                                         <textarea rows="4" style="resize: none;"
@@ -204,7 +208,7 @@
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control text-right"
-                                                       id="right_of_way_total">
+                                                       id="right_of_way_total" readonly>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -286,7 +290,7 @@
                                             </td>
                                             <td>
                                                 <input type="text" class="money form-control text-right"
-                                                       id="resettlement_action_plan_total">
+                                                       id="resettlement_action_plan_total" readonly>
                                             </td>
                                         </tr>
                                         </tbody>

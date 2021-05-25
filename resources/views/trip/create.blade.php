@@ -22,6 +22,10 @@
 @section('content')
     <section class="content">
         <div class="container-fluid">
+            <div class="callout callout-info">
+                {{ $project->title }}
+            </div>
+
             @if($errors->any())
                 <div class="callout callout-danger">
                     <h5><i class="fas fa-info"></i> Error:</h5>

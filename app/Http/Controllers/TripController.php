@@ -77,8 +77,22 @@ class TripController extends Controller
         $project->infrastructure_sectors()->sync($request->infrastructure_sectors);
         $project->prerequisites()->sync($request->prerequisites);
 
-        $project->region_infrastructures()->createMany($request->region_infrastructures);
-        $project->fs_infrastructures()->createMany($request->fs_infrastructures);
+        if ($request->has('region_infrastructures')) {
+            foreach ($request->region_infrastructures as $entry) {
+                $project->region_infrastructures()->updateOrCreate([
+                    'region_id' => $entry['region_id']
+                ], $entry);
+            }
+        }
+
+//        $project->region_infrastructures()->createMany($request->region_infrastructures);
+        if ($request->has('fs_infrastructures')) {
+            foreach ($request->fs_infrastructures as $entry) {
+                $project->fs_infrastructures()->updateOrCreate([
+                    'fs_id' => $entry['fs_id']
+                ], $entry);
+            }
+        }
 
         Alert::success('Success', 'Successfully added TRIP information');
 
@@ -103,17 +117,19 @@ class TripController extends Controller
 //        dd($request->region_infrastructures);
 
         foreach ($request->region_infrastructures as $item) {
-            $itemToUpdate = RegionInfrastructure::where('project_id', $project->id)
-                ->where('region_id', $item['region_id'])
-                ->first();
-            $itemToUpdate->update($item);
+            foreach ($request->region_infrastructures as $entry) {
+                $project->region_infrastructures()->updateOrCreate([
+                    'region_id' => $entry['region_id']
+                ], $entry);
+            }
         }
 
         foreach ($request->fs_infrastructures as $item) {
-            $itemToUpdate = FsInfrastructure::where('project_id', $project->id)
-                ->where('fs_id', $item['fs_id'])
-                ->first();
-            $itemToUpdate->update($item);
+            foreach ($request->fs_infrastructures as $entry) {
+                $project->fs_infrastructures()->updateOrCreate([
+                    'fs_id' => $entry['fs_id']
+                ], $entry);
+            }
         }
 
         $project->prerequisites()->sync($request->prerequisites);

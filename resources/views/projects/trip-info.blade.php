@@ -225,23 +225,23 @@
             <tfoot>
             <tr>
                 <th>Total</th>
-                <th class="text-right">{{ number_format($project->fs_investments->sum('y2016')) }}</th>
-                <th class="text-right">{{ number_format($project->fs_investments->sum('y2017')) }}</th>
-                <th class="text-right">{{ number_format($project->fs_investments->sum('y2018')) }}</th>
-                <th class="text-right">{{ number_format($project->fs_investments->sum('y2019')) }}</th>
-                <th class="text-right">{{ number_format($project->fs_investments->sum('y2020')) }}</th>
-                <th class="text-right">{{ number_format($project->fs_investments->sum('y2021')) }}</th>
-                <th class="text-right">{{ number_format($project->fs_investments->sum('y2022')) }}</th>
-                <th class="text-right">{{ number_format($project->fs_investments->sum('y2023')) }}</th>
+                <th class="text-right">{{ number_format($project->fs_infrastructures->sum('y2016')) }}</th>
+                <th class="text-right">{{ number_format($project->fs_infrastructures->sum('y2017')) }}</th>
+                <th class="text-right">{{ number_format($project->fs_infrastructures->sum('y2018')) }}</th>
+                <th class="text-right">{{ number_format($project->fs_infrastructures->sum('y2019')) }}</th>
+                <th class="text-right">{{ number_format($project->fs_infrastructures->sum('y2020')) }}</th>
+                <th class="text-right">{{ number_format($project->fs_infrastructures->sum('y2021')) }}</th>
+                <th class="text-right">{{ number_format($project->fs_infrastructures->sum('y2022')) }}</th>
+                <th class="text-right">{{ number_format($project->fs_infrastructures->sum('y2023')) }}</th>
                 <th class="text-right">{{ number_format(
-                        $project->fs_investments->sum('y2016')
-                        + $project->fs_investments->sum('y2017')
-                        + $project->fs_investments->sum('y2018')
-                        + $project->fs_investments->sum('y2019')
-                        + $project->fs_investments->sum('y2020')
-                        + $project->fs_investments->sum('y2021')
-                        + $project->fs_investments->sum('y2022')
-                        + $project->fs_investments->sum('y2023')
+                        $project->fs_infrastructures->sum('y2016')
+                        + $project->fs_infrastructures->sum('y2017')
+                        + $project->fs_infrastructures->sum('y2018')
+                        + $project->fs_infrastructures->sum('y2019')
+                        + $project->fs_infrastructures->sum('y2020')
+                        + $project->fs_infrastructures->sum('y2021')
+                        + $project->fs_infrastructures->sum('y2022')
+                        + $project->fs_infrastructures->sum('y2023')
                         ) }}</th>
             </tr>
             </tfoot>
@@ -303,23 +303,23 @@
             <tfoot>
             <tr>
                 <th>Total</th>
-                <th class="text-right">{{ number_format($project->region_investments->sum('y2016')) }}</th>
-                <th class="text-right">{{ number_format($project->region_investments->sum('y2017')) }}</th>
-                <th class="text-right">{{ number_format($project->region_investments->sum('y2018')) }}</th>
-                <th class="text-right">{{ number_format($project->region_investments->sum('y2019')) }}</th>
-                <th class="text-right">{{ number_format($project->region_investments->sum('y2020')) }}</th>
-                <th class="text-right">{{ number_format($project->region_investments->sum('y2021')) }}</th>
-                <th class="text-right">{{ number_format($project->region_investments->sum('y2022')) }}</th>
-                <th class="text-right">{{ number_format($project->region_investments->sum('y2023')) }}</th>
+                <th class="text-right">{{ number_format($project->region_infrastructures->sum('y2016')) }}</th>
+                <th class="text-right">{{ number_format($project->region_infrastructures->sum('y2017')) }}</th>
+                <th class="text-right">{{ number_format($project->region_infrastructures->sum('y2018')) }}</th>
+                <th class="text-right">{{ number_format($project->region_infrastructures->sum('y2019')) }}</th>
+                <th class="text-right">{{ number_format($project->region_infrastructures->sum('y2020')) }}</th>
+                <th class="text-right">{{ number_format($project->region_infrastructures->sum('y2021')) }}</th>
+                <th class="text-right">{{ number_format($project->region_infrastructures->sum('y2022')) }}</th>
+                <th class="text-right">{{ number_format($project->region_infrastructures->sum('y2023')) }}</th>
                 <th class="text-right">{{ number_format(
-                        $project->region_investments->sum('y2016')
-                        + $project->region_investments->sum('y2017')
-                        + $project->region_investments->sum('y2018')
-                        + $project->region_investments->sum('y2019')
-                        + $project->region_investments->sum('y2020')
-                        + $project->region_investments->sum('y2021')
-                        + $project->region_investments->sum('y2022')
-                        + $project->region_investments->sum('y2023')
+                        $project->region_infrastructures->sum('y2016')
+                        + $project->region_infrastructures->sum('y2017')
+                        + $project->region_infrastructures->sum('y2018')
+                        + $project->region_infrastructures->sum('y2019')
+                        + $project->region_infrastructures->sum('y2020')
+                        + $project->region_infrastructures->sum('y2021')
+                        + $project->region_infrastructures->sum('y2022')
+                        + $project->region_infrastructures->sum('y2023')
                         ) }}</th>
             </tr>
             </tfoot>
