@@ -379,13 +379,11 @@
     </div>
     <!-- TODO: PDP Indicators as Vue component -->
     <div class="card-body">
+        @if($project->no_pdp_indicator)
         <div class="form-check">
-            <label for="no_pdp_indicator" class="form-check-label">
-                <input type="checkbox" value="1" id="no_pdp_indicator" name="no_pdp_indicator"
-                       class="form-check-input">
-                No PDP Indicator applicable
-            </label>
+            <span class="badge badge-danger">No PDP Indicator applicable</span>
         </div>
+        @endif
 
         <div id="pdp_indicators_group" class="form-group mt-2">
             @foreach($project->pdp_indicators as $pi)

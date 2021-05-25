@@ -25,6 +25,7 @@ use App\Models\FundingSource;
 use App\Models\Gad;
 use App\Models\ImplementationMode;
 use App\Models\InfrastructureSector;
+use App\Models\Office;
 use App\Models\OperatingUnit;
 use App\Models\PapType;
 use App\Models\PdpChapter;
@@ -85,6 +86,7 @@ class ProjectController extends Controller
         return view('projects.create', compact('project'))
             ->with('pageTitle', 'Add New Project')
             ->with([
+                'offices'                   => Office::all(),
                 'pap_types'                 => PapType::all(),
                 'bases'                     => Basis::all(),
                 'project_statuses'          => ProjectStatus::all(),
@@ -120,7 +122,7 @@ class ProjectController extends Controller
      */
     public function store(ProjectStoreRequest $request)
     {
-        $project = Project::create($request->validated());
+        $project = Project::create($request->all());
 
         $project->bases()->sync($request->bases);
         $project->regions()->sync($request->regions);
@@ -194,6 +196,7 @@ class ProjectController extends Controller
         return view('projects.edit', compact('project'))
             ->with('pageTitle', 'Edit Project')
             ->with([
+                'offices'                   => Office::all(),
                 'pap_types'                 => PapType::all(),
                 'bases'                     => Basis::all(),
                 'project_statuses'          => ProjectStatus::all(),

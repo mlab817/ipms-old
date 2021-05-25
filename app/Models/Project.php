@@ -27,6 +27,7 @@ class Project extends Model implements Searchable
 
     protected $fillable = [
         'ipms_id',
+        'office_id',
         'uuid',
         'code', // pipol code
         'title',
@@ -79,7 +80,7 @@ class Project extends Model implements Searchable
         'employment_generated',
         // costs
         'funding_source_id',
-        // funding_institution
+        'funding_institution_id',
         'implementation_mode_id',
         'other_fs',
         'project_status_id',

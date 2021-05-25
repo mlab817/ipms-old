@@ -198,7 +198,7 @@
                                     <label for="project_status_id" class="col-form-label col-sm-3">Project Status <i
                                             class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-9">
-                                        <select class="form-control @error('pap_type_id') is-invalid @enderror"
+                                        <select class="form-control @error('project_status_id') is-invalid @enderror"
                                                 name="project_status_id">
                                             <option value="" selected disabled>Select Project Status</option>
                                             @foreach($project_statuses as $option)
@@ -973,6 +973,7 @@
                                             </div>
                                         @endforeach
                                         @error('funding_sources')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                        <p class="text-sm text-muted">Include the main funding source selected.</p>
                                     </div>
                                 </div>
                                 <div class="form-group row">

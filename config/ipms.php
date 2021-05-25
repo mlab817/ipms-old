@@ -40,7 +40,7 @@ return [
             '2025',
         ],
     ],
-    // Use to seed permissions
+    // Used to seed permissions
     'allPermissions' => [
         'projects.create',
         'projects.view_any',

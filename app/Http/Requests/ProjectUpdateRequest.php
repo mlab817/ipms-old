@@ -102,6 +102,7 @@ class ProjectUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'office_id'                         => 'required',
 //            'code'                              => 'nullable|string',
             'title'                             => 'required|max:255',
             'pap_type_id'                       => 'required|exists:pap_types,id',
@@ -156,10 +157,10 @@ class ProjectUpdateRequest extends FormRequest
             'updates_date'                      => 'required|date',
             'uacs_code'                         => 'nullable',
             'tier_id'                           => 'required|exists:tiers,id',
-            'funding_sources'                   => 'nullable|array',
-            'funding_institutions'              => 'exclude_unless:funding_source_id,2|array',
-            'implementing_agencies'             => 'sometimes|array',
-            'pdp_chapters'                      => 'nullable|array',
+            'funding_sources'                   => 'required',
+            'funding_institution_id'            => 'exclude_unless:funding_source_id,2|array',
+            'operating_units'                   => 'required',
+            'pdp_chapters'                      => 'required',
             'prerequisites'                     => 'nullable|array',
             'sdgs'                              => 'nullable|array',
             'pdp_indicators'                    => 'nullable|array',
@@ -238,6 +239,15 @@ class ProjectUpdateRequest extends FormRequest
             'covid'                             => 'required|bool',
             'covid_interventions'               => 'nullable',
             'research'                          => 'required|bool',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'funding_sources.required'      => 'Please select at least one. Please re-select the main funding source.',
+            'pdp_chapters.required'         => 'Please select at least one. Please re-select the main pdp chapter.',
+            'operating_units.required'      => 'Please select at least one. Please re-select the office this PAP belongs to.',
         ];
     }
 }
