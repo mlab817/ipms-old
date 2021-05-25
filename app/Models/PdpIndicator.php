@@ -24,6 +24,7 @@ class PdpIndicator extends Model
         'slug',
         'description',
         'level',
+        'parent_id',
     ];
 
     public function projects(): BelongsToMany
