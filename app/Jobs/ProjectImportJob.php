@@ -111,6 +111,7 @@ class ProjectImportJob implements ShouldQueue
                     'implementation_mode_id'    => !in_array($data['implementation_mode_id'], ImplementationMode::all()->pluck('id')->toArray()) ? null : $data['implementation_mode_id'],
                     'office_id'                 => !in_array($data['operating_unit_id'], Office::all()->pluck('id')->toArray()) ? null : $data['operating_unit_id'],
                     'total_project_cost'        => round(floatval($data['investment_target_total'] ?? 0)),
+                    'trip_info'                 => $data['trip'],
                     'relations'                 => [
                         'bases'                     => collect($data['bases'])->pluck('id'),
                         'sdgs'                      => collect($data['sustainable_development_goals'])->pluck('id'),

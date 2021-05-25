@@ -30,6 +30,8 @@ class TripController extends Controller
 
     public function create(Project $project)
     {
+        abort_if(! auth()->user()->can('update', $project), 403);
+        
         $project->load('infrastructure_sectors','infrastructure_subsectors','fs_infrastructures','region_infrastructures','right_of_way','resettlement_action_plan');
 
         return view('trip.create', [
@@ -49,7 +51,7 @@ class TripController extends Controller
 
     public function edit(Project $project)
     {
-        abort_unless(auth()->user()->can('projects.update'), 403);
+        abort_if(! auth()->user()->can('update', $project), 403);
 
         $project->load('infrastructure_sectors','infrastructure_subsectors','fs_infrastructures','region_infrastructures','right_of_way','resettlement_action_plan');
 

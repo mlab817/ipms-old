@@ -19,9 +19,9 @@ as other information such as PIPOL Title, PIPOL URL, and PIPOL Code.
 ## 2. Import Projects Module
 
 To facilitate transfer of data from IPMS version 1 to the new system,
-IPMS v2 has a function Import Project Module shown below. To copy data
-from version 1 to the new version, the user just have to determine and
-input the ID of the project from the old System. Only users with `projects.import`
+IPMS v2 has a function Import Project Module shown below. This can be accessed from the `Create New PAP Module`.
+To copy data from version 1 to the new version, the user just have to determine and input the ID of the project 
+from the old System. Only users with `projects.import`
 permission can access this functionality.
 
 ![Import Projects Module](/images/screenshots/projects/import/index.png)

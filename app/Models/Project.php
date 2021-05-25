@@ -98,6 +98,7 @@ class Project extends Model implements Searchable
         'research',
         'ict',
         'office_id',
+        'trip_info',
     ];
 
     protected $casts = [

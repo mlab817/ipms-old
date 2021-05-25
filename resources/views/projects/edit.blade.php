@@ -60,6 +60,18 @@
 
                             <div class="card-body">
                                 <div class="form-group row">
+                                    <label for="office_id" class="col-form-label col-sm-3 required">Office </label>
+                                    <div class="col-sm-9">
+                                        <select type="text" class="form-control select2 @error('office_id') is-invalid @enderror" id="office_id" name="office_id">
+                                            <option value="" disabled selected>Select Office</option>
+                                            @foreach($offices as $option)
+                                                <option value="{{ $option->id }}" @if(old('office_id', $project->office_id) == $option->id) selected @endif>{{ $option->acronym }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('office_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="title" class="col-form-label col-sm-3">PAP Title <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control @error('title') is-invalid @enderror"
@@ -881,22 +893,22 @@
                                 <h3 class="card-title">{{ __("Sustainable Development Goals") }}</h3>
                             </div>
                             <div class="card-body">
-                                <div class="form-group row">
-                                    <label for="sdgs" class="col-form-label col-sm-3">Sustainable Development Goals <i
-                                            class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-9">
-                                        @foreach($sdgs as $option)
+                                <div class="row">
+                                    <p class="text-sm text-muted">Select all that applies</p>
+                                </div>
+                                <div class="row">
+                                    @foreach($sdgs as $option)
+                                        <div class="col-sm-6">
                                             <div class="form-check">
                                                 <label class="form-check-label" for="sdg_{{ $option->id }}">
-                                                    <input id="sdg_{{ $option->id }}" type="checkbox"
-                                                           value="{{ $option->id }}" class="form-check-input"
-                                                           name="sdgs[]" @if(in_array($option->id, old('sdgs', $project->sdgs->pluck('id')->toArray() ?? []))) checked @endif>
+                                                    <input id="sdg_{{ $option->id }}" type="checkbox" value="{{ $option->id }}" class="form-check-input" name="sdgs[]"
+                                                           @if(in_array($option->id, old('sdgs', $project->sdgs->pluck('id')->toArray() ?? []))) checked @endif>
                                                     {{ $option->name }}
                                                     <p class="text-xs">{{ $option->description }}</p>
                                                 </label>
                                             </div>
-                                        @endforeach
-                                    </div>
+                                        </div>
+                                    @endforeach
                                     @error('sdgs')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                 </div>
                             </div>
@@ -911,24 +923,23 @@
                                 <h3 class="card-title">{{ __("Ten Point Agenda") }}</h3>
                             </div>
                             <div class="card-body">
-                                <div class="form-group row">
-                                    <label for="ten_point_agendas" class="col-form-label col-sm-3">Ten Point Agenda <i
-                                            class="text-danger fas fa-flag"></i></label>
-                                    <div class="col-sm-9">
-                                        @foreach($ten_point_agendas as $option)
+                                <div class="row">
+                                    <p class="text-sm text-muted">Select all that applies</p>
+                                </div>
+                                <div class="row">
+                                    @foreach($ten_point_agendas as $option)
+                                        <div class="col-sm-6">
                                             <div class="form-check">
                                                 <label class="form-check-label" for="tpa_{{ $option->id }}">
-                                                    <input id="tpa_{{ $option->id }}" type="checkbox"
-                                                           value="{{ $option->id }}" class="form-check-input"
-                                                           name="ten_point_agendas[]"
+                                                    <input id="tpa_{{ $option->id }}" type="checkbox" value="{{ $option->id }}" class="form-check-input" name="ten_point_agendas[]"
                                                            @if(in_array($option->id, old('ten_point_agendas', $project->ten_point_agendas->pluck('id')->toArray() ?? []))) checked @endif>
                                                     {{ $option->name }}
                                                     <p class="text-xs">{{ $option->description }}</p>
                                                 </label>
                                             </div>
-                                        @endforeach
-                                        @error('ten_point_agendas')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                                    </div>
+                                        </div>
+                                    @endforeach
+                                    @error('ten_point_agendas')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                 </div>
                             </div>
                         </div>

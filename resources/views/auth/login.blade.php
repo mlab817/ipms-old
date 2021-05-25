@@ -39,6 +39,7 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+
                     <div class="input-group mb-3">
                         <input type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                         <div class="input-group-append">
