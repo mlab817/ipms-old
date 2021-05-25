@@ -46,7 +46,7 @@
 
                         <div class="form-group">
                             <label for="parent_id">Parent</label>
-                            <select class="form-control @error('label') is-invalid @enderror" name="parent_id" id="parent_id">
+                            <select class="form-control select2 @error('label') is-invalid @enderror" name="parent_id" id="parent_id">
                                 <option value="" selected disabled>Select Parent Indicator</option>
                                 @foreach($pdp_indicators as $option)
                                     <option value="{{ $option->id }}" {{ old('parent_id', $pdpIndicator->parent_id) == $option->id ? 'selected' : '' }}>{{ $option->name }}</option>
