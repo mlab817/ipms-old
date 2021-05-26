@@ -29,6 +29,6 @@ class UserUpdatedEvent implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        // TODO: Implement broadcastOn() method.
+        return new PrivateChannel('user.' . $this->user->id);
     }
 }

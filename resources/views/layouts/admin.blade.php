@@ -52,6 +52,7 @@
 
     @yield('modal')
 
+    <script src="{{ mix('js/app.js') }}"></script>
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
@@ -84,18 +85,12 @@
     @stack('scripts')
     <!--/. Scripts -->
 
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script type="text/javascript">
-        <!-- Pusher -->
-        Pusher.logToConsole = true;
-
-        let pusher = new Pusher('{{ config('services.pusher.key') }}', {
-            cluster: '{{ config('services.pusher.cluster') }}',
-        });
-
-        let channel = pusher.subscribe('my-channel');
-        channel.bind('my-event', function(data) {
-            alert(JSON.stringify(data));
+        $(document).ready(function () {
+            window.Echo.private('App.Models.User.{{ auth()->id() }}')
+                .notification(function (notif) {
+                    console.log(notif);
+                });
         });
     </script>
 
