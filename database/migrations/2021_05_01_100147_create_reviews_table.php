@@ -24,7 +24,7 @@ class CreateReviewsTable extends Migration
             $table->boolean('trip')->default(0);
             $table->foreignId('readiness_level_id')->nullable()->constrained()->nullOnDelete();
             $table->string('pipol_code')->nullable();
-            $table->string('pipol_url')->nullable();
+            $table->text('pipol_url')->nullable();
             $table->boolean('pipol_encoded')->default(0);
             $table->boolean('pipol_finalized')->default(0);
             $table->boolean('pipol_endorsed')->default(0);
