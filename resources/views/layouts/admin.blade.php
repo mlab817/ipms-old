@@ -84,6 +84,21 @@
     @stack('scripts')
     <!--/. Scripts -->
 
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script type="text/javascript">
+        <!-- Pusher -->
+        Pusher.logToConsole = true;
+
+        let pusher = new Pusher('{{ config('services.pusher.key') }}', {
+            cluster: '{{ config('services.pusher.cluster') }}',
+        });
+
+        let channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            alert(JSON.stringify(data));
+        });
+    </script>
+
     <script type="text/javascript">
         function checkUserLogin() {
             $.ajax({

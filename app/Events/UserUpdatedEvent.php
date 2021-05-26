@@ -11,12 +11,12 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserUpdatedEvent
+class UserUpdatedEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $user;
-    
+
     /**
      * Create a new event instance.
      *
@@ -25,5 +25,10 @@ class UserUpdatedEvent
     public function __construct(User $user)
     {
         $this->user = $user;
+    }
+
+    public function broadcastOn()
+    {
+        // TODO: Implement broadcastOn() method.
     }
 }
