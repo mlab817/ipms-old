@@ -36,6 +36,16 @@ class Review extends Model
         return $this->belongsTo(ReadinessLevel::class);
     }
 
+    public function pip_typology(): BelongsTo
+    {
+        return $this->belongsTo(PipTypology::class);
+    }
+
+    public function cip_type(): BelongsTo
+    {
+        return $this->belongsTo(CipType::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

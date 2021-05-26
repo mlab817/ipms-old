@@ -40,7 +40,7 @@ class ReviewController extends Controller
     public function show(Review $review)
     {
         // can pass project and review
-        return view('projects.show')
+        return view('reviews.show')
             ->with([
                 'review' => $review,
                 'project'=> $review->project,
@@ -89,7 +89,7 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        $review->delete();
+        $review->forceDelete();
 
         Alert::success('Success', 'Successfully deleted item');
 

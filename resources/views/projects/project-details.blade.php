@@ -2,11 +2,13 @@
     <div class="card-header">
         <h3 class="card-title">{{ __("General Information") }}</h3>
 
-        @if($project->ipms_id)
-        <div class="card-tools">
-            <a href="{{ config('ipms.v1') .'/api/projects/' . $project->ipms_id }}" target="_blank" class="btn btn-outline-primary">View Data Source</a>
-        </div>
-        @endif
+        @can('projects.import')
+            @if($project->ipms_id)
+            <div class="card-tools">
+                <a href="{{ config('ipms.v1') .'/api/projects/' . $project->ipms_id }}" target="_blank" class="btn btn-outline-primary">View Data Source</a>
+            </div>
+            @endif
+        @endcan
     </div>
 
     <div class="card-body">

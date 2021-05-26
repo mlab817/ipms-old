@@ -235,7 +235,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="regions" class="col-form-label col-sm-3">Implementing Agencies <i class="text-danger fas fa-flag"></i></label>
+                                    <label for="operating_units" class="col-form-label col-sm-3">Implementing Agencies <i class="text-danger fas fa-flag"></i></label>
                                     <div class="col-sm-9">
                                         @foreach($operating_units as $option)
                                             <div class="form-check">
@@ -345,8 +345,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="spatial_coverage_id" class="col-form-label col-sm-3">Spatial Coverage <i
-                                            class="text-danger fas fa-flag"></i></label>
+                                    <label for="spatial_coverage_id" class="col-form-label col-sm-3 required">Spatial Coverage </label>
                                     <div class="col-sm-9">
                                         <select name="spatial_coverage_id" id="spatial_coverage_id"
                                                 class="form-control @error('spatial_coverage_id') is-invalid @enderror">
@@ -362,14 +361,20 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="regions" class="col-form-label col-sm-3">Regions <i class="text-danger fas fa-flag"></i></label>
+                                    <div class="col-sm-3">
+                                        <label for="regions" class="col-form-label required">Regions </label>
+                                        <p>
+                                            <button type="button" id="selectRegions" class="btn btn-sm btn-secondary">Check All</button>
+                                            <button type="button" id="clearRegions" class="btn btn-sm btn-danger">Clear</button>
+                                        </p>
+                                    </div>
                                     <div class="col-sm-9">
                                         @foreach($regions->sortBy('order') as $option)
                                             @if($option->id !== 99)
                                                 <div class="form-check">
-                                                    <label class="form-check-label">
+                                                    <label class="form-check-label @error('regions') text-danger @enderror">
                                                         <input
-                                                            class="form-check-input @error('regions') text-danger @enderror"
+                                                            class="regions-checkboxes form-check-input"
                                                             type="checkbox" name="regions[]"
                                                             value="{{ $option->id }}" {{ in_array($option->id, old('regions', $project->regions->pluck('id')->toArray() ?? [])) ? 'checked' : '' }}>
                                                         {{ $option->name }}
@@ -394,7 +399,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label for="target_start_year" class="col-form-label col-sm-6">Start of Implementation <i
+                                            <label for="target_start_year" class="col-form-label col-sm-6 required">Start of Implementation <i
                                                     class="text-danger fas fa-flag"></i></label>
                                             <div class="col-sm-6">
                                                 <select
@@ -413,7 +418,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label for="target_end_year" class="col-form-label col-sm-6">Year of Project Completion <i
+                                            <label for="target_end_year" class="col-form-label col-sm-6 required">Year of Project Completion <i
                                                     class="text-danger fas fa-flag"></i></label>
                                             <div class="col-sm-6">
                                                 <select class="form-control @error('target_end_year') is-invalid @enderror"
@@ -488,7 +493,7 @@
                                 <div class="form-group row">
                                     <label for="gad_id" class="col-form-label col-sm-3 required">Gender Responsiveness </label>
                                     <div class="col-sm-9">
-                                        <select class="form-control select2 @error('gad_id') is-invalid @enderror" name="gad_id">
+                                        <select class="form-control @error('gad_id') is-invalid @enderror" name="gad_id">
                                             <option value="" disabled selected>Select GAD Classification</option>
                                             @foreach($gads as $option)
                                                 <option value="{{ $option->id }}" {{ old('gad_id', $project->gad_id) == $option->id ? 'selected' : '' }}>{{ $option->name }}</option>
@@ -678,7 +683,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="fs_cost">Schedule of Feasibility Study Cost (in absolute PhP)</label>
-                                    <table id="fs_cost">
+                                    <table class="col-sm-12" id="fs_cost">
                                         <thead>
                                         <tr>
                                             <th class="text-sm text-center">2017</th>
@@ -751,7 +756,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="employment_generated" class="col-form-label col-sm-3">No. of persons to
+                                    <label for="employment_generated" class="col-form-label col-sm-3 required">No. of persons to
                                         be employed after completion of the project</label>
                                     <div class="col-sm-9">
                                         <input class="form-control @error('employment_generated') is-invalid @enderror"
@@ -774,8 +779,10 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="pdp_chapter_id" class="col-form-label col-sm-3">Main philippine
-                                        Development Chapter </label>
+                                    <div class="col-sm-3">
+                                        <label for="pdp_chapter_id" class="col-form-label required">Main philippine Development Chapter </label>
+                                        <p class="text-sm text-muted">Note: Selected PDP indicators will be cleared if you select another PDP chapter.</p>
+                                    </div>
                                     <div class="col-sm-9">
                                         <select id="pdp_chapter_id" name="pdp_chapter_id"
                                                 class="form-control @error('pdp_chapter_id') is-invalid @enderror">
@@ -788,8 +795,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="other_pdp_chapters" class="col-form-label col-sm-3 required">Other PDP
-                                        Chapters <span class="text-sm text-muted">Select at least one</span></label>
+                                    <div class="col-sm-3">
+                                        <label for="pdp_chapter_id" class="col-form-label required">Other PDP Chapters </label>
+                                        <p class="text-sm text-muted">Note: Please re-select the main PDP chapter.</p>
+                                    </div>
                                     <div class="col-sm-9">
                                         @foreach($pdp_chapters as $option)
                                             <div class="form-check">
@@ -827,7 +836,7 @@
 
                                 <div id="pdp_indicators_group" class="form-group mt-2">
                                     @foreach ($pdp_indicators as $pi1)
-                                        <div id="pdp_chapter_{{$pi1->id}}" class="pdp_chapters">
+                                        <div id="pdp_chapter_{{$pi1->id}}" class="pdp_chapters" style="display: none;">
                                             <span class="font-weight-bold">{{ $pi1->name }}</span>
                                             @foreach($pi1->children as $pi2)
                                                 <div class="ml-4">
@@ -969,8 +978,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="funding_sources" class="col-form-label col-sm-3 required">Other Funding
-                                        Sources</label>
+                                    <div class="col-sm-3">
+                                        <label for="funding_sources" class="col-form-label required">Other Funding Sources</label>
+                                        <p class="text-sm text-muted">Note: Please re-select the main funding source selected.</p>
+                                    </div>
                                     <div class="col-sm-9">
                                         @foreach($funding_sources as $option)
                                             <div class="form-check">
@@ -1230,9 +1241,6 @@
                                 <h3 class="card-title">{{ __("Investment Required by Region") }} </h3>
                             </div>
                             <div class="card-body">
-                                <div class="row px-2 pb-2">
-                                    <i class="text-danger fas fa-flag"></i> All fields are required.
-                                </div>
                                 <table class="table-responsive">
                                     <thead>
                                     <tr>
@@ -1438,7 +1446,7 @@
                                                    name="allocation[y2023]"
                                                    value="{{ old("allocation.y2023", $project->allocation->y2023 ?? 0) }}">
                                         </td>
-                                        <td><input type="text" class="form-control text-right" id="allocation_total" }}"
+                                        <td><input type="text" class="form-control text-right" id="allocation_total"
                                             readonly>
                                         </td>
                                     </tr>
@@ -1488,34 +1496,22 @@
 
                 </div>
 
-                <div class="card-footer">
-                    <div class="col">
-                        <div class="row justify-content-between">
-                            <div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{ route('projects.own') }}" class="btn">Back to List</a>
-                            </div>
-                            <div>
-                                @can('delete', $project)
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
-                                    Delete
-                                </button>
-                                @endcan
-                            </div>
-                        </div>
-                    </div>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                        <a href="{{ route('projects.own') }}" class="btn">Back to List</a>
 
+                        @can('delete', $project)
+                        <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#modal-delete">
+                            Delete
+                        </button>
+                        @endcan
+                    </div>
                 </div>
 
             </form>
         </div>
     </section>
-
-    <a id="back-to-top" href="#" class="btn btn-info back-to-top" role="button" aria-label="Scroll to top">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-        </svg>
-    </a>
 @endsection
 
 @section('modal')

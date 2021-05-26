@@ -28,21 +28,34 @@
     <section class="content">
         <!-- Default box -->
 
+        <div class="callout callout-info">
+            <div class="row">
+                <div class="col">
+                    <p>Title: <strong>{{ $project->title  }}</strong></p>
+                    <p>Office: <strong>{{ $project->office->name ?? '' }}</strong></p>
+                </div>
+                <div class="col">
+                    <p>Created by: <img src="{{ $project->creator->avatar }}" width="20" height="20" class="img-circle"> <strong>{{ $project->creator->name ?? '' }}</strong> on <strong>{{ $project->created_at->format('M d, Y') }}</strong></p>
+                    <p>Last Updated: <strong>{{ $project->updated_at->format('M d, Y') }}</strong></p>
+                </div>
+            </div>
+        </div>
+
         @include('projects.project-details', ['project' => $project , 'pdp_indicators' => \App\Models\PdpIndicator::with('children.children')->whereNull('parent_id')->get()])
 
         @includeWhen($project->has_infra, 'projects.trip-info', ['project' => $project])
 
-        <!-- Include review result if it exists -->
-        @includeWhen($project->review()->exists(), 'projects.review-result', ['review' => $project->review])
-
-        <div class="card">
-            <div class="card-footer">
+        <div class="row">
+            <div class="col-12 mb-3">
                 @if(auth()->user()->can('update', $project))
-                <a href="{{ route('projects.edit', $project) }}" class="btn btn-primary">Edit</a>
+                    <a href="{{ route('projects.edit', $project) }}" class="btn btn-primary">Edit Project</a>
                 @endif
-                <a href="{{ route('projects.own') }}" class="btn ml-1">Back to List</a>
+                <a href="{{ route('projects.own') }}" class="btn ml-1 float-right">Back to List</a>
             </div>
         </div>
+
+        <!-- Include review result if it exists -->
+        @includeWhen($project->review()->exists(), 'reviews.result', ['review' => $project->review])
 
         <a id="back-to-top" href="#" class="btn btn-info back-to-top" role="button" aria-label="Scroll to top">
             <svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 20 20" fill="currentColor">

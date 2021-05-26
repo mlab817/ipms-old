@@ -102,7 +102,7 @@ class PdpIndicatorController extends Controller
 
         Alert::success('Success','Successfully update item');
 
-        return back();
+        return redirect()->route('admin.pdp_indicators.index');
     }
 
     /**

@@ -1,53 +1,115 @@
 @push('scripts')
     <script>
-        const htmlElements = {
-            pdpIndicatorCheckbox: $('#no_pdp_indicator'),
-            pdpChapterId: $('#pdp_chapter_id')
-        }
+        // -- Select/Unselect Regions
+        let selectRegions = $('#selectRegions');
+        let clearRegions = $('#clearRegions');
 
-        htmlElements.pdpIndicatorCheckbox.on('change', function(evt) {
-            let val = $(this).prop('checked')
-            togglePdpIndicators(val)
+        selectRegions.click(function () {
+            //
+            $('.regions-checkboxes').prop('checked', true)
+            $('.regions-checkboxes:checkbox[value="100"]').prop('checked', false)
         })
 
-        htmlElements.pdpChapterId.on('change', function(evt) {
-            // hide PDP indicators
-            showSelectedPdpIndicatorsByChapter(evt.target.value)
+        clearRegions.click(function () {
+            $('.regions-checkboxes').prop('checked', false)
+            $('.regions-checkboxes:checkbox[value="100"]').prop('checked', true)
         })
+    </script>
 
-        function filterPdpIndicators() {
-            let $noPdpIndicator = $('#no_pdp_indicator'),
-                $pdpChapterId = $('#pdp_chapter_id'),
-                $pdpIndicators = $('input.pdp_indicators')
+    <script>
+        /**
+         * pdp_chapter_id onChange
+         * no_pdp_indicators onChange
+         *
+         * Hide/Show indicators group by chapter
+         * Uncheck indicators
+        */
+        let pdpChapters = @json($pdp_chapters->pluck('id')->toArray());
 
-            // if there is no pdp indicator
-            if ($noPdpIndicator.val() === 1) {
-                if (val) {
-                    $pdpIndicators.prop('disabled', true)
-                } else {
-                    $pdpIndicators.prop('disabled', false)
+        let pdpChapterId = $('#pdp_chapter_id');
+
+        function toggleVisibleIndicators()
+        {
+            let selectedPdpChapterId = pdpChapterId.val();
+            $.each(pdpChapters, function (chapter) {
+                if (parseInt(chapter) !== parseInt(selectedPdpChapterId)) {
+                    $('div#pdp_chapter_' + chapter).hide();
                 }
-            }
+            });
+            $('div#pdp_chapter_' + selectedPdpChapterId).show();
         }
 
-        function togglePdpIndicators(val)
-        {
-            let allPdpIndicators = $('input.pdp_indicators')
-            if (val) {
-                allPdpIndicators.prop('disabled', true)
+        pdpChapterId.change(function () {
+            // uncheck all checked if the pdp chapter changed
+            $('input.pdp_indicators').prop('checked', false)
+            toggleVisibleIndicators();
+        });
+
+        let noPdpIndicator = $('#no_pdp_indicator');
+
+        function toggleDisableIndicators() {
+            console.log(noPdpIndicator.val())
+            if (noPdpIndicator.is(':checked')) {
+                $('input.pdp_indicators').prop('disabled', true)
             } else {
-                allPdpIndicators.prop('disabled', false)
+                $('input.pdp_indicators').prop('disabled', false)
             }
         }
 
-        function showSelectedPdpIndicatorsByChapter(val)
-        {
-            if (val) {
-                // $('.pdp_chapters').hide()
-                $('.pdp_indicators').prop('checked', false)
-                // $("div#pdp_chapter_" + val).show()
-            }
-        }
+        noPdpIndicator.change(function () {
+            toggleDisableIndicators()
+        });
+
+        $(document).ready(function () {
+            console.log('document is ready')
+            // on document ready toggle visible indicators
+            toggleVisibleIndicators();
+            toggleDisableIndicators()
+        });
+
+        // htmlElements.pdpIndicatorCheckbox.on('change', function(evt) {
+        //     let val = $(this).prop('checked')
+        //     togglePdpIndicators(val)
+        // })
+        //
+        // htmlElements.pdpChapterId.on('change', function(evt) {
+        //     // hide PDP indicators
+        //     showSelectedPdpIndicatorsByChapter(evt.target.value)
+        // })
+        //
+        // function filterPdpIndicators() {
+        //     let $noPdpIndicator = $('#no_pdp_indicator'),
+        //         $pdpChapterId = $('#pdp_chapter_id'),
+        //         $pdpIndicators = $('input.pdp_indicators')
+        //
+        //     // if there is no pdp indicator
+        //     if ($noPdpIndicator.val() === 1) {
+        //         if (val) {
+        //             $pdpIndicators.prop('disabled', true)
+        //         } else {
+        //             $pdpIndicators.prop('disabled', false)
+        //         }
+        //     }
+        // }
+        //
+        // function togglePdpIndicators(val)
+        // {
+        //     let allPdpIndicators = $('input.pdp_indicators')
+        //     if (val) {
+        //         allPdpIndicators.prop('disabled', true)
+        //     } else {
+        //         allPdpIndicators.prop('disabled', false)
+        //     }
+        // }
+        //
+        // function showSelectedPdpIndicatorsByChapter(val)
+        // {
+        //     if (val) {
+        //         // $('.pdp_chapters').hide()
+        //         $('.pdp_indicators').prop('checked', false)
+        //         // $("div#pdp_chapter_" + val).show()
+        //     }
+        // }
     </script>
 
     <script>
