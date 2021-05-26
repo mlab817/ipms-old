@@ -158,7 +158,7 @@ class ProjectUpdateRequest extends FormRequest
             'uacs_code'                         => 'nullable',
             'tier_id'                           => 'required|exists:tiers,id',
             'funding_sources'                   => 'required',
-            'funding_institution_id'            => 'exclude_unless:funding_source_id,2|array',
+            'funding_institution_id'            => 'exclude_unless:funding_source_id,2',
             'operating_units'                   => 'required',
             'pdp_chapters'                      => 'required',
             'prerequisites'                     => 'nullable|array',
