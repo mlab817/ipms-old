@@ -25,6 +25,12 @@ class ReviewsDataTable extends DataTable
                 $papType = $project->pap_type->name ?? '';
                 return '<span class="badge badge-'. ($papType == 'Project' ? 'success' : 'danger').' ">'. $papType.'</span>';
             })
+            ->addColumn('added_by', function ($project) {
+                return ($project->creator ? $project->creator->name : '')
+                    . '<br/><small class="text-muted">'
+                    . $project->created_at->diffForHumans(null, null, true)
+                    . '</small>';
+            })
             ->addColumn('office', function ($row) {
                 return $row->office->acronym ?? '';
             })
@@ -91,7 +97,7 @@ class ReviewsDataTable extends DataTable
                     return '<a href="' . route('reviews.show', $project->review) .'" class="btn btn-success btn-sm">View</a>';
                 }
             })
-            ->rawColumns(['pip','trip','pap_type','reviewed','reviewed_details','action','view']);
+            ->rawColumns(['added_by','pip','trip','pap_type','reviewed','reviewed_details','action','view']);
     }
 
     /**
@@ -137,6 +143,8 @@ class ReviewsDataTable extends DataTable
         return [
             Column::make('title')
                 ->addClass('text-sm'),
+            Column::make('added_by')
+                ->addClass('text-sm text-center'),
             Column::make('office')
                 ->addClass('text-sm text-center'),
             Column::make('pap_type')

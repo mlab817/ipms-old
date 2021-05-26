@@ -25,8 +25,21 @@
     <section class="content">
         <div class="container-fluid">
             <div class="callout callout-info">
-                {{ $project->title }}
-                <a href="{{ route('projects.show', $project) }}" class="float-right" target="_blank">View Project Info</a>
+                <div class="row">
+                    <div class="col">
+                        <a href="{{ route('projects.show', $project) }}" class="float-right" target="_blank">View Project Info</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Title: <strong>{{ $project->title  }}</strong></p>
+                        <p>Office: <strong>{{ $project->office->name ?? '' }}</strong></p>
+                    </div>
+                    <div class="col">
+                        <p>Created by: <img src="{{ $project->creator->avatar }}" width="20" height="20" class="img-circle"> <strong>{{ $project->creator->name ?? '' }}</strong> on <strong>{{ $project->created_at->format('M d, Y') }}</strong></p>
+                        <p>Last Updated: <strong>{{ $project->updated_at->format('M d, Y') }}</strong></p>
+                    </div>
+                </div>
             </div>
 
             @include('reviews.result')
