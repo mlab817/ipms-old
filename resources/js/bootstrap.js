@@ -1,8 +1,5 @@
 window._ = require('lodash');
-
 import Echo from 'laravel-echo';
-
-console.log(Echo)
 
 window.Pusher = require('pusher-js');
 

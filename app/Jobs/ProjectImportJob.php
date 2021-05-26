@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\AuditLogEvent;
 use App\Models\FundingInstitution;
 use App\Models\FundingSource;
 use App\Models\Gad;
@@ -239,8 +240,11 @@ class ProjectImportJob implements ShouldQueue
             });
 
             $this->user->notify(new ProjectImportSuccessNotification($project));
+
+            event(new AuditLogEvent($this->user->name . ' successfully imported project:' . $project->title, 'System Message'));
         } else {
             $this->user->notify(new ProjectImportFailedNotification($this->id, 'Project ID #' . $this->id .' already imported.'));
+            event(new AuditLogEvent($this->user->name . ' failed importing project: ' . $project->title, 'System Message'));
         }
     }
 

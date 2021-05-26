@@ -143,9 +143,9 @@ Route::group(['middleware' => 'guest'], function() {
     Route::get('/auth/google/callback', [\App\Http\Controllers\Auth\SocialLoginController::class,'handleGoogleCallback'])->name('auth.google-callback');
 });
 
-Route::get('/notify', function () {
-    event(new \App\Events\UserUpdatedEvent(auth()->user()));
-    return 'test notification';
+Route::get('/test', function () {
+    event(new \App\Events\TestEvent('lester'));
+    return 'sent event';
 })->middleware('auth');
 
 Route::fallback(function () {

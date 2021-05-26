@@ -14,8 +14,8 @@ class AuditLog extends Model
 
     protected $fillable = [
         'description',
-        'subject_id',
-        'subject_type',
+        'auditable_id',
+        'auditable_type',
         'user_id',
 //        'properties',
         'original',
@@ -36,5 +36,10 @@ class AuditLog extends Model
     public function auditable()
     {
         return $this->morphTo();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

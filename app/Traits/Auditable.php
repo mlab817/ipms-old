@@ -2,10 +2,12 @@
 
 namespace App\Traits;
 
+use App\Events\AuditLogEvent;
 use App\Models\AuditLog;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Str;
 
 trait Auditable
 {
@@ -26,19 +28,21 @@ trait Auditable
 
     protected static function audit($description, $model)
     {
-        $model->audit_logs()->create([
+        $auditLog = $model->audit_logs()->create([
             'description'  => $description,
-//            'subject_id'   => $model->id ?? null,
-//            'subject_type' => get_class($model) ?? null,
             'user_id'      => auth()->id() ?? null,
-//            'properties'   => json_encode([
-//                'original' => $model->getOriginal() ?? null,
-//                'modified' => $model->getChanges() ?? null
-//            ]),
             'original'     => $model->getOriginal() ?? null,
             'modified'     => $model->getChanges() ?? null,
             'host'         => request()->ip() ?? null,
         ]);
+
+        $modelName = Str::replace('_', ' ', $model->getTable());
+        $userName = auth()->user()->name;
+        $label = $model->slug ? Str::replace('-',' ', $model->slug) : '';
+
+        $message = "{$userName} {$description} {$modelName}: {$label}.";
+
+        event(new AuditLogEvent($message, 'System Message'));
     }
 
     public function audit_logs(): MorphMany
