@@ -95,6 +95,7 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
         'implementation_modes'  => \App\Http\Controllers\Admin\ImplementationModeController::class,
         'infrastructure_sectors'=> \App\Http\Controllers\Admin\InfrastructureSectorController::class,
         'infrastructure_subsectors'=> \App\Http\Controllers\Admin\InfrastructureSubsectorController::class,
+        'links'                 => \App\Http\Controllers\Admin\LinkController::class,
         'offices'               => \App\Http\Controllers\Admin\OfficeController::class,
         'operating_units'       => \App\Http\Controllers\Admin\OperatingUnitController::class,
         'operating_unit_types'  => \App\Http\Controllers\Admin\OperatingUnitTypeController::class,
