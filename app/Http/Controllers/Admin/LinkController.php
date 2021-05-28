@@ -44,7 +44,7 @@ class LinkController extends Controller
 
         Alert::success('Success', 'Successfully added link');
 
-        return redirect()->route('admin.links.index');
+        return redirect()->route('links.index');
     }
 
     /**
@@ -82,7 +82,7 @@ class LinkController extends Controller
 
         Alert::success('Success', 'Successfully updated link');
 
-        return redirect()->route('admin.links.index');
+        return redirect()->route('links.index');
     }
 
     /**
@@ -97,6 +97,6 @@ class LinkController extends Controller
 
         Alert::success('Success', 'Successfully deleted link');
 
-        return redirect()->route('admin.links.index');
+        return redirect()->route('links.index');
     }
 }

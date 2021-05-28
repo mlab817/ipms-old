@@ -122,6 +122,7 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
 });
 
 Route::group(['middleware'=>'auth'], function () {
+    Route::resource('links',\App\Http\Controllers\Admin\LinkController::class)->only('index');
     Route::resource('audit_logs',\App\Http\Controllers\AuditLogController::class)->only('index','show');
     Route::middleware('can:exports.view_index')->prefix('/exports')->name('exports.')->group(function() {
         Route::get('',[\App\Http\Controllers\ExportController::class,'index'])->name('index');

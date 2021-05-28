@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.links.index') }}">Links</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('links.index') }}">Links</a></li>
                         <li class="breadcrumb-item active">Add Link</li>
                     </ol>
                 </div><!-- /.col -->
@@ -47,7 +47,7 @@
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn mr-2" href="{{ route('admin.links.index') }}">Back to List</a>
+                        <a class="btn mr-2" href="{{ route('links.index') }}">Back to List</a>
                     </div>
                 </form>
             </div>
