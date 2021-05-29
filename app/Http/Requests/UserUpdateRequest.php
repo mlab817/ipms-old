@@ -24,7 +24,8 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'      => 'required|string',
+            'first_name'=> 'required|string',
+            'last_name'=> 'required|string',
             'roles.*'   => 'required'
         ];
     }

@@ -23,18 +23,22 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">{{ $pageTitle }}</h3>
-                </div>
                 <form action="{{ route('admin.users.update', ['user' => $user->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="name" class="required">Name </label>
-                            <input class="form-control @error('name') is-invalid @enderror" type="text" name="name"
-                                   id="name" placeholder="Juan dela Cruz" value="{{ old('name', $user->name) }}">
-                            @error('name')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                            <label for="first_name" class="required">First Name </label>
+                            <input class="form-control @error('first_name') is-invalid @enderror" type="text" name="first_name"
+                                   id="first_name" placeholder="Juan" value="{{ old('first_name', $user->first_name) }}">
+                            @error('first_name')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="last_name" class="required">Last Name </label>
+                            <input class="form-control @error('last_name') is-invalid @enderror" type="text" name="last_name"
+                                   id="last_name" placeholder="dela Cruz" value="{{ old('last_name', $user->last_name) }}">
+                            @error('last_name')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">

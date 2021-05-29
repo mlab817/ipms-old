@@ -17,7 +17,7 @@
                 <img src="{{ auth()->user()->avatar }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                <a href="#" class="d-block">{{ auth()->user()->full_name }}</a>
             </div>
         </div>
         @endauth

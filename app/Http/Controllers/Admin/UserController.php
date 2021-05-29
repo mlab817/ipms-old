@@ -63,9 +63,10 @@ class UserController extends Controller
         $password = Str::random(8); // generate password with length of 8 characters
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($password),
+            'first_name'=> $request->first_name,
+            'last_name' => $request->last_name,
+            'email'     => $request->email,
+            'password'  => Hash::make($password),
             'office_id' => $request->office_id,
         ]);
 
@@ -121,7 +122,8 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->update([
-            'name'      => $request->name,
+            'first_name'=> $request->first_name,
+            'last_name' => $request->last_name,
             'office_id' => $request->office_id,
         ]);
 
