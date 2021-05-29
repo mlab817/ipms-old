@@ -19,9 +19,9 @@ class SocialLoginController extends Controller
 
     public function handleGoogleCallback()
     {
-        $user = Socialite::driver('google')->user();
+        $socialiteUser = Socialite::driver('google')->user();
 
-        $existingUser = User::where('email', $user->email)->first();
+        $existingUser = User::where('email', $socialiteUser->email)->first();
 
         if (! $existingUser) {
             Alert::error('Error', 'Only existing users can use this feature. Please use the same email currently registered.');
@@ -29,11 +29,17 @@ class SocialLoginController extends Controller
             return redirect()->route('login');
         }
 
+        // if the existing user has no google id
+        // set it
         if (! $existingUser->google_id) {
             $existingUser->update([
-                'google_id' => $user->id,
+                'google_id' => $socialiteUser->id,
             ]);
         }
+
+        $existingUser->update([
+            'avatar' =>  $socialiteUser->avatar,
+        ]);
 
         Auth::login($existingUser);
 

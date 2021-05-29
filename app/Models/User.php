@@ -35,6 +35,7 @@ class User extends Authenticatable
         'password',
         'active',
         'office_id',
+        'avatar',
         'activated_at',
         'password_changed_at',
     ];

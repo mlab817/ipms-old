@@ -13,11 +13,17 @@ class UserObserver
      */
     public function creating(User $user)
     {
-        $user->avatar = 'https://robohash.org/' . md5($user->email) . '?set=set5';
+        // if no avatar is set
+        if (! $user->avatar) {
+            $user->avatar = 'https://robohash.org/' . md5($user->email) . '?set=set5';
+        }
     }
 
     public function updating(User $user)
     {
-        $user->avatar = 'https://robohash.org/' . md5($user->email) . '?set=set5';
+        // if no avatar is set
+        if (! $user->avatar) {
+            $user->avatar = 'https://robohash.org/' . md5($user->email) . '?set=set5';
+        }
     }
 }
