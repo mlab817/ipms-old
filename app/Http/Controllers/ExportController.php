@@ -44,7 +44,7 @@ class ExportController extends Controller
             [
                 'title' => 'Project-Funding Source Investments',
                 'desc'  => 'Contains project title and investments by funding source and by year',
-                'link'  => route('exports.region_investments'),
+                'link'  => route('exports.fs_investments'),
             ],
             [
                 'title' => 'Project-Funding Source Infrastructures',
