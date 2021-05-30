@@ -28,11 +28,15 @@ class OperatingUnitsDataTable extends DataTable
                     return '';
                 }
             })
+            ->addColumn('image', function ($row) {
+                return '<img src="' . $row->thumb . '" alt="ou" class="img-circle" height="40" width="40">';
+            })
             ->addColumn('action', function($row) {
                 return '
                     <a href="'. route('admin.operating_units.edit', $row->slug) .'" class="btn btn-info btn-sm">Edit</a>
                 ';
-            });
+            })
+            ->rawColumns(['image','action']);
     }
 
     /**
@@ -56,6 +60,7 @@ class OperatingUnitsDataTable extends DataTable
         return $this->builder()
                     ->setTableId('operatingunits-table')
                     ->columns($this->getColumns())
+                    ->parameters(['responsive' => true])
                     ->minifiedAjax()
                     ->dom('Bfrtip')
                     ->orderBy(0, 'asc')
@@ -79,6 +84,8 @@ class OperatingUnitsDataTable extends DataTable
             Column::make('id'),
             Column::make('name'),
             Column::make('type'),
+            Column::make('image')
+                ->addClass('text-center'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

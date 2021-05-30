@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\OperatingUnit;
 use App\Models\OperatingUnitType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class OperatingUnitController extends Controller
@@ -49,7 +50,13 @@ class OperatingUnitController extends Controller
             'operating_unit_type_id' => 'required',
         ]);
 
-        OperatingUnit::create($request->all());
+        $ou = OperatingUnit::create($request->all());
+
+        if ($request->has('image')) {
+            $ou
+                ->addMedia($request->file('image'))
+                ->toMediaCollection('logo');
+        }
 
         Alert::success('Success', 'Successfully saved item');
 
@@ -95,7 +102,18 @@ class OperatingUnitController extends Controller
             'operating_unit_type_id' => 'required',
         ]);
 
-        $operatingUnit->update($request->all());
+        $operatingUnit->update($request->only(
+            'name', 'operating_unit_type_id'
+        ));
+
+        try {
+            $operatingUnit
+                ->addMedia($request->file('image'))
+                ->toMediaCollection('logo');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
+
 
         Alert::success('Success', 'Successfully updated item');
 

@@ -24,7 +24,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card">
-                <form action="{{ route('admin.operating_units.update', $operatingUnit) }}" method="POST">
+                <form action="{{ route('admin.operating_units.update', $operatingUnit) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
@@ -33,6 +33,7 @@
                             <input type="text" class="form-control @error('name'){{ 'is-invalid' }}@enderror" name="name" id="name" placeholder="Name" value="{{ old('name', $operatingUnit->name) }}">
                             @error('name')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
                         </div>
+
                         <div class="form-group">
                             <label for="operating_unit_type_id">OU Type</label>
                             <select class="form-control @error('name'){{ 'is-invalid' }}@enderror" name="operating_unit_type_id" id="operating_unit_type_id">
@@ -43,6 +44,13 @@
                             </select>
                             @error('operating_unit_type_id')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
                         </div>
+
+                        <div class="form-group">
+                            <label for="image">Logo</label>
+                            <input type="file" class="form-control @error('image'){{ 'is-invalid' }}@enderror" name="image" id="image">
+                            @error('image')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
+                        </div>
+
                     </div>
                     <div class="card-footer">
                         <div class="col">

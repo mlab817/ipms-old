@@ -24,7 +24,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card">
-                <form action="{{ route('admin.operating_units.store') }}" method="POST">
+                <form action="{{ route('admin.operating_units.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -32,16 +32,24 @@
                             <input type="text" class="form-control @error('name'){{ 'is-invalid' }}@enderror" name="name" id="name" placeholder="Name" value="{{ old('name') }}">
                             @error('name')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
                         </div>
+
                         <div class="form-group">
                             <label for="operating_unit_type_id">OU Type</label>
-                            <select class="form-control @error('name'){{ 'is-invalid' }}@enderror" name="operating_unit_type_id" id="operating_unit_type_id">
+                            <select class="form-control @error('operating_unit_type_id'){{ 'is-invalid' }}@enderror" name="operating_unit_type_id" id="operating_unit_type_id">
                                 <option value="" selected disabled>Select Type</option>
                                 @foreach($operating_unit_types as $option)
-                                    <option value="{{ $option->id }}">{{ $option->name }}</option>
+                                    <option value="{{ $option->id }}" @if(old('operating_unit_type_id') == $option->id) selected @endif>{{ $option->name }}</option>
                                 @endforeach
                             </select>
                             @error('operating_unit_type_id')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
                         </div>
+
+                        <div class="form-group">
+                            <label for="image">Logo</label>
+                            <input type="file" class="form-control @error('image'){{ 'is-invalid' }}@enderror" name="image" id="image">
+                            @error('image')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
+                        </div>
+
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>

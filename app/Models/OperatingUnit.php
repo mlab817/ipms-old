@@ -11,13 +11,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
-class OperatingUnit extends Model
+class OperatingUnit extends Model implements HasMedia
 {
     use HasFactory;
     use Sluggable;
     use Auditable;
     use SoftDeletes;
+    use HasMediaTrait;
 
     protected $fillable = [
         'name',
@@ -62,6 +66,23 @@ class OperatingUnit extends Model
         return $this->projects->count();
     }
 
+    public function getImageAttribute(): string
+    {
+        return $this->getFirstMediaUrl();
+    }
+
+    public function getThumbAttribute(): string
+    {
+        $media = $this->getFirstMedia('logo');
+
+        if ($media) {
+            return $media->getFullUrl('thumb');
+        }
+
+        return '';
+
+    }
+
     /**
      * @return array
      */
@@ -72,5 +93,20 @@ class OperatingUnit extends Model
                 'source' => 'name'
             ]
         ];
+    }
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+            ->width(40)
+            ->height(40)
+            ->sharpen(10);
+    }
+
+    public function registerMediaCollections()
+    {
+        $this
+            ->addMediaCollection('logo')
+            ->singleFile();
     }
 }
