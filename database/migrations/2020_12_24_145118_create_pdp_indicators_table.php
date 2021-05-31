@@ -15,9 +15,9 @@ class CreatePdpIndicatorsTable extends Migration
     {
         Schema::create('pdp_indicators', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->string('slug')->nullable();
+            $table->text('name');
+            $table->text('description')->nullable();
+            $table->text('slug')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
