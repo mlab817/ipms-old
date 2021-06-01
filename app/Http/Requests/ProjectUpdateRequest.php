@@ -127,6 +127,7 @@ class ProjectUpdateRequest extends FormRequest
             'rdc_endorsed_date'                 => 'nullable|required_if:rdc_endorsed,1|date',
             'iccable'                           => 'required|bool',
             'approval_level_id'                 => 'required_if:iccable,1|exists:approval_levels,id',
+            // TODO: Fix that approval level date is required with approval level id even if it is N/A
             'approval_date'                     => 'required_with:approval_level_id',
             'gad_id'                            => 'required_if:iccable,1|exists:gads,id',
 //            'other_infrastructure'              => 'nullable',
