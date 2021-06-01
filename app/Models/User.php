@@ -89,6 +89,11 @@ class User extends Authenticatable
             ->withPivot('read','update','delete','review','comment');
     }
 
+    public function currentRole(): BelongsTo
+    {
+        return $this->belongsTo(Role::class,'role_id','id');
+    }
+
     public function isActive(): bool
     {
         return !!$this->active;
@@ -109,6 +114,11 @@ class User extends Authenticatable
     {
         $this->activated_at = null;
         $this->save();
+    }
+
+    public function switchRole($roleId)
+    {
+        $this->currentRole()->associate(Role::findById($roleId));
     }
 
     public function scopeProjectManager($query)

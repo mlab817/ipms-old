@@ -101,9 +101,9 @@ class TierTest extends TestCase
 
         $tier = Tier::factory()->create();
 
-        $response = $this->delete(route('admin.tiers.destroy', $tier))
-            ->assertStatus(302)
-            ->assertRedirect(route('admin.tiers.index'));
+        $response = $this->delete(route('admin.tiers.destroy', $tier));
+        $response->assertStatus(302);
+        $response->assertRedirect(route('admin.tiers.index'));
 
         $this->assertDatabaseHas('tiers', [
             'id'            => $tier->id,
