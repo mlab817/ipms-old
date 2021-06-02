@@ -74,7 +74,9 @@ class ProjectsDataTable extends DataTable
                     <span>Edit</span>
                 </a>' : '';
 
-                return $viewButton . $editButton;
+                $printButton = '<a href="'. route('projects.generatePdf', $row) .'" class="btn btn-info btn-sm ml-1"><span>Print</span></a>';
+
+                return $viewButton . $editButton . $printButton;
             })
             ->rawColumns(['pap_type','created_by','trip','action']);
     }

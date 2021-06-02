@@ -62,7 +62,7 @@ Route::middleware(['auth','password.changed'])->group(function () {
     Route::get('projects/import', [\App\Http\Controllers\ProjectImportController::class,'index'])->name('projects.import.index');
     Route::post('projects/import', [\App\Http\Controllers\ProjectImportController::class,'import'])->name('projects.import.import');
 
-    Route::get('/projects/{project}/pdf', [\App\Http\Controllers\ProjectController::class,'generatePdf'])->name('projects.pdf');
+    Route::get('/projects/{project}/generatePdf', [\App\Http\Controllers\ProjectController::class,'generatePdf'])->name('projects.generatePdf');
     Route::resource('projects', \App\Http\Controllers\ProjectController::class)->except('index');
     Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
     Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
