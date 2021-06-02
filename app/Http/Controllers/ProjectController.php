@@ -44,12 +44,14 @@ use App\Models\TenPointAgenda;
 use App\Models\Tier;
 use App\Models\User;
 use App\Notifications\ProjectDeletedNotification;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Knp\Snappy\Pdf;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Searchable\Search;
 
@@ -385,5 +387,16 @@ class ProjectController extends Controller
         }
 
         return $searchResults;
+    }
+
+    public function generatePdf(Project $project)
+    {
+//        $pdf = SnappyPdf::loadView('projects.pdf', compact('project'));
+//
+//        return $pdf->download('graph.pdf');
+
+        $project->load('bases','regions','pdp_chapters','pdp_indicators','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep','feasibility_study');
+//         generate PDF
+        return view('projects.pdf', compact('project'));
     }
 }
