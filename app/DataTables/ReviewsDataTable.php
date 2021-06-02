@@ -120,17 +120,22 @@ class ReviewsDataTable extends DataTable
     {
         return $this->builder()
                     ->setTableId('reviewsdatatable-table')
-                    ->parameters(['responsive' => true])
+                    ->parameters([
+                        'responsive' => true,
+                        'sPaginationType' => 'full_numbers',
+                        'order' => [[0, 'asc']],
+                        "lengthMenu" => [[10, 25, 50], [10, 25, 50]]
+                    ])
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(0)
-                    ->buttons(
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+//                    ->dom('Bfrtip')
+                    ->orderBy(0);
+//                    ->buttons(
+//                        Button::make('export'),
+//                        Button::make('print'),
+//                        Button::make('reset'),
+//                        Button::make('reload')
+//                    );
     }
 
     /**

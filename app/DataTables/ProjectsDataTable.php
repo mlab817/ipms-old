@@ -100,18 +100,21 @@ class ProjectsDataTable extends DataTable
         return $this->builder()
                     ->setTableId('projects-table')
                     ->parameters([
-                        'responsive' => true
+                        'responsive' => true,
+                        'sPaginationType' => 'full_numbers',
+                        'order' => [[0, 'asc']],
+                        "lengthMenu" => [[10, 25, 50], [10, 25, 50]]
                     ])
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+//                    ->dom('Bfrtip')
+                    ->orderBy(1);
+//                    ->buttons(
+//                        Button::make('export'),
+//                        Button::make('print'),
+//                        Button::make('reset'),
+//                        Button::make('reload')
+//                    );
     }
 
     /**
@@ -130,9 +133,9 @@ class ProjectsDataTable extends DataTable
                 ->addClass('text-sm text-center'),
             Column::make('office')
                 ->addClass('text-sm text-center'),
-            Column::make('description')
-                ->width('25%')
-                ->addClass('text-sm'),
+//            Column::make('description')
+//                ->width('25%')
+//                ->addClass('text-sm'),
             Column::make('total_project_cost')
                 ->addClass('text-sm text-right'),
             Column::make('created_by')
