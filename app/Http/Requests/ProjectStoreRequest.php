@@ -126,7 +126,7 @@ class ProjectStoreRequest extends FormRequest
             'rdc_endorsed_date'                 => 'nullable|required_if:rdc_endorsed,1|date',
             'iccable'                           => 'required|bool',
             'approval_level_id'                 => 'required_if:iccable,1|exists:approval_levels,id',
-            'approval_date'                     => 'required_with:approval_level_id',
+            'approval_date'                     => 'required_if:iccable,1',
             'gad_id'                            => 'required_if:iccable,1|exists:gads,id',
 //            'other_infrastructure'              => 'nullable',
 //            'risk'                              => 'required_if:trip,true',
