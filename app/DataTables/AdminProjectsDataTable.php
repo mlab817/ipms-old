@@ -69,19 +69,24 @@ class AdminProjectsDataTable extends DataTable
         return $this->builder()
                     ->setTableId('adminprojects-table')
                     ->columns($this->getColumns())
-                    ->parameters(['responsive' => true])
+                    ->parameters([
+                        'responsive' => true,
+                        'sPaginationType' => 'full_numbers',
+                        'order' => [[0, 'asc']],
+                        "lengthMenu" => [[10, 25, 50], [10, 25, 50]]
+                    ])
                     ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(0, 'desc')
-                    ->buttons(
-                        Button::make('create')
-                            ->text('Import')
-                            ->action("window.location = '" . route('projects.import.index') ."';"),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+//                    ->dom('Bfrtip')
+                    ->orderBy(0, 'desc');
+//                    ->buttons(
+//                        Button::make('create')
+//                            ->text('Import')
+//                            ->action("window.location = '" . route('projects.import.index') ."';"),
+//                        Button::make('export'),
+//                        Button::make('print'),
+//                        Button::make('reset'),
+//                        Button::make('reload')
+//                    );
     }
 
     /**
@@ -92,8 +97,8 @@ class AdminProjectsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id')
-                ->addClass('text-sm text-center'),
+//            Column::make('id')
+//                ->addClass('text-sm text-center'),
             Column::make('title')
                 ->addClass('text-sm text-center'),
             Column::make('office')
