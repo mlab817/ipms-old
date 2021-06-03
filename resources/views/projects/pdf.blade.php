@@ -914,6 +914,52 @@
         </div>
     </div>
 
+    @if($project->review()->exists())
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h1 class="card-title">Review</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>For inclusion in the PIP?</label>
+                    <p>{{ $project->review->pip ? 'Yes' : 'No' }}</p>
+                </div>
+
+                <div class="col-sm-3">
+                    <label>PIP Typology</label>
+                    <p>{{ $project->review->pip_typology->name ?? '' }}</p>
+                </div>
+
+                <div class="col-sm-3">
+                    <label>For inclusion in the CIP?</label>
+                    <p>{{ $project->review->cip ? 'Yes' : 'No' }}</p>
+                </div>
+
+                <div class="col-sm-3">
+                    <label>CIP Type</label>
+                    <p>{{ $project->review->cip_type->name ?? '' }}</p>
+                </div>
+
+                <div class="col-sm-3">
+                    <label>For inclusion in TRIP?</label>
+                    <p>{{ $project->review->trip ? 'Yes' : 'No' }}</p>
+                </div>
+
+                <div class="col-sm-3">
+                    <label>For inclusion in IFP?</label>
+                    <p>{{ $project->review->ifp ? 'Yes' : 'No' }}</p>
+                </div>
+
+                <div class="col-sm-3">
+                    <label>Readiness Level</label>
+                    <p>{{ $project->review->readiness_level->name ?? '' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <div class="row">
         <div class="col-sm-12">
             <p class="text-xs text-muted m-0">Last updated on {{ $project->updated_at }}</p>
