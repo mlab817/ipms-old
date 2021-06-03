@@ -24,6 +24,11 @@ class AdminUserTableSeeder extends Seeder
 
 //        $permission = Permission::create(['name' => 'admin']);
 
-        $admin->assignRole('admin');
+        $admin->activate();
+
+//        $admin->assignRole('admin');
+
+        $admin->password_changed_at = now();
+        $admin->save();
     }
 }

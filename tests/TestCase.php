@@ -2,8 +2,11 @@
 
 namespace Tests;
 
+use App\Models\Permission;
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -21,7 +24,10 @@ abstract class TestCase extends BaseTestCase
         $user->activate();
         $user->password_changed_at = now();
         $user->save();
+        $user->givePermissionTo('projects.create');
 
         $this->user = $user;
+
+        $this->app->make(\Spatie\Permission\PermissionRegistrar::class)->registerPermissions();
     }
 }

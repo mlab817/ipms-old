@@ -179,13 +179,21 @@ class InfrastructureSectorsTableSeeder extends Seeder
         ];
 
         foreach ($seeds as $seed) {
-            $is                 = new InfrastructureSector;
-            $is->name           = $seed['name'];
-            $is->slug           = $seed['slug'];
-            $is->description    = $seed['description'];
-            $is->save();
+            $is = InfrastructureSector::withoutEvents(function () use ($seed) {
+                return InfrastructureSector::create([
+                    'id'            => $seed['id'],
+                    'name'          => $seed['name'],
+                    'slug'          => $seed['slug'],
+                    'description'   => $seed['description'],
 
-            $is->infrastructure_subsectors()->createMany($seed['infrastructure_subsectors']);
+                ]);
+            });
+
+            foreach ($seed['infrastructure_subsectors'] as $seed2) {
+                \DB::table('infrastructure_subsectors')->insert([
+                    array_merge(['infrastructure_sector_id' => $is->id], $seed2)
+                ]);
+            }
         }
     }
 }

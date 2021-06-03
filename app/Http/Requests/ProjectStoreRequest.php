@@ -2,6 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\FundingSource;
+use App\Models\PdpIndicator;
+use App\Models\Sdg;
+use App\Models\TenPointAgenda;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProjectStoreRequest extends FormRequest
@@ -22,7 +26,7 @@ class ProjectStoreRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'feasibility_study'     => [
+            'feasibility_study'     => $this->feasibility_study ? [
                 'needs_assistance'  => $this->feasibility_study['needs_assistance'],
 //                'y2016'     => str_replace(',', '', $this->feasibility_study['y2016']),
                 'y2017'     => str_replace(',', '', $this->feasibility_study['y2017']),
@@ -33,8 +37,8 @@ class ProjectStoreRequest extends FormRequest
                 'y2022'     => str_replace(',', '', $this->feasibility_study['y2022']),
 //                'y2023'     => str_replace(',', '', $this->feasibility_study['y2023']),
                 'completion_date'  => $this->feasibility_study['completion_date'],
-            ],
-            'region_investments'    => collect($this->region_investments)->map(function($ri) {
+            ] : [],
+            'region_investments'    => $this->region_investments ? collect($this->region_investments)->map(function($ri) {
                 return [
                     'region_id' => $ri['region_id'],
                     'y2016'     => str_replace(',', '', $ri['y2016']),
@@ -46,8 +50,8 @@ class ProjectStoreRequest extends FormRequest
                     'y2022'     => str_replace(',', '', $ri['y2022']),
                     'y2023'     => str_replace(',', '', $ri['y2023']),
                 ];
-            }),
-            'fs_investments'        => collect($this->fs_investments)->map(function($fi) {
+            }) : [],
+            'fs_investments'    => $this->fs_investments ? collect($this->fs_investments)->map(function($fi) {
                 return [
                     'fs_id'     => $fi['fs_id'],
                     'y2016'     => str_replace(',', '', $fi['y2016']),
@@ -59,8 +63,8 @@ class ProjectStoreRequest extends FormRequest
                     'y2022'     => str_replace(',', '', $fi['y2022']),
                     'y2023'     => str_replace(',', '', $fi['y2023']),
                 ];
-            }),
-            'nep'                   => [
+            }) : [],
+            'nep'           => $this->nep ? [
                 'y2016'     => str_replace(',', '', $this->nep['y2016']),
                 'y2017'     => str_replace(',', '', $this->nep['y2017']),
                 'y2018'     => str_replace(',', '', $this->nep['y2018']),
@@ -69,8 +73,8 @@ class ProjectStoreRequest extends FormRequest
                 'y2021'     => str_replace(',', '', $this->nep['y2021']),
                 'y2022'     => str_replace(',', '', $this->nep['y2022']),
                 'y2023'     => str_replace(',', '', $this->nep['y2023']),
-            ],
-            'allocation'            => [
+            ] : [],
+            'allocation'    => $this->allocation ? [
                 'y2016'     => str_replace(',', '', $this->allocation['y2016']),
                 'y2017'     => str_replace(',', '', $this->allocation['y2017']),
                 'y2018'     => str_replace(',', '', $this->allocation['y2018']),
@@ -79,8 +83,8 @@ class ProjectStoreRequest extends FormRequest
                 'y2021'     => str_replace(',', '', $this->allocation['y2021']),
                 'y2022'     => str_replace(',', '', $this->allocation['y2022']),
                 'y2023'     => str_replace(',', '', $this->allocation['y2023']),
-            ],
-            'disbursement'          => [
+            ] : [],
+            'disbursement'  => $this->disbursement ? [
                 'y2016'     => str_replace(',', '', $this->disbursement['y2016']),
                 'y2017'     => str_replace(',', '', $this->disbursement['y2017']),
                 'y2018'     => str_replace(',', '', $this->disbursement['y2018']),
@@ -89,7 +93,7 @@ class ProjectStoreRequest extends FormRequest
                 'y2021'     => str_replace(',', '', $this->disbursement['y2021']),
                 'y2022'     => str_replace(',', '', $this->disbursement['y2022']),
                 'y2023'     => str_replace(',', '', $this->disbursement['y2023']),
-            ],
+            ] : [],
             'total_project_cost' => str_replace(',', '', $this->total_project_cost)
         ]);
     }
@@ -114,12 +118,6 @@ class ProjectStoreRequest extends FormRequest
             'project_status_id'                 => 'required|exists:project_statuses,id',
             'spatial_coverage_id'               => 'required|exists:spatial_coverages,id',
             'regions'                           => 'required',
-//            'pip'                               => 'required|bool',
-//            'pip_typology_id'                   => 'required_if:pip,true',
-////            'research'                          => 'required_if:pip_typology_id,2',
-//            'cip'                               => 'required|bool',
-//            'cip_type_id'                       => 'required_if:cip,true',
-//            'trip'                              => 'nullable|bool',
             'rdip'                              => 'required|bool',
             'rdc_endorsement_required'          => 'required_if:rdip,true|bool',
             'rdc_endorsed'                      => 'required_if:rdc_endorsement_required,true|bool',
@@ -128,8 +126,6 @@ class ProjectStoreRequest extends FormRequest
             'approval_level_id'                 => 'required_if:iccable,1|exists:approval_levels,id',
             'approval_date'                     => 'required_if:iccable,1',
             'gad_id'                            => 'required_if:iccable,1|exists:gads,id',
-//            'other_infrastructure'              => 'nullable',
-//            'risk'                              => 'required_if:trip,true',
             'pdp_chapter_id'                    => 'required',
             'no_pdp_indicator'                  => 'nullable|bool',
             'target_start_year'                 => 'required|int|min:2000',
@@ -148,7 +144,7 @@ class ProjectStoreRequest extends FormRequest
             'feasibility_study.y2023'           => 'numeric|min:0',
             'feasibility_study.y2024'           => 'numeric|min:0',
             'feasibility_study.y2025'           => 'numeric|min:0',
-            'employment_generated'              => 'nullable|string',
+            'employment_generated'              => 'nullable',
             'funding_source_id'                 => 'required|exists:funding_sources,id',
             'implementation_mode_id'            => 'required|exists:implementation_modes,id',
             'other_fs'                          => 'nullable',
@@ -157,13 +153,18 @@ class ProjectStoreRequest extends FormRequest
             'uacs_code'                         => 'nullable',
             'tier_id'                           => 'required|exists:tiers,id',
             'funding_sources'                   => 'required',
+            'funding_sources.*'                 => 'exists:funding_sources,id',
             'funding_institution_id'            => 'exclude_unless:funding_source_id,2',
             'operating_units'                   => 'required',
+            'operating_units.*'                 => 'exists:operating_units,id',
             'pdp_chapters'                      => 'required',
-            'prerequisites'                     => 'nullable|array',
-            'sdgs'                              => 'nullable|array',
-            'pdp_indicators'                    => 'nullable|array',
-            'ten_point_agendas'                 => 'nullable|array',
+            'pdp_chapters.*'                    => 'exists:pdp_chapters,id',
+            'sdgs'                              => 'nullable',
+            'sdgs.*'                            => 'exists:sdgs,id',
+            'pdp_indicators'                    => 'nullable',
+            'pdp_indicators.*'                  => 'exists:pdp_indicators,id',
+            'ten_point_agendas'                 => 'nullable',
+            'ten_point_agendas.*'               => 'exists:ten_point_agendas,id',
             'nep.*'                             => 'required_if:project_status_id,2',
             'nep.y2016'                         => 'numeric|min:0',
             'nep.y2017'                         => 'numeric|min:0',
@@ -171,21 +172,13 @@ class ProjectStoreRequest extends FormRequest
             'nep.y2019'                         => 'numeric|min:0',
             'nep.y2020'                         => 'numeric|min:0',
             'nep.y2021'                         => 'numeric|min:0',
-//            'nep.y2022'                         => 'numeric|min:0',
-//            'nep.y2023'                         => 'numeric|min:0',
-//            'nep.y2024'                         => 'numeric|min:0',
-//            'nep.y2025'                         => 'numeric|min:0',
-            'allocation.*'                        => 'required_if:project_status_id,2',
+            'allocation.*'                      => 'required_if:project_status_id,2',
             'allocation.y2016'                  => 'numeric|min:0',
             'allocation.y2017'                  => 'numeric|min:0',
             'allocation.y2018'                  => 'numeric|min:0',
             'allocation.y2019'                  => 'numeric|min:0',
             'allocation.y2020'                  => 'numeric|min:0',
             'allocation.y2021'                  => 'numeric|min:0',
-//            'allocation.y2022'                  => 'numeric|lte:nep.y2022|min:0',
-//            'allocation.y2023'                  => 'numeric|lte:nep.y2023|min:0',
-//            'allocation.y2024'                  => 'numeric|lte:nep.y2024|min:0',
-//            'allocation.y2025'                  => 'numeric|lte:nep.y2025|min:0',
             'disbursement.*'                    => 'required_if:project_status_id,2',
             'disbursement.y2016'                => 'numeric|min:0',
             'disbursement.y2017'                => 'numeric|min:0',
@@ -193,23 +186,6 @@ class ProjectStoreRequest extends FormRequest
             'disbursement.y2019'                => 'numeric|min:0',
             'disbursement.y2020'                => 'numeric|min:0',
             'disbursement.y2021'                => 'numeric|min:0',
-//            'disbursement.y2022'                => 'numeric|lte:allocation.y2022|min:0',
-//            'disbursement.y2023'                => 'numeric|lte:allocation.y2023|min:0',
-//            'disbursement.y2024'                => 'numeric|lte:allocation.y2024|min:0',
-//            'disbursement.y2025'                => 'numeric|lte:allocation.y2025|min:0',
-//            'ou_investments'                    => 'sometimes|array',
-//            'ou_investments.*.ou_id'            => 'required|exists:operating_units,id',
-//            'ou_investments.*.y2016'            => 'required|min:0|numeric',
-//            'ou_investments.*.y2017'            => 'required|min:0|numeric',
-//            'ou_investments.*.y2018'            => 'required|min:0|numeric',
-//            'ou_investments.*.y2019'            => 'required|min:0|numeric',
-//            'ou_investments.*.y2020'            => 'required|min:0|numeric',
-//            'ou_investments.*.y2021'            => 'required|min:0|numeric',
-//            'ou_investments.*.y2022'            => 'required|min:0|numeric',
-//            'ou_investments.*.y2023'            => 'required|min:0|numeric',
-//            'ou_investments.*.y2024'            => 'required|min:0|numeric',
-//            'ou_investments.*.y2025'            => 'required|min:0|numeric',
-//            'region_investments'                => 'required|array',
             'region_investments.*.region_id'    => 'required|exists:regions,id',
             'region_investments.*.y2016'        => 'required|min:0|numeric',
             'region_investments.*.y2017'        => 'required|min:0|numeric',
@@ -219,9 +195,6 @@ class ProjectStoreRequest extends FormRequest
             'region_investments.*.y2021'        => 'required|min:0|numeric',
             'region_investments.*.y2022'        => 'required|min:0|numeric',
             'region_investments.*.y2023'        => 'required|min:0|numeric',
-//            'region_investments.*.y2024'        => 'required|min:0:numeric',
-//            'region_investments.*.y2025'        => 'required|min:0:numeric',
-//            'fs_investments'                    => 'required|array',
             'fs_investments.*.fs_id'            => 'required|exists:funding_sources,id',
             'fs_investments.*.y2016'            => 'required|min:0|numeric',
             'fs_investments.*.y2017'            => 'required|min:0|numeric',
@@ -231,8 +204,6 @@ class ProjectStoreRequest extends FormRequest
             'fs_investments.*.y2021'            => 'required|min:0|numeric',
             'fs_investments.*.y2022'            => 'required|min:0|numeric',
             'fs_investments.*.y2023'            => 'required|min:0|numeric',
-//            'fs_investments.*.y2024'            => 'required|min:0:numeric',
-//            'fs_investments.*.y2025'            => 'required|min:0:numeric',
             'has_subprojects'                   => 'nullable|bool',
             'ict'                               => 'required|bool',
             'covid'                             => 'required|bool',

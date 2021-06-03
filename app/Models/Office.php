@@ -21,6 +21,7 @@ class Office extends Model
         'name',
         'slug',
         'email',
+        'acronym',
         'contact_numbers',
         'office_head_name',
         'office_head_position',

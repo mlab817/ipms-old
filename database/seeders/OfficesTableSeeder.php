@@ -817,7 +817,7 @@ class OfficesTableSeeder extends Seeder
         DB::table('offices')->truncate();
 
         foreach ($seeds as $seed) {
-            Office::create([
+            DB::table('offices')->insert([
                 'id'                    => $seed['id'],
                 'name'                  => $seed['name'],
                 'acronym'               => $seed['acronym'],
