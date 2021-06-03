@@ -25,8 +25,13 @@
         }
     </style>
 </head>
-<body>
+<body onload="window.print()">
+
 <section class="container">
+    <div class="row my-1 d-print-none">
+        <button class="btn btn-danger btn-sm" type="button" onclick="window.open('', '_self', ''); window.close();">Close Window</button>
+    </div>
+
     <h2 style="text-align: center;" class="mb-3">
         {{ $project->title }}
     </h2>
