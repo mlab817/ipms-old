@@ -42,4 +42,14 @@ class FeasibilityStudy extends Model
     {
         return $this->belongsTo(Project::class);
     }
+
+    public function getTotalAttribute(): float
+    {
+        return floatval($this->y2017)
+            + floatval($this->y2018)
+            + floatval($this->y2019)
+            + floatval($this->y2020)
+            + floatval($this->y2021)
+            + floatval($this->y2022);
+    }
 }
