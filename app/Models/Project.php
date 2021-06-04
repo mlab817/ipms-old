@@ -293,22 +293,22 @@ class Project extends Model implements Searchable
 
     public function resettlement_action_plan(): HasOne
     {
-        return $this->hasOne(ResettlementActionPlan::class, 'project_id', 'id');
+        return $this->hasOne(ResettlementActionPlan::class, 'project_id', 'id')->withDefault();
     }
 
     public function right_of_way(): HasOne
     {
-        return $this->hasOne(RightOfWay::class, 'project_id', 'id');
+        return $this->hasOne(RightOfWay::class, 'project_id', 'id')->withDefault();
     }
 
     public function review(): HasOne
     {
-        return $this->hasOne(Review::class,'project_id','id');
+        return $this->hasOne(Review::class,'project_id','id')->withDefault();
     }
 
     public function spatial_coverage(): BelongsTo
     {
-        return $this->belongsTo(SpatialCoverage::class);
+        return $this->belongsTo(SpatialCoverage::class)->withDefault();
     }
 
     public function sdgs(): BelongsToMany
