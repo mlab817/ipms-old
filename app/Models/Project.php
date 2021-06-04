@@ -146,6 +146,11 @@ class Project extends Model implements Searchable
         return $this->belongsTo(CipType::class);
     }
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function covid_interventions(): BelongsToMany
     {
         return $this->belongsToMany(CovidIntervention::class);

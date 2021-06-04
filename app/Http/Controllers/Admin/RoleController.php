@@ -20,7 +20,7 @@ class RoleController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(Role::class);
+//        $this->authorizeResource(Role::class);
     }
 
     /**

@@ -92,7 +92,6 @@
             </div>
             <!-- /.col -->
 
-
         </div>
 
         <div class="row">
@@ -146,6 +145,16 @@
                                         <div class="progress-bar bg-danger" style="width: {{ $projectCount ? $finalizedCount / $projectCount * 100 : 0 }}%"></div>
                                     </div>
                                 </div>
+
+                                <!-- /.progress-group -->
+                                <div class="progress-group">
+                                    IPD Validated
+                                    <span class="float-right"><b>{{$ipdValidated}}</b>/{{$projectCount}}</span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-warning" style="width: {{ $projectCount ? $ipdValidated / $projectCount * 100 : 0 }}%"></div>
+                                    </div>
+                                </div>
+                                <!-- /.progress-group -->
 
                                 <!-- /.progress-group -->
                                 <div class="progress-group">

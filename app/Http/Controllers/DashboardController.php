@@ -34,6 +34,7 @@ class DashboardController extends Controller
             'projectCount'  => Project::count(),
             'reviewCount'   => Review::count(),
             'encodedCount'  => Review::where('pipol_encoded', true)->count(),
+            'ipdValidated'  => Review::where('ipd_validated', true)->count(),
             'validatedCount'=> Review::where('pipol_validated', true)->count(),
             'finalizedCount'=> Review::where('pipol_finalized', true)->count(),
             'endorsedCount' => Review::where('pipol_endorsed', true)->count(),

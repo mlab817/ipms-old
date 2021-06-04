@@ -64,6 +64,9 @@ Route::middleware(['auth','password.changed'])->group(function () {
 
     Route::get('/projects/{project}/generatePdf', [\App\Http\Controllers\ProjectController::class,'generatePdf'])->name('projects.generatePdf');
     Route::resource('projects', \App\Http\Controllers\ProjectController::class)->except('index');
+    Route::put('/comments/{comment}/resolve', \App\Http\Controllers\CommentResolveController::class)->name('comments.resolve');
+    Route::resource('projects.comments', \App\Http\Controllers\ProjectCommentController::class)->shallow()->except('index','create');
+    Route::post('reviews/{review}/validate', \App\Http\Controllers\ReviewValidateController::class)->name('reviews.validate');
     Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
     Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
     Route::resource('notifications',\App\Http\Controllers\NotificationController::class)->only('index','show');

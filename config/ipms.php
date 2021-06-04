@@ -92,6 +92,7 @@ return [
         'audit_logs.update',
         'audit_logs.delete',
         'exports.view_index',
+        'projects.validator',
     ],
     'v1' => env('IPMS_V1_URL', ''),
     'system_user'   => [

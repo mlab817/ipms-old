@@ -42,8 +42,9 @@ class ReviewController extends Controller
         // can pass project and review
         return view('reviews.show')
             ->with([
-                'review' => $review,
-                'project'=> $review->project,
+                'review'    => $review,
+                'project'   => $review->project,
+                'comments'  => $review->project->comments,
             ]);
     }
 
@@ -55,13 +56,15 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
+        $project = $review->project;
+
         return view('reviews.edit', [
-            'pageTitle'         => 'Reviewing: ' . $review->project->title,
             'review'            => $review,
             'cip_types'         => CipType::all(),
             'pip_typologies'    => PipTypology::all(),
             'readiness_levels'  => ReadinessLevel::all(),
-            'project'           => $review->project,
+            'project'           => $project,
+            'comments'          => $project->comments,
         ]);
     }
 

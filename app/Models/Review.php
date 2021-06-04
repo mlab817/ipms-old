@@ -50,4 +50,10 @@ class Review extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function validate()
+    {
+        $this->ipd_validated = true;
+        $this->save();
+    }
 }

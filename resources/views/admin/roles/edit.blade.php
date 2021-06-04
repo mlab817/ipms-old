@@ -101,7 +101,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
-                    <form action="{{ route('admin.permissions.destroy', $permission) }}" method="POST">
+                    <form action="{{ route('admin.roles.destroy', $role) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Confirm</button>
