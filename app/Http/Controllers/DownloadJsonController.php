@@ -14,8 +14,10 @@ class DownloadJsonController extends Controller
      */
     public function __invoke($filename)
     {
+
         // Check if file exists in app/storage/file folder
         $file_path = public_path() . "/" . $filename;
+        
         $headers = array(
             'Content-Type: csv',
             'Content-Disposition: attachment; filename='.$filename,
