@@ -121,6 +121,8 @@ class ReviewsDataTable extends DataTable
         return $this->builder()
                     ->setTableId('reviewsdatatable-table')
                     ->parameters([
+                        'processing'    => true,
+                        'serverSide'    => true,
                         'responsive' => true,
                         'sPaginationType' => 'full_numbers',
                         'order' => [[0, 'asc']],

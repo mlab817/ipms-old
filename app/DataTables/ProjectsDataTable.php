@@ -107,10 +107,12 @@ class ProjectsDataTable extends DataTable
         return $this->builder()
                     ->setTableId('projects-table')
                     ->parameters([
-                        'responsive' => true,
+                        'processing'    => true,
+                        'responsive'    => true,
+                        'serverSide'    => true,
                         'sPaginationType' => 'full_numbers',
-                        'order' => [[0, 'asc']],
-                        "lengthMenu" => [[10, 25, 50], [10, 25, 50]]
+                        'order'         => [[0, 'asc']],
+                        "lengthMenu"    => [[10, 25, 50], [10, 25, 50]],
                     ])
                     ->columns($this->getColumns())
                     ->minifiedAjax()
