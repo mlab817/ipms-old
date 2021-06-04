@@ -116,24 +116,14 @@ class Project extends Model implements Searchable
         return $this->uuid;
     }
 
-    public function requiresApprovalWhen($modifications): bool
-    {
-        if (optional($modifications)->is_update || $this->created_by != Auth::id()) {
-            return true;
-        }
-
-        // require approval when editor is not owner of the project
-        return false;
-    }
-
     public function allocation(): HasOne
     {
-        return $this->hasOne(Allocation::class,'project_id');
+        return $this->hasOne(Allocation::class,'project_id')->withDefault();
     }
 
     public function approval_level(): BelongsTo
     {
-        return $this->belongsTo(ApprovalLevel::class);
+        return $this->belongsTo(ApprovalLevel::class)->withDefault();
     }
 
     public function bases(): BelongsToMany
@@ -143,7 +133,7 @@ class Project extends Model implements Searchable
 
     public function cip_type(): BelongsTo
     {
-        return $this->belongsTo(CipType::class);
+        return $this->belongsTo(CipType::class)->withDefault();
     }
 
     public function covid_interventions(): BelongsToMany
@@ -153,12 +143,12 @@ class Project extends Model implements Searchable
 
     public function disbursement(): HasOne
     {
-        return $this->hasOne(Disbursement::class);
+        return $this->hasOne(Disbursement::class)->withDefault();
     }
 
     public function feasibility_study(): HasOne
     {
-        return $this->hasOne(FeasibilityStudy::class);
+        return $this->hasOne(FeasibilityStudy::class)->withDefault();
     }
 
     public function fs_investments(): HasMany
@@ -173,7 +163,12 @@ class Project extends Model implements Searchable
 
     public function funding_source(): BelongsTo
     {
-        return $this->belongsTo(FundingSource::class);
+        return $this->belongsTo(FundingSource::class)->withDefault();
+    }
+
+    public function funding_institution(): BelongsTo
+    {
+        return $this->belongsTo(FundingInstitution::class)->withDefault();
     }
 
     public function funding_institutions(): BelongsToMany
@@ -188,12 +183,12 @@ class Project extends Model implements Searchable
 
     public function gad(): BelongsTo
     {
-        return $this->belongsTo(Gad::class);
+        return $this->belongsTo(Gad::class)->withDefault();
     }
 
     public function implementation_mode(): BelongsTo
     {
-        return $this->belongsTo(ImplementationMode::class);
+        return $this->belongsTo(ImplementationMode::class)->withDefault();
     }
 
     public function implementing_agencies(): BelongsToMany
@@ -213,12 +208,12 @@ class Project extends Model implements Searchable
 
     public function nep(): HasOne
     {
-        return $this->hasOne(Nep::class);
+        return $this->hasOne(Nep::class)->withDefault();
     }
 
     public function office(): BelongsTo
     {
-        return $this->belongsTo(Office::class,'office_id');
+        return $this->belongsTo(Office::class,'office_id')->withDefault();
     }
 
     public function operating_units(): BelongsToMany
@@ -238,12 +233,12 @@ class Project extends Model implements Searchable
 
     public function pap_type(): BelongsTo
     {
-        return $this->belongsTo(PapType::class);
+        return $this->belongsTo(PapType::class)->withDefault();
     }
 
     public function pdp_chapter(): BelongsTo
     {
-        return $this->belongsTo(PdpChapter::class);
+        return $this->belongsTo(PdpChapter::class)->withDefault();
     }
 
     public function pdp_chapters(): BelongsToMany
@@ -256,14 +251,14 @@ class Project extends Model implements Searchable
         return $this->belongsToMany(PdpIndicator::class,'pdp_indicator_project','project_id','pi_id');
     }
 
-    public function pip_typology(): BelongsTo
-    {
-        return $this->belongsTo(PipTypology::class);
-    }
+//    public function pip_typology(): BelongsTo
+//    {
+//        return $this->belongsTo(PipTypology::class);
+//    }
 
     public function preparation_document(): BelongsTo
     {
-        return $this->belongsTo(PreparationDocument::class);
+        return $this->belongsTo(PreparationDocument::class)->withDefault();
     }
 
     public function prerequisites(): BelongsToMany
@@ -273,13 +268,13 @@ class Project extends Model implements Searchable
 
     public function project_status(): BelongsTo
     {
-        return $this->belongsTo(ProjectStatus::class);
+        return $this->belongsTo(ProjectStatus::class)->withDefault();
     }
 
-    public function readiness_level(): BelongsTo
-    {
-        return $this->belongsTo(ReadinessLevel::class);
-    }
+//    public function readiness_level(): BelongsTo
+//    {
+//        return $this->belongsTo(ReadinessLevel::class);
+//    }
 
     public function region_investments(): HasMany
     {
@@ -333,7 +328,7 @@ class Project extends Model implements Searchable
 
     public function tier(): BelongsTo
     {
-        return $this->belongsTo(Tier::class);
+        return $this->belongsTo(Tier::class)->withDefault();
     }
 
     public function users(): BelongsToMany
