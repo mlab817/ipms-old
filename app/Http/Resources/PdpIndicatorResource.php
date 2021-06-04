@@ -18,8 +18,8 @@ class PdpIndicatorResource extends JsonResource
         return [
             'id'        => $this->id,
             'name'      => $this->name,
-            'value'     => $this->id,
-            'label'     => $this->name,
+//            'value'     => $this->id,
+//            'label'     => $this->name,
             'children'  => PdpIndicatorResource::collection($this->children),
         ];
     }

@@ -19,7 +19,7 @@ class FsInfrastructureResource extends JsonResource
     {
         return [
             'id'            => $this->id,
-            'uuid'          => $this->uuid,
+//            'uuid'          => $this->uuid,
             'fs_id'         => $this->fs_id,
             'funding_source'=> new FundingSourceResource($this->funding_source),
             'y2016'         => (float) $this->y2016,

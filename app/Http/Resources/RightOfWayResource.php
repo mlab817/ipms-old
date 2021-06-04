@@ -19,7 +19,7 @@ class RightOfWayResource extends JsonResource
     {
         return [
             'id'                    => $this->id,
-            'uuid'                  => $this->uuid,
+//            'uuid'                  => $this->uuid,
             'y2016'                 => (float) $this->y2016,
             'y2017'                 => (float) $this->y2017,
             'y2018'                 => (float) $this->y2018,

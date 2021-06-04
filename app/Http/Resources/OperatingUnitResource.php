@@ -17,8 +17,8 @@ class OperatingUnitResource extends JsonResource
         return [
             'id'                    => $this->id,
             'label'                 => $this->name,
-            'name'                  => $this->label,
-            'operating_unit_type'   => new OperatingUnitTypeResource($this->operating_unit_type),
+//            'name'                  => $this->label,
+//            'operating_unit_type'   => new OperatingUnitTypeResource($this->operating_unit_type),
         ];
     }
 }

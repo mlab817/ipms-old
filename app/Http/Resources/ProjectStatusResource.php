@@ -18,8 +18,8 @@ class ProjectStatusResource extends JsonResource
         return [
             'id'    => $this->id,
             'name'  => $this->name,
-            'slug'  => $this->slug,
-            'count' => $this->count,
+//            'slug'  => $this->slug,
+//            'count' => $this->count,
         ];
     }
 }

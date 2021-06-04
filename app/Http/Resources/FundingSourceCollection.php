@@ -23,7 +23,7 @@ class FundingSourceCollection extends ResourceCollection
                 return [
                     'id'                => $fundingSource->id,
                     'name'             => $fundingSource->name,
-                    'slug'              => $fundingSource->slug,
+//                    'slug'              => $fundingSource->slug,
                     'investment'        => $fundingSource->investment ? new InvestmentResource($fundingSource->investment) : null,
                     'infrastructure'    => $fundingSource->infrastructure ? new InvestmentResource($fundingSource->infrastructure) : null,
                 ];

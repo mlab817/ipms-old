@@ -18,9 +18,9 @@ class InfrastructureSubsectorResource extends JsonResource
         return [
             'id'        => $this->id,
             'name'      => $this->name,
-            'value'     => $this->id,
-            'label'     => $this->name,
-            'slug'      => $this->slug,
+//            'value'     => $this->id,
+//            'label'     => $this->name,
+//            'slug'      => $this->slug,
         ];
     }
 }

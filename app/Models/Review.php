@@ -28,26 +28,26 @@ class Review extends Model
 
     public function project(): BelongsTo
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(Project::class)->withDefault();
     }
 
     public function readiness_level(): BelongsTo
     {
-        return $this->belongsTo(ReadinessLevel::class);
+        return $this->belongsTo(ReadinessLevel::class)->withDefault();
     }
 
     public function pip_typology(): BelongsTo
     {
-        return $this->belongsTo(PipTypology::class);
+        return $this->belongsTo(PipTypology::class)->withDefault();
     }
 
     public function cip_type(): BelongsTo
     {
-        return $this->belongsTo(CipType::class);
+        return $this->belongsTo(CipType::class)->withDefault();
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault();
     }
 }

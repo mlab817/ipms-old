@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CipTypeResource extends JsonResource
+class CovidInterventionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,10 +14,6 @@ class CipTypeResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id'    => $this->id,
-            'name'  => $this->name,
-//            'slug'  => $this->slug,
-        ];
+        return parent::toArray($request);
     }
 }

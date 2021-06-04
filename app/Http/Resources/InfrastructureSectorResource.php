@@ -17,8 +17,8 @@ class InfrastructureSectorResource extends JsonResource
         return [
             'id'        => $this->uuid,
             'name'      => $this->name,
-            'slug'      => $this->slug,
-            'children'  => InfrastructureSubsectorResource::collection($this->children),
+//            'slug'      => $this->slug,
+//            'children'  => InfrastructureSubsectorResource::collection($this->children),
         ];
     }
 }

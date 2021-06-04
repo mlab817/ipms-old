@@ -17,8 +17,8 @@ class SdgResource extends JsonResource
         return [
             'id'            => $this->id,
             'name'          => $this->name,
-            'slug'          => $this->slug,
-            'description'   => $this->description,
+//            'slug'          => $this->slug,
+//            'description'   => $this->description,
         ];
     }
 }

@@ -21,7 +21,7 @@ class OfficeResource extends JsonResource
             'id'                => $this->id,
             'operating_unit'    => new OperatingUnitResource($this->operating_unit),
             'name'              => $this->name,
-            'acronym'           => $this->acronym,
+//            'acronym'           => $this->acronym,
         ];
     }
 }

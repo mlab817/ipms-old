@@ -20,7 +20,7 @@ class RegionInvestmentResource extends JsonResource
     {
         return [
             'id'        => $this->id,
-            'uuid'      => $this->uuid,
+//            'uuid'      => $this->uuid,
             'region_id' => $this->region_id,
             'region'    => new RegionResource($this->region),
             'y2016'     => (float) $this->y2016,
