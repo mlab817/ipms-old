@@ -28,7 +28,7 @@ class ReviewsDataTable extends DataTable
             ->addColumn('added_by', function ($project) {
                 return ($project->creator ? $project->creator->name : '')
                     . '<br/><small class="text-muted">'
-                    . $project->created_at->diffForHumans(null, null, true)
+                    . $project->created_at ? $project->created_at->diffForHumans(null, null, true) : ''
                     . '</small>';
             })
             ->addColumn('office', function ($row) {
@@ -76,7 +76,7 @@ class ReviewsDataTable extends DataTable
                     $reviewer = $project->review->user->name ?? '';
                     return $reviewer
                         . '<br/><small class="text-muted">'
-                        . $project->review->updated_at->diffForHumans(null, null, true)
+                        . $project->review->updated_at ? $project->review->updated_at->diffForHumans(null, null, true) : ''
                         . '</small>';
                 } else {
                     return '';

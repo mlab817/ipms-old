@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ProjectResource;
+use App\Jobs\ExportProjectsAsJsonJob;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ExportProjectsAsJsonController extends Controller
 {
@@ -12,10 +15,14 @@ class ExportProjectsAsJsonController extends Controller
      * Handle the incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function __invoke(Request $request)
     {
-        return ProjectResource::collection(Project::all());
+        dispatch(new ExportProjectsAsJsonJob(auth()->id()));
+
+        Alert::success('Success', 'The export job has been queued. You will be notified once it is ready');
+
+        return back();
     }
 }
