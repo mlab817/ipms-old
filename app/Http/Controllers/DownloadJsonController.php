@@ -17,7 +17,7 @@ class DownloadJsonController extends Controller
 
         // Check if file exists in app/storage/file folder
         $file_path = public_path() . "/" . $filename;
-        
+
         $headers = array(
             'Content-Type: csv',
             'Content-Disposition: attachment; filename='.$filename,
