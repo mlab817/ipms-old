@@ -146,6 +146,10 @@ Route::group(['middleware' => 'guest'], function() {
     Route::get('/auth/google/callback', [\App\Http\Controllers\Auth\SocialLoginController::class,'handleGoogleCallback'])->name('auth.google-callback');
 });
 
+Route::get('/json', function () {
+    return \App\Http\Resources\ProjectResource::collection(\App\Models\Project::with('pap_type')->get());
+});
+
 Route::fallback(function () {
     return view('errors.404');
 });
