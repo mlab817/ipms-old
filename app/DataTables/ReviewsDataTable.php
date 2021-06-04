@@ -76,7 +76,7 @@ class ReviewsDataTable extends DataTable
                     $reviewer = $project->review->user->name ?? '';
                     return $reviewer
                         . '<br/><small class="text-muted">'
-                        . !!$project->review->updated_at ? $project->review->updated_at->diffForHumans(null, null, true) : ''
+                        . $project->review->updated_at->diffForHumans(null, null, true)
                         . '</small>';
                 } else {
                     return '';

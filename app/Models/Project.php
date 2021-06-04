@@ -303,7 +303,7 @@ class Project extends Model implements Searchable
 
     public function review(): HasOne
     {
-        return $this->hasOne(Review::class,'project_id','id')->withDefault();
+        return $this->hasOne(Review::class,'project_id','id');
     }
 
     public function spatial_coverage(): BelongsTo
