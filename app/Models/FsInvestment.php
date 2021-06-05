@@ -12,10 +12,6 @@ class FsInvestment extends Model
     use HasFactory;
     use HasUuid;
 
-    protected $touches = [
-        'project'
-    ];
-
     protected $fillable = [
         'project_id',
         'fs_id',

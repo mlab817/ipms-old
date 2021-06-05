@@ -149,6 +149,64 @@ Route::group(['middleware' => 'guest'], function() {
 Route::get('/downloadJson/{filename}', \App\Http\Controllers\DownloadJsonController::class)->name('projects.downloadJson');
 Route::get('/exportJson', \App\Http\Controllers\ExportProjectsAsJsonController::class)->name('projects.json');
 
+Route::get('/collection', function() {
+    $time_start = microtime(true);
+    $regions = \App\Models\Region::all();
+    $regionInvestments = collect([
+        [
+            'region_id' => 1,
+            'y2016' => 1230,
+            'y2017' => 4560,
+            'y2018' => 7890,
+        ],
+        [
+            'region_id' => 2,
+            'y2016' => 1230,
+            'y2017' => 4560,
+            'y2018' => 7890,
+        ]
+    ]);
+
+    $combined = $regions->map(function ($r) use ($regionInvestments) {
+//        dd($r);
+        $match = $regionInvestments->where('region_id', $r->id)->first();
+        if (! $match) {
+            return [
+                'region_id' => $r->id,
+                'y2016' => 0,
+                'y2017' => 0,
+                'y2018' => 0,
+                'y2019' => 0,
+                'y2020' => 0,
+                'y2021' => 0,
+                'y2022' => 0,
+                'y2023' => 0,
+                'y2024' => 0,
+                'y2025' => 0,
+
+            ];
+        } else {
+            return $match;
+        }
+    });
+
+//    dd($combined);
+
+//    $project = new \App\Models\Project;
+//    $project->title = Str::random(60);
+//    $project->save();
+//
+//    $project->region_investments()->createMany($combined->toArray());
+//    dd($project->load('region_investments'));
+//    dd($combined);
+    echo '<pre>';
+    echo json_encode($combined, JSON_PRETTY_PRINT);
+    echo '</pre>';
+    $time_end = microtime(true);
+    $execution_time = ($time_end - $time_start);
+    echo '<b>Total Execution Time:</b> '.($execution_time*1000).'Milliseconds';
+});
+
 Route::fallback(function () {
     return view('errors.404');
 });

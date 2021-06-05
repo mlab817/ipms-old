@@ -10,31 +10,10 @@ use Illuminate\Validation\ValidationException;
 
 class ProjectCreateService
 {
-    public $project;
-
     public function create(array $data)
     {
-        $this->project = Project::create($data);
+        $project = Project::create($data);
 
-        $this->createRelated($data['relations']);
-
-        $this->createHasOne($data);
-
-        $this->createHasOne($data);
-
-        $this->createRegionInvestments($data['region_investments']);
-
-        $this->createFsInvestments($data['fs_investments']);
-
-        if ($this->project->has_infra) {
-            $this->createFsInfrastructures($data['fs_infrastructures']);
-        }
-
-        return $this->project->fresh();
-    }
-
-    public function createHasOne(array $data)
-    {
         $this->project->feasibility_study()->create($data['feasibility_study']);
 
         $this->project->resettlement_action_plan()->create($data['resettlement_action_plan']);
@@ -46,87 +25,45 @@ class ProjectCreateService
         $this->project->nep()->create($data['nep']);
 
         $this->project->disbursement()->create($data['disbursement']);
-    }
 
-    public function createRelated($relations)
-    {
-        $this->project->sdgs()->sync($relations['sdgs']);
-        $this->project->bases()->sync($relations['bases']);
-        $this->project->ten_point_agendas()->sync($relations['ten_point_agenda']);
-        $this->project->regions()->sync($relations['regions']);
-        $this->project->funding_sources()->sync($relations['funding_sources']);
-        $this->project->pdp_chapters()->sync($relations['pdp_chapters']);
-        $this->project->pdp_indicators()->sync($relations['pdp_indicators']);
-        $this->project->infrastructure_subsectors()->sync($relations['infrastructure_subsectors']);
-        $this->project->prerequisites()->sync($relations['prerequisites']);
-    }
+        $this->project->region_investments()->createMany($data['region_investments']);
 
-    public function createRegionInvestments($regionInvestments)
-    {
-        $regions = Region::where('id','<>',100)->get();
+        $this->project->fs_investments()->createMany($data['fs_investments']);
 
-        foreach ($regions as $region) {
-            if (!empty($regionInvestments)) {
-                $regionToInsert = $regionInvestments->filter(function ($item) use ($region) {
-                    return $item['region_id'] == $region->id;
-                })->first();
+        $this->project->sdgs()->attach($data['sdgs']);
 
-                if ($regionToInsert) {
-                    $this->project->region_investments()->create($regionToInsert);
-                } else {
-                    $this->project->region_investments()->create([
-                        'region_id' => $region->id,
-                    ]);
-                }
-            }
+        $this->project->bases()->attach($data['bases']);
 
-            if ($this->project->has_infra) {
-                $this->project->region_infrastructures()->create([
-                    'region_id' => $region->id
-                ]);
-            }
+        $this->project->ten_point_agendas()->attach($data['ten_point_agenda']);
+
+        $this->project->regions()->attach($data['regions']);
+
+        $this->project->funding_sources()->attach($data['funding_sources']);
+
+        $this->project->pdp_chapters()->attach($data['pdp_chapters']);
+
+        $this->project->pdp_indicators()->attach($data['pdp_indicators']);
+
+        $this->project->infrastructure_subsectors()->attach($data['infrastructure_subsectors']);
+
+        $this->project->prerequisites()->attach($data['prerequisites']);
+
+        if ($this->project->has_infra) {
+            $this->project->fs_infrastructures()->createMany($data['fs_infrastructures']);
         }
-    }
 
-    public function createFsInvestments($investments)
-    {
-        $fundingSources = FundingSource::all();
+        $this->project->created_by = $data['created_by'];
 
-        foreach ($fundingSources as $fs) {
-            if (!empty($investments)) {
-                $fsToInsert = $investments->filter(function ($item) use ($fs) {
-                    return $item['fs_id'] == $fs->id;
-                })->first();
+        $project->save();
 
-                if ($fsToInsert) {
-                    $this->project->fs_investments()->create($fsToInsert);
-                } else {
-                    $this->project->fs_investments()->create([
-                        'fs_id' => $fs->id,
-                    ]);
-                }
-            }
-        }
-    }
+        $this->project->audit_logs()->create([
+            'description'  => 'imported',
+            'user_id'      => $data['created_by'],
+//            'original'     => [],
+//            'modified'     => [],
+//            'host'         => request()->ip() ?? null,
+        ]);
 
-    public function createFsInfrastructures($investments)
-    {
-        $fundingSources = FundingSource::all();
-
-        foreach ($fundingSources as $fs) {
-            if (!empty($investments)) {
-                $fsToInsert = $investments->filter(function ($item) use ($fs) {
-                    return $item['fs_id'] == $fs->id;
-                })->first();
-
-                if ($fsToInsert) {
-                    $this->project->fs_infrastructures()->create($fsToInsert);
-                } else {
-                    $this->project->fs_infrastructures()->create([
-                        'fs_id' => $fs->id,
-                    ]);
-                }
-            }
-        }
+        return $project->fresh();
     }
 }

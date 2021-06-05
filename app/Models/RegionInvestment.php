@@ -14,10 +14,6 @@ class RegionInvestment extends Model
     use HasFactory;
     use HasUuid;
 
-    protected $touches = [
-        'project'
-    ];
-
     protected $fillable = [
         'uuid',
         'project_id',

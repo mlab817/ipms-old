@@ -12,9 +12,9 @@ class Nep extends Model
     use HasFactory;
     use HasUuid;
 
-    protected $touches = [
-        'project'
-    ];
+//    protected $touches = [
+//        'project'
+//    ];
 
     protected $fillable = [
         'project_id',

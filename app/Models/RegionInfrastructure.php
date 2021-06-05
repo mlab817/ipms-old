@@ -12,10 +12,6 @@ class RegionInfrastructure extends Model
     use HasFactory;
     use HasUuid;
 
-    protected $touches = [
-        'project'
-    ];
-
     protected $fillable = [
         'project_id',
         'region_id',

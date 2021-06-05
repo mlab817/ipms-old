@@ -12,6 +12,7 @@ use App\Models\PdpChapter;
 use App\Models\PreparationDocument;
 use App\Models\Project;
 use App\Models\ProjectStatus;
+use App\Models\Region;
 use App\Models\SpatialCoverage;
 use App\Models\Tier;
 use App\Models\User;
@@ -75,7 +76,14 @@ class ProjectImportJob implements ShouldQueue
             $data = $response->json();
 
             $project = Project::withoutEvents(function () use ($projectCreateService, $data) {
-                $project = $projectCreateService->create([
+                $fs_infrastructures = collect($data['funding_source_infrastructures']);
+                $fs_investments = collect($data['funding_source_financials']);
+                $region_investments = collect($data['region_financials']);
+                $fundingSources = FundingSource::select('id')->get();
+                $regions = Region::select('id')->get();
+
+                return $projectCreateService->create([
+                    'created_by'                => $this->user->id,
                     'ipms_id'                   => $data['id'],
                     'uuid'                      => Str::uuid(),
                     'slug'                      => Str::slug($data['title']),
@@ -113,17 +121,15 @@ class ProjectImportJob implements ShouldQueue
                     'office_id'                 => !in_array($data['operating_unit_id'], Office::all()->pluck('id')->toArray()) ? null : $data['operating_unit_id'],
                     'total_project_cost'        => round(floatval($data['investment_target_total'] ?? 0)),
                     'trip_info'                 => $data['trip'],
-                    'relations'                 => [
-                        'bases'                     => collect($data['bases'])->pluck('id'),
-                        'sdgs'                      => collect($data['sustainable_development_goals'])->pluck('id'),
-                        'ten_point_agenda'          => collect($data['ten_point_agenda'])->pluck('id'),
-                        'regions'                   => collect($data['regions'])->pluck('id'),
-                        'funding_sources'           => collect($data['funding_sources'])->pluck('id'),
-                        'pdp_chapters'              => collect($data['pdp_chapters'])->pluck('id'),
-                        'pdp_indicators'            => collect($data['pdp_indicators'])->pluck('id'),
-                        'infrastructure_subsectors' => collect($data['infrastructure_subsectors'])->pluck('id'),
-                        'prerequisites'             => collect($data['technical_readinesses'])->pluck('id'),
-                    ],
+                    'bases'                     => collect($data['bases'])->pluck('id'),
+                    'sdgs'                      => collect($data['sustainable_development_goals'])->pluck('id'),
+                    'ten_point_agenda'          => collect($data['ten_point_agenda'])->pluck('id'),
+                    'regions'                   => collect($data['regions'])->pluck('id'),
+                    'funding_sources'           => collect($data['funding_sources'])->pluck('id'),
+                    'pdp_chapters'              => collect($data['pdp_chapters'])->pluck('id'),
+                    'pdp_indicators'            => collect($data['pdp_indicators'])->pluck('id'),
+                    'infrastructure_subsectors' => collect($data['infrastructure_subsectors'])->pluck('id'),
+                    'prerequisites'             => collect($data['technical_readinesses'])->pluck('id'),
 
                     'feasibility_study' => [
                         'y2017' => round(floatval($data['fs_target_2017'])) ?? 0,
@@ -181,61 +187,135 @@ class ProjectImportJob implements ShouldQueue
                         'y2021' => round(floatval($data['disbursement_2021'])) ?? 0,
                     ],
 
-                    'region_investments' => !empty($data['region_financials']) ? collect($data['region_financials'])->map(function ($item) {
-                        return [
-                            'region_id' => $item['region_id'],
-                            'y2016' => round(floatval($item['investment_target_2016'])) ?? 0,
-                            'y2017' => round(floatval($item['investment_target_2017'])) ?? 0,
-                            'y2018' => round(floatval($item['investment_target_2018'])) ?? 0,
-                            'y2019' => round(floatval($item['investment_target_2019'])) ?? 0,
-                            'y2020' => round(floatval($item['investment_target_2020'])) ?? 0,
-                            'y2021' => round(floatval($item['investment_target_2021'])) ?? 0,
-                            'y2022' => round(floatval($item['investment_target_2022'])) ?? 0,
-                            'y2023' => round(floatval($item['investment_target_2023'])) ?? 0,
-                        ];
-                    }) : collect([]),
+//                    'region_investments' => !empty($data['region_financials']) ? collect($data['region_financials'])->map(function ($item) {
+//                        return [
+//                            'region_id' => $item['region_id'],
+//                            'y2016' => round(floatval($item['investment_target_2016'])) ?? 0,
+//                            'y2017' => round(floatval($item['investment_target_2017'])) ?? 0,
+//                            'y2018' => round(floatval($item['investment_target_2018'])) ?? 0,
+//                            'y2019' => round(floatval($item['investment_target_2019'])) ?? 0,
+//                            'y2020' => round(floatval($item['investment_target_2020'])) ?? 0,
+//                            'y2021' => round(floatval($item['investment_target_2021'])) ?? 0,
+//                            'y2022' => round(floatval($item['investment_target_2022'])) ?? 0,
+//                            'y2023' => round(floatval($item['investment_target_2023'])) ?? 0,
+//                        ];
+//                    }) : collect([]),
 
-                    'fs_infrastructures' => !empty($data['funding_source_infrastructures']) ? collect($data['funding_source_infrastructures'])->map(function ($item) {
-                        return [
-                            'fs_id' => $item['funding_source_id'],
-                            'y2016' => round(floatval($item['infrastructure_target_2016'])) ?? 0,
-                            'y2017' => round(floatval($item['infrastructure_target_2017'])) ?? 0,
-                            'y2018' => round(floatval($item['infrastructure_target_2018'])) ?? 0,
-                            'y2019' => round(floatval($item['infrastructure_target_2019'])) ?? 0,
-                            'y2020' => round(floatval($item['infrastructure_target_2020'])) ?? 0,
-                            'y2021' => round(floatval($item['infrastructure_target_2021'])) ?? 0,
-                            'y2022' => round(floatval($item['infrastructure_target_2022'])) ?? 0,
-                            'y2023' => round(floatval($item['infrastructure_target_2023'])) ?? 0,
-                        ];
-                    }) : collect([]),
+//                    'fs_infrastructures' => !empty($data['funding_source_infrastructures']) ? collect($data['funding_source_infrastructures'])->map(function ($item) {
+//                        return [
+//                            'fs_id' => $item['funding_source_id'],
+//                            'y2016' => round(floatval($item['infrastructure_target_2016'])) ?? 0,
+//                            'y2017' => round(floatval($item['infrastructure_target_2017'])) ?? 0,
+//                            'y2018' => round(floatval($item['infrastructure_target_2018'])) ?? 0,
+//                            'y2019' => round(floatval($item['infrastructure_target_2019'])) ?? 0,
+//                            'y2020' => round(floatval($item['infrastructure_target_2020'])) ?? 0,
+//                            'y2021' => round(floatval($item['infrastructure_target_2021'])) ?? 0,
+//                            'y2022' => round(floatval($item['infrastructure_target_2022'])) ?? 0,
+//                            'y2023' => round(floatval($item['infrastructure_target_2023'])) ?? 0,
+//                        ];
+//                    }) : collect([]),
 
-                    'fs_investments' => !empty($data['funding_source_financials']) ? collect($data['funding_source_financials'])->map(function ($item) {
-                        return [
-                            'fs_id' => $item['funding_source_id'],
-                            'y2016' => round(floatval($item['investment_target_2016'])) ?? 0,
-                            'y2017' => round(floatval($item['investment_target_2017'])) ?? 0,
-                            'y2018' => round(floatval($item['investment_target_2018'])) ?? 0,
-                            'y2019' => round(floatval($item['investment_target_2019'])) ?? 0,
-                            'y2020' => round(floatval($item['investment_target_2020'])) ?? 0,
-                            'y2021' => round(floatval($item['investment_target_2021'])) ?? 0,
-                            'y2022' => round(floatval($item['investment_target_2022'])) ?? 0,
-                            'y2023' => round(floatval($item['investment_target_2023'])) ?? 0,
-                        ];
-                    }) : collect([]),
+                    'region_investments' => $regions->map(function ($region) use ($region_investments) {
+                        $match = $region_investments->where('funding_source_id', $region->id)->first();
+                        if (! $match) {
+                            return [
+                                'region_id' => $region->id,
+                                'y2016' => 0,
+                                'y2017' => 0,
+                                'y2018' => 0,
+                                'y2019' => 0,
+                                'y2020' => 0,
+                                'y2021' => 0,
+                                'y2022' => 0,
+                                'y2023' => 0,
+                            ];
+                        } else {
+                            return [
+                                'region_id' => $match['region_id'],
+                                'y2016' => round(floatval($match['investment_target_2016'])) ?? 0,
+                                'y2017' => round(floatval($match['investment_target_2017'])) ?? 0,
+                                'y2018' => round(floatval($match['investment_target_2018'])) ?? 0,
+                                'y2019' => round(floatval($match['investment_target_2019'])) ?? 0,
+                                'y2020' => round(floatval($match['investment_target_2020'])) ?? 0,
+                                'y2021' => round(floatval($match['investment_target_2021'])) ?? 0,
+                                'y2022' => round(floatval($match['investment_target_2022'])) ?? 0,
+                                'y2023' => round(floatval($match['investment_target_2023'])) ?? 0,
+                            ];
+                        }
+                    }),
+
+                    'fs_infrastructures' => $fundingSources->map(function ($fs) use ($fs_infrastructures) {
+                        $match = $fs_infrastructures->where('funding_source_id', $fs->id)->first();
+                        if (! $match) {
+                            return [
+                                'fs_id' => $fs->id,
+                                'y2016' => 0,
+                                'y2017' => 0,
+                                'y2018' => 0,
+                                'y2019' => 0,
+                                'y2020' => 0,
+                                'y2021' => 0,
+                                'y2022' => 0,
+                                'y2023' => 0,
+                            ];
+                        } else {
+                            return [
+                                'fs_id' => $match['funding_source_id'],
+                                'y2016' => round(floatval($match['infrastructure_target_2016'])) ?? 0,
+                                'y2017' => round(floatval($match['infrastructure_target_2017'])) ?? 0,
+                                'y2018' => round(floatval($match['infrastructure_target_2018'])) ?? 0,
+                                'y2019' => round(floatval($match['infrastructure_target_2019'])) ?? 0,
+                                'y2020' => round(floatval($match['infrastructure_target_2020'])) ?? 0,
+                                'y2021' => round(floatval($match['infrastructure_target_2021'])) ?? 0,
+                                'y2022' => round(floatval($match['infrastructure_target_2022'])) ?? 0,
+                                'y2023' => round(floatval($match['infrastructure_target_2023'])) ?? 0,
+                            ];
+                        }
+                    }),
+
+                    'fs_investments' => $fundingSources->map(function ($fs) use ($fs_investments) {
+                        $match = $fs_investments->where('funding_source_id', $fs->id)->first();
+                        if (! $match) {
+                            return [
+                                'fs_id' => $fs->id,
+                                'y2016' => 0,
+                                'y2017' => 0,
+                                'y2018' => 0,
+                                'y2019' => 0,
+                                'y2020' => 0,
+                                'y2021' => 0,
+                                'y2022' => 0,
+                                'y2023' => 0,
+                            ];
+                        } else {
+                            return [
+                                'fs_id' => $match['funding_source_id'],
+                                'y2016' => round(floatval($match['investment_target_2016'])) ?? 0,
+                                'y2017' => round(floatval($match['investment_target_2017'])) ?? 0,
+                                'y2018' => round(floatval($match['investment_target_2018'])) ?? 0,
+                                'y2019' => round(floatval($match['investment_target_2019'])) ?? 0,
+                                'y2020' => round(floatval($match['investment_target_2020'])) ?? 0,
+                                'y2021' => round(floatval($match['investment_target_2021'])) ?? 0,
+                                'y2022' => round(floatval($match['investment_target_2022'])) ?? 0,
+                                'y2023' => round(floatval($match['investment_target_2023'])) ?? 0,
+                            ];
+                        }
+                    }),
+//
+//                    'fs_investments' => !empty($data['funding_source_financials']) ? collect($data['funding_source_financials'])->map(function ($item) {
+//                        return [
+//                            'fs_id' => $item['funding_source_id'],
+//                            'y2016' => round(floatval($item['investment_target_2016'])) ?? 0,
+//                            'y2017' => round(floatval($item['investment_target_2017'])) ?? 0,
+//                            'y2018' => round(floatval($item['investment_target_2018'])) ?? 0,
+//                            'y2019' => round(floatval($item['investment_target_2019'])) ?? 0,
+//                            'y2020' => round(floatval($item['investment_target_2020'])) ?? 0,
+//                            'y2021' => round(floatval($item['investment_target_2021'])) ?? 0,
+//                            'y2022' => round(floatval($item['investment_target_2022'])) ?? 0,
+//                            'y2023' => round(floatval($item['investment_target_2023'])) ?? 0,
+//                        ];
+//                    }) : collect([]),
                 ]);
-
-                $project->created_by = $this->user->id;
-                $project->save();
-
-                $project->audit_logs()->create([
-                    'description'  => 'imported',
-                    'user_id'      => $this->user->id,
-                    'original'     => $project->getOriginal() ?? null,
-                    'modified'     => $project->getChanges() ?? null,
-                    'host'         => request()->ip() ?? null,
-                ]);
-
-                return $project;
             });
 
             $this->user->notify(new ProjectImportSuccessNotification($project));
