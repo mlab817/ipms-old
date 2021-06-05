@@ -3,21 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\ProjectImportJob;
-use App\Models\FundingInstitution;
-use App\Models\FundingSource;
-use App\Models\Gad;
-use App\Models\ImplementationMode;
-use App\Models\Office;
-use App\Models\PapType;
-use App\Models\PdpChapter;
-use App\Models\PreparationDocument;
-use App\Models\Project;
-use App\Models\ProjectStatus;
-use App\Models\SpatialCoverage;
-use App\Models\Tier;
-use App\Services\ProjectCreateService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProjectImportController extends Controller
@@ -35,7 +21,7 @@ class ProjectImportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function import(Request $request, ProjectCreateService $createService)
+    public function import(Request $request)
     {
         $request->validate([
             'id' => 'required|int|unique:projects,ipms_id',

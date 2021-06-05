@@ -13,7 +13,6 @@ use App\Events\ProjectReviewedEvent;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Requests\ReviewStoreRequest;
-use App\Http\Requests\StoreProjectRequest;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
 use App\Models\CipType;
@@ -44,7 +43,6 @@ use App\Models\TenPointAgenda;
 use App\Models\Tier;
 use App\Models\User;
 use App\Notifications\ProjectDeletedNotification;
-use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -126,15 +124,15 @@ class ProjectController extends Controller
     {
         $project = Project::create($request->all());
 
-        $project->bases()->sync($request->bases);
-        $project->regions()->sync($request->regions);
-        $project->funding_sources()->sync($request->funding_sources);
-        $project->sdgs()->sync($request->sdgs);
-        $project->pdp_chapters()->sync($request->pdp_chapters);
-        $project->pdp_indicators()->sync($request->pdp_indicators);
-        $project->ten_point_agendas()->sync($request->ten_point_agendas);
-        $project->operating_units()->sync($request->operating_units);
-        $project->covid_interventions()->sync($request->covid_interventions);
+        $project->bases()->attach($request->bases);
+        $project->regions()->attach($request->regions);
+        $project->funding_sources()->attach($request->funding_sources);
+        $project->sdgs()->attach($request->sdgs);
+        $project->pdp_chapters()->attach($request->pdp_chapters);
+        $project->pdp_indicators()->attach($request->pdp_indicators);
+        $project->ten_point_agendas()->attach($request->ten_point_agendas);
+        $project->operating_units()->attach($request->operating_units);
+        $project->covid_interventions()->attach($request->covid_interventions);
 
         $project->fs_investments()->createMany($request->fs_investments);
         $project->region_investments()->createMany($request->region_investments);
