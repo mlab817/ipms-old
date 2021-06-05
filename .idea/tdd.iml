@@ -199,6 +199,17 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/image-optimizer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-medialibrary" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/pdf-to-image" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public/1" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public/2" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public/3" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public/4" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public/5" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public/6" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public/9" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/public/users" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/projects" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework/cache/data/7c" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

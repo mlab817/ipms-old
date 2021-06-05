@@ -11,7 +11,7 @@ use Tests\DuskTestCase;
 class LoginTest extends DuskTestCase
 {
     /**
-     * A Dusk test example.
+     * @group auth-login
      *
      * @return void
      * @throws \Throwable

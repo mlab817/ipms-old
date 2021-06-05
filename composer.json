@@ -34,6 +34,7 @@
         "spatie/laravel-medialibrary": "^7.20",
         "spatie/laravel-permission": "^4.0",
         "spatie/laravel-searchable": "^1.9",
+        "teamtnt/laravel-scout-tntsearch-driver": "^11.5",
         "yajra/laravel-datatables": "^1.5",
         "yajra/laravel-datatables-buttons": "^4.13"
     },

@@ -1,29 +1,33 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Admin;
 
 use App\Models\Project;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class AdminProjectsTest extends DuskTestCase
+class AdminProjectControllerTest extends DuskTestCase
 {
-    use DatabaseTransactions;
-
+    /**
+     * @group admin-projects
+     */
     public function test_it_shows_manage_projects_page()
     {
         $this->browse(function (Browser $browser) {
+            $this->user->givePermissionTo('projects.manage');
+
             $browser
-                    ->loginAs(1)
-                    ->visit(route('admin.projects.index'))
-                    ->assertSee('Projects')
-                    ->screenshot('admin/projects-index');
+                ->loginAs($this->user->id)
+                ->visit(route('admin.projects.index'))
+                ->assertSee('IPMSv2')
+                ->screenshot('admin/projects-index');
         });
     }
 
+    /**
+     * @group admin-projects
+     */
     public function test_it_shows_manage_projects_user_access_page()
     {
         $this->browse(function (Browser $browser) {
@@ -37,6 +41,9 @@ class AdminProjectsTest extends DuskTestCase
         });
     }
 
+    /**
+     * @group admin-projects
+     */
     public function test_it_shows_manage_projects_user_add_access_page()
     {
         $this->browse(function (Browser $browser) {
@@ -52,6 +59,9 @@ class AdminProjectsTest extends DuskTestCase
         });
     }
 
+    /**
+     * @group admin-projects
+     */
     public function test_it_shows_manage_projects_user_edit_access_page()
     {
         $this->browse(function (Browser $browser) {

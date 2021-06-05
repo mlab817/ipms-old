@@ -9,7 +9,7 @@ use Tests\DuskTestCase;
 class AdminIndexTest extends DuskTestCase
 {
     /**
-     * A Dusk test example.
+     * @group admin
      *
      * @return void
      */
