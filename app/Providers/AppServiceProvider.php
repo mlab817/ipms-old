@@ -38,7 +38,6 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(125);
 
         Review::observe(ReviewObserver::class);
-        Project::observe(ProjectObserver::class);
         User::observe(UserObserver::class);
 
         // blade directives
