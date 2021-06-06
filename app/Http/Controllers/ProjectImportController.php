@@ -23,11 +23,12 @@ class ProjectImportController extends Controller
      */
     public function import(Request $request)
     {
-        $request->validate([
-            'id' => 'required|int|unique:projects,ipms_id',
-        ], [
-            'unique' => 'This project has already been imported before.'
-        ]);
+        // TODO: Don't forget to uncomment
+//        $request->validate([
+//            'id' => 'required|int|unique:projects,ipms_id',
+//        ], [
+//            'unique' => 'This project has already been imported before.'
+//        ]);
 
         dispatch(new ProjectImportJob($request->id, auth()->user()));
 

@@ -12,7 +12,6 @@ use Illuminate\Support\Str;
 class RegionInvestment extends Model
 {
     use HasFactory;
-    use HasUuid;
 
     protected $fillable = [
         'uuid',

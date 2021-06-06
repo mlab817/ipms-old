@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Disbursement extends Model
 {
     use HasFactory;
-    use HasUuid;
 
     protected $fillable = [
         'project_id',

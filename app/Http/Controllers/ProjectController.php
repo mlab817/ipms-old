@@ -56,8 +56,6 @@ use Spatie\Searchable\Search;
 
 class ProjectController extends Controller
 {
-    const PROJECTS_INDEX = 'projects.own';
-
     public function __construct()
     {
         $this->authorizeResource(Project::class);
@@ -156,7 +154,7 @@ class ProjectController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Project  $project
-     * @return Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|Response
      */
     public function show(Project $project)
     {
@@ -179,22 +177,20 @@ class ProjectController extends Controller
             'pdp_indicators',
             'operating_units');
 
-        return view('projects.show', compact('project'))
-            ->with('pageTitle', $project->title);
+        return view('projects.show', compact('project'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Project  $project
-     * @return Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|Response
      */
     public function edit(Project $project)
     {
         $project->load('bases','regions','pdp_chapters','pdp_indicators','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep','feasibility_study');
 
         return view('projects.edit', compact('project'))
-            ->with('pageTitle', 'Edit Project')
             ->with([
                 'offices'                   => Office::all(),
                 'pap_types'                 => PapType::all(),
@@ -230,7 +226,7 @@ class ProjectController extends Controller
      *
      * @param Request $request
      * @param  \App\Models\Project  $project
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ProjectUpdateRequest $request, Project $project)
     {
@@ -271,7 +267,7 @@ class ProjectController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Project $project, Request $request)
     {
@@ -346,13 +342,13 @@ class ProjectController extends Controller
     /**
      * Return user's own projects
      */
-    public function own(ProjectsDataTable $dataTable)
+    public function own(Request $request)
     {
         abort_if(! auth()->user()->can('projects.view_own'), 403);
 
-        return $dataTable
-            ->addScope(new OwnProjectsDataTableScope)
-            ->render('projects.index', ['pageTitle' => 'Own Projects']);
+        $projects = Project::own()->paginate(10);
+
+        return view('projects.own',compact('projects'));
     }
 
     public function office(ProjectsDataTable $dataTable)
