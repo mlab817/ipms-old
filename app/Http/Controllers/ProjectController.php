@@ -70,10 +70,11 @@ class ProjectController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function index(ProjectsDataTable $dataTable)
+    public function index(Request $request)
     {
-        return $dataTable
-            ->render('projects.index', ['pageTitle' => 'All Projects']);
+        $projects = Project::with('creator','pap_type','office')->paginate($request->query('per_page') ?? 10);
+
+        return view('projects.index2', compact('projects'));
     }
 
     /**

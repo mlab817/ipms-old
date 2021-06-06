@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Observers\ProjectObserver;
 use App\Observers\ReviewObserver;
 use App\Observers\UserObserver;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -44,5 +45,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('admin', function () {
             return auth()->check() && auth()->user()->isAdmin();
         });
+
+        Paginator::useBootstrap();
     }
 }

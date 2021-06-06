@@ -23,9 +23,9 @@ class PapType extends Model
         'description',
     ];
 
-    protected $appends = [
-        'project_count',
-    ];
+//    protected $appends = [
+//        'project_count',
+//    ];
 
     public function getRouteKeyName(): string
     {
