@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Testing\Fluent\Concerns\Has;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 
@@ -35,9 +36,9 @@ class Project extends Model implements Searchable
         'regular_program',
         'has_infra',
         // implementation bases
-        'description',
+//        'description',
         'summary',
-        'expected_outputs',
+//        'expected_outputs',
         'total_project_cost',
         // implementing_agencies
         'spatial_coverage_id',
@@ -57,7 +58,7 @@ class Project extends Model implements Searchable
         // trip infra sector and subsectors
         'other_infrastructure',
         // prerequisites
-        'risk',
+//        'risk',
         'mitigation_strategy',
         // infra cost
         'pdp_chapter_id',
@@ -85,8 +86,8 @@ class Project extends Model implements Searchable
         'other_fs',
         'project_status_id',
         'readiness_level_id',
-        'updates',
-        'updates_date',
+//        'updates',
+//        'updates_date',
         'uacs_code',
         'tier_id',
         // nep
@@ -141,9 +142,19 @@ class Project extends Model implements Searchable
         return $this->belongsToMany(CovidIntervention::class);
     }
 
+    public function description(): HasOne
+    {
+        return $this->hasOne(Description::class);
+    }
+
     public function disbursement(): HasOne
     {
         return $this->hasOne(Disbursement::class)->withDefault();
+    }
+
+    public function expected_output(): HasOne
+    {
+        return $this->hasOne(ExpectedOutput::class);
     }
 
     public function feasibility_study(): HasOne
@@ -306,6 +317,11 @@ class Project extends Model implements Searchable
         return $this->hasOne(Review::class,'project_id','id');
     }
 
+    public function risk(): HasOne
+    {
+        return $this->hasOne(Risk::class);
+    }
+
     public function spatial_coverage(): BelongsTo
     {
         return $this->belongsTo(SpatialCoverage::class)->withDefault();
@@ -329,6 +345,11 @@ class Project extends Model implements Searchable
     public function tier(): BelongsTo
     {
         return $this->belongsTo(Tier::class)->withDefault();
+    }
+
+    public function project_update(): HasOne
+    {
+        return $this->hasOne(ProjectUpdate::class);
     }
 
     public function users(): BelongsToMany
