@@ -1,35 +1,51 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Admin;
 
 use App\Models\Basis;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class BasisTest extends DuskTestCase
+class BasisControllerTest extends DuskTestCase
 {
     /**
-     * A Dusk test example.
-     *
-     * @return void
+     * @group basis
      */
     public function test_it_shows_list_of_implementation_basis()
     {
-        $this->browse(function (Browser $browser) {
+        $user = User::factory()->state([
+            'password_changed_at' => now(),
+            'activated_at' => now(),
+        ])->create();
+//        $user->givePermissionTo('libraries.view_index');
+        $user->assignRole('admin');
+
+        $this->browse(function (Browser $browser) use ($user) {
             $browser
-                ->loginAs(1)
+                ->loginAs($user->id)
                 ->visit(route('admin.bases.index'))
                 ->assertSee('Basis')
                 ->screenshot('admin/basis-index');
         });
     }
 
+    /**
+     * @group basis
+     */
     public function test_it_shows_create_form_for_implementation_basis()
     {
-        $this->browse(function (Browser $browser) {
+        $user = User::factory()->state([
+            'password_changed_at' => now(),
+            'activated_at' => now(),
+        ])->create();
+//        $user->givePermissionTo('libraries.create');
+        $user->assignRole('admin');
+
+        $this->browse(function (Browser $browser) use ($user) {
             $browser
-                ->loginAs(1)
+                ->loginAs($user->id)
                 ->visit(route('admin.bases.create'))
                 ->type('name', 'New Basis')
                 ->press('Submit')
@@ -40,13 +56,23 @@ class BasisTest extends DuskTestCase
         $this->assertDatabaseHas('bases', ['name' => 'New Basis']);
     }
 
+    /**
+     * @group basis
+     */
     public function test_it_shows_edit_form_for_implementation_basis()
     {
-        $this->browse(function (Browser $browser) {
+        $user = User::factory()->state([
+            'password_changed_at' => now(),
+            'activated_at' => now(),
+        ])->create();
+//        $user->givePermissionTo('libraries.create');
+        $user->assignRole('admin');
+
+        $this->browse(function (Browser $browser) use ($user) {
             $basis = Basis::create(['name' => 'New Basis']);
 
             $browser
-                ->loginAs(1)
+                ->loginAs($user->id)
                 ->visit(route('admin.bases.edit', 'new-basis'))
                 ->assertSee('Edit')
                 ->type('name', 'New Basis 2')

@@ -110,19 +110,4 @@ class AdminTest extends DuskTestCase
                 ->screenshot('admin/manage-libraries');
         });
     }
-
-    public function test_it_shows_audit_logs_page()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser
-                ->loginAs(1)
-                ->visit('/admin/audit_logs')
-                ->assertSee('Audit Logs')
-                ->screenshot('admin/audit-logs')
-                ->pause(1000)
-                ->clickLink('View')
-                ->assertSee('View Audit Log')
-                ->screenshot('admin/audit-logs-view');
-        });
-    }
 }

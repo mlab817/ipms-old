@@ -23,7 +23,7 @@ class ImplementationModeFactory extends Factory
     public function definition()
     {
         return [
-            'uuid'          => Str::uuid(),
+//            'uuid'          => Str::uuid(),
             'name'          => $this->faker->word,
             'description'   => $this->faker->sentence,
         ];
