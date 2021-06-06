@@ -89,9 +89,19 @@ class User extends Authenticatable
             ->withPivot('read','update','delete','review','comment');
     }
 
+    public function assigned_roles(): BelongsToMany
+    {
+        return $this->belongsToMany(\Spatie\Permission\Models\Role::class, 'assigned_roles', 'user_id', 'role_id');
+    }
+
+    public function activeRole()
+    {
+        return $this->roles->first();
+    }
+
     public function isActive(): bool
     {
-        return !!$this->active;
+        return !!$this->activated_at;
     }
 
     public function isAdmin(): bool

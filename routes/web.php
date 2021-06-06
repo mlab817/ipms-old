@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth','password.changed']], function() {
 
 // Resources secured by auth
 Route::middleware(['auth','password.changed'])->group(function () {
+    Route::post('/switchRole', \App\Http\Controllers\SwitchRoleController::class)->name('roles.switch');
+
     // other index routes
     Route::get('/projects/assigned', [\App\Http\Controllers\ProjectController::class,'assigned'])->name('projects.assigned');
     Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');

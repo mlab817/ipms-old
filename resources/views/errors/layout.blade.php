@@ -4,82 +4,24 @@
     <title>Error {{ $error_number }}</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/4b9ba14b0f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
 
     <style>
-
-        body {
-            background-color: #95c2de;
-        }
-
-        .mainbox {
-            background-color: #95c2de;
-            margin: auto;
-            height: 600px;
-            width: 600px;
-            position: relative;
-        }
-
-        .err {
-            color: #ffffff;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 11rem;
-            position:absolute;
-            left: 20%;
-            top: 8%;
-        }
-
-        .far {
-            position: absolute;
-            font-size: 8.5rem;
-            left: 42%;
-            top: 15%;
-            color: #ffffff;
-        }
-
-        .err2 {
-            color: #ffffff;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 11rem;
-            position:absolute;
-            left: 68%;
-            top: 8%;
-        }
-
-        .msg {
-            text-align: center;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 1.6rem;
-            position:absolute;
-            left: 16%;
-            top: 45%;
-            width: 75%;
-        }
-
-        a {
-            text-decoration: none;
-            color: white;
-        }
-
-        a:hover {
-            text-decoration: underline;
+        #main {
+            height: 100vh;
         }
     </style>
 </head>
 <body>
 <div class="mainbox">
-    @if($error_number == 404)
-        <div class="err">4</div>
-        <i class="far fa-question-circle fa-spin"></i>
-        <div class="err2">4</div>
-        <div class="msg">Maybe this page moved? Got deleted? Is hiding out in quarantine? Never existed in the first place?<p>Let's go <a href="{{ route('dashboard') }}">home</a> and try from there.</p></div>
-    @else
-        <div class="err">{{ $error_number }}</div>
-        <div class="msg">
-            {!! isset($exception)? ($exception->getMessage()?$exception->getMessage():$default_error_message): $default_error_message !!}
+    <div class="d-flex justify-content-center align-items-center" id="main">
+        <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">{{ $error_number }}</h1>
+        <div class="inline-block align-middle">
+            <h2 class="font-weight-normal lead" id="desc">
+                {!! isset($exception)? ($exception->getMessage()?$exception->getMessage():$default_error_message): $default_error_message !!}
+            </h2>
         </div>
-    @endif
-
+    </div>
 </div>
 </body>
 </html>

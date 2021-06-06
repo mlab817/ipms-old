@@ -75,7 +75,7 @@
                                     <label for="role_{{ $role->id }}" class="form-check-label">
                                         <input id="role_{{ $role->id }}" name="roles[]" type="checkbox"
                                                class="form-check-input" value="{{ $role->id }}"
-                                               @if(in_array($role->id, old('roles', $user->roles->pluck('id')->toArray()) ?? [])) checked @endif>
+                                               @if(in_array($role->id, old('roles', $user->assigned_roles->pluck('id')->toArray()) ?? [])) checked @endif>
                                         {{ $role->name }}
                                     </label>
                                 </div>

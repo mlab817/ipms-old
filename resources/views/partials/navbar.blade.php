@@ -37,6 +37,18 @@
 {{--            </div>--}}
 {{--        </li>--}}
 
+        <li class="nav-item">
+            <form action="{{ route('roles.switch') }}" method="POST">
+                @csrf
+                <select name="active_role" id="active_role" class="form-control form-control-sm @error('active_role') is-invalid @enderror">
+                    <option value="">Switch Role</option>
+                    @foreach(auth()->user()->assigned_roles as $role)
+                        <option value="{{ $role->id }}" @if(auth()->user()->activeRole()->id == $role->id) selected @endif>{{ $role->name }}</option>
+                    @endforeach
+                </select>
+            </form>
+        </li>
+
         <!-- Notifications Dropdown Menu -->
         @include('partials.notifications')
 
@@ -50,3 +62,11 @@
     </ul>
 </nav>
 <!-- /.navbar -->
+
+@push('scripts')
+    <script type="text/javascript">
+        $('#active_role').change(function () {
+            this.form.submit()
+        });
+    </script>
+@endpush
