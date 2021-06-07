@@ -115,7 +115,7 @@ class ReviewPolicy
             return true;
         }
 
-        if ($review->user()->id == $user->id) {
+        if ($review->user->id == $user->id) {
             return true;
         }
 
@@ -135,7 +135,7 @@ class ReviewPolicy
             return true;
         }
 
-        if ($review->user()->id == $user->id) {
+        if ($review->user->id == $user->id) {
             return true;
         }
 
