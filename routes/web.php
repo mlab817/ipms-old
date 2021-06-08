@@ -149,6 +149,8 @@ Route::group(['middleware' => 'guest'], function() {
 Route::get('/downloadJson/{filename}', \App\Http\Controllers\DownloadJsonController::class)->name('projects.downloadJson');
 Route::get('/exportJson', \App\Http\Controllers\ExportProjectsAsJsonController::class)->name('projects.json');
 
+Route::get('/dedup', \App\Http\Controllers\UnduplicateController::class);
+
 Route::fallback(function () {
     return view('errors.404');
 });
