@@ -20,7 +20,8 @@ class UnduplicateController extends Controller
 
         foreach ($tables as $table) {
             $rawQuery = 'DELETE t1 FROM '.$table.' t1 INNER JOIN '. $table.' t2 WHERE t1.id > t2.id AND t1.project_id = t2.project_id;';
-            \DB::table($table)->selectRaw($rawQuery);
+            echo $rawQuery .'<br/>';
+            \DB::statement($rawQuery);
         }
 
         return 'done cleaning';
