@@ -9,9 +9,20 @@ class UnduplicateController extends Controller
 {
     public function __invoke()
     {
-        $allocations = Allocation::all();
+        $tables = [
+            'allocations',
+            'disbursements',
+            'feasibility_studies',
+            'neps',
+            'resettlement_action_plans',
+            'right_of_ways',
+        ];
 
-        $rawQuery = 'DELETE t1 FROM allocations t1 INNER JOIN allocations t2 WHERE t1.id > t2.id AND t1.project_id = t2.project_id;';
-        \DB::table('allocations')->raw($rawQuery);
+        foreach ($tables as $table) {
+            $rawQuery = 'DELETE t1 FROM '.$table.' t1 INNER JOIN '. $table.' t2 WHERE t1.id > t2.id AND t1.project_id = t2.project_id;';
+            \DB::table('allocations')->raw($rawQuery);
+        }
+
+        return 'done cleaning';
     }
 }
