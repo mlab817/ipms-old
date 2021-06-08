@@ -75,11 +75,11 @@
                 </div>
                 <div class="col-sm-3">
                     <label>Description</label>
-                    <p>{!! $project->description !!}</p>
+                    <p>{!! $project->description->description !!}</p>
                 </div>
                 <div class="col-sm-3">
                     <label>Expected Outputs</label>
-                    <p>{!! $project->expected_outputs !!}</p>
+                    <p>{!! $project->expected_output->expected_outputs !!}</p>
                 </div>
                 <div class="col-sm-3">
                     <label>Implementation Period</label>
@@ -336,11 +336,11 @@
             <div class="row">
                 <div class="col-sm-12">
                     <label>Updates</label>
-                    <p>{!! $project->updates !!}</p>
+                    <p>{!! $project->project_update->updates !!}</p>
                 </div>
                 <div class="col-sm-3">
                     <label>As of</label>
-                    <p>{{ $project->updates_date }}</p>
+                    <p>{{ $project->project_update->updates_date }}</p>
                 </div>
             </div>
         </div>
@@ -534,7 +534,7 @@
                 <div class="col-sm-12">
                     <label>Implementation Risk & Mitigation Strategy</label>
                     <p>
-                        {!! $project->risk !!}
+                        {!! $project->risk->risk !!}
                     </p>
                 </div>
             </div>

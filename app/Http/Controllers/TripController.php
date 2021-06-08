@@ -68,7 +68,8 @@ class TripController extends Controller
     public function store(TripStoreRequest $request, Project $project)
     {
         // handle save
-        $project->risk                              = $request->risk;
+        $project->risk()->create(['risk' => $request->risk]);
+
         $project->other_infrastructure              = $request->other_infrastructure;
         $project->trip_info                         = true;
         $project->save();
@@ -102,7 +103,8 @@ class TripController extends Controller
     public function update(TripUpdateRequest $request, Project $project)
     {
         // update info
-        $project->risk                              = $request->risk;
+        $project->risk()->update(['risk' => $request->risk]);
+
         $project->other_infrastructure              = $request->other_infrastructure;
         $project->has_row                           = $request->has_row;
         $project->has_rap                           = $request->has_rap;
@@ -113,8 +115,6 @@ class TripController extends Controller
 
         $project->right_of_way()->update($request->right_of_way);
         $project->resettlement_action_plan()->update($request->resettlement_action_plan);
-
-//        dd($request->region_infrastructures);
 
         foreach ($request->region_infrastructures as $item) {
             foreach ($request->region_infrastructures as $entry) {

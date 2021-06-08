@@ -324,6 +324,23 @@ class ProjectImportJob implements ShouldQueue
     {
         $project = Project::create($data);
 
+        $project->description()->create([
+            'description' => $data['description'],
+        ]);
+
+        $project->risk()->create([
+            'risk' => $data['risk'],
+        ]);
+
+        $project->expected_output()->create([
+            'expected_outputs' => $data['expected_outputs'],
+        ]);
+
+        $project->project_update()->create([
+            'updates' => $data['updates'],
+            'updates_date' => $data['updates_date'],
+        ]);
+
         $project->feasibility_study()->create($data['feasibility_study']);
 
         $project->resettlement_action_plan()->create($data['resettlement_action_plan']);
