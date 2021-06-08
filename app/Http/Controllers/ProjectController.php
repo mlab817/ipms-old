@@ -26,6 +26,7 @@ use App\Models\ImplementationMode;
 use App\Models\InfrastructureSector;
 use App\Models\Office;
 use App\Models\OperatingUnit;
+use App\Models\OperatingUnitType;
 use App\Models\PapType;
 use App\Models\PdpChapter;
 use App\Models\PdpIndicator;
@@ -109,7 +110,7 @@ class ProjectController extends Controller
                 'tiers'                     => Tier::all(),
                 'preparation_documents'     => PreparationDocument::all(),
                 'fs_statuses'               => FsStatus::all(),
-                'operating_units'           => OperatingUnit::all(),
+                'ou_types'                  => OperatingUnitType::with('operating_units')->get(),
                 'covidInterventions'        => CovidIntervention::all(),
             ]);
     }
@@ -123,7 +124,7 @@ class ProjectController extends Controller
      */
     public function store(ProjectStoreRequest $request)
     {
-        $project = Project::create($request->all());
+        $project = Project::create($request->validated());
 
         $project->bases()->sync($request->bases);
         $project->regions()->sync($request->regions);
@@ -221,7 +222,7 @@ class ProjectController extends Controller
                 'tiers'                     => Tier::all(),
                 'preparation_documents'     => PreparationDocument::all(),
                 'fs_statuses'               => FsStatus::all(),
-                'operating_units'           => OperatingUnit::all(),
+                'ou_types'                  => OperatingUnitType::with('operating_units')->get(),
                 'covidInterventions'        => CovidIntervention::all(),
             ]);
     }
@@ -235,7 +236,7 @@ class ProjectController extends Controller
      */
     public function update(ProjectUpdateRequest $request, Project $project)
     {
-        $project->update($request->all());
+        $project->update($request->validated());
 
         $project->bases()->sync($request->bases);
         $project->regions()->sync($request->regions);

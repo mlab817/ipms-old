@@ -15,6 +15,7 @@ class SearchController extends Controller
         if ($searchTerm = $request->search) {
             $searchResults = (new Search())
                 ->registerModel(Project::class,'title')
+                ->limitAspectResults(10)
                 ->search($searchTerm);
         }
 

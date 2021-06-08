@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css" integrity="sha512-mxrUXSjrxl8vm5GwafxcqTrEwO1/oBNU25l20GODsysHReZo4uhVISzAKzaABH6/tTfAxZrY2FprmeAP5UZY8A==" crossorigin="anonymous" />
 
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
+
+    @stack('styles')
 </head>
 <body class="layout-fixed">
     <div class="wrapper" id="app">
