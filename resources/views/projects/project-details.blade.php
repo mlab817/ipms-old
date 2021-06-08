@@ -52,14 +52,14 @@
         <div class="form-group row">
             <label for="description" class="col-sm-3">Description </label>
             <div class="col-sm-9">
-                {!! $project->description !!}
+                {!! $project->description->description !!}
             </div>
         </div>
 
         <div class="form-group row">
             <label for="expected_outputs" class="col-sm-3">Expected Outputs </label>
             <div class="col-sm-9">
-                {!! $project->expected_outputs !!}
+                {!! $project->expected_output->expected_outputs !!}
             </div>
         </div>
 
@@ -502,13 +502,13 @@
         <div class="form-group row">
             <label for="updates" class="col-form-label col-sm-3">Updates </label>
             <div class="col-sm-9">
-                {!! $project->updates !!}
+                {!! $project->project_update->updates !!}
             </div>
         </div>
         <div class="form-group row">
             <label for="updates_date" class="col-form-label col-sm-3">As of </label>
             <div class="col-sm-9">
-                {{ $project->updates_date }}
+                {{ $project->project_update->updates_date }}
             </div>
         </div>
     </div>
@@ -805,9 +805,9 @@
                 <label for="attachment">Upload File</label>
                 <div class="my-3">
                     <input type="file" class="form-control-file @error('attachment') is-invalid @enderror" name="attachment" id="attachment">
+                    @error('attachment')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                 </div>
                 <button type="submit" class="btn btn-primary">Upload</button>
-                @error('attachment')<span class="error invalid-feedback">{{ $message }}</span>@enderror
             </div>
         </form>
     </div>

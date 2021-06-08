@@ -46,7 +46,7 @@
         <div class="form-group row">
             <label class="col-form-label col-sm-3">Implementation Risk & Mitigation Strategy</label>
             <div class="col-sm-9">
-                {{ $project->risk }}
+                {{ $project->risk->risk }}
             </div>
         </div>
     </div>

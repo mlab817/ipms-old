@@ -192,7 +192,7 @@
                                         <textarea rows="4" style="resize: none;"
                                                   class="form-control @error('description') is-invalid @enderror"
                                                   id="description"
-                                                  name="description">{{ old('description', $project->description) }}</textarea>
+                                                  name="description">{{ old('description', $project->description->description) }}</textarea>
                                         @error('description')<span
                                             class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
@@ -204,7 +204,7 @@
                                         <textarea rows="4" style="resize: none;"
                                                   class="form-control @error('expected_outputs') is-invalid @enderror"
                                                   id="expected_outputs"
-                                                  name="expected_outputs">{{ old('expected_outputs', $project->expected_outputs) }}</textarea>
+                                                  name="expected_outputs">{{ old('expected_outputs', $project->expected_output->expected_outputs) }}</textarea>
                                         @error('expected_outputs')<span
                                             class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
@@ -1160,7 +1160,7 @@
                                                   class="form-control @error('updates') is-invalid @enderror"
                                                   id="updates"
                                                   name="updates"
-                                                  placeholder="For proposed program/project, please indicate the physical status of the program/project in terms of project preparation, approval, funding, etc. If ongoing or completed, please provide information on the delivery of outputs, percentage of completion and financial status/ accomplishment in terms of utilization rate.">{{ old('updates', $project->updates) }}</textarea>
+                                                  placeholder="For proposed program/project, please indicate the physical status of the program/project in terms of project preparation, approval, funding, etc. If ongoing or completed, please provide information on the delivery of outputs, percentage of completion and financial status/ accomplishment in terms of utilization rate.">{{ old('updates', $project->project_update->updates) }}</textarea>
                                         @error('updates')<span
                                             class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
@@ -1171,7 +1171,7 @@
                                         <input type="date"
                                                class="form-control @error('updates_date') is-invalid @enderror"
                                                id="updates_date" name="updates_date"
-                                               value="{{ old('updates_date', $project->updates_date) }}">
+                                               value="{{ old('updates_date', $project->project_update->updates_date) }}">
                                         @error('updates_date')<span
                                             class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>

@@ -13,6 +13,7 @@ use App\Events\ProjectReviewedEvent;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Requests\ReviewStoreRequest;
+use App\Http\Requests\UploadAttachmentRequest;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
 use App\Models\CipType;
@@ -139,6 +140,17 @@ class ProjectController extends Controller
         $project->fs_investments()->createMany($request->fs_investments);
         $project->region_investments()->createMany($request->region_investments);
 
+        $project->project_update()->create([
+            'updates'   => $request->updates,
+            'updates_date' => $request->updates_date,
+        ]);
+        $project->expected_output()->create([
+            'expected_outputs' => $request->expected_outputs
+        ]);
+        $project->description()->create([
+            'description' => $request->description,
+        ]);
+
         $project->feasibility_study()->create($request->feasibility_study);
         $project->nep()->create($request->nep);
         $project->allocation()->create($request->allocation);
@@ -259,6 +271,16 @@ class ProjectController extends Controller
             $itemToEdit->update($region_investment);
         }
 
+        $project->project_update()->update([
+            'updates'   => $request->updates,
+            'updates_date' => $request->updates_date,
+        ]);
+        $project->expected_output()->update([
+            'expected_outputs' => $request->expected_outputs
+        ]);
+        $project->description()->update([
+            'description' => $request->description,
+        ]);
         $project->feasibility_study()->update($request->feasibility_study);
         $project->nep()->update($request->nep);
         $project->allocation()->update($request->allocation);
@@ -323,12 +345,8 @@ class ProjectController extends Controller
         return redirect()->route('reviews.index')->with('message', 'Successfully added review');
     }
 
-    public function upload(Request $request, Project $project)
+    public function upload(UploadAttachmentRequest $request, Project $project)
     {
-        $request->validate([
-            'attachment' => 'file',
-        ]);
-
         $attachment = $request->file('attachment');
 
         $fileName = $attachment->getClientOriginalName();

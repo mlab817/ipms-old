@@ -124,7 +124,7 @@
                                     <div class="col-sm-9">
                                         <textarea rows="4" style="resize: none;"
                                                   class="form-control @error('risk') is-invalid @enderror" name="risk"
-                                                  placeholder="Implementation Risk and Mitigation Strategy">{{ old('risk', $project->risk) }}</textarea>
+                                                  placeholder="Implementation Risk and Mitigation Strategy">{{ old('risk', $project->risk->risk) }}</textarea>
                                         @error('risk')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
