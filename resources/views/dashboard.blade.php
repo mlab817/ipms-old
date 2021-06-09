@@ -204,14 +204,14 @@
                             <td>{{ $i++ }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->projects_count }}</td>
-                            <td>{{ $user->reviews_count }}</td>
+                            <td>{{ $user->projects()->has('review')->count() }}</td>
                             <td>
                                 <div class="progress progress-xs">
                                     <div class="progress-bar bg-warning" style="width: {{ $user->projects_count > 0 ? round($user->reviews_count / $user->projects_count * 100) : 0 }}%"></div>
                                 </div>
                             </td>
                             <td>
-                                <span class="badge bg-danger">{{ $user->projects_count > 0 ? round($user->reviews_count / $user->projects_count * 100) : 0 }}%</span>
+                                <span class="badge bg-danger">{{ $user->projects_count > 0 ? round($user->projects()->has('review')->count() / $user->projects_count * 100) : 0 }}%</span>
                             </td>
                         </tr>
                     @empty
@@ -249,8 +249,8 @@
                                 <tr>
                                     <th>Project Title</th>
                                     <th class="text-center">Office</th>
-                                    <th class="text-center">Type</th>
-                                    <th class="text-center">Project Status</th>
+{{--                                    <th class="text-center">Type</th>--}}
+{{--                                    <th class="text-center">Project Status</th>--}}
                                     <th class="text-center text-nowrap">Added By</th>
                                 </tr>
                                 </thead>
@@ -259,18 +259,18 @@
                                 <tr>
                                     <td class="text-sm"><a href="{{ route('projects.show', $project) }}">{{ $project->title }}</a></td>
                                     <td class="text-center text-sm">
-                                        {{ $project->creator->office->name ?? '' }}
+                                        {{ $project->office->acronym ?? '' }}
                                     </td>
-                                    <td class="text-center">
-                                        @if(strtolower($project->pap_type->name ?? '') == 'project')
-                                        <span class="badge badge-success">Project</span>
-                                        @elseif(strtolower($project->pap_type->name ?? '') == 'program')
-                                        <span class="badge badge-danger">Program</span>
-                                        @endif
-                                    </td>
-                                    <td class="text-center text-sm">
-                                        {{ $project->project_status->name ?? '' }}
-                                    </td>
+{{--                                    <td class="text-center">--}}
+{{--                                        @if(strtolower($project->pap_type->name ?? '') == 'project')--}}
+{{--                                        <span class="badge badge-success">Project</span>--}}
+{{--                                        @elseif(strtolower($project->pap_type->name ?? '') == 'program')--}}
+{{--                                        <span class="badge badge-danger">Program</span>--}}
+{{--                                        @endif--}}
+{{--                                    </td>--}}
+{{--                                    <td class="text-center text-sm">--}}
+{{--                                        {{ $project->project_status->name ?? '' }}--}}
+{{--                                    </td>--}}
                                     <td class="text-center">
                                         <img src="{{ $project->creator->avatar ?? '' }}" class="img-avatar img-circle" alt="{{ $project->creator->name ?? '' }}" width="50" height="50">
                                     </td>
@@ -324,7 +324,7 @@
                                     <th>Project Title</th>
                                     <th>Office</th>
                                     <th class="text-center">Reviewed By</th>
-                                    <th>Comments</th>
+{{--                                    <th>Comments</th>--}}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -334,13 +334,13 @@
                                         <a href="{{ route('projects.show', $review->project) }}">{{ $review->project->title }}</a>
                                     </td>
                                     <td class="text-sm">
-                                        {{ $review->project->creator->office->name ?? '' }}
+                                        {{ $review->project->office->acronym ?? '' }}
                                     </td>
                                     <td class="text-center">
                                         <img src="{{ $review->user->avatar ?? '' }}" alt="{{ $review->user->name ?? '' }}" height="50" width="50" class="img-avatar img-circle">
-                                    <td class="text-sm">
-                                        {{ $review->comments }}
-                                    </td>
+{{--                                    <td class="text-sm">--}}
+{{--                                        {{ $review->comments }}--}}
+{{--                                    </td>--}}
                                 </tr>
                                 @empty
                                     <tr>

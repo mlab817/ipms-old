@@ -1504,8 +1504,7 @@
                                         </td>
                                         <td><input type="text" class="allocation money form-control text-right"
                                                    name="allocation[y2021]"
-                                                   value="{{ old("allocation.y2021", $project->allocation->y2021 ?? 0) }}"
-                                                   readonly>
+                                                   value="{{ old("allocation.y2021", $project->allocation->y2021 ?? 0) }}">
                                         </td>
                                         <td><input type="text" class="allocation money form-control text-right"
                                                    name="allocation[y2022]"

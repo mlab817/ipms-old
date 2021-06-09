@@ -151,6 +151,19 @@ Route::get('/exportJson', \App\Http\Controllers\ExportProjectsAsJsonController::
 
 Route::get('/dedup', \App\Http\Controllers\UnduplicateController::class);
 
+Route::group(['prefix' => 'reports', 'middleware' => 'auth'], function() {
+    Route::get('/', [\App\Http\Controllers\ReportController::class,'index'])->name('reports.index');
+    Route::get('/implementation_modes', [\App\Http\Controllers\ReportController::class,'implementation_modes'])->name('reports.implementation_modes');
+    Route::get('/offices', [\App\Http\Controllers\ReportController::class,'offices'])->name('reports.offices');
+    Route::get('/spatial_coverages', [\App\Http\Controllers\ReportController::class,'spatial_coverages'])->name('reports.spatial_coverages');
+    Route::get('/regions', [\App\Http\Controllers\ReportController::class,'regions'])->name('reports.regions');
+    Route::get('/funding_sources', [\App\Http\Controllers\ReportController::class,'funding_sources'])->name('reports.funding_sources');
+    Route::get('/tiers', [\App\Http\Controllers\ReportController::class,'tiers'])->name('reports.tiers');
+    Route::get('/pap_types', [\App\Http\Controllers\ReportController::class,'pap_types'])->name('reports.pap_types');
+    Route::get('/pdp_chapters', [\App\Http\Controllers\ReportController::class,'pdp_chapters'])->name('reports.pdp_chapters');
+    Route::get('/project_statuses', [\App\Http\Controllers\ReportController::class,'project_statuses'])->name('reports.project_statuses');
+});
+
 Route::fallback(function () {
     return view('errors.404');
 });
