@@ -57,7 +57,7 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => false, // this turns off the annoying group_by error
-            'engine' => null,
+            'engine' => 'InnoDB',
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
