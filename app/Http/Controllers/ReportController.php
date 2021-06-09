@@ -29,7 +29,9 @@ class ReportController extends Controller
         return view('reports.reports', compact('items'))
             ->with([
                 'reportVar' => 'Modes of Implementation',
-                'note'  => 'This table is generated based on the main mode of implementation in which the PAP is tagged/identified. It is NOT reflective of the fund source of the projects. For example, even if a project has funding from other sources (e.g. ODA), if the PAP has been tagged as local procurement implementation, the ODA funding will be counted underthe local procurement mode.'
+                'note'  => 'This table is generated based on the main mode of implementation in which the PAP is tagged/identified. It is NOT reflective of the fund source of the projects. For example, even if a project has funding from other sources (e.g. ODA), if the PAP has been tagged as local procurement implementation, the ODA funding will be counted under the local procurement mode. There are ' .
+                    Project::whereNull('implementation_mode_id')->count() . ' with no implementation mode tagged.',
+                'projectsMissingData' => Project::with('creator','office')->whereNull('implementation_mode_id')->get(),
             ]);
     }
 
@@ -47,6 +49,7 @@ class ReportController extends Controller
             ->with([
                 'reportVar' => 'Types of PAP',
                 'note'  => Project::whereNull('pap_type_id')->count() . ' PAPs with no PAP type identified',
+                'projectsMissingData' => Project::with('creator','office')->whereNull('pap_type_id')->get(),
             ]);
     }
 
@@ -63,7 +66,8 @@ class ReportController extends Controller
         return view('reports.reports', compact('items'))
             ->with([
                 'reportVar' => 'Offices',
-                'note'  => 'Some PAPs have been tagged as IPD including ' . Project::where('office_id', Office::where('acronym','IPD')->first()->id)->count() . ' entries.'
+                'note'  => 'Some PAPs have been tagged as IPD including ' . Project::where('office_id', Office::where('acronym','IPD')->first()->id)->count() . ' entries.',
+                'projectsMissingData' => Project::with('creator','office')->where('office_id', Office::where('acronym','IPD')->first()->id)->get(),
             ]);
     }
 
@@ -81,6 +85,7 @@ class ReportController extends Controller
             ->with([
                 'reportVar' => 'Spatial Coverages',
                 'note'  => 'The number of PAP here is invalid as the system has assigned a complete list of regions per PAP. There are ' . Project::whereNull('spatial_coverage_id')->count() . ' PAPs with no spatial coverage identified',
+                'projectsMissingData' => Project::with('creator','office')->whereNull('spatial_coverage_id')->get(),
             ]);
     }
 
@@ -98,7 +103,7 @@ class ReportController extends Controller
         return view('reports.reports', compact('items'))
             ->with([
                 'reportVar' => 'Regions',
-                'note'  => 'The number of PAP here is invalid as the system has assigned a complete list of regions per PAP.'
+                'note'  => 'The number of PAP here is invalid as the system has assigned a complete list of regions per PAP.',
             ]);
     }
 
@@ -117,6 +122,7 @@ class ReportController extends Controller
             ->with([
                 'reportVar' => 'Funding Sources',
                 'note'  => 'The number of PAP here is invalid as the system has assigned a complete list of regions per PAP. There are ' . Project::whereNull('funding_source_id')->count() . ' PAPs with no funding source identified',
+                'projectsMissingData' => Project::with('creator','office')->whereNull('funding_source_id')->get(),
             ]);
     }
 
@@ -134,6 +140,7 @@ class ReportController extends Controller
             ->with([
                 'reportVar' => 'Budget Tier (Categorization)',
                 'note'  => 'The number of PAP here is invalid as the system has assigned a complete list of regions per PAP. There are ' . Project::whereNull('tier_id')->count() . ' PAPs with no funding source identified',
+                'projectsMissingData' => Project::with('creator','office')->whereNull('tier_id')->get(),
             ]);
     }
 
@@ -152,6 +159,7 @@ class ReportController extends Controller
             ->with([
                 'reportVar' => 'Main PDP Chapter',
                 'note'  => 'There are ' . Project::whereNull('pdp_chapter_id')->count() . ' PAPs with no PDP chapter identified',
+                'projectsMissingData' => Project::with('creator','office')->whereNull('pdp_chapter_id')->get(),
             ]);
     }
 
@@ -169,6 +177,7 @@ class ReportController extends Controller
             ->with([
                 'reportVar' => 'Project Status',
                 'note'  => 'There are ' . Project::whereNull('project_status_id')->count() . ' PAPs with no status identified',
+                'projectsMissingData' => Project::with('creator','office')->whereNull('project_status_id')->get(),
             ]);
     }
 }

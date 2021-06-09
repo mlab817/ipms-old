@@ -10,6 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('reports.index') }}">Reports</a></li>
                         <li class="breadcrumb-item active">{{ $reportVar ?? 'Category' }}</li>
                     </ol>
                 </div><!-- /.col -->
@@ -68,6 +69,30 @@
                 @endif
             </div>
         </div>
+
+        @if(isset($projectsMissingData) && count($projectsMissingData) > 0)
+        <div class="card card-danger card-outline">
+            <div class="card-header">
+                <h1 class="card-title">
+                    Projects with Missing/Problematic Data
+                </h1>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    @foreach($projectsMissingData as $project)
+                        <a class="list-group-item list-group-item-action" href="{{ route('projects.show', $project) }}" target="_blank">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{ $loop->index + 1 . '. ' . $project->title }}</h5>
+                                <small>#{{ $project->id }}</small>
+                            </div>
+                            <p class="mb-1">{{ $project->office->name }}</p>
+                            <small>{{ $project->creator->name }}</small>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        @endif
     </section>
 @stop
 
