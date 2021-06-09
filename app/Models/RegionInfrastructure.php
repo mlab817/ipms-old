@@ -38,7 +38,7 @@ class RegionInfrastructure extends Model
 
     public function region(): BelongsTo
     {
-        return $this->belongsTo(Region::class);
+        return $this->belongsTo(Region::class,'region_id');
     }
 
     public function project(): BelongsTo

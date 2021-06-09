@@ -193,8 +193,7 @@ class ProjectController extends Controller
             'pdp_indicators',
             'operating_units');
 
-        return view('projects.show', compact('project'))
-            ->with('pageTitle', $project->title);
+        return view('projects.show', compact('project'));
     }
 
     /**

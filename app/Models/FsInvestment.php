@@ -33,7 +33,7 @@ class FsInvestment extends Model
 
     public function funding_source(): BelongsTo
     {
-        return $this->belongsTo(FundingSource::class,'fs_id','id');
+        return $this->belongsTo(FundingSource::class,'fs_id','id')->withDefault();
     }
 
     public function project(): BelongsTo
