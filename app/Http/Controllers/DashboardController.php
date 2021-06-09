@@ -40,7 +40,7 @@ class DashboardController extends Controller
             'pipCount'      => Review::where('pip', 1)->count(),
             'userCount'     => User::count(),
             'chart'         => $chart,
-            'reviews'       => Review::with('user')->latest()->take(5)->get(),
+            'reviews'       => Review::with('user')->has('project')->latest()->take(5)->get(),
             'latestProjects'=> Project::with('pap_type','project_status','creator.office','office')->latest()->take(5)->get(),
             'users'         => User::whereHas('roles', function ($q) {
                 $q->where('name','reviewer.main')
