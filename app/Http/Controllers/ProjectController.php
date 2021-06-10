@@ -72,10 +72,42 @@ class ProjectController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function index(ProjectsDataTable $dataTable)
+    public function index(Request $request)
     {
-        return $dataTable
-            ->render('projects.index', ['pageTitle' => 'All Projects']);
+        $projects = null;
+
+        if ($request->has('search')) {
+            $query = $request->query();
+            $searchTerm = '%' .  $query['search'] . '%' ?? '';
+            $orderBy = $query['orderBy']  ?? 'id';
+            $sortOrder = $query['sortOrder'] ?? 'ASC';
+
+            if ($searchTerm) {
+                $projects = Project::with('office','creator.office','project_status')
+                    ->where('title','like', $searchTerm)
+                    ->orWhereHas('project_status', function ($query) use ($searchTerm) {
+                        $query->where('name', 'like', $searchTerm);
+                    })
+                    ->orWhereHas('office', function ($query) use ($searchTerm) {
+                        $query->where('name','like', $searchTerm)
+                            ->orWhere('acronym','like', $searchTerm);
+                    })
+                    ->orWhereHas('creator', function ($query) use ($searchTerm) {
+                        $query->where('first_name','like', $searchTerm);
+                    })
+                    ->orderBy($orderBy, $sortOrder)
+                    ->paginate();
+            } else {
+                $projects = Project::with('office','creator.office','project_status')
+                    ->orderBy($orderBy, $sortOrder)
+                    ->paginate();
+            }
+
+        } else {
+            $projects = Project::with('office','creator.office','project_status')->paginate();
+        }
+
+        return view('projects.index2', compact('projects'));
     }
 
     /**

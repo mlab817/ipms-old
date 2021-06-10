@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Observers\ProjectObserver;
 use App\Observers\ReviewObserver;
 use App\Observers\UserObserver;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -39,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
 
         Review::observe(ReviewObserver::class);
         User::observe(UserObserver::class);
+
+        Paginator::useBootstrap();
 
         // blade directives
         Blade::if('admin', function () {
