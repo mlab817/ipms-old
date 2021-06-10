@@ -406,13 +406,17 @@ class ProjectController extends Controller
     {
         $projects = collect();
 
-        if ($request->query('search')) {
+        if ($request->has('search')) {
             $query = $request->query();
             $searchTerm = '%' .  $query['search'] . '%' ?? '';
             $orderBy = $query['orderBy']  ?? 'id';
             $sortOrder = $query['sortOrder'] ?? 'ASC';
 
-            if ($searchTerm) {
+            if (! $searchTerm) {
+                $projects = $projectQuery
+                    ->orderBy($orderBy, $sortOrder)
+                    ->paginate();
+            } else {
                 $projects = $projectQuery
                     ->where('title','like', $searchTerm)
 //                    ->orWhereHas('project_status', function ($query) use ($searchTerm) {
@@ -425,10 +429,6 @@ class ProjectController extends Controller
 //                    ->orWhereHas('creator', function ($query) use ($searchTerm) {
 //                        $query->where('first_name','like', $searchTerm);
 //                    })
-                    ->orderBy($orderBy, $sortOrder)
-                    ->paginate();
-            } else {
-                $projects = $projectQuery
                     ->orderBy($orderBy, $sortOrder)
                     ->paginate();
             }
