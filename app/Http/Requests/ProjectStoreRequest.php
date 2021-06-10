@@ -23,7 +23,7 @@ class ProjectStoreRequest extends FormRequest
     {
         $this->merge([
             'feasibility_study'     => [
-                'fs_status_id'      => $this->feasibility_study['fs_status_id'],
+                'fs_status_id'      => $this->feasibility_study['fs_status_id'] ?? null,
                 'needs_assistance'  => $this->feasibility_study['needs_assistance'],
 //                'y2016'     => str_replace(',', '', $this->feasibility_study['y2016']),
                 'y2017'     => str_replace(',', '', $this->feasibility_study['y2017']),
@@ -136,7 +136,7 @@ class ProjectStoreRequest extends FormRequest
             'target_end_year'                   => 'required|int|gte:target_start_year',
             'has_fs'                            => 'required|bool',
             'feasibility_study'                 => 'required',
-            'feasibility_study.fs_status_id'    => 'required_if:has_fs,1|exists:fs_statuses,id',
+            'feasibility_study.fs_status_id'    => 'nullable|required_if:has_fs,1|exists:fs_statuses,id',
             'feasibility_study.needs_assistance'=> 'bool',
 //            'feasibility_study.y2016'           => 'numeric|min:0',
             'feasibility_study.y2017'           => 'numeric|min:0',
