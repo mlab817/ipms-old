@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\SampleChart;
 use App\Models\FundingSource;
 use App\Models\ImplementationMode;
 use App\Models\Office;
@@ -115,7 +116,6 @@ class ReportController extends Controller
             ->selectRaw('a.id, a.name, COUNT(DISTINCT(c.id)) AS project_count, SUM(b.y2022) AS y2022, SUM(b.y2017 + b.y2018 + b.y2019 + b.y2020 + b.y2021 + b.y2022) AS six_years, SUM(b.y2016 + b.y2017 + b.y2018 + b.y2019 + b.y2020 + b.y2021 + b.y2022 + b.y2023) AS total_project_cost')
             ->whereNull('c.deleted_at')
             ->groupBy('a.id')
-//            ->orderBy('a.order','ASC')
             ->get();
 
         return view('reports.reports', compact('items'))

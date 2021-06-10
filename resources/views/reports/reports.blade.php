@@ -62,6 +62,7 @@
                         </tfoot>
                     </table>
                 </div>
+
                 @if(isset($note))
                 <div class="card-footer">
                     <strong>Note: </strong>{!! $note !!}

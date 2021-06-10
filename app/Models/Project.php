@@ -33,10 +33,21 @@ class Project extends Model implements Searchable
          */
         static::deleting(function ($model) {
             // HasMany relationships
-            $model->fs_investments()->delete();
-            $model->region_investments()->delete();
-            $model->fs_infrastructures()->delete();
-            $model->region_infrastructures()->delete();
+            foreach ($model->fs_investments as $item) {
+                $item->delete();
+            }
+
+            foreach ($model->region_investments as $item) {
+                $item->delete();
+            }
+
+            foreach ($model->fs_infrastructures as $item) {
+                $item->delete();
+            }
+
+            foreach ($model->region_infrastructures as $item) {
+                $item->delete();
+            }
 
             // BelongsToMany relationships
             $model->regions()->sync([]);
