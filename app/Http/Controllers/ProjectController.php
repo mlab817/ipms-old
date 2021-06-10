@@ -59,8 +59,6 @@ use Spatie\Searchable\Search;
 
 class ProjectController extends Controller
 {
-    const PROJECTS_INDEX = 'projects.own';
-
     public function __construct()
     {
         $this->authorizeResource(Project::class);
@@ -76,35 +74,7 @@ class ProjectController extends Controller
     {
         $projectQuery = Project::query()->with(['office','creator.office','project_status']);
 
-        if ($request->has('search')) {
-            $query = $request->query();
-            $searchTerm = '%' .  $query['search'] . '%' ?? '';
-            $orderBy = $query['orderBy']  ?? 'id';
-            $sortOrder = $query['sortOrder'] ?? 'ASC';
-
-            if ($searchTerm) {
-                $projects = $projectQuery
-                    ->where('title','like', $searchTerm)
-                    ->orWhereHas('project_status', function ($query) use ($searchTerm) {
-                        $query->where('name', 'like', $searchTerm);
-                    })
-                    ->orWhereHas('office', function ($query) use ($searchTerm) {
-                        $query->where('name','like', $searchTerm)
-                            ->orWhere('acronym','like', $searchTerm);
-                    })
-                    ->orWhereHas('creator', function ($query) use ($searchTerm) {
-                        $query->where('first_name','like', $searchTerm);
-                    })
-                    ->orderBy($orderBy, $sortOrder)
-                    ->paginate();
-            } else {
-                $projects = $projectQuery
-                    ->orderBy($orderBy, $sortOrder)
-                    ->paginate();
-            }
-        } else {
-            $projects = $projectQuery->paginate();
-        }
+        $projects = $this->filter($projectQuery, $request);
 
         return view('projects.index2', compact('projects'));
     }
@@ -396,22 +366,77 @@ class ProjectController extends Controller
     /**
      * Return user's own projects
      */
-    public function own(ProjectsDataTable $dataTable)
-    {
-        abort_if(! auth()->user()->can('projects.view_own'), 403);
+//    public function own(ProjectsDataTable $dataTable)
+//    {
+//        abort_if(! auth()->user()->can('projects.view_own'), 403);
+//
+//        return $dataTable
+//            ->addScope(new OwnProjectsDataTableScope)
+//            ->render('projects.index', ['pageTitle' => 'Own Projects']);
+//    }
 
-        return $dataTable
-            ->addScope(new OwnProjectsDataTableScope)
-            ->render('projects.index', ['pageTitle' => 'Own Projects']);
+    public function own(Request $request)
+    {
+        $projectQuery = Project::query()->own()->with(['office','creator.office','project_status']);
+
+        $projects = $this->filter($projectQuery, $request);
+
+        return view('projects.index2', compact('projects'));
     }
 
-    public function office(ProjectsDataTable $dataTable)
-    {
-        abort_if(! auth()->user()->can('projects.view_office'), 403);
+//    public function office(ProjectsDataTable $dataTable)
+//    {
+//        abort_if(! auth()->user()->can('projects.view_office'), 403);
+//
+//        return $dataTable
+//            ->addScope(new OfficeProjectsDataTableScope)
+//            ->render('projects.index', ['pageTitle' => 'Office Projects']);
+//    }
 
-        return $dataTable
-            ->addScope(new OfficeProjectsDataTableScope)
-            ->render('projects.index', ['pageTitle' => 'Office Projects']);
+    public function office(Request $request)
+    {
+        $projectQuery = Project::query()->office()->with(['office','creator.office','project_status']);
+
+        $projects = $this->filter($projectQuery, $request);
+
+        return view('projects.index2', compact('projects'));
+    }
+
+    public function filter($projectQuery, $request)
+    {
+        $projects = collect();
+
+        if ($request->query('search') && !!$request->query('search')) {
+            $query = $request->query();
+            $searchTerm = '%' .  $query['search'] . '%' ?? '';
+            $orderBy = $query['orderBy']  ?? 'id';
+            $sortOrder = $query['sortOrder'] ?? 'ASC';
+
+            if ($searchTerm) {
+                $projects = $projectQuery
+                    ->where('title','like', $searchTerm)
+//                    ->orWhereHas('project_status', function ($query) use ($searchTerm) {
+//                        $query->where('name', 'like', $searchTerm);
+//                    })
+//                    ->orWhereHas('office', function ($query) use ($searchTerm) {
+//                        $query->where('name','like', $searchTerm)
+//                            ->orWhere('acronym','like', $searchTerm);
+//                    })
+//                    ->orWhereHas('creator', function ($query) use ($searchTerm) {
+//                        $query->where('first_name','like', $searchTerm);
+//                    })
+                    ->orderBy($orderBy, $sortOrder)
+                    ->paginate();
+            } else {
+                $projects = $projectQuery
+                    ->orderBy($orderBy, $sortOrder)
+                    ->paginate();
+            }
+        } else {
+            $projects = $projectQuery->paginate();
+        }
+
+        return $projects;
     }
 
     public function assigned(AssignedProjectsDataTable $dataTable)

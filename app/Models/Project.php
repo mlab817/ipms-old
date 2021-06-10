@@ -507,7 +507,7 @@ class Project extends Model implements Searchable
         $user = auth() ? auth()->user() : null;
 
         if ($user) {
-            $officeId = $user->profile->office_id;
+            $officeId = $user->office_id;
 
             if ($officeId) {
                 $query->where('office_id', $officeId);

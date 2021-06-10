@@ -74,20 +74,20 @@
                     <p>{{ implode($project->regions->pluck('label')->toArray(),', ') }}</p>
                 </div>
                 <div class="col-sm-3">
-                    <label>Description</label>
-                    <p>{!! $project->description->description !!}</p>
-                </div>
-                <div class="col-sm-3">
-                    <label>Expected Outputs</label>
-                    <p>{!! $project->expected_output->expected_outputs !!}</p>
-                </div>
-                <div class="col-sm-3">
                     <label>Implementation Period</label>
                     <p>{{ $project->target_start_year . ' - ' . $project->target_end_year }}</p>
                 </div>
                 <div class="col-sm-3">
                     <label>Total Project Cost (PhP)</label>
                     <p>PhP{{ number_format($project->total_project_cost, 2) }}</p>
+                </div>
+                <div class="col-sm-12">
+                    <label>Description</label>
+                    <div>{!! $project->description->description !!}</div>
+                </div>
+                <div class="col-sm-12">
+                    <label>Expected Outputs</label>
+                    <div>{!! $project->expected_output->expected_outputs !!}</div>
                 </div>
             </div>
         </div>
@@ -336,7 +336,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <label>Updates</label>
-                    <p>{!! $project->project_update->updates !!}</p>
+                    <div>{!! $project->project_update->updates !!}</div>
                 </div>
                 <div class="col-sm-3">
                     <label>As of</label>
