@@ -406,7 +406,7 @@ class ProjectController extends Controller
     {
         $projects = collect();
 
-        if ($request->query('search') && !!$request->query('search')) {
+        if ($request->query('search')) {
             $query = $request->query();
             $searchTerm = '%' .  $query['search'] . '%' ?? '';
             $orderBy = $query['orderBy']  ?? 'id';
