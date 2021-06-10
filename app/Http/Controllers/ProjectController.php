@@ -377,6 +377,8 @@ class ProjectController extends Controller
 
     public function own(Request $request)
     {
+        abort_if(! auth()->user()->can('projects.view_own'), 403);
+
         $projectQuery = Project::query()->own()->with(['office','creator.office','project_status']);
 
         $projects = $this->filter($projectQuery, $request);
@@ -395,6 +397,8 @@ class ProjectController extends Controller
 
     public function office(Request $request)
     {
+        abort_if(! auth()->user()->can('projects.view_office'), 403);
+
         $projectQuery = Project::query()->office()->with(['office','creator.office','project_status']);
 
         $projects = $this->filter($projectQuery, $request);
@@ -439,13 +443,15 @@ class ProjectController extends Controller
         return $projects;
     }
 
-    public function assigned(AssignedProjectsDataTable $dataTable)
+    public function assigned(Request $request)
     {
         abort_if(! auth()->user()->can('projects.view_assigned'), 403);
 
-        return $dataTable
-            ->addScope(new AssignedProjectsDataTableScope)
-            ->render('projects.index', ['pageTitle' => 'Assigned Projects']);
+        $projectQuery = Project::query()->assigned()->with(['office','creator.office','project_status']);
+
+        $projects = $this->filter($projectQuery, $request);
+
+        return view('projects.index2', compact('projects'));
     }
 
     public function search(Request $request)

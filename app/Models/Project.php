@@ -527,6 +527,14 @@ class Project extends Model implements Searchable
         return $query->where('has_subprojects', true);
     }
 
+    public function scopeAssigned($query)
+    {
+        if (! auth()->user()) {
+            return $query;
+        }
+        return $query->whereIn('id', auth()->user()->assigned_projects->pluck('id')->toArray());
+    }
+
     /**
      * @return SearchResult
      */
