@@ -74,7 +74,7 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $projects = null;
+        $projectQuery = Project::query()->with(['office','creator.office','project_status']);
 
         if ($request->has('search')) {
             $query = $request->query();
@@ -83,7 +83,7 @@ class ProjectController extends Controller
             $sortOrder = $query['sortOrder'] ?? 'ASC';
 
             if ($searchTerm) {
-                $projects = Project::with('office','creator.office','project_status')
+                $projects = $projectQuery
                     ->where('title','like', $searchTerm)
                     ->orWhereHas('project_status', function ($query) use ($searchTerm) {
                         $query->where('name', 'like', $searchTerm);
@@ -98,13 +98,12 @@ class ProjectController extends Controller
                     ->orderBy($orderBy, $sortOrder)
                     ->paginate();
             } else {
-                $projects = Project::with('office','creator.office','project_status')
+                $projects = $projectQuery
                     ->orderBy($orderBy, $sortOrder)
                     ->paginate();
             }
-
         } else {
-            $projects = Project::with('office','creator.office','project_status')->paginate();
+            $projects = $projectQuery->paginate();
         }
 
         return view('projects.index2', compact('projects'));

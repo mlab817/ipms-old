@@ -23,6 +23,7 @@ class ProjectUpdateRequest extends FormRequest
     {
         $this->merge([
             'feasibility_study'     => [
+                'fs_status_id'      => $this->feasibility_study['fs_status_id'],
                 'needs_assistance'  => $this->feasibility_study['needs_assistance'],
 //                'y2016'     => str_replace(',', '', $this->feasibility_study['y2016']),
                 'y2017'     => str_replace(',', '', $this->feasibility_study['y2017']),
