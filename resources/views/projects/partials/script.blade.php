@@ -66,50 +66,6 @@
             toggleVisibleIndicators();
             toggleDisableIndicators()
         });
-
-        // htmlElements.pdpIndicatorCheckbox.on('change', function(evt) {
-        //     let val = $(this).prop('checked')
-        //     togglePdpIndicators(val)
-        // })
-        //
-        // htmlElements.pdpChapterId.on('change', function(evt) {
-        //     // hide PDP indicators
-        //     showSelectedPdpIndicatorsByChapter(evt.target.value)
-        // })
-        //
-        // function filterPdpIndicators() {
-        //     let $noPdpIndicator = $('#no_pdp_indicator'),
-        //         $pdpChapterId = $('#pdp_chapter_id'),
-        //         $pdpIndicators = $('input.pdp_indicators')
-        //
-        //     // if there is no pdp indicator
-        //     if ($noPdpIndicator.val() === 1) {
-        //         if (val) {
-        //             $pdpIndicators.prop('disabled', true)
-        //         } else {
-        //             $pdpIndicators.prop('disabled', false)
-        //         }
-        //     }
-        // }
-        //
-        // function togglePdpIndicators(val)
-        // {
-        //     let allPdpIndicators = $('input.pdp_indicators')
-        //     if (val) {
-        //         allPdpIndicators.prop('disabled', true)
-        //     } else {
-        //         allPdpIndicators.prop('disabled', false)
-        //     }
-        // }
-        //
-        // function showSelectedPdpIndicatorsByChapter(val)
-        // {
-        //     if (val) {
-        //         // $('.pdp_chapters').hide()
-        //         $('.pdp_indicators').prop('checked', false)
-        //         // $("div#pdp_chapter_" + val).show()
-        //     }
-        // }
     </script>
 
     <script>

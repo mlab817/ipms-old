@@ -1557,7 +1557,7 @@
                                                    value="{{ old("disbursement.y2023", $project->disbursement->y2023 ?? 0) }}"
                                                    readonly>
                                         </td>
-                                        <td><input type="text" class="disbursement money form-control text-right"
+                                        <td><input type="text" class="money form-control text-right"
                                                    id="disbursement_total" readonly></td>
                                     </tr>
                                     </tbody>
