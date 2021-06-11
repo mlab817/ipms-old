@@ -59,8 +59,6 @@ use Spatie\Searchable\Search;
 
 class ProjectController extends Controller
 {
-    const PROJECTS_INDEX = 'projects.own';
-
     public function __construct()
     {
         $this->authorizeResource(Project::class);
@@ -76,35 +74,7 @@ class ProjectController extends Controller
     {
         $projectQuery = Project::query()->with(['office','creator.office','project_status']);
 
-        if ($request->has('search')) {
-            $query = $request->query();
-            $searchTerm = '%' .  $query['search'] . '%' ?? '';
-            $orderBy = $query['orderBy']  ?? 'id';
-            $sortOrder = $query['sortOrder'] ?? 'ASC';
-
-            if ($searchTerm) {
-                $projects = $projectQuery
-                    ->where('title','like', $searchTerm)
-                    ->orWhereHas('project_status', function ($query) use ($searchTerm) {
-                        $query->where('name', 'like', $searchTerm);
-                    })
-                    ->orWhereHas('office', function ($query) use ($searchTerm) {
-                        $query->where('name','like', $searchTerm)
-                            ->orWhere('acronym','like', $searchTerm);
-                    })
-                    ->orWhereHas('creator', function ($query) use ($searchTerm) {
-                        $query->where('first_name','like', $searchTerm);
-                    })
-                    ->orderBy($orderBy, $sortOrder)
-                    ->paginate();
-            } else {
-                $projects = $projectQuery
-                    ->orderBy($orderBy, $sortOrder)
-                    ->paginate();
-            }
-        } else {
-            $projects = $projectQuery->paginate();
-        }
+        $projects = $this->filter($projectQuery, $request);
 
         return view('projects.index2', compact('projects'));
     }
@@ -329,20 +299,16 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project, Request $request)
     {
+        $projectArray = $project->toArray();
+        $creator = $project->creator;
+
         if (config('ipms.force_delete')) {
             $project->forceDelete();
         } else {
             $project->delete();
         }
 
-        if ($project->created_by) {
-            if ($project->created_by !== auth()->id()) {
-                $creator = User::find($project->created_by);
-                if ($creator) {
-                    $creator->notify(new ProjectDeletedNotification($project, auth()->user(), $request->reason));
-                }
-            }
-        }
+        $creator->notify(new ProjectDeletedNotification($projectArray, auth()->user(), $request->reason));
 
         Alert::success('Success', 'Successfully deleted project');
 
@@ -396,31 +362,92 @@ class ProjectController extends Controller
     /**
      * Return user's own projects
      */
-    public function own(ProjectsDataTable $dataTable)
+//    public function own(ProjectsDataTable $dataTable)
+//    {
+//        abort_if(! auth()->user()->can('projects.view_own'), 403);
+//
+//        return $dataTable
+//            ->addScope(new OwnProjectsDataTableScope)
+//            ->render('projects.index', ['pageTitle' => 'Own Projects']);
+//    }
+
+    public function own(Request $request)
     {
         abort_if(! auth()->user()->can('projects.view_own'), 403);
 
-        return $dataTable
-            ->addScope(new OwnProjectsDataTableScope)
-            ->render('projects.index', ['pageTitle' => 'Own Projects']);
+        $projectQuery = Project::query()->own()->with(['office','creator.office','project_status']);
+
+        $projects = $this->filter($projectQuery, $request);
+
+        return view('projects.index2', compact('projects'));
     }
 
-    public function office(ProjectsDataTable $dataTable)
+//    public function office(ProjectsDataTable $dataTable)
+//    {
+//        abort_if(! auth()->user()->can('projects.view_office'), 403);
+//
+//        return $dataTable
+//            ->addScope(new OfficeProjectsDataTableScope)
+//            ->render('projects.index', ['pageTitle' => 'Office Projects']);
+//    }
+
+    public function office(Request $request)
     {
         abort_if(! auth()->user()->can('projects.view_office'), 403);
 
-        return $dataTable
-            ->addScope(new OfficeProjectsDataTableScope)
-            ->render('projects.index', ['pageTitle' => 'Office Projects']);
+        $projectQuery = Project::query()->office()->with(['office','creator.office','project_status']);
+
+        $projects = $this->filter($projectQuery, $request);
+
+        return view('projects.index2', compact('projects'));
     }
 
-    public function assigned(AssignedProjectsDataTable $dataTable)
+    public function filter($projectQuery, $request)
+    {
+        $projects = collect();
+
+        if ($request->has('search')) {
+            $query = $request->query();
+            $searchTerm = '%' .  $query['search'] . '%' ?? '';
+            $orderBy = $query['orderBy']  ?? 'id';
+            $sortOrder = $query['sortOrder'] ?? 'ASC';
+
+            if (! $searchTerm) {
+                $projects = $projectQuery
+                    ->orderBy($orderBy, $sortOrder)
+                    ->paginate();
+            } else {
+                $projects = $projectQuery
+                    ->where('title','like', $searchTerm)
+//                    ->orWhereHas('project_status', function ($query) use ($searchTerm) {
+//                        $query->where('name', 'like', $searchTerm);
+//                    })
+//                    ->orWhereHas('office', function ($query) use ($searchTerm) {
+//                        $query->where('name','like', $searchTerm)
+//                            ->orWhere('acronym','like', $searchTerm);
+//                    })
+//                    ->orWhereHas('creator', function ($query) use ($searchTerm) {
+//                        $query->where('first_name','like', $searchTerm);
+//                    })
+                    ->orderBy($orderBy, $sortOrder)
+                    ->paginate();
+            }
+        } else {
+            $projects = $projectQuery->paginate();
+        }
+
+        return $projects;
+    }
+
+    public function assigned(Request $request)
     {
         abort_if(! auth()->user()->can('projects.view_assigned'), 403);
 
-        return $dataTable
-            ->addScope(new AssignedProjectsDataTableScope)
-            ->render('projects.index', ['pageTitle' => 'Assigned Projects']);
+        $projectQuery = Project::query()->assigned()->with(['office','creator.office','project_status']);
+
+        $projects = $this->filter($projectQuery, $request);
+
+        return view('projects.index2', compact('projects'));
     }
 
     public function search(Request $request)

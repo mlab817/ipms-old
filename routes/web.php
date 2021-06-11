@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use TCG\Voyager\Facades\Voyager;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +66,34 @@ Route::middleware(['auth','password.changed'])->group(function () {
     Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
     Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
     Route::resource('notifications',\App\Http\Controllers\NotificationController::class)->only('index','show');
+
+    Route::group(['prefix' => 'reports'], function() {
+        Route::get('/', [\App\Http\Controllers\ReportController::class,'index'])->name('reports.index');
+        Route::get('/implementation_modes', [\App\Http\Controllers\ReportController::class,'implementation_modes'])->name('reports.implementation_modes');
+        Route::get('/offices', [\App\Http\Controllers\ReportController::class,'offices'])->name('reports.offices');
+        Route::get('/spatial_coverages', [\App\Http\Controllers\ReportController::class,'spatial_coverages'])->name('reports.spatial_coverages');
+        Route::get('/regions', [\App\Http\Controllers\ReportController::class,'regions'])->name('reports.regions');
+        Route::get('/funding_sources', [\App\Http\Controllers\ReportController::class,'funding_sources'])->name('reports.funding_sources');
+        Route::get('/tiers', [\App\Http\Controllers\ReportController::class,'tiers'])->name('reports.tiers');
+        Route::get('/pap_types', [\App\Http\Controllers\ReportController::class,'pap_types'])->name('reports.pap_types');
+        Route::get('/pdp_chapters', [\App\Http\Controllers\ReportController::class,'pdp_chapters'])->name('reports.pdp_chapters');
+        Route::get('/project_statuses', [\App\Http\Controllers\ReportController::class,'project_statuses'])->name('reports.project_statuses');
+    });
+
+    Route::resource('links',\App\Http\Controllers\Admin\LinkController::class)->only('index');
+    Route::resource('audit_logs',\App\Http\Controllers\AuditLogController::class)->only('index','show');
+    Route::middleware('can:exports.view_index')->prefix('/exports')->name('exports.')->group(function() {
+        Route::get('',[\App\Http\Controllers\ExportController::class,'index'])->name('index');
+        Route::get('/fs_infrastructures',[\App\Http\Controllers\ExportController::class,'fs_infrastructures'])->name('fs_infrastructures');
+        Route::get('/fs_investments',[\App\Http\Controllers\ExportController::class,'fs_investments'])->name('fs_investments');
+        Route::get('/region_investments',[\App\Http\Controllers\ExportController::class,'region_investments'])->name('region_investments');
+        Route::get('/regions',[\App\Http\Controllers\ExportController::class,'regions'])->name('regions');
+        Route::get('/ten_point_agendas',[\App\Http\Controllers\ExportController::class,'ten_point_agendas'])->name('ten_point_agendas');
+        Route::get('/sdgs', [\App\Http\Controllers\ExportController::class,'sdgs'])->name('sdgs');
+        Route::get('/projects', [\App\Http\Controllers\ExportController::class,'projects'])->name('projects');
+    });
+
+    Route::resource('search', \App\Http\Controllers\SearchController::class);
 });
 
 Route::post('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'update'])->name('change_password_update');
@@ -82,7 +109,7 @@ Route::middleware('can:projects.manage')->prefix('/admin')->name('admin.')->grou
 });
 
 // Admin routes
-Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () {
+Route::middleware(['admin','password.changed'])->prefix('/admin')->name('admin.')->group(function () {
     Route::get('', \App\Http\Controllers\Admin\AdminController::class)->name('index');
     Route::resources([
         'approval_levels'       => \App\Http\Controllers\Admin\ApprovalLevelController::class,
@@ -122,23 +149,6 @@ Route::middleware('admin')->prefix('/admin')->name('admin.')->group(function () 
     Route::post('offices/export',[\App\Http\Controllers\Admin\OfficeController::class,'index'])->name('offices.export');
 });
 
-Route::group(['middleware'=>'auth'], function () {
-    Route::resource('links',\App\Http\Controllers\Admin\LinkController::class)->only('index');
-    Route::resource('audit_logs',\App\Http\Controllers\AuditLogController::class)->only('index','show');
-    Route::middleware('can:exports.view_index')->prefix('/exports')->name('exports.')->group(function() {
-        Route::get('',[\App\Http\Controllers\ExportController::class,'index'])->name('index');
-        Route::get('/fs_infrastructures',[\App\Http\Controllers\ExportController::class,'fs_infrastructures'])->name('fs_infrastructures');
-        Route::get('/fs_investments',[\App\Http\Controllers\ExportController::class,'fs_investments'])->name('fs_investments');
-        Route::get('/region_investments',[\App\Http\Controllers\ExportController::class,'region_investments'])->name('region_investments');
-        Route::get('/regions',[\App\Http\Controllers\ExportController::class,'regions'])->name('regions');
-        Route::get('/ten_point_agendas',[\App\Http\Controllers\ExportController::class,'ten_point_agendas'])->name('ten_point_agendas');
-        Route::get('/sdgs', [\App\Http\Controllers\ExportController::class,'sdgs'])->name('sdgs');
-        Route::get('/projects', [\App\Http\Controllers\ExportController::class,'projects'])->name('projects');
-    });
-
-    Route::resource('search', \App\Http\Controllers\SearchController::class);
-});
-
 Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'guest'], function() {
@@ -148,21 +158,6 @@ Route::group(['middleware' => 'guest'], function() {
 
 Route::get('/downloadJson/{filename}', \App\Http\Controllers\DownloadJsonController::class)->name('projects.downloadJson');
 Route::get('/exportJson', \App\Http\Controllers\ExportProjectsAsJsonController::class)->name('projects.json');
-
-Route::get('/dedup', \App\Http\Controllers\UnduplicateController::class);
-
-Route::group(['prefix' => 'reports', 'middleware' => 'auth'], function() {
-    Route::get('/', [\App\Http\Controllers\ReportController::class,'index'])->name('reports.index');
-    Route::get('/implementation_modes', [\App\Http\Controllers\ReportController::class,'implementation_modes'])->name('reports.implementation_modes');
-    Route::get('/offices', [\App\Http\Controllers\ReportController::class,'offices'])->name('reports.offices');
-    Route::get('/spatial_coverages', [\App\Http\Controllers\ReportController::class,'spatial_coverages'])->name('reports.spatial_coverages');
-    Route::get('/regions', [\App\Http\Controllers\ReportController::class,'regions'])->name('reports.regions');
-    Route::get('/funding_sources', [\App\Http\Controllers\ReportController::class,'funding_sources'])->name('reports.funding_sources');
-    Route::get('/tiers', [\App\Http\Controllers\ReportController::class,'tiers'])->name('reports.tiers');
-    Route::get('/pap_types', [\App\Http\Controllers\ReportController::class,'pap_types'])->name('reports.pap_types');
-    Route::get('/pdp_chapters', [\App\Http\Controllers\ReportController::class,'pdp_chapters'])->name('reports.pdp_chapters');
-    Route::get('/project_statuses', [\App\Http\Controllers\ReportController::class,'project_statuses'])->name('reports.project_statuses');
-});
 
 Route::fallback(function () {
     return view('errors.404');

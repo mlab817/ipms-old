@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\AdminProjectsDataTable;
 use App\Events\ProjectOwnerChangedEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
@@ -17,11 +16,41 @@ class AdminProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(AdminProjectsDataTable $dataTable)
+    public function index(Request $request)
     {
-        return $dataTable->render('admin.projects.index', [
-            'pageTitle' => 'Manage Projects',
-        ]);
+        $projectQuery = Project::query()->with(['users','creator','office','project_status']);
+
+        if ($request->has('search')) {
+            $query = $request->query();
+            $searchTerm = '%' .  $query['search'] . '%' ?? '';
+            $orderBy = $query['orderBy']  ?? 'id';
+            $sortOrder = $query['sortOrder'] ?? 'ASC';
+
+            if (! $searchTerm) {
+                $projects = $projectQuery
+                    ->orderBy($orderBy, $sortOrder)
+                    ->paginate();
+            } else {
+                $projects = $projectQuery
+                    ->where('title','like', $searchTerm)
+//                    ->orWhereHas('project_status', function ($query) use ($searchTerm) {
+//                        $query->where('name', 'like', $searchTerm);
+//                    })
+//                    ->orWhereHas('office', function ($query) use ($searchTerm) {
+//                        $query->where('name','like', $searchTerm)
+//                            ->orWhere('acronym','like', $searchTerm);
+//                    })
+//                    ->orWhereHas('creator', function ($query) use ($searchTerm) {
+//                        $query->where('first_name','like', $searchTerm);
+//                    })
+                    ->orderBy($orderBy, $sortOrder)
+                    ->paginate();
+            }
+        } else {
+            $projects = $projectQuery->paginate();
+        }
+
+        return view('admin.projects.index2', compact('projects'));
     }
 
     /**
