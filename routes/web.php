@@ -65,6 +65,7 @@ Route::middleware(['auth','password.changed'])->group(function () {
     Route::post('projects/import', [\App\Http\Controllers\ProjectImportController::class,'import'])->name('projects.import.import');
 
     Route::get('/projects/{project}/generatePdf', [\App\Http\Controllers\ProjectController::class,'generatePdf'])->name('projects.generatePdf');
+    Route::get('/projects/{project}/exportJson', [\App\Http\Controllers\ProjectController::class,'exportJson'])->name('projects.exportJson');
     Route::resource('projects', \App\Http\Controllers\ProjectController::class);
     Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
     Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
@@ -148,7 +149,9 @@ Route::middleware(['admin','password.changed'])->prefix('/admin')->name('admin.'
         'users'                 => \App\Http\Controllers\Admin\UserController::class,
         'teams'                 => \App\Http\Controllers\Admin\TeamController::class,
     ]);
+
     Route::resource('permissions',\App\Http\Controllers\Admin\PermissionController::class)->except('create','show');
+
     Route::post('offices/export',[\App\Http\Controllers\Admin\OfficeController::class,'index'])->name('offices.export');
 });
 

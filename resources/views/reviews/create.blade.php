@@ -34,6 +34,20 @@
 {{--                <a href="{{ route('projects.show', $project) }}" target="_blank" class="btn btn-outline-info">View Project Info (New Tab)</a>--}}
                 <button type="button" class="btn btn-outline-info" onclick="openPopup()">View Project Info</button>
             </div>
+
+            <div class="callout callout-info">
+                <div class="row">
+                    <div class="col">
+                        <p>Title: <strong>{{ $project->title  }}</strong></p>
+                        <p>Office: <strong>{{ $project->office->name ?? '' }}</strong></p>
+                    </div>
+                    <div class="col">
+                        <p>Created by: <img src="{{ $project->creator->avatar }}" width="20" height="20" class="img-circle"> <strong>{{ $project->creator->name ?? '' }}</strong> on <strong>{{ $project->created_at->format('M d, Y') }}</strong></p>
+                        <p>Last Updated: <strong>{{ $project->updated_at->format('M d, Y') }}</strong></p>
+                    </div>
+                </div>
+            </div>
+
             <form class="form-horizontal" action="{{ route('reviews.store', $project) }}" method="POST">
                 @csrf
                 <input type="hidden" name="project_id" value="{{ $project->id }}">
@@ -230,20 +244,18 @@
                     </div>
                 </div>
 
-                <div class="card-footer">
-                    <div class="col">
-                        <div class="row justify-content-between">
-                            <div>
-                                <button type="submit" class="btn btn-info">Submit</button>
-                                <a href="{{ route('reviews.index') }}" class="btn">Back to List</a>
-                            </div>
-                            <div>
-                                @if(auth()->user()->can('delete', $project))
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
-                                    Delete
-                                </button>
-                                @endif
-                            </div>
+                <div class="col pb-4">
+                    <div class="row justify-content-between">
+                        <div>
+                            <button type="submit" class="btn btn-info">Submit</button>
+                            <a href="{{ route('reviews.index') }}" class="btn">Back to List</a>
+                        </div>
+                        <div>
+                            @if(auth()->user()->can('delete', $project))
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
+                                Delete
+                            </button>
+                            @endif
                         </div>
                     </div>
                 </div>

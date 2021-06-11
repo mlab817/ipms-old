@@ -14,6 +14,7 @@ use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Requests\ReviewStoreRequest;
 use App\Http\Requests\UploadAttachmentRequest;
+use App\Http\Resources\ProjectResource;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
 use App\Models\CipType;
@@ -50,6 +51,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -497,5 +499,19 @@ class ProjectController extends Controller
         $project->load('creator','bases','regions','pdp_chapters','pdp_indicators','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep','feasibility_study');
 ////         generate PDF
         return view('projects.pdf', compact('project'));
+    }
+
+    public function exportJson(Project $project)
+    {
+        $json = json_encode($project->load('creator','bases','regions','pdp_chapters','pdp_indicators','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep','feasibility_study','review'), JSON_PRETTY_PRINT);
+
+        $destinationPath = public_path() . '/json/';
+        $fileName = Str::slug($project->title) . '.json';
+
+        if (!is_dir($destinationPath)) {  mkdir($destinationPath,0777,true);  }
+
+        File::put($destinationPath . $fileName, $json);
+
+        return Storage::download($destinationPath.$fileName);
     }
 }

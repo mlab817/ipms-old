@@ -35,13 +35,26 @@
                 <button type="button" class="btn btn-outline-info" onclick="openPopup()">View Project Info</button>
             </div>
 
+            <div class="callout callout-info">
+                <div class="row">
+                    <div class="col">
+                        <p>Title: <strong>{{ $project->title  }}</strong></p>
+                        <p>Office: <strong>{{ $project->office->name ?? '' }}</strong></p>
+                    </div>
+                    <div class="col">
+                        <p>Created by: <img src="{{ $project->creator->avatar }}" width="20" height="20" class="img-circle"> <strong>{{ $project->creator->name ?? '' }}</strong> on <strong>{{ $project->created_at->format('M d, Y') }}</strong></p>
+                        <p>Last Updated: <strong>{{ $project->updated_at->format('M d, Y') }}</strong></p>
+                    </div>
+                </div>
+            </div>
+
             <form class="form-horizontal" action="{{ route('reviews.update', $review) }}" method="POST">
                 @csrf
                 @method('PUT')
 
                 <input type="hidden" name="project_id" value="{{ $review->project->id }}">
 
-                <div class="card card-primary">
+                <div class="card card-info">
                     <div class="card-header">
                         <h1 class="card-title">PAP Classification</h1>
                     </div>
@@ -164,7 +177,7 @@
                     </div>
                 </div>
 
-                <div class="card card-primary">
+                <div class="card card-info">
                     <div class="card-header">
                         <div class="card-title">PIPOL Information &amp; Status</div>
                     </div>
@@ -233,7 +246,7 @@
                     </div>
                 </div>
 
-                <div class="card-footer">
+                <div class="col pb-4">
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <a href="{{ route('reviews.index') }}" class="btn">Back to List</a>
                 </div>
