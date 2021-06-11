@@ -505,7 +505,7 @@ class ProjectController extends Controller
     {
         $json = json_encode($project->load('creator','bases','regions','pdp_chapters','pdp_indicators','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep','feasibility_study','review'), JSON_PRETTY_PRINT);
 
-        $destinationPath = public_path() . '/json/';
+        $destinationPath = storage_path() . '/json/';
         $fileName = Str::slug($project->title) . '.json';
 
         if (!is_dir($destinationPath)) {  mkdir($destinationPath,0777,true);  }
