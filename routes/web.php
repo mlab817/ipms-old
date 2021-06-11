@@ -70,6 +70,7 @@ Route::middleware(['auth','password.changed'])->group(function () {
     Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
     Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
     Route::resource('notifications',\App\Http\Controllers\NotificationController::class)->only('index','show');
+    Route::resource('pipols',\App\Http\Controllers\PipolController::class);
 
     Route::group(['prefix' => 'reports'], function() {
         Route::get('/', [\App\Http\Controllers\ReportController::class,'index'])->name('reports.index');
