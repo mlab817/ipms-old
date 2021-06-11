@@ -108,49 +108,59 @@
                                         {{  $item->updated_at ? $item->updated_at->diffForHumans(null, null, true) : '-' }}
                                     </td>
                                     <td class="text-nowrap">
-                                        @if($item->has_infra)
-                                            @if($item->trip_info)
-                                                <a href="{{ route('trips.edit', $item) }}" class="btn btn-success btn-sm">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
-                                                    </svg>
-                                                    TRIP
-                                                </a>
-                                            @else
-                                                <a href="{{ route('trips.create', $item) }}" class="btn btn-success btn-sm">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
-                                                    </svg>
-                                                    TRIP
-                                                </a>
+                                        @if(! $item->trashed())
+                                            @if($item->has_infra)
+                                                @if($item->trip_info)
+                                                    <a href="{{ route('trips.edit', $item) }}" class="btn btn-success btn-sm">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        TRIP
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('trips.create', $item) }}" class="btn btn-success btn-sm">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        TRIP
+                                                    </a>
+                                                @endif
                                             @endif
                                         @endif
                                     </td>
                                     <td class="text-nowrap">
-                                        @can('view', $item)
-                                            <a href="{{ route('projects.show', $item) }}" class="btn btn-primary btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                                                </svg>
-                                                <span>View</span>
-                                            </a>
-                                        @endcan
-                                        @can('update', $item)
-                                            <a href="{{ route('projects.edit', $item) }}" class="btn btn-secondary btn-sm ml-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                                                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
-                                                </svg>
-                                                <span>Edit</span>
-                                            </a>
-                                        @endcan
+                                        @if(! $item->trashed())
+                                            @can('view', $item)
+                                                <a href="{{ route('projects.show', $item) }}" class="btn btn-primary btn-sm">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                                                    </svg>
+                                                    <span>View</span>
+                                                </a>
+                                            @endcan
+                                            @can('update', $item)
+                                                <a href="{{ route('projects.edit', $item) }}" class="btn btn-secondary btn-sm ml-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                                                    </svg>
+                                                    <span>Edit</span>
+                                                </a>
+                                            @endcan
 
-                                        <a target="_blank" href="{{ route('projects.generatePdf', $item) }}" class="btn btn-info btn-sm ml-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" />
-                                            </svg>
-                                            <span>Print</span>
-                                        </a>
+                                            <a target="_blank" href="{{ route('projects.generatePdf', $item) }}" class="btn btn-info btn-sm ml-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" />
+                                                </svg>
+                                                <span>Print</span>
+                                            </a>
+                                        @else
+                                            <form action="{{ route('projects.restore', $item->getRouteKey()) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-success btn-sm">Restore</button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty

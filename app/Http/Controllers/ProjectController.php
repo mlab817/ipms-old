@@ -450,6 +450,28 @@ class ProjectController extends Controller
         return view('projects.index2', compact('projects'));
     }
 
+    public function deleted(Request $request)
+    {
+        abort_if(! auth()->user()->can('projects.manage'), 403);
+
+        $projectQuery = Project::query()->onlyTrashed();
+
+        $projects = $this->filter($projectQuery, $request);
+
+        return view('projects.index2', compact('projects'));
+    }
+
+    public function restore(string $uuid)
+    {
+        $project = Project::withTrashed()->where('uuid', $uuid)->firstOrFail();
+
+        $project->restore();
+
+        Alert::success('Success','Project successfully restored');
+
+        return redirect()->route('projects.deleted');
+    }
+
     public function search(Request $request)
     {
         $searchTerm = $request->search;
