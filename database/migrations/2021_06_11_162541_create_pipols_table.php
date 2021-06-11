@@ -21,6 +21,7 @@ class CreatePipolsTable extends Migration
             $table->string('category')->nullable();
             $table->string('submission_status')->nullable();
             $table->text('pipol_url')->nullable();
+            $table->text('remarks')->nullable();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('ipms_id')->nullable()->constrained('projects','id')->nullOnDelete();
             $table->timestamps();

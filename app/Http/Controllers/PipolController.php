@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PipolCreateRequest;
+use App\Http\Requests\PipolUpdateRequest;
 use App\Models\Pipol;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PipolController extends Controller
 {
@@ -26,18 +30,27 @@ class PipolController extends Controller
      */
     public function create()
     {
-        //
+        return view('pipol.create')
+            ->with(['submission_statuses' => Pipol::SUBMISSION_STATUS])
+            ->with(['categories' => Pipol::CATEGORIES])
+            ->with(['projects' => Project::select('id','title')->orderBy('title','ASC')->get()]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param PipolCreateRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PipolCreateRequest $request)
     {
-        //
+        $pipol = Pipol::create($request->validated());
+
+        $pipol->user()->associate(auth()->user());
+
+        Alert::success('Success','Successfully added PIPOL entry');
+
+        return redirect()->route('pipols.index');
     }
 
     /**
@@ -59,7 +72,10 @@ class PipolController extends Controller
      */
     public function edit(Pipol $pipol)
     {
-        //
+        return view('pipol.edit', compact('pipol'))
+            ->with(['submission_statuses' => Pipol::SUBMISSION_STATUS])
+            ->with(['categories' => Pipol::CATEGORIES])
+            ->with(['projects' => Project::select('id','title')->orderBy('title','ASC')->get()]);
     }
 
     /**
@@ -69,9 +85,15 @@ class PipolController extends Controller
      * @param  \App\Models\Pipol  $pipol
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pipol $pipol)
+    public function update(PipolUpdateRequest $request, Pipol $pipol)
     {
-        //
+        $pipol->update($request->validated());
+
+        $pipol->user()->associate(auth()->user());
+
+        Alert::success('Success','Successfully updated PIPOL entry');
+
+        return redirect()->route('pipols.index');
     }
 
     /**

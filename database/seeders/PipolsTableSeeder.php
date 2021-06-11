@@ -21,6 +21,9 @@ class PipolsTableSeeder extends Seeder
 
         $pipols = json_decode($json, true);
 
+        // truncate table
+        Pipol::truncate();
+
         foreach ($pipols as $pipol) {
             $pipol = Pipol::create([
                 'pipol_code'        => $pipol['PIPOL Code'],
@@ -30,12 +33,30 @@ class PipolsTableSeeder extends Seeder
                 'submission_status' => $pipol['Status of Submission'],
             ]);
 
-            $project = Review::where('pipol_code', $pipol->pipol_code)->first();
+            $review = Review::where('pipol_code', $pipol->pipol_code)->first();
 
-            if ($project) {
-                $pipol->ipms_id = $project->project_id;
+            if ($review) {
+                $pipol->pipol_url = $this->removeUrl($review->pipol_url);
+                $pipol->ipms_id = $review->project_id;
+                $pipol->remarks = $review->comments;
                 $pipol->save();
             }
         }
+    }
+
+    public function removeUrl($url)
+    {
+        $baseUrl = [
+            'https://pipol.neda.gov.ph/editproject/',
+            'http://pipol.neda.gov.ph/editproject/',
+            'https://pipolv2.neda.gov.ph/editproject/',
+            'http://pipolv2.neda.gov.ph/editproject/',
+        ];
+
+        foreach ($baseUrl as $removeUrl) {
+            $safeUrl = str_replace($removeUrl, '', $url);
+        }
+
+        return $safeUrl;
     }
 }

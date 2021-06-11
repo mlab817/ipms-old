@@ -39,6 +39,7 @@ class Pipol extends Model
         'submission_status',
         'pipol_url',
         'ipms_id',
+        'remarks',
     ];
 
     public function project(): BelongsTo
