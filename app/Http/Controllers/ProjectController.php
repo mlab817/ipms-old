@@ -299,20 +299,16 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project, Request $request)
     {
+        $projectArray = $project->toArray();
+        $creator = $project->creator;
+
         if (config('ipms.force_delete')) {
             $project->forceDelete();
         } else {
             $project->delete();
         }
 
-        if ($project->created_by) {
-            if ($project->created_by !== auth()->id()) {
-                $creator = User::find($project->created_by);
-                if ($creator) {
-                    $creator->notify(new ProjectDeletedNotification($project, auth()->user(), $request->reason));
-                }
-            }
-        }
+        $creator->notify(new ProjectDeletedNotification($projectArray, auth()->user(), $request->reason));
 
         Alert::success('Success', 'Successfully deleted project');
 

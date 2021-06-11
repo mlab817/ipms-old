@@ -81,7 +81,7 @@
                                 <th class="text-center text-sm">Office</th>
                                 <th class="text-center text-sm">Added By</th>
                                 <th class="text-center text-sm">Last Updated</th>
-                                <th class="text-center text-sm"></th>
+                                <th class="text-center text-sm">Users</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -107,49 +107,19 @@
                                     <td class="text-sm text-center">
                                         {{  $item->updated_at ? $item->updated_at->diffForHumans(null, null, true) : '-' }}
                                     </td>
-                                    <td class="text-nowrap">
-                                        @if($item->has_infra)
-                                            @if($item->trip_info)
-                                                <a href="{{ route('trips.edit', $item) }}" class="btn btn-success btn-sm">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
-                                                    </svg>
-                                                    TRIP
-                                                </a>
-                                            @else
-                                                <a href="{{ route('trips.create', $item) }}" class="btn btn-success btn-sm">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
-                                                    </svg>
-                                                    TRIP
-                                                </a>
-                                            @endif
-                                        @endif
+                                    <td class="text-sm text-center text-nowrap">
+                                        <ul class="list-inline">
+                                        @foreach ($item->users->take(5) as $user)
+                                            <li class="list-inline-item"><img alt="avatar" class="table-avatar img-circle" src="{{ $user->avatar }}" width="40" height="40"></li>
+                                        @endforeach
+                                        @if($item->users->count() > 5) + {{ ($item->users->count() - 5 ) }} others @endif
                                     </td>
                                     <td class="text-nowrap">
-                                        @can('view', $item)
-                                            <a href="{{ route('projects.show', $item) }}" class="btn btn-primary btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                                                </svg>
-                                                <span>View</span>
-                                            </a>
-                                        @endcan
-                                        @can('update', $item)
-                                            <a href="{{ route('projects.edit', $item) }}" class="btn btn-secondary btn-sm ml-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                                                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
-                                                </svg>
-                                                <span>Edit</span>
-                                            </a>
-                                        @endcan
-
-                                        <a target="_blank" href="{{ route('projects.generatePdf', $item) }}" class="btn btn-info btn-sm ml-1">
+                                        <a target="_blank" href="{{ route('admin.projects.users.index', $item) }}" class="btn btn-primary btn-sm ml-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" />
+                                                <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
                                             </svg>
-                                            <span>Print</span>
+                                            <span>Manage</span>
                                         </a>
                                     </td>
                                 </tr>
@@ -161,7 +131,6 @@
                         </tbody>
                     </table>
                 </div>
-                @if($projects->count() > 10)
                 <div class="card-footer">
                     <span class="text-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -173,7 +142,6 @@
                         {!! $projects->onEachSide(1)->appends(request()->except('page'))->links() !!}
                     </div>
                 </div>
-                @endif
             </div>
         </div>
     </section>

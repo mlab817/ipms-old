@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ProjectDeletedNotification extends Notification implements ShouldQueue
+class ProjectDeletedNotification extends Notification
 {
     use Queueable;
 
@@ -24,7 +24,7 @@ class ProjectDeletedNotification extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Project $project, User $user, string $reason)
+    public function __construct($project, User $user, string $reason)
     {
         $this->project  = $project;
         $this->user     = $user;
@@ -53,7 +53,7 @@ class ProjectDeletedNotification extends Notification implements ShouldQueue
         return [
             'sender'    => $this->user,
             'subject'   => 'Project Deleted',
-            'message'   => $this->user->name . ' deleted your project: ' . $this->project->title,
+            'message'   => $this->user->name . ' deleted your project: ' . $this->project['title'],
             'actionUrl' => '#',
         ];
     }
