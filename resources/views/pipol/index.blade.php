@@ -53,7 +53,9 @@
                                         @endif
                                     </td>
                                     <td class="text-sm text-center">{{ $item->spatial_coverage }}</td>
-                                    <td class="text-sm text-center">{{ $item->category }}</td>
+                                    <td class="text-sm text-center">
+                                        {!! $item->category == 'Dropped' ? "<span class=\"badge badge-danger\">{$item->category}</span>" : $item->category  !!}
+                                    </td>
                                     <td class="text-sm text-center">
                                         @if($item->submission_status == 'Endorsed')
                                             <span class="badge badge-success">{{ $item->submission_status }}</span>
