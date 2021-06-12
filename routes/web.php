@@ -166,6 +166,10 @@ Route::group(['middleware' => 'guest'], function() {
 Route::get('/downloadJson/{filename}', \App\Http\Controllers\DownloadJsonController::class)->name('projects.downloadJson');
 Route::get('/exportJson', \App\Http\Controllers\ExportProjectsAsJsonController::class)->name('projects.json');
 
+Route::get('/decrypt', function () {
+    return decrypt('eyJpdiI6InhmSEU3UXlod0gxbzJnOFBEeDd6WkE9PSIsInZhbHVlIjoienRNVzEzUmFzM2kzQ29cLzZaK0FicGc9PSIsIm1hYyI6IjQ4Y2E4ZmFhMTBkZWFlYjYwODRhNDk2YTIxOTA2N2NjMjBmYmUzY2FkNzRjMDRhNjE3YjkxODllMWMzZWRjYWUifQ==');
+});
+
 Route::fallback(function () {
     return view('errors.404');
 });

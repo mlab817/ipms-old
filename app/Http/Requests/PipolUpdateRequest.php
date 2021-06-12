@@ -26,10 +26,10 @@ class PipolUpdateRequest extends FormRequest
         ];
 
         foreach ($baseUrl as $removeUrl) {
-            $safeUrl = str_replace($removeUrl, '', $url);
+            $url = str_replace($removeUrl, '', $url);
         }
 
-        return $safeUrl;
+        return $url;
     }
 
     public function prepareForValidation()
