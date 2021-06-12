@@ -509,6 +509,6 @@ class ProjectController extends Controller
 
         $destinationPath = \File::put(public_path($file), json_encode($json));
 
-        return Storage::download($file);
+        return Storage::download(public_path($file));
     }
 }
