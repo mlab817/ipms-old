@@ -79,6 +79,9 @@
                     </table>
                 </div>
                 <div class="card-footer">
+                    <span class="text-sm float-left">
+                        Showing {{ ($pipols->currentPage() - 1) * $pipols->perPage() + 1 }} - {{ $pipols->currentPage() * $pipols->perPage() }} of {{ $pipols->total() }} entries
+                    </span>
                     <div class="card-tools">
                         {!! $pipols->links() !!}
                     </div>
