@@ -14,10 +14,10 @@
 
 @section('content')
     <section class="content">
-            <div class="callout callout-info">
-                Link to Master List Tracker:
-                <a href="http://bit.ly/2021PIPMasterlist" style="text-decoration: none;" target="_blank">FY 2021 PIP UPDATING_PAP MASTERLIST_052021</a>
-            </div>
+        <div class="callout callout-info">
+            Link to Master List Tracker:
+            <a href="http://bit.ly/2021PIPMasterlist" style="text-decoration: none;" target="_blank">FY 2021 PIP UPDATING_PAP MASTERLIST_052021</a>
+        </div>
         <div class="row">
             <div class="col-md-3 col-sm-6 col-12">
                 <div class="info-box">
@@ -91,7 +91,6 @@
                 <!-- /.info-box -->
             </div>
             <!-- /.col -->
-
 
         </div>
 

@@ -16,9 +16,16 @@ class PipolController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pipols = Pipol::paginate();
+        $pipolsQuery = Pipol::query();
+        $search = $request->query('search');
+
+        if ($search) {
+            $pipols = $pipolsQuery->where('project_title','like','%'.$search.'%')->paginate();
+        } else {
+            $pipols = $pipolsQuery->paginate();
+        }
 
         return view('pipol.index', compact('pipols'));
     }

@@ -143,3 +143,7 @@ div.dt-button-collection {
     width: 15px;
     height: 15px;
 }
+
+.bg-lightred {
+    background-color: #ffcccb;
+}
