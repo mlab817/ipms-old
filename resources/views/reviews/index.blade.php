@@ -102,8 +102,11 @@
                     <div class="card-tools">
                         <form action="{{ route('reviews.index') }}" method="GET" class="form-inline">
                             <div>
-                                <button type="submit" name="no_review" value="1" class="btn btn-danger btn-sm mr-1">No Review</button>
-                                <button type="submit" name="no_review" value="0" class="btn btn-primary btn-sm mr-1">With Review</button>
+                                <select class="form-control form-control-sm mr-1" name="no_review" id="no_review">
+                                    <option value="" @if(request()->has('no_review') || !request()->query('no_review')) selected @endif>All</option>
+                                    <option value="1" @if(request()->query('no_review') == 1) selected @endif>No Review</option>
+                                    <option value="2" @if(request()->query('no_review') == 2) selected @endif>With Review</option>
+                                </select>
                             </div>
                             <div class="input-group input-group-sm" style="width: 200px;">
                                 <input type="search" name="search" class="form-control float-right" placeholder="Search in title" value="{{ request()->query('search') }}">
@@ -186,3 +189,11 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#no_review').on('change', function () {
+            this.form.submit();
+        });
+    </script>
+@endpush

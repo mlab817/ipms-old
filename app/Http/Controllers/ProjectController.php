@@ -74,7 +74,7 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $projectQuery = Project::query()->with(['office','creator.office','project_status']);
+        $projectQuery = Project::query()->with(['office','creator.office','project_status','pipol']);
 
         $projects = $this->filter($projectQuery, $request);
 
@@ -379,7 +379,7 @@ class ProjectController extends Controller
     {
         abort_if(! auth()->user()->can('projects.view_own'), 403);
 
-        $projectQuery = Project::query()->own()->with(['office','creator.office','project_status']);
+        $projectQuery = Project::query()->own()->with(['office','creator.office','project_status','pipol']);
 
         $projects = $this->filter($projectQuery, $request);
 
@@ -399,7 +399,7 @@ class ProjectController extends Controller
     {
         abort_if(! auth()->user()->can('projects.view_office'), 403);
 
-        $projectQuery = Project::query()->office()->with(['office','creator.office','project_status']);
+        $projectQuery = Project::query()->office()->with(['office','creator.office','project_status','pipol']);
 
         $projects = $this->filter($projectQuery, $request);
 
@@ -447,7 +447,7 @@ class ProjectController extends Controller
     {
         abort_if(! auth()->user()->can('projects.view_assigned'), 403);
 
-        $projectQuery = Project::query()->assigned()->with(['office','creator.office','project_status']);
+        $projectQuery = Project::query()->assigned()->with(['office','creator.office','project_status','pipol']);
 
         $projects = $this->filter($projectQuery, $request);
 

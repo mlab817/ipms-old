@@ -83,6 +83,7 @@
                                 <th class="text-center text-sm">Last Updated</th>
                                 <th class="text-center text-sm"></th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -160,6 +161,11 @@
                                                 @method('PUT')
                                                 <button type="submit" class="btn btn-success btn-sm">Restore</button>
                                             </form>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->pipol)
+                                        <a target="_blank" href="{{ config('ipms.pipol_base_url') . $item->pipol->pipol_url }}">PIPOL</a>
                                         @endif
                                     </td>
                                 </tr>

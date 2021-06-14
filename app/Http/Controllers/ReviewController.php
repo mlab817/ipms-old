@@ -35,9 +35,10 @@ class ReviewController extends Controller
         }
 
         if ($request->has('no_review')) {
-            if (! $request->query('no_review')) {
+            $no_review = $request->query('no_review');
+            if ($no_review == 2) {
                 $query->whereHas('review');
-            } else {
+            } elseif ($no_review == 1) {
                 $query->whereDoesntHave('review');
             }
         }
