@@ -54,9 +54,10 @@
                     </span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Endorsed as Dropped</span>
+                            <span class="info-box-text">Endorsed as Dropped (with reason)</span>
                             <span class="info-box-number">
                                 {{ \App\Models\Pipol::where('submission_status', 'Endorsed')->where('category','Dropped')->count() }}
+                                ({{ \App\Models\Pipol::where('submission_status', 'Endorsed')->where('category','Dropped')->whereNotNull('reason_id')->count() }})
                             </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -93,7 +94,7 @@
                         </span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">IPMS/PIPOL Matched</span>
+                            <span class="info-box-text">IPMS/PIPOL Endorsed Matched</span>
                             <span class="info-box-number">
                                 {{ \App\Models\Pipol::has('project')->count() }}
                             </span>
