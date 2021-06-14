@@ -140,9 +140,9 @@
 
                                 <div class="progress-group">
                                     PIP PAPs with PIPOL Entry
-                                    <span class="float-right"><b>{{$encodedCount}}</b>/{{$projectCount}}</span>
+                                    <span class="float-right"><b>{{$encodedCount}}</b>/{{$pipCount}}</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-primary" style="width: {{ $projectCount ? $encodedCount / $projectCount * 100 : 0 }}%"></div>
+                                        <div class="progress-bar bg-primary" style="width: {{ $pipCount ? $encodedCount / $pipCount * 100 : 0 }}%"></div>
                                     </div>
                                 </div>
                                 <!-- /.progress-group -->
@@ -150,9 +150,9 @@
                                 <!-- /.progress-group -->
                                 <div class="progress-group">
                                     PIP PAPs Endorsed in PIPOL
-                                    <span class="float-right"><b>{{ $endorsedCount }}</b>/{{ $projectCount }}</span>
+                                    <span class="float-right"><b>{{ $endorsedCount }}</b>/{{ $pipCount }}</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-warning" style="width: {{ $projectCount ? $endorsedCount / $projectCount * 100 : 0 }}%"></div>
+                                        <div class="progress-bar bg-warning" style="width: {{ $pipCount ? $endorsedCount / $pipCount * 100 : 0 }}%"></div>
                                     </div>
                                 </div>
                                 <!-- /.progress-group -->
@@ -160,9 +160,9 @@
                                 <!-- /.progress-group -->
                                 <div class="progress-group">
                                     PIP PAPs still Draft in PIPOL
-                                    <span class="float-right"><b>{{ $draftCount }}</b>/{{ $projectCount }}</span>
+                                    <span class="float-right"><b>{{ $draftCount }}</b>/{{ $pipCount }}</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-warning" style="width: {{ $projectCount ? $draftCount / $projectCount * 100 : 0 }}%"></div>
+                                        <div class="progress-bar bg-warning" style="width: {{ $pipCount ? $draftCount / $pipCount * 100 : 0 }}%"></div>
                                     </div>
                                 </div>
                                 <!-- /.progress-group -->
