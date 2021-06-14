@@ -166,7 +166,7 @@
                                     </div>
                                 </div>
                                 <!-- /.progress-group -->
-
+                            </div>
                         </div>
                         <!-- /.row -->
                     </div>
@@ -174,7 +174,6 @@
                 </div>
                 <!-- /.card -->
             </div>
-            <!-- /.col -->
         </div>
         <!-- /.row -->
 
