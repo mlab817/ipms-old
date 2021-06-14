@@ -132,6 +132,7 @@
                                 <th class="text-sm text-center">PIP</th>
                                 <th class="text-sm text-center">TRIP</th>
                                 <th class="text-sm text-center">Review Details</th>
+                                <th class="text-sm text-center">PIPOL Entry/Link</th>
                                 <th class="text-sm text-center">Action</th>
                             </tr>
                         </thead>
@@ -153,6 +154,11 @@
                                     <td class="text-sm text-center">{!! $item->review ? ($item->review->trip ? '<span class="badge badge-success">TRIP</span>' : '<span class="badge badge-danger">No</span>') : '' !!}</td>
                                     <td class="text-sm text-center">
                                         {{ $item->review ? ($item->review->user ? $item->review->user->office->acronym . ' - ' . $item->review->user->last_name : '') : '' }}
+                                    </td>
+                                    <td class="text-sm text-center">
+                                        @if ($item->pipol)
+                                            <a target="_blank" href="{{ config('ipms.pipol_base_url') . $item->pipol->pipol_url }}" class="btn btn-success btn-sm">PIPOL</a>
+                                        @endif
                                     </td>
                                     <td class="text-sm text-center">
                                         @can('review', $item)
