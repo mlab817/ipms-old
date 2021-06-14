@@ -22,8 +22,11 @@ class ReportController extends Controller
         $items = DB::table('implementation_modes','a')
             ->leftJoin('projects AS b','a.id','=','b.implementation_mode_id')
             ->leftJoin('fs_investments AS c', 'b.id','=','c.project_id')
+            ->join('pipols AS d', 'd.ipms_id','=','b.id')
             ->selectRaw('a.id, a.name, COUNT(DISTINCT(b.id)) AS project_count, SUM(c.y2022) AS y2022, SUM(c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022) AS six_years, SUM(c.y2016 + c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022 + c.y2023) AS total_project_cost')
             ->whereNull('b.deleted_at')
+            ->where('d.submission_status','Endorsed')
+            ->where('d.category','<>','Dropped')
             ->groupBy('a.id')
             ->get();
 
@@ -41,8 +44,11 @@ class ReportController extends Controller
         $items = DB::table('pap_types','a')
             ->leftJoin('projects AS b','a.id','=','b.pap_type_id')
             ->leftJoin('fs_investments AS c', 'b.id','=','c.project_id')
+            ->join('pipols AS d', 'd.ipms_id','=','b.id')
             ->selectRaw('a.id, a.name, COUNT(DISTINCT(b.id)) AS project_count, SUM(c.y2022) AS y2022, SUM(c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022) AS six_years, SUM(c.y2016 + c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022 + c.y2023) AS total_project_cost')
             ->whereNull('b.deleted_at')
+            ->where('d.submission_status','Endorsed')
+            ->where('d.category','<>','Dropped')
             ->groupBy('a.id')
             ->get();
 
@@ -59,8 +65,11 @@ class ReportController extends Controller
         $items = DB::table('offices','a')
             ->leftJoin('projects AS b','a.id','=','b.office_id')
             ->leftJoin('fs_investments AS c', 'b.id','=','c.project_id')
+            ->join('pipols AS d', 'd.ipms_id','=','b.id')
             ->selectRaw('a.id, a.name, COUNT(DISTINCT(b.id)) AS project_count, SUM(c.y2022) AS y2022, SUM(c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022) AS six_years, SUM(c.y2016 + c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022 + c.y2023) AS total_project_cost')
             ->whereNull('b.deleted_at')
+            ->where('d.submission_status','Endorsed')
+            ->where('d.category','<>','Dropped')
             ->groupBy('a.id')
             ->get();
 
@@ -77,8 +86,11 @@ class ReportController extends Controller
         $items = DB::table('spatial_coverages','a')
             ->leftJoin('projects AS b','a.id','=','b.spatial_coverage_id')
             ->leftJoin('fs_investments AS c', 'b.id','=','c.project_id')
+            ->join('pipols AS d', 'd.ipms_id','=','b.id')
             ->selectRaw('a.id, a.name, COUNT(DISTINCT(b.id)) AS project_count, SUM(c.y2022) AS y2022, SUM(c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022) AS six_years, SUM(c.y2016 + c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022 + c.y2023) AS total_project_cost')
             ->whereNull('b.deleted_at')
+            ->where('d.submission_status','Endorsed')
+            ->where('d.category','<>','Dropped')
             ->groupBy('a.id')
             ->get();
 
@@ -95,8 +107,11 @@ class ReportController extends Controller
         $items = DB::table('regions','a')
             ->leftJoin('region_investments AS b', 'a.id','=','b.region_id')
             ->leftJoin('projects AS c','c.id','=','b.project_id')
+            ->join('pipols AS d', 'd.ipms_id','=','b.id')
             ->selectRaw('a.id, a.name, COUNT(DISTINCT(b.project_id)) AS project_count, SUM(b.y2022) AS y2022, SUM(b.y2017 + b.y2018 + b.y2019 + b.y2020 + b.y2021 + b.y2022) AS six_years, SUM(b.y2016 + b.y2017 + b.y2018 + b.y2019 + b.y2020 + b.y2021 + b.y2022 + b.y2023) AS total_project_cost')
             ->whereNull('c.deleted_at')
+            ->where('d.submission_status','Endorsed')
+            ->where('d.category','<>','Dropped')
             ->groupBy('a.id')
             ->orderBy('a.order','ASC')
             ->get();
@@ -113,8 +128,11 @@ class ReportController extends Controller
         $items = DB::table('funding_sources','a')
             ->leftJoin('projects AS c','a.id','=','c.funding_source_id')
             ->leftJoin('fs_investments AS b', 'a.id','=','b.fs_id')
+            ->join('pipols AS d', 'd.ipms_id','=','b.id')
             ->selectRaw('a.id, a.name, COUNT(DISTINCT(c.id)) AS project_count, SUM(b.y2022) AS y2022, SUM(b.y2017 + b.y2018 + b.y2019 + b.y2020 + b.y2021 + b.y2022) AS six_years, SUM(b.y2016 + b.y2017 + b.y2018 + b.y2019 + b.y2020 + b.y2021 + b.y2022 + b.y2023) AS total_project_cost')
             ->whereNull('c.deleted_at')
+            ->where('d.submission_status','Endorsed')
+            ->where('d.category','<>','Dropped')
             ->groupBy('a.id')
             ->get();
 
@@ -131,8 +149,11 @@ class ReportController extends Controller
         $items = DB::table('tiers','a')
             ->leftJoin('projects AS b','a.id','=','b.tier_id')
             ->leftJoin('fs_investments AS c', 'b.id','=','c.project_id')
+            ->join('pipols AS d', 'd.ipms_id','=','b.id')
             ->selectRaw('a.id, a.name, COUNT(DISTINCT(b.id)) AS project_count, SUM(c.y2022) AS y2022, SUM(c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022) AS six_years, SUM(c.y2016 + c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022 + c.y2023) AS total_project_cost')
             ->whereNull('b.deleted_at')
+            ->where('d.submission_status','Endorsed')
+            ->where('d.category','<>','Dropped')
             ->groupBy('a.id')
             ->get();
 
@@ -149,8 +170,11 @@ class ReportController extends Controller
         $items = DB::table('pdp_chapters','a')
             ->leftJoin('projects AS b','a.id','=','b.pdp_chapter_id')
             ->leftJoin('fs_investments AS c', 'b.id','=','c.project_id')
+            ->join('pipols AS d', 'd.ipms_id','=','b.id')
             ->selectRaw('a.id, a.name, COUNT(DISTINCT(b.id)) AS project_count, SUM(c.y2022) AS y2022, SUM(c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022) AS six_years, SUM(c.y2016 + c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022 + c.y2023) AS total_project_cost')
             ->whereNull('b.deleted_at')
+            ->where('d.submission_status','Endorsed')
+            ->where('d.category','<>','Dropped')
             ->groupBy('a.id')
             ->orderBy('a.name')
             ->get();
@@ -168,8 +192,11 @@ class ReportController extends Controller
         $items = DB::table('project_statuses','a')
             ->leftJoin('projects AS b','a.id','=','b.project_status_id')
             ->leftJoin('fs_investments AS c', 'b.id','=','c.project_id')
+            ->join('pipols AS d', 'd.ipms_id','=','b.id')
             ->selectRaw('a.id, a.name, COUNT(DISTINCT(b.id)) AS project_count, SUM(c.y2022) AS y2022, SUM(c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022) AS six_years, SUM(c.y2016 + c.y2017 + c.y2018 + c.y2019 + c.y2020 + c.y2021 + c.y2022 + c.y2023) AS total_project_cost')
             ->whereNull('b.deleted_at')
+            ->where('d.submission_status','Endorsed')
+            ->where('d.category','<>','Dropped')
             ->groupBy('a.id')
             ->get();
 
