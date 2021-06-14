@@ -131,9 +131,9 @@
 
                                 <div class="progress-group">
                                     PAPs tagged as PIP
-                                    <span class="float-right"><b>{{$pipCount}}</b>/{{$projectCount}}</span>
+                                    <span class="float-right"><b>{{$pipCount}}</b>/{{$reviewCount}}</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-primary" style="width: {{ $projectCount ? $pipCount / $projectCount * 100 : 0 }}%"></div>
+                                        <div class="progress-bar bg-primary" style="width: {{ $reviewCount ? $pipCount / $reviewCount * 100 : 0 }}%"></div>
                                     </div>
                                 </div>
                                 <!-- /.progress-group -->
