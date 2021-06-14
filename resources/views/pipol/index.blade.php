@@ -96,7 +96,7 @@
                         <div class="info-box-content">
                             <span class="info-box-text">IPMS/PIPOL Endorsed Matched</span>
                             <span class="info-box-number">
-                                {{ \App\Models\Pipol::has('project')->count() }}
+                                {{ \App\Models\Pipol::where('category','<>','Dropped')->where('submission_status','Endorsed')->whereNotNull('ipms_id')->count() }}
                             </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -131,18 +131,18 @@
                         <thead>
                             <tr>
                                 <th class="text-center text-sm">PIPOL Code</th>
-                                <th class="text-center text-sm">Project Title</th>
-                                <th class="text-center text-sm">Spatial Coverage</th>
+                                <th class="text-center text-sm" style="width: 40%;">Project Title <br/> <span class="font-weight-lighter text-xs text-muted">Click title to view PIPOL entry</span></th>
+{{--                                <th class="text-center text-sm">Spatial Coverage</th>--}}
                                 <th class="text-center text-sm">Category</th>
                                 <th class="text-center text-sm">Status of Submission</th>
                                 <th class="text-center text-sm">Reason for Dropping</th>
-                                <th class="text-center text-sm">Project</th>
+                                <th class="text-center text-sm">IPMSv2 Project</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($pipols as $item)
-                                <tr @if(! $item->ipms_id) class="bg-lightred" @endif>
+                                <tr @if($item->category == 'Dropped') class="bg-lightred" @endif>
                                     <td class="text-sm text-nowrap">{{ $item->pipol_code }}</td>
                                     <td class="text-sm">
                                         @if($item->pipol_url)
@@ -151,7 +151,7 @@
                                             {{ $item->project_title }}
                                         @endif
                                     </td>
-                                    <td class="text-sm text-center">{{ $item->spatial_coverage }}</td>
+{{--                                    <td class="text-sm text-center">{{ $item->spatial_coverage }}</td>--}}
                                     <td class="text-sm text-center">
                                         {!! $item->category == 'Dropped' ? "<span class=\"badge badge-danger\">{$item->category}</span>" : $item->category  !!}
                                     </td>
@@ -169,7 +169,9 @@
                                     </td>
                                     <td class="text-nowrap text-center">
                                         @if($item->ipms_id)
-                                        <a href="{{ route('projects.show', $item->project) }}" class="btn btn-primary btn-sm">Project</a>
+                                            <a href="{{ route('projects.show', $item->project) }}" class="btn btn-primary btn-sm">Project</a>
+                                        @else
+                                            <span class="badge badge-danger">N/A</span>
                                         @endif
                                     </td>
                                     <td>
