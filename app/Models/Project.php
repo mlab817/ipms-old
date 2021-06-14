@@ -274,6 +274,11 @@ class Project extends Model implements Searchable
         return $this->hasOne(FeasibilityStudy::class)->withDefault();
     }
 
+    public function pipol(): HasOne
+    {
+        return $this->hasOne(Pipol::class,'ipms_id','id');
+    }
+
     public function resettlement_action_plan(): HasOne
     {
         return $this->hasOne(ResettlementActionPlan::class, 'project_id', 'id')->withDefault();
@@ -316,8 +321,6 @@ class Project extends Model implements Searchable
     {
         return $this->hasOne(Nep::class)->withDefault();
     }
-
-
 
     public function operating_units(): BelongsToMany
     {

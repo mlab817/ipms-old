@@ -18,37 +18,24 @@ class AdminProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $projectQuery = Project::query()->with(['users','creator','office','project_status']);
+        $query = Project::query()->with(['users','creator','office','project_status']);
 
         if ($request->has('search')) {
-            $query = $request->query();
-            $searchTerm = '%' .  $query['search'] . '%' ?? '';
-            $orderBy = $query['orderBy']  ?? 'id';
-            $sortOrder = $query['sortOrder'] ?? 'ASC';
+            $searchTerm = '%' .  $request->query('search') . '%';
+            $orderBy = $request->query('orderBy') ?? 'id';
+            $sortOrder = $request->query('sortOrder') ?? 'ASC';
 
             if (! $searchTerm) {
-                $projects = $projectQuery
-                    ->orderBy($orderBy, $sortOrder)
-                    ->paginate();
+                $query
+                    ->orderBy($orderBy, $sortOrder);
             } else {
-                $projects = $projectQuery
+                $query
                     ->where('title','like', $searchTerm)
-//                    ->orWhereHas('project_status', function ($query) use ($searchTerm) {
-//                        $query->where('name', 'like', $searchTerm);
-//                    })
-//                    ->orWhereHas('office', function ($query) use ($searchTerm) {
-//                        $query->where('name','like', $searchTerm)
-//                            ->orWhere('acronym','like', $searchTerm);
-//                    })
-//                    ->orWhereHas('creator', function ($query) use ($searchTerm) {
-//                        $query->where('first_name','like', $searchTerm);
-//                    })
-                    ->orderBy($orderBy, $sortOrder)
-                    ->paginate();
+                    ->orderBy($orderBy, $sortOrder);
             }
-        } else {
-            $projects = $projectQuery->paginate();
         }
+
+        $projects = $query->paginate();
 
         return view('admin.projects.index2', compact('projects'));
     }

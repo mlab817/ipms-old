@@ -122,7 +122,7 @@
 
                                 <!-- /.progress-group -->
                                 <div class="progress-group">
-                                    <span class="progress-text">Projects Reviewed</span>
+                                    <span class="progress-text">PAPs Reviewed</span>
                                     <span class="float-right"><b>{{$reviewCount}}</b>/{{$projectCount}}</span>
                                     <div class="progress progress-sm">
                                         <div class="progress-bar bg-success" style="width: {{ $projectCount ? $reviewCount / $projectCount * 100 : 0  }}%"></div>
@@ -130,7 +130,16 @@
                                 </div>
 
                                 <div class="progress-group">
-                                    PIPOL Encoded
+                                    PAPs tagged as PIP
+                                    <span class="float-right"><b>{{$pipCount}}</b>/{{$projectCount}}</span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-primary" style="width: {{ $projectCount ? $pipCount / $projectCount * 100 : 0 }}%"></div>
+                                    </div>
+                                </div>
+                                <!-- /.progress-group -->
+
+                                <div class="progress-group">
+                                    PIP PAPs with PIPOL Entry
                                     <span class="float-right"><b>{{$encodedCount}}</b>/{{$projectCount}}</span>
                                     <div class="progress progress-sm">
                                         <div class="progress-bar bg-primary" style="width: {{ $projectCount ? $encodedCount / $projectCount * 100 : 0 }}%"></div>
@@ -138,18 +147,10 @@
                                 </div>
                                 <!-- /.progress-group -->
 
-                                <div class="progress-group">
-                                    PIPOL Finalized
-                                    <span class="float-right"><b>{{$finalizedCount}}</b>/{{$projectCount}}</span>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-danger" style="width: {{ $projectCount ? $finalizedCount / $projectCount * 100 : 0 }}%"></div>
-                                    </div>
-                                </div>
-
                                 <!-- /.progress-group -->
                                 <div class="progress-group">
-                                    PIPOL Endorsed
-                                    <span class="float-right"><b>{{$endorsedCount}}</b>/{{$projectCount}}</span>
+                                    PIP PAPs Endorsed in PIPOL
+                                    <span class="float-right"><b>{{ $endorsedCount }}</b>/{{ $projectCount }}</span>
                                     <div class="progress progress-sm">
                                         <div class="progress-bar bg-warning" style="width: {{ $projectCount ? $endorsedCount / $projectCount * 100 : 0 }}%"></div>
                                     </div>
@@ -158,15 +159,14 @@
 
                                 <!-- /.progress-group -->
                                 <div class="progress-group">
-                                    PIPOL Validated
-                                    <span class="float-right"><b>{{$validatedCount}}</b>/{{$projectCount}}</span>
+                                    PIP PAPs still Draft in PIPOL
+                                    <span class="float-right"><b>{{ $draftCount }}</b>/{{ $projectCount }}</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-secondary" style="width: {{ $projectCount ? $validatedCount / $projectCount * 100 : 0 }}%"></div>
+                                        <div class="progress-bar bg-warning" style="width: {{ $projectCount ? $draftCount / $projectCount * 100 : 0 }}%"></div>
                                     </div>
                                 </div>
                                 <!-- /.progress-group -->
-                            </div>
-                            <!-- /.col -->
+
                         </div>
                         <!-- /.row -->
                     </div>

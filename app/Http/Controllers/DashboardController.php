@@ -29,15 +29,31 @@ class DashboardController extends Controller
         $chart->dataset('Projects Added Daily', 'bar', $chartData->values());
 
         return view('dashboard', [
-            'pageTitle'     => 'Dashboard',
-            'tripCount'     => Review::where('trip', 1)->count(),
             'projectCount'  => Project::count(),
             'reviewCount'   => Project::has('review')->count(),
-            'encodedCount'  => Review::where('pipol_encoded', true)->count(),
-            'validatedCount'=> Review::where('pipol_validated', true)->count(),
-            'finalizedCount'=> Review::where('pipol_finalized', true)->count(),
-            'endorsedCount' => Review::where('pipol_endorsed', true)->count(),
-            'pipCount'      => Review::where('pip', 1)->count(),
+//            'encodedCount'  => Project::has('pipol')->count(),
+            'pipCount'      => Project::whereHas('review', function ($q) {
+                $q->where('pip', 1);
+            })->count(),
+            'encodedCount'  => Project::whereHas('review', function ($q) {
+                $q->where('pip', 1);
+            })->has('pipol')->count(),
+            'tripCount'      => Project::whereHas('review', function ($q) {
+                $q->where('trip', 1);
+            })->count(),
+//            'encodedCount'  => Review::where('pipol_encoded', true)->count(),
+//            'validatedCount'=> Review::where('pipol_validated', true)->count(),
+//            'finalizedCount'=> Review::where('pipol_finalized', true)->count(),
+            'endorsedCount' => Project::whereHas('review', function ($q) {
+                $q->where('pip', 1);
+            })->whereHas('pipol', function ($q) {
+                $q->where('submission_status','Endorsed');
+            })->count(),
+            'draftCount' => Project::whereHas('review', function ($q) {
+                $q->where('pip', 1);
+            })->whereHas('pipol', function ($q) {
+                $q->where('submission_status','Draft');
+            })->count(),
             'userCount'     => User::count(),
             'chart'         => $chart,
             'reviews'       => Review::with('user')->has('project')->latest()->take(5)->get(),

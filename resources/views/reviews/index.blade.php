@@ -149,7 +149,7 @@
                                     <td class="text-sm text-center">{!! $item->review ? ($item->review->pip ? '<span class="badge badge-success">PIP</span>' : '<span class="badge badge-danger">No</span>') : '' !!}</td>
                                     <td class="text-sm text-center">{!! $item->review ? ($item->review->trip ? '<span class="badge badge-success">TRIP</span>' : '<span class="badge badge-danger">No</span>') : '' !!}</td>
                                     <td class="text-sm text-center">
-                                        {{ $item->review ? ($item->review->user ? $item->review->user->office->acronym . ' - ' . $item->review->user->first_name : '') : '' }}
+                                        {{ $item->review ? ($item->review->user ? $item->review->user->office->acronym . ' - ' . $item->review->user->last_name : '') : '' }}
                                     </td>
                                     <td class="text-sm text-center">
                                         @can('review', $item)
