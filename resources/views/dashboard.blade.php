@@ -150,9 +150,9 @@
                                 <!-- /.progress-group -->
                                 <div class="progress-group">
                                     PIP PAPs Endorsed in PIPOL
-                                    <span class="float-right"><b>{{ $endorsedCount }}</b>/{{ $pipCount }}</span>
+                                    <span class="float-right"><b>{{ $endorsedCount }}</b>/{{ $encodedCount }}</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-warning" style="width: {{ $pipCount ? $endorsedCount / $pipCount * 100 : 0 }}%"></div>
+                                        <div class="progress-bar bg-warning" style="width: {{ $encodedCount ? $endorsedCount / $encodedCount * 100 : 0 }}%"></div>
                                     </div>
                                 </div>
                                 <!-- /.progress-group -->
@@ -160,9 +160,9 @@
                                 <!-- /.progress-group -->
                                 <div class="progress-group">
                                     PIP PAPs still Draft in PIPOL
-                                    <span class="float-right"><b>{{ $draftCount }}</b>/{{ $pipCount }}</span>
+                                    <span class="float-right"><b>{{ $draftCount }}</b>/{{ $encodedCount }}</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-warning" style="width: {{ $pipCount ? $draftCount / $pipCount * 100 : 0 }}%"></div>
+                                        <div class="progress-bar bg-warning" style="width: {{ $encodedCount ? $draftCount / $encodedCount * 100 : 0 }}%"></div>
                                     </div>
                                 </div>
                                 <!-- /.progress-group -->
