@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,6 +12,7 @@ class Pipol extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use Auditable;
 
     const SPATIAL_COVERAGE = [
         'NATIONWIDE'        => 'Nationwide',
