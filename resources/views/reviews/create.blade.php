@@ -42,7 +42,9 @@
                         <p>Office: <strong>{{ $project->office->name ?? '' }}</strong></p>
                     </div>
                     <div class="col">
-                        <p>Created by: <img src="{{ $project->creator->avatar }}" width="20" height="20" class="img-circle"> <strong>{{ $project->creator->name ?? '' }}</strong> on <strong>{{ $project->created_at->format('M d, Y') }}</strong></p>
+                        @if($project->creator)
+                            <p>Created by: <img src="{{ $project->creator->avatar }}" width="20" height="20" class="img-circle"> <strong>{{ $project->creator->name ?? '' }}</strong> on <strong>{{ $project->created_at->format('M d, Y') }}</strong></p>
+                        @endif
                         <p>Last Updated: <strong>{{ $project->updated_at->format('M d, Y') }}</strong></p>
                     </div>
                 </div>

@@ -26,14 +26,28 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ReviewsDataTable $dataTable)
+    public function index(Request $request)
     {
-        return $dataTable->render('reviews.index', [
-            'pageTitle' => 'Review PAPs',
+        $query = Project::query()->with(['creator.office','office','review.user.office']);
+
+        if ($request->query('search')) {
+            $query->where('title', 'like', '%' . $request->query('search') . '%');
+        }
+
+        if ($request->has('no_review')) {
+            if (! $request->query('no_review')) {
+                $query->whereHas('review');
+            } else {
+                $query->whereDoesntHave('review');
+            }
+        }
+
+        return view('reviews.index')->with([
             'pipCount' => Review::where('pip', true)->count(),
             'tripCount'=> Review::where('trip', true)->count(),
             'reviewedCount' => Project::whereHas('review')->count(),
             'projectCount'  => Project::count(),
+            'projects'      => $query->paginate(),
         ]);
     }
 

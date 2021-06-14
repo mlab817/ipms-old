@@ -310,8 +310,10 @@ class ProjectController extends Controller
             $project->delete();
         }
 
-        $creator->notify(new ProjectDeletedNotification($projectArray, auth()->user(), $request->reason));
-
+        if ($creator) {
+            $creator->notify(new ProjectDeletedNotification($projectArray, auth()->user(), $request->reason));
+        }
+        
         Alert::success('Success', 'Successfully deleted project');
 
         return redirect()->route('projects.own');
