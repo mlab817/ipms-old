@@ -49,7 +49,7 @@ class NotificationsDataTable extends DataTable
      */
     public function query(DatabaseNotification $model)
     {
-        return $model->where('notifiable_id', auth()->id())->newQuery();
+        return $model->where('notifiable_id', auth()->id())->orderBy('created_at','DESC')->newQuery();
     }
 
     /**
@@ -87,10 +87,14 @@ class NotificationsDataTable extends DataTable
 //            Column::make('type'),
 //            Column::make('notifiable_type'),
 //            Column::make('notifiable_id'),
-            Column::make('sender'),
-            Column::make('message'),
-            Column::make('created_at'),
-            Column::make('read_at'),
+            Column::make('sender')
+                ->addClass('text-sm'),
+            Column::make('message')
+                ->addClass('text-sm'),
+            Column::make('created_at')
+                ->addClass('text-sm'),
+            Column::make('read_at')
+                ->addClass('text-sm'),
 //            Column::make('updated_at'),
             Column::computed('action')
                 ->exportable(false)

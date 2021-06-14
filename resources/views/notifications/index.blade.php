@@ -23,8 +23,18 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card">
+                <div class="card-header">
+                    <div class="card-tools">
+                        <form action="{{ route('notifications.markAllAsRead') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                Mark All as Read
+                            </button>
+                        </form>
+                    </div>
+                </div>
                 <div class="card-body">
-                    {!! $dataTable->table(['width' => '100%', 'class' => 'table-valign-middle']) !!}
+                    {!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped table-valign-middle']) !!}
                 </div>
             </div>
         </div>
