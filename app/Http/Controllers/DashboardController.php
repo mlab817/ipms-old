@@ -32,7 +32,7 @@ class DashboardController extends Controller
             'pageTitle'     => 'Dashboard',
             'tripCount'     => Review::where('trip', 1)->count(),
             'projectCount'  => Project::count(),
-            'reviewCount'   => Review::count(),
+            'reviewCount'   => Project::has('review')->count(),
             'encodedCount'  => Review::where('pipol_encoded', true)->count(),
             'validatedCount'=> Review::where('pipol_validated', true)->count(),
             'finalizedCount'=> Review::where('pipol_finalized', true)->count(),
