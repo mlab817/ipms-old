@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Pipol;
 use Illuminate\Foundation\Http\FormRequest;
 use function RingCentral\Psr7\str;
 
@@ -54,6 +55,8 @@ class PipolCreateRequest extends FormRequest
             'submission_status' => 'required|string',
             'pipol_url'         => 'required|string',
             'ipms_id'           => 'nullable|exists:projects,id',
+            'reason_id'         => 'nullable|exists:reasons,id|required_if:category,' . Pipol::CATEGORIES['DROPPED'],
+            'other_reason'      => 'nullable|string|required_if:reason_id,6',
             'remarks'           => 'nullable|string',
         ];
     }

@@ -31,6 +31,15 @@ class Pipol extends Model
         'DRAFT'             => 'Draft',
     ];
 
+    const REASON_FOR_DROPPING = [
+        'not_pip'           => 'Not PIP',
+        'subsumed'          => 'Subsumed',
+        'changed_replaced'  => 'Changed/Replaced',
+        'not_funded'        => 'Not Funded',
+        'duplicated'        => 'Duplicated',
+        'other'             => 'Other',
+    ];
+
     protected $fillable = [
         'pipol_code',
         'project_title',
@@ -39,12 +48,19 @@ class Pipol extends Model
         'submission_status',
         'pipol_url',
         'ipms_id',
+        'reason_id',
+        'other_reason',
         'remarks',
     ];
 
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class,'ipms_id','id')->withDefault();
+    }
+
+    public function reason(): BelongsTo
+    {
+        return $this->belongsTo(Reason::class);
     }
 
     public function user(): BelongsTo

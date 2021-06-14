@@ -96,6 +96,27 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="reason_id" class="col-sm-3 required">Reason for Dropping</label>
+                            <div class="col-sm-9">
+                                <select class="form-control @error('reason_id') is-invalid @enderror" name="reason_id" id="reason_id">
+                                    <option value="" selected disabled>Select Reason for Dropping</option>
+                                    @foreach(\App\Models\Reason::all() as $option)
+                                        <option value="{{ $option->id }}" @if(old('reason_id', $pipol->reason_id) == $option->id) selected @endif>{{ $option->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('reason_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="other_reason" class="col-sm-3 required">Other reason (pls. specify)</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('other_reason') is-invalid @enderror" name="other_reason" id="other_reason" placeholder="Specify if reason is not included in the choices" value="{{ old('other_reason', $pipol->other_reason) }}">
+                                @error('other_reason')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="remarks" class="col-sm-3">Remarks</label>
                             <div class="col-sm-9">
                                 <textarea class="form-control @error('remarks') is-invalid @enderror" name="remarks" id="remarks" placeholder="Remarks">{{ old('remarks', $pipol->remarks) }}</textarea>

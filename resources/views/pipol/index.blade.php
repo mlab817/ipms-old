@@ -23,7 +23,7 @@
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col-md-3 col-sm-6 col-12">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="info-box">
                     <span class="info-box-icon bg-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 20 20" fill="currentColor">
@@ -43,7 +43,7 @@
                 </div>
                 <!-- /.col -->
 
-                <div class="col-md-3 col-sm-6 col-12">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="info-box">
                     <span class="info-box-icon bg-info">
                         <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 20 20" fill="currentColor">
@@ -64,7 +64,7 @@
                     <!-- /.info-box -->
                 </div>
                 <!-- /.col -->
-                <div class="col-md-3 col-sm-6 col-12">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="info-box">
                     <span class="info-box-icon bg-success">
                         <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 20 20" fill="currentColor">
@@ -84,7 +84,7 @@
                 </div>
                 <!-- /.col -->
 
-                <div class="col-md-3 col-sm-6 col-12">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-danger">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 20 20" fill="currentColor">
@@ -134,6 +134,7 @@
                                 <th class="text-center text-sm">Spatial Coverage</th>
                                 <th class="text-center text-sm">Category</th>
                                 <th class="text-center text-sm">Status of Submission</th>
+                                <th class="text-center text-sm">Reason for Dropping</th>
                                 <th class="text-center text-sm">Project</th>
                                 <th></th>
                             </tr>
@@ -158,6 +159,11 @@
                                             <span class="badge badge-success">{{ $item->submission_status }}</span>
                                             @else
                                             {{ $item->submission_status }}
+                                        @endif
+                                    </td>
+                                    <td class="text-sm text-center">
+                                        @if($item->reason)
+                                            {{ $item->reason_id == 6 ? $item->other_reason : $item->reason->name  }}
                                         @endif
                                     </td>
                                     <td class="text-nowrap text-center">
