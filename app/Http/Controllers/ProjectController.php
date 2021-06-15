@@ -10,6 +10,7 @@ use App\DataTables\Scopes\OwnProjectsDataTableScope;
 use App\DataTables\Scopes\ProjectsDataTableScope;
 use App\Events\ProjectCreatedEvent;
 use App\Events\ProjectReviewedEvent;
+use App\Http\Requests\ProjectEndorseRequest;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Requests\ReviewStoreRequest;
@@ -42,6 +43,7 @@ use App\Models\RegionInvestment;
 use App\Models\Review;
 use App\Models\Sdg;
 use App\Models\SpatialCoverage;
+use App\Models\SubmissionStatus;
 use App\Models\TenPointAgenda;
 use App\Models\Tier;
 use App\Models\User;
@@ -474,6 +476,28 @@ class ProjectController extends Controller
         Alert::success('Success','Project successfully restored');
 
         return redirect()->route('projects.deleted');
+    }
+
+    public function endorse(ProjectEndorseRequest $request, Project $project)
+    {
+        $project->update($request->validated());
+
+        $project->submission_status()->associate(SubmissionStatus::find(2));
+
+        Alert::success('Success','Successfully endorsed project');
+
+        return redirect()->route('projects.own');
+    }
+
+    public function drop(Request $request, Project $project)
+    {
+        $project->update($request->validated());
+
+        $project->submission_status()->associate(SubmissionStatus::find(3));
+
+        Alert::success('Success','Successfully dropped project');
+
+        return redirect()->route('projects.own');
     }
 
     public function search(Request $request)

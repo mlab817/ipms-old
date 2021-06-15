@@ -1566,12 +1566,12 @@
                         </div>
                     </div>
                     <!--/. Financial Status -->
-
                 </div>
 
                 <div class="row">
                     <div class="col-12 mb-3">
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+
                         <a href="{{ route('projects.own') }}" class="btn">Back to List</a>
 
                         @can('delete', $project)
