@@ -27,13 +27,13 @@
                         <div class="row">
                             <div class="col">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label>Search</label>
                                             <input type="search" class="form-control" name="search" placeholder="Search in title..." value="{{ request()->input('search')  }}">
                                         </div>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label>Order By:</label>
                                             <select name="orderBy" class="form-control" style="width: 100%;">
@@ -47,7 +47,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label>Sort Order:</label>
                                             <select name="sortOrder" class="form-control" style="width: 100%;">

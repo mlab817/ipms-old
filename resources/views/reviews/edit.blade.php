@@ -56,7 +56,7 @@
 
                 <div class="card card-info">
                     <div class="card-header">
-                        <h1 class="card-title">PAP Classification</h1>
+                        <h1 class="card-title">PAP Review and Evaluation</h1>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -172,67 +172,6 @@
                                     @endforeach
                                 </select>
                                 @error('readiness_level_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card card-info">
-                    <div class="card-header">
-                        <div class="card-title">PIPOL Information &amp; Status</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label for="pipol_title" class="col-form-label col-sm-3">PIPOL Title</label>
-                            <div class="col-sm-9">
-                                <input type="text" id="pipol_title" class="form-control @error('pipol_title') is-invalid @enderror" name="pipol_title" value="{{ old('pipol_title', $review->pipol_title) }}" placeholder="Title of the PAP as encoded in the PIPOL">
-                                @error('pipol_title')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="pipol_code" class="col-form-label col-sm-3">PIPOL Code</label>
-                            <div class="col-sm-9">
-                                <input type="text" id="pipol_code" class="form-control" name="pipol_code" value="{{ old('pipol_code', $review->pipol_code) }}" placeholder="2020-12345-12345">
-                                @error('pipol_code')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="pipol_url" class="col-form-label col-sm-3">Link to PIPOL Entry</label>
-                            <div class="col-sm-9">
-                                <input type="text" id="pipol_url" class="form-control" name="pipol_url" value="{{ old('pipol_url', $review->pipol_url) }}" placeholder="https://pipolv2.neda.gov.ph/viewprojects/[project_code]">
-                                @error('pipol_url')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="pipol_statuses" class="col-form-label col-sm-3">Status</label>
-                            <div class="col-form-9">
-                                <div class="form-check">
-                                    <label for="pipol_encoded" class="form-check-label">
-                                        <input id="pipol_encoded" name="pipol_encoded" type="checkbox" class="form-check-input" value="1" @if(old('pipol_encoded', $review->pipol_encoded)) checked @endif>
-                                        Encoded by IPD
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label for="pipol_finalized" class="form-check-label">
-                                        <input id="pipol_finalized" name="pipol_finalized" type="checkbox" class="form-check-input" value="1" @if(old('pipol_finalized', $review->pipol_finalized)) checked @endif>
-                                        Finalized by IPD
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label for="pipol_endorsed" class="form-check-label">
-                                        <input id="pipol_endorsed" name="pipol_endorsed" type="checkbox" class="form-check-input" value="1" @if(old('pipol_endorsed', $review->pipol_endorsed)) checked @endif>
-                                        Endorsed by IPD
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label for="pipol_validated" class="form-check-label">
-                                        <input id="pipol_validated" name="pipol_validated" type="checkbox" class="form-check-input" value="1" @if(old('pipol_validated', $review->pipol_validated)) checked @endif>
-                                        Validated by NEDA
-                                    </label>
-                                </div>
                             </div>
                         </div>
 
