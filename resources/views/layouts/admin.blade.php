@@ -37,7 +37,10 @@
 
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
 
+    @livewireStyles
+
     @stack('styles')
+
 </head>
 <body class="layout-fixed">
     <div class="wrapper" id="app">
@@ -107,5 +110,6 @@
 {{--            checkUserLogin()--}}
 {{--        }, 5000)--}}
 {{--    </script>--}}
+    @livewireScripts
 </body>
 </html>
