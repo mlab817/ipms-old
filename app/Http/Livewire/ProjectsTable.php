@@ -10,6 +10,8 @@ class ProjectsTable extends Component
 {
     use WithPagination;
 
+    protected $paginationTheme = 'bootstrap';
+
     public $sortField = 'title'; // default sorting field
     public $sortAsc = true; // default sort direction
     public $search = '';
@@ -25,12 +27,17 @@ class ProjectsTable extends Component
         $this->sortField = $field;
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         return view('livewire.projects-table', [
             'projects' => Project::search($this->search)
                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
-                ->simplePaginate(10),
+                ->paginate(10),
         ]);
     }
 }

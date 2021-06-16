@@ -455,6 +455,11 @@ class Project extends Model
         ];
     }
 
+    public function getProjectStatusNameAttribute()
+    {
+        return optional($this->project_status)->name;
+    }
+
     // relationships
 
     public function scopeOwn($query)
@@ -497,12 +502,11 @@ class Project extends Model
         return $query->whereIn('id', auth()->user()->assigned_projects->pluck('id')->toArray());
     }
 
-    public static function search($query)
+    public static function search(string $query)
     {
         return empty($query) ? static::query()
             : static::where(function($q) use ($query) {
-                $q
-                    ->where('title', 'LIKE', '%'. $query . '%');
+                $q->where('title', 'LIKE', '%'. $query . '%');
             });
     }
 }

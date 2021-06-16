@@ -12,31 +12,52 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th class="text-center text-sm">
-                                    #
-                                </th>
-                                <th class="text-center text-sm">
-                                    <a wire:click.prevent="sortBy('name')" role="button" href="#">
-                                        Name
-                                        @include('includes.sort-icon', ['field' => 'name'])
+                                <th class="text-center text-sm text-nowrap">
+                                    <a wire:click.prevent="sortBy('id')" role="button" href="#">
+                                        #
+                                        @include('includes.sort-icon', ['field' => 'id'])
                                     </a>
                                 </th>
-                                <th class="text-center text-sm">
-                                    <a wire:click.prevent="sortBy('email')" role="button" href="#">
-                                        Email
-                                        @include('includes.sort-icon', ['field' => 'email'])
+                                <th class="text-center text-sm text-nowrap">
+                                    <a wire:click.prevent="sortBy('title')" role="button" href="#">
+                                        Title
+                                        @include('includes.sort-icon', ['field' => 'title'])
                                     </a>
                                 </th>
-                                <th class="text-center text-sm">
+                                <th class="text-center text-sm text-nowrap">
+                                    <a wire:click.prevent="sortBy('total_project_cost')" role="button" href="#">
+                                        Total Project Cost
+                                        @include('includes.sort-icon', ['field' => 'total_project_cost'])
+                                    </a>
+                                </th>
+                                <th class="text-center text-sm text-nowrap">
+                                    <a wire:click.prevent="sortBy('project_status_id')" role="button" href="#">
+                                        Project Status
+                                        @include('includes.sort-icon', ['field' => 'project_status_id'])
+                                    </a>
+                                </th>
+                                <th class="text-center text-sm text-nowrap">
                                     <a wire:click.prevent="sortBy('office_id')" role="button" href="#">
                                         Office
                                         @include('includes.sort-icon', ['field' => 'office_id'])
                                     </a>
                                 </th>
-                                <th class="text-center text-sm">
-                                    <a wire:click.prevent="sortBy('created_at')" role="button" href="#">
-                                        Created at
-                                        @include('includes.sort-icon', ['field' => 'created_at'])
+                                <th class="text-center text-sm text-nowrap">
+                                    <a wire:click.prevent="sortBy('submission_status_id')" role="button" href="#">
+                                        Submission Status
+                                        @include('includes.sort-icon', ['field' => 'submission_status_id'])
+                                    </a>
+                                </th>
+                                <th class="text-center text-sm text-nowrap">
+                                    <a wire:click.prevent="sortBy('created_by')" role="button" href="#">
+                                        Added By
+                                        @include('includes.sort-icon', ['field' => 'created_by'])
+                                    </a>
+                                </th>
+                                <th class="text-center text-sm text-nowrap">
+                                    <a wire:click.prevent="sortBy('updated_at')" role="button" href="#">
+                                        Updated at
+                                        @include('includes.sort-icon', ['field' => 'updated_at'])
                                     </a>
                                 </th>
                                 <th class="text-center text-sm">
@@ -48,10 +69,20 @@
                             @foreach ($projects as $project)
                                 <tr>
                                     <td class="text-center text-sm">{{ $project->id }}</td>
-                                    <td class="text-sm text-center">{{ $project->title }}</td>
-                                    <td class="text-sm text-center">{{ $project->email }}</td>
+                                    <td class="text-sm text-center">
+                                        {!! $search ? preg_replace('/(' . $search . ')/i', "<span class=\"bg-yellow\">$1</span>", $project->title) : $project->title !!}
+                                    </td>
+                                    <td class="text-sm text-right">{{ number_format($project->total_project_cost) }}</td>
+                                    <td class="text-sm text-center">{{ $project->project_status_name }}</td>
                                     <td class="text-sm text-center">{{ optional($project->office)->acronym }}</td>
-                                    <td class="text-sm text-center">{{ $project->created_at->format('m-d-Y') }}</td>
+                                    <td class="text-sm text-center">
+                                        {{ optional($project->submission_status)->name }}
+                                    </td>
+                                    <td class="text-sm text-center text-nowrap">
+                                        {!! optional($project->creator)->first_name !!} <br/>
+                                        <span class="text-muted">{{ optional($project->creator->office)->acronym }}</span>
+                                    </td>
+                                    <td class="text-sm text-center">{{ $project->updated_at ? $project->updated_at->diffForHumans(null, null, true) : '' }}</td>
                                     <td class="text-sm text-center">
                                         <a href="{{ route('projects.edit', $project) }}" class="btn btn-sm btn-dark">
                                             Edit
@@ -67,7 +98,7 @@
                         </div>
                     @endif
                 </div>
-                @if($projects->hasMorePages())
+                @if($projects->lastPage() > 1)
                     <div class="card-footer">
                         <div class="float-right">
                             {{ $projects->links() }}
