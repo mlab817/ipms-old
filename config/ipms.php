@@ -24,6 +24,8 @@ return [
             'delete'        => true,
             'restore'       => true,
             'forceDelete'   => true,
+            'endorse'       => true,
+            'drop'          => true,
         ],
     ],
     'editor' => [

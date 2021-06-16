@@ -1570,16 +1570,24 @@
 
                 <div class="row">
                     <div class="col-12 mb-3">
-                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="submit" class="btn btn-success" name="draft">Save</button>
 
-                        <a href="{{ route('projects.own') }}" class="btn">Back to List</a>
-
-                        @can('delete', $project)
-                            <button type="button" class="btn btn-danger float-right" data-toggle="modal"
-                                    data-target="#modal-delete">
-                                Delete
-                            </button>
+                        @can('endorse', $project)
+                        <button type="submit" class="btn btn-info" name="endorse">Endorse</button>
                         @endcan
+
+                        @can('drop', $project)
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-drop">Drop</button>
+                        @endcan
+                            {{--                        @can('delete', $project)--}}
+{{--                            <button type="button" class="btn btn-danger" data-toggle="modal"--}}
+{{--                                    data-target="#modal-delete">--}}
+{{--                                Delete--}}
+{{--                            </button>--}}
+{{--                        @endcan--}}
+
+                        <a href="{{ route('projects.own') }}" class="btn float-right">Back to List</a>
+
                     </div>
                 </div>
 
@@ -1611,6 +1619,55 @@
                             <p class="text-danger">The system is currently set to permanently delete PAPs. Proceed with
                                 caution.</p>
                         @endif
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Confirm</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="modal-drop">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Drop</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="{{ route('projects.drop', $project) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-form-label required">Reason for dropping</label>
+                            <select id="reason_id" name="reason_id" required class="form-control @error('reason_id') is-invalid @enderror">
+                                <option value="" selected disabled>Select reason</option>
+                                @foreach(\App\Models\Reason::all() as $reason)
+                                    <option value="{{ $reason->id }}" @if(old('reason_id') == $reason->id) selected @endif>{{ $reason->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('reason_id')
+                            <span class="error invalid-feedback">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label required">Other Details</label>
+                            <input type="text" id="other_reason" required name="other_reason" class="form-control @error('other_reason') is-invalid @enderror" value="{{ old('other_reason') }}">
+                            @error('other_reason')
+                            <span class="error invalid-feedback">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>

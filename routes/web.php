@@ -36,6 +36,7 @@ Route::middleware(['auth','password.changed'])->group(function () {
     Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');
     Route::get('/projects/own', [\App\Http\Controllers\ProjectController::class,'own'])->name('projects.own');
 
+    Route::put('/projects/{project}/drop', [\App\Http\Controllers\ProjectController::class,'drop'])->name('projects.drop');
     // TRIP
     Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
     Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');

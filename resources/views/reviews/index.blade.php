@@ -155,7 +155,7 @@
                                     <td class="text-sm text-center">{!! $item->review ? ($item->review->trip ? '<span class="badge badge-success">TRIP</span>' : '<span class="badge badge-danger">No</span>') : '' !!}</td>
                                     <td class="text-sm text-center">
                                         @if($item->submission_status->name == 'Draft')
-                                            <span class="badge badge-secondary">Draft</span>
+                                            <span class="badge badge-primary">Draft</span>
                                         @elseif($item->submission_status->name == 'Endorsed')
                                             <span class="badge badge-success">Endorsed</span>
                                         @elseif($item->submission_status->name == 'Dropped')

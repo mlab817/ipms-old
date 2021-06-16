@@ -10,6 +10,7 @@ use App\DataTables\Scopes\OwnProjectsDataTableScope;
 use App\DataTables\Scopes\ProjectsDataTableScope;
 use App\Events\ProjectCreatedEvent;
 use App\Events\ProjectReviewedEvent;
+use App\Http\Requests\ProjectDropRequest;
 use App\Http\Requests\ProjectEndorseRequest;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
@@ -290,7 +291,18 @@ class ProjectController extends Controller
         $project->allocation()->update($request->allocation);
         $project->disbursement()->update($request->disbursement);
 
-        Alert::success('Success', 'Successfully updated project');
+        if ($request->has('draft')) {
+            $project->submission_status_id = SubmissionStatus::findByName('Draft')->id;
+            $project->save();
+            Alert::success('Success', 'Successfully saved as draft');
+        }
+
+        if ($request->has('endorse')) {
+            $this->authorize('endorse', $project);
+            $project->submission_status_id = SubmissionStatus::findByName('Endorsed')->id;
+            $project->save();
+            Alert::success('Success', 'Successfully saved as endorsed');
+        }
 
         return back();
     }
@@ -478,28 +490,6 @@ class ProjectController extends Controller
         return redirect()->route('projects.deleted');
     }
 
-    public function endorse(ProjectEndorseRequest $request, Project $project)
-    {
-        $project->update($request->validated());
-
-        $project->submission_status()->associate(SubmissionStatus::find(2));
-
-        Alert::success('Success','Successfully endorsed project');
-
-        return redirect()->route('projects.own');
-    }
-
-    public function drop(Request $request, Project $project)
-    {
-        $project->update($request->validated());
-
-        $project->submission_status()->associate(SubmissionStatus::find(3));
-
-        Alert::success('Success','Successfully dropped project');
-
-        return redirect()->route('projects.own');
-    }
-
     public function search(Request $request)
     {
         $searchTerm = $request->search;
@@ -536,5 +526,17 @@ class ProjectController extends Controller
         $destinationPath = \File::put(public_path($file), json_encode($json));
 
         return Storage::download(public_path($file));
+    }
+
+    public function drop(ProjectDropRequest $request, Project $project)
+    {
+        $project->reason_id             = $request->reason_id;
+        $project->other_reason          = $request->other_reason;
+        $project->submission_status_id  = SubmissionStatus::findByName(SubmissionStatus::DROPPED)->id;
+        $project->save();
+
+        Alert::success('Success','Project successfully dropped');
+
+        return redirect()->route('projects.own');
     }
 }

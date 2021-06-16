@@ -81,6 +81,7 @@
                                 <th class="text-center text-sm">Office</th>
                                 <th class="text-center text-sm">Added By</th>
                                 <th class="text-center text-sm">Last Updated</th>
+                                <th class="text-center text-sm">Submission Status</th>
                                 <th class="text-center text-sm"></th>
                                 <th></th>
                             </tr>
@@ -95,7 +96,7 @@
                                     <td class="text-sm text-right">{{ number_format($item->total_project_cost, 2) }}</td>
                                     <td class="text-sm text-center">{{ $item->project_status->name }}</td>
                                     <td class="text-sm text-center">{{ $item->office->acronym }}</td>
-                                    <td class="text-sm text-center">
+                                    <td class="text-sm text-center text-nowrap">
                                         <div class="row justify-content-center align-items-center m-0 p-0">
                                             <img src="{{ $item->creator->avatar }}" class="img-circle img-sm">
                                             <span class="ml-1">{{ $item->creator->first_name }}</span> /
@@ -106,6 +107,15 @@
                                     </td>
                                     <td class="text-sm text-center">
                                         {{  $item->updated_at ? $item->updated_at->diffForHumans(null, null, true) : '-' }}
+                                    </td>
+                                    <td class="text-sm text-center">
+                                        @if($item->submission_status->name == 'Draft')
+                                            <span class="badge badge-primary">Draft</span>
+                                        @elseif($item->submission_status->name == 'Endorsed')
+                                            <span class="badge badge-success">Endorsed</span>
+                                        @elseif($item->submission_status->name == 'Dropped')
+                                            <span class="badge badge-danger">Dropped</span>
+                                        @endif
                                     </td>
                                     <td class="text-nowrap">
                                         @if(! $item->trashed())
