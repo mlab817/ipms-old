@@ -98,6 +98,9 @@ class Project extends Model implements Searchable
         'ict',
         'office_id',
         'trip_info',
+        'submission_status_id',
+        'reason_id',
+        'other_reason',
     ];
 
     protected $casts = [
@@ -173,9 +176,19 @@ class Project extends Model implements Searchable
         return $this->belongsTo(ProjectStatus::class)->withDefault();
     }
 
+    public function reason(): BelongsTo
+    {
+        return $this->belongsTo(Reason::class)->withDefault();
+    }
+
     public function spatial_coverage(): BelongsTo
     {
         return $this->belongsTo(SpatialCoverage::class)->withDefault();
+    }
+
+    public function submission_status(): BelongsTo
+    {
+        return $this->belongsTo(SubmissionStatus::class);
     }
 
     public function tier(): BelongsTo

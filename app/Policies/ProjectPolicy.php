@@ -230,4 +230,22 @@ class ProjectPolicy
 
         return $this->deny('User is not assigned to review project');
     }
+
+    public function endorse(User $user, Project $project)
+    {
+        if (! config('ipms.permissions.projects.endorse')) {
+            return $this->deny('Sorry, the System is currently not allowing endorsement of submissions');
+        }
+
+        return $user->hasPermissionTo('projects.endorse');
+    }
+
+    public function drop(User $user, Project $project)
+    {
+        if (! config('ipms.permissions.projects.drop')) {
+            return $this->deny('Sorry, the System is currently not allowing dropping of submissions');
+        }
+
+        return $user->hasPermissionTo('projects.drop');
+    }
 }

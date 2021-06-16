@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'login');
 
-// Routes secured by authentication
-Route::group(['middleware' => ['auth','password.changed']], function() {
+// Resources secured by auth
+Route::middleware(['auth','password.changed'])->group(function () {
     Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard');
 
 //    Route::post('/logout_other_devices', \App\Http\Controllers\Auth\LogoutOtherDevicesController::class)->name('logout_other_devices');
@@ -30,15 +30,13 @@ Route::group(['middleware' => ['auth','password.changed']], function() {
     Route::delete('/attachments/{attachment}', [\App\Http\Controllers\ProjectAttachmentController::class,'destroy'])->name('attachments.destroy');
 
     Route::get('/auth/check', \App\Http\Controllers\CheckUserLoginController::class)->name('auth.check');
-});
 
-// Resources secured by auth
-Route::middleware(['auth','password.changed'])->group(function () {
     // other index routes
     Route::get('/projects/assigned', [\App\Http\Controllers\ProjectController::class,'assigned'])->name('projects.assigned');
     Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');
     Route::get('/projects/own', [\App\Http\Controllers\ProjectController::class,'own'])->name('projects.own');
 
+    Route::put('/projects/{project}/drop', [\App\Http\Controllers\ProjectController::class,'drop'])->name('projects.drop');
     // TRIP
     Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
     Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');
@@ -51,6 +49,7 @@ Route::middleware(['auth','password.changed'])->group(function () {
 
     Route::put('/projects/{uuid}/restore', [\App\Http\Controllers\ProjectController::class,'restore'])->name('projects.restore');
 
+    Route::post('/projects/{project}/endorse', [\App\Http\Controllers\ProjectController::class,'endorse'])->name('reviews.endorse');
     // Review
     Route::post('/projects/{project}/review', [\App\Http\Controllers\ProjectController::class,'storeReview'])->name('reviews.store');
     Route::get('/projects/{project}/review/create', [\App\Http\Controllers\ProjectController::class,'review'])->name('reviews.create');
@@ -95,61 +94,61 @@ Route::middleware(['auth','password.changed'])->group(function () {
     });
 
     Route::resource('search', \App\Http\Controllers\SearchController::class);
-});
 
-Route::post('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'update'])->name('change_password_update');
-Route::get('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'index'])->name('change_password_index');
+    Route::post('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'update'])->name('change_password_update');
+    Route::get('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'index'])->name('change_password_index');
 
-// auth routes with registration disabled
+    // auth routes with registration disabled
 
-Route::middleware('can:projects.manage')->prefix('/admin')->name('admin.')->group(function() {
-    Route::resource('projects', \App\Http\Controllers\Admin\AdminProjectController::class);
-    Route::resource('projects.users', \App\Http\Controllers\Admin\ProjectUserController::class);
-    Route::post('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwnerPost'])->name('projects.changeOwner.post');
-    Route::get('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwner'])->name('projects.changeOwner.get');
-});
+    Route::middleware('can:projects.manage')->prefix('/admin')->name('admin.')->group(function() {
+        Route::resource('projects', \App\Http\Controllers\Admin\AdminProjectController::class);
+        Route::resource('projects.users', \App\Http\Controllers\Admin\ProjectUserController::class);
+        Route::post('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwnerPost'])->name('projects.changeOwner.post');
+        Route::get('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwner'])->name('projects.changeOwner.get');
+    });
 
-// Admin routes
-Route::middleware(['admin','password.changed'])->prefix('/admin')->name('admin.')->group(function () {
-    Route::get('', \App\Http\Controllers\Admin\AdminController::class)->name('index');
-    Route::resources([
-        'approval_levels'       => \App\Http\Controllers\Admin\ApprovalLevelController::class,
-        'bases'                 => \App\Http\Controllers\Admin\BasisController::class,
-        'cip_types'             => \App\Http\Controllers\Admin\CipTypeController::class,
-        'covid_interventions'   => \App\Http\Controllers\Admin\CovidInterventionController::class,
-        'fs_statuses'           => \App\Http\Controllers\Admin\FsStatusController::class,
-        'funding_institutions'  => \App\Http\Controllers\Admin\FundingInstitutionController::class,
-        'funding_sources'       => \App\Http\Controllers\Admin\FundingSourceController::class,
-        'gads'                  => \App\Http\Controllers\Admin\GadController::class,
-        'implementation_modes'  => \App\Http\Controllers\Admin\ImplementationModeController::class,
-        'infrastructure_sectors'=> \App\Http\Controllers\Admin\InfrastructureSectorController::class,
-        'infrastructure_subsectors'=> \App\Http\Controllers\Admin\InfrastructureSubsectorController::class,
-        'links'                 => \App\Http\Controllers\Admin\LinkController::class,
-        'offices'               => \App\Http\Controllers\Admin\OfficeController::class,
-        'operating_units'       => \App\Http\Controllers\Admin\OperatingUnitController::class,
-        'operating_unit_types'  => \App\Http\Controllers\Admin\OperatingUnitTypeController::class,
-        'pap_types'             => \App\Http\Controllers\Admin\PapTypeController::class,
-        'pdp_chapters'          => \App\Http\Controllers\Admin\PdpChapterController::class,
-        'pdp_indicators'        => \App\Http\Controllers\Admin\PdpIndicatorController::class,
+    // Admin routes
+    Route::middleware(['admin'])->prefix('/admin')->name('admin.')->group(function () {
+        Route::get('', \App\Http\Controllers\Admin\AdminController::class)->name('index');
+        Route::resources([
+            'approval_levels'       => \App\Http\Controllers\Admin\ApprovalLevelController::class,
+            'bases'                 => \App\Http\Controllers\Admin\BasisController::class,
+            'cip_types'             => \App\Http\Controllers\Admin\CipTypeController::class,
+            'covid_interventions'   => \App\Http\Controllers\Admin\CovidInterventionController::class,
+            'fs_statuses'           => \App\Http\Controllers\Admin\FsStatusController::class,
+            'funding_institutions'  => \App\Http\Controllers\Admin\FundingInstitutionController::class,
+            'funding_sources'       => \App\Http\Controllers\Admin\FundingSourceController::class,
+            'gads'                  => \App\Http\Controllers\Admin\GadController::class,
+            'implementation_modes'  => \App\Http\Controllers\Admin\ImplementationModeController::class,
+            'infrastructure_sectors'=> \App\Http\Controllers\Admin\InfrastructureSectorController::class,
+            'infrastructure_subsectors'=> \App\Http\Controllers\Admin\InfrastructureSubsectorController::class,
+            'links'                 => \App\Http\Controllers\Admin\LinkController::class,
+            'offices'               => \App\Http\Controllers\Admin\OfficeController::class,
+            'operating_units'       => \App\Http\Controllers\Admin\OperatingUnitController::class,
+            'operating_unit_types'  => \App\Http\Controllers\Admin\OperatingUnitTypeController::class,
+            'pap_types'             => \App\Http\Controllers\Admin\PapTypeController::class,
+            'pdp_chapters'          => \App\Http\Controllers\Admin\PdpChapterController::class,
+            'pdp_indicators'        => \App\Http\Controllers\Admin\PdpIndicatorController::class,
 //        'permissions'           => \App\Http\Controllers\Admin\PermissionController::class,
-        'pip_typologies'        => \App\Http\Controllers\Admin\PipTypologyController::class,
-        'preparation_documents' => \App\Http\Controllers\Admin\PreparationDocumentController::class,
-        'prerequisites'         => \App\Http\Controllers\Admin\PrerequisiteController::class,
-        'project_statuses'      => \App\Http\Controllers\Admin\ProjectStatusController::class,
-        'readiness_levels'      => \App\Http\Controllers\Admin\ReadinessLevelController::class,
-        'regions'               => \App\Http\Controllers\Admin\RegionController::class,
-        'roles'                 => \App\Http\Controllers\Admin\RoleController::class,
-        'sdgs'                  => \App\Http\Controllers\Admin\SdgController::class,
-        'spatial_coverages'     => \App\Http\Controllers\Admin\SpatialCoverageController::class,
-        'ten_point_agendas'     => \App\Http\Controllers\Admin\TenPointAgendaController::class,
-        'tiers'                 => \App\Http\Controllers\Admin\TierController::class,
-        'users'                 => \App\Http\Controllers\Admin\UserController::class,
-        'teams'                 => \App\Http\Controllers\Admin\TeamController::class,
-    ]);
+            'pip_typologies'        => \App\Http\Controllers\Admin\PipTypologyController::class,
+            'preparation_documents' => \App\Http\Controllers\Admin\PreparationDocumentController::class,
+            'prerequisites'         => \App\Http\Controllers\Admin\PrerequisiteController::class,
+            'project_statuses'      => \App\Http\Controllers\Admin\ProjectStatusController::class,
+            'readiness_levels'      => \App\Http\Controllers\Admin\ReadinessLevelController::class,
+            'regions'               => \App\Http\Controllers\Admin\RegionController::class,
+            'roles'                 => \App\Http\Controllers\Admin\RoleController::class,
+            'sdgs'                  => \App\Http\Controllers\Admin\SdgController::class,
+            'spatial_coverages'     => \App\Http\Controllers\Admin\SpatialCoverageController::class,
+            'ten_point_agendas'     => \App\Http\Controllers\Admin\TenPointAgendaController::class,
+            'tiers'                 => \App\Http\Controllers\Admin\TierController::class,
+            'users'                 => \App\Http\Controllers\Admin\UserController::class,
+            'teams'                 => \App\Http\Controllers\Admin\TeamController::class,
+        ]);
 
-    Route::resource('permissions',\App\Http\Controllers\Admin\PermissionController::class)->except('create','show');
+        Route::resource('permissions',\App\Http\Controllers\Admin\PermissionController::class)->except('create','show');
 
-    Route::post('offices/export',[\App\Http\Controllers\Admin\OfficeController::class,'index'])->name('offices.export');
+        Route::post('offices/export',[\App\Http\Controllers\Admin\OfficeController::class,'index'])->name('offices.export');
+    });
 });
 
 Auth::routes(['register' => false]);
@@ -161,10 +160,6 @@ Route::group(['middleware' => 'guest'], function() {
 
 Route::get('/downloadJson/{filename}', \App\Http\Controllers\DownloadJsonController::class)->name('projects.downloadJson');
 Route::get('/exportJson', \App\Http\Controllers\ExportProjectsAsJsonController::class)->name('projects.json');
-
-Route::get('/decrypt', function () {
-    return decrypt('eyJpdiI6InhmSEU3UXlod0gxbzJnOFBEeDd6WkE9PSIsInZhbHVlIjoienRNVzEzUmFzM2kzQ29cLzZaK0FicGc9PSIsIm1hYyI6IjQ4Y2E4ZmFhMTBkZWFlYjYwODRhNDk2YTIxOTA2N2NjMjBmYmUzY2FkNzRjMDRhNjE3YjkxODllMWMzZWRjYWUifQ==');
-});
 
 Route::fallback(function () {
     return view('errors.404');

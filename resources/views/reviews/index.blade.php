@@ -131,6 +131,7 @@
                                 <th class="text-sm text-center">Added by</th>
                                 <th class="text-sm text-center">PIP</th>
                                 <th class="text-sm text-center">TRIP</th>
+                                <th class="text-sm text-center">Submission Status</th>
                                 <th class="text-sm text-center">Review Details</th>
                                 <th class="text-sm text-center">PIPOL Entry/Link</th>
                                 <th class="text-sm text-center">Action</th>
@@ -152,6 +153,15 @@
                                     </td>
                                     <td class="text-sm text-center">{!! $item->review ? ($item->review->pip ? '<span class="badge badge-success">PIP</span>' : '<span class="badge badge-danger">No</span>') : '' !!}</td>
                                     <td class="text-sm text-center">{!! $item->review ? ($item->review->trip ? '<span class="badge badge-success">TRIP</span>' : '<span class="badge badge-danger">No</span>') : '' !!}</td>
+                                    <td class="text-sm text-center">
+                                        @if($item->submission_status->name == 'Draft')
+                                            <span class="badge badge-primary">Draft</span>
+                                        @elseif($item->submission_status->name == 'Endorsed')
+                                            <span class="badge badge-success">Endorsed</span>
+                                        @elseif($item->submission_status->name == 'Dropped')
+                                            <span class="badge badge-danger">Dropped</span>
+                                        @endif
+                                    </td>
                                     <td class="text-sm text-center">
                                         {{ $item->review ? ($item->review->user ? $item->review->user->office->acronym . ' - ' . $item->review->user->last_name : '') : '' }}
                                     </td>
