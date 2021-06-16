@@ -37,7 +37,13 @@
 
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" integrity="sha512-OdEXQYCOldjqUEsuMKsZRj93Ht23QRlhIb8E/X0sbwZhme8eUw6g8q7AdxGJKakcBbv7+/PX0Gc2btf7Ru8cZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
     @stack('styles')
+
+    @livewireStyles
 </head>
 <body class="layout-fixed">
     <div class="wrapper" id="app">
@@ -107,5 +113,6 @@
 {{--            checkUserLogin()--}}
 {{--        }, 5000)--}}
 {{--    </script>--}}
+    @livewireScripts
 </body>
 </html>
