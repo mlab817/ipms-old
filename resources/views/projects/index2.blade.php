@@ -71,6 +71,7 @@
                     <h1 class="card-title">Projects</h1>
                 </div>
                 <div class="card-body p-0">
+                    <livewire:projects-table />
                     <table class="table table-responsive table-valign-middle">
                         <thead>
                             <tr>

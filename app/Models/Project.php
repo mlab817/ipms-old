@@ -14,10 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Searchable\Searchable;
-use Spatie\Searchable\SearchResult;
 
-class Project extends Model implements Searchable
+class Project extends Model
 {
     use HasFactory;
     use HasUuid;
@@ -499,17 +497,12 @@ class Project extends Model implements Searchable
         return $query->whereIn('id', auth()->user()->assigned_projects->pluck('id')->toArray());
     }
 
-    /**
-     * @return SearchResult
-     */
-    public function getSearchResult(): SearchResult
+    public static function search($query)
     {
-        $url = route('projects.show', $this->getRouteKey());
-
-        return new SearchResult(
-            $this,
-            $this->title,
-            $url,
-        );
+        return empty($query) ? static::query()
+            : static::where(function($q) use ($query) {
+                $q
+                    ->where('title', 'LIKE', '%'. $query . '%');
+            });
     }
 }
