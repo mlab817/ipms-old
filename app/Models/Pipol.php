@@ -69,4 +69,12 @@ class Pipol extends Model
     {
         return $this->belongsTo(User::class,'user_id','id')->withDefault();
     }
+
+    public static function search($query)
+    {
+        return empty($query) ? static::query()
+            : static::where(function($q) use ($query) {
+                $q->where('project_title', 'LIKE', '%'. $query . '%');
+            });
+    }
 }

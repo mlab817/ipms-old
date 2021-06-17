@@ -3,8 +3,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
+                    {!! $search ? 'Showing results for <strong>' . $search .'</strong>' : '' !!}
                     <div class="card-tools">
-                        <input wire:model="search" class="form-control form-control-sm" type="text" placeholder="Search Users..." style="width: 200px;">
+                        <input wire:model="search" class="form-control form-control-sm" type="search" placeholder="Search Users..." style="width: 200px;">
                     </div>
                 </div>
                 <div class="card-body p-0">

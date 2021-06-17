@@ -69,20 +69,20 @@ class ProjectController extends Controller
         $this->authorizeResource(Project::class);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function index(Request $request)
-    {
-        $projectQuery = Project::query()->with(['office','creator.office','project_status','pipol']);
-
-        $projects = $this->filter($projectQuery, $request);
-
-        return view('projects.index2', compact('projects'));
-    }
+//    /**
+//     * Display a listing of the resource.
+//     *
+//     * @param Request $request
+//     * @return Response
+//     */
+//    public function index(Request $request)
+//    {
+//        $projectQuery = Project::query()->with(['office','creator.office','project_status','pipol']);
+//
+//        $projects = $this->filter($projectQuery, $request);
+//
+//        return view('projects.index2', compact('projects'));
+//    }
 
     /**
      * Show the form for creating a new resource.
@@ -380,44 +380,26 @@ class ProjectController extends Controller
     /**
      * Return user's own projects
      */
-//    public function own(ProjectsDataTable $dataTable)
-//    {
-//        abort_if(! auth()->user()->can('projects.view_own'), 403);
-//
-//        return $dataTable
-//            ->addScope(new OwnProjectsDataTableScope)
-//            ->render('projects.index', ['pageTitle' => 'Own Projects']);
-//    }
-
     public function own(Request $request)
     {
         abort_if(! auth()->user()->can('projects.view_own'), 403);
 
-        $projectQuery = Project::query()->own()->with(['office','creator.office','project_status','pipol']);
-
-        $projects = $this->filter($projectQuery, $request);
-
-        return view('projects.index2', compact('projects'));
-    }
-
-//    public function office(ProjectsDataTable $dataTable)
-//    {
-//        abort_if(! auth()->user()->can('projects.view_office'), 403);
+//        $projectQuery = Project::query()->own()->with(['office','creator.office','project_status','pipol']);
 //
-//        return $dataTable
-//            ->addScope(new OfficeProjectsDataTableScope)
-//            ->render('projects.index', ['pageTitle' => 'Office Projects']);
-//    }
+//        $projects = $this->filter($projectQuery, $request);
+
+        return view('projects.own');
+    }
 
     public function office(Request $request)
     {
         abort_if(! auth()->user()->can('projects.view_office'), 403);
 
-        $projectQuery = Project::query()->office()->with(['office','creator.office','project_status','pipol']);
+//        $projectQuery = Project::query()->office()->with(['office','creator.office','project_status','pipol']);
+//
+//        $projects = $this->filter($projectQuery, $request);
 
-        $projects = $this->filter($projectQuery, $request);
-
-        return view('projects.index2', compact('projects'));
+        return view('projects.office');
     }
 
     public function filter($projectQuery, $request)
@@ -461,11 +443,7 @@ class ProjectController extends Controller
     {
         abort_if(! auth()->user()->can('projects.view_assigned'), 403);
 
-        $projectQuery = Project::query()->assigned()->with(['office','creator.office','project_status','pipol']);
-
-        $projects = $this->filter($projectQuery, $request);
-
-        return view('projects.index2', compact('projects'));
+        return view('projects.assigned');
     }
 
     public function deleted(Request $request)

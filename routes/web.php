@@ -60,7 +60,7 @@ Route::middleware(['auth','password.changed'])->group(function () {
 
     Route::get('/projects/{project}/generatePdf', [\App\Http\Controllers\ProjectController::class,'generatePdf'])->name('projects.generatePdf');
     Route::get('/projects/{project}/exportJson', [\App\Http\Controllers\ProjectController::class,'exportJson'])->name('projects.exportJson');
-    Route::resource('projects', \App\Http\Controllers\ProjectController::class);
+    Route::resource('projects', \App\Http\Controllers\ProjectController::class)->except('index');
     Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
     Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
     Route::post('/notifications', [\App\Http\Controllers\NotificationController::class,'markAllAsRead'])->name('notifications.markAllAsRead');
