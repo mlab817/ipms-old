@@ -30,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-//        'name',
+        'name',
         'first_name',
         'last_name',
         'email',
@@ -130,5 +130,15 @@ class User extends Authenticatable
     {
         $fullName = '%s %s';
         return sprintf($fullName, $this->first_name, $this->last_name);
+    }
+
+    public static function search($query)
+    {
+        return empty($query) ? static::query()
+            : static::where(function($q) use ($query) {
+                    $q
+                        ->where('name', 'LIKE', '%'. $query . '%')
+                        ->orWhere('email', 'LIKE', '%' . $query . '%');
+                });
     }
 }
