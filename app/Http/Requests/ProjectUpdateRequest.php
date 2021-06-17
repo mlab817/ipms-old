@@ -102,11 +102,6 @@ class ProjectUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        // if the request is to save draft, do not validate
-        if ($this->has('draft')) {
-            return [];
-        }
-
         return [
             'office_id'                         => 'required',
             'title'                             => 'required|max:255',
