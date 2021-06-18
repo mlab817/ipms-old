@@ -450,11 +450,7 @@ class ProjectController extends Controller
     {
         abort_if(! auth()->user()->can('projects.manage'), 403);
 
-        $projectQuery = Project::query()->onlyTrashed();
-
-        $projects = $this->filter($projectQuery, $request);
-
-        return view('projects.index2', compact('projects'));
+        return view('projects.deleted');
     }
 
     public function restore(string $uuid)
