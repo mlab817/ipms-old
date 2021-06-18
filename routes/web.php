@@ -164,3 +164,7 @@ Route::get('/exportJson', \App\Http\Controllers\ExportProjectsAsJsonController::
 Route::fallback(function () {
     return view('errors.404');
 });
+
+Route::get('/debug', function () {
+    \Log::debug('Test debug message');
+});
