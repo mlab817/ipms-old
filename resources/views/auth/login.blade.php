@@ -3,9 +3,9 @@
 @section('content')
     <div class="login-box">
         <!-- /.login-logo -->
-        <div class="card card-outline card-primary">
+        <div class="card">
             <div class="card-header text-center">
-                <img src="{{ asset('images/logo-blue.svg') }}" width="100px" alt="ipms-logo">
+                <img src="{{ asset('images/logo_with_da.svg') }}" width="100px" alt="ipms-logo">
             </div>
 
             <div class="card-body">

@@ -207,6 +207,7 @@
       <path value="$PROJECT_DIR$/vendor/livewire/livewire" />
       <path value="$PROJECT_DIR$/vendor/rollbar/rollbar" />
       <path value="$PROJECT_DIR$/vendor/rollbar/rollbar-laravel" />
+      <path value="$PROJECT_DIR$/vendor/org_heigl/ghostscript" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
