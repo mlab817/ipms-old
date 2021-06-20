@@ -8,14 +8,27 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverDimension;
+use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabaseState;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
 
 abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;
-//    use DatabaseTransactions;
+
+    public function runDatabaseMigrations()
+    {
+        if (!RefreshDatabaseState::$migrated) {
+            $this->artisan('migrate:fresh');
+
+            RefreshDatabaseState::$migrated = true;
+        }
+
+        $this->app[Kernel::class]->setArtisan(null);
+    }
 
     /**
      * Prepare for Dusk test execution.

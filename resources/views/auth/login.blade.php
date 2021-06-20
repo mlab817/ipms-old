@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-    <div class="login-box">
+    <div class="col-md-6">
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-header text-center">

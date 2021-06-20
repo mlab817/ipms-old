@@ -4,12 +4,12 @@
             <div class="card">
                 <div class="card-header">
                     {!! $search ? 'Showing results for <strong>' . $search .'</strong>' : '' !!}
-                    <div class="card-tools">
+                    <div class="card-header-actions">
                         <input wire:model="search" class="form-control form-control-sm" type="search" placeholder="Search Projects..." style="width: 200px;">
                     </div>
                 </div>
-                <div class="card-body p-0">
-                    <table class="table table-striped">
+                <div class="card-body p-0 table-responsive">
+                    <table class="table">
                         <thead>
                         <tr>
                             <th class="text-center text-sm text-nowrap">

@@ -27,6 +27,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@coreui/coreui": "^3.4.0",
         "@fortawesome/fontawesome-free": "^5.15.3",
         "@ttskch/select2-bootstrap4-theme": "^1.5.2",
         "cross-env": "^7.0.3",
