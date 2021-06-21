@@ -509,4 +509,12 @@ class Project extends Model
                 $q->where('title', 'LIKE', '%'. $query . '%');
             });
     }
+
+    public static function searchTrashed(string $query)
+    {
+        return empty($query) ? static::onlyTrashed()
+            : static::onlyTrashed()->where(function($q) use ($query) {
+                $q->where('title', 'LIKE', '%'. $query . '%');
+            });
+    }
 }

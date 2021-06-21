@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Pipol;
 use App\Models\Project;
 use App\Traits\WithSortTable;
 use Livewire\Component;
@@ -29,8 +28,8 @@ class DeletedProjectsTable extends Component
     public function render()
     {
         return view('livewire.deleted-projects-table', [
-            'pipols' => Project::search($this->search)
-                ->with(['user.office','project'])
+            'projects' => Project::searchTrashed($this->search)
+                ->whereNotNull('projects.deleted_at')
                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
                 ->paginate(10),
         ]);

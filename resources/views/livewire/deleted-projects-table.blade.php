@@ -8,8 +8,13 @@
                         <input wire:model="search" class="form-control form-control-sm" type="search" placeholder="Search Projects..." style="width: 200px;">
                     </div>
                 </div>
+<<<<<<< HEAD
                 <div class="card-body p-0">
                     <table class="table table-striped">
+=======
+                <div class="card-body p-0 table-responsive">
+                    <table class="table">
+>>>>>>> b8ef59b06c9d92c1631881cb01d735609b701e6d
                         <thead>
                         <tr>
                             <th class="text-center text-sm text-nowrap">
@@ -61,7 +66,7 @@
                                 </a>
                             </th>
                             <th class="text-center text-sm">
-                                Edit
+                                Restore
                             </th>
                         </tr>
                         </thead>
@@ -84,9 +89,10 @@
                                 </td>
                                 <td class="text-sm text-center">{{ $project->updated_at ? $project->updated_at->diffForHumans(null, null, true) : '' }}</td>
                                 <td class="text-sm text-center">
-                                    <a href="{{ route('projects.restore', $project) }}" class="btn btn-sm btn-dark">
-                                        Edit
-                                    </a>
+                                    <form action="{{ route('projects.restore', $project->uuid) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-dark">Restore</button>
+                                    </form>
                                 </td>
                             </tr>
                         @empty

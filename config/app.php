@@ -180,6 +180,8 @@ return [
         \Laravel\Socialite\SocialiteServiceProvider::class,
 
         \Laravel\Passport\PassportServiceProvider::class,
+
+        \Rollbar\Laravel\RollbarServiceProvider::class,
     ],
 
     /*

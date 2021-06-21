@@ -1,31 +1,50 @@
 <div class="card card-primary card-outline">
     <div class="card-header">
-        <a href="{{ route('pipols.create') }}" class="btn btn-primary btn-sm">Create PIPOL Entry</a>
+        {!! $search ? 'Showing '. $pipols->count() .' results for <strong>' . $search .'</strong>' : '' !!}
         <div class="card-tools">
-            <form action="{{ route('pipols.index') }}" method="GET">
-                <div class="input-group input-group-sm" style="width: 200px;">
-                    <input type="search" name="search" class="form-control float-right" placeholder="Search in title" value="{{ request()->query('search') }}">
-
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-default">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon-xs" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </button>
-                    </div>
+            <div class="card-tools">
+                <div class="row">
+                    <input wire:model="search" class="form-control form-control-sm" type="search" placeholder="Search Projects..." style="width: 200px;">
+                    <a href="{{ route('pipols.create') }}" class="btn btn-primary btn-sm ml-1">New Entry</a>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
     <div class="card-body p-0 table-responsive">
         <table class="table table-valign-middle">
             <thead>
             <tr>
-                <th class="text-center text-sm">PIPOL Code</th>
-                <th class="text-center text-sm" style="width: 40%;">Project Title <br/> <span class="font-weight-lighter text-xs text-muted">Click title to view PIPOL entry</span></th>
+                <th class="text-center text-sm text-nowrap">
+                    <a wire:click.prevent="sortBy('id')" role="button" href="#">
+                        #
+                        @include('includes.sort-icon', ['field' => 'id'])
+                    </a>
+                </th>
+                <th class="text-center text-sm">
+                    <a wire:click.prevent="sortBy('pipol_code')" role="button" href="#">
+                        PIPOL Code
+                        @include('includes.sort-icon', ['field' => 'pipol_code'])
+                    </a>
+                </th>
+                <th class="text-center text-sm" style="width: 40%;">
+                    <a wire:click.prevent="sortBy('project_title')" role="button" href="#">
+                        Project Title
+                        @include('includes.sort-icon', ['field' => 'project_title'])
+                    </a>
+                </th>
                 {{--                                <th class="text-center text-sm">Spatial Coverage</th>--}}
-                <th class="text-center text-sm">Category</th>
-                <th class="text-center text-sm">Status of Submission</th>
+                <th class="text-center text-sm">
+                    <a wire:click.prevent="sortBy('category')" role="button" href="#">
+                        Category
+                        @include('includes.sort-icon', ['field' => 'category'])
+                    </a>
+                </th>
+                <th class="text-center text-sm">
+                    <a wire:click.prevent="sortBy('submission_status')" role="button" href="#">
+                        Status of Submission
+                        @include('includes.sort-icon', ['field' => 'submission_status'])
+                    </a>
+                </th>
                 <th class="text-center text-sm">Reason for Dropping</th>
                 <th class="text-center text-sm">IPMSv2 Project</th>
                 <th></th>
@@ -34,12 +53,16 @@
             <tbody>
             @forelse($pipols as $item)
                 <tr @if($item->category == 'Dropped') class="bg-lightred" @endif>
+                    <td class="text-sm text-center">
+                        {{ $item->id }}
+                    </td>
                     <td class="text-sm text-nowrap">{{ $item->pipol_code }}</td>
                     <td class="text-sm">
+                        {!! $search ? preg_replace('/(' . $search . ')/i', "<span class=\"bg-yellow\">$1</span>", $item->project_title) : $item->project_title !!}
                         @if($item->pipol_url)
-                            <a href="{{ config('ipms.pipol_base_url') . $item->pipol_url }}" target="_blank">{{ $item->project_title }}</a>
-                        @else
-                            {{ $item->project_title }}
+                            <a href="{{ config('ipms.pipol_base_url') . $item->pipol_url }}" target="_blank">
+                                <small>View in PIPOL</small>
+                            </a>
                         @endif
                     </td>
                     {{--                                    <td class="text-sm text-center">{{ $item->spatial_coverage }}</td>--}}
@@ -86,8 +109,8 @@
             of
             {{ $pipols->total() }} entries
         </span>
-        <div class="card-tools">
-            {!! $pipols->appends(request()->except(['page','_token']))->links() !!}
+        <div class="card-tools float-right">
+            {!! $pipols->links() !!}
         </div>
     </div>
 </div>
