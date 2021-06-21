@@ -68,6 +68,6 @@
             </div>
         </li>
     </ul>
-    @include('includes.breadcrumb')
+    @yield('breadcrumb')
 </header>
 
