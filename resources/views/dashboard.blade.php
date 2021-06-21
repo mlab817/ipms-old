@@ -14,6 +14,8 @@
         <a href="http://bit.ly/2021PIPMasterlist" style="text-decoration: none;" target="_blank">FY 2021 PIP UPDATING_PAP MASTERLIST_052021</a>
     </div>
 
+    {{ auth() }}
+
     <div class="row">
         <div class="col-6 col-lg-3">
             <div class="card overflow-hidden">
