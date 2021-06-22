@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', 'login');
 
 // Resources secured by auth
-Route::middleware(['auth','password.changed'])->group(function () {
+Route::middleware(['auth','password.changed','user.activated'])->group(function () {
     Route::post('/switchRole', \App\Http\Controllers\SwitchRoleController::class)->name('roles.switch');
 
     Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard');
