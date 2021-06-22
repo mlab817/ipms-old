@@ -17,6 +17,8 @@ Route::redirect('/', 'login');
 
 // Resources secured by auth
 Route::middleware(['auth','password.changed'])->group(function () {
+    Route::post('/switchRole', \App\Http\Controllers\SwitchRoleController::class)->name('roles.switch');
+
     Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard');
 
 //    Route::post('/logout_other_devices', \App\Http\Controllers\Auth\LogoutOtherDevicesController::class)->name('logout_other_devices');

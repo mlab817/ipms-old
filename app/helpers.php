@@ -9,6 +9,12 @@ if (! function_exists('toFloat')) {
             return $value;
         }
 
-        return (float) str_replace(',', '', $value);
+        if (in_array(gettype($value), ['empty','null'])) {
+            return $value;
+        }
+
+        $pattern = '/[^\d.]+/';
+
+        return (float) preg_replace($pattern, '', $value);
     }
 }

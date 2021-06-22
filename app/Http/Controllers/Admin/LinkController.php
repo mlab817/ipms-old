@@ -17,9 +17,11 @@ class LinkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(LinksDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->render('admin.links.index');
+        $links = Link::paginate();
+
+        return view('admin.links.index', compact('links'));
     }
 
     /**

@@ -1,23 +1,15 @@
 @extends('layouts.admin')
 
-@section('content-header')
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Add Link</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('links.index') }}">Links</a></li>
-                        <li class="breadcrumb-item active">Add Link</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-@endsection
+@section('breadcrumb')
+    @include('includes.breadcrumb', [
+        'breadcrumbs' => [
+            'Dashboard' => route('dashboard'),
+            'Admin' => route('admin.index'),
+            'Links' => route('links.index'),
+            'Create' => null
+]
+    ])
+@stop
 
 @section('content')
     <section class="content">
@@ -29,19 +21,19 @@
                         <div class="form-group">
                             <label for="name" class="required">Title</label>
                             <input type="text" class="form-control @error('title'){{ 'is-invalid' }}@enderror" name="title" id="title" placeholder="Title" value="{{ old('title') }}">
-                            @error('title')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
+                            @error('title')<span class="invalid-feedback">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">
                             <label for="name" class="required">Description</label>
                             <textarea class="form-control @error('description'){{ 'is-invalid' }}@enderror" name="description" id="description" placeholder="Description">{{ old('description') }}</textarea>
-                            @error('description')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
+                            @error('description')<span class="invalid-feedback">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="form-group">
                             <label for="name" class="required">URL Address</label>
                             <input class="form-control @error('url'){{ 'is-invalid' }}@enderror" name="url" id="url" placeholder="URL Address" value="{{ old('url') }}">
-                            @error('url')<div class="text-sm text-red py-1">{{ $message }}</div>@enderror
+                            @error('url')<span class="invalid-feedback">{{ $message }}</span>@enderror
                         </div>
                     </div>
 

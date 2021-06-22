@@ -19,6 +19,23 @@
 
     <ul class="c-header-nav ml-auto mr-4">
         <li class="c-header-nav-item dropdown d-md-down-none mx-2">
+            <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                {{ auth()->user()->currentRole->name ?? 'Switch Role' }}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right pt-0">
+                <div class="dropdown-header bg-light py-2">
+                    <strong>Switch Role</strong>
+                </div>
+                <form action="{{ route('roles.switch') }}" method="POST">
+                    @csrf
+                    @foreach(auth()->user()->assigned_roles as $role)
+                        <button type="submit" name="roleId" value="{{ $role->id }}" class="dropdown-item">{{ $role->name }}</button>
+                    @endforeach
+                </form>
+            </div>
+        </li>
+
+        <li class="c-header-nav-item dropdown d-md-down-none mx-2">
             <a class="c-header-nav-link" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="c-icon cil-bell"></i> {{ auth()->user()->unreadNotifications->count() }}
             </a>
