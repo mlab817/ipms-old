@@ -56,6 +56,18 @@
         @if(auth()->user()->can('projects.view_office') || auth()->user()->can('projects.view_own') || auth()->user()->can('projects.view_assigned'))
             {{--                    <div class="dropdown-divider"></div>--}}
 
+            @can('projects.view_own')
+                <li class="c-sidebar-nav-item">
+                    <a href="{{ route('projects.own') }}"
+                       class="c-sidebar-nav-link @if(Route::current()->getName() == 'projects.own') active @endif">
+                        <i class="c-sidebar-nav-icon cil-list-numbered"></i>
+                        View Own PAPs
+                        <span
+                            class="badge badge-info right">{{ \App\Models\Project::where('created_by', auth()->id())->count() }}</span>
+                    </a>
+                </li>
+            @endcan
+
             @can('projects.view_office')
                 <li class="c-sidebar-nav-item">
                     <a href="{{ route('projects.office') }}"
@@ -70,18 +82,6 @@
                         <span
                             class="badge badge-info right">{{ \App\Models\Project::whereNotNull('office_id')->where('office_id', auth()->user()->office_id)->count() }}</span>
 
-                    </a>
-                </li>
-            @endcan
-
-            @can('projects.view_own')
-                <li class="c-sidebar-nav-item">
-                    <a href="{{ route('projects.own') }}"
-                       class="c-sidebar-nav-link @if(Route::current()->getName() == 'projects.own') active @endif">
-                        <i class="c-sidebar-nav-icon cil-list-numbered"></i>
-                        View Own PAPs
-                        <span
-                            class="badge badge-info right">{{ \App\Models\Project::where('created_by', auth()->id())->count() }}</span>
                     </a>
                 </li>
             @endcan
