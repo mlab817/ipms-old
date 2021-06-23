@@ -2,7 +2,7 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
 
     <div class="c-sidebar-brand d-lg-down-none">
-        <img src="{{ asset('images/logo_with_da_dark.png') }}" class="c-sidebar-brand-full" height="46" alt="Logo">
+        <img src="{{ asset('images/logo_with_da_dark.png') }}" class="c-sidebar-brand-full" height="36" alt="Logo">
     </div>
 
 {{--    <!-- Brand Logo -->--}}

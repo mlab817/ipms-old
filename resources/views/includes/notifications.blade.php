@@ -2,7 +2,7 @@
     <div class="dropdown-header bg-light py-2">
         <strong>Notifications</strong>
         <span class="float-right">
-            <a href="#">
+            <a href="{{ route('notifications.index') }}">
                 View All
             </a>
         </span>

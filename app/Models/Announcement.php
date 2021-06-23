@@ -19,6 +19,10 @@ class Announcement extends Model
         'user_id',
     ];
 
+    protected $dates = [
+        'expires_at',
+    ];
+
     public static function boot()
     {
         parent::boot();

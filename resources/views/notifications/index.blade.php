@@ -24,7 +24,8 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-tools">
+                    <strong>Notifications</strong>
+                    <div class="card-header-actions">
                         <form action="{{ route('notifications.markAllAsRead') }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-primary btn-sm">

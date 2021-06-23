@@ -115,6 +115,7 @@ Route::middleware(['auth','password.changed','user.activated'])->group(function 
     Route::middleware(['admin'])->prefix('/admin')->name('admin.')->group(function () {
         Route::get('', \App\Http\Controllers\Admin\AdminController::class)->name('index');
         Route::resources([
+            'announcements'         => \App\Http\Controllers\AnnouncementController::class,
             'approval_levels'       => \App\Http\Controllers\Admin\ApprovalLevelController::class,
             'bases'                 => \App\Http\Controllers\Admin\BasisController::class,
             'cip_types'             => \App\Http\Controllers\Admin\CipTypeController::class,

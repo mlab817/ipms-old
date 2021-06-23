@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AnnouncementStoreRequest;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AnnouncementController extends Controller
 {
@@ -14,7 +16,9 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        //
+        $announcements = Announcement::paginate();
+
+        return view('admin.announcements.index', compact('announcements'));
     }
 
     /**
@@ -24,7 +28,7 @@ class AnnouncementController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.announcements.create');
     }
 
     /**
@@ -33,9 +37,13 @@ class AnnouncementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AnnouncementStoreRequest $request)
     {
-        //
+        $announcement = Announcement::create($request->validated());
+
+        Alert::success('Success','Successfully added announcement');
+
+        return redirect()->route('admin.announcements.index');
     }
 
     /**
@@ -57,7 +65,7 @@ class AnnouncementController extends Controller
      */
     public function edit(Announcement $announcement)
     {
-        //
+        return view('admin.announcements.edit', compact('announcement'));
     }
 
     /**

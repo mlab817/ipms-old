@@ -60,28 +60,21 @@
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-envelope-open"></use>
                     </svg> Notifications<span class="badge badge-success ml-auto">{{ auth()->user()->unreadNotifications->count() }}</span>
                 </a>
-                <a class="dropdown-item" href="#">
-                    <svg class="c-icon mr-2">
-                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-comment-square"></use>
-                    </svg> Comments<span class="badge badge-warning ml-auto">42</span></a>
                 <div class="dropdown-header bg-light py-2"><strong>Settings</strong></div><a class="dropdown-item" href="#">
                     <svg class="c-icon mr-2">
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
-                    </svg> Profile</a><a class="dropdown-item" href="#">
+                    </svg> Profile</a><a class="dropdown-item" href="{{ route('settings') }}">
                     <svg class="c-icon mr-2">
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
                     </svg> Settings</a><a class="dropdown-item" href="#">
                     <svg class="c-icon mr-2">
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-file"></use>
                     </svg> Projects<span class="badge badge-primary ml-auto">42</span></a>
-                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">
-                    <svg class="c-icon mr-2">
-                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
-                    </svg> Lock Account</a>
-                    <a class="dropdown-item" href="#">
-                        <i class="c-icon mr-2 cil-account-logout"></i>
-                        Logout
-                    </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">
+                    <i class="c-icon mr-2 cil-account-logout"></i>
+                    Logout
+                </a>
             </div>
         </li>
     </ul>
