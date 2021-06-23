@@ -51,16 +51,16 @@
             <div class="dropdown-menu dropdown-menu-right pt-0">
                 <div class="dropdown-header bg-light py-2">
                     <strong>Account</strong></div>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ route('account.logins') }}">
                     <svg class="c-icon mr-2">
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-bell"></use>
-                    </svg> Updates<span class="badge badge-info ml-auto">42</span></a><a class="dropdown-item" href="#">
+                    </svg> Login Activity</a>
+                <a class="dropdown-item" href="{{ route('notifications.index') }}">
                     <svg class="c-icon mr-2">
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-envelope-open"></use>
-                    </svg> Messages<span class="badge badge-success ml-auto">42</span></a><a class="dropdown-item" href="#">
-                    <svg class="c-icon mr-2">
-                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-task"></use>
-                    </svg> Tasks<span class="badge badge-danger ml-auto">42</span></a><a class="dropdown-item" href="#">
+                    </svg> Notifications<span class="badge badge-success ml-auto">{{ auth()->user()->unreadNotifications->count() }}</span>
+                </a>
+                <a class="dropdown-item" href="#">
                     <svg class="c-icon mr-2">
                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-comment-square"></use>
                     </svg> Comments<span class="badge badge-warning ml-auto">42</span></a>

@@ -1,4 +1,3 @@
-@if ($paginator->hasPages())
 {{--    <nav>--}}
         <ul class="pagination pagination-sm float-right m-0">
             {{-- Previous Page Link --}}
@@ -43,4 +42,3 @@
             @endif
         </ul>
 {{--    </nav>--}}
-@endif

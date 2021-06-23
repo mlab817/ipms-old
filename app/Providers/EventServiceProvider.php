@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Events\AuthenticatedEvent;
 use App\Events\PasswordChangedEvent;
 use App\Events\ProjectCreatedEvent;
 use App\Events\ProjectOwnerChangedEvent;
 use App\Events\ProjectReviewedEvent;
 use App\Events\UserCreated;
 use App\Events\UserUpdatedEvent;
+use App\Listeners\LoginListener;
 use App\Listeners\PasswordChangedListener;
 use App\Listeners\ProjectCreatedListener;
 use App\Listeners\ProjectOwnerChangedListener;
@@ -19,6 +21,8 @@ use App\Models\Project;
 use App\Notifications\NotifyOwnerOfProjectReviewed;
 use App\Notifications\SendEmailToNewUserNotification;
 use App\Observers\ProjectObserver;
+use Illuminate\Auth\Events\Authenticated;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -57,6 +61,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ProjectOwnerChangedEvent::class => [
             ProjectOwnerChangedListener::class,
+        ],
+        AuthenticatedEvent::class => [
+            LoginListener::class,
         ],
     ];
 

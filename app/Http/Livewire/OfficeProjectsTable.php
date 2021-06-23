@@ -29,7 +29,7 @@ class OfficeProjectsTable extends Component
     {
         return view('livewire.office-projects-table', [
             'projects' => Project::search($this->search)
-                ->office()
+                ->ownOffice()
                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
                 ->paginate(10),
         ]);

@@ -1,29 +1,23 @@
 <div class="dropdown-menu dropdown-menu-right pt-0" style="min-width: 360px;">
     <div class="dropdown-header bg-light py-2">
         <strong>Notifications</strong>
+        <span class="float-right">
+            <a href="#">
+                View All
+            </a>
+        </span>
     </div>
     <div class="list-group">
-        <a class="list-group-item list-group-item-action flex-column align-items-start active" href="#">
+        @foreach(auth()->user()->unreadNotifications->take(5) as $notification)
+        <a class="list-group-item list-group-item-action flex-column align-items-start" href="{{ route('notifications.show', $notification) }}">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5><small>3 days ago</small>
+                <h5 class="mb-1">{{ $notification->data['subject'] ?? '' }}</h5>
+                <small>{{ $notification->created_at ? $notification->created_at->diffForHumans(null, null, true) : '' }}</small>
             </div>
-            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p><small>Donec id elit non mi porta.</small>
-        </a><a class="list-group-item list-group-item-action flex-column align-items-start" href="#">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5><small class="text-muted">3 days ago</small>
-            </div>
-            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p><small class="text-muted">Donec id elit non mi porta.</small>
-        </a><a class="list-group-item list-group-item-action flex-column align-items-start" href="#">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5><small class="text-muted">3 days ago</small>
-            </div>
-            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p><small class="text-muted">Donec id elit non mi porta.</small>
-        </a></div>
-    <a class="dropdown-item" href="#">
-        <svg class="c-icon mr-2">
-            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-bell"></use>
-        </svg> Updates
-    </a>
+            <p class="mb-1">{!! $notification->data['message'] ?? '' !!}</p>
+        </a>
+        @endforeach
+    </div>
 </div>
 
 {{--<li class="nav-item dropdown">--}}

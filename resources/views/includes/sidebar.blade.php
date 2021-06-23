@@ -2,12 +2,7 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
 
     <div class="c-sidebar-brand d-lg-down-none">
-        <svg class="c-sidebar-brand-full" width="118" height="46" alt="Logo">
-            <use xlink:href="assets/brand/coreui.svg#full"></use>
-        </svg>
-        <svg class="c-sidebar-brand-minimized" width="46" height="46" alt="Logo">
-            <use xlink:href="assets/brand/coreui.svg#signet"></use>
-        </svg>
+        <img src="{{ asset('images/logo_with_da_dark.png') }}" class="c-sidebar-brand-full" height="46" alt="Logo">
     </div>
 
 {{--    <!-- Brand Logo -->--}}
@@ -98,14 +93,17 @@
             @endcan
         @endcan
 
-        <li class="c-sidebar-nav-item">
-            <a href="{{ route('reports.index') }}"
-               class="c-sidebar-nav-link {{ request()->routeIs('reports') ? 'active' : '' }}">
-                <i class="c-sidebar-nav-icon cil-bar-chart"></i> Reports
-                <span class="badge badge-danger right">New</span>
-
-            </a>
-        </li>
+        @can('projects.manage')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route('projects.deleted') }}"
+                   class="c-sidebar-nav-link @if(Route::current()->getName() == 'projects.deleted') active @endif">
+                    <i class="c-sidebar-nav-icon cil-trash">
+                    </i>
+                    Deleted Projects
+                    <span class="badge badge-info right">{{ \App\Models\Project::onlyTrashed()->count()  }}</span>
+                </a>
+            </li>
+        @endcan
 
         @can('reviews.view_index')
             {{--                    <div class="dropdown-divider"></div>--}}
@@ -120,6 +118,15 @@
             </li>
         @endcan
 
+        <li class="c-sidebar-nav-item">
+            <a href="{{ route('reports.index') }}"
+               class="c-sidebar-nav-link {{ request()->routeIs('reports') ? 'active' : '' }}">
+                <i class="c-sidebar-nav-icon cil-bar-chart"></i> Reports
+                <span class="badge badge-danger right">New</span>
+
+            </a>
+        </li>
+
         @canany('projects.manage','users.view_index','teams.view_index','roles.view_index','permissions.view_index','libraries.view_index','audit_logs.view_index')
             <li class="c-sidebar-nav-title">Admin</li>
         @endcanany
@@ -133,18 +140,6 @@
                     Manage Projects
                     <span class="badge badge-info right">{{ \App\Models\Project::count()  }}</span>
 
-                </a>
-            </li>
-        @endcan
-
-        @can('projects.manage')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route('projects.deleted') }}"
-                   class="c-sidebar-nav-link @if(Route::current()->getName() == 'projects.deleted') active @endif">
-                    <i class="c-sidebar-nav-icon cil-trash">
-                    </i>
-                    Deleted Projects
-                    <span class="badge badge-info right">{{ \App\Models\Project::onlyTrashed()->count()  }}</span>
                 </a>
             </li>
         @endcan

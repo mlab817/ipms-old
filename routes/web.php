@@ -21,6 +21,8 @@ Route::middleware(['auth','password.changed','user.activated'])->group(function 
 
     Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard');
 
+    Route::get('/account/logins', [\App\Http\Controllers\AccountController::class,'logins'])->name('account.logins');
+
 //    Route::post('/logout_other_devices', \App\Http\Controllers\Auth\LogoutOtherDevicesController::class)->name('logout_other_devices');
 //    Route::post('/change_password', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('change_password');
     Route::post('/auth/password/change', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('password.change');

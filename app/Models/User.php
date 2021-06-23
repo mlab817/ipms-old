@@ -64,6 +64,11 @@ class User extends Authenticatable
         return $this->hasMany(LinkedSocialAccount::class);
     }
 
+    public function logins(): HasMany
+    {
+        return $this->hasMany(Login::class);
+    }
+
     public function office(): BelongsTo
     {
         return $this->belongsTo(Office::class);
