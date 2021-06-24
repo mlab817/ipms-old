@@ -1,25 +1,13 @@
 @extends('layouts.admin')
 
-@section('content-header')
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Add New PAP</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        @can('projects.view_own')
-                            <li class="breadcrumb-item"><a href="{{ route('projects.own') }}">Own Projects</a></li>
-                        @endcan
-                        <li class="breadcrumb-item active">Add New PAP</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-@endsection
+@section('breadcrumb')
+    @include('includes.breadcrumb', [
+    'breadcrumbs' => [
+        'Dashboard' => route('dashboard'),
+        'Add New PAP' => null,
+]
+])
+@stop
 
 @section('content')
     @if($errors->any())
@@ -47,17 +35,15 @@
         </div>
     @endcan
 
+    <div class="alert alert-danger">
+        <strong>Instruction:</strong>
+        <p>All fields with red asterisk (<span class="text-danger">*</span>) are required. Also check
+            for potential existing PAPs in the system. The system does
+            not accept decimal places (.00) so input only whole numbers.</p>
+    </div>
+
     <form action="{{ route('projects.store') }}" method="POST">
         @csrf
-        <div class="col-md-12">
-            <div class="callout callout-info">
-                <h5>Instruction:</h5>
-
-                <p>All fields with red asterisk (<span class="text-danger">*</span>) are required. Also check
-                    for potential existing PAPs in the system. The system does
-                    not accept decimal places (.00) so input only whole numbers.</p>
-            </div>
-        </div>
 
         <div class="card">
             <div class="card-header">
@@ -72,7 +58,7 @@
                                 class="form-control select2 @error('office_id') is-invalid @enderror"
                                 id="office_id" name="office_id">
                             <option value="" disabled selected>Select Office</option>
-                            @foreach($offices as $option)
+                            @foreach($offices->sortBy('acronym') as $option)
                                 <option value="{{ $option->id }}"
                                         @if(old('office_id') == $option->id) selected @endif>{{ $option->acronym }}</option>
                             @endforeach
@@ -191,7 +177,7 @@
                                       class="form-control @error('description') is-invalid @enderror"
                                       id="description"
                                       name="description"
-                                      placeholder="Identify the Components of the Program/Project. If a Program, please identify the sub-programs/projects and explain the objective of the program/project in terms of responding to the PDP/ RM.<br><br>If the PAP will involve construction of a government facility, specify the definite purpose for the facility to be constructed.">{{ old('description') }}</textarea>
+                                      placeholder="Identify the Components of the Program/Project. If a Program, please identify the sub-programs/projects and explain the objective of the program/project in terms of responding to the PDP/ RM. If the PAP will involve construction of a government facility, specify the definite purpose for the facility to be constructed.">{{ old('description') }}</textarea>
                         @error('description')<span
                             class="invalid-feedback">{{ $message }}</span>@enderror
                     </div>
