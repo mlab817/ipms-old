@@ -15,7 +15,3 @@
         <livewire:users-table />
     </section>
 @endsection
-
-@push('scripts')
-    {!! $dataTable->scripts() !!}
-@endpush

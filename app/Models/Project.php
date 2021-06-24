@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\RoleProjectScope;
 use App\Traits\Auditable;
 use App\Traits\HasUuid;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -21,6 +22,11 @@ class Project extends Model
     use HasUuid;
     use SoftDeletes;
     use Auditable;
+
+    protected static function booted()
+    {
+//        static::addGlobalScope(new RoleProjectScope);
+    }
 
     protected $fillable = [
         'ipms_id',

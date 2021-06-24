@@ -12,6 +12,12 @@
                 </div>
             @endif
 
+            @if($errors->any())
+                @foreach ($errors as $error)
+                    {{ $error }}
+                @endforeach
+            @endif
+
             <form method="POST" action="{{ route('password.email') }}">
                 @csrf
                 <div class="input-group mb-3">
@@ -24,12 +30,12 @@
                             </svg>
                         </div>
                     </div>
-                </div>
-                @error('email')
-                <span class="invalid-feedback" role="alert">
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                @enderror
+                    @enderror
+                </div>
 
                 <div class="row mb-0 justify-content-center">
                     <button type="submit" class="btn btn-primary">

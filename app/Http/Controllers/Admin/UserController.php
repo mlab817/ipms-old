@@ -30,11 +30,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UsersDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->render('admin.users.index', [
-            'pageTitle' => 'Users',
-        ]);
+        return view('admin.users.index');
     }
 
     /**

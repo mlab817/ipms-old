@@ -3,6 +3,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
+                    <strong>Users</strong>
                     <div class="card-header-actions">
                         <input wire:model="search" class="form-control form-control-sm" type="text" placeholder="Search Users..." style="width: 200px;">
                     </div>
@@ -67,13 +68,11 @@
                         </div>
                     @endif
                 </div>
-                @if($users->hasMorePages())
                 <div class="card-footer">
                     <div class="float-right">
                         {{ $users->links() }}
                     </div>
                 </div>
-                @endif
             </div>
         </div>
     </div>
