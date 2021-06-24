@@ -1,17 +1,17 @@
-<div class="card card-primary card-outline">
+<div class="card">
     <div class="card-header">
+        <strong>PIPOL Entries</strong>
         {!! $search ? 'Showing '. $pipols->count() .' results for <strong>' . $search .'</strong>' : '' !!}
-        <div class="card-tools">
-            <div class="card-tools">
-                <div class="row">
-                    <input wire:model="search" class="form-control form-control-sm" type="search" placeholder="Search Projects..." style="width: 200px;">
-                    <a href="{{ route('pipols.create') }}" class="btn btn-primary btn-sm ml-1">New Entry</a>
-                </div>
+        <div class="card-header-actions">
+            <div class="row">
+                <input wire:model="search" class="form-control form-control-sm" type="search" placeholder="Search Projects..." style="width: 200px;">
+                <a href="{{ route('pipols.create') }}"
+                   class="btn btn-primary btn-sm mx-2">New Entry</a>
             </div>
         </div>
     </div>
     <div class="card-body p-0 table-responsive">
-        <table class="table table-valign-middle">
+        <table class="table">
             <thead>
             <tr>
                 <th class="text-center text-sm text-nowrap">
@@ -20,33 +20,33 @@
                         @include('includes.sort-icon', ['field' => 'id'])
                     </a>
                 </th>
-                <th class="text-center text-sm">
+                <th class="text-center text-sm text-nowrap">
                     <a wire:click.prevent="sortBy('pipol_code')" role="button" href="#">
                         PIPOL Code
                         @include('includes.sort-icon', ['field' => 'pipol_code'])
                     </a>
                 </th>
-                <th class="text-center text-sm" style="width: 40%;">
+                <th class="text-center text-sm text-nowrap" style="width: 40%;">
                     <a wire:click.prevent="sortBy('project_title')" role="button" href="#">
                         Project Title
                         @include('includes.sort-icon', ['field' => 'project_title'])
                     </a>
                 </th>
                 {{--                                <th class="text-center text-sm">Spatial Coverage</th>--}}
-                <th class="text-center text-sm">
+                <th class="text-center text-sm text-nowrap">
                     <a wire:click.prevent="sortBy('category')" role="button" href="#">
                         Category
                         @include('includes.sort-icon', ['field' => 'category'])
                     </a>
                 </th>
-                <th class="text-center text-sm">
+                <th class="text-center text-sm text-nowrap">
                     <a wire:click.prevent="sortBy('submission_status')" role="button" href="#">
                         Status of Submission
                         @include('includes.sort-icon', ['field' => 'submission_status'])
                     </a>
                 </th>
-                <th class="text-center text-sm">Reason for Dropping</th>
-                <th class="text-center text-sm">IPMSv2 Project</th>
+                <th class="text-center text-sm text-nowrap">Reason for Dropping</th>
+                <th class="text-center text-sm text-nowrap">IPMSv2 Project</th>
                 <th></th>
             </tr>
             </thead>
@@ -89,7 +89,7 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('pipols.edit', $item) }}" class="btn btn-info btn-sm">Edit</a>
+                        <a href="{{ route('pipols.edit', $item) }}" class="btn btn-dark btn-sm">Edit</a>
                     </td>
                 </tr>
             @empty

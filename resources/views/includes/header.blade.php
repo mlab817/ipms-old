@@ -29,7 +29,10 @@
                 <form action="{{ route('roles.switch') }}" method="POST">
                     @csrf
                     @foreach(auth()->user()->assigned_roles as $role)
-                        <button type="submit" name="roleId" value="{{ $role->id }}" class="dropdown-item">{{ $role->name }}</button>
+                        <button type="submit" name="roleId" value="{{ $role->id }}" class="dropdown-item">
+                            <i class="c-icon mr-2 cil-check @if($role->id == auth()->user()->currentRole->id ?? null) text-success @else text-white @endif"></i>
+                            {{ $role->name }}
+                        </button>
                     @endforeach
                 </form>
             </div>

@@ -132,8 +132,6 @@ class ProjectController extends Controller
      */
     public function store(ProjectStoreRequest $request)
     {
-        DB::beginTransaction();
-
         $project = Project::create($request->validated());
 
         $project->bases()->sync($request->bases);
