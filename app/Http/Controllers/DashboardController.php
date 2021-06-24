@@ -84,6 +84,26 @@ class DashboardController extends Controller
 
     public function focalDashboard()
     {
+        $projectSummary = DB::table('projects AS a')
+            ->join('fs_investments AS b','a.id','=','b.project_id')
+            ->select(DB::raw('
+                SUM(y2016) AS `2016`,
+                SUM(y2017) AS `2017`,
+                SUM(y2018) AS `2018`,
+                SUM(y2019) AS `2019`,
+                SUM(y2020) AS `2020`,
+                SUM(y2021) AS `2021`,
+                SUM(y2022) AS `2022`,
+                SUM(y2023) AS `2023`
+            '))
+            ->groupBy('a.office_id')
+            ->where('a.office_id', auth()->user()->office_id)
+            ->whereNull('a.deleted_at')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return $item;
+            });
+
         // get daily data of added projects
         $chartData = DB::table('projects')
             ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
@@ -136,6 +156,7 @@ class DashboardController extends Controller
                 $q->where('name','reviewer.main')
                     ->orWhere('name','reviewer');
             })->withCount('projects','reviews')->get(),
+            'by_year'   => $projectSummary
         ]);
     }
 }

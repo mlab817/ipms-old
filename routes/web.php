@@ -97,7 +97,8 @@ Route::middleware(['auth','password.changed','user.activated'])->group(function 
         Route::get('/projects', [\App\Http\Controllers\ExportController::class,'projects'])->name('projects');
     });
 
-    Route::resource('search', \App\Http\Controllers\SearchController::class);
+    Route::post('search', [\App\Http\Controllers\SearchController::class,'search'])->name('search');
+    Route::resource('search', \App\Http\Controllers\SearchController::class)->only('index');
 
     Route::post('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'update'])->name('change_password_update');
     Route::get('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'index'])->name('change_password_index');

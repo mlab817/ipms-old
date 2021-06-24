@@ -37,7 +37,7 @@
 
         <li class="c-header-nav-item dropdown d-md-down-none mx-2">
             <a class="c-header-nav-link" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <i class="c-icon cil-bell"></i> {{ auth()->user()->unreadNotifications->count() }}
+                <i class="c-icon cil-bell"></i> <small>{{ auth()->user()->unreadNotifications->count() }}</small>
             </a>
             @include('includes.notifications')
         </li>

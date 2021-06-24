@@ -1421,8 +1421,7 @@
         <!--/. Financial Status -->
 
         <div class="mb-3">
-            <button type="submit" class="btn btn-success">Create PAP</button>
-            <a href="{{ route('projects.own') }}" class="btn">Back to List</a>
+            <button type="submit" class="btn btn-success btn-sm">Create PAP</button>
         </div>
 
     </form>
@@ -1431,10 +1430,48 @@
 @include('projects.partials.script')
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"
-            integrity="sha512-JZSo0h5TONFYmyLMqp8k4oPhuo6yNk9mHM+FY50aBjpypfofqtEWsAgRDQm94ImLCzSaHeqNvYuD9382CEn2zw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @include('scripts.debounce')
     <script>
+        const fetchProjects = debounce((evt) => {
+            if (evt.target.value) {
+                const body = {
+                    _token: "{{ csrf_token() }}",
+                    search: evt.target.value
+                }
+                fetch("{{ route('search') }}", {
+                    method: 'POST',
+                    body: JSON.stringify(body),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                }).then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    //doSomething with body;
+                    const target = document.getElementById('search-results')
+
+                    if (data.length) {
+                        target.innerHTML = ''
+                        let label = '<label class="text-muted">Found the following potential matches:</label>'
+                        data.forEach(res => {
+                            label += `<a href="{{ config('app.url') }}/projects/${res.uuid}" target="_blank">${res.title}</a>`
+                        })
+                        target.innerHTML = label
+                    } else {
+                        target.innerHTML = '<p>Nothing found.</p>'
+                    }
+                });
+            } else {
+                document.getElementById('search-results').innerHTML = ''
+            }
+        }, 250)
+
+        // vanilla version
+        const title = document.getElementById('title').addEventListener('keyup', fetchProjects)
+
+
         $('input[name=title]').keyup($.debounce(500, function (e) {
             let title = e.target.value
 
