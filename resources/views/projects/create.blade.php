@@ -654,7 +654,7 @@
                                             class="form-control select2 @error('preparation_document_id') is-invalid @enderror">
                                         <option value="" selected disabled>Select document</option>
                                         @foreach($preparation_documents as $option)
-                                            <option value="{{ $option->id }}">{{ $option->name }}</option>
+                                            <option value="{{ $option->id }}" @if($option->id == old('preparation_document_id')) selected @endif>{{ $option->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('preparation_document_id')
@@ -1031,7 +1031,8 @@
                                             <label class="form-check-label @error('funding_sources') text-danger @enderror" for="fs_{{ $option->id }}">
                                                 <input id="fs_{{ $option->id }}" type="checkbox"
                                                        value="{{ $option->id }}" class="form-check-input"
-                                                       name="funding_sources[]">
+                                                       name="funding_sources[]"
+                                                        @if(in_array($option->id, old('funding_sources') ?? [])) checked @endif>
                                                 {{ $option->name }}
                                             </label>
                                         </div>
