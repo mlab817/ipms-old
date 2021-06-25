@@ -227,7 +227,62 @@
                     </div>
                 </div>
 
-            </div>
+                <!-- Project Preparation Details -->
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">{{ __("Project Preparation Details") }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="preparation_document_id" class="col-form-label col-sm-3">Project Preparation
+                                    Document</label>
+                                <div class="col-sm-9">
+                                    <select name="preparation_document_id" id="preparation_document_id"
+                                            class="form-control select2 @error('preparation_document_id') is-invalid @enderror">
+                                        <option value="" selected disabled>Select document</option>
+                                        @foreach($preparation_documents as $option)
+                                            <option value="{{ $option->id }}" @if($option->id == old('preparation_document_id')) selected @endif>{{ $option->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('preparation_document_id')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="iccable" class="col-form-label col-sm-3">Does the project require
+                                    feasibility study? </label>
+                                <div class="col-sm-9">
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" value="1"
+                                                   name="has_fs" {{ old('has_fs') == 1 ? 'checked' : '' }}>
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" value="0"
+                                                   name="has_fs" {{ old('has_fs') == 0 ? 'checked' : '' }}>
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="fs_status_id" class="col-form-label col-sm-3">Status of Feasibility
+                                    Study</label>
+                                <div class="col-sm-9">
+                                    <select name="feasibility_study[fs_status_id]" id="fs_status_id"
+                                            class="form-control select2">
+                                        <option value="" selected disabled>Select Status</option>
+                                        @foreach($fs_statuses as $option)
+                                            <option value="{{ $option->id }}">{{ $option->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
 
         </div>
 
@@ -404,14 +459,62 @@
                 </div>
             </div>
 
-        <!-- Implementation Period -->
-        <div class="card">
-                <div class="card-header">
-                    <strong>{{ __("Implementation Period") }}</strong>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
+                <!-- Financial Information -->
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">{{ __("Financial Information") }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="funding_source_id" class="col-form-label col-sm-3 required">Main Funding
+                                    Source </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control @error('funding_source_id') is-invalid @enderror"
+                                            name="funding_source_id">
+                                        <option value="" disabled selected>Select Funding Source</option>
+                                        @foreach($funding_sources as $option)
+                                            <option value="{{ $option->id }}"
+                                                    @if(old('funding_source_id') == $option->id) selected @endif>{{ $option->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="funding_sources" class="col-form-label required">Other Funding
+                                        Sources</label>
+                                    <p class="text-sm @error('funding_sources') text-danger @enderror">Note: Please re-select the main funding source
+                                        selected.</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    @foreach($funding_sources as $option)
+                                        <div class="form-check">
+                                            <label class="form-check-label @error('funding_sources') text-danger @enderror" for="fs_{{ $option->id }}">
+                                                <input id="fs_{{ $option->id }}" type="checkbox"
+                                                       value="{{ $option->id }}" class="form-check-input"
+                                                       name="funding_sources[]"
+                                                        @if(in_array($option->id, old('funding_sources') ?? [])) checked @endif>
+                                                {{ $option->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                    @error('funding_sources')<span
+                                        class="error invalid-feedback">{{ $message }}</span>@enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="other_fs" class="col-form-label col-sm-3">Other Funding Source
+                                    (specify)</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="other_fs" id="other_fs"
+                                           placeholder="Other funding source (please specify)"
+                                           value="{{ old('other_fs') }}">
+                                    @error('other_fs')<span
+                                        class="error invalid-feedback">{{ $message }}</span>@enderror
+                                </div>
+                            </div>
+                            
                             <div class="form-group row">
                                 <label for="target_start_year" class="col-form-label col-sm-3 required">Start of
                                     Implementation </label>
