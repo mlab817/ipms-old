@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
-            \App\Http\Middleware\CheckActivated::class,
+//            \App\Http\Middleware\CheckActivated::class,
         ],
 
         'api' => [
@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'password.changed' => \App\Http\Middleware\PasswordChanged::class,
+        'user.activated' => \App\Http\Middleware\UserActivatedMiddleware::class,
     ];
 }

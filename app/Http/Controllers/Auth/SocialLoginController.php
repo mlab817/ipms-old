@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\AuthenticatedEvent;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Authenticated;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
@@ -12,6 +15,13 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class SocialLoginController extends Controller
 {
+    public $ip;
+
+    public function __construct(Request $request)
+    {
+        $this->ip = $request->getClientIp();
+    }
+
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
@@ -42,6 +52,8 @@ class SocialLoginController extends Controller
         ]);
 
         Auth::login($existingUser);
+
+        event(new AuthenticatedEvent($this->ip, Auth::id()));
 
         Alert::success('Welcome Back!', 'Thank you for using our application');
 

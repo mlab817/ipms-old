@@ -50,9 +50,13 @@ class Handler extends ExceptionHandler
             ], 404);
         }
 
+        if ($e instanceof ModelNotFoundException) {
+            abort(404,'Page not found');
+        }
+
         if ($e instanceof AuthenticationException && $request->wantsJson()) {
             return response()->json([
-                'error' => 'Unauthenticated'
+                'message' => 'Unauthenticated'
             ], 401);
         }
 

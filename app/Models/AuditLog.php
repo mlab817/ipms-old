@@ -37,4 +37,19 @@ class AuditLog extends Model
     {
         return $this->morphTo();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    public static function search($query)
+    {
+        return empty($query) ? static::query()
+            : static::query()->where(function($q) use ($query) {
+                $q->where('description', 'LIKE', '%'. $query . '%')
+                    ->orWhere('auditable_type', 'LIKE', '%'. $query . '%')
+                    ->orWhere('host', 'LIKE', '%'. $query . '%');
+            });
+    }
 }

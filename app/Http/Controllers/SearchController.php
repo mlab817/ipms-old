@@ -25,4 +25,22 @@ class SearchController extends Controller
 
         return view('search-results', compact('searchResults'));
     }
+
+    public function search(Request $request)
+    {
+        $searchResults = [];
+
+        if ($searchTerm = $request->search) {
+            $searchResults = Project::where('title','LIKE','%'. $searchTerm . '%')
+                ->select('id','title','uuid')
+                ->take(10)
+                ->get();
+        }
+
+        if ($request->wantsJson()) {
+            return response()->json($searchResults);
+        }
+
+        return view('search-results', compact('searchResults'));
+    }
 }

@@ -16,8 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', 'login');
 
 // Resources secured by auth
-Route::middleware(['auth','password.changed'])->group(function () {
+Route::middleware(['auth','password.changed','user.activated'])->group(function () {
+    Route::post('/switchRole', \App\Http\Controllers\SwitchRoleController::class)->name('roles.switch');
+
     Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard');
+
+    Route::get('/account/logins', [\App\Http\Controllers\AccountController::class,'logins'])->name('account.logins');
 
 //    Route::post('/logout_other_devices', \App\Http\Controllers\Auth\LogoutOtherDevicesController::class)->name('logout_other_devices');
 //    Route::post('/change_password', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('change_password');
@@ -93,7 +97,8 @@ Route::middleware(['auth','password.changed'])->group(function () {
         Route::get('/projects', [\App\Http\Controllers\ExportController::class,'projects'])->name('projects');
     });
 
-    Route::resource('search', \App\Http\Controllers\SearchController::class);
+    Route::post('search', [\App\Http\Controllers\SearchController::class,'search'])->name('search');
+    Route::resource('search', \App\Http\Controllers\SearchController::class)->only('index');
 
     Route::post('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'update'])->name('change_password_update');
     Route::get('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'index'])->name('change_password_index');
@@ -111,6 +116,7 @@ Route::middleware(['auth','password.changed'])->group(function () {
     Route::middleware(['admin'])->prefix('/admin')->name('admin.')->group(function () {
         Route::get('', \App\Http\Controllers\Admin\AdminController::class)->name('index');
         Route::resources([
+            'announcements'         => \App\Http\Controllers\AnnouncementController::class,
             'approval_levels'       => \App\Http\Controllers\Admin\ApprovalLevelController::class,
             'bases'                 => \App\Http\Controllers\Admin\BasisController::class,
             'cip_types'             => \App\Http\Controllers\Admin\CipTypeController::class,

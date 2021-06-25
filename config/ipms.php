@@ -17,6 +17,7 @@ return [
     'allow_multiple_login'  => env('ALLOW_MULTIPLE_LOGIN', false),
     'ipms_manual_url'       => env('IPMS_MANUAL_URL',''),
     'force_delete'          => env('IPMS_FORCE_DELETE', false),
+    'require_activation'    => env('IPMS_REQUIRE_ACTIVATION', true),
     'permissions' => [
         'projects' => [
             'create'        => true,

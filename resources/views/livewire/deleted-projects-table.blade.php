@@ -3,8 +3,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    {!! $search ? 'Showing '. $projects->count() .' results for <strong>' . $search .'</strong>' : '' !!}
-                    <div class="card-tools">
+                    <strong>Deleted Projects</strong>
+                    <small>
+                        {!! $search ? 'Showing '. $projects->count() .' results for <strong>' . $search .'</strong>' : '' !!}
+                    </small>
+                    <div class="card-header-actions">
                         <input wire:model="search" class="form-control form-control-sm" type="search" placeholder="Search Projects..." style="width: 200px;">
                     </div>
                 </div>

@@ -30,11 +30,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UsersDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->render('admin.users.index', [
-            'pageTitle' => 'Users',
-        ]);
+        return view('admin.users.index');
     }
 
     /**
@@ -71,7 +69,11 @@ class UserController extends Controller
             'office_id' => $request->office_id,
         ]);
 
-        $user->assignRole($request->roles);
+        if ($request->roles) {
+            $user->roles()->sync($request->roles->first());
+            $user->assigned_roles()->sync($request->roles);
+        }
+
         $user->syncPermissions($request->permissions);
 
         if ($request->has('activated')) {
@@ -129,7 +131,7 @@ class UserController extends Controller
             'office_id' => $request->office_id,
         ]);
 
-        $user->roles()->sync($request->roles);
+        $user->assigned_roles()->sync($request->roles);
         $user->syncPermissions($request->permissions);
 
         if ($request->has('activated')) {

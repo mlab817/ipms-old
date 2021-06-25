@@ -40,6 +40,7 @@ class User extends Authenticatable
         'avatar',
         'activated_at',
         'password_changed_at',
+        'role_id',
     ];
 
     /**
@@ -61,6 +62,11 @@ class User extends Authenticatable
     public function accounts(): HasMany
     {
         return $this->hasMany(LinkedSocialAccount::class);
+    }
+
+    public function logins(): HasMany
+    {
+        return $this->hasMany(Login::class);
     }
 
     public function office(): BelongsTo
@@ -89,6 +95,11 @@ class User extends Authenticatable
             ->withPivot('read','update','delete','review','comment');
     }
 
+    public function currentRole(): BelongsTo
+    {
+        return $this->belongsTo(\Spatie\Permission\Models\Role::class,'role_id');
+    }
+
     public function isActive(): bool
     {
         return !!$this->active;
@@ -109,6 +120,19 @@ class User extends Authenticatable
     {
         $this->activated_at = null;
         $this->save();
+    }
+
+    public function switchRole($roleId)
+    {
+        $role = \Spatie\Permission\Models\Role::findById($roleId);
+        $this->syncRoles($role);
+        $this->role_id = $roleId;
+        $this->save();
+    }
+
+    public function assigned_roles(): BelongsToMany
+    {
+        return $this->belongsToMany(\Spatie\Permission\Models\Role::class, 'assigned_roles', 'user_id', 'role_id');
     }
 
     public function scopeProjectManager($query)

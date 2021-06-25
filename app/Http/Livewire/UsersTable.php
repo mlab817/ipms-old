@@ -10,6 +10,8 @@ class UsersTable extends Component
 {
     use WithPagination;
 
+    protected $paginationTheme = 'bootstrap';
+
     public $sortField = 'name'; // default sorting field
     public $sortAsc = true; // default sort direction
     public $search = '';

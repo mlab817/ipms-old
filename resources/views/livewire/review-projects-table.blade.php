@@ -1,7 +1,7 @@
 <div class="card card-info card-outline">
     <div class="card-header">
         {!! $search ? 'Showing '. $projects->count() .' results for <strong>' . $search .'</strong>' : '' !!}
-        <div class="card-tools">
+        <div class="card-header-actions">
             <input wire:model="search" class="form-control form-control-sm" type="search" placeholder="Search Projects..." style="width: 200px;">
         </div>
     </div>

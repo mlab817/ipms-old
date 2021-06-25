@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-<div class="login-box">
+<div class="col-md-6">
     <div class="card card-outline card-primary">
         <div class="card-header text-center">{{ __('Reset Password') }}</div>
 
@@ -10,6 +10,12 @@
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
                 </div>
+            @endif
+
+            @if($errors->any())
+                @foreach ($errors as $error)
+                    {{ $error }}
+                @endforeach
             @endif
 
             <form method="POST" action="{{ route('password.email') }}">
@@ -24,12 +30,12 @@
                             </svg>
                         </div>
                     </div>
-                </div>
-                @error('email')
-                <span class="invalid-feedback" role="alert">
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                @enderror
+                    @enderror
+                </div>
 
                 <div class="row mb-0 justify-content-center">
                     <button type="submit" class="btn btn-primary">

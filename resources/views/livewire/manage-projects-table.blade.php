@@ -1,7 +1,10 @@
-<div class="card card-primary card-outline">
+<div class="card">
     <div class="card-header">
-        {!! $search ? 'Showing '. $projects->count() .' results for <strong>' . $search .'</strong>' : '' !!}
-        <div class="card-tools">
+        <strong>Manage Projects</strong>
+        <small>
+            {!! $search ? 'Showing '. $projects->count() .' results for <strong>' . $search .'</strong>' : '' !!}
+        </small>
+        <div class="card-header-actions">
             <input wire:model="search" class="form-control form-control-sm" type="search" placeholder="Search Projects..." style="width: 200px;">
         </div>
     </div>
@@ -55,18 +58,17 @@
                 <tr>
                     <td class="text-sm">{{ $item->id }}</td>
                     <td class="text-sm">
-                        {!! $search ? preg_replace('/(' . $search . ')/i', "<span class=\"bg-yellow\">$1</span>", $item->title) : $item->title !!}
+                        {!! $search ? preg_replace('/(' . $search . ')/i', "<strong>$1</strong>", $item->title) : $item->title !!}
                     </td>
                     <td class="text-sm text-right">{{ number_format($item->total_project_cost, 2) }}</td>
                     <td class="text-sm text-center">{{ $item->project_status->name }}</td>
                     <td class="text-sm text-center">{{ $item->office->acronym }}</td>
                     <td class="text-sm text-center">
                         <div class="row justify-content-center align-items-center m-0 p-0">
-                            <img src="{{ $item->creator->avatar }}" class="img-circle img-sm">
                             <span class="ml-1">{{ $item->creator->first_name }}</span> /
                             <span>
-                                                {{ $item->creator->office->acronym }}
-                                            </span>
+                                {{ $item->creator->office->acronym }}
+                            </span>
                         </div>
                     </td>
                     <td class="text-sm text-center">

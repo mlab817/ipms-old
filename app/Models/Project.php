@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\RoleProjectScope;
 use App\Traits\Auditable;
 use App\Traits\HasUuid;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -21,6 +22,11 @@ class Project extends Model
     use HasUuid;
     use SoftDeletes;
     use Auditable;
+
+    protected static function booted()
+    {
+//        static::addGlobalScope(new RoleProjectScope);
+    }
 
     protected $fillable = [
         'ipms_id',
@@ -442,6 +448,23 @@ class Project extends Model
         return 0;
     }
 
+    public function isValidated(): bool
+    {
+        return (bool) $this->validated_at;
+    }
+
+    public function validator(): BelongsTo
+    {
+        return $this->belongsTo(User::class,'validated_by');
+    }
+
+    public function markAsValidated()
+    {
+        $this->validated_at = now();
+        $this->validator()->associate(auth()->user());
+        $this->save();
+    }
+
     public function getPermissionsAttribute(): array
     {
         $user = auth()->user();
@@ -469,7 +492,7 @@ class Project extends Model
         return $query->where('created_by', $userId);
     }
 
-    public function scopeOffice($query)
+    public function scopeOwnOffice($query)
     {
         $user = auth() ? auth()->user() : null;
 

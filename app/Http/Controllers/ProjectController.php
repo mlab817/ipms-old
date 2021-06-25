@@ -55,6 +55,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -125,7 +126,7 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreProjectRequest $request
+     * @param ProjectStoreRequest $request
      * @return Response
      * @throws \Exception
      */
@@ -512,5 +513,19 @@ class ProjectController extends Controller
         Alert::success('Success','Project successfully dropped');
 
         return redirect()->route('projects.own');
+    }
+
+    public function validateProject(Request $request, Project $project)
+    {
+        // allow validation only if the project is endorsed
+        if ($project->submission_status->name !== SubmissionStatus::ENDORSED) {
+            return back();
+        }
+
+        $project->markAsValidated();
+
+        Alert::success('Success','Successfully validated project');
+
+        return back();
     }
 }
