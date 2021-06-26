@@ -156,6 +156,17 @@ class User extends Authenticatable
         return sprintf($fullName, $this->first_name, $this->last_name);
     }
 
+    public function incrementLoginTries()
+    {
+        $this->increment('login_tries');
+    }
+
+    public function resetLoginTries()
+    {
+        $this->login_tries = 0;
+        $this->save();
+    }
+
     public static function search($query)
     {
         return empty($query) ? static::query()

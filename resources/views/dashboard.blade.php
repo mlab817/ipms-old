@@ -90,7 +90,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <!-- Sales Chart Canvas -->
-                            {!! $chart->container() !!}
+
                             <!-- /.chart-responsive -->
                         </div>
                         <!-- /.col -->
@@ -330,7 +330,3 @@
 
     </div>
 @endsection
-
-@push('scripts')
-    {!! $chart->script() !!}
-@endpush

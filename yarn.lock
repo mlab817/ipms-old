@@ -920,6 +920,18 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
+"@primer/css@^17.3.0":
+  version "17.3.0"
+  resolved "https://registry.yarnpkg.com/@primer/css/-/css-17.3.0.tgz#992d6724db287bb4c5947b798007d6f46bce0ad7"
+  integrity sha512-fKxMh6CixHxRI/0zQmEkQ2eP0960TeIsHsc2oKFvGVDwaIi7Dm1BOC10lrC9aEMxsvRG3rfCW2HXgsaua+iGKA==
+  dependencies:
+    "@primer/primitives" "^4.3.5"
+
+"@primer/primitives@^4.3.5":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@primer/primitives/-/primitives-4.5.0.tgz#0b8f874958cd2a8ab069232cc8b46bf0b8e3dac4"
+  integrity sha512-s1+8h4xQlreieqoJxcfIPtdWm2sNOojCQlhGi73qSEQQ9a7ozjUFl6GBvXOsLLUXsvNutv42Xu41ctVOF5JTwQ==
+
 "@sweetalert2/theme-bootstrap-4@^4.0.3":
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/@sweetalert2/theme-bootstrap-4/-/theme-bootstrap-4-4.0.5.tgz#488eac0a85e7601a42dc8b1d95ec8fc73ff330aa"

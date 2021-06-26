@@ -88,8 +88,6 @@
 {{--        })--}}
 {{--    </script>--}}
 
-    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
-
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!--/. Chart.js -->

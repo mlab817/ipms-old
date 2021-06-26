@@ -1,3 +1,19 @@
+<div class="Header">
+    <div class="Header-item">
+        PIPS
+    </div>
+
+    <div class="Header-item--full">
+        <div class="Header-item">
+            <input class="form-control input-dark" type="text"/>
+        </div>
+    </div>
+
+    <div class="Header-item mr-0">
+        <img class="avatar" height="20" alt="@octocat" src="https://github.com/octocat.png" width="20">
+    </div>
+</div>
+
 <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
     <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
         <i class="c-icon c-icon-lg cil-menu"></i>

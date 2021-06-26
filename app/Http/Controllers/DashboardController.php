@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\SampleChart;
 use App\Models\Project;
 use App\Models\Review;
 use App\Models\User;
@@ -41,9 +40,7 @@ class DashboardController extends Controller
             });
 
         // create chart
-        $chart = new SampleChart;
-        $chart->labels($chartData->keys());
-        $chart->dataset('Projects Added Daily', 'bar', $chartData->values());
+        $chart = null;
 
         return view('dashboard', [
             'projectCount'  => Project::count(),
@@ -115,9 +112,7 @@ class DashboardController extends Controller
             });
 
         // create chart
-        $chart = new SampleChart;
-        $chart->labels($chartData->keys());
-        $chart->dataset('Projects Added Daily', 'bar', $chartData->values());
+        $chart = null;
 
         return view('dashboard.focal', [
             'projectCount'         => Project::own()->count(),
