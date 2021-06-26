@@ -70,20 +70,20 @@ class ProjectController extends Controller
         $this->authorizeResource(Project::class);
     }
 
-//    /**
-//     * Display a listing of the resource.
-//     *
-//     * @param Request $request
-//     * @return Response
-//     */
-//    public function index(Request $request)
-//    {
-//        $projectQuery = Project::query()->with(['office','creator.office','project_status','pipol']);
-//
-//        $projects = $this->filter($projectQuery, $request);
-//
-//        return view('projects.index2', compact('projects'));
-//    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+        $projectQuery = Project::query()->with(['office','creator.office','project_status','pipol']);
+
+        $projects = $this->filter($projectQuery, $request);
+
+        return view('projects.index2', compact('projects'));
+    }
 
     /**
      * Show the form for creating a new resource.
