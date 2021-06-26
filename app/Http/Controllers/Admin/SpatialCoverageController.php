@@ -6,7 +6,7 @@ use App\DataTables\SpatialCoveragesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\SpatialCoverage;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class SpatialCoverageController extends Controller
 {

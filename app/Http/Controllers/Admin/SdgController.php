@@ -8,7 +8,7 @@ use App\Http\Requests\SdgStoreRequest;
 use App\Http\Requests\SdgUpdateRequest;
 use App\Models\Sdg;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class SdgController extends Controller
 {

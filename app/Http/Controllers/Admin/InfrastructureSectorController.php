@@ -6,7 +6,7 @@ use App\DataTables\InfrastructureSectorsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\InfrastructureSector;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class InfrastructureSectorController extends Controller
 {

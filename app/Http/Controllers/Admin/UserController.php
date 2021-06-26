@@ -15,7 +15,7 @@ use App\Notifications\UserDeletedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use RealRashid\SweetAlert\Facades\Alert;
+
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller

@@ -1,46 +1,44 @@
 @extends('layouts.auth')
 
 @section('content')
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">{{ __('Change Password') }}</div>
+    <div class="col-12">
+        <div class="text-center">
+            <h1 class="sign-in-header">{{ __('Change Password') }}</h1>
+        </div>
 
-            <div class="card-body">
+        <div class="Box mt-3 color-bg-tertiary">
+
+            <div class="Box-body">
                 <form method="POST" action="{{ route('change_password_update') }}">
                     @csrf
 
-                    <div class="input-group mb-3">
-                        <input type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="current-password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
+                    <div class="form-group @error('password') errored @enderror">
+                        <div class="form-group-header">
+                            <label>New Password</label>
                         </div>
-                    </div>
-                    @error('password')
-                    <span class="error invalid-feedback">
-                        {{ $message }}
-                    </span>
-                    @enderror
-
-                    <div class="input-group mb-3">
-                        <input type="password" placeholder="Confirm Password" class="form-control" name="password_confirmation" autocomplete="new-password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
+                        <div class="form-group-body">
+                            <input type="password" placeholder="Password" class="form-control input-block" name="password" autocomplete="current-password" aria-describedby="password-validation">
+                            @error('password')
+                                <p class="note error" id="password-validation">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
-                    <div class="form-group row mb-0 justify-content-center">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Change Password') }}
-                        </button>
+                    <div class="form-group">
+                        <div class="form-group-header">
+                            <label>Confirm Password</label>
+                        </div>
+                        <div class="form-group-body">
+                            <input type="password" placeholder="Password" class="form-control input-block" name="password_confirmation" autocomplete="current-password">
+                            @error('password')
+                            <p class="note error" id="password-validation">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">
+                        {{ __('Change Password') }}
+                    </button>
                 </form>
             </div>
         </div>

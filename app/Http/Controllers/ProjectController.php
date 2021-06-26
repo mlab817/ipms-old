@@ -60,7 +60,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Knp\Snappy\Pdf;
-use RealRashid\SweetAlert\Facades\Alert;
+
 use Spatie\Searchable\Search;
 
 class ProjectController extends Controller

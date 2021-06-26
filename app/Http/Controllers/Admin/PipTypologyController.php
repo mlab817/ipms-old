@@ -6,7 +6,7 @@ use App\DataTables\PipTypologiesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\PipTypology;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class PipTypologyController extends Controller
 {

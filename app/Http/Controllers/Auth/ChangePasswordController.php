@@ -6,7 +6,6 @@ use App\Events\PasswordChangedEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class ChangePasswordController extends Controller
 {
@@ -27,8 +26,6 @@ class ChangePasswordController extends Controller
         $user->save();
 
         event(new PasswordChangedEvent($user));
-
-        Alert::success('Success', 'Password successfully changed');
 
         return back();
     }

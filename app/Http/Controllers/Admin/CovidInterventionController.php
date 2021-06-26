@@ -6,7 +6,7 @@ use App\DataTables\CovidInterventionsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\CovidIntervention;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class CovidInterventionController extends Controller
 {

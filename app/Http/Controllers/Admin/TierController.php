@@ -6,7 +6,7 @@ use App\DataTables\TiersDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Tier;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class TierController extends Controller
 {

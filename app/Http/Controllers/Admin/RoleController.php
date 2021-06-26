@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleStoreRequest;
 use App\Http\Requests\RoleUpdateRequest;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 use Spatie\Permission\Models\Permission;
 use App\Models\Role;
 

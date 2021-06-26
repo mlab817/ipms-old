@@ -6,7 +6,7 @@ use App\DataTables\FsStatusesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\FsStatus;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class FsStatusController extends Controller
 {

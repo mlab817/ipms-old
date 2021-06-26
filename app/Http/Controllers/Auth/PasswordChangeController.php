@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\NewUserChangePasswordRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class PasswordChangeController extends Controller
 {
@@ -21,8 +21,6 @@ class PasswordChangeController extends Controller
             'password' => Hash::make($request->password),
             'password_changed_at' => now(),
         ]);
-
-        Alert::success('Success', 'Successfully changed password.');
 
         return redirect()->route('dashboard');
     }

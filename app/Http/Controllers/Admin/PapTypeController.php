@@ -6,7 +6,7 @@ use App\DataTables\PapTypesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\PapType;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class PapTypeController extends Controller
 {

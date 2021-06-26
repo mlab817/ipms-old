@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SwitchRoleRequest;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 use Spatie\Permission\Models\Role;
 
 class SwitchRoleController extends Controller

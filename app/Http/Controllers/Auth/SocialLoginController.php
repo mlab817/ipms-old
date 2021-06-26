@@ -11,7 +11,7 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class SocialLoginController extends Controller
 {

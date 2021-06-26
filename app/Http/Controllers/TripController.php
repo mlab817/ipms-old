@@ -16,7 +16,7 @@ use App\Models\RegionInfrastructure;
 use App\Models\RightOfWay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use RealRashid\SweetAlert\Facades\Alert;
+
 use Yajra\DataTables\Facades\DataTables;
 
 class TripController extends Controller

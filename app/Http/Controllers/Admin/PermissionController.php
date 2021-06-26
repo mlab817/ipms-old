@@ -8,7 +8,7 @@ use App\Http\Requests\PermissionStoreRequest;
 use App\Http\Requests\PermissionUpdateRequest;
 use App\Models\Permission;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class PermissionController extends Controller
 {

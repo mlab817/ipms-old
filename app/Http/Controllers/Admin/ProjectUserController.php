@@ -9,7 +9,7 @@ use App\Models\Project;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class ProjectUserController extends Controller
 {

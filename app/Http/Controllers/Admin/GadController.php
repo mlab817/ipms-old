@@ -6,7 +6,7 @@ use App\DataTables\GadsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Gad;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class GadController extends Controller
 {

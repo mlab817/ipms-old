@@ -6,7 +6,7 @@ use App\DataTables\PreparationDocumentsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\PreparationDocument;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class PreparationDocumentController extends Controller
 {

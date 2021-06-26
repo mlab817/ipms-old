@@ -6,7 +6,7 @@ use App\DataTables\OperatingUnitTypesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\OperatingUnitType;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class OperatingUnitTypeController extends Controller
 {

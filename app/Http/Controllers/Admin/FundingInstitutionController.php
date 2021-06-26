@@ -6,7 +6,7 @@ use App\DataTables\FundingInstitutionsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\FundingInstitution;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class FundingInstitutionController extends Controller
 {

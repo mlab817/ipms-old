@@ -7,7 +7,7 @@ use App\DataTables\PdpChaptersDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\PdpChapter;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class PdpChapterController extends Controller
 {

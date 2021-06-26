@@ -7,7 +7,7 @@ use App\Jobs\ExportProjectsAsJsonJob;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class ExportProjectsAsJsonController extends Controller
 {

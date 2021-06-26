@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AnnouncementStoreRequest;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class AnnouncementController extends Controller
 {
