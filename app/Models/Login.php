@@ -13,6 +13,7 @@ class Login extends Model
     protected $fillable = [
         'ip',
         'user_id',
+        'location',
     ];
 
     public function user(): BelongsTo

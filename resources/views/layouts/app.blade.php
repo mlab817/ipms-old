@@ -12,22 +12,17 @@
     @yield('styles')
 </head>
 <body>
-<div class="container clearfix">
-    <div class="col-3 mx-auto" style="max-width: 320px;">
-        <div class="text-center pt-5 pb-4">
-            <img src="{{ asset('images/logo_with_da.svg') }}" width="48px" alt="ipms-logo">
+
+@include('includes.header')
+
+<div class="Layout Layout--gutter-none" style="min-height: 100vh;">
+    <div class="Layout-main color-bg-tertiary">
+        <div class="px-3 px-md-4 px-lg-5 py-3 mt-3 mb-4">
+            @yield('content')
         </div>
     </div>
 
-    <div class="col-3 mx-auto pt-3" style="max-width: 320px;">
-        @yield('content')
-    </div>
-
-    <div class="Box text-center mt-3 py-3">
-        <span class="text-muted text-sm">
-            &copy; 2021 Investment Programming Division
-        </span>
-    </div>
+    @include('includes.sidebar')
 </div>
 
 </body>

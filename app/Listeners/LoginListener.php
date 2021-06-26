@@ -30,7 +30,8 @@ class LoginListener
         $user = User::find($event->userId);
 
         $user->logins()->create([
-            'ip' => $event->ip,
+            'ip'        => $event->ip,
+            'location'  => $event->location,
         ]);
     }
 }

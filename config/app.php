@@ -182,6 +182,8 @@ return [
         \Laravel\Passport\PassportServiceProvider::class,
 
         \Rollbar\Laravel\RollbarServiceProvider::class,
+
+        \Stevebauman\Location\LocationServiceProvider::class,
     ],
 
     /*
