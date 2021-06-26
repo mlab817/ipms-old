@@ -19,6 +19,7 @@
                     </form>
                 </div>
 
+                @if($projects->total() > 0)
                 <div class="container-lg clearfix border rounded-1 color-bg-canvas">
                     <div class="color-bg-tertiary p-3 border-bottom">
                         <div class="float-right table-list-header-toggle states">
@@ -85,7 +86,7 @@
                     </div>
 
                     <div id="projects-results">
-                        @forelse($projects as $project)
+                        @foreach($projects as $project)
                         <div class="Box-row clearfix position-relative pr-6">
                             <details class="details-reset details-overlay dropdown position-static">
                                 <summary class="color-text-secondary position-absolute right-0 top-0 mt-3 px-3" aria-label="Project menu" aria-haspopup="menu" role="button">
@@ -160,14 +161,29 @@
                                 </p>
                             </div>
                         </div>
-                        @empty
-                        No projects found
-                        @endforelse
+                        @endforeach
                     </div>
                 </div>
             </div>
 
+            <div class="paginate-container d-none d-sm-flex flex-sm-justify-center">
+                {!! $projects->links() !!}
+            </div>
 
+            @else
+
+            <div class="blankslate">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="octicon octicon-octoface blankslate-icon">
+                    <path d="M7.25 6a.75.75 0 00-.75.75v7.5a.75.75 0 001.5 0v-7.5A.75.75 0 007.25 6zM12 6a.75.75 0 00-.75.75v4.5a.75.75 0 001.5 0v-4.5A.75.75 0 0012 6zm4 .75a.75.75 0 011.5 0v9.5a.75.75 0 01-1.5 0v-9.5z"/><path fill-rule="evenodd" d="M3.75 2A1.75 1.75 0 002 3.75v16.5c0 .966.784 1.75 1.75 1.75h16.5A1.75 1.75 0 0022 20.25V3.75A1.75 1.75 0 0020.25 2H3.75zM3.5 3.75a.25.25 0 01.25-.25h16.5a.25.25 0 01.25.25v16.5a.25.25 0 01-.25.25H3.75a.25.25 0 01-.25-.25V3.75z"/>
+                </svg>
+                <h3 class="mb-1">You don’t seem to have any programs/projects.</h3>
+                <p>Programs and projects added to {{ config('app.name','Laravel') }} are reviewed and evaluated
+                    for inclusion in the NEDA PIP Online (PIPOL) System. Add your program/project now.</p>
+                <a class="btn btn-primary my-3" role="button" href="{{ route('projects.create') }}">New PAP</a>
+                {{--                <p><button class="btn-link" type="button">Learn more</button></p>--}}
+            </div>
+
+            @endif
         </div>
     </div>
 @stop

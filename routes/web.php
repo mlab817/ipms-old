@@ -56,6 +56,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
         Route::put('/projects/{project}/drop', [\App\Http\Controllers\ProjectController::class,'drop'])->name('projects.drop');
         // TRIP
+        Route::get('/projects/{project}/issues', [\App\Http\Controllers\ProjectController::class,'issues'])->name('projects.issues');
+        Route::get('/projects/{project}/history', [\App\Http\Controllers\ProjectController::class,'audit_logs'])->name('projects.audit_logs');
         Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
         Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');
         Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');

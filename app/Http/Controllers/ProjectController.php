@@ -528,4 +528,14 @@ class ProjectController extends Controller
 
         return back();
     }
+
+    public function audit_logs(Project $project)
+    {
+        return view('projects.audit-logs', compact('project'));
+    }
+
+    public function issues(Project $project)
+    {
+        return $project;
+    }
 }

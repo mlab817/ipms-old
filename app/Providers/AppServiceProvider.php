@@ -42,7 +42,9 @@ class AppServiceProvider extends ServiceProvider
         Review::observe(ReviewObserver::class);
         User::observe(UserObserver::class);
 
-        Paginator::useBootstrap();
+//        Paginator::useBootstrap();
+
+        Paginator::defaultView('includes.primer-pagination');
 
         // blade directives
         Blade::if('admin', function () {

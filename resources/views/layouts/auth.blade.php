@@ -33,18 +33,18 @@
 </head>
 <body>
 <div class="container clearfix">
-    <div class="col-3 mx-auto" style="max-width: 320px;">
+    <div class="col-3 mx-auto" style="width: 320px;">
         <div class="text-center pt-5 pb-4">
             <img src="{{ asset('images/logo_with_da.svg') }}" width="48px" alt="ipms-logo">
         </div>
     </div>
 
-    <div class="col-3 mx-auto pt-3" style="max-width: 320px;">
+    <div class="col-3 mx-auto pt-3" style="width: 320px;">
         @yield('content')
     </div>
 
-    <div class="Box mx-auto mt-3 py-3" style="max-width: 320px;">
-        <div class="text-center">
+    <div class="col-3 mx-auto mt-3 px-3" style="width: 320px;">
+        <div class="Box text-center py-3">
             <span class="text-muted text-sm">
                 &copy; 2021 Investment Programming Division
             </span>
