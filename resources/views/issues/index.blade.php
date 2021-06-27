@@ -190,7 +190,7 @@
                                 <path fill-rule="evenodd"
                                       d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
                             </svg>
-                            5 Open
+                            {{ $project->issues->where('status','open')->count() }}
                         </a>
 
                         <a href="/mlab817/pips/issues?q=is%3Aissue+is%3Aclosed" class="btn-link "
@@ -200,7 +200,7 @@
                                 <path fill-rule="evenodd"
                                       d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
                             </svg>
-                            1 Closed
+                            {{ $project->issues->where('status','closed')->count() }} Closed
                         </a>
                     </div>
 
@@ -224,7 +224,7 @@
                                             <path fill-rule="evenodd"
                                                   d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
                                         </svg>
-                                        5 Open
+                                        {{ $project->issues->where('status','open')->count() }} Open
                                     </a>
 
                                     <a href="/mlab817/pips/issues?q=is%3Aissue+is%3Aclosed" class="btn-link "
@@ -235,7 +235,7 @@
                                             <path fill-rule="evenodd"
                                                   d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
                                         </svg>
-                                        1 Closed
+                                        {{ $project->issues->where('status','closed')->count() }} Closed
                                     </a>
                                 </div>
 
@@ -848,13 +848,12 @@
                         </div>
                     </div>
 
-
                     <div aria-label="Issues" role="group" data-issue-and-pr-hovercards-enabled="">
                         <div class="js-navigation-container js-active-navigation-container">
 
-
+                            @foreach($project->issues as $issue)
                             <div id="issue_5"
-                                 class="Box-row Box-row--focus-gray p-0 mt-0 js-navigation-item js-issue-row navigation-focus"
+                                 class="Box-row Box-row--focus-gray p-0 mt-0 js-navigation-item js-issue-row"
                                  data-id="930687289">
                                 <div class="d-flex Box-row--drag-hide position-relative">
 
@@ -865,11 +864,13 @@
                                     </label>
 
                                     <div class="flex-shrink-0 pt-2 pl-3">
-      <span class="tooltipped tooltipped-e" aria-label="Open issue">
-        <svg class="octicon octicon-issue-opened open" viewBox="0 0 16 16" version="1.1" width="16" height="16"
-             aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path><path fill-rule="evenodd"
-                                                                                               d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path></svg>
-      </span>
+                                        <span class="tooltipped tooltipped-e" aria-label="Open issue">
+                                            <svg class="octicon octicon-issue-opened open" viewBox="0 0 16 16" version="1.1" width="16" height="16"
+                                                 aria-hidden="true">
+                                                <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
+                                                <path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
+                                            </svg>
+                                        </span>
                                     </div>
 
                                     <!-- Issue title column -->
@@ -879,82 +880,50 @@
                                            class="Link--primary v-align-middle no-underline h4 js-navigation-open markdown-title"
                                            data-hovercard-type="issue"
                                            data-hovercard-url="/mlab817/pips/issues/5/hovercard"
-                                           href="/mlab817/pips/issues/5">Add Issue Tracker per PAP</a>
+                                           href="{{ route('issues.show', $issue) }}">
+                                            {{ $issue->title ? $issue->title : 'Untitled' }}
+                                        </a>
                                         <div class="d-flex mt-1 text-small color-text-secondary">
-        <span class="opened-by">
-          #5
-            opened <relative-time datetime="2021-06-26T12:38:43Z" class="no-wrap" title="Jun 26, 2021, 8:38 PM GMT+8">21 hours ago</relative-time> by
-            <a class="Link--muted" title="Open issues created by mlab817" data-hovercard-type="user"
-               data-hovercard-url="/users/mlab817/hovercard" data-octo-click="hovercard-link-click"
-               data-octo-dimensions="link_type:self"
-               href="/mlab817/pips/issues?q=is%3Aissue+is%3Aopen+author%3Amlab817">mlab817</a>
+                                            <span class="opened-by">
+                                              #{{ $issue->id }}
+                                                opened
+                                                <relative-time datetime="2021-06-26T12:38:43Z" class="no-wrap" title="Jun 26, 2021, 8:38 PM GMT+8">
+                                                    {{ $issue->created_at->diffForHumans(null, null, true) }}
+                                                </relative-time> by
+                                                <span class="Link--muted">
+                                                    {{ $issue->creator->username }}
+                                                </span>
 
-        </span>
+                                            </span>
 
-                                            <span class="d-none d-md-inline-flex">
-
-
-        <span class="d-inline-flex flex-row flex-items-center ml-2"><tracked-issues-progress data-total="5"
-                                                                                             data-completed="3"
-                                                                                             data-type="other"
-                                                                                             data-catalyst="">
-  <div class="d-inline-flex flex-row flex-items-center text-small">
-      <span data-target="tracked-issues-progress.checklist" style="display: none">
-        <svg style="display: inline" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true"
-             height="16" width="16" class="octicon octicon-checklist">
-    <path fill-rule="evenodd"
-          d="M2.5 1.75a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v7.736a.75.75 0 101.5 0V1.75A1.75 1.75 0 0011.25 0h-8.5A1.75 1.75 0 001 1.75v11.5c0 .966.784 1.75 1.75 1.75h3.17a.75.75 0 000-1.5H2.75a.25.25 0 01-.25-.25V1.75zM4.75 4a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5zM4 7.75A.75.75 0 014.75 7h2a.75.75 0 010 1.5h-2A.75.75 0 014 7.75zm11.774 3.537a.75.75 0 00-1.048-1.074L10.7 14.145 9.281 12.72a.75.75 0 00-1.062 1.058l1.943 1.95a.75.75 0 001.055.008l4.557-4.45z"></path>
-</svg>
-      </span>
-      <span style="transform:rotate(-90deg); width:12px; height:12px; display: inline-flex">
-  <svg width="12" height="12" data-target="tracked-issues-progress.progress" data-circumference="31">
-    <circle stroke="var(--color-border-primary)" stroke-width="2" fill="transparent" cx="50%" cy="50%" r="5"></circle>
-    <circle style="transition: stroke-dashoffset 0.35s;" stroke="var(--color-border-info)" stroke-width="2"
-            stroke-dasharray="31" 31="" stroke-dashoffset="12" stroke-linecap="round" fill="transparent" cx="50%"
-            cy="50%" r="5"></circle>
-  </svg>
-</span>
-
-    <span class="text-normal no-wrap mr-1 ml-1" data-target="tracked-issues-progress.label">3 of 5 tasks</span>
-  </div>
-</tracked-issues-progress>
-</span>
-        </span>
+                                            <span class="d-none d-md-inline-flex"></span>
 
                                         </div>
                                     </div>
 
                                     <div class="flex-shrink-0 col-3 pt-2 text-right pr-3 no-wrap d-flex hide-sm ">
-
-      <span class="ml-2 flex-1 flex-shrink-0">
-      </span>
+                                        <span class="ml-2 flex-1 flex-shrink-0"></span>
 
                                         <span class="ml-2 flex-1 flex-shrink-0">
-        <div class="AvatarStack AvatarStack--right ml-2 flex-1 flex-shrink-0 ">
-          <div class="AvatarStack-body tooltipped tooltipped-sw tooltipped-multiline tooltipped-align-right-1 mt-1"
-               aria-label="Assigned to ">
-          </div>
-        </div>
-      </span>
-
-                                        <span class="ml-2 flex-1 flex-shrink-0">
-          <a href="/mlab817/pips/issues/5" class="Link--muted" aria-label="1 comment">
-            <svg class="octicon octicon-comment v-align-middle" viewBox="0 0 16 16" version="1.1" width="16" height="16"
-                 aria-hidden="true"><path fill-rule="evenodd"
-                                          d="M2.75 2.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h4.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25H2.75zM1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0113.25 12H9.06l-2.573 2.573A1.457 1.457 0 014 13.543V12H2.75A1.75 1.75 0 011 10.25v-7.5z"></path></svg>
-            <span class="text-small text-bold">1</span>
-          </a>
-      </span>
+                                              <a href="{{ route('issues.show', $issue) }}" class="Link--muted" aria-label="{{ $issue->issue_comments->count() }} comment">
+                                                <svg class="octicon octicon-comment v-align-middle" viewBox="0 0 16 16" version="1.1" width="16" height="16"
+                                                     aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M2.75 2.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h4.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25H2.75zM1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0113.25 12H9.06l-2.573 2.573A1.457 1.457 0 014 13.543V12H2.75A1.75 1.75 0 011 10.25v-7.5z"></path>
+                                                </svg>
+                                                <span class="text-small text-bold">{{ $issue->issue_comments->count() }}</span>
+                                              </a>
+                                        </span>
                                     </div>
-                                    <a class="d-block d-md-none position-absolute top-0 bottom-0 left-0 right-0"
-                                       aria-label="Link to Issue. Add Issue Tracker per PAP"
-                                       href="/mlab817/pips/issues/5"></a>
+                                    <a class="d-block d-md-none position-absolute top-0 bottom-0 left-0 right-0"  aria-label="{{ $issue->title }}"  href="{{ route('issues.show', $issue) }}"></a>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
 
                     </div>
                 </div>
+
+                <!-- Pagination -->
 
                 <div class="paginate-container d-none d-sm-flex flex-sm-justify-center">
 
@@ -964,9 +933,9 @@
 
                 </div>
 
+                <!--./ Pagination -->
 
             </div>
-
 
         </div>
     </div>

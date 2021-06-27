@@ -20,6 +20,7 @@ class Issue extends Model
 
     protected $fillable = [
         'project_id',
+        'title',
         'description',
         'created_by',
         'status'
@@ -35,6 +36,11 @@ class Issue extends Model
     public function issue_comments(): HasMany
     {
         return $this->hasMany(IssueComment::class);
+    }
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
     }
 
     public function creator(): BelongsTo

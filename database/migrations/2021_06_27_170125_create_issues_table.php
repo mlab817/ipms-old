@@ -19,7 +19,7 @@ class CreateIssuesTable extends Migration
             $table->text('title');
             $table->text('description')->nullable();
             $table->foreignId('created_by')->constrained('users');
-            $table->enum('status',['open','closed']);
+            $table->enum('status',['open','closed'])->default('open');
             $table->timestamps();
             $table->softDeletes();
         });
