@@ -1,6 +1,1175 @@
 @extends('layouts.project')
 
 @section('content')
+    <div class="container-xl clearfix new-discussion-timeline px-3 px-md-4 px-lg-5">
+        <div id="repo-content-pjax-container" class="repository-content ">
+
+
+            <div>
+                <div class="d-none d-lg-block mt-6 mr-3 Popover top-0 right-0 color-shadow-medium col-3">
+
+                </div>
+
+
+                <div data-view-component="true" class="gutter-condensed gutter-lg flex-column flex-md-row d-flex">
+
+                    <div data-view-component="true" class="flex-shrink-0 col-12 col-md-9 mb-4 mb-md-0">
+
+
+                        <div class="js-socket-channel js-updatable-content"
+                             data-channel="eyJjIjoicmVwbzozODAyNTYwNzk6cG9zdC1yZWNlaXZlOjI5NjI1ODQ0IiwidCI6MTYyNDc3ODg5NH0=--1f8157132303efe02fdaca8fee9dd123932ddc918d37125eb9790688794ae54f"
+                             data-url="/mlab817/pips/show_partial?partial=tree%2Frecently_touched_branches_list">
+                        </div>
+
+
+                        <div class="file-navigation mb-3 d-flex flex-items-start">
+
+                            <div class="position-relative">
+                                <details class="details-reset details-overlay mr-0 mb-0 " id="branch-select-menu">
+                                    <summary class="btn css-truncate" data-hotkey="w" title="Switch branches or tags">
+                                        <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
+                                             data-view-component="true" height="16" width="16"
+                                             class="octicon octicon-tag text-gray">
+                                            <path fill-rule="evenodd"
+                                                  d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path>
+                                        </svg>
+                                        <span class="css-truncate-target" data-menu-button="">1.0.0</span>
+                                        <span class="dropdown-caret"></span>
+                                    </summary>
+
+
+                                    <div class="SelectMenu">
+                                        <div class="SelectMenu-modal">
+                                            <header class="SelectMenu-header">
+                                                <span class="SelectMenu-title">Switch branches/tags</span>
+                                                <button class="SelectMenu-closeButton" type="button"
+                                                        data-toggle-for="branch-select-menu">
+                                                    <svg aria-label="Close menu" aria-hidden="false" role="img"
+                                                         viewBox="0 0 16 16" version="1.1" data-view-component="true"
+                                                         height="16" width="16" class="octicon octicon-x">
+                                                        <path fill-rule="evenodd"
+                                                              d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+                                                    </svg>
+                                                </button>
+                                            </header>
+
+                                            <input-demux
+                                                data-action="tab-container-change:input-demux#storeInput tab-container-changed:input-demux#updateInput"
+                                                data-catalyst="">
+                                                <tab-container class="d-flex flex-column js-branches-tags-tabs"
+                                                               style="min-height: 0;">
+                                                    <div class="SelectMenu-filter">
+                                                        <input data-target="input-demux.source"
+                                                               id="context-commitish-filter-field"
+                                                               class="SelectMenu-input form-control"
+                                                               aria-owns="ref-list-branches"
+                                                               data-controls-ref-menu-id="ref-list-branches"
+                                                               autofocus="" autocomplete="off"
+                                                               aria-label="Find or create a branch…"
+                                                               placeholder="Find or create a branch…" type="text">
+                                                    </div>
+
+                                                    <div class="SelectMenu-tabs" role="tablist"
+                                                         data-target="input-demux.control">
+                                                        <button class="SelectMenu-tab" type="button" role="tab"
+                                                                aria-selected="true" tabindex="0">Branches
+                                                        </button>
+                                                        <button class="SelectMenu-tab" type="button" role="tab"
+                                                                aria-selected="false" tabindex="-1">Tags
+                                                        </button>
+                                                    </div>
+
+                                                    <div role="tabpanel" id="ref-list-branches"
+                                                         data-filter-placeholder="Find or create a branch…"
+                                                         class="d-flex flex-column flex-auto overflow-auto" tabindex="">
+                                                        <ref-selector type="branch" data-targets="input-demux.sinks"
+                                                                      data-action="
+              input-entered:ref-selector#inputEntered
+              tab-selected:ref-selector#tabSelected
+              focus-list:ref-selector#focusFirstListMember
+            " query-endpoint="/mlab817/pips/refs" current-user-can-push="" cache-key="v0:1624630184.7799659"
+                                                                      current-committish="MS4wLjA="
+                                                                      default-branch="bWFpbg=="
+                                                                      name-with-owner="bWxhYjgxNy9waXBz"
+                                                                      data-catalyst="">
+
+                                                            <template data-target="ref-selector.fetchFailedTemplate">
+                                                                <div class="SelectMenu-message" data-index="">Could not
+                                                                    load branches
+                                                                </div>
+                                                            </template>
+
+                                                            <template data-target="ref-selector.noMatchTemplate">
+                                                                <!-- '"` --><!-- </textarea></xmp> -->
+                                                                <form action="/mlab817/pips/branches"
+                                                                      accept-charset="UTF-8" method="post"><input
+                                                                        type="hidden" name="authenticity_token"
+                                                                        value="9Nvg/gSOf4EW18TZApgyEBOLAJpKh8RX5NJtJfZ8RMMuYUN5BO67TmVpYh0JBNh1bWrFRRummeaSVCVZcrNb6w==">
+                                                                    <input type="hidden" name="name" value="">
+                                                                    <input type="hidden" name="branch" value="1.0.0">
+                                                                    <input type="hidden" name="path_binary" value="">
+
+                                                                    <button class="SelectMenu-item break-word"
+                                                                            type="submit" role="menuitem" data-index="">
+                                                                        <svg aria-hidden="true" viewBox="0 0 16 16"
+                                                                             version="1.1" data-view-component="true"
+                                                                             height="16" width="16"
+                                                                             class="octicon octicon-git-branch SelectMenu-icon flex-self-baseline">
+                                                                            <path fill-rule="evenodd"
+                                                                                  d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path>
+                                                                        </svg>
+                                                                        <div>
+                                                                            <span
+                                                                                class="text-bold">Create branch: </span>
+                                                                            <span class="color-text-tertiary">from ‘1.0.0’</span>
+                                                                        </div>
+                                                                    </button>
+                                                                </form>
+                                                            </template>
+
+
+                                                            <!-- TODO: this max-height is necessary or else the branch list won't scroll.  why? -->
+                                                            <div data-target="ref-selector.listContainer" role="menu"
+                                                                 class="SelectMenu-list " style="max-height: 330px"
+                                                                 data-pjax="#repo-content-pjax-container">
+                                                                <div class="SelectMenu-loading pt-3 pb-0"
+                                                                     aria-label="Menu is loading">
+                                                                    <svg
+                                                                        style="box-sizing: content-box; color: var(--color-icon-primary);"
+                                                                        viewBox="0 0 16 16" fill="none"
+                                                                        data-view-component="true" width="32"
+                                                                        height="32" class="anim-rotate">
+                                                                        <circle cx="8" cy="8" r="7"
+                                                                                stroke="currentColor"
+                                                                                stroke-opacity="0.25" stroke-width="2"
+                                                                                vector-effect="non-scaling-stroke"></circle>
+                                                                        <path d="M15 8a7.002 7.002 0 00-7-7"
+                                                                              stroke="currentColor" stroke-width="2"
+                                                                              stroke-linecap="round"
+                                                                              vector-effect="non-scaling-stroke"></path>
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+
+                                                            <template data-target="ref-selector.itemTemplate">
+                                                                <a href="https://github.com/mlab817/pips/tree/"
+                                                                   class="SelectMenu-item" role="menuitemradio"
+                                                                   rel="nofollow" aria-checked="" data-index="">
+                                                                    <svg aria-hidden="true" viewBox="0 0 16 16"
+                                                                         version="1.1" data-view-component="true"
+                                                                         height="16" width="16"
+                                                                         class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
+                                                                        <path fill-rule="evenodd"
+                                                                              d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
+                                                                    </svg>
+                                                                    <span
+                                                                        class="flex-1 css-truncate css-truncate-overflow "></span>
+                                                                    <span hidden=""
+                                                                          class="Label Label--secondary flex-self-start">default</span>
+                                                                </a>
+                                                            </template>
+
+
+                                                            <footer class="SelectMenu-footer"><a
+                                                                    href="/mlab817/pips/branches">View all branches</a>
+                                                            </footer>
+                                                        </ref-selector>
+
+                                                    </div>
+
+                                                    <div role="tabpanel" id="tags-menu"
+                                                         data-filter-placeholder="Find a tag"
+                                                         class="d-flex flex-column flex-auto overflow-auto" tabindex=""
+                                                         hidden="">
+                                                        <ref-selector type="tag" data-action="
+              input-entered:ref-selector#inputEntered
+              tab-selected:ref-selector#tabSelected
+              focus-list:ref-selector#focusFirstListMember
+            " data-targets="input-demux.sinks" query-endpoint="/mlab817/pips/refs" cache-key="v0:1624630184.7799659"
+                                                                      current-committish="MS4wLjA="
+                                                                      default-branch="bWFpbg=="
+                                                                      name-with-owner="bWxhYjgxNy9waXBz"
+                                                                      data-catalyst="">
+
+                                                            <template data-target="ref-selector.fetchFailedTemplate">
+                                                                <div class="SelectMenu-message" data-index="">Could not
+                                                                    load tags
+                                                                </div>
+                                                            </template>
+
+                                                            <template data-target="ref-selector.noMatchTemplate">
+                                                                <div class="SelectMenu-message" data-index="">Nothing to
+                                                                    show
+                                                                </div>
+                                                            </template>
+
+                                                            <template data-target="ref-selector.itemTemplate">
+                                                                <a href="https://github.com/mlab817/pips/tree/"
+                                                                   class="SelectMenu-item" role="menuitemradio"
+                                                                   rel="nofollow" aria-checked="" data-index="">
+                                                                    <svg aria-hidden="true" viewBox="0 0 16 16"
+                                                                         version="1.1" data-view-component="true"
+                                                                         height="16" width="16"
+                                                                         class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
+                                                                        <path fill-rule="evenodd"
+                                                                              d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
+                                                                    </svg>
+                                                                    <span
+                                                                        class="flex-1 css-truncate css-truncate-overflow"></span>
+                                                                    <span hidden=""
+                                                                          class="Label Label--secondary flex-self-start">default</span>
+                                                                </a>
+                                                            </template>
+
+
+                                                            <div data-target="ref-selector.listContainer" role="menu"
+                                                                 class="SelectMenu-list" style="max-height: 330px"
+                                                                 data-pjax="#repo-content-pjax-container">
+                                                                <div class="SelectMenu-loading pt-3 pb-0"
+                                                                     aria-label="Menu is loading">
+                                                                    <svg
+                                                                        style="box-sizing: content-box; color: var(--color-icon-primary);"
+                                                                        viewBox="0 0 16 16" fill="none"
+                                                                        data-view-component="true" width="32"
+                                                                        height="32" class="anim-rotate">
+                                                                        <circle cx="8" cy="8" r="7"
+                                                                                stroke="currentColor"
+                                                                                stroke-opacity="0.25" stroke-width="2"
+                                                                                vector-effect="non-scaling-stroke"></circle>
+                                                                        <path d="M15 8a7.002 7.002 0 00-7-7"
+                                                                              stroke="currentColor" stroke-width="2"
+                                                                              stroke-linecap="round"
+                                                                              vector-effect="non-scaling-stroke"></path>
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                            <footer class="SelectMenu-footer"><a
+                                                                    href="/mlab817/pips/tags">View all tags</a></footer>
+                                                        </ref-selector>
+                                                    </div>
+                                                </tab-container>
+                                            </input-demux>
+                                        </div>
+                                    </div>
+
+                                </details>
+
+                            </div>
+
+
+                            <div
+                                class="flex-self-center ml-3 flex-self-stretch d-none d-lg-flex flex-items-center lh-condensed-ultra">
+                                <a data-pjax="" href="/mlab817/pips/branches" class="Link--primary no-underline">
+                                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true"
+                                         height="16" width="16" class="octicon octicon-git-branch text-gray">
+                                        <path fill-rule="evenodd"
+                                              d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path>
+                                    </svg>
+                                    <strong>22</strong>
+                                    <span class="color-text-tertiary">branches</span>
+                                </a>
+                                <a data-pjax="" href="/mlab817/pips/tags" class="ml-3 Link--primary no-underline">
+                                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true"
+                                         height="16" width="16" class="octicon octicon-tag text-gray">
+                                        <path fill-rule="evenodd"
+                                              d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path>
+                                    </svg>
+                                    <strong>1</strong>
+                                    <span class="color-text-tertiary">tag</span>
+                                </a>
+                            </div>
+
+                            <div class="flex-auto"></div>
+
+                            <include-fragment data-test-selector="overview-actions-fragment"
+                                              src="/mlab817/pips/overview_actions/1.0.0"
+                                              class="is-error"></include-fragment>
+
+
+                            <span class="d-none d-md-flex ml-2">
+
+<get-repo data-catalyst="">
+  <details class="position-relative details-overlay details-reset" data-action="toggle:get-repo#onDetailsToggle">
+    <summary class="btn btn-primary"
+             data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;repository_id&quot;:380256079,&quot;target&quot;:&quot;CLONE_OR_DOWNLOAD_BUTTON&quot;,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+             data-hydro-click-hmac="cb161c28fb761ad801275bcda9eef6e9bb7778d063fde375ef96d5d402a8de22">
+      <svg class="octicon octicon-download mr-1" viewBox="0 0 16 16" version="1.1" width="16" height="16"
+           aria-hidden="true"><path fill-rule="evenodd"
+                                    d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path></svg>
+      Download
+      <span class="dropdown-caret"></span>
+</summary>    <div class="position-relative">
+      <div class="dropdown-menu dropdown-menu-sw p-0" style="top:6px;width:378px;">
+          <div data-target="get-repo.modal">
+            <div class="border-bottom p-3">
+              <a class="Link--muted float-right tooltipped tooltipped-s"
+                 href="https://docs.github.com/articles/which-remote-url-should-i-use" target="_blank"
+                 aria-label="Which remote URL should I use?">
+  <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16"
+       class="octicon octicon-question">
+    <path fill-rule="evenodd"
+          d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zM6.92 6.085c.081-.16.19-.299.34-.398.145-.097.371-.187.74-.187.28 0 .553.087.738.225A.613.613 0 019 6.25c0 .177-.04.264-.077.318a.956.956 0 01-.277.245c-.076.051-.158.1-.258.161l-.007.004a7.728 7.728 0 00-.313.195 2.416 2.416 0 00-.692.661.75.75 0 001.248.832.956.956 0 01.276-.245 6.3 6.3 0 01.26-.16l.006-.004c.093-.057.204-.123.313-.195.222-.149.487-.355.692-.662.214-.32.329-.702.329-1.15 0-.76-.36-1.348-.863-1.725A2.76 2.76 0 008 4c-.631 0-1.155.16-1.572.438-.413.276-.68.638-.849.977a.75.75 0 101.342.67z"></path>
+</svg>
+</a>
+
+<div class="text-bold">
+  <svg class="octicon octicon-terminal mr-3" viewBox="0 0 16 16" version="1.1" width="16" height="16"
+       aria-hidden="true"><path fill-rule="evenodd"
+                                d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75zm1.75-.25a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25H1.75zM7.25 8a.75.75 0 01-.22.53l-2.25 2.25a.75.75 0 11-1.06-1.06L5.44 8 3.72 6.28a.75.75 0 111.06-1.06l2.25 2.25c.141.14.22.331.22.53zm1.5 1.5a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"></path></svg>
+  Clone
+</div>
+
+<tab-container>
+
+  <div class="UnderlineNav my-2 box-shadow-none">
+    <div class="UnderlineNav-body" role="tablist">
+          <!-- '"` --><!-- </textarea></xmp> --><form data-remote="true" action="/users/set_protocol?protocol_type=push"
+                                                      accept-charset="UTF-8" method="post"><input type="hidden"
+                                                                                                  name="authenticity_token"
+                                                                                                  value="uvWQrQ44defftN/yIv0gRqGtwdjwuPBF3KqgrXYbYYR2hvbc301BNcdPUjCIUr+gzYdyZN4DP9e/RLOiJEk0fQ==">
+            <button name="protocol_selector" type="submit" role="tab"
+                    class="UnderlineNav-item lh-default f6 py-0 px-0 mr-2 position-relative" value="http"
+                    data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;USE_HTTPS&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                    data-hydro-click-hmac="93abfc91d25207035481a1a4af5579f5c670ffddc388821762b65f0078c487d7"
+                    aria-selected="false" tabindex="-1">
+              HTTPS
+</button></form>          <!-- '"` --><!-- </textarea></xmp> --><form data-remote="true"
+                                                                      action="/users/set_protocol?protocol_type=push"
+                                                                      accept-charset="UTF-8" method="post"><input
+                type="hidden" name="authenticity_token"
+                value="TlvyKPTZajMPdnzptnpJ3Q9qzZykqF7u35mNd3hyw92CKJRZJaxe4ReN8Ssc1dY7Y0B+IIoTkXy8d554KiCWJA==">
+            <button name="protocol_selector" type="submit" role="tab"
+                    class="UnderlineNav-item lh-default f6 py-0 px-0 mr-2 position-relative" aria-selected="true"
+                    value="ssh"
+                    data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;USE_SSH&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                    data-hydro-click-hmac="4153365ed3fa85f2b3143d1ab69b9c15683d0628387289e444b450aa18473afe"
+                    tabindex="0">
+              SSH
+</button></form>          <!-- '"` --><!-- </textarea></xmp> --><form data-remote="true"
+                                                                      action="/users/set_protocol?protocol_type=push"
+                                                                      accept-charset="UTF-8" method="post"><input
+                type="hidden" name="authenticity_token"
+                value="XC6rxoKE6hnBvx8jL8rMJyPrCE+qSDaSsZQ1v5Wr9IqQXc23U/Hey9lEkuGFZVPBT8G784Tz+QDSeiawx/mhcw==">
+            <button name="protocol_selector" type="submit" role="tab"
+                    class="UnderlineNav-item lh-default f6 py-0 px-0 mr-2 position-relative" value="gh_cli"
+                    data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;USE_GH_CLI&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                    data-hydro-click-hmac="a86af549d477390b31be85f62789e8448563b62a33c097aada19352373ba6a67"
+                    aria-selected="false" tabindex="-1">
+              GitHub CLI
+</button></form>    </div>
+  </div>
+
+  <div role="tabpanel" hidden="">
+    <div class="input-group">
+  <input type="text" class="form-control input-monospace input-sm color-bg-secondary" data-autoselect=""
+         value="https://github.com/mlab817/pips.git" aria-label="https://github.com/mlab817/pips.git" readonly="">
+  <div class="input-group-button">
+    <clipboard-copy value="https://github.com/mlab817/pips.git" aria-label="Copy to clipboard"
+                    class="btn btn-sm js-clipboard-copy tooltipped-no-delay ClipboardButton"
+                    data-copy-feedback="Copied!" data-tooltip-direction="n"
+                    data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;COPY_URL&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                    data-hydro-click-hmac="2c74296ad62b77db3095f52508037f169c6eb84ce6b330b62bc8cfed2ffe27b9"
+                    tabindex="0" role="button"><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
+                                                    data-view-component="true" height="16" width="16"
+                                                    class="octicon octicon-clippy js-clipboard-clippy-icon d-inline-block">
+    <path fill-rule="evenodd"
+          d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>
+</svg><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16"
+           class="octicon octicon-check js-clipboard-check-icon color-text-success d-inline-block d-sm-none">
+    <path fill-rule="evenodd"
+          d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
+</svg></clipboard-copy>
+  </div>
+</div>
+
+    <p class="mt-2 mb-0 f6 color-text-secondary">
+        Use Git or checkout with SVN using the web URL.
+    </p>
+  </div>
+
+  <div role="tabpanel">
+
+    <div class="input-group">
+  <input type="text" class="form-control input-monospace input-sm color-bg-secondary" data-autoselect=""
+         value="git@github.com:mlab817/pips.git" aria-label="git@github.com:mlab817/pips.git" readonly="">
+  <div class="input-group-button">
+    <clipboard-copy value="git@github.com:mlab817/pips.git" aria-label="Copy to clipboard"
+                    class="btn btn-sm js-clipboard-copy tooltipped-no-delay ClipboardButton"
+                    data-copy-feedback="Copied!" data-tooltip-direction="n"
+                    data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;COPY_URL&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                    data-hydro-click-hmac="2c74296ad62b77db3095f52508037f169c6eb84ce6b330b62bc8cfed2ffe27b9"
+                    tabindex="0" role="button"><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
+                                                    data-view-component="true" height="16" width="16"
+                                                    class="octicon octicon-clippy js-clipboard-clippy-icon d-inline-block">
+    <path fill-rule="evenodd"
+          d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>
+</svg><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16"
+           class="octicon octicon-check js-clipboard-check-icon color-text-success d-inline-block d-sm-none">
+    <path fill-rule="evenodd"
+          d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
+</svg></clipboard-copy>
+  </div>
+</div>
+
+    <p class="mt-2 mb-0 f6 color-text-secondary">
+        Use a password-protected SSH key.
+    </p>
+  </div>
+
+  <div role="tabpanel" hidden="">
+    <div class="input-group">
+  <input type="text" class="form-control input-monospace input-sm color-bg-secondary" data-autoselect=""
+         value="gh repo clone mlab817/pips" aria-label="gh repo clone mlab817/pips" readonly="">
+  <div class="input-group-button">
+    <clipboard-copy value="gh repo clone mlab817/pips" aria-label="Copy to clipboard"
+                    class="btn btn-sm js-clipboard-copy tooltipped-no-delay ClipboardButton"
+                    data-copy-feedback="Copied!" data-tooltip-direction="n"
+                    data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;COPY_URL&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                    data-hydro-click-hmac="2c74296ad62b77db3095f52508037f169c6eb84ce6b330b62bc8cfed2ffe27b9"
+                    tabindex="0" role="button"><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
+                                                    data-view-component="true" height="16" width="16"
+                                                    class="octicon octicon-clippy js-clipboard-clippy-icon d-inline-block">
+    <path fill-rule="evenodd"
+          d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>
+</svg><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16"
+           class="octicon octicon-check js-clipboard-check-icon color-text-success d-inline-block d-sm-none">
+    <path fill-rule="evenodd"
+          d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
+</svg></clipboard-copy>
+  </div>
+</div>
+
+    <p class="mt-2 mb-0 f6 color-text-secondary">
+      Work fast with our official CLI.
+      <a href="https://cli.github.com" target="_blank">Learn more</a>.
+    </p>
+  </div>
+</tab-container>
+
+            </div>
+            <ul class="list-style-none">
+
+              <li class="Box-row Box-row--hover-gray p-0">
+                <a class="d-flex flex-items-center color-text-primary text-bold no-underline p-3" rel="nofollow"
+                   data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;DOWNLOAD_ZIP&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                   data-hydro-click-hmac="ef43040508c67fdeb5cdff3d87bf0152e1a85404ff284e2a93d862f6dc62d88b"
+                   data-ga-click="Repository, download zip, location:repo overview" data-open-app="link"
+                   href="/mlab817/pips/archive/refs/tags/1.0.0.zip">
+                  <svg class="octicon octicon-file-zip mr-3" viewBox="0 0 16 16" version="1.1" width="16" height="16"
+                       aria-hidden="true"><path fill-rule="evenodd"
+                                                d="M3.5 1.75a.25.25 0 01.25-.25h3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h2.086a.25.25 0 01.177.073l2.914 2.914a.25.25 0 01.073.177v8.586a.25.25 0 01-.25.25h-.5a.75.75 0 000 1.5h.5A1.75 1.75 0 0014 13.25V4.664c0-.464-.184-.909-.513-1.237L10.573.513A1.75 1.75 0 009.336 0H3.75A1.75 1.75 0 002 1.75v11.5c0 .649.353 1.214.874 1.515a.75.75 0 10.752-1.298.25.25 0 01-.126-.217V1.75zM8.75 3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM6 5.25a.75.75 0 01.75-.75h.5a.75.75 0 010 1.5h-.5A.75.75 0 016 5.25zm2 1.5A.75.75 0 018.75 6h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 6.75zm-1.25.75a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM8 9.75A.75.75 0 018.75 9h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 9.75zm-.75.75a1.75 1.75 0 00-1.75 1.75v3c0 .414.336.75.75.75h2.5a.75.75 0 00.75-.75v-3a1.75 1.75 0 00-1.75-1.75h-.5zM7 12.25a.25.25 0 01.25-.25h.5a.25.25 0 01.25.25v2.25H7v-2.25z"></path></svg>
+                  Download ZIP
+</a>              </li>
+            </ul>
+          </div>
+
+        <div class="p-3" data-targets="get-repo.platforms" data-platform="mac" hidden="">
+          <h4 class="lh-condensed mb-3">Launching GitHub Desktop<span class="AnimatedEllipsis"></span></h4>
+          <p class="color-text-secondary">If nothing happens, <a href="https://desktop.github.com/">download GitHub Desktop</a> and try again.</p>
+          <button data-action="click:get-repo#onDetailsToggle" type="button" data-view-component="true"
+                  class="btn-link">
+
+  Go back
+
+
+</button>
+        </div>
+
+        <div class="p-3" data-targets="get-repo.platforms" data-platform="windows" hidden="">
+          <h4 class="lh-condensed mb-3">Launching GitHub Desktop<span class="AnimatedEllipsis"></span></h4>
+          <p class="color-text-secondary">If nothing happens, <a href="https://desktop.github.com/">download GitHub Desktop</a> and try again.</p>
+          <button data-action="click:get-repo#onDetailsToggle" type="button" data-view-component="true"
+                  class="btn-link">
+
+  Go back
+
+
+</button>
+        </div>
+
+        <div class="p-3" data-targets="get-repo.platforms" data-platform="xcode" hidden="">
+          <h4 class="lh-condensed mb-3">Launching Xcode<span class="AnimatedEllipsis"></span></h4>
+          <p class="color-text-secondary">If nothing happens, <a href="https://developer.apple.com/xcode/">download Xcode</a> and try again.</p>
+          <button data-action="click:get-repo#onDetailsToggle" type="button" data-view-component="true"
+                  class="btn-link">
+
+  Go back
+
+
+</button>
+        </div>
+
+        <div class="p-3 " data-targets="get-repo.platforms"
+             data-target="new-codespace.loadingVscode prefetch-pane.loadingVscode" data-platform="vscode" hidden="">
+  <poll-include-fragment data-target="get-repo.vscodePoller new-codespace.vscodePoller prefetch-pane.vscodePoller">
+    <h4 class="lh-condensed mb-3">Launching Visual Studio Code<span class="AnimatedEllipsis"
+                                                                    data-hide-on-error=""></span></h4>
+    <p class="color-text-secondary" data-hide-on-error="">Your codespace will open once ready.</p>
+    <p class="color-text-secondary" data-show-on-error="" hidden="">There was a problem preparing your codespace, please try again.</p>
+  </poll-include-fragment>
+</div>
+
+      </div>
+    </div>
+  </details>
+</get-repo>
+
+
+
+    </span>
+                        </div>
+
+                        <div data-catalyst="">
+
+                            <div id="readme" class="Box md js-code-block-container Box--responsive">
+
+                                <div
+                                    class="d-flex js-sticky js-position-sticky top-0 border-top-0 border-bottom p-2 flex-items-center flex-justify-between color-bg-primary rounded-top-2"
+                                    style="position: sticky; z-index: 90; top: 0px !important;" data-original-top="0px">
+                                    <div class="d-flex flex-items-center">
+                                        <details data-target="readme-toc.trigger"
+                                                 data-menu-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;trigger&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                                                 data-menu-hydro-click-hmac="8ea3d3daea28fbd6c194c4953452a0683540e7fa62f72387a1fd4f7ff9f91137"
+                                                 class="dropdown details-reset details-overlay">
+                                            <summary class="btn btn-octicon m-0 mr-2 p-2" aria-haspopup="menu"
+                                                     aria-label="Table of Contents" role="button">
+                                                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
+                                                     data-view-component="true" height="16" width="16"
+                                                     class="octicon octicon-list-unordered">
+                                                    <path fill-rule="evenodd"
+                                                          d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                                                </svg>
+                                            </summary>
+
+                                            <details-menu class="SelectMenu" role="menu">
+                                                <div class="SelectMenu-modal rounded-3 mt-1" style="max-height:340px;">
+                                                    <div class="SelectMenu-list SelectMenu-list--borderless p-2"
+                                                         style="overscroll-behavior: contain;">
+
+                                                        <a role="menuitem" class="filter-item py-1 "
+                                                           style="padding-left: 24px;"
+                                                           data-action="click:readme-toc#blur"
+                                                           data-targets="readme-toc.entries"
+                                                           data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                                                           data-hydro-click-hmac="869eb8836e23d86cfcc1531f6ea9448554483383bff29ee2223e659ac715d4c8"
+                                                           href="#description" aria-current="page">Description</a>
+                                                        <a role="menuitem" class="filter-item py-1 "
+                                                           style="padding-left: 24px;"
+                                                           data-action="click:readme-toc#blur"
+                                                           data-targets="readme-toc.entries"
+                                                           data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                                                           data-hydro-click-hmac="869eb8836e23d86cfcc1531f6ea9448554483383bff29ee2223e659ac715d4c8"
+                                                           href="#deployment">Deployment</a>
+                                                        <a role="menuitem" class="filter-item py-1 "
+                                                           style="padding-left: 24px;"
+                                                           data-action="click:readme-toc#blur"
+                                                           data-targets="readme-toc.entries"
+                                                           data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                                                           data-hydro-click-hmac="869eb8836e23d86cfcc1531f6ea9448554483383bff29ee2223e659ac715d4c8"
+                                                           href="#bug-report">Bug Report</a>
+                                                        <a role="menuitem" class="filter-item py-1 "
+                                                           style="padding-left: 24px;"
+                                                           data-action="click:readme-toc#blur"
+                                                           data-targets="readme-toc.entries"
+                                                           data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                                                           data-hydro-click-hmac="869eb8836e23d86cfcc1531f6ea9448554483383bff29ee2223e659ac715d4c8"
+                                                           href="#security-vulnerabilities">Security Vulnerabilities</a>
+                                                        <a role="menuitem" class="filter-item py-1 "
+                                                           style="padding-left: 24px;"
+                                                           data-action="click:readme-toc#blur"
+                                                           data-targets="readme-toc.entries"
+                                                           data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
+                                                           data-hydro-click-hmac="869eb8836e23d86cfcc1531f6ea9448554483383bff29ee2223e659ac715d4c8"
+                                                           href="#license">License</a>
+                                                    </div>
+                                                </div>
+                                            </details-menu>
+                                        </details>
+
+                                        <h2 class="Box-title">
+                                            <a href="#readme" class="Link--primary">README.md</a>
+                                        </h2>
+                                    </div>
+                                </div>
+
+                                <div data-target="readme-toc.content" class="Box-body px-5 pb-5">
+                                    <article class="markdown-body entry-content container-lg" itemprop="text">
+                                        <!-- Description -->
+                                        <h2>
+                                            <a id="description" class="anchor" aria-hidden="true"
+                                               href="#description">
+                                                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+                                                     width="16" height="16" aria-hidden="true">
+                                                    <path fill-rule="evenodd"
+                                                          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
+                                                </svg>
+                                            </a> Description
+                                        </h2>
+                                        <div>
+                                            {!! $project->description->description ?? '' !!}
+                                        </div>
+                                        <!--./ Description -->
+
+                                        <h2>
+                                            <a id="user-content-deployment" class="anchor" aria-hidden="true"
+                                               href="#deployment">
+                                                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+                                                     width="16" height="16" aria-hidden="true">
+                                                    <path fill-rule="evenodd"
+                                                          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
+                                                </svg>
+                                            </a>Deployment
+                                        </h2>
+                                        <ul>
+                                            <li>The preferred approach for deployment is by linking the hosting to the
+                                                Github repository which can be found at <a
+                                                    href="https://github.com/mlab817/ipms-v2">https://github.com/mlab817/ipms-v2</a>.
+                                            </li>
+                                            <li>Once linked and the repo and hosting has synced, in the console, run
+                                                <code>composer install</code> to install all dependencies.
+                                            </li>
+                                            <li>Once composer completes, run <code>cp .env.example .env</code>. This
+                                                will create a copy of the <code>.env</code> example file. The
+                                                <code>.env</code> file is where you can modify the app configuration.
+                                            </li>
+                                            <li>Run <code>php artisan key:generate</code> to generate the unique app
+                                                key. The application will fail to run if this is not done.
+                                            </li>
+                                            <li>Update the relevant settings:</li>
+                                        </ul>
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <th>Variable *</th>
+                                                <th>Description</th>
+                                                <th>Default</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>APP_NAME</td>
+                                                <td>The name of the app</td>
+                                                <td>IPMSv2</td>
+                                            </tr>
+                                            <tr>
+                                                <td>APP_ENV</td>
+                                                <td>The environment of the app. Change to production on deployment to
+                                                    disable debug mode
+                                                </td>
+                                                <td>local</td>
+                                            </tr>
+                                            <tr>
+                                                <td>APP_KEY</td>
+                                                <td>The app key - run <code>php artisan key:generate</code> to create
+                                                    one
+                                                </td>
+                                                <td>null</td>
+                                            </tr>
+                                            <tr>
+                                                <td>APP_DEBUG</td>
+                                                <td>Determines if debug messages are shown. Set to false to disable</td>
+                                                <td>true</td>
+                                            </tr>
+                                            <tr>
+                                                <td>APP_URL</td>
+                                                <td>Set to the actual URL of the app as this will be appended to emails,
+                                                    etc.
+                                                </td>
+                                                <td><a href="http://localhost" rel="nofollow">http://localhost</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>LOG_CHANNEL</td>
+                                                <td>Determines how the app logs events, errors, etc</td>
+                                                <td>stack</td>
+                                            </tr>
+                                            <tr>
+                                                <td>LOG_LEVEL</td>
+                                                <td>Determines lowest level of log is logged</td>
+                                                <td>debug</td>
+                                            </tr>
+                                            <tr>
+                                                <td>DB_CONNECTION</td>
+                                                <td>What database driver to use</td>
+                                                <td>mysql</td>
+                                            </tr>
+                                            <tr>
+                                                <td>DB_HOST</td>
+                                                <td>What host the database is found</td>
+                                                <td>127.0.0.1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>DB_PORT</td>
+                                                <td>What host the database is found</td>
+                                                <td>3306</td>
+                                            </tr>
+                                            <tr>
+                                                <td>DB_DATABASE</td>
+                                                <td>Name of the database</td>
+                                                <td>${APP_NAME}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>DB_USERNAME</td>
+                                                <td>Username used to access the database</td>
+                                                <td>null</td>
+                                            </tr>
+                                            <tr>
+                                                <td>DB_PASSWORD</td>
+                                                <td>Password to use</td>
+                                                <td>null</td>
+                                            </tr>
+                                            <tr>
+                                                <td>BROADCAST_DRIVER</td>
+                                                <td>Determine how events are broadcasted</td>
+                                                <td>pusher</td>
+                                            </tr>
+                                            <tr>
+                                                <td>QUEUE_CONNECTION</td>
+                                                <td>Determines how queues are run. Change to database on deployment</td>
+                                                <td>sync</td>
+                                            </tr>
+                                            <tr>
+                                                <td>MAIL_*</td>
+                                                <td>This group of config determines how emails from the system are
+                                                    sent
+                                                </td>
+                                                <td>(multiple)</td>
+                                            </tr>
+                                            <tr>
+                                                <td>WKHTML_PDF_BINARY</td>
+                                                <td>Location of the executable to generate pdf. Used by datatables</td>
+                                                <td>null</td>
+                                            </tr>
+                                            <tr>
+                                                <td>WKHTML_IMG_BINARY</td>
+                                                <td>Location of the executable to generate image. Used by datatables
+                                                </td>
+                                                <td>null</td>
+                                            </tr>
+                                            <tr>
+                                                <td>GOOGLE_*</td>
+                                                <td>These settings are used by the Google Login. Please visit google
+                                                    developer console to get the keys
+                                                </td>
+                                                <td>(multiple)</td>
+                                            </tr>
+                                            <tr>
+                                                <td>IPMS_EMAIL</td>
+                                                <td>Email of the IPD. This will be displayed in contact email</td>
+                                                <td>null</td>
+                                            </tr>
+                                            <tr>
+                                                <td>IPMS_CONTACT_INFO</td>
+                                                <td>Contact number/s of the IPD. This will be displayed in contact
+                                                    number/s
+                                                </td>
+                                                <td>null</td>
+                                            </tr>
+                                            <tr>
+                                                <td>ALLOW_GOOGLE_LOGIN</td>
+                                                <td>Determine if the system allow google login</td>
+                                                <td>false</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="snippet-clipboard-content position-relative"><pre><code>* These are the settings used by the app.
+</code></pre>
+                                            <div class="zeroclipboard-container position-absolute right-0 top-0">
+                                                <clipboard-copy aria-label="Copy"
+                                                                class="ClipboardButton btn js-clipboard-copy m-2 p-0 tooltipped-no-delay"
+                                                                data-copy-feedback="Copied!" data-tooltip-direction="w"
+                                                                value="* These are the settings used by the app.
+" tabindex="0" role="button">
+                                                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
+                                                         data-view-component="true" height="16" width="16"
+                                                         class="octicon octicon-clippy js-clipboard-clippy-icon m-2">
+                                                        <path fill-rule="evenodd"
+                                                              d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>
+                                                    </svg>
+                                                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
+                                                         data-view-component="true" height="16" width="16"
+                                                         class="octicon octicon-check js-clipboard-check-icon color-text-success d-none m-2">
+                                                        <path fill-rule="evenodd"
+                                                              d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
+                                                    </svg>
+                                                </clipboard-copy>
+                                            </div>
+                                        </div>
+
+                                        <ul>
+                                            <li>Run <code>php artisan migrate:fresh --seed</code>. This will create the
+                                                tables in the database and insert the initial data needed to run the
+                                                app.
+                                            </li>
+                                            <li>Next is to set up CRON job to run queues in the hosting. Although you
+                                                may set the <code>QUEUE_DRIVER</code> to <code>sync</code>, this is not
+                                                preferred as this could potentially slow down the system. For the CRON
+                                                job, the only command needed to be run is <code>php artisan
+                                                    schedule:run</code>.
+                                            </li>
+                                            <li>You may now use the application.</li>
+                                        </ul>
+                                        <h2><a id="user-content-bug-report" class="anchor" aria-hidden="true"
+                                               href="#bug-report">
+                                                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+                                                     width="16" height="16" aria-hidden="true">
+                                                    <path fill-rule="evenodd"
+                                                          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
+                                                </svg>
+                                            </a>Bug Report
+                                        </h2>
+                                        <p>If you found any feature that is not behaving as expected, please send an
+                                            e-mail to Lester Bolotaolo via <a href="mailto:mlab817@gmail.com">mlab817@gmail.com</a>.
+                                            You may also file an <code>Issue</code> in this Github repo.</p>
+                                        <h2><a id="user-content-security-vulnerabilities" class="anchor"
+                                               aria-hidden="true" href="#security-vulnerabilities">
+                                                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+                                                     width="16" height="16" aria-hidden="true">
+                                                    <path fill-rule="evenodd"
+                                                          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
+                                                </svg>
+                                            </a>Security Vulnerabilities
+                                        </h2>
+                                        <p>If you discover a security vulnerability within IPMS, please send an e-mail
+                                            to Lester Bolotaolo via <a
+                                                href="mailto:mlab817@gmail.com">mlab817@gmail.com</a>. All security
+                                            vulnerabilities will be promptly addressed.</p>
+                                        <h2><a id="user-content-license" class="anchor" aria-hidden="true"
+                                               href="#license">
+                                                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+                                                     width="16" height="16" aria-hidden="true">
+                                                    <path fill-rule="evenodd"
+                                                          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
+                                                </svg>
+                                            </a>License
+                                        </h2>
+                                        <p>The IPMS is open-sourced software licensed under the <a
+                                                href="https://opensource.org/licenses/MIT" rel="nofollow">MIT
+                                                license</a>.</p>
+                                    </article>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div data-view-component="true" class="flex-shrink-0 col-12 col-md-3">
+
+                        <div class="BorderGrid BorderGrid--spacious" data-pjax="">
+                            <div class="BorderGrid-row hide-sm hide-md">
+                                <div class="BorderGrid-cell">
+                                    <details class="details-reset details-overlay details-overlay-dark ">
+                                        <summary class="float-right" role="button">
+                                            <div class="Link--secondary pt-1 pl-2">
+                                                <svg aria-label="Edit repository metadata" role="img"
+                                                     viewBox="0 0 16 16" version="1.1" data-view-component="true"
+                                                     height="16" width="16" class="octicon octicon-gear float-right">
+                                                    <path fill-rule="evenodd"
+                                                          d="M7.429 1.525a6.593 6.593 0 011.142 0c.036.003.108.036.137.146l.289 1.105c.147.56.55.967.997 1.189.174.086.341.183.501.29.417.278.97.423 1.53.27l1.102-.303c.11-.03.175.016.195.046.219.31.41.641.573.989.014.031.022.11-.059.19l-.815.806c-.411.406-.562.957-.53 1.456a4.588 4.588 0 010 .582c-.032.499.119 1.05.53 1.456l.815.806c.08.08.073.159.059.19a6.494 6.494 0 01-.573.99c-.02.029-.086.074-.195.045l-1.103-.303c-.559-.153-1.112-.008-1.529.27-.16.107-.327.204-.5.29-.449.222-.851.628-.998 1.189l-.289 1.105c-.029.11-.101.143-.137.146a6.613 6.613 0 01-1.142 0c-.036-.003-.108-.037-.137-.146l-.289-1.105c-.147-.56-.55-.967-.997-1.189a4.502 4.502 0 01-.501-.29c-.417-.278-.97-.423-1.53-.27l-1.102.303c-.11.03-.175-.016-.195-.046a6.492 6.492 0 01-.573-.989c-.014-.031-.022-.11.059-.19l.815-.806c.411-.406.562-.957.53-1.456a4.587 4.587 0 010-.582c.032-.499-.119-1.05-.53-1.456l-.815-.806c-.08-.08-.073-.159-.059-.19a6.44 6.44 0 01.573-.99c.02-.029.086-.075.195-.045l1.103.303c.559.153 1.112.008 1.529-.27.16-.107.327-.204.5-.29.449-.222.851-.628.998-1.189l.289-1.105c.029-.11.101-.143.137-.146zM8 0c-.236 0-.47.01-.701.03-.743.065-1.29.615-1.458 1.261l-.29 1.106c-.017.066-.078.158-.211.224a5.994 5.994 0 00-.668.386c-.123.082-.233.09-.3.071L3.27 2.776c-.644-.177-1.392.02-1.82.63a7.977 7.977 0 00-.704 1.217c-.315.675-.111 1.422.363 1.891l.815.806c.05.048.098.147.088.294a6.084 6.084 0 000 .772c.01.147-.038.246-.088.294l-.815.806c-.474.469-.678 1.216-.363 1.891.2.428.436.835.704 1.218.428.609 1.176.806 1.82.63l1.103-.303c.066-.019.176-.011.299.071.213.143.436.272.668.386.133.066.194.158.212.224l.289 1.106c.169.646.715 1.196 1.458 1.26a8.094 8.094 0 001.402 0c.743-.064 1.29-.614 1.458-1.26l.29-1.106c.017-.066.078-.158.211-.224a5.98 5.98 0 00.668-.386c.123-.082.233-.09.3-.071l1.102.302c.644.177 1.392-.02 1.82-.63.268-.382.505-.789.704-1.217.315-.675.111-1.422-.364-1.891l-.814-.806c-.05-.048-.098-.147-.088-.294a6.1 6.1 0 000-.772c-.01-.147.039-.246.088-.294l.814-.806c.475-.469.679-1.216.364-1.891a7.992 7.992 0 00-.704-1.218c-.428-.609-1.176-.806-1.82-.63l-1.103.303c-.066.019-.176.011-.299-.071a5.991 5.991 0 00-.668-.386c-.133-.066-.194-.158-.212-.224L10.16 1.29C9.99.645 9.444.095 8.701.031A8.094 8.094 0 008 0zm1.5 8a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM11 8a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                </svg>
+                                            </div>
+                                        </summary>
+
+                                        <details-dialog class="Box d-flex flex-column anim-fade-in fast Box--overlay "
+                                                        aria-label="Edit repository details" role="dialog"
+                                                        aria-modal="true">
+                                            <div class="Box-header">
+                                                <button class="Box-btn-octicon btn-octicon float-right" type="button"
+                                                        aria-label="Close dialog" data-close-dialog="">
+                                                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
+                                                         data-view-component="true" height="16" width="16"
+                                                         class="octicon octicon-x">
+                                                        <path fill-rule="evenodd"
+                                                              d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+                                                    </svg>
+                                                </button>
+                                                <h1 class="Box-title">Edit repository details</h1>
+                                            </div>
+                                            <div class="Box-body overflow-auto">
+                                                <div class="js-topic-form-area">
+                                                    <!-- '"` --><!-- </textarea></xmp> -->
+                                                    <form id="repo_metadata_form"
+                                                          action="/mlab817/pips/settings/update_meta"
+                                                          accept-charset="UTF-8" method="post"><input type="hidden"
+                                                                                                      name="_method"
+                                                                                                      value="put"><input
+                                                            type="hidden" name="authenticity_token"
+                                                            value="+oQLKPOp8nZnuvU6I9ZffVw6aj9WjROJyAH7sElQ1Dlp9PNnkrAugtGSSUQF7x+DQWMzG5Exy1HAj7F6zQ8zqw==">
+                                                        <div class="form-group mt-0 mb-3">
+                                                            <div class="mb-2">
+                                                                <label for="repo_description">Description</label>
+                                                            </div>
+                                                            <textarea type="text" id="repo_description"
+                                                                      style="min-height:4em;height:6em;"
+                                                                      class="form-control input-contrast width-full"
+                                                                      name="repo_description"
+                                                                      placeholder="Short description of this repository"
+                                                                      autofocus=""></textarea>
+                                                        </div>
+                                                        <div class="form-group my-3">
+                                                            <div class="mb-2">
+                                                                <label for="repo_homepage">Website</label>
+                                                            </div>
+                                                            <input type="url" id="repo_homepage"
+                                                                   class="form-control input-contrast width-full"
+                                                                   name="repo_homepage" value=""
+                                                                   placeholder="https://mlab817.github.io/pips/">
+                                                        </div>
+                                                        <div
+                                                            class="width-full tag-input-container topic-input-container d-inline-block js-tag-input-container">
+                                                            <div class="js-tag-input-wrapper">
+                                                                <div class="form-group my-0">
+                                                                    <div class="mb-2">
+                                                                        <label for="repo_topics" class="d-block">Topics
+                                                                            <span
+                                                                                class="text-normal color-text-tertiary">(separate with spaces)</span></label>
+                                                                    </div>
+                                                                    <div
+                                                                        class="tag-input form-control d-inline-block color-bg-primary py-0 position-relative">
+                                                                        <ul class="js-tag-input-selected-tags d-inline">
+                                                                            <li class="d-none topic-tag-action my-1 mr-1 f6 float-left js-tag-input-tag js-template">
+                                                                                <span
+                                                                                    class="js-placeholder-tag-name"></span>
+                                                                                <button type="button"
+                                                                                        class="delete-topic-button f5 no-underline ml-1 js-remove"
+                                                                                        tabindex="-1">
+                                                                                    <svg aria-label="Remove topic"
+                                                                                         role="img" viewBox="0 0 16 16"
+                                                                                         version="1.1"
+                                                                                         data-view-component="true"
+                                                                                         height="16" width="16"
+                                                                                         class="octicon octicon-x">
+                                                                                        <path fill-rule="evenodd"
+                                                                                              d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+                                                                                    </svg>
+                                                                                </button>
+                                                                                <input type="hidden"
+                                                                                       name="repo_topics[]"
+                                                                                       class="js-topic-input" value="">
+                                                                            </li>
+
+                                                                        </ul>
+
+                                                                        <auto-complete
+                                                                            src="/mlab817/pips/topic_autocomplete"
+                                                                            for="repo-topic-popup">
+                                                                            <input type="text" id="repo_topics"
+                                                                                   class="tag-input-inner form-control color-bg-primary shorter d-inline-block p-0 my-1 border-0"
+                                                                                   autocomplete="off" autofocus=""
+                                                                                   role="combobox"
+                                                                                   aria-controls="repo-topic-popup"
+                                                                                   aria-expanded="false"
+                                                                                   aria-autocomplete="list"
+                                                                                   aria-haspopup="listbox"
+                                                                                   spellcheck="false">
+                                                                            <ul class="suggester border width-full color-bg-primary left-0"
+                                                                                id="repo-topic-popup" style="top: 100%;"
+                                                                                hidden="" role="listbox"></ul>
+                                                                        </auto-complete>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="js-topic-suggestions-container"
+                                                             data-url="/mlab817/pips/topic_suggestions?async_topics=false">
+
+                                                        </div>
+
+                                                        <div class="form-group mt-3 mb-0" role="group"
+                                                             aria-labelledby="hidden_sidebar_options">
+                                                            <div class="text-bold mb-2" id="hidden_sidebar_options">
+                                                                Include in the home page
+                                                            </div>
+                                                            <label class="d-block mb-2 text-normal">
+                                                                <input name="repo_sections[releases]" type="hidden"
+                                                                       value="0"><input class="mr-1" type="checkbox"
+                                                                                        value="1" checked="checked"
+                                                                                        name="repo_sections[releases]"
+                                                                                        id="repo_sections_releases">
+                                                                Releases
+                                                            </label>
+                                                            <label class="d-block mb-2 text-normal">
+                                                                <input name="repo_sections[packages]" type="hidden"
+                                                                       value="0"><input class="mr-1" type="checkbox"
+                                                                                        value="1" checked="checked"
+                                                                                        name="repo_sections[packages]"
+                                                                                        id="repo_sections_packages">
+                                                                Packages
+                                                            </label>
+                                                            <label class="d-block text-normal">
+                                                                <input name="repo_sections[environments]" type="hidden"
+                                                                       value="0"><input class="mr-1" type="checkbox"
+                                                                                        value="1" checked="checked"
+                                                                                        name="repo_sections[environments]"
+                                                                                        id="repo_sections_environments">
+                                                                Environments
+                                                            </label>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                            <div class="Box-footer">
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn btn-primary"
+                                                            form="repo_metadata_form">Save changes
+                                                    </button>
+                                                    <button type="reset" class="btn" data-close-dialog=""
+                                                            form="repo_metadata_form">Cancel
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </details-dialog>
+                                    </details>
+                                    <h2 class="mb-3 h4">About</h2>
+
+                                    <div class="f4 mt-3 color-text-secondary text-italic">
+                                        No description, website, or topics provided.
+                                    </div>
+
+                                    <h3 class="sr-only">Topics</h3>
+                                    <div class="mt-3">
+
+                                    </div>
+
+                                    <h3 class="sr-only">Resources</h3>
+                                    <div class="mt-3">
+                                        <a class="Link--muted" href="#readme">
+                                            <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
+                                                 data-view-component="true" height="16" width="16"
+                                                 class="octicon octicon-book mr-2">
+                                                <path fill-rule="evenodd"
+                                                      d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"></path>
+                                            </svg>
+                                            Readme
+                                        </a></div>
+
+
+                                </div>
+                            </div>
+                            <div class="BorderGrid-row">
+                                <div class="BorderGrid-cell">
+                                    <h2 class="h4 mb-3">
+                                        <a href="/mlab817/pips/releases" data-view-component="true"
+                                           class="Link--primary no-underline">
+                                            Releases
+                                            <span title="1" data-view-component="true" class="Counter">1</span>
+                                        </a></h2>
+
+                                    <a class="Link--primary d-flex no-underline"
+                                       href="/mlab817/pips/releases/tag/1.0.0">
+                                        <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
+                                             data-view-component="true" height="16" width="16"
+                                             class="octicon octicon-tag flex-shrink-0 mt-1 color-text-success">
+                                            <path fill-rule="evenodd"
+                                                  d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path>
+                                        </svg>
+                                        <div class="ml-2 min-width-0">
+                                            <div class="d-flex">
+                                                <span class="css-truncate css-truncate-target text-bold mr-2"
+                                                      style="max-width: none;">1.0.0</span>
+                                                <span title="Label: Latest" data-view-component="true"
+                                                      class="Label Label--success flex-shrink-0">
+          Latest
+</span></div>
+                                            <div class="text-small color-text-secondary">
+                                                <relative-time datetime="2021-06-27T07:27:53Z" class="no-wrap"
+                                                               title="Jun 27, 2021, 3:27 PM GMT+8">21 seconds ago
+                                                </relative-time>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="BorderGrid-row">
+                                <div class="BorderGrid-cell">
+                                    <h2 class="h4 mb-3">
+                                        <a href="/users/mlab817/packages?repo_name=pips" data-view-component="true"
+                                           class="Link--primary no-underline">
+                                            Packages <span title="0" hidden="hidden" data-view-component="true"
+                                                           class="Counter">0</span>
+                                        </a></h2>
+
+
+                                    <div class="text-small color-text-secondary">
+                                        No packages published <br>
+                                        <a href="/mlab817/pips/packages">Publish your first package</a>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="BorderGrid-row">
+                                <div class="BorderGrid-cell">
+                                    <h2 class="h4 mb-3">Languages</h2>
+                                    <div class="mb-2">
+  <span data-view-component="true" class="Progress">
+    <span itemprop="keywords" aria-label="HTML 46.2" style="background-color: #e34c26;width: 46.2%;"
+          data-view-component="true" class="Progress-item"></span>
+    <span itemprop="keywords" aria-label="PHP 34.7" style="background-color: #4F5D95;width: 34.7%;"
+          data-view-component="true" class="Progress-item"></span>
+    <span itemprop="keywords" aria-label="Blade 19.1" style="background-color: #f7523f;width: 19.1%;"
+          data-view-component="true" class="Progress-item"></span>
+</span></div>
+                                    <ul class="list-style-none">
+                                        <li class="d-inline">
+                                            <a class="d-inline-flex flex-items-center flex-nowrap Link--secondary no-underline text-small mr-3"
+                                               href="/mlab817/pips/search?l=html"
+                                               data-ga-click="Repository, language stats search click, location:repo overview">
+                                                <svg class="octicon octicon-dot-fill mr-2" style="color:#e34c26;"
+                                                     viewBox="0 0 16 16" version="1.1" width="16" height="16"
+                                                     aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path>
+                                                </svg>
+                                                <span class="color-text-primary text-bold mr-1">HTML</span>
+                                                <span>46.2%</span>
+                                            </a>
+                                        </li>
+                                        <li class="d-inline">
+                                            <a class="d-inline-flex flex-items-center flex-nowrap Link--secondary no-underline text-small mr-3"
+                                               href="/mlab817/pips/search?l=php"
+                                               data-ga-click="Repository, language stats search click, location:repo overview">
+                                                <svg class="octicon octicon-dot-fill mr-2" style="color:#4F5D95;"
+                                                     viewBox="0 0 16 16" version="1.1" width="16" height="16"
+                                                     aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path>
+                                                </svg>
+                                                <span class="color-text-primary text-bold mr-1">PHP</span>
+                                                <span>34.7%</span>
+                                            </a>
+                                        </li>
+                                        <li class="d-inline">
+                                            <a class="d-inline-flex flex-items-center flex-nowrap Link--secondary no-underline text-small mr-3"
+                                               href="/mlab817/pips/search?l=blade"
+                                               data-ga-click="Repository, language stats search click, location:repo overview">
+                                                <svg class="octicon octicon-dot-fill mr-2" style="color:#f7523f;"
+                                                     viewBox="0 0 16 16" version="1.1" width="16" height="16"
+                                                     aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path>
+                                                </svg>
+                                                <span class="color-text-primary text-bold mr-1">Blade</span>
+                                                <span>19.1%</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- ./ Github -->
+
     <div class="d-flex mb-3 px-3 px-md-4 px-lg-5">
         <div data-view-component="true" class="flex-shrink-0 col-12 col-lg-9 mb-4 mb-md-0">
             <div id="options_bucket">

@@ -26,6 +26,8 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    public $request;
+
     /**
      * Where to redirect users after login.
      *
@@ -38,9 +40,10 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->middleware('guest')->except('logout');
+        $this->request = $request;
     }
 
     /**

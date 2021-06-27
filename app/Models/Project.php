@@ -334,6 +334,11 @@ class Project extends Model
         return $this->hasMany(FsInfrastructure::class);
     }
 
+    public function issues(): HasMany
+    {
+        return $this->hasMany(Issue::class);
+    }
+
     public function nep(): HasOne
     {
         return $this->hasOne(Nep::class)->withDefault();

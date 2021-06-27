@@ -524,8 +524,6 @@ class ProjectController extends Controller
 
         $project->markAsValidated();
 
-        Alert::success('Success','Successfully validated project');
-
         return back();
     }
 
@@ -536,11 +534,16 @@ class ProjectController extends Controller
 
     public function issues(Project $project)
     {
-        return $project;
+        return view('projects.issues', compact('project'));
     }
 
     public function settings(Project $project)
     {
         return view('projects.settings', compact('project'));
+    }
+
+    public function files(Project $project)
+    {
+        return view('projects.files', compact('project'));
     }
 }

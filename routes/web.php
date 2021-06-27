@@ -49,6 +49,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
         Route::get('/auth/check', \App\Http\Controllers\CheckUserLoginController::class)->name('auth.check');
 
+        Route::resource('projects.issues', \App\Http\Controllers\IssueController::class)->shallow();
+
         // other index routes
         Route::get('/projects/assigned', [\App\Http\Controllers\ProjectController::class,'assigned'])->name('projects.assigned');
         Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');
@@ -57,7 +59,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::put('/projects/{project}/drop', [\App\Http\Controllers\ProjectController::class,'drop'])->name('projects.drop');
         // TRIP
         Route::get('/projects/{project}/settings', [\App\Http\Controllers\ProjectController::class,'settings'])->name('projects.settings');
-        Route::get('/projects/{project}/issues', [\App\Http\Controllers\ProjectController::class,'issues'])->name('projects.issues');
+//        Route::get('/projects/{project}/issues', [\App\Http\Controllers\ProjectController::class,'issues'])->name('projects.issues');
+        Route::get('/projects/{project}/files', [\App\Http\Controllers\ProjectController::class,'files'])->name('projects.files');
         Route::get('/projects/{project}/history', [\App\Http\Controllers\ProjectController::class,'audit_logs'])->name('projects.audit_logs');
         Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
         Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');
@@ -175,6 +178,15 @@ Route::group(['middleware' => 'guest'], function() {
 
 Route::get('/downloadJson/{filename}', \App\Http\Controllers\DownloadJsonController::class)->name('projects.downloadJson');
 Route::get('/exportJson', \App\Http\Controllers\ExportProjectsAsJsonController::class)->name('projects.json');
+
+Route::get('/generate_username', function() {
+    $users = \App\Models\User::all();
+
+    foreach ($users as $user) {
+        $user->username = preg_replace( '/[\W]/', '', strtolower(str_replace('@gmail.com','', $user->email)));
+        $user->save();
+    }
+})->name('generate_username');
 
 Route::get('/test', function() {
     return view('test');
