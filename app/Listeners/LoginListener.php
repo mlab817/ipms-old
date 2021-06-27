@@ -31,7 +31,7 @@ class LoginListener
 
         $user->logins()->create([
             'ip'        => $event->ip,
-            'location'  => $event->location,
+            'location'  => json_encode($event->location),
         ]);
     }
 }
