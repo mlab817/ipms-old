@@ -176,4 +176,9 @@ class User extends Authenticatable
                         ->orWhere('email', 'LIKE', '%' . $query . '%');
                 });
     }
+
+    public static function findByUsername(string $username)
+    {
+        return static::where('username', $username)->firstOrFail();
+    }
 }

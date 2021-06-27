@@ -1,7 +1,9 @@
 <div class="position-relative">
     <header class="Header px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap">
         <div class="Header-item">
+            <a href="{{ route('dashboard') }}">
             PIPS
+            </a>
         </div>
 
         <div class="Header-item Header-item--full">

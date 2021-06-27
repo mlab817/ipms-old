@@ -19,8 +19,6 @@ class SwitchRoleController extends Controller
     {
         auth()->user()->switchRole($request->roleId);
 
-        Alert::success('Success','Successfully switched role');
-
         return redirect()->route('dashboard');
     }
 }

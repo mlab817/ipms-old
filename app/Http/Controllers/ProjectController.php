@@ -538,4 +538,9 @@ class ProjectController extends Controller
     {
         return $project;
     }
+
+    public function settings(Project $project)
+    {
+        return view('projects.settings', compact('project'));
+    }
 }

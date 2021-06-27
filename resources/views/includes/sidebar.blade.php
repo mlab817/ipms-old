@@ -8,7 +8,41 @@
                     <span class="css-truncate css-truncate-target ml-1">
                         {{ auth()->user()->username }}
                     </span>
+                    <span class="dropdown-caret"></span>
                 </summary>
+                <details-menu class="SelectMenu" role="menu" aria-label="Switch dashboard context">
+                    <div class="SelectMenu-modal">
+                        <header class="SelectMenu-header">
+                            <div class="SelectMenu-title">Switch role</div>
+                            <button class="SelectMenu-closeButton" type="button" aria-label="Close menu" data-toggle-for="details-91da43">
+                                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-x">
+                                    <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+                                </svg>
+                            </button>
+                        </header>
+                        <div id="filter-menu-91da43" class="d-flex flex-column flex-1 overflow-hidden">
+                            <div class="SelectMenu-list">
+                                <form action="{{ route('roles.switch') }}" method="POST">
+                                    @csrf
+                                    @foreach(auth()->user()->assigned_roles as $role)
+                                        <button type="submit" class="SelectMenu-item" role="menuitemradio" aria-checked="true" name="roleId" value="{{ $role->id }}" class="dropdown-item">
+                                            <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16" fill="currentColor"
+                                                 class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check @if($role->id == auth()->user()->currentRole->id ?? null) color-text-success @else color-text-white @endif">
+                                                <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
+                                            </svg>
+
+                                            <span data-view-component="true" class="css-truncate css-truncate-overflow flex-1">
+                                                {{ $role->name }}
+                                            </span>
+                                        </button>
+                                    @endforeach
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </details-menu>
             </details>
         </div>
 

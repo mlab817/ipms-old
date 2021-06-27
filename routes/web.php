@@ -56,6 +56,7 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
         Route::put('/projects/{project}/drop', [\App\Http\Controllers\ProjectController::class,'drop'])->name('projects.drop');
         // TRIP
+        Route::get('/projects/{project}/settings', [\App\Http\Controllers\ProjectController::class,'settings'])->name('projects.settings');
         Route::get('/projects/{project}/issues', [\App\Http\Controllers\ProjectController::class,'issues'])->name('projects.issues');
         Route::get('/projects/{project}/history', [\App\Http\Controllers\ProjectController::class,'audit_logs'])->name('projects.audit_logs');
         Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
@@ -116,6 +117,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::post('search', [\App\Http\Controllers\SearchController::class,'search'])->name('search');
         Route::resource('search', \App\Http\Controllers\SearchController::class)->only('index');
 
+        Route::get('/users/{username?}/projects', [\App\Http\Controllers\Admin\UserController::class,'projects'])->name('user.projects');
+
         // Admin routes
         Route::middleware(['admin'])->prefix('/admin')->name('admin.')->group(function () {
             Route::get('', \App\Http\Controllers\Admin\AdminController::class)->name('index');
@@ -172,6 +175,10 @@ Route::group(['middleware' => 'guest'], function() {
 
 Route::get('/downloadJson/{filename}', \App\Http\Controllers\DownloadJsonController::class)->name('projects.downloadJson');
 Route::get('/exportJson', \App\Http\Controllers\ExportProjectsAsJsonController::class)->name('projects.json');
+
+Route::get('/test', function() {
+    return view('test');
+})->name('test');
 
 Route::fallback(function () {
     return view('errors.404');
