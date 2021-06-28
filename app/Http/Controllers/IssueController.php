@@ -9,9 +9,24 @@ use Illuminate\Http\Request;
 
 class IssueController extends Controller
 {
-    public function index(Project $project)
+    public function index(Request $request, Project $project)
     {
-        return view('issues.index', compact('project'));
+        $project->load('creator','issues.issue_comments');
+
+        $status = $request->has('status')
+            ? $request->status
+            : 'open';
+
+        if ($request->q) {
+            $issues = $project->issues()->where('title','LIKE','%'.$request->q.'%')->get();
+        } else {
+            $issues = $project->issues->where('status',$status);
+        }
+
+        return view('issues.index', compact('project'))
+            ->with('issues', $issues)
+            ->with('openIssues', $project->issues->where('status','open')->count())
+            ->with('closedIssues', $project->issues->where('status','closed')->count());
     }
 
     public function create(Project $project)
@@ -23,7 +38,7 @@ class IssueController extends Controller
     {
         $project->issues()->create($request->only('title','description'));
 
-        return redirect()->route('projects.show', $project);
+        return redirect()->route('projects.issues.index', $project);
     }
 
     public function show(Issue $issue)

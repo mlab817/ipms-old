@@ -176,16 +176,32 @@
                                 @if($comment->action)
                                     <div class="TimelineItem">
                                         <div class="TimelineItem-avatar"></div>
-                                        <div class="TimelineItem-badge"></div>
+                                        @if($comment->action == 'reopen')
+                                        <div class="TimelineItem-badge color-text-white color-bg-success-inverse">
+                                            <svg class="octicon octicon-issue-opened" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path></svg>
+                                        </div>
+                                        @endif
+                                        @if($comment->action == 'close')
+                                        <div class="TimelineItem-badge color-text-white color-bg-danger-inverse">
+                                            <svg class="octicon octicon-issue-closed" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M11.28 6.78a.75.75 0 00-1.06-1.06L7.25 8.69 5.78 7.22a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l3.5-3.5z"></path><path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zm-1.5 0a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"></path></svg>
+                                        </div>
+                                        @endif
                                         <div class="TimelineItem-body">
-                                            {{ $comment->creator->username }} <strong>{{ ($comment->action == 'open' ? 'opened' : 'closed' ) }}</strong> this issue on {{ $comment->created_at->format('M d, Y') }}.
+                                            <span class="d-inline-block">
+
+                                            </span>
+                                            <span class="d-inline-block">
+                                                <img class="avatar avatar-user" height="20" width="20" alt="{{ '@' . $comment->creator->username }}" src="{{ $comment->creator->avatar }}">
+                                            </span>
+                                            {{ $comment->creator->username }} <strong>{{ ($comment->action == 'reopen' ? 'reopened' : 'closed' ) }}</strong> this on {{ $comment->created_at->format('M d, Y') }}.
                                         </div>
                                     </div>
+
+                                    <div class="TimelineItem-break"></div>
                                 @endif
                             @endforeach
 
-                            <div class="TimelineItem-break"></div>
-
+                            <!-- Add Comment -->
                             <div class="TimelineItem">
                                 <div class="TimelineItem-avatar">
                                     <img class="avatar" height="40" width="40" alt="{{ '@' . auth()->user()->username }}"
@@ -203,7 +219,7 @@
                                                 </button>
                                             </div>
                                             @endif
-                                            @if($issue->status == 'open')
+                                            @if(in_array($issue->status, ['','open']))
                                             <div class="color-bg-secondary">
                                                 <button type="submit" name="comment_and_close" value="1" class="btn js-comment-and-button js-quick-submit-alternative" data-comment-text="Close with comment" data-disable-with="" formnovalidate="">
                                                     <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-issue-closed color-text-danger">

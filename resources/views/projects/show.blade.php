@@ -15,13 +15,6 @@
 
                     <div data-view-component="true" class="flex-shrink-0 col-12 col-md-9 mb-4 mb-md-0">
 
-
-                        <div class="js-socket-channel js-updatable-content"
-                             data-channel="eyJjIjoicmVwbzozODAyNTYwNzk6cG9zdC1yZWNlaXZlOjI5NjI1ODQ0IiwidCI6MTYyNDc3ODg5NH0=--1f8157132303efe02fdaca8fee9dd123932ddc918d37125eb9790688794ae54f"
-                             data-url="/mlab817/pips/show_partial?partial=tree%2Frecently_touched_branches_list">
-                        </div>
-
-
                         <div class="file-navigation mb-3 d-flex flex-items-start">
 
                             <div class="position-relative">
@@ -587,7 +580,7 @@
                                         </details>
 
                                         <h2 class="Box-title">
-                                            <a href="#readme" class="Link--primary">README.md</a>
+                                            <a href="#readme" class="Link--primary">{{ $project->title }}</a>
                                         </h2>
                                     </div>
                                 </div>
@@ -595,7 +588,7 @@
                                 <div data-target="readme-toc.content" class="Box-body px-5 pb-5">
                                     <article class="markdown-body entry-content container-lg" itemprop="text">
                                         <!-- Description -->
-                                        <h2>
+                                        <h2 class="d-flex">
                                             <a id="description" class="anchor" aria-hidden="true"
                                                href="#description">
                                                 <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
@@ -604,11 +597,41 @@
                                                           d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
                                                 </svg>
                                             </a> Description
+                                            <span class="flex-auto"></span>
+                                            <button class="btn btn-sm" onclick="editDescription()">Edit</button>
                                         </h2>
                                         <div>
-                                            {!! $project->description->description ?? '' !!}
+                                            <span id="span-description">
+                                                @markdown($project->description->description ?? '')
+                                            </span>
+                                            <form class="{{ route('projects.update', $project) }}" method="POST" id="edit-description" style="display: none;">
+                                                @csrf
+                                                @method('PUT')
+                                                <textarea id="textarea-description" name="description" class="form-control input-block"></textarea>
+                                                <div class="d-flex">
+                                                    <span class="flex-auto"></span>
+                                                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!--./ Description -->
+                                        <div class="my-2"></div>
+
+                                        <h2 class="d-flex">
+                                            <a id="description" class="anchor" aria-hidden="true"
+                                               href="#description">
+                                                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+                                                     width="16" height="16" aria-hidden="true">
+                                                    <path fill-rule="evenodd"
+                                                          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
+                                                </svg>
+                                            </a> Expected Outputs
+                                            <span class="flex-auto"></span>
+                                            <button class="btn btn-sm">Edit</button>
+                                        </h2>
+                                        <div>
+                                            @markdown($project->expected_output->expected_outputs ?? '')
+                                        </div>
 
                                         <h2>
                                             <a id="user-content-deployment" class="anchor" aria-hidden="true"
@@ -1715,41 +1738,6 @@
                             </li>
                         </ul>
                     </div>
-
-                    <p class="mt-3">
-                        After pull requests are merged, you can have head branches deleted automatically.
-                    </p>
-                    <div class="Box">
-                        <ul>
-                            <li class="Box-row py-0">
-                                <div class="form-group js-repo-option">
-                                    <div class="form-checkbox">
-                                        <label for="merge_types_delete_branch">Automatically delete head
-                                            branches</label>
-                                        <span class="status-indicator js-status-indicator">
-                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
-                         width="16" class="octicon octicon-check">
-        <path fill-rule="evenodd"
-              d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
-    </svg>
-                  </span>
-                                        <input type="checkbox" name="merge_types[]" value="delete_branch"
-                                               id="merge_types_delete_branch">
-                                        <p class="note">Deleted branches will still be able to be restored.</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <noscript>
-                        <button type="submit" data-view-component="true" class="btn-primary btn">
-
-                            Save changes
-
-
-                        </button>
-                    </noscript>
                 </form>
 
                 <div data-view-component="true" class="Subhead hx_Subhead--responsive Subhead--spacious">
@@ -1851,7 +1839,7 @@
         </div>
 
         <!-- Include review result if it exists -->
-        @includeWhen($project->review()->exists(), 'reviews.result', ['review' => $project->review])
+{{--        @includeWhen($project->review()->exists(), 'reviews.result', ['review' => $project->review])--}}
 
         <a id="back-to-top" href="#" class="btn btn-info back-to-top" role="button" aria-label="Scroll to top">
             <svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 20 20" fill="currentColor">
@@ -1863,3 +1851,19 @@
 
     </section>
 @endsection
+
+@push('scripts')
+    @include('scripts.easymde')
+
+    <script type="text/javascript">
+        const description = new EasyMDE({ element: document.getElementById('textarea-description'), maxHeight: '120px' })
+
+        function editDescription() {
+            const span = document.getElementById('span-description').style.display = 'none';
+            console.log(span)
+            const tarea = document.getElementById('edit-description').style.display = 'block';
+            description.value('{{ old('description', $project->description->description ?? '') }}')
+            console.log(tarea)
+        }
+    </script>
+@endpush

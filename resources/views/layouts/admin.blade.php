@@ -13,7 +13,9 @@
 
     <!-- Livewire -->
     @livewireScripts
+
     @include('scripts.easymde')
+
     @stack('scripts')
 </body>
 </html>
