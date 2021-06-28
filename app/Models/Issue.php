@@ -23,13 +23,14 @@ class Issue extends Model
         'title',
         'description',
         'created_by',
-        'status'
+        'status',
     ];
 
     public static function booted()
     {
         static::creating(function ($model) {
-            $model->created_by = auth()->id() ?? 1;
+            $model->created_by  = auth()->id() ?? 1;
+            $model->status      = 'open';
         });
     }
 
@@ -46,6 +47,18 @@ class Issue extends Model
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class,'created_by');
+    }
+
+    public function close()
+    {
+        $this->status = 'closed';
+        $this->save();
+    }
+
+    public function reopen()
+    {
+        $this->status = 'open';
+        $this->save();
     }
 
     public function scopeOpen($query)

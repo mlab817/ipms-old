@@ -36,7 +36,7 @@ class AdminTable extends Component
 
     public $labelType;
 
-    public $label = CipType::class;
+    public $label = 'approval_levels';
 
     public $q;
 

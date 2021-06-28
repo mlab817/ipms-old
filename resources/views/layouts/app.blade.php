@@ -27,5 +27,6 @@
     @include('includes.sidebar')
 </div>
 
+@stack('scripts')
 </body>
 </html>

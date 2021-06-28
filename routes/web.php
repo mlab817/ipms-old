@@ -49,6 +49,7 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
         Route::get('/auth/check', \App\Http\Controllers\CheckUserLoginController::class)->name('auth.check');
 
+        Route::resource('issues.issue_comments', \App\Http\Controllers\IssueCommentController::class)->shallow();
         Route::resource('projects.issues', \App\Http\Controllers\IssueController::class)->shallow();
 
         // other index routes

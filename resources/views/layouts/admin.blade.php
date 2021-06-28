@@ -4,13 +4,17 @@
     <title></title>
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
     @livewireStyles
 </head>
 <body>
 
     @yield('content')
 
+    <!-- Livewire -->
     @livewireScripts
+    @include('scripts.easymde')
+    @stack('scripts')
 </body>
 </html>
 

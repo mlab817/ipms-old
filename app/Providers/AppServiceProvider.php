@@ -50,5 +50,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('admin', function () {
             return auth()->check() && auth()->user()->isAdmin();
         });
+
+        Blade::directive('markdown', function ($expression) {
+            return "<?php echo \Illuminate\Mail\Markdown::parse($expression); ?>";
+        });
     }
 }

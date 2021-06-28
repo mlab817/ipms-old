@@ -1,8 +1,7 @@
 @php
     $route = Route::currentRouteName()
 @endphp
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -13,6 +12,8 @@
 
     <!-- CSS -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
 
     @yield('styles')
 </head>
@@ -164,6 +165,8 @@
 
     @yield('content')
 </main>
+
+@stack('scripts')
 
 </body>
 </html>

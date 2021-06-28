@@ -28,6 +28,8 @@ class IssueController extends Controller
 
     public function show(Issue $issue)
     {
+        $issue->load('issue_comments','creator');
+
         return view('issues.show', compact('issue'))
             ->with('project', $issue->project);
     }

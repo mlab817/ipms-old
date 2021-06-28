@@ -80,9 +80,14 @@ class ProjectController extends Controller
     {
         $projectQuery = Project::query()->with(['office','creator.office','project_status','pipol']);
 
+        if ($request->status) {
+            $projectQuery->where('submission_status_id', SubmissionStatus::findByName($request->status)->id );
+        }
+
         $projects = $this->filter($projectQuery, $request);
 
-        return view('projects.index2', compact('projects'));
+        return view('projects.index2', compact('projects'))
+            ->with('submission_statuses', SubmissionStatus::withCount('projects')->get());
     }
 
     /**
