@@ -85,6 +85,7 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
         Route::get('/projects/{project}/generatePdf', [\App\Http\Controllers\ProjectController::class,'generatePdf'])->name('projects.generatePdf');
         Route::get('/projects/{project}/exportJson', [\App\Http\Controllers\ProjectController::class,'exportJson'])->name('projects.exportJson');
+        Route::post('projects/checkAvailability', [\App\Http\Controllers\ProjectController::class,'checkAvailability'])->name('projects.checkAvailability');
         Route::resource('projects', \App\Http\Controllers\ProjectController::class);
         Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
         Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);

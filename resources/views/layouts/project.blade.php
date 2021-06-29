@@ -15,6 +15,8 @@
 
     <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
 
+    @livewireStyles
+
     @yield('styles')
 </head>
 <body>
@@ -166,6 +168,9 @@
     @yield('content')
 </main>
 
+<script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
+@include('scripts.easymde')
+@livewireScripts
 @stack('scripts')
 
 </body>

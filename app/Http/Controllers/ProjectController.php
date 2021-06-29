@@ -99,7 +99,7 @@ class ProjectController extends Controller
     {
         $project = new Project;
 
-        return view('projects.create', compact('project'))
+        return view('projects.create2', compact('project'))
             ->with('pageTitle', 'Add New Project')
             ->with([
                 'offices'                   => Office::all(),
@@ -139,41 +139,39 @@ class ProjectController extends Controller
     {
         $project = Project::create($request->validated());
 
-        $project->bases()->sync($request->bases);
-        $project->regions()->sync($request->regions);
-        $project->funding_sources()->sync($request->funding_sources);
-        $project->sdgs()->sync($request->sdgs);
-        $project->pdp_chapters()->sync($request->pdp_chapters);
-        $project->pdp_indicators()->sync($request->pdp_indicators);
-        $project->ten_point_agendas()->sync($request->ten_point_agendas);
-        $project->operating_units()->sync($request->operating_units);
-        $project->covid_interventions()->sync($request->covid_interventions);
-
-        $project->fs_investments()->createMany($request->fs_investments);
-        $project->region_investments()->createMany($request->region_investments);
-
-        $project->project_update()->create([
-            'updates'   => $request->updates,
-            'updates_date' => $request->updates_date,
-        ]);
-        $project->expected_output()->create([
-            'expected_outputs' => $request->expected_outputs
-        ]);
-        $project->description()->create([
-            'description' => $request->description,
-        ]);
-
-        $project->feasibility_study()->create($request->feasibility_study);
-        $project->nep()->create($request->nep);
-        $project->allocation()->create($request->allocation);
-        $project->disbursement()->create($request->disbursement);
-
-        $project->created_by = Auth::id();
+//        $project->bases()->sync($request->bases);
+//        $project->regions()->sync($request->regions);
+//        $project->funding_sources()->sync($request->funding_sources);
+//        $project->sdgs()->sync($request->sdgs);
+//        $project->pdp_chapters()->sync($request->pdp_chapters);
+//        $project->pdp_indicators()->sync($request->pdp_indicators);
+//        $project->ten_point_agendas()->sync($request->ten_point_agendas);
+//        $project->operating_units()->sync($request->operating_units);
+//        $project->covid_interventions()->sync($request->covid_interventions);
+//
+//        $project->fs_investments()->createMany($request->fs_investments);
+//        $project->region_investments()->createMany($request->region_investments);
+//
+//        $project->project_update()->create([
+//            'updates'   => $request->updates,
+//            'updates_date' => $request->updates_date,
+//        ]);
+//        $project->expected_output()->create([
+//            'expected_outputs' => $request->expected_outputs
+//        ]);
+//        $project->description()->create([
+//            'description' => $request->description,
+//        ]);
+//
+//        $project->feasibility_study()->create($request->feasibility_study);
+//        $project->nep()->create($request->nep);
+//        $project->allocation()->create($request->allocation);
+//        $project->disbursement()->create($request->disbursement);
+        $project->office_id = auth()->user()->office_id;
+        $project->created_by = auth()->id();
         $project->save();
 
         event(new ProjectCreatedEvent($project));
-
-        Alert::success('Success','Successfully saved project');
 
         return redirect()->route('projects.show', $project);
     }
@@ -219,7 +217,6 @@ class ProjectController extends Controller
         $project->load('bases','regions','pdp_chapters','pdp_indicators','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep','feasibility_study');
 
         return view('projects.edit', compact('project'))
-            ->with('pageTitle', 'Edit Project')
             ->with([
                 'offices'                   => Office::all(),
                 'pap_types'                 => PapType::all(),
@@ -261,56 +258,92 @@ class ProjectController extends Controller
     {
         $project->update($request->validated());
 
-        $project->bases()->sync($request->bases);
-        $project->regions()->sync($request->regions);
-        $project->funding_sources()->sync($request->funding_sources);
-        $project->sdgs()->sync($request->sdgs);
-        $project->pdp_chapters()->sync($request->pdp_chapters);
-        $project->pdp_indicators()->sync($request->pdp_indicators);
-        $project->ten_point_agendas()->sync($request->ten_point_agendas);
-        $project->operating_units()->sync($request->operating_units);
-        $project->covid_interventions()->sync($request->covid_interventions);
-
-        foreach ($request->fs_investments as $fs_investment) {
-            $fsToEdit = FsInvestment::where('project_id', $project->id)->where('fs_id', $fs_investment['fs_id'])->first();
-            $fsToEdit->update($fs_investment);
-//            update(['id' => $fs_investment['id']], $fs_investment);
+        if ($request->has('bases')) {
+            $project->bases()->sync($request->bases);
         }
-//
-        foreach ($request->region_investments as $region_investment) {
-            $itemToEdit = RegionInvestment::where('project_id', $project->id)->where('region_id', $region_investment['region_id'])->first();
-            $itemToEdit->update($region_investment);
+        if ($request->has('regions')) {
+            $project->regions()->sync($request->regions);
         }
-
-        $project->project_update()->update([
-            'updates'   => $request->updates,
-            'updates_date' => $request->updates_date,
-        ]);
-        $project->expected_output()->update([
-            'expected_outputs' => $request->expected_outputs
-        ]);
-        $project->description()->update([
-            'description' => $request->description,
-        ]);
-        $project->feasibility_study()->update($request->feasibility_study);
-        $project->nep()->update($request->nep);
-        $project->allocation()->update($request->allocation);
-        $project->disbursement()->update($request->disbursement);
+        if ($request->has('funding_sources')) {
+            $project->regions()->sync($request->funding_sources);
+        }
+        if ($request->has('sdgs')) {
+            $project->regions()->sync($request->sdgs);
+        }
+        if ($request->has('pdp_chapters')) {
+            $project->regions()->sync($request->pdp_chapters);
+        }
+        if ($request->has('pdp_indicators')) {
+            $project->regions()->sync($request->pdp_indicators);
+        }
+        if ($request->has('ten_point_agendas')) {
+            $project->regions()->sync($request->ten_point_agendas);
+        }
+        if ($request->has('operating_units')) {
+            $project->regions()->sync($request->operating_units);
+        }
+        if ($request->has('covid_interventions')) {
+            $project->regions()->sync($request->covid_interventions);
+        }
+        if ($request->has('fs_investments')) {
+            foreach ($request->fs_investments as $fs_investment) {
+                $fsToEdit = FsInvestment::where('project_id', $project->id)->where('fs_id', $fs_investment['fs_id'])->first();
+                $fsToEdit->update($fs_investment);
+            }
+        }
+        if ($request->has('region_investments')) {
+            foreach ($request->fs_investments as $fs_investment) {
+                $fsToEdit = FsInvestment::where('project_id', $project->id)->where('fs_id', $fs_investment['fs_id'])->first();
+                $fsToEdit->update($fs_investment);
+            }
+        }
+        if ($request->has('updates') || $request->has('updates_date')) {
+            $project->project_update()->update([
+                'updates' => $request->updates,
+                'updates_date' => $request->updates_date,
+            ]);
+        }
+        if ($request->has('expected_outputs')) {
+            $project->expected_output()->update([
+                'expected_outputs' => $request->expected_outputs
+            ]);
+        }
+        if ($request->has('description')) {
+            $project->description()->updateOrCreate(
+                [
+                    'project_id' => $project->id,
+                ],
+                [
+                    'description' => $request->description
+                ]
+            );
+        }
+        if ($request->has('feasibility_study')) {
+            $project->feasibility_study()->update($request->feasibility_study);
+        }
+        if ($request->has('nep')) {
+            $project->nep()->update($request->nep);
+        }
+        if ($request->has('allocation')) {
+            $project->allocation()->update($request->allocation);
+        }
+        if ($request->has('disbursement')) {
+            $project->disbursement()->update($request->disbursement);
+        }
 
         if ($request->has('draft')) {
             $project->submission_status_id = SubmissionStatus::findByName('Draft')->id;
             $project->save();
-            Alert::success('Success', 'Successfully saved as draft');
         }
 
         if ($request->has('endorse')) {
             $this->authorize('endorse', $project);
             $project->submission_status_id = SubmissionStatus::findByName('Endorsed')->id;
             $project->save();
-            Alert::success('Success', 'Successfully saved as endorsed');
         }
 
-        return back();
+        return back()
+            ->with('message','Successfully updated project.');
     }
 
     /**
@@ -550,5 +583,30 @@ class ProjectController extends Controller
     public function files(Project $project)
     {
         return view('projects.files', compact('project'));
+    }
+
+    public function checkAvailability(Request $request)
+    {
+        $title = $request->title;
+
+        if ($title) {
+            // check availability
+            $existing = Project::where('title', strtolower($title))
+                ->where('created_by', auth()->id())
+                ->first();
+
+            // if it is not existing, it is available
+            if (! $existing) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Program/project title is available'
+                ], 200);
+            }
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Program/project title is already taken'
+            ], 200);
+        }
     }
 }

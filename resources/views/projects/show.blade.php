@@ -2,14 +2,36 @@
 
 @section('content')
     <div class="container-xl clearfix new-discussion-timeline px-3 px-md-4 px-lg-5">
-        <div id="repo-content-pjax-container" class="repository-content ">
+        @if(session()->has('errors'))
+            <div class="flash flash-error mb-3" id="flash">
+                {{ $errors->first() }}
+                <button class="flash-close js-flash-close" type="button" aria-label="Close" onclick="dismiss()">
+                    <!-- <%= octicon "x" %> -->
+                    <svg class="octicon octicon-x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.72 3.72C3.86062 3.57955 4.05125 3.50066 4.25 3.50066C4.44875 3.50066 4.63937 3.57955 4.78 3.72L8 6.94L11.22 3.72C11.2887 3.64631 11.3715 3.58721 11.4635 3.54622C11.5555 3.50523 11.6548 3.48319 11.7555 3.48141C11.8562 3.47963 11.9562 3.49816 12.0496 3.53588C12.143 3.5736 12.2278 3.62974 12.299 3.70096C12.3703 3.77218 12.4264 3.85702 12.4641 3.9504C12.5018 4.04379 12.5204 4.14382 12.5186 4.24452C12.5168 4.34523 12.4948 4.44454 12.4538 4.53654C12.4128 4.62854 12.3537 4.71134 12.28 4.78L9.06 8L12.28 11.22C12.3537 11.2887 12.4128 11.3715 12.4538 11.4635C12.4948 11.5555 12.5168 11.6548 12.5186 11.7555C12.5204 11.8562 12.5018 11.9562 12.4641 12.0496C12.4264 12.143 12.3703 12.2278 12.299 12.299C12.2278 12.3703 12.143 12.4264 12.0496 12.4641C11.9562 12.5018 11.8562 12.5204 11.7555 12.5186C11.6548 12.5168 11.5555 12.4948 11.4635 12.4538C11.3715 12.4128 11.2887 12.3537 11.22 12.28L8 9.06L4.78 12.28C4.63782 12.4125 4.44977 12.4846 4.25547 12.4812C4.06117 12.4777 3.87579 12.399 3.73837 12.2616C3.60096 12.1242 3.52225 11.9388 3.51882 11.7445C3.51539 11.5502 3.58752 11.3622 3.72 11.22L6.94 8L3.72 4.78C3.57955 4.63938 3.50066 4.44875 3.50066 4.25C3.50066 4.05125 3.57955 3.86063 3.72 3.72Z"></path>
+                    </svg>
+                </button>
+            </div>
+        @endif
 
+        @if(session()->has('message'))
+            <div class="flash flash-success mb-3" id="flash">
+                {{ session('message') }}
+                <button class="flash-close js-flash-close" type="button" aria-label="Close" onclick="dismiss()">
+                    <!-- <%= octicon "x" %> -->
+                    <svg class="octicon octicon-x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.72 3.72C3.86062 3.57955 4.05125 3.50066 4.25 3.50066C4.44875 3.50066 4.63937 3.57955 4.78 3.72L8 6.94L11.22 3.72C11.2887 3.64631 11.3715 3.58721 11.4635 3.54622C11.5555 3.50523 11.6548 3.48319 11.7555 3.48141C11.8562 3.47963 11.9562 3.49816 12.0496 3.53588C12.143 3.5736 12.2278 3.62974 12.299 3.70096C12.3703 3.77218 12.4264 3.85702 12.4641 3.9504C12.5018 4.04379 12.5204 4.14382 12.5186 4.24452C12.5168 4.34523 12.4948 4.44454 12.4538 4.53654C12.4128 4.62854 12.3537 4.71134 12.28 4.78L9.06 8L12.28 11.22C12.3537 11.2887 12.4128 11.3715 12.4538 11.4635C12.4948 11.5555 12.5168 11.6548 12.5186 11.7555C12.5204 11.8562 12.5018 11.9562 12.4641 12.0496C12.4264 12.143 12.3703 12.2278 12.299 12.299C12.2278 12.3703 12.143 12.4264 12.0496 12.4641C11.9562 12.5018 11.8562 12.5204 11.7555 12.5186C11.6548 12.5168 11.5555 12.4948 11.4635 12.4538C11.3715 12.4128 11.2887 12.3537 11.22 12.28L8 9.06L4.78 12.28C4.63782 12.4125 4.44977 12.4846 4.25547 12.4812C4.06117 12.4777 3.87579 12.399 3.73837 12.2616C3.60096 12.1242 3.52225 11.9388 3.51882 11.7445C3.51539 11.5502 3.58752 11.3622 3.72 11.22L6.94 8L3.72 4.78C3.57955 4.63938 3.50066 4.44875 3.50066 4.25C3.50066 4.05125 3.57955 3.86063 3.72 3.72Z"></path>
+                    </svg>
+                </button>
+            </div>
+        @endif
+
+        <div id="repo-content-pjax-container" class="repository-content ">
 
             <div>
                 <div class="d-none d-lg-block mt-6 mr-3 Popover top-0 right-0 color-shadow-medium col-3">
 
                 </div>
-
 
                 <div data-view-component="true" class="gutter-condensed gutter-lg flex-column flex-md-row d-flex">
 
@@ -514,364 +536,7 @@
 
                         <div data-catalyst="">
 
-                            <div id="readme" class="Box md js-code-block-container Box--responsive">
-
-                                <div
-                                    class="d-flex js-sticky js-position-sticky top-0 border-top-0 border-bottom p-2 flex-items-center flex-justify-between color-bg-primary rounded-top-2"
-                                    style="position: sticky; z-index: 90; top: 0px !important;" data-original-top="0px">
-                                    <div class="d-flex flex-items-center">
-                                        <details data-target="readme-toc.trigger"
-                                                 data-menu-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;trigger&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
-                                                 data-menu-hydro-click-hmac="8ea3d3daea28fbd6c194c4953452a0683540e7fa62f72387a1fd4f7ff9f91137"
-                                                 class="dropdown details-reset details-overlay">
-                                            <summary class="btn btn-octicon m-0 mr-2 p-2" aria-haspopup="menu"
-                                                     aria-label="Table of Contents" role="button">
-                                                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                     data-view-component="true" height="16" width="16"
-                                                     class="octicon octicon-list-unordered">
-                                                    <path fill-rule="evenodd"
-                                                          d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
-                                                </svg>
-                                            </summary>
-
-                                            <details-menu class="SelectMenu" role="menu">
-                                                <div class="SelectMenu-modal rounded-3 mt-1" style="max-height:340px;">
-                                                    <div class="SelectMenu-list SelectMenu-list--borderless p-2"
-                                                         style="overscroll-behavior: contain;">
-
-                                                        <a role="menuitem" class="filter-item py-1 "
-                                                           style="padding-left: 24px;"
-                                                           data-action="click:readme-toc#blur"
-                                                           data-targets="readme-toc.entries"
-                                                           data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
-                                                           data-hydro-click-hmac="869eb8836e23d86cfcc1531f6ea9448554483383bff29ee2223e659ac715d4c8"
-                                                           href="#description" aria-current="page">Description</a>
-                                                        <a role="menuitem" class="filter-item py-1 "
-                                                           style="padding-left: 24px;"
-                                                           data-action="click:readme-toc#blur"
-                                                           data-targets="readme-toc.entries"
-                                                           data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
-                                                           data-hydro-click-hmac="869eb8836e23d86cfcc1531f6ea9448554483383bff29ee2223e659ac715d4c8"
-                                                           href="#deployment">Deployment</a>
-                                                        <a role="menuitem" class="filter-item py-1 "
-                                                           style="padding-left: 24px;"
-                                                           data-action="click:readme-toc#blur"
-                                                           data-targets="readme-toc.entries"
-                                                           data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
-                                                           data-hydro-click-hmac="869eb8836e23d86cfcc1531f6ea9448554483383bff29ee2223e659ac715d4c8"
-                                                           href="#bug-report">Bug Report</a>
-                                                        <a role="menuitem" class="filter-item py-1 "
-                                                           style="padding-left: 24px;"
-                                                           data-action="click:readme-toc#blur"
-                                                           data-targets="readme-toc.entries"
-                                                           data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
-                                                           data-hydro-click-hmac="869eb8836e23d86cfcc1531f6ea9448554483383bff29ee2223e659ac715d4c8"
-                                                           href="#security-vulnerabilities">Security Vulnerabilities</a>
-                                                        <a role="menuitem" class="filter-item py-1 "
-                                                           style="padding-left: 24px;"
-                                                           data-action="click:readme-toc#blur"
-                                                           data-targets="readme-toc.entries"
-                                                           data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
-                                                           data-hydro-click-hmac="869eb8836e23d86cfcc1531f6ea9448554483383bff29ee2223e659ac715d4c8"
-                                                           href="#license">License</a>
-                                                    </div>
-                                                </div>
-                                            </details-menu>
-                                        </details>
-
-                                        <h2 class="Box-title">
-                                            <a href="#readme" class="Link--primary">{{ $project->title }}</a>
-                                        </h2>
-                                    </div>
-                                </div>
-
-                                <div data-target="readme-toc.content" class="Box-body px-5 pb-5">
-                                    <article class="markdown-body entry-content container-lg" itemprop="text">
-                                        <!-- Description -->
-                                        <h2 class="d-flex">
-                                            <a id="description" class="anchor" aria-hidden="true"
-                                               href="#description">
-                                                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
-                                                     width="16" height="16" aria-hidden="true">
-                                                    <path fill-rule="evenodd"
-                                                          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                                                </svg>
-                                            </a> Description
-                                            <span class="flex-auto"></span>
-                                            <button class="btn btn-sm" onclick="editDescription()">Edit</button>
-                                        </h2>
-                                        <div>
-                                            <span id="span-description">
-                                                @markdown($project->description->description ?? '')
-                                            </span>
-                                            <form class="{{ route('projects.update', $project) }}" method="POST" id="edit-description" style="display: none;">
-                                                @csrf
-                                                @method('PUT')
-                                                <textarea id="textarea-description" name="description" class="form-control input-block"></textarea>
-                                                <div class="d-flex">
-                                                    <span class="flex-auto"></span>
-                                                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!--./ Description -->
-                                        <div class="my-2"></div>
-
-                                        <h2 class="d-flex">
-                                            <a id="description" class="anchor" aria-hidden="true"
-                                               href="#description">
-                                                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
-                                                     width="16" height="16" aria-hidden="true">
-                                                    <path fill-rule="evenodd"
-                                                          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                                                </svg>
-                                            </a> Expected Outputs
-                                            <span class="flex-auto"></span>
-                                            <button class="btn btn-sm">Edit</button>
-                                        </h2>
-                                        <div>
-                                            @markdown($project->expected_output->expected_outputs ?? '')
-                                        </div>
-
-                                        <h2>
-                                            <a id="user-content-deployment" class="anchor" aria-hidden="true"
-                                               href="#deployment">
-                                                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
-                                                     width="16" height="16" aria-hidden="true">
-                                                    <path fill-rule="evenodd"
-                                                          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                                                </svg>
-                                            </a>Deployment
-                                        </h2>
-                                        <ul>
-                                            <li>The preferred approach for deployment is by linking the hosting to the
-                                                Github repository which can be found at <a
-                                                    href="https://github.com/mlab817/ipms-v2">https://github.com/mlab817/ipms-v2</a>.
-                                            </li>
-                                            <li>Once linked and the repo and hosting has synced, in the console, run
-                                                <code>composer install</code> to install all dependencies.
-                                            </li>
-                                            <li>Once composer completes, run <code>cp .env.example .env</code>. This
-                                                will create a copy of the <code>.env</code> example file. The
-                                                <code>.env</code> file is where you can modify the app configuration.
-                                            </li>
-                                            <li>Run <code>php artisan key:generate</code> to generate the unique app
-                                                key. The application will fail to run if this is not done.
-                                            </li>
-                                            <li>Update the relevant settings:</li>
-                                        </ul>
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <th>Variable *</th>
-                                                <th>Description</th>
-                                                <th>Default</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>APP_NAME</td>
-                                                <td>The name of the app</td>
-                                                <td>IPMSv2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>APP_ENV</td>
-                                                <td>The environment of the app. Change to production on deployment to
-                                                    disable debug mode
-                                                </td>
-                                                <td>local</td>
-                                            </tr>
-                                            <tr>
-                                                <td>APP_KEY</td>
-                                                <td>The app key - run <code>php artisan key:generate</code> to create
-                                                    one
-                                                </td>
-                                                <td>null</td>
-                                            </tr>
-                                            <tr>
-                                                <td>APP_DEBUG</td>
-                                                <td>Determines if debug messages are shown. Set to false to disable</td>
-                                                <td>true</td>
-                                            </tr>
-                                            <tr>
-                                                <td>APP_URL</td>
-                                                <td>Set to the actual URL of the app as this will be appended to emails,
-                                                    etc.
-                                                </td>
-                                                <td><a href="http://localhost" rel="nofollow">http://localhost</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>LOG_CHANNEL</td>
-                                                <td>Determines how the app logs events, errors, etc</td>
-                                                <td>stack</td>
-                                            </tr>
-                                            <tr>
-                                                <td>LOG_LEVEL</td>
-                                                <td>Determines lowest level of log is logged</td>
-                                                <td>debug</td>
-                                            </tr>
-                                            <tr>
-                                                <td>DB_CONNECTION</td>
-                                                <td>What database driver to use</td>
-                                                <td>mysql</td>
-                                            </tr>
-                                            <tr>
-                                                <td>DB_HOST</td>
-                                                <td>What host the database is found</td>
-                                                <td>127.0.0.1</td>
-                                            </tr>
-                                            <tr>
-                                                <td>DB_PORT</td>
-                                                <td>What host the database is found</td>
-                                                <td>3306</td>
-                                            </tr>
-                                            <tr>
-                                                <td>DB_DATABASE</td>
-                                                <td>Name of the database</td>
-                                                <td>${APP_NAME}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>DB_USERNAME</td>
-                                                <td>Username used to access the database</td>
-                                                <td>null</td>
-                                            </tr>
-                                            <tr>
-                                                <td>DB_PASSWORD</td>
-                                                <td>Password to use</td>
-                                                <td>null</td>
-                                            </tr>
-                                            <tr>
-                                                <td>BROADCAST_DRIVER</td>
-                                                <td>Determine how events are broadcasted</td>
-                                                <td>pusher</td>
-                                            </tr>
-                                            <tr>
-                                                <td>QUEUE_CONNECTION</td>
-                                                <td>Determines how queues are run. Change to database on deployment</td>
-                                                <td>sync</td>
-                                            </tr>
-                                            <tr>
-                                                <td>MAIL_*</td>
-                                                <td>This group of config determines how emails from the system are
-                                                    sent
-                                                </td>
-                                                <td>(multiple)</td>
-                                            </tr>
-                                            <tr>
-                                                <td>WKHTML_PDF_BINARY</td>
-                                                <td>Location of the executable to generate pdf. Used by datatables</td>
-                                                <td>null</td>
-                                            </tr>
-                                            <tr>
-                                                <td>WKHTML_IMG_BINARY</td>
-                                                <td>Location of the executable to generate image. Used by datatables
-                                                </td>
-                                                <td>null</td>
-                                            </tr>
-                                            <tr>
-                                                <td>GOOGLE_*</td>
-                                                <td>These settings are used by the Google Login. Please visit google
-                                                    developer console to get the keys
-                                                </td>
-                                                <td>(multiple)</td>
-                                            </tr>
-                                            <tr>
-                                                <td>IPMS_EMAIL</td>
-                                                <td>Email of the IPD. This will be displayed in contact email</td>
-                                                <td>null</td>
-                                            </tr>
-                                            <tr>
-                                                <td>IPMS_CONTACT_INFO</td>
-                                                <td>Contact number/s of the IPD. This will be displayed in contact
-                                                    number/s
-                                                </td>
-                                                <td>null</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ALLOW_GOOGLE_LOGIN</td>
-                                                <td>Determine if the system allow google login</td>
-                                                <td>false</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <div class="snippet-clipboard-content position-relative"><pre><code>* These are the settings used by the app.
-</code></pre>
-                                            <div class="zeroclipboard-container position-absolute right-0 top-0">
-                                                <clipboard-copy aria-label="Copy"
-                                                                class="ClipboardButton btn js-clipboard-copy m-2 p-0 tooltipped-no-delay"
-                                                                data-copy-feedback="Copied!" data-tooltip-direction="w"
-                                                                value="* These are the settings used by the app.
-" tabindex="0" role="button">
-                                                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                         data-view-component="true" height="16" width="16"
-                                                         class="octicon octicon-clippy js-clipboard-clippy-icon m-2">
-                                                        <path fill-rule="evenodd"
-                                                              d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>
-                                                    </svg>
-                                                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                         data-view-component="true" height="16" width="16"
-                                                         class="octicon octicon-check js-clipboard-check-icon color-text-success d-none m-2">
-                                                        <path fill-rule="evenodd"
-                                                              d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
-                                                    </svg>
-                                                </clipboard-copy>
-                                            </div>
-                                        </div>
-
-                                        <ul>
-                                            <li>Run <code>php artisan migrate:fresh --seed</code>. This will create the
-                                                tables in the database and insert the initial data needed to run the
-                                                app.
-                                            </li>
-                                            <li>Next is to set up CRON job to run queues in the hosting. Although you
-                                                may set the <code>QUEUE_DRIVER</code> to <code>sync</code>, this is not
-                                                preferred as this could potentially slow down the system. For the CRON
-                                                job, the only command needed to be run is <code>php artisan
-                                                    schedule:run</code>.
-                                            </li>
-                                            <li>You may now use the application.</li>
-                                        </ul>
-                                        <h2><a id="user-content-bug-report" class="anchor" aria-hidden="true"
-                                               href="#bug-report">
-                                                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
-                                                     width="16" height="16" aria-hidden="true">
-                                                    <path fill-rule="evenodd"
-                                                          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                                                </svg>
-                                            </a>Bug Report
-                                        </h2>
-                                        <p>If you found any feature that is not behaving as expected, please send an
-                                            e-mail to Lester Bolotaolo via <a href="mailto:mlab817@gmail.com">mlab817@gmail.com</a>.
-                                            You may also file an <code>Issue</code> in this Github repo.</p>
-                                        <h2><a id="user-content-security-vulnerabilities" class="anchor"
-                                               aria-hidden="true" href="#security-vulnerabilities">
-                                                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
-                                                     width="16" height="16" aria-hidden="true">
-                                                    <path fill-rule="evenodd"
-                                                          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                                                </svg>
-                                            </a>Security Vulnerabilities
-                                        </h2>
-                                        <p>If you discover a security vulnerability within IPMS, please send an e-mail
-                                            to Lester Bolotaolo via <a
-                                                href="mailto:mlab817@gmail.com">mlab817@gmail.com</a>. All security
-                                            vulnerabilities will be promptly addressed.</p>
-                                        <h2><a id="user-content-license" class="anchor" aria-hidden="true"
-                                               href="#license">
-                                                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
-                                                     width="16" height="16" aria-hidden="true">
-                                                    <path fill-rule="evenodd"
-                                                          d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
-                                                </svg>
-                                            </a>License
-                                        </h2>
-                                        <p>The IPMS is open-sourced software licensed under the <a
-                                                href="https://opensource.org/licenses/MIT" rel="nofollow">MIT
-                                                license</a>.</p>
-                                    </article>
-                                </div>
-                            </div>
+                            <livewire:project-edit :project="$project" />
 
                         </div>
 
@@ -1187,7 +852,6 @@
                     </div>
                 </div>
             </div>
-
 
         </div>
     </div>
@@ -1851,19 +1515,3 @@
 
     </section>
 @endsection
-
-@push('scripts')
-    @include('scripts.easymde')
-
-    <script type="text/javascript">
-        const description = new EasyMDE({ element: document.getElementById('textarea-description'), maxHeight: '120px' })
-
-        function editDescription() {
-            const span = document.getElementById('span-description').style.display = 'none';
-            console.log(span)
-            const tarea = document.getElementById('edit-description').style.display = 'block';
-            description.value('{{ old('description', $project->description->description ?? '') }}')
-            console.log(tarea)
-        }
-    </script>
-@endpush
