@@ -14,7 +14,7 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet"/>
 
     <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
-
+    <script src="https://unpkg.com/alpinejs@3.1.1/dist/cdn.min.js"></script>
     @livewireStyles
 
     @yield('styles')

@@ -171,6 +171,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
 });
 
+Route::get('/bi', \App\Http\Controllers\BiController::class)->name('bi');
+
 Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'guest'], function() {

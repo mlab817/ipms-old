@@ -8,7 +8,7 @@
 
     <!-- CSS -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
-
+    @livewireStyles
     @yield('styles')
 </head>
 <body>
@@ -27,6 +27,7 @@
     @include('includes.sidebar')
 </div>
 
+@livewireScripts
 @stack('scripts')
 </body>
 </html>

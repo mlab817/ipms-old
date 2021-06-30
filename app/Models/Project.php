@@ -359,6 +359,11 @@ class Project extends Model
         return $this->hasMany(OuInfrastructure::class);
     }
 
+    public function project_checklists(): HasMany
+    {
+        return $this->hasMany(ProjectChecklist::class);
+    }
+
     public function region_investments(): HasMany
     {
         return $this->hasMany(RegionInvestment::class);

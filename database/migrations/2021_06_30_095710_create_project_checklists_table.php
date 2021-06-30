@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommitsTable extends Migration
+class CreateProjectChecklistsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateCommitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('commits', function (Blueprint $table) {
+        Schema::create('project_checklists', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->text('commit');
-            $table->text('comment')->nullable();
+            $table->foreignId('checklist_id')->constrained();
+            $table->boolean('checked')->default(0);
+            $table->text('comments')->nullable();
             $table->timestamps();
-            $table->softDeletes();
+
+            $table->unique(['project_id','checklist_id']);
         });
     }
 
@@ -31,6 +32,6 @@ class CreateCommitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commits');
+        Schema::dropIfExists('project_checklists');
     }
 }

@@ -39,30 +39,32 @@
         <form action="{{ route('projects.update', $project) }}" accept-charset="UTF-8" method="post">
             @csrf
             @method('PATCH')
-            <dl class="form-group d-inline-block my-0">
-                <dt class="input-label">
-                    <label for="rename-field">Office</label>
-                </dt>
-                <dd>
-                    <select class="form-select" id="office_id" name="office_id">
-                        <option value="" disabled selected>Select Office</option>
-                        @foreach($offices as $option)
-                            <option value="{{ $option->id }}" @if(old('office_id', $project->office_id) == $option->id) selected @endif>{{ $option->acronym }}</option>
-                        @endforeach
-                    </select>
-                    <script>
-                        // toggle visibility on change
-                        document.getElementById('office_id').addEventListener('change', function () {
-                            if ({{ $project->office_id }} !== Number(document.getElementById('office_id').value)) {
-                                document.getElementById('submit-office-id').classList.remove('d-none');
-                            } else {
-                                document.getElementById('submit-office-id').classList.add('d-none');
-                            }
-                        });
-                    </script>
-                    <button class="btn ml-2 d-none" type="submit" id="submit-office-id">Save</button>
-                </dd>
-            </dl>
+            <div>
+                <dl class="form-group d-inline-block my-0">
+                    <dt class="input-label">
+                        <label for="rename-field">Office</label>
+                    </dt>
+                    <dd>
+                        <select class="form-select" id="office_id" name="office_id">
+                            <option value="" disabled selected>Select Office</option>
+                            @foreach($offices as $option)
+                                <option value="{{ $option->id }}" @if(old('office_id', $project->office_id) == $option->id) selected @endif>{{ $option->acronym }}</option>
+                            @endforeach
+                        </select>
+                        <script>
+                            // toggle visibility on change
+                            document.getElementById('office_id').addEventListener('change', function () {
+                                if ({{ $project->office_id }} !== Number(document.getElementById('office_id').value)) {
+                                    document.getElementById('submit-office-id').classList.remove('d-none');
+                                } else {
+                                    document.getElementById('submit-office-id').classList.add('d-none');
+                                }
+                            });
+                        </script>
+                        <button class="btn ml-2 d-none" type="submit" id="submit-office-id">Save</button>
+                    </dd>
+                </dl>
+            </div>
         </form>
 
         <div class="my-3"></div>

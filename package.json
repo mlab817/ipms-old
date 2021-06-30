@@ -32,6 +32,7 @@
         "@coreui/coreui": "^3.4.0",
         "@fortawesome/fontawesome-free": "^5.15.3",
         "@ttskch/select2-bootstrap4-theme": "^1.5.2",
+        "alpinejs": "^3.2.1",
         "cross-env": "^7.0.3",
         "datatables.net-bs4": "^1.10.24",
         "datatables.net-buttons-bs4": "^1.7.0",
