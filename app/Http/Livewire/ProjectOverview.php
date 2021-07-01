@@ -15,10 +15,20 @@ class ProjectOverview extends Component
 
     public $status;
 
+    public $sort = 'id+asc';
+
+    public $sortOptions = [
+        'id+asc'        => 'ID A-Z',
+        'id+desc'       => 'ID Z-A',
+        'title+asc'     => 'Title A-Z',
+        'title+desc'    => 'Title Z-A',
+    ];
+
     protected $queryString = [
         'search' => ['except' => ''],
         'page' => ['except' => 1],
-        'status' => ['except' => '']
+        'status' => ['except' => ''],
+        'sort' => ['except' => ''],
     ];
 
     public function updatingSearch()
@@ -36,6 +46,13 @@ class ProjectOverview extends Component
 
         if ($this->status) {
             $query->where('submission_status_id', SubmissionStatus::findByName($this->status)->id);
+        }
+
+        if ($this->sort) {
+            $sortArr = explode('+', $this->sort);
+            $sortField = $sortArr[0];
+            $sortDir = $sortArr[1];
+            $query->orderBy($sortField, $sortDir);
         }
 
         $projects = $query->paginate();

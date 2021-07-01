@@ -23,11 +23,6 @@ class Project extends Model
     use SoftDeletes;
     use Auditable;
 
-    protected static function booted()
-    {
-//        static::addGlobalScope(new RoleProjectScope);
-    }
-
     protected $fillable = [
         'ipms_id',
         'office_id',
@@ -324,6 +319,11 @@ class Project extends Model
     /**
      * HasMany Relationships
      */
+    public function commits(): HasMany
+    {
+        return $this->hasMany(Commit::class);
+    }
+
     public function fs_investments(): HasMany
     {
         return $this->hasMany(FsInvestment::class);
@@ -374,8 +374,6 @@ class Project extends Model
         return $this->hasMany(RegionInfrastructure::class);
     }
 
-
-
     public function subprojects(): HasMany
     {
         return $this->hasMany(Subproject::class);
@@ -390,40 +388,6 @@ class Project extends Model
     public function attachments(): HasMany
     {
         return $this->hasMany(Attachment::class);
-    }
-
-    public function investment(): HasOne
-    {
-        return $this->hasOne(FsInvestment::class,'project_id')
-            ->selectRaw('sum(y2016) as "y2016"')
-            ->selectRaw('sum(y2017) as "y2017"')
-            ->selectRaw('sum(y2018) as "y2018"')
-            ->selectRaw('sum(y2019) as "y2019"')
-            ->selectRaw('sum(y2020) as "y2020"')
-            ->selectRaw('sum(y2021) as "y2021"')
-            ->selectRaw('sum(y2022) as "y2022"')
-            ->selectRaw('sum(y2023) as "y2023"')
-            ->selectRaw('sum(y2024) as "y2024"')
-            ->selectRaw('sum(y2025) as "y2025"')
-            ->selectRaw('sum(y2016+y2017+y2018+y2019+y2020+y2021+y2022+y2023+y2024+y2025) AS total')
-            ->groupBy('project_id');
-    }
-
-    public function infrastructure(): HasOne
-    {
-        return $this->hasOne(FsInfrastructure::class,'project_id')
-            ->selectRaw('sum(y2016) as "y2016"')
-            ->selectRaw('sum(y2017) as "y2017"')
-            ->selectRaw('sum(y2018) as "y2018"')
-            ->selectRaw('sum(y2019) as "y2019"')
-            ->selectRaw('sum(y2020) as "y2020"')
-            ->selectRaw('sum(y2021) as "y2021"')
-            ->selectRaw('sum(y2022) as "y2022"')
-            ->selectRaw('sum(y2023) as "y2023"')
-            ->selectRaw('sum(y2024) as "y2024"')
-            ->selectRaw('sum(y2025) as "y2025"')
-            ->selectRaw('sum(y2016+y2017+y2018+y2019+y2020+y2021+y2022+y2023+y2024+y2025) AS total')
-            ->groupBy('project_id');
     }
 
     public function getTotalInvestmentAttribute(): float

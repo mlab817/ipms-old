@@ -173,7 +173,35 @@ class ProjectController extends Controller
 
         event(new ProjectCreatedEvent($project));
 
-        return redirect()->route('projects.show', $project);
+        return redirect()->route('projects.show', $project)
+            ->with([
+                'offices'                   => Office::all(),
+                'pap_types'                 => PapType::all(),
+                'bases'                     => Basis::all(),
+                'project_statuses'          => ProjectStatus::all(),
+                'spatial_coverages'         => SpatialCoverage::all(),
+                'regions'                   => Region::all(),
+                'gads'                      => Gad::all(),
+                'pip_typologies'            => PipTypology::all(),
+                'cip_types'                 => CipType::all(),
+                'years'                     => config('ipms.editor.years'),
+                'approval_levels'           => ApprovalLevel::all(),
+                'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
+                'pdp_chapters'              => PdpChapter::orderBy('name')->get(),
+                'sdgs'                      => Sdg::all(),
+                'ten_point_agendas'         => TenPointAgenda::all(),
+                'pdp_indicators'            => PdpIndicator::with('children.children.children')
+                    ->where('level',1)
+                    ->select('id','name')->get(),
+                'funding_sources'           => FundingSource::all(),
+                'funding_institutions'      => FundingInstitution::all(),
+                'implementation_modes'      => ImplementationMode::all(),
+                'tiers'                     => Tier::all(),
+                'preparation_documents'     => PreparationDocument::all(),
+                'fs_statuses'               => FsStatus::all(),
+                'ou_types'                  => OperatingUnitType::with('operating_units')->get(),
+                'covidInterventions'        => CovidIntervention::all(),
+            ]);
     }
 
     /**
@@ -203,7 +231,35 @@ class ProjectController extends Controller
             'pdp_indicators',
             'operating_units');
 
-        return view('projects.show', compact('project'));
+        return view('projects.show', compact('project'))
+            ->with([
+                'offices'                   => Office::all(),
+                'pap_types'                 => PapType::all(),
+                'bases'                     => Basis::all(),
+                'project_statuses'          => ProjectStatus::all(),
+                'spatial_coverages'         => SpatialCoverage::all(),
+                'regions'                   => Region::all(),
+                'gads'                      => Gad::all(),
+                'pip_typologies'            => PipTypology::all(),
+                'cip_types'                 => CipType::all(),
+                'years'                     => config('ipms.editor.years'),
+                'approval_levels'           => ApprovalLevel::all(),
+                'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
+                'pdp_chapters'              => PdpChapter::orderBy('name')->get(),
+                'sdgs'                      => Sdg::all(),
+                'ten_point_agendas'         => TenPointAgenda::all(),
+                'pdp_indicators'            => PdpIndicator::with('children.children.children')
+                    ->where('level',1)
+                    ->select('id','name')->get(),
+                'funding_sources'           => FundingSource::all(),
+                'funding_institutions'      => FundingInstitution::all(),
+                'implementation_modes'      => ImplementationMode::all(),
+                'tiers'                     => Tier::all(),
+                'preparation_documents'     => PreparationDocument::all(),
+                'fs_statuses'               => FsStatus::all(),
+                'ou_types'                  => OperatingUnitType::with('operating_units')->get(),
+                'covidInterventions'        => CovidIntervention::all(),
+            ]);
     }
 
     /**
@@ -567,7 +623,7 @@ class ProjectController extends Controller
 
     public function audit_logs(Project $project)
     {
-        return view('projects.audit-logs', compact('project'));
+        return view('projects.history', compact('project'));
     }
 
     public function issues(Project $project)

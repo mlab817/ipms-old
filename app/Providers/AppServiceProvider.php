@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Observers\ProjectObserver;
 use App\Observers\ReviewObserver;
 use App\Observers\UserObserver;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
@@ -41,6 +42,8 @@ class AppServiceProvider extends ServiceProvider
         Project::observe(ProjectObserver::class);
         Review::observe(ReviewObserver::class);
         User::observe(UserObserver::class);
+
+        Model::preventLazyLoading(true);
 
 //        Paginator::useBootstrap();
 

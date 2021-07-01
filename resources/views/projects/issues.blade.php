@@ -4,14 +4,7 @@
     <div class="container-xl clearfix new-discussion-timeline px-3 px-md-4 px-lg-5">
         <div id="repo-content-pjax-container" class="repository-content ">
 
-
-
             <div class="js-check-all-container" data-pjax="">
-
-
-
-
-
 
                 <div class="d-flex flex-justify-between mb-md-3 flex-column-reverse flex-md-row flex-items-end">
                     <div class="d-flex flex-justify-start flex-auto width-full my-4 my-md-0" role="search">

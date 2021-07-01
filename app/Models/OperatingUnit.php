@@ -63,7 +63,7 @@ class OperatingUnit extends Model implements HasMedia
 
     public function getProjectCountAttribute(): int
     {
-        return $this->projects->count();
+        return $this->projects()->count();
     }
 
     public function getImageAttribute(): string

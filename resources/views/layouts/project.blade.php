@@ -10,11 +10,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
     <!-- CSS -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
-    <script src="https://unpkg.com/alpinejs@3.1.1/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
     @livewireStyles
 
     @yield('styles')
@@ -171,6 +171,7 @@
 <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
 @include('scripts.easymde')
 @livewireScripts
+<script defer src="https://unpkg.com/alpinejs@3.1.1/dist/cdn.min.js"></script>
 @stack('scripts')
 
 </body>

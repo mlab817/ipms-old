@@ -7,6 +7,42 @@ use App\Models\SubmissionStatus;
 
 class ProjectObserver
 {
+    public function updated(Project $project)
+    {
+        $project->commits()->create([
+            'user_id'   => auth()->id() ?? null,
+            'commit'    => json_encode($project->with(
+                ['bases',
+                'covid_interventions',
+                'funding_institutions',
+                'funding_sources',
+                'infrastructure_sectors',
+                'infrastructure_subsectors',
+                'pdp_chapters',
+                'pdp_indicators',
+                'prerequisites',
+                'regions',
+                'sdgs',
+                'ten_point_agendas',
+                'allocation',
+                'description',
+                'disbursement',
+                'expected_output',
+                'feasibility_study',
+                'resettlement_action_plan',
+                'right_of_way',
+                'risk',
+                'project_update',
+                'fs_investments',
+                'fs_infrastructures',
+                'nep',
+                'operating_units',
+                'region_investments',
+                'region_infrastructures',]
+            )->find($project->id)),
+        ]);
+    }
+
     /**
      * Handle the Project "force deleted" event.
      *

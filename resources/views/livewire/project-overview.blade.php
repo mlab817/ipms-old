@@ -27,43 +27,24 @@
                                 <div class="dropdown-caret"></div>
                             </summary>
 
-                            <div class="dropdown-menu dropdown-menu-se">
+                            <div class="dropdown-menu dropdown-menu-sw">
                                 <div class="dropdown-header">
                                     Sort by
                                 </div>
                                 <ul>
-                                    <li>
-                                        <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-check select-menu-item-icon">
-                                            <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
-                                        </svg>
-                                        <div class="select-menu-item-text">Oldest</div>
-                                        <a class="dropdown-item" href="#url">Dropdown item</a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#url">Dropdown item</a></li>
-                                    <li><a class="dropdown-item" href="#url">Dropdown item</a></li>
+                                    @foreach ($sortOptions as $key => $label)
+                                    <div class="form-checkbox p-0 pl-2">
+                                        <label class="btn-link text-normal" for="{{ $key }}">
+                                            <input id="{{ $key }}" type="radio" wire:model="sort" value="{{ $key }}" class="d-none">
+                                            <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-check select-menu-item-icon @if($sort == $key) color-text-primary @else color-text-white @endif">
+                                                <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
+                                            </svg>
+                                            {{ $label }}
+                                        </label>
+                                    </div>
+                                    @endforeach
                                 </ul>
                             </div>
-                        </details>
-                        <details class="details-reset details-overlay select-menu">
-                            <summary class="btn-link select-menu-button icon-only" aria-haspopup="menu" role="button">
-                                Sort <span class="dropdown-caret"></span>
-                            </summary>
-
-                            <details-menu class="select-menu-modal position-absolute right-0" style="z-index: 99;" aria-label="Sort options" role="menu">
-                                <div class="select-menu-header">
-                                    <span class="select-menu-title">Sort by</span>
-                                </div>
-
-                                <div class="select-menu-list">
-                                    <a href="/users/mlab817/projects?query=is%3Aopen+sort%3Acreated-asc" class="select-menu-item" role="menuitemradio" aria-checked="false">
-                                        <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-check select-menu-item-icon">
-                                            <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
-                                        </svg>
-                                        <div class="select-menu-item-text">Oldest</div>
-                                    </a>
-
-                                </div>
-                            </details-menu>
                         </details>
                     </div>
 
@@ -103,15 +84,8 @@
                                     <a href="{{ route('projects.edit', $project) }}" class="btn-link dropdown-item" role="menuitem">
                                         Edit
                                     </a>
-                                    <!-- '"` --><!-- </textarea></xmp> -->
-                                    <form action="/users/mlab817/projects/2/state" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="put"><input type="hidden" name="authenticity_token" value="XGcFjVLHZZHOQuGV+O4WOGcNo53+8A60ot7N25QZxwO3hdTEwL2xmF5oaccPMoClHMl1nRqC5L1GlOV+9wRuJg==">
-                                        <button type="submit" class="btn-link dropdown-item" name="state" value="closed" role="menuitem">
-                                            Close
-                                        </button>
-                                    </form>                <div role="none" class="dropdown-divider"></div>
-
-                                    <a href="/users/mlab817/projects/2/settings" class="btn-link dropdown-item" role="menuitem">
-                                        Settings
+                                    <a href="{{ route('projects.generatePdf', $project) }}" target="_blank" class="btn-link dropdown-item" role="menuitem">
+                                        Print
                                     </a>
                                 </details-menu>
                             </details>
@@ -122,7 +96,9 @@
                                         {{ $project->title }}
                                     </a>
                                     <div class="d-inline no-wrap">
-                                        <span class="Label Label--secondary v-align-middle mr-1 mb-1">Private</span>
+                                        <span class="Label Label--secondary v-align-middle mr-1 mb-1">
+                                            {{ optional($project->pap_type)->name }}
+                                        </span>
                                     </div>
                                     <div class="d-inline-flex flex-row flex-items-center text-small">
                                         <span data-target="tracked-issues-progress.checklist" style="display: none">
