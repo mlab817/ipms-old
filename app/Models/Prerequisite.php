@@ -24,6 +24,8 @@ class Prerequisite extends Model
         return 'slug';
     }
 
+    protected $hidden = ['created_at','updated_at','deleted_at','slug','description','pivot'];
+
     public function projects(): BelongsToMany
     {
         return $this->belongsToMany(Project::class);

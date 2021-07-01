@@ -22,6 +22,14 @@ class PreparationDocument extends Model
         'description',
     ];
 
+    protected $hidden = [
+        'slug',
+        'description',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function getRouteKeyName()
     {
         return 'slug';

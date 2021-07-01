@@ -23,6 +23,18 @@ class Gad extends Model
         'description',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:m:s',
+        'updated_at' => 'datetime:Y-m-d H:m:s',
+    ];
+
+    protected $hidden = [
+        'slug',
+        'description',
+        'created_at',
+        'updated_at',
+    ];
+
     public function getRouteKeyName()
     {
         return 'slug';

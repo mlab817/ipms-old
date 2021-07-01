@@ -31,7 +31,18 @@ class OperatingUnit extends Model implements HasMedia
     ];
 
     protected $appends = [
-        'project_count',
+//        'project_count',
+    ];
+
+    protected $hidden = [
+        'slug',
+        'label',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'description',
+        'operating_unit_type_id',
+        'pivot',
     ];
 
     public function getRouteKeyName()

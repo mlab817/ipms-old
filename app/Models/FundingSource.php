@@ -30,6 +30,8 @@ class FundingSource extends Model
         'total_infrastructure',
     ];
 
+    protected $hidden = ['created_at','updated_at','deleted_at','slug','pivot','investment','infrastructure','total_infrastructure','total_investment','description'];
+
     public function getRouteKeyName(): string
     {
         return 'slug';

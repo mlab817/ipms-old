@@ -16,6 +16,15 @@ class SubmissionStatus extends Model
 
     protected $fillable = [
         'name',
+        'description',
+    ];
+
+    protected $hidden = [
+        'slug',
+        'description',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     public function projects(): HasMany

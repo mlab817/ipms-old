@@ -39,6 +39,7 @@
         "datatables.net-responsive-bs4": "^2.2.7",
         "datatables.net-searchpanes-bs4": "^1.2.2",
         "icheck-bootstrap": "^3.0.1",
+        "jsondiffpatch": "^0.4.1",
         "jszip": "^3.6.0",
         "laravel-echo": "^1.10.0",
         "pdfmake": "^0.1.71",

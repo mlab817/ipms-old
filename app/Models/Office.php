@@ -27,6 +27,18 @@ class Office extends Model
         'operating_unit_id',
     ];
 
+    protected $hidden = [
+        'slug',
+        'description',
+        'email',
+        'contact_numbers',
+        'office_head_name',
+        'office_head_position',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function operating_unit(): BelongsTo
     {
         return $this->belongsTo(OperatingUnit::class);

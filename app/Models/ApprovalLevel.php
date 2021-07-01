@@ -19,6 +19,8 @@ class ApprovalLevel extends Model
 
     protected $rules = [];
 
+    protected $hidden = ['created_at','updated_at','deleted_at','slug','description','pivot'];
+
     public function getRouteKeyName()
     {
         return 'slug';

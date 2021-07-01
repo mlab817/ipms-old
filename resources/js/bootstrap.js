@@ -1,5 +1,29 @@
 window._ = require('lodash');
 
+const options = {
+    // used to match objects when diffing arrays, by default only === operator is used
+    objectHash: function(obj) {
+        // this function is used only to when objects are not equal by ref
+        return obj._id || obj.id;
+    },
+    arrays: {
+        // default true, detect items moved inside the array (otherwise they will be registered as remove+add)
+        detectMove: true,
+        // default false, the value of items moved is not included in deltas
+        includeValueOnMove: false
+    },
+    textDiff: {
+        minLength: 60
+    },
+    propertyFilter: function(name, context) {
+        return name.slice(0, 1) !== '$';
+    },
+    cloneDiffValues: false
+}
+
+window.jsondiffpatch = require('jsondiffpatch').create(options);
+window.formatters = require('jsondiffpatch').formatters
+
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This

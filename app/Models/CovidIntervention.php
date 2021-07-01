@@ -16,6 +16,8 @@ class CovidIntervention extends Model
         'slug',
     ];
 
+    protected $hidden = ['created_at','updated_at','deleted_at','slug','pivot'];
+
     /**
      * @return array
      */

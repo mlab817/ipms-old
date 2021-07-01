@@ -103,8 +103,27 @@ class Project extends Model
     ];
 
     protected $casts = [
-        'updated_at' => 'datetime:Y-m-d h:m A',
-        'created_at' => 'datetime:Y-m-d h:m A',
+        'updated_at' => 'datetime:Y-m-d H:m:s',
+        'created_at' => 'datetime:Y-m-d H:m:s',
+        'total_project_cost' => 'float',
+        'has_infra' => 'bool',
+        'iccable' => 'bool',
+        'research' => 'bool',
+        'regular_program' => 'bool',
+        'cip' => 'bool',
+        'pip' => 'bool',
+        'rdip' => 'bool',
+        'trip' => 'bool',
+        'other_infrastructure' => 'string',
+        'employment_generated' => 'int',
+        'has_row' => 'bool',
+        'has_rap' => 'bool',
+        'has_fs' => 'bool',
+        'covid' => 'bool',
+        'ict' => 'bool',
+        'rdc_endorsement_required' => 'bool',
+        'uacs_code' => 'string',
+        'has_subprojects' => 'bool'
     ];
 
     public function getRouteKeyName(): string

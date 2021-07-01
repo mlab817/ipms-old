@@ -11,6 +11,15 @@ class FeasibilityStudy extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'needs_assistance' => 'boolean',
+        'created_at' => 'datetime:Y-m-d H:m:s',
+        'updated_at' => 'datetime:Y-m-d H:m:s',
+        'completion_date' => 'datetime:Y-m-d',
+        'fs_start_date' => 'datetime:Y-m-d',
+        'fs_end_date' => 'datetime:Y-m-d',
+    ];
+
     protected $fillable = [
         'project_id',
         'fs_status_id',
@@ -27,6 +36,8 @@ class FeasibilityStudy extends Model
         'y2025',
         'completion_date',
     ];
+
+    protected $hidden = ['project_id'];
 
     public function getRouteKeyName(): string
     {

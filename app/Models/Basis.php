@@ -23,6 +23,8 @@ class Basis extends Model
         'description',
     ];
 
+    protected $hidden = ['created_at','updated_at','deleted_at','slug','description','pivot'];
+
     public function getRouteKeyName(): string
     {
         return 'slug';

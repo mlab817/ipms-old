@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-sm-3">
                     <label>Implementing Agency/ies</label>
-                    <p>{{ implode($project->operating_units->pluck('label')->toArray(),', ') }}</p>
+                    <p>{{ implode(', ', $project->operating_units->pluck('label')->toArray()) }}</p>
                 </div>
                 <div class="col-sm-3">
                     <label>Type of PAP</label>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="col-sm-3">
                     <label>Basis for Implementation</label>
-                    <p>{{ implode($project->bases->pluck('name')->toArray(),', ') }}</p>
+                    <p>{{ implode(', ',$project->bases->pluck('name')->toArray()) }}</p>
                 </div>
                 <div class="col-sm-3">
                     <label>Spatial Coverage</label>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-sm-3">
                     <label>Region/s</label>
-                    <p>{{ implode($project->regions->pluck('label')->toArray(),', ') }}</p>
+                    <p>{{ implode(', ',$project->regions->pluck('label')->toArray()) }}</p>
                 </div>
                 <div class="col-sm-3">
                     <label>Implementation Period</label>
@@ -113,7 +113,7 @@
                 </div>
                 <div class="col-sm-3">
                     <label>Included in which of the following document:</label>
-                    <p>{{ implode($project->covid_interventions->pluck('name')->toArray(), ', ') }}</p>
+                    <p>{{ implode(', ', $project->covid_interventions->pluck('name')->toArray()) }}</p>
                 </div>
             </div>
         </div>
@@ -252,12 +252,12 @@
             <div class="row">
                 <div class="col-sm-12">
                     <label>PDP Chapters</label>
-                    <p>{{ implode($project->pdp_chapters->pluck('name')->toArray(),', ') }}</p>
+                    <p>{{ implode(', ', $project->pdp_chapters->pluck('name')->toArray()) }}</p>
                 </div>
                 <div class="col-sm-12">
                     <label>PDP Result Matrices (RM) Indicators</label>
                     <p>
-                        {{ implode($project->pdp_indicators->pluck('name')->toArray(),', ') }}
+                        {{ implode(', ',$project->pdp_indicators->pluck('name')->toArray()) }}
                     </p>
                 </div>
             </div>
@@ -271,7 +271,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-12">
-                    <p>{{ implode($project->sdgs->pluck('name')->toArray(),', ') }}</p>
+                    <p>{{ implode(', ', $project->sdgs->pluck('name')->toArray()) }}</p>
                 </div>
             </div>
         </div>
@@ -284,7 +284,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-12">
-                    <p>{{ implode($project->ten_point_agendas->pluck('name')->toArray(),', ') }}</p>
+                    <p>{{ implode(', ', $project->ten_point_agendas->pluck('name')->toArray()) }}</p>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 </div>
                 <div class="col-sm-3">
                     <label>Other Funding Source/s</label>
-                    <p>{{ implode($project->funding_sources->pluck('name')->toArray(),', ') }}</p>
+                    <p>{{ implode(', ', $project->funding_sources->pluck('name')->toArray()) }}</p>
                 </div>
                 <div class="col-sm-3">
                     <label>Other Funding Source (specify)</label>

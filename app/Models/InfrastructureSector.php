@@ -25,6 +25,16 @@ class InfrastructureSector extends Model
         'description',
     ];
 
+    protected $hidden = [
+        'description',
+        'slug',
+        'infrastructure_sector_id',
+        'updated_at',
+        'created_at',
+        'deleted_at',
+        'pivot'
+    ];
+
     public function getRouteKeyName()
     {
         return 'slug';

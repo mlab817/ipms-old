@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
         Review::observe(ReviewObserver::class);
         User::observe(UserObserver::class);
 
-        Model::preventLazyLoading(true);
+//        Model::preventLazyLoading(true);
 
 //        Paginator::useBootstrap();
 

@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
     <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
     @livewireStyles
+
+    @yield('styles')
 </head>
 <body>
 

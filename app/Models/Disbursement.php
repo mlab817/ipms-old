@@ -12,8 +12,28 @@ class Disbursement extends Model
     use HasFactory;
     use HasUuid;
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:m:s',
+        'updated_at' => 'datetime:Y-m-d H:m:s',
+        'y2016' => 'float',
+        'y2017' => 'float',
+        'y2018' => 'float',
+        'y2019' => 'float',
+        'y2020' => 'float',
+        'y2021' => 'float',
+        'y2022' => 'float',
+        'y2023' => 'float',
+        'y2024' => 'float',
+        'y2025' => 'float',
+    ];
+
     protected $touches = [
         'project'
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
     ];
 
     protected $fillable = [
@@ -29,6 +49,8 @@ class Disbursement extends Model
         'y2024',
         'y2025',
     ];
+
+    protected $hidden = ['project_id','uuid'];
 
     public function getRouteKeyName(): string
     {

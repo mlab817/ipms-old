@@ -16,6 +16,21 @@ class Allocation extends Model
         'project'
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:m:s',
+        'updated_at' => 'datetime:Y-m-d H:m:s',
+        'y2016' => 'float',
+        'y2017' => 'float',
+        'y2018' => 'float',
+        'y2019' => 'float',
+        'y2020' => 'float',
+        'y2021' => 'float',
+        'y2022' => 'float',
+        'y2023' => 'float',
+        'y2024' => 'float',
+        'y2025' => 'float',
+    ];
+
     protected $fillable = [
         'project_id',
         'y2016',
@@ -29,6 +44,13 @@ class Allocation extends Model
         'y2024',
         'y2025',
     ];
+
+    protected $hidden = [
+        'project_id',
+        'uuid'
+    ];
+
+    protected $dates = ['created_at','updated_at'];
 
     public function getRouteKeyName(): string
     {
