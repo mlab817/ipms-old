@@ -31,6 +31,7 @@ class Pipol extends Model
     const SUBMISSION_STATUS = [
         'ENDORSED'          => 'Endorsed',
         'DRAFT'             => 'Draft',
+        'DROPPED'           => 'Dropped',
     ];
 
     const REASON_FOR_DROPPING = [

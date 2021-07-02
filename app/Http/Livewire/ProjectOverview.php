@@ -22,6 +22,8 @@ class ProjectOverview extends Component
         'id+desc'       => 'ID Z-A',
         'title+asc'     => 'Title A-Z',
         'title+desc'    => 'Title Z-A',
+        'updated_at+asc'=> 'Last Updated A-Z',
+        'updated_at+desc'=> 'Last Updated Z-A',
     ];
 
     protected $queryString = [
@@ -34,6 +36,14 @@ class ProjectOverview extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function resetFilterSort()
+    {
+        $this->sort = 'id+asc';
+        $this->search = null;
+        $this->status = null;
+
     }
 
     public function render()

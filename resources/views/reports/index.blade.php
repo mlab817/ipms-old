@@ -1,15 +1,37 @@
-@extends('layouts.admin')
+@extends('layouts.header-sidebar')
 
-@section('breadcrumb')
-    @include('includes.breadcrumb', [
-    'breadcrumbs' => [
-        'Dashboard' => route('dashboard'),
-        'Report'    => null
-]
-])
+@section('sidebar')
+    <div class="Layout-sidebar">
+        <aside class="px-3 px-md-4 px-lg-5 overflow-auto" style="position: static;">
+
+            <div class="border-bottom color-border-secondary py-3 mt-3 mb-4">
+            </div>
+
+            <div class="mb-3 Details" data-repository-hovercards-enabled="" id="dashboard-repos-container" data-pjax-container="" role="navigation" aria-label="Repositories">
+
+            </div>
+
+            <details>
+                <summary>
+                    PAP Types
+                </summary>
+                <div>
+                    <div class="form-checkbox">
+                        <label for="">
+                            <input type="checkbox">
+                            Program
+                        </label>
+                    </div>
+                </div>
+            </details>
+
+        </aside>
+    </div>
 @stop
 
 @section('content')
+    <livewire:report-tables />
+
     <div class="card">
         <div class="card-header">
             <strong>Reports</strong>

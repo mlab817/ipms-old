@@ -83,15 +83,17 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::get('projects/import', [\App\Http\Controllers\ProjectImportController::class,'index'])->name('projects.import.index');
         Route::post('projects/import', [\App\Http\Controllers\ProjectImportController::class,'import'])->name('projects.import.import');
 
-        Route::get('/projects/{project}/generatePdf', [\App\Http\Controllers\ProjectController::class,'generatePdf'])->name('projects.generatePdf');
+        Route::get('/projects/{project}/generate_pdf', \App\Http\Controllers\ProjectGeneratePdfController::class)->name('projects.generatePdf');
         Route::get('/projects/{project}/exportJson', [\App\Http\Controllers\ProjectController::class,'exportJson'])->name('projects.exportJson');
         Route::post('projects/checkAvailability', [\App\Http\Controllers\ProjectController::class,'checkAvailability'])->name('projects.checkAvailability');
         Route::resource('projects', \App\Http\Controllers\ProjectController::class);
+        Route::resource('projects.pipols', \App\Http\Controllers\ProjectPipolController::class);
         Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
         Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
         Route::post('/notifications', [\App\Http\Controllers\NotificationController::class,'markAllAsRead'])->name('notifications.markAllAsRead');
         Route::resource('notifications',\App\Http\Controllers\NotificationController::class)->only('index','show');
         Route::resource('pipols',\App\Http\Controllers\PipolController::class);
+        Route::resource('users', \App\Http\Controllers\UserController::class);
 
         Route::group(['prefix' => 'reports'], function() {
             Route::get('/', [\App\Http\Controllers\ReportController::class,'index'])->name('reports.index');
@@ -107,7 +109,9 @@ Route::middleware(['auth','user.activated'])->group(function () {
         });
 
         Route::resource('links',\App\Http\Controllers\Admin\LinkController::class)->only('index');
+
         Route::resource('audit_logs',\App\Http\Controllers\AuditLogController::class)->only('index','show');
+
         Route::middleware('can:exports.view_index')->prefix('/exports')->name('exports.')->group(function() {
             Route::get('',[\App\Http\Controllers\ExportController::class,'index'])->name('index');
             Route::get('/fs_infrastructures',[\App\Http\Controllers\ExportController::class,'fs_infrastructures'])->name('fs_infrastructures');
@@ -122,7 +126,7 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::post('search', [\App\Http\Controllers\SearchController::class,'search'])->name('search');
         Route::resource('search', \App\Http\Controllers\SearchController::class)->only('index');
 
-        Route::get('/users/{username?}/projects', [\App\Http\Controllers\Admin\UserController::class,'projects'])->name('user.projects');
+        Route::resource('users.projects', \App\Http\Controllers\UserProjectController::class);
 
         // Admin routes
         Route::middleware(['admin'])->prefix('/admin')->name('admin.')->group(function () {

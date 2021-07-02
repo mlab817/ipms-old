@@ -354,13 +354,19 @@ class ProjectController extends Controller
             }
         }
         if ($request->has('updates') || $request->has('updates_date')) {
-            $project->project_update()->update([
+            $project->project_update()->update(
+                [
+                    'project_id' => $project->id,
+                ],
+                [
                 'updates' => $request->updates,
                 'updates_date' => $request->updates_date,
             ]);
         }
         if ($request->has('expected_outputs')) {
-            $project->expected_output()->update([
+            $project->expected_output()->updateOrCreate([
+                'project_id' => $project->id,
+            ],[
                 'expected_outputs' => $request->expected_outputs
             ]);
         }
@@ -399,7 +405,7 @@ class ProjectController extends Controller
         }
 
         return back()
-            ->with('message','Successfully updated project.');
+            ->with('success','Successfully updated project.');
     }
 
     /**
@@ -572,18 +578,6 @@ class ProjectController extends Controller
         }
 
         return $searchResults;
-    }
-
-    public function generatePdf(Project $project)
-    {
-//        $project->load('creator','bases','regions','pdp_chapters','pdp_indicators','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep','feasibility_study');
-//        $pdf = SnappyPdf::loadView('projects.pdf', compact('project'));
-//
-//        return $pdf->download(str_replace('-',' ',Str::slug($project->title)).'.pdf');
-
-        $project->load('creator','bases','regions','pdp_chapters','pdp_indicators','ten_point_agendas','funding_sources','region_investments.region','fs_investments.funding_source','allocation','disbursement','nep','feasibility_study');
-////         generate PDF
-        return view('projects.pdf', compact('project'));
     }
 
     public function exportJson(Project $project)

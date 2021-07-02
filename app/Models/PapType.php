@@ -45,6 +45,11 @@ class PapType extends Model
         return $this->hasMany(Project::class);
     }
 
+    public function investments()
+    {
+        return $this->hasManyThrough(FsInvestment::class,Project::class);
+    }
+
     public function getProjectCountAttribute(): int
     {
         return $this->projects->count();

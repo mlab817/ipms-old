@@ -68,7 +68,8 @@ class PipolController extends Controller
      */
     public function show(Pipol $pipol)
     {
-        //
+        return view('pipol.show', compact('pipol'))
+            ->with('project', $pipol->project);
     }
 
     /**

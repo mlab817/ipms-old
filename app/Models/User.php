@@ -24,6 +24,11 @@ class User extends Authenticatable
     use SoftDeletes;
     use Auditable;
 
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
     /**
      * The attributes that are mass assignable.
      *
