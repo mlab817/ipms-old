@@ -458,6 +458,11 @@ class Project extends Model
         $this->save();
     }
 
+    public function isArchived(): bool
+    {
+        return !!$this->archived_at;
+    }
+
     public function getPermissionsAttribute(): array
     {
         $user = auth()->user();

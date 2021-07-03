@@ -9,7 +9,7 @@
                 <div class="mt-4">
                     <div class="js-pinned-items-reorder-container">
                         <h2 class="f4 mb-2 text-normal">
-                            Programs and Projects
+                            Pinned
                         </h2>
 
                         <!-- Projects boxes -->
@@ -55,29 +55,6 @@
                 </div>
 
             </div>
-        </div>
-    </div>
-
-    <div x-data="{ content: '' }">
-        <markdown-toolbar for="textarea">
-            <md-bold class="btn btn-sm">bold</md-bold>
-            <md-header class="btn btn-sm">header</md-header>
-            <md-italic class="btn btn-sm">italic</md-italic>
-            <md-quote class="btn btn-sm">quote</md-quote>
-            <md-code class="btn btn-sm">code</md-code>
-            <md-link class="btn btn-sm">link</md-link>
-            <md-image class="btn btn-sm">image</md-image>
-            <md-unordered-list class="btn btn-sm">unordered-list</md-unordered-list>
-            <md-ordered-list class="btn btn-sm">ordered-list</md-ordered-list>
-            <md-task-list class="btn btn-sm">task-list</md-task-list>
-            <md-mention class="btn btn-sm">mention</md-mention>
-            <md-ref class="btn btn-sm">ref</md-ref>
-        </markdown-toolbar>
-        <div class="d-flex">
-            <div class="col-6">
-                <textarea x-model="content" class="mt-2 d-block width-full form-control" id="textarea"></textarea>
-            </div>
-            <div class="col-6 color-bg-canvas ml-2 mt-2 p-1" x-html="marked(content)"></div>
         </div>
     </div>
 

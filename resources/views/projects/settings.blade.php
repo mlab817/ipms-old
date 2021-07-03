@@ -3,183 +3,33 @@
 @section('content')
     <div class="d-flex mb-3 px-3 px-md-4 px-lg-5">
         <div class="flex-shrink-0 col-12 col-lg-9 mb-4 mb-md-0">
-            <div data-view-component="true"
-                 class="Subhead hx_Subhead--responsive Subhead--spacious border-bottom-0 mb-0">
-                <h2 id="danger-zone" data-view-component="true" class="Subhead-heading">Danger Zone</h2>
+            <div class="Subhead hx_Subhead--responsive Subhead--spacious border-bottom-0 mb-0">
+                <h2 id="danger-zone" class="Subhead-heading">Danger Zone</h2>
             </div>
 
             <div class="Box color-border-danger">
-
                 <ul>
-                    <li data-view-component="true" class="Box-row d-flex flex-items-center">
-                        <div class="flex-md-order-1 flex-order-2">
-                            <form action="/mlab817/ipms-v2/settings/set_visibility" accept-charset="UTF-8"
-                                  method="post"><input type="hidden" name="authenticity_token"
-                                                       value="2X9BqJuraezLgvKCJ6bR9XuD5Bq2xn+FE16U2qai6vc9G4uIpfQtH85tQtBJDz0jaxJdVj1gg/zryIyDkvM6Zw==">
-                                <details class="details-reset details-overlay details-overlay-dark ">
-                                    <summary
-                                        class="btn btn-danger boxed-action float-md-right float-none ml-0 ml-md-3"
-                                        role="button">
-                                        Change visibility
-                                    </summary>
-
-                                    <details-dialog class="Box d-flex flex-column anim-fade-in fast Box--overlay "
-                                                    aria-label="Change program/project visibility" role="dialog"
-                                                    aria-modal="true">
-                                        <div class="Box-header">
-                                            <button class="Box-btn-octicon btn-octicon float-right" type="button"
-                                                    aria-label="Close dialog" data-close-dialog="">
-                                                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                     data-view-component="true" height="16" width="16"
-                                                     class="octicon octicon-x">
-                                                    <path fill-rule="evenodd"
-                                                          d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
-                                                </svg>
-                                            </button>
-                                            <h1 class="Box-title">Change program/project visibility</h1>
-                                        </div>
-                                        <div data-view-component="true" class="flash flash-warn flash-full">
-                                            <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                 data-view-component="true" height="16" width="16"
-                                                 class="octicon octicon-alert">
-                                                <path fill-rule="evenodd"
-                                                      d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path>
-                                            </svg>
-
-                                            Warning: this is a potentially destructive action.
-
-
-                                        </div>
-                                        <div class="Box-body overflow-auto">
-                                            <div class="form-checkbox">
-                                                <label aria-live="polite">
-                                                    <input class="form-checkbox-details-trigger" type="radio"
-                                                           aria-describedby="help-text-for-public-checkbox"
-                                                           name="visibility" value="public" checked="">
-                                                    Make public
-                                                    <p id="help-text-for-public-checkbox" class="text-normal">This
-                                                        program/project is currently public.</p>
-                                                </label>
-                                            </div>
-
-                                            <div class="form-checkbox">
-                                                <label aria-live="polite">
-                                                    <input class="form-checkbox-details-trigger" type="radio"
-                                                           aria-describedby="help-text-for-private-checkbox"
-                                                           name="visibility" value="private">
-                                                    Make private
-                                                    <p id="help-text-for-private-checkbox" class="text-normal">Hide
-                                                        this program/project from the public.</p>
-                                                    <span class="form-checkbox-details text-normal">
-                    <ul class="ml-3">
-                        <li class="mb-1">
-                          You will <strong>permanently</strong> lose:
-                        </li>
-                        <li class="list-style-none">
-                          <ul class="ml-3 mb-3">
-                            <li class="mb-1">All <strong>stars and watchers</strong> of this program/project.</li>
-                              <li class="mb-1">
-                                All <strong>pages</strong> published from this program/project.
-                              </li>
-                          </ul>
-                        </li>
-                          <li class="mb-1">
-                            Dependency graph will remain enabled. Leaving them enabled grants us permission to perform read-only analysis on this program/project.
-                          </li>
-                          <li class="my-3">
-                            You can <a
-                                  data-hydro-click="{&quot;event_type&quot;:&quot;feature_gate_upsell.click&quot;,&quot;payload&quot;:{&quot;feature_name&quot;:null,&quot;user_id&quot;:29625844,&quot;originating_url&quot;:&quot;https://github.com/mlab817/ipms-v2/settings&quot;}}"
-                                  data-hydro-click-hmac="79ca91519791ec97682e757582c154f8e53a80c79005559d4deca4d084fdcf85"
-                                  href="/settings/billing">upgrade your plan</a> to also avoid losing access to:
-                          </li>
-                          <ul class="ml-3">
-                            <li class="mb-1"><strong>Codeowners</strong> functionality.</li>
-                            <li class="mb-1">Any existing <strong>wikis.</strong></li>
-                            <li class="mb-1"><strong>Pulse, Contributors, Community, Traffic, Commits, Code Frequency</strong> and <strong>Network</strong> on the <strong>Insights page.</strong></li>
-                            <li class="mb-1"><strong>Draft</strong> PRs</li>
-                            <li class="mb-1"><strong>Multiple assignees</strong> for issues and PRs</li>
-                            <li class="mb-1"><strong>Multiple reviewers</strong> for PRs</li>
-                            <li>Branch protection rules.</li>
-                          </ul>
-                          <li class="mb-1">Code scanning will become unavailable.</li>
-                    </ul>
-                  </span>
-                                                </label>
-                                            </div>
-
-
-                                        </div>
-                                        <div class="Box-footer">
-                                            <p>Please type <strong>mlab817/ipms-v2</strong> to confirm.</p>
-                                            <p>
-                                                <input class="form-control input-block" type="text"
-                                                       aria-label="Type in the name of the program/project to confirm that you want to change the visibility of this program/project."
-                                                       pattern="[mM][lL][aA][bB]817/[iI][pP][mM][sS]-[vV]2"
-                                                       name="verify" autofocus="" required="" autocomplete="off">
-                                            </p>
-                                            <div class="full-button">
-                                                <button data-disable-invalid="" data-disable-with="" type="submit"
-                                                        data-view-component="true" class="btn-danger btn btn-block"
-                                                        disabled="">
-
-                                                    I understand, change program/project visibility.
-
-
-                                                </button>
-                                            </div>
-
-                                        </div>
-                                    </details-dialog>
-                                </details>
-                            </form>
-                        </div>
-                        <div class="flex-auto mb-md-0 mb-2">
-                            <strong>Change program/project visibility</strong>
-                            <div class="mb-0">This program/project is currently public.</div>
-                        </div>
-
-                    </li>
-                    <li data-view-component="true" class="Box-row d-flex flex-items-center">
+                    <li  class="Box-row d-flex flex-items-center">
                         <!-- '"` --><!-- </textarea></xmp> -->
                         <form class="flex-md-order-1 flex-order-2" action="/mlab817/ipms-v2/settings/transfer"
                               accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token"
                                                                           value="kfWjcQuO3E/bTp58LhZ8zkPvmtxKsGgI3ZQO4KMC+cm8L0FgezRvVj2xRLaKDljWdwt43XO8h8ECIWoRMXDvFQ==">
                             <details class="details-reset details-overlay details-overlay-dark ">
-                                <summary role="button" data-view-component="true" class="btn-danger btn">
-
-
+                                <summary role="button"  class="btn-danger btn">
                                     Transfer
-
-
                                 </summary>
-                                <details-dialog class="Box d-flex flex-column anim-fade-in fast Box--overlay "
-                                                aria-label="Transfer program/project" role="dialog" aria-modal="true">
+                                <details-dialog class="Box d-flex flex-column anim-fade-in fast Box--overlay" aria-label="Transfer program/project" role="dialog" aria-modal="true">
                                     <div class="Box-header">
                                         <button class="Box-btn-octicon btn-octicon float-right" type="button"
                                                 aria-label="Close dialog" data-close-dialog="">
                                             <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                 data-view-component="true" height="16" width="16"
+                                                  height="16" width="16"
                                                  class="octicon octicon-x">
                                                 <path fill-rule="evenodd"
                                                       d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
                                             </svg>
                                         </button>
                                         <h1 class="Box-title">Transfer program/project</h1>
-                                    </div>
-                                    <div data-view-component="true" class="flash flash-warn flash-full">
-                                        <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                             data-view-component="true" height="16" width="16"
-                                             class="octicon octicon-alert">
-                                            <path fill-rule="evenodd"
-                                                  d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path>
-                                        </svg>
-
-                                        To understand admin access, teams, issue assignments, and redirects after a
-                                        program/project is transferred,
-                                        see <a href="https://docs.github.com/articles/transferring-a-program/project/">Transferring
-                                            a program/project</a> in GitHub Help.
-
-
                                     </div>
                                     <div class="Box-body overflow-auto">
                                         <p>Transferring may be delayed until the new owner approves the
@@ -202,7 +52,7 @@
                                                    autocomplete="off">
                                         </p>
 
-                                        <button data-disable-invalid="true" type="submit" data-view-component="true"
+                                        <button data-disable-invalid="true" type="submit"
                                                 class="btn-danger btn btn-block" disabled="">
 
 
@@ -223,7 +73,7 @@
                         </div>
 
                     </li>
-                    <li data-view-component="true" class="Box-row d-flex flex-items-center">
+                    <li  class="Box-row d-flex flex-items-center">
                         <details class="details-reset details-overlay details-overlay-dark flex-order-2">
                             <summary
                                 class="btn btn-danger boxed-action float-md-right float-none ml-0 ml-md-3 mt-md-0 mt-2"
@@ -236,7 +86,7 @@
                                     <button class="Box-btn-octicon btn-octicon float-right" type="button"
                                             aria-label="Close dialog" data-close-dialog="">
                                         <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                             data-view-component="true" height="16" width="16"
+                                              height="16" width="16"
                                              class="octicon octicon-x">
                                             <path fill-rule="evenodd"
                                                   d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -244,9 +94,9 @@
                                     </button>
                                     <h1 class="Box-title">Archive program/project</h1>
                                 </div>
-                                <div data-view-component="true" class="flash flash-warn flash-full">
+                                <div  class="flash flash-warn flash-full">
                                     <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                         data-view-component="true" height="16" width="16"
+                                          height="16" width="16"
                                          class="octicon octicon-alert">
                                         <path fill-rule="evenodd"
                                               d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path>
@@ -262,7 +112,7 @@
                                     <div class="d-flex flex-nowrap mb-3">
                                         <div>
                                             <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                 data-view-component="true" height="16" width="16"
+                                                  height="16" width="16"
                                                  class="octicon octicon-workflow">
                                                 <path fill-rule="evenodd"
                                                       d="M0 1.75C0 .784.784 0 1.75 0h3.5C6.216 0 7 .784 7 1.75v3.5A1.75 1.75 0 015.25 7H4v4a1 1 0 001 1h4v-1.25C9 9.784 9.784 9 10.75 9h3.5c.966 0 1.75.784 1.75 1.75v3.5A1.75 1.75 0 0114.25 16h-3.5A1.75 1.75 0 019 14.25v-.75H5A2.5 2.5 0 012.5 11V7h-.75A1.75 1.75 0 010 5.25v-3.5zm1.75-.25a.25.25 0 00-.25.25v3.5c0 .138.112.25.25.25h3.5a.25.25 0 00.25-.25v-3.5a.25.25 0 00-.25-.25h-3.5zm9 9a.25.25 0 00-.25.25v3.5c0 .138.112.25.25.25h3.5a.25.25 0 00.25-.25v-3.5a.25.25 0 00-.25-.25h-3.5z"></path>
@@ -277,7 +127,7 @@
                                     <div class="d-flex flex-nowrap mb-3">
                                         <div>
                                             <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                 data-view-component="true" height="16" width="16"
+                                                  height="16" width="16"
                                                  class="octicon octicon-shield">
                                                 <path fill-rule="evenodd"
                                                       d="M7.467.133a1.75 1.75 0 011.066 0l5.25 1.68A1.75 1.75 0 0115 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.7 1.7 0 01-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 011.217-1.667l5.25-1.68zm.61 1.429a.25.25 0 00-.153 0l-5.25 1.68a.25.25 0 00-.174.238V7c0 1.358.275 2.666 1.057 3.86.784 1.194 2.121 2.34 4.366 3.297a.2.2 0 00.154 0c2.245-.956 3.582-2.104 4.366-3.298C13.225 9.666 13.5 8.36 13.5 7V3.48a.25.25 0 00-.174-.237l-5.25-1.68zM9 10.5a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.75a.75.75 0 10-1.5 0v3a.75.75 0 001.5 0v-3z"></path>
@@ -296,7 +146,7 @@
                                     <div class="d-flex flex-nowrap">
                                         <div>
                                             <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                 data-view-component="true" height="16" width="16"
+                                                  height="16" width="16"
                                                  class="octicon octicon-checklist">
                                                 <path fill-rule="evenodd"
                                                       d="M2.5 1.75a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v7.736a.75.75 0 101.5 0V1.75A1.75 1.75 0 0011.25 0h-8.5A1.75 1.75 0 001 1.75v11.5c0 .966.784 1.75 1.75 1.75h3.17a.75.75 0 000-1.5H2.75a.25.25 0 01-.25-.25V1.75zM4.75 4a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5zM4 7.75A.75.75 0 014.75 7h2a.75.75 0 010 1.5h-2A.75.75 0 014 7.75zm11.774 3.537a.75.75 0 00-1.048-1.074L10.7 14.145 9.281 12.72a.75.75 0 00-1.062 1.058l1.943 1.95a.75.75 0 001.055.008l4.557-4.45z"></path>
@@ -327,7 +177,7 @@
                                                    aria-label="Type in the name of the program/project to confirm that you want to archive this program/project."
                                                    name="verify" autocomplete="off">
                                         </p>
-                                        <button data-disable-invalid="" type="submit" data-view-component="true"
+                                        <button data-disable-invalid="" type="submit"
                                                 class="btn-danger btn btn-block" disabled="">
 
 
@@ -346,7 +196,7 @@
                         </div>
 
                     </li>
-                    <li data-view-component="true" class="Box-row d-flex flex-items-center">
+                    <li  class="Box-row d-flex flex-items-center">
                         <details
                             class="details-reset details-overlay details-overlay-dark flex-md-order-1 flex-order-2">
                             <summary
@@ -360,7 +210,7 @@
                                     <button class="Box-btn-octicon btn-octicon float-right" type="button"
                                             aria-label="Close dialog" data-close-dialog="">
                                         <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                             data-view-component="true" height="16" width="16"
+                                              height="16" width="16"
                                              class="octicon octicon-x">
                                             <path fill-rule="evenodd"
                                                   d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -368,7 +218,7 @@
                                     </button>
                                     <div class="Box-title">Are you absolutely sure?</div>
                                 </div>
-                                <div data-view-component="true" class="flash flash-warn flash-full">
+                                <div  class="flash flash-warn flash-full">
 
 
                                     Unexpected bad things will happen if you don’t read this!
@@ -397,7 +247,7 @@
                                                    aria-label="Type in the name of the program/project to confirm that you want to delete this program/project."
                                                    name="verify" autocomplete="off">
                                         </p>
-                                        <button data-disable-invalid="" type="submit" data-view-component="true"
+                                        <button data-disable-invalid="" type="submit"
                                                 class="btn-danger btn btn-block" disabled="">
 
 

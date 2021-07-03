@@ -9,14 +9,7 @@
         </div>
 
         <div class="Header-item Header-item--full">
-            <div class="position-relative" x-data="{ search: '' }">
-                <input x-model="search" class="form-control input-dark input-block mr-3" aria-label="Search" placeholder="Search" type="search" name="search" id="search" role="searchbox" autocomplete="off">
-                <ul x-show="search" class="autocomplete-results">
-                    <li class="autocomplete-item">Option 1</li>
-                    <li class="autocomplete-item">Option 2</li>
-                    <li class="autocomplete-item">Option 3</li>
-                </ul>
-            </div>
+            <livewire:project-autocomplete />
         </div>
 
 {{--        <div class="Header-item mr-0 mr-md-3 flex-order-1 flex-md-order-none">--}}

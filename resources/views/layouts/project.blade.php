@@ -54,12 +54,15 @@
 @endif
 
 <main>
+    @if ($project->isArchived())
+    <div class="flash flash-warn flash-full border-top-0 text-center text-bold py-2">
+        This PAP has been archived by the owner. It is now read-only.
+    </div>
+    @endif
     <div class="hx_page-header-bg pt-3 hide-full-screen mb-5">
-
         <div class="d-flex mb-3 px-3 px-md-4 px-lg-5">
-
             <div class="flex-auto min-width-0 width-fit mr-3">
-                <h1 class=" d-flex flex-wrap flex-items-center break-word f3 text-normal">
+                <h1 class="d-flex flex-wrap flex-items-center break-word f3 text-normal">
                     <svg class="octicon octicon-repo color-text-secondary mr-2" viewBox="0 0 16 16" version="1.1"
                          width="16" height="16" aria-hidden="true">
                         <path fill-rule="evenodd"
@@ -71,16 +74,13 @@
                         </a>
                     </span>
                     <span class="mx-1 flex-self-stretch color-text-secondary">/</span>
-                    <strong class="mr-2 flex-self-stretch">
-                        <a href="{{ route('projects.show', $project) }}">
+                    <strong class="mr-2 flex-self-stretch Truncate">
+                        <a href="{{ route('projects.show', $project) }}" class="Truncate-text">
                             {{ $project->title }}
                         </a>
                     </strong>
-
                 </h1>
-
             </div>
-
         </div>
 
         <nav  class="overflow-hidden UnderlineNav px-3 px-md-4 px-lg-5">
@@ -125,7 +125,6 @@
                 <li  class="d-flex">
                     <a href="{{ route('projects.files', $project) }}"
                        class="UnderlineNav-item no-wrap @if($route == 'projects.files') selected @endif">
-
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-git-pull-request UnderlineNav-octicon d-none d-sm-inline">
                             <path fill-rule="evenodd" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/>
                         </svg>
@@ -181,7 +180,9 @@
 
     </div>
 
-    @yield('content')
+    <div @if($project->isArchived() && $route != 'projects.settings') style="pointer-events: none;" @endif>
+        @yield('content')
+    </div>
 </main>
 
 <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>

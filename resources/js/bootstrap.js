@@ -1,6 +1,7 @@
 window._ = require('lodash');
 window.marked = require('marked');
 import '@github/markdown-toolbar-element';
+import '@github/details-dialog-element';
 
 const options = {
     // used to match objects when diffing arrays, by default only === operator is used
