@@ -9,6 +9,8 @@
     <!-- CSS -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
 
+    @livewireStyles
+
     @yield('styles')
 </head>
 <body>
@@ -20,6 +22,8 @@
         </div>
     </main>
 
+    @livewireScripts
+    <script defer src="https://unpkg.com/alpinejs@3.1.1/dist/cdn.min.js"></script>
     @stack('scripts')
 </body>
 </html>

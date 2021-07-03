@@ -27,7 +27,10 @@
     @include('includes.sidebar')
 </div>
 
+<script src="{{ mix('js/app.js') }}"></script>
 @livewireScripts
+<script defer src="https://unpkg.com/alpinejs@3.1.1/dist/cdn.min.js"></script>
 @stack('scripts')
+
 </body>
 </html>

@@ -14,7 +14,7 @@
 
                         <!-- Projects boxes -->
                         <ol class="d-flex flex-wrap list-style-none gutter-condensed mb-4">
-                            @forelse(\App\Models\Project::take(6)->get() as $project)
+                            @foreach(\App\Models\Project::take(6)->get() as $project)
                             <li class="mb-3 d-flex flex-content-stretch col-12 col-md-6 col-lg-6">
                                 <div class="Box pinned-item-list-item d-flex p-3 width-full public source">
                                     <div class="pinned-item-list-item-content">
@@ -26,7 +26,6 @@
                                                 {{ $project->submission_status->name ?? '' }}
                                             </span>
                                         </div>
-
 
                                         <p class="pinned-item-desc color-text-secondary text-small d-block mt-2 mb-3">
                                             {!! strip_tags(Str::limit($project->description->description, 180)) !!}
@@ -47,9 +46,7 @@
                                     </div>
                                 </div>
                             </li>
-                            @empty
-                            No projects found
-                            @endforelse
+                            @endforeach
                         </ol>
 
                         <!-- ./ Projects boxes -->
@@ -58,6 +55,29 @@
                 </div>
 
             </div>
+        </div>
+    </div>
+
+    <div x-data="{ content: '' }">
+        <markdown-toolbar for="textarea">
+            <md-bold class="btn btn-sm">bold</md-bold>
+            <md-header class="btn btn-sm">header</md-header>
+            <md-italic class="btn btn-sm">italic</md-italic>
+            <md-quote class="btn btn-sm">quote</md-quote>
+            <md-code class="btn btn-sm">code</md-code>
+            <md-link class="btn btn-sm">link</md-link>
+            <md-image class="btn btn-sm">image</md-image>
+            <md-unordered-list class="btn btn-sm">unordered-list</md-unordered-list>
+            <md-ordered-list class="btn btn-sm">ordered-list</md-ordered-list>
+            <md-task-list class="btn btn-sm">task-list</md-task-list>
+            <md-mention class="btn btn-sm">mention</md-mention>
+            <md-ref class="btn btn-sm">ref</md-ref>
+        </markdown-toolbar>
+        <div class="d-flex">
+            <div class="col-6">
+                <textarea x-model="content" class="mt-2 d-block width-full form-control" id="textarea"></textarea>
+            </div>
+            <div class="col-6 color-bg-canvas ml-2 mt-2 p-1" x-html="marked(content)"></div>
         </div>
     </div>
 
