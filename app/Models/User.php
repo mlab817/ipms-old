@@ -93,6 +93,11 @@ class User extends Authenticatable
         return $this->belongsTo(Office::class);
     }
 
+    public function pinned_projects(): BelongsToMany
+    {
+        return $this->belongsToMany(Project::class, 'pinned_projects');
+    }
+
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class,'user_id','id');

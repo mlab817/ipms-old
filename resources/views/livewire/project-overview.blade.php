@@ -17,6 +17,7 @@
             </div>
         </div>
 
+        @if($search)
         <div class="container-lg mt-2 mb-3">
             <div class="issues-reset-query-wrapper">
                 <button role="button" class="btn-link" wire:click="resetFilterSort">
@@ -27,6 +28,7 @@
                 </button>
             </div>
         </div>
+        @endif
 
         @if($projects->total() > 0)
             <div class="container-lg clearfix border rounded-1 color-bg-canvas">
@@ -59,7 +61,7 @@
                         </details>
                     </div>
 
-                    <div class="table-list-header-toggle states">
+                    <div class="states">
                         @foreach ($submission_statuses as $status)
                             <a href="{{ route('projects.index', ['status' => $status->name]) }}" class="btn-link mr-1">
                                 @if($status->name == 'Draft')
@@ -75,7 +77,8 @@
                                         <path fill-rule="evenodd" d="M2.75 2.5h10.5a.25.25 0 01.25.25v10.5a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V2.75a.25.25 0 01.25-.25zM13.25 1H2.75A1.75 1.75 0 001 2.75v10.5c0 .966.784 1.75 1.75 1.75h10.5A1.75 1.75 0 0015 13.25V2.75A1.75 1.75 0 0013.25 1zm-2 7.75a.75.75 0 000-1.5h-6.5a.75.75 0 000 1.5h6.5z"></path>
                                     </svg>
                                 @endif
-                                {{ $status->projects_count . ' ' . $status->name }}
+                                {{ $status->name }}
+                                <span class="Counter">{{ $status->projects->count() }}</span>
                             </a>
                         @endforeach
                     </div>
