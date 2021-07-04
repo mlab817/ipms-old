@@ -59,13 +59,14 @@
                 </h2>
 
                 <div class="mt-2 mb-3" role="search" aria-label="Repositories">
-                    <input type="text" class="form-control input-contrast input-block mb-3" id="dashboard-repos-filter-left" placeholder="Find a PAP…" aria-label="Find a PAP…" value="" autocomplete="off">
+                    <livewire:project-autocomplete />
                 </div>
 
-                <ul class="list-style-none" data-filterable-for="dashboard-repos-filter-left" data-filterable-type="substring">
+                <ul class="list-style-none">
+                    @forelse(auth()->user()->pinned_projects as $project)
                     <li class="public source no-description">
                         <div class="width-full text-bold">
-                            <a href="/mlab817/pips" class="d-inline-flex flex-items-baseline flex-wrap f5 mb-2 dashboard-underlined-link width-fit" data-hydro-click="{&quot;event_type&quot;:&quot;dashboard.click&quot;,&quot;payload&quot;:{&quot;event_context&quot;:&quot;REPOSITORIES&quot;,&quot;target&quot;:&quot;REPOSITORY&quot;,&quot;record_id&quot;:380256079,&quot;dashboard_context&quot;:&quot;user&quot;,&quot;dashboard_version&quot;:2,&quot;user_id&quot;:29625844,&quot;originating_url&quot;:&quot;https://github.com/dashboard/top_repositories?location=left&quot;}}" data-hydro-click-hmac="a3832ac80e6e118231c11bee3a72538539ac9f450e4ddbc286e4a1fb81bd8425" data-ga-click="Dashboard, click, Repo list item click - context:user visibility:public fork:false" data-hovercard-type="repository" data-hovercard-url="/mlab817/pips/hovercard">
+                            <a href="{{ route('projects.show', $project) }}" class="d-inline-flex flex-items-baseline flex-wrap f5 mb-2 dashboard-underlined-link width-fit" data-hydro-click="{&quot;event_type&quot;:&quot;dashboard.click&quot;,&quot;payload&quot;:{&quot;event_context&quot;:&quot;REPOSITORIES&quot;,&quot;target&quot;:&quot;REPOSITORY&quot;,&quot;record_id&quot;:380256079,&quot;dashboard_context&quot;:&quot;user&quot;,&quot;dashboard_version&quot;:2,&quot;user_id&quot;:29625844,&quot;originating_url&quot;:&quot;https://github.com/dashboard/top_repositories?location=left&quot;}}" data-hydro-click-hmac="a3832ac80e6e118231c11bee3a72538539ac9f450e4ddbc286e4a1fb81bd8425" data-ga-click="Dashboard, click, Repo list item click - context:user visibility:public fork:false" data-hovercard-type="repository" data-hovercard-url="/mlab817/pips/hovercard">
                                 <div class="color-text-tertiary mr-2">
                                     <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-project UnderlineNav-octicon hide-sm">
                                         <path fill-rule="evenodd" d="M1.75 0A1.75 1.75 0 000 1.75v12.5C0 15.216.784 16 1.75 16h12.5A1.75 1.75 0 0016 14.25V1.75A1.75 1.75 0 0014.25 0H1.75zM1.5 1.75a.25.25 0 01.25-.25h12.5a.25.25 0 01.25.25v12.5a.25.25 0 01-.25.25H1.75a.25.25 0 01-.25-.25V1.75zM11.75 3a.75.75 0 00-.75.75v7.5a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75zm-8.25.75a.75.75 0 011.5 0v5.5a.75.75 0 01-1.5 0v-5.5zM8 3a.75.75 0 00-.75.75v3.5a.75.75 0 001.5 0v-3.5A.75.75 0 008 3z"></path>
@@ -75,11 +76,20 @@
 {{--                                    </svg>--}}
                                 </div>
 
-                                <span class="flex-shrink-0 css-truncate css-truncate-target" title="mlab817">mlab817</span>/<span class="css-truncate css-truncate-target" style="max-width: 260px" title="pips">pips</span>
+                                <span class="css-truncate css-truncate-target" style="max-width: 200px">
+                                    {{ $project->title }}
+                                </span>
 
                             </a>
                         </div>
                     </li>
+                    @empty
+                    <li class="public source no-description">
+                        <div class="width-full text-bold">
+                            No projects to show
+                        </div>
+                    </li>
+                    @endforelse
                 </ul>
 
                 <a href="{{ route('projects.own') }}" role="button" type="submit" class="width-full text-left btn-link f6 Link--muted text-left mt-2 border-md-0 border-top py-md-0 py-3 px-md-0 px-2">

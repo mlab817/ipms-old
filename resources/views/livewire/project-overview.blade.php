@@ -94,14 +94,30 @@
                                     </svg>
                                 </summary>
 
-                                <details-menu class="dropdown-menu dropdown-menu-sw mt-6 mr-1 top-0" role="menu">
-                                    <a href="{{ route('projects.edit', $project) }}" class="btn-link dropdown-item" role="menuitem">
-                                        Edit
-                                    </a>
-                                    <a href="{{ route('projects.generatePdf', $project) }}" target="_blank" class="btn-link dropdown-item" role="menuitem">
-                                        Print
-                                    </a>
-                                </details-menu>
+                                <ul class="dropdown-menu dropdown-menu-sw mt-6 mr-1 top-0" role="menu">
+                                    <li>
+                                        <a href="{{ route('projects.edit', $project) }}" class="btn-link dropdown-item" role="menuitem">
+                                            Edit
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('projects.generatePdf', $project) }}" target="_blank" class="btn-link dropdown-item" role="menuitem">
+                                            Print
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-divider" role="separator"></li>
+                                    <li>
+                                        @if(auth()->user()->pinned_projects->contains($project))
+                                        <button wire:click="unpinProject({{ $project->id }})" type="button" class="btn-link dropdown-item" role="menuitem">
+                                            Unpin
+                                        </button>
+                                        @else
+                                        <button wire:click="pinProject({{ $project->id }})" type="button" class="btn-link dropdown-item" role="menuitem">
+                                            Pin
+                                        </button>
+                                        @endif
+                                    </li>
+                                </ul>
                             </details>
 
                             <div class="col-12 col-md-6 col-lg-4 pr-2 float-left">
@@ -151,10 +167,7 @@
                                 <div class="f6 pr-sm-5 mb-2 mb-md-0 color-text-tertiary">
                                     <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-clock">
                                         <path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.5 4.75a.75.75 0 00-1.5 0v3.5a.75.75 0 00.471.696l2.5 1a.75.75 0 00.557-1.392L8.5 7.742V4.75z"></path>
-                                    </svg> Updated
-                                    <relative-time datetime="{{ $project->updated_at }}" class="no-wrap" title="Jul 5, 2020, 10:20 PM GMT+8">
-                                        on {{ $project->updated_at->format('M d, Y') }}
-                                    </relative-time>
+                                    </svg> Updated on {{ $project->updated_at->format('M d, Y') }}
                                 </div>
 
                                 <div class="mt-1 pr-5 mb-2 mb-md-0">

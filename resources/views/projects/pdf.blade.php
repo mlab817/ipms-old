@@ -511,12 +511,12 @@
             <div class="row">
                 <div class="col-sm-3">
                     <label>Infrastructure Sector/s</label>
-                    <p>{{ implode($project->infrastructure_sectors->pluck('name')->toArray(), ', ') }}</p>
+                    <p>{{ implode(', ', $project->infrastructure_sectors->pluck('name')->toArray()) }}</p>
                 </div>
 
                 <div class="col-sm-3">
                     <label>Infrastructure Subsector/s</label>
-                    <p>{{ implode($project->infrastructure_subsectors->pluck('name')->toArray(), ', ') }}</p>
+                    <p>{{ implode(', ', $project->infrastructure_subsectors->pluck('name')->toArray()) }}</p>
                 </div>
 
                 <div class="col-sm-3">
@@ -527,14 +527,14 @@
                 <div class="col-sm-3">
                     <label>Prerequisite/s</label>
                     <p>
-                        {{ implode($project->prerequisites->pluck('name')->toArray(),', ')  }}
+                        {{ implode(', ', $project->prerequisites->pluck('name')->toArray())  }}
                     </p>
                 </div>
 
                 <div class="col-sm-12">
                     <label>Implementation Risk & Mitigation Strategy</label>
                     <p>
-                        {!! $project->risk->risk !!}
+                        {!! $project->risk->risk ?? '' !!}
                     </p>
                 </div>
             </div>

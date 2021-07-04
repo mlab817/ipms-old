@@ -99,31 +99,9 @@ class ProjectController extends Controller
     {
         $project = new Project;
 
-        return view('projects.create2', compact('project'))
+        return view('projects.create', compact('project'))
             ->with([
-//                'offices'                   => Office::all(),
                 'pap_types'                 => PapType::all(),
-//                'bases'                     => Basis::all(),
-//                'project_statuses'          => ProjectStatus::all(),
-//                'spatial_coverages'         => SpatialCoverage::all(),
-//                'regions'                   => Region::all(),
-//                'gads'                      => Gad::all(),
-//                'years'                     => config('ipms.editor.years'),
-//                'approval_levels'           => ApprovalLevel::all(),
-//                'pdp_chapters'              => PdpChapter::orderBy('name')->get(),
-//                'sdgs'                      => Sdg::all(),
-//                'ten_point_agendas'         => TenPointAgenda::all(),
-//                'pdp_indicators'            => PdpIndicator::with('children.children.children')
-//                                                    ->where('level',1)
-//                                                    ->select('id','name')->get(),
-//                'funding_sources'           => FundingSource::all(),
-//                'funding_institutions'      => FundingInstitution::all(),
-//                'implementation_modes'      => ImplementationMode::all(),
-//                'tiers'                     => Tier::all(),
-//                'preparation_documents'     => PreparationDocument::all(),
-//                'fs_statuses'               => FsStatus::all(),
-//                'ou_types'                  => OperatingUnitType::with('operating_units')->get(),
-//                'covidInterventions'        => CovidIntervention::all(),
             ]);
     }
 

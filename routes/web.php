@@ -69,6 +69,7 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::put('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'update'])->name('trips.update');
         Route::post('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'store'])->name('trips.store');
 
+        Route::post('/projects/{project}/pin',\App\Http\Controllers\ProjectPinController::class)->name('projects.pin');
         // Upload
         Route::post('/projects/{project}/upload', [\App\Http\Controllers\ProjectController::class,'upload'])->name('projects.upload');
 

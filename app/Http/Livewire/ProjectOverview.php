@@ -46,6 +46,20 @@ class ProjectOverview extends Component
 
     }
 
+    public function unpinProject($id)
+    {
+        auth()->user()->pinned_projects()->detach(Project::findOrFail($id));
+
+        session()->flash('success','Successfully removed project to pinned list');
+    }
+
+    public function pinProject($id)
+    {
+        auth()->user()->pinned_projects()->attach(Project::findOrFail($id));
+
+        session()->flash('success','Successfully added project to pinned list');
+    }
+
     public function render()
     {
         $query = Project::query();

@@ -33,25 +33,24 @@
 
                 </div>
 
-                <div data-view-component="true" class="gutter-condensed gutter-lg flex-column flex-md-row d-flex">
+                <div class="gutter-condensed gutter-lg flex-column flex-md-row d-flex">
 
-                    <div data-view-component="true" class="flex-shrink-0 col-12 col-md-9 mb-4 mb-md-0">
+                    <div class="flex-shrink-0 col-12 col-md-9 mb-4 mb-md-0">
 
                         <div class="file-navigation mb-3 d-flex flex-items-start">
 
                             <div class="position-relative">
                                 <details class="details-reset details-overlay mr-0 mb-0 " id="branch-select-menu">
-                                    <summary class="btn css-truncate" data-hotkey="w" title="Switch branches or tags">
+                                    <summary class="btn css-truncate" title="Switch branches or tags">
                                         <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                             data-view-component="true" height="16" width="16"
+                                             height="16" width="16"
                                              class="octicon octicon-tag text-gray">
                                             <path fill-rule="evenodd"
                                                   d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path>
                                         </svg>
-                                        <span class="css-truncate-target" data-menu-button="">1.0.0</span>
+                                        <span class="css-truncate-target">1.0.0</span>
                                         <span class="dropdown-caret"></span>
                                     </summary>
-
 
                                     <div class="SelectMenu">
                                         <div class="SelectMenu-modal">
@@ -67,210 +66,12 @@
                                                     </svg>
                                                 </button>
                                             </header>
-
-                                            <input-demux
-                                                data-action="tab-container-change:input-demux#storeInput tab-container-changed:input-demux#updateInput"
-                                                data-catalyst="">
-                                                <tab-container class="d-flex flex-column js-branches-tags-tabs"
-                                                               style="min-height: 0;">
-                                                    <div class="SelectMenu-filter">
-                                                        <input data-target="input-demux.source"
-                                                               id="context-commitish-filter-field"
-                                                               class="SelectMenu-input form-control"
-                                                               aria-owns="ref-list-branches"
-                                                               data-controls-ref-menu-id="ref-list-branches"
-                                                               autofocus="" autocomplete="off"
-                                                               aria-label="Find or create a branch…"
-                                                               placeholder="Find or create a branch…" type="text">
-                                                    </div>
-
-                                                    <div class="SelectMenu-tabs" role="tablist"
-                                                         data-target="input-demux.control">
-                                                        <button class="SelectMenu-tab" type="button" role="tab"
-                                                                aria-selected="true" tabindex="0">Branches
-                                                        </button>
-                                                        <button class="SelectMenu-tab" type="button" role="tab"
-                                                                aria-selected="false" tabindex="-1">Tags
-                                                        </button>
-                                                    </div>
-
-                                                    <div role="tabpanel" id="ref-list-branches"
-                                                         data-filter-placeholder="Find or create a branch…"
-                                                         class="d-flex flex-column flex-auto overflow-auto" tabindex="">
-                                                        <ref-selector type="branch" data-targets="input-demux.sinks"
-                                                                      data-action="
-              input-entered:ref-selector#inputEntered
-              tab-selected:ref-selector#tabSelected
-              focus-list:ref-selector#focusFirstListMember
-            " query-endpoint="/mlab817/pips/refs" current-user-can-push="" cache-key="v0:1624630184.7799659"
-                                                                      current-committish="MS4wLjA="
-                                                                      default-branch="bWFpbg=="
-                                                                      name-with-owner="bWxhYjgxNy9waXBz"
-                                                                      data-catalyst="">
-
-                                                            <template data-target="ref-selector.fetchFailedTemplate">
-                                                                <div class="SelectMenu-message" data-index="">Could not
-                                                                    load branches
-                                                                </div>
-                                                            </template>
-
-                                                            <template data-target="ref-selector.noMatchTemplate">
-                                                                <!-- '"` --><!-- </textarea></xmp> -->
-                                                                <form action="/mlab817/pips/branches"
-                                                                      accept-charset="UTF-8" method="post"><input
-                                                                        type="hidden" name="authenticity_token"
-                                                                        value="9Nvg/gSOf4EW18TZApgyEBOLAJpKh8RX5NJtJfZ8RMMuYUN5BO67TmVpYh0JBNh1bWrFRRummeaSVCVZcrNb6w==">
-                                                                    <input type="hidden" name="name" value="">
-                                                                    <input type="hidden" name="branch" value="1.0.0">
-                                                                    <input type="hidden" name="path_binary" value="">
-
-                                                                    <button class="SelectMenu-item break-word"
-                                                                            type="submit" role="menuitem" data-index="">
-                                                                        <svg aria-hidden="true" viewBox="0 0 16 16"
-                                                                             version="1.1" data-view-component="true"
-                                                                             height="16" width="16"
-                                                                             class="octicon octicon-git-branch SelectMenu-icon flex-self-baseline">
-                                                                            <path fill-rule="evenodd"
-                                                                                  d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path>
-                                                                        </svg>
-                                                                        <div>
-                                                                            <span
-                                                                                class="text-bold">Create branch: </span>
-                                                                            <span class="color-text-tertiary">from ‘1.0.0’</span>
-                                                                        </div>
-                                                                    </button>
-                                                                </form>
-                                                            </template>
-
-
-                                                            <!-- TODO: this max-height is necessary or else the branch list won't scroll.  why? -->
-                                                            <div data-target="ref-selector.listContainer" role="menu"
-                                                                 class="SelectMenu-list " style="max-height: 330px"
-                                                                 data-pjax="#repo-content-pjax-container">
-                                                                <div class="SelectMenu-loading pt-3 pb-0"
-                                                                     aria-label="Menu is loading">
-                                                                    <svg
-                                                                        style="box-sizing: content-box; color: var(--color-icon-primary);"
-                                                                        viewBox="0 0 16 16" fill="none"
-                                                                        data-view-component="true" width="32"
-                                                                        height="32" class="anim-rotate">
-                                                                        <circle cx="8" cy="8" r="7"
-                                                                                stroke="currentColor"
-                                                                                stroke-opacity="0.25" stroke-width="2"
-                                                                                vector-effect="non-scaling-stroke"></circle>
-                                                                        <path d="M15 8a7.002 7.002 0 00-7-7"
-                                                                              stroke="currentColor" stroke-width="2"
-                                                                              stroke-linecap="round"
-                                                                              vector-effect="non-scaling-stroke"></path>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-
-                                                            <template data-target="ref-selector.itemTemplate">
-                                                                <a href="https://github.com/mlab817/pips/tree/"
-                                                                   class="SelectMenu-item" role="menuitemradio"
-                                                                   rel="nofollow" aria-checked="" data-index="">
-                                                                    <svg aria-hidden="true" viewBox="0 0 16 16"
-                                                                         version="1.1" data-view-component="true"
-                                                                         height="16" width="16"
-                                                                         class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
-                                                                        <path fill-rule="evenodd"
-                                                                              d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
-                                                                    </svg>
-                                                                    <span
-                                                                        class="flex-1 css-truncate css-truncate-overflow "></span>
-                                                                    <span hidden=""
-                                                                          class="Label Label--secondary flex-self-start">default</span>
-                                                                </a>
-                                                            </template>
-
-
-                                                            <footer class="SelectMenu-footer"><a
-                                                                    href="/mlab817/pips/branches">View all branches</a>
-                                                            </footer>
-                                                        </ref-selector>
-
-                                                    </div>
-
-                                                    <div role="tabpanel" id="tags-menu"
-                                                         data-filter-placeholder="Find a tag"
-                                                         class="d-flex flex-column flex-auto overflow-auto" tabindex=""
-                                                         hidden="">
-                                                        <ref-selector type="tag" data-action="
-              input-entered:ref-selector#inputEntered
-              tab-selected:ref-selector#tabSelected
-              focus-list:ref-selector#focusFirstListMember
-            " data-targets="input-demux.sinks" query-endpoint="/mlab817/pips/refs" cache-key="v0:1624630184.7799659"
-                                                                      current-committish="MS4wLjA="
-                                                                      default-branch="bWFpbg=="
-                                                                      name-with-owner="bWxhYjgxNy9waXBz"
-                                                                      data-catalyst="">
-
-                                                            <template data-target="ref-selector.fetchFailedTemplate">
-                                                                <div class="SelectMenu-message" data-index="">Could not
-                                                                    load tags
-                                                                </div>
-                                                            </template>
-
-                                                            <template data-target="ref-selector.noMatchTemplate">
-                                                                <div class="SelectMenu-message" data-index="">Nothing to
-                                                                    show
-                                                                </div>
-                                                            </template>
-
-                                                            <template data-target="ref-selector.itemTemplate">
-                                                                <a href="https://github.com/mlab817/pips/tree/"
-                                                                   class="SelectMenu-item" role="menuitemradio"
-                                                                   rel="nofollow" aria-checked="" data-index="">
-                                                                    <svg aria-hidden="true" viewBox="0 0 16 16"
-                                                                         version="1.1" data-view-component="true"
-                                                                         height="16" width="16"
-                                                                         class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
-                                                                        <path fill-rule="evenodd"
-                                                                              d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
-                                                                    </svg>
-                                                                    <span
-                                                                        class="flex-1 css-truncate css-truncate-overflow"></span>
-                                                                    <span hidden=""
-                                                                          class="Label Label--secondary flex-self-start">default</span>
-                                                                </a>
-                                                            </template>
-
-
-                                                            <div data-target="ref-selector.listContainer" role="menu"
-                                                                 class="SelectMenu-list" style="max-height: 330px"
-                                                                 data-pjax="#repo-content-pjax-container">
-                                                                <div class="SelectMenu-loading pt-3 pb-0"
-                                                                     aria-label="Menu is loading">
-                                                                    <svg
-                                                                        style="box-sizing: content-box; color: var(--color-icon-primary);"
-                                                                        viewBox="0 0 16 16" fill="none"
-                                                                        data-view-component="true" width="32"
-                                                                        height="32" class="anim-rotate">
-                                                                        <circle cx="8" cy="8" r="7"
-                                                                                stroke="currentColor"
-                                                                                stroke-opacity="0.25" stroke-width="2"
-                                                                                vector-effect="non-scaling-stroke"></circle>
-                                                                        <path d="M15 8a7.002 7.002 0 00-7-7"
-                                                                              stroke="currentColor" stroke-width="2"
-                                                                              stroke-linecap="round"
-                                                                              vector-effect="non-scaling-stroke"></path>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                            <footer class="SelectMenu-footer"><a
-                                                                    href="/mlab817/pips/tags">View all tags</a></footer>
-                                                        </ref-selector>
-                                                    </div>
-                                                </tab-container>
-                                            </input-demux>
                                         </div>
                                     </div>
 
                                 </details>
 
                             </div>
-
 
                             <div
                                 class="flex-self-center ml-3 flex-self-stretch d-none d-lg-flex flex-items-center lh-condensed-ultra">
@@ -300,7 +101,6 @@
                                               src="/mlab817/pips/overview_actions/1.0.0"
                                               class="is-error"></include-fragment>
 
-
                             <span class="d-none d-md-flex ml-2">
 
 <get-repo data-catalyst="">
@@ -320,7 +120,7 @@
               <a class="Link--muted float-right tooltipped tooltipped-s"
                  href="https://docs.github.com/articles/which-remote-url-should-i-use" target="_blank"
                  aria-label="Which remote URL should I use?">
-  <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16"
+  <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16"
        class="octicon octicon-question">
     <path fill-rule="evenodd"
           d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zM6.92 6.085c.081-.16.19-.299.34-.398.145-.097.371-.187.74-.187.28 0 .553.087.738.225A.613.613 0 019 6.25c0 .177-.04.264-.077.318a.956.956 0 01-.277.245c-.076.051-.158.1-.258.161l-.007.004a7.728 7.728 0 00-.313.195 2.416 2.416 0 00-.692.661.75.75 0 001.248.832.956.956 0 01.276-.245 6.3 6.3 0 01.26-.16l.006-.004c.093-.057.204-.123.313-.195.222-.149.487-.355.692-.662.214-.32.329-.702.329-1.15 0-.76-.36-1.348-.863-1.725A2.76 2.76 0 008 4c-.631 0-1.155.16-1.572.438-.413.276-.68.638-.849.977a.75.75 0 101.342.67z"></path>
@@ -385,11 +185,11 @@
                     data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;COPY_URL&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
                     data-hydro-click-hmac="2c74296ad62b77db3095f52508037f169c6eb84ce6b330b62bc8cfed2ffe27b9"
                     tabindex="0" role="button"><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                    data-view-component="true" height="16" width="16"
+                                                    height="16" width="16"
                                                     class="octicon octicon-clippy js-clipboard-clippy-icon d-inline-block">
     <path fill-rule="evenodd"
           d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>
-</svg><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16"
+</svg><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16"
            class="octicon octicon-check js-clipboard-check-icon color-text-success d-inline-block d-sm-none">
     <path fill-rule="evenodd"
           d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
@@ -414,11 +214,11 @@
                     data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;COPY_URL&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
                     data-hydro-click-hmac="2c74296ad62b77db3095f52508037f169c6eb84ce6b330b62bc8cfed2ffe27b9"
                     tabindex="0" role="button"><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                    data-view-component="true" height="16" width="16"
+                                                    height="16" width="16"
                                                     class="octicon octicon-clippy js-clipboard-clippy-icon d-inline-block">
     <path fill-rule="evenodd"
           d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>
-</svg><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16"
+</svg><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16"
            class="octicon octicon-check js-clipboard-check-icon color-text-success d-inline-block d-sm-none">
     <path fill-rule="evenodd"
           d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
@@ -442,11 +242,11 @@
                     data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;COPY_URL&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips/tree/1.0.0?_pjax=%23js-repo-pjax-container&quot;,&quot;user_id&quot;:29625844}}"
                     data-hydro-click-hmac="2c74296ad62b77db3095f52508037f169c6eb84ce6b330b62bc8cfed2ffe27b9"
                     tabindex="0" role="button"><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                    data-view-component="true" height="16" width="16"
+                                                    height="16" width="16"
                                                     class="octicon octicon-clippy js-clipboard-clippy-icon d-inline-block">
     <path fill-rule="evenodd"
           d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>
-</svg><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16"
+</svg><svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16"
            class="octicon octicon-check js-clipboard-check-icon color-text-success d-inline-block d-sm-none">
     <path fill-rule="evenodd"
           d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
@@ -574,62 +374,7 @@
                                         <div class="Subhead-heading">{{ __("General Information") }}</div>
                                     </div>
 
-                                    <form action="{{ route('projects.update', $project) }}" accept-charset="UTF-8" method="post">
-                                        @csrf
-                                        @method('PATCH')
-                                        <div>
-                                            <dl class="form-group d-inline-block my-0" x-data="{ office_id: {{ $project->office_id }} }">
-                                                <dt class="input-label">
-                                                    <label for="office_id">Office</label>
-                                                </dt>
-                                                <dd>
-                                                    <select class="form-select" name="office_id" x-model="office_id">
-                                                        <option value="">Select Office</option>
-                                                        @foreach($offices as $option)
-                                                            <option value="{{ $option->id }}">{{ $option->id .' - '. $option->acronym }}</option>
-                                                        @endforeach
-                                                    </select>
-
-                                                    <button x-bind:disabled="!office_id" x-show="office_id != {{ (string) $project->office_id }}" class="btn ml-2" type="submit" id="submit-office-id">Save</button>
-                                                </dd>
-                                            </dl>
-                                        </div>
-                                    </form>
-
-                                    <div class="my-3"></div>
-
-                                    <form action="{{ route('projects.update', $project) }}" accept-charset="UTF-8" method="post">
-                                        @csrf
-                                        @method('PATCH')
-                                        <dl class="form-group d-inline-block my-0">
-                                            <dt class="input-label">
-                                                <label for="rename-field">Program or Project</label>
-                                            </dt>
-                                            <dd x-data="{ pap_type_id: {{ $project->pap_type_id }}, regular_program: {{ $project->regular_program }} }">
-                                                @foreach($pap_types as $pap_type)
-                                                    <div class="form-checkbox ">
-                                                        <label>
-                                                            <input class="form-checkbox-details-trigger" type="radio" id="pap_type_{{$pap_type->id}}" x-model="pap_type_id" name="pap_type_id" value="{{ $pap_type->id }}" @if(old('pap_type_id', $project->pap_type_id) == $pap_type->id) checked @endif>
-                                                            {{ $pap_type->name }}
-                                                            <p class="note">
-                                                                {{ $pap_type->description }}
-                                                            </p>
-                                                            @if($pap_type->id ==1)
-                                                                <span class="form-checkbox-details text-normal d-block">
-                                                                    <span>Regular Program</span>
-                                                                    <select class="form-select" name="regular_program" id="regular_program" x-bind:disabled="pap_type_id == 2" x-model="regular_program">
-                                                                        <option value="0">No</option>
-                                                                        <option value="1">Yes</option>
-                                                                    </select>
-                                                                </span>
-                                                            @endif
-                                                        </label>
-                                                    </div>
-                                                @endforeach
-                                                <button class="btn ml-3" type="submit" x-show="pap_type_id !== {{ $project->pap_type_id }}">Save</button>
-                                            </dd>
-                                        </dl>
-                                    </form>
+                                    <livewire:show-project :project="$project" />
 
                                     <div class="my-3"></div>
 
@@ -2194,7 +1939,7 @@
 
                     </div>
 
-                    <div data-view-component="true" class="flex-shrink-0 col-12 col-md-3">
+                    <div class="flex-shrink-0 col-12 col-md-3">
 
                         <div class="BorderGrid BorderGrid--spacious" data-pjax="">
                             <div class="BorderGrid-row hide-sm hide-md">
@@ -2218,7 +1963,7 @@
                                                 <button class="Box-btn-octicon btn-octicon float-right" type="button"
                                                         aria-label="Close dialog" data-close-dialog="">
                                                     <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                         data-view-component="true" height="16" width="16"
+                                                         height="16" width="16"
                                                          class="octicon octicon-x">
                                                         <path fill-rule="evenodd"
                                                               d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -2380,7 +2125,7 @@
                                     <div class="mt-3">
                                         <a class="Link--muted" href="#readme">
                                             <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                                 data-view-component="true" height="16" width="16"
+                                                 height="16" width="16"
                                                  class="octicon octicon-book mr-2">
                                                 <path fill-rule="evenodd"
                                                       d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"></path>
@@ -2397,13 +2142,13 @@
                                         <a href="/mlab817/pips/releases" data-view-component="true"
                                            class="Link--primary no-underline">
                                             Releases
-                                            <span title="1" data-view-component="true" class="Counter">1</span>
+                                            <span title="1" class="Counter">1</span>
                                         </a></h2>
 
                                     <a class="Link--primary d-flex no-underline"
                                        href="/mlab817/pips/releases/tag/1.0.0">
                                         <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
-                                             data-view-component="true" height="16" width="16"
+                                             height="16" width="16"
                                              class="octicon octicon-tag flex-shrink-0 mt-1 color-text-success">
                                             <path fill-rule="evenodd"
                                                   d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path>
@@ -2447,13 +2192,13 @@
                                 <div class="BorderGrid-cell">
                                     <h2 class="h4 mb-3">Languages</h2>
                                     <div class="mb-2">
-  <span data-view-component="true" class="Progress">
+  <span class="Progress">
     <span itemprop="keywords" aria-label="HTML 46.2" style="background-color: #e34c26;width: 46.2%;"
-          data-view-component="true" class="Progress-item"></span>
+          class="Progress-item"></span>
     <span itemprop="keywords" aria-label="PHP 34.7" style="background-color: #4F5D95;width: 34.7%;"
-          data-view-component="true" class="Progress-item"></span>
+          class="Progress-item"></span>
     <span itemprop="keywords" aria-label="Blade 19.1" style="background-color: #f7523f;width: 19.1%;"
-          data-view-component="true" class="Progress-item"></span>
+          class="Progress-item"></span>
 </span></div>
                                     <ul class="list-style-none">
                                         <li class="d-inline">
@@ -2509,10 +2254,10 @@
     <!-- ./ Github -->
 
     <div class="d-flex mb-3 px-3 px-md-4 px-lg-5">
-        <div data-view-component="true" class="flex-shrink-0 col-12 col-lg-9 mb-4 mb-md-0">
+        <div class="flex-shrink-0 col-12 col-lg-9 mb-4 mb-md-0">
             <div id="options_bucket">
-                <div data-view-component="true" class="Subhead hx_Subhead--responsive">
-                    <h2 data-view-component="true" class="Subhead-heading">Profile</h2>
+                <div class="Subhead hx_Subhead--responsive">
+                    <h2 class="Subhead-heading">Profile</h2>
 
 
                 </div>      <!-- '"` --><!-- </textarea></xmp> -->
@@ -2537,12 +2282,12 @@
                         <input type="checkbox" name="template" value="1" id="template-feature">
                         <label for="template-feature">Template repository</label>
                         <span class="status-indicator ml-1 js-status-indicator">
-          <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16"
+          <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16"
                class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
     </svg>
-          <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16"
+          <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16"
                class="octicon octicon-x">
         <path fill-rule="evenodd"
               d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -2556,7 +2301,7 @@
                         </p>
                     </div>
                     <noscript>
-                        <button type="submit" data-view-component="true" class="btn-primary btn">
+                        <button type="submit" class="btn-primary btn">
 
                             Save changes
 
@@ -2594,7 +2339,7 @@
                                 <div class="avatar-upload position-relative">
                                     <div class="upload-state pt-0 loading position-absolute width-full text-center">
                                         <svg style="box-sizing: content-box; color: var(--color-icon-primary);"
-                                             viewBox="0 0 16 16" fill="none" data-view-component="true" width="16"
+                                             viewBox="0 0 16 16" fill="none" width="16"
                                              height="16" class="v-align-text-bottom anim-rotate">
                                             <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-opacity="0.25"
                                                     stroke-width="2" vector-effect="non-scaling-stroke"></circle>
@@ -2671,7 +2416,7 @@
 
                 <div data-view-component="true"
                      class="Subhead hx_Subhead--responsive Subhead--spacious border-bottom-0 mb-0">
-                    <h2 id="features" data-view-component="true" class="Subhead-heading">Features</h2>
+                    <h2 id="features" class="Subhead-heading">Features</h2>
 
 
                 </div>
@@ -2687,12 +2432,12 @@
                                 <input type="checkbox" name="has_wiki" value="1" id="wiki-feature" checked="">
                                 <label for="wiki-feature">Wikis</label>
                                 <span class="status-indicator ml-1 js-status-indicator">
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
     </svg>
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-x">
         <path fill-rule="evenodd"
               d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -2708,12 +2453,12 @@
                                        checked="">
                                 <label for="wiki-pusher-access">Restrict editing to collaborators only</label>
                                 <span class="status-indicator ml-1 js-status-indicator">
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
     </svg>
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-x">
         <path fill-rule="evenodd"
               d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -2729,12 +2474,12 @@
                                 <input type="checkbox" name="has_issues" value="1" id="issue-feature" checked="">
                                 <label for="issue-feature">Issues</label>
                                 <span class="status-indicator ml-1 js-status-indicator">
-              <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+              <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                    width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
     </svg>
-              <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+              <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                    width="16" class="octicon octicon-x">
         <path fill-rule="evenodd"
               d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -2772,12 +2517,12 @@
                                 <label for="repository-funding-links-feature">Sponsorships</label>
                                 &nbsp;
                                 <span class="status-indicator v-align-top ml-1 js-status-indicator">
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
     </svg>
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-x">
         <path fill-rule="evenodd"
               d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -2817,12 +2562,12 @@
                                        checked="">
                                 <label for="projects-feature">Projects</label>
                                 <span class="status-indicator v-align-top ml-1 js-status-indicator">
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
     </svg>
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-x">
         <path fill-rule="evenodd"
               d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -2844,12 +2589,12 @@
                                     Preserve this repository
                                 </label>
                                 <span class="status-indicator ml-1 js-status-indicator">
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
     </svg>
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-x">
         <path fill-rule="evenodd"
               d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -2863,7 +2608,7 @@
                         </div>
 
                         <noscript>
-                            <button type="submit" data-view-component="true" class="btn-primary btn">
+                            <button type="submit" class="btn-primary btn">
 
                                 Save changes
 
@@ -2886,12 +2631,12 @@
                                     Table of contents
                                 </label>
                                 <span class="status-indicator ml-1 js-status-indicator">
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
     </svg>
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-x">
         <path fill-rule="evenodd"
               d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -2917,12 +2662,12 @@
                                        checked="">
                                 <label for="discussions-feature">Discussions</label>
                                 <span class="status-indicator ml-1 js-status-indicator">
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
     </svg>
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                      width="16" class="octicon octicon-x">
         <path fill-rule="evenodd"
               d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -2938,8 +2683,8 @@
                 </div>
 
 
-                <div data-view-component="true" class="Subhead hx_Subhead--responsive Subhead--spacious">
-                    <h2 id="merge-button-settings" data-view-component="true" class="Subhead-heading">Merge button</h2>
+                <div class="Subhead hx_Subhead--responsive Subhead--spacious">
+                    <h2 id="merge-button-settings" class="Subhead-heading">Merge button</h2>
 
 
                 </div>
@@ -2969,7 +2714,7 @@
                                     <div class="form-checkbox">
                                         <label for="merge_types_merge_commit">Allow merge commits</label>
                                         <span class="status-indicator js-status-indicator">
-                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                          width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
@@ -2988,7 +2733,7 @@
                                     <div class="form-checkbox">
                                         <label for="merge_types_squash">Allow squash merging</label>
                                         <span class="status-indicator js-status-indicator">
-                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                          width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
@@ -3007,7 +2752,7 @@
                                     <div class="form-checkbox">
                                         <label for="merge_types_rebase">Allow rebase merging</label>
                                         <span class="status-indicator js-status-indicator">
-                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                          width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
@@ -3034,7 +2779,7 @@
                                     <div class="form-checkbox">
                                         <label for="merge_types_auto_merge">Allow auto-merge</label>
                                         <span class="status-indicator js-status-indicator">
-                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                          width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
@@ -3055,8 +2800,8 @@
                     </div>
                 </form>
 
-                <div data-view-component="true" class="Subhead hx_Subhead--responsive Subhead--spacious">
-                    <h2 id="archive-settings" data-view-component="true" class="Subhead-heading">Archives</h2>
+                <div class="Subhead hx_Subhead--responsive Subhead--spacious">
+                    <h2 id="archive-settings" class="Subhead-heading">Archives</h2>
 
 
                 </div>
@@ -3078,7 +2823,7 @@
                                         <label for="archive_include_lfs_objects">Include Git LFS objects in
                                             archives</label>
                                         <span class="status-indicator js-status-indicator">
-                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16"
+                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16"
                          width="16" class="octicon octicon-check">
         <path fill-rule="evenodd"
               d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
@@ -3095,7 +2840,7 @@
                     </div>
 
                     <noscript>
-                        <button type="submit" data-view-component="true" class="btn-primary btn">
+                        <button type="submit" class="btn-primary btn">
 
                             Save changes
 
@@ -3105,8 +2850,8 @@
                 </form>
 
 
-                <div data-view-component="true" class="Subhead hx_Subhead--responsive Subhead--spacious">
-                    <h2 data-view-component="true" class="Subhead-heading">GitHub Pages</h2>
+                <div class="Subhead hx_Subhead--responsive Subhead--spacious">
+                    <h2 class="Subhead-heading">GitHub Pages</h2>
 
 
                 </div>
