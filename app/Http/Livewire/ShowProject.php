@@ -3,9 +3,12 @@
 namespace App\Http\Livewire;
 
 use App\Models\Basis;
+use App\Models\CovidIntervention;
 use App\Models\Office;
 use App\Models\PapType;
 use App\Models\Project;
+use App\Models\ProjectStatus;
+use App\Models\SpatialCoverage;
 use Livewire\Component;
 
 class ShowProject extends Component
@@ -26,10 +29,30 @@ class ShowProject extends Component
 
     public $description;
 
+    public $expectedOutputs;
+
     public $totalProjectCost;
 
+    public $projectStatus;
+
+    public $research;
+
+    public $ict;
+
+    public $covid;
+
+    public $covidInterventions;
+
+    public $spatialCoverage;
+
+    public $booleanOptions = [
+        '0' => 'No',
+        '1' => 'Yes',
+    ];
+
     protected $rules = [
-        'projectBases.*' => 'int'
+        'projectBases.*'        => 'int',
+        'covidInterventions.*'  => 'int'
     ];
 
     public function mount(Project $project)
@@ -42,7 +65,14 @@ class ShowProject extends Component
         $this->hasInfra = $project->has_infra;
         $this->projectBases    = $project->bases()->pluck('id')->toArray() ?? [];
         $this->description = $project->description->description ?? '';
+        $this->expectedOutputs = $project->expected_output->expected_outputs ?? '';
         $this->totalProjectCost = $project->total_project_cost;
+        $this->projectStatus = $project->project_status_id;
+        $this->research = $project->research;
+        $this->ict = $project->ict;
+        $this->covid = $project->covid;
+        $this->covidInterventions    = $project->covid_interventions()->pluck('id')->toArray() ?? [];
+        $this->spatialCoverage = $project->spatial_coverage_id;
     }
 
     public function updateOffice()
@@ -89,10 +119,56 @@ class ShowProject extends Component
         ]);
     }
 
+    public function updateExpectedOutputs()
+    {
+
+    }
+
     public function updateTotalProjectCost()
     {
         $project = $this->project;
         $project->total_project_cost = $this->totalProjectCost;
+        $project->save();
+    }
+
+    public function updateProjectStatus()
+    {
+        $project = $this->project;
+        $project->project_status_id = $this->projectStatus;
+        $project->save();
+    }
+
+    public function updateResearch()
+    {
+        $project = $this->project;
+        $project->research = $this->research;
+        $project->save();
+    }
+
+    public function updateIct()
+    {
+        $project = $this->project;
+        $project->ict = $this->ict;
+        $project->save();
+    }
+
+    public function updateCovid()
+    {
+        $project = $this->project;
+        $project->covid = $this->covid;
+        $project->save();
+    }
+
+    public function updateCovidInterventions()
+    {
+        $project = $this->project;
+        $project->covid_interventions()->sync($this->covidInterventions);
+    }
+
+    public function updateSpatialCoverage()
+    {
+        $project = $this->project;
+        $project->spatial_coverage_id = $this->spatialCoverage;
         $project->save();
     }
 
@@ -102,6 +178,9 @@ class ShowProject extends Component
             'offices'   => Office::select('id','acronym')->get(),
             'pap_types' => PapType::all(),
             'bases'     => Basis::all(),
+            'project_statuses' => ProjectStatus::all(),
+            'covid_interventions' => CovidIntervention::all(),
+            'spatial_coverages' => SpatialCoverage::all(),
         ]);
     }
 }

@@ -1,4 +1,8 @@
 <div>
+    <div class="Subhead hx_Subhead--responsive">
+        <div class="Subhead-heading">{{ __("General Information") }}</div>
+    </div>
+
     <form wire:submit.prevent="updateOffice">
         <div>
             <dl class="form-group d-inline-block my-0">
@@ -143,14 +147,45 @@
                 @endpush
 
                 @if($description != optional($project->description)->description)
-                <div class="d-flex mt-3">
-                    <span class="flex-auto"></span>
-                    <button class="btn ml-3" type="submit" id="submit-description">Save</button>
-                </div>
+                    <div class="d-flex mt-3">
+                        <span class="flex-auto"></span>
+                        <button class="btn ml-3" type="submit" id="submit-description">Save</button>
+                    </div>
                 @endif
             </dd>
         </dl>
     </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateExpectedOutputs">
+        <dl class="form-group my-0">
+            <dt class="input-label">
+                <label for="">Expected Outputs</label>
+            </dt>
+            <dd class="form-group-body">
+                <textarea wire:model="expectedOutputs" class="form-control input-contrast" id="mde-expected-outputs" name="expected_outputs"></textarea>
+
+                @push('scripts')
+                    <script>
+                        const mdeExpectedOutputs = new EasyMDE({
+                            element: document.getElementById('mde-expected-outputs'),
+                            maxHeight: '120px'
+                        });
+                    </script>
+                @endpush
+
+                @if($expectedOutputs != optional($project->expected_output)->expected_outputs)
+                    <div class="d-flex mt-3">
+                        <span class="flex-auto"></span>
+                        <button class="btn ml-3" type="submit">Save</button>
+                    </div>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
 
     <form wire:submit.prevent="updateTotalProjectCost">
         <dl class="form-group my-0">
@@ -159,9 +194,164 @@
             </dt>
             <dd class="form-group-body" x-data="{ isEditing: false, totalProjectCost: @entangle('totalProjectCost') }">
                 <input x-show="!isEditing" @click="isEditing = true; $nextTick(() => $refs.totalProjectCost.focus());" type="text" class="form-control input-contrast" readonly x-bind:value="totalProjectCost.toLocaleString()">
-                <input x-cloak x-show="isEditing" type="number" wire:model="totalProjectCost" class="form-control input-contrast" x-ref="totalProjectCost" name="total_project_cost">
+                <input x-cloak x-show="isEditing" @click.away="isEditing = false" type="number" wire:model="totalProjectCost" class="form-control input-contrast" x-ref="totalProjectCost" name="total_project_cost">
                 @if($project->total_project_cost != $totalProjectCost)
                     <button class="btn" type="submit">Save</button>
+                @endif
+                <p class="note">
+                    For projects, the total project cost is the total cost of the project including funding years beyond the plan period.
+                    For programs, the total project cost is the total cost for the plan period only.
+                </p>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateProjectStatus">
+        <div>
+            <dl class="form-group d-inline-block my-0">
+                <dt class="input-label">
+                    <label for="office_id">Project Status</label>
+                </dt>
+                <dd>
+                    <select class="form-select" name="project_status_id" wire:model="projectStatus">
+                        <option value="">Select Status</option>
+                        @foreach($project_statuses as $option)
+                            <option value="{{ $option->id }}">{{ $option->id .' - '. $option->name }}</option>
+                        @endforeach
+                    </select>
+
+                    @if($projectStatus != $project->project_status_id)
+                        <button class="btn ml-2" type="submit">Save</button>
+                    @endif
+                </dd>
+            </dl>
+        </div>
+    </form>
+
+    <div class="Subhead hx_Subhead--responsive my-3">
+        <div class="Subhead-heading">{{ __("Other PAP Information") }}</div>
+    </div>
+
+    <form wire:submit.prevent="updateResearch">
+        <div>
+            <dl class="form-group d-inline-block my-0">
+                <dt class="input-label">
+                    <label for="research">Is it a Research and Development Program/Project?</label>
+                </dt>
+                <dd>
+                    <select class="form-select" name="research" wire:model="research">
+                        @foreach($booleanOptions as $key => $option)
+                            <option value="{{ $key }}">{{ $key . ' - ' . $option}}</option>
+                        @endforeach
+                    </select>
+
+                    @if($research != $project->research)
+                        <button class="btn ml-2" type="submit">Save</button>
+                    @endif
+                </dd>
+            </dl>
+        </div>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateIct">
+        <div>
+            <dl class="form-group d-inline-block my-0">
+                <dt class="input-label">
+                    <label for="research">Is it an ICT
+                        Program/Project?</label>
+                </dt>
+                <dd>
+                    <select class="form-select" name="research" wire:model="ict">
+                        @foreach($booleanOptions as $key => $option)
+                            <option value="{{ $key }}">{{ $key . ' - ' . $option}}</option>
+                        @endforeach
+                    </select>
+
+                    @if($ict != $project->ict)
+                        <button class="btn ml-2" type="submit">Save</button>
+                    @endif
+                </dd>
+            </dl>
+        </div>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateCovid">
+        <div>
+            <dl class="form-group d-inline-block my-0">
+                <dt class="input-label">
+                    <label for="research">Is it responsive to
+                        COVID-19/New Normal Intervention?</label>
+                </dt>
+                <dd>
+                    <select class="form-select" name="research" wire:model="covid">
+                        @foreach($booleanOptions as $key => $option)
+                            <option value="{{ $key }}">{{ $key . ' - ' . $option}}</option>
+                        @endforeach
+                    </select>
+
+                    @if($covid != $project->covid)
+                        <button class="btn ml-2" type="submit">Save</button>
+                    @endif
+                </dd>
+            </dl>
+        </div>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateCovidInterventions">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label>COVID Interventions</label>
+            </dt>
+            <dd>
+                @foreach($covid_interventions as $key => $option)
+                    <div class="form-checkbox">
+                        <label for="basis_{{ $option->id }}">
+                            <input
+                                type="checkbox"
+                                id="basis_{{ $option->id }}"
+                                name="covid_interventions[]"
+                                value="{{ $option->id }}"
+                                wire:model="covidInterventions.{{ $key }}">
+                            {{ $option->name }}
+                            <p class="note">
+                                {{ $option->description }}
+                            </p>
+                        </label>
+                    </div>
+                @endforeach
+                <button class="btn ml-3" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="Subhead hx_Subhead--responsive my-3">
+        <div class="Subhead-heading">{{ __("Spatial Coverage") }}</div>
+    </div>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateSpatialCoverage">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label>Spatial Coverage</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="spatialCoverage" wire:model="spatialCoverage">
+                    @foreach($spatial_coverages as $key => $option)
+                        <option value="{{ $key }}">{{ $key . ' - ' . $option}}</option>
+                    @endforeach
+                </select>
+
+                @if($spatialCoverage != $project->spatial_coverage_id)
+                    <button class="btn ml-2" type="submit">Save</button>
                 @endif
             </dd>
         </dl>
