@@ -20,16 +20,16 @@
                     {{ \App\Models\Project::count() }}
                 </span>
             </a>
-            <a class="UnderlineNav-item @if($route == 'reviews.index') selected @endif }}" href="{{ route('reviews.index') }}">
-                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-package UnderlineNav-octicon hide-sm">
-                    <path fill-rule="evenodd" d="M8.878.392a1.75 1.75 0 00-1.756 0l-5.25 3.045A1.75 1.75 0 001 4.951v6.098c0 .624.332 1.2.872 1.514l5.25 3.045a1.75 1.75 0 001.756 0l5.25-3.045c.54-.313.872-.89.872-1.514V4.951c0-.624-.332-1.2-.872-1.514L8.878.392zM7.875 1.69a.25.25 0 01.25 0l4.63 2.685L8 7.133 3.245 4.375l4.63-2.685zM2.5 5.677v5.372c0 .09.047.171.125.216l4.625 2.683V8.432L2.5 5.677zm6.25 8.271l4.625-2.683a.25.25 0 00.125-.216V5.677L8.75 8.432v5.516z"></path>
-                </svg>
-                Reviews
-            </a>
-            <a class="UnderlineNav-item" data-hydro-click="{&quot;event_type&quot;:&quot;user_profile.click&quot;,&quot;payload&quot;:{&quot;profile_user_id&quot;:29625844,&quot;target&quot;:&quot;TAB_PACKAGES&quot;,&quot;user_id&quot;:29625844,&quot;originating_url&quot;:&quot;https://github.com/mlab817&quot;}}" data-hydro-click-hmac="e833faa90508c3f719d379c705750a41656063ef985fff9f575786be012f2fe9" href="/mlab817?tab=packages">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-package UnderlineNav-octicon hide-sm"><path fill-rule="evenodd" d="M2.75 2.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h4.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25H2.75zM1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0113.25 12H9.06l-2.573 2.573A1.457 1.457 0 014 13.543V12H2.75A1.75 1.75 0 011 10.25v-7.5z"/></svg>
-                Issues
-            </a>
+{{--            <a class="UnderlineNav-item @if($route == 'reviews.index') selected @endif }}" href="{{ route('reviews.index') }}">--}}
+{{--                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-package UnderlineNav-octicon hide-sm">--}}
+{{--                    <path fill-rule="evenodd" d="M8.878.392a1.75 1.75 0 00-1.756 0l-5.25 3.045A1.75 1.75 0 001 4.951v6.098c0 .624.332 1.2.872 1.514l5.25 3.045a1.75 1.75 0 001.756 0l5.25-3.045c.54-.313.872-.89.872-1.514V4.951c0-.624-.332-1.2-.872-1.514L8.878.392zM7.875 1.69a.25.25 0 01.25 0l4.63 2.685L8 7.133 3.245 4.375l4.63-2.685zM2.5 5.677v5.372c0 .09.047.171.125.216l4.625 2.683V8.432L2.5 5.677zm6.25 8.271l4.625-2.683a.25.25 0 00.125-.216V5.677L8.75 8.432v5.516z"></path>--}}
+{{--                </svg>--}}
+{{--                Reviews--}}
+{{--            </a>--}}
+{{--            <a class="UnderlineNav-item" data-hydro-click="{&quot;event_type&quot;:&quot;user_profile.click&quot;,&quot;payload&quot;:{&quot;profile_user_id&quot;:29625844,&quot;target&quot;:&quot;TAB_PACKAGES&quot;,&quot;user_id&quot;:29625844,&quot;originating_url&quot;:&quot;https://github.com/mlab817&quot;}}" data-hydro-click-hmac="e833faa90508c3f719d379c705750a41656063ef985fff9f575786be012f2fe9" href="/mlab817?tab=packages">--}}
+{{--                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-package UnderlineNav-octicon hide-sm"><path fill-rule="evenodd" d="M2.75 2.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h4.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25H2.75zM1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0113.25 12H9.06l-2.573 2.573A1.457 1.457 0 014 13.543V12H2.75A1.75 1.75 0 011 10.25v-7.5z"/></svg>--}}
+{{--                Issues--}}
+{{--            </a>--}}
         </nav>
 
     </div>

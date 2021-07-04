@@ -99,7 +99,8 @@
                 </li>
 
                 <li  class="d-flex">
-                    <a href="{{ $project->review ? route('reviews.show', $project->review) : route('projects.reviews.create', $project) }}"
+                    <!-- TODO: review create -->
+                    <a href="#"
                        class="UnderlineNav-item no-wrap @if($route == 'projects.files') selected @endif">
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-git-pull-request UnderlineNav-octicon d-none d-sm-inline">
