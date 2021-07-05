@@ -50,7 +50,7 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::get('/auth/check', \App\Http\Controllers\CheckUserLoginController::class)->name('auth.check');
 
         Route::resource('issues.issue_comments', \App\Http\Controllers\IssueCommentController::class)->shallow();
-        Route::resource('projects.issues', \App\Http\Controllers\IssueController::class)->shallow();
+        Route::resource('projects.issues', \App\Http\Controllers\ProjectIssueController::class)->except('edit');
 
         // other index routes
         Route::get('/projects/assigned', [\App\Http\Controllers\ProjectController::class,'assigned'])->name('projects.assigned');
@@ -60,7 +60,6 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::put('/projects/{project}/drop', [\App\Http\Controllers\ProjectController::class,'drop'])->name('projects.drop');
         // TRIP
         Route::get('/projects/{project}/settings', [\App\Http\Controllers\ProjectController::class,'settings'])->name('projects.settings');
-//        Route::get('/projects/{project}/issues', [\App\Http\Controllers\ProjectController::class,'issues'])->name('projects.issues');
         Route::get('/projects/{project}/files', [\App\Http\Controllers\ProjectController::class,'files'])->name('projects.files');
         Route::get('/projects/{project}/history', [\App\Http\Controllers\ProjectController::class,'audit_logs'])->name('projects.audit_logs');
         Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
@@ -89,6 +88,7 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::post('projects/checkAvailability', [\App\Http\Controllers\ProjectController::class,'checkAvailability'])->name('projects.checkAvailability');
         Route::resource('projects', \App\Http\Controllers\ProjectController::class);
         Route::resource('projects.pipols', \App\Http\Controllers\ProjectPipolController::class);
+
         Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
         Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
         Route::post('/notifications', [\App\Http\Controllers\NotificationController::class,'markAllAsRead'])->name('notifications.markAllAsRead');
@@ -176,8 +176,6 @@ Route::middleware(['auth','user.activated'])->group(function () {
     });
 
 });
-
-Route::get('/bi', \App\Http\Controllers\BiController::class)->name('bi');
 
 Auth::routes(['register' => false]);
 

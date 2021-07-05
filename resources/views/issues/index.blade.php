@@ -41,9 +41,7 @@
                     </div>
                 </div>
 
-
                 <div class="d-block d-lg-none no-wrap">
-
                     <div class="table-list-header-toggle states flex-auto pl-0">
                         <a href="{{ route('projects.issues.index', ['project' => $project, 'status' => 'open']) }}" class="btn-link selected">
                             <svg class="octicon octicon-issue-opened" viewBox="0 0 16 16" version="1.1" width="16"
@@ -99,18 +97,14 @@
 
                             </div>
 
-                            <div
-                                class="table-list-header-toggle no-wrap d-flex flex-auto flex-justify-between flex-sm-justify-start flex-lg-justify-end">
-
-                                <details
-                                    class="details-reset details-overlay d-inline-block position-relative pr-3 pr-sm-0 px-3"
+                            <div class="table-list-header-toggle no-wrap d-flex flex-auto flex-justify-between flex-sm-justify-start flex-lg-justify-end">
+                                <details class="details-reset details-overlay d-inline-block position-relative pr-3 pr-sm-0 px-3"
                                     id="sort-select-menu">
-                                    <summary class="btn-link" title="Sort" aria-haspopup="menu"
-                                             data-ga-click="Issues, Table filter, Sort" role="button">
-                                        Sort<span></span>
+                                    <summary class="btn-link" title="Sort" aria-haspopup="menu" role="button">
+                                        Sort <span></span>
                                         <span class="dropdown-caret hide-sm"></span>
                                     </summary>
-                                    <details-menu class="SelectMenu SelectMenu--hasFilter right-0" role="menu"
+                                    <div class="SelectMenu SelectMenu--hasFilter right-0" role="menu"
                                                   aria-label="Sort by">
                                         <div class="SelectMenu-modal">
                                             <header class="SelectMenu-header">
@@ -130,20 +124,17 @@
 
                                             </div>
                                         </div>
-                                    </details-menu>
+                                    </div>
                                 </details>
-
                             </div>
                         </div>
                     </div>
 
                     <div aria-label="Issues" role="group">
-                        <div class="js-navigation-container js-active-navigation-container">
-
+                        <div class="">
                             @forelse($issues as $issue)
-                            <div class="Box-row Box-row--focus-gray p-0 mt-0 js-navigation-item js-issue-row">
+                            <div class="Box-row Box-row--focus-gray p-0 mt-0">
                                 <div class="d-flex Box-row--drag-hide position-relative">
-
                                     <div class="flex-shrink-0 pt-2 pl-3">
                                         <span class="tooltipped tooltipped-e">
                                             @if(in_array($issue->status,['','open']))
@@ -164,29 +155,22 @@
 
                                     <!-- Issue title column -->
                                     <div class="flex-auto min-width-0 p-2 pr-3 pr-md-2">
-
-                                        <a id="issue_5_link"
-                                           class="Link--primary v-align-middle no-underline h4 js-navigation-open markdown-title"
-                                           data-hovercard-type="issue"
-                                           data-hovercard-url="/mlab817/pips/issues/5/hovercard"
-                                           href="{{ route('issues.show', $issue) }}">
-                                            {{ $issue->title ? $issue->title : 'Untitled' }}
+                                        <a class="Link--primary v-align-middle no-underline h4 markdown-title"
+                                           href="{{ route('projects.issues.show', ['project' => $project, 'issue' => $issue]) }}">
+                                            {{ $issue->title ?? 'Untitled' }}
                                         </a>
                                         <div class="d-flex mt-1 text-small color-text-secondary">
                                             <span class="opened-by">
                                               #{{ $issue->id }}
                                                 opened
                                                 <relative-time datetime="{{ $issue->created_at }}" class="no-wrap">
-                                                    {{ $issue->created_at->diffForHumans(null, null, true) }}
+                                                    {{ $issue->created_at ? $issue->created_at->diffForHumans(null, null, true) : '' }}
                                                 </relative-time> by
                                                 <span class="Link--muted">
-                                                    {{ $issue->creator->username }}
+                                                    {{ $issue->creator->username ?? '' }}
                                                 </span>
-
                                             </span>
-
                                             <span class="d-none d-md-inline-flex"></span>
-
                                         </div>
                                     </div>
 
@@ -194,7 +178,7 @@
                                         <span class="ml-2 flex-1 flex-shrink-0"></span>
 
                                         <span class="ml-2 flex-1 flex-shrink-0">
-                                              <a href="{{ route('issues.show', $issue) }}" class="Link--muted" aria-label="{{ $issue->issue_comments->count() }} comment">
+                                              <a href="{{ route('projects.issues.show', ['project' => $project, 'issue' => $issue]) }}" class="Link--muted" aria-label="{{ $issue->issue_comments->count() }} comment">
                                                 <svg class="octicon octicon-comment v-align-middle" viewBox="0 0 16 16" version="1.1" width="16" height="16"
                                                      aria-hidden="true">
                                                     <path fill-rule="evenodd" d="M2.75 2.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h4.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25H2.75zM1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0113.25 12H9.06l-2.573 2.573A1.457 1.457 0 014 13.543V12H2.75A1.75 1.75 0 011 10.25v-7.5z"></path>
@@ -203,7 +187,7 @@
                                               </a>
                                         </span>
                                     </div>
-                                    <a class="d-block d-md-none position-absolute top-0 bottom-0 left-0 right-0"  aria-label="{{ $issue->title }}"  href="{{ route('issues.show', $issue) }}"></a>
+                                    <a class="d-block d-md-none position-absolute top-0 bottom-0 left-0 right-0"  aria-label="{{ $issue->title }}"  href="{{ route('projects.issues.show', ['project' => $project, 'issue' => $issue]) }}"></a>
                                 </div>
                             </div>
                             @empty

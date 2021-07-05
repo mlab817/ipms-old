@@ -1641,7 +1641,6 @@
 
                             <div id="pinned-items-modal-wrapper"></div>
 
-
                         </div>
                     </div>
                 </div>
