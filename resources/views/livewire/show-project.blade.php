@@ -4,7 +4,7 @@
     </div>
 
     <form wire:submit.prevent="updateOffice">
-        <div>
+        <div id="office">
             <dl class="form-group d-inline-block my-0">
                 <dt class="input-label">
                     <label for="office_id">Office</label>
@@ -25,7 +25,7 @@
         </div>
     </form>
 
-    <div class="my-3"></div>
+    <div class="my-3" id="pap"></div>
 
     <form wire:submit.prevent="updatePapType">
         <dl class="form-group d-inline-block my-0">
@@ -346,7 +346,7 @@
             <dd>
                 <select class="form-select" name="spatialCoverage" wire:model="spatialCoverage">
                     @foreach($spatial_coverages as $key => $option)
-                        <option value="{{ $key }}">{{ $key . ' - ' . $option}}</option>
+                        <option value="{{ $key }}">{{ $key . ' - ' . $option->name }}</option>
                     @endforeach
                 </select>
 
@@ -356,4 +356,379 @@
             </dd>
         </dl>
     </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateRegions">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label>Regions</label>
+            </dt>
+            <dd>
+                @foreach($region_options as $key => $option)
+                    <div class="form-checkbox">
+                        <label for="region_{{ $option->id }}">
+                            <input
+                                type="checkbox"
+                                id="region_{{ $option->id }}"
+                                name="regions[]"
+                                value="{{ $option->id }}"
+                                wire:model="regions.{{ $key }}">
+                            {{ $option->name }}
+                        </label>
+                    </div>
+                @endforeach
+
+                <button class="btn ml-3" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <div class="Subhead hx_Subhead--responsive">
+        <div class="Subhead-heading">{{ __("Implementation Period") }}</div>
+    </div>
+
+    <form wire:submit.prevent="updateTargetStartYear">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label>Start Year</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="target_start_year" wire:model="targetStartYear">
+                    @foreach($years as $option)
+                        <option value="{{ $option }}">{{ $option }}</option>
+                    @endforeach
+                </select>
+
+                @if($targetStartYear != $project->target_start_year)
+                    <button class="btn ml-2" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateTargetEndYear">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label>Start Year</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="target_end_year" wire:model="targetEndYear">
+                    @foreach($years as $option)
+                        <option value="{{ $option }}">{{ $option }}</option>
+                    @endforeach
+                </select>
+
+                @if($targetEndYear != $project->target_end_year)
+                    <button class="btn ml-2" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <div class="Subhead hx_Subhead--responsive">
+        <div class="Subhead-heading">{{ __("Approval Status") }}</div>
+    </div>
+
+    <form wire:submit.prevent="updatePapType">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Is this project ICC-able?</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="iccable" id="iccable" wire:model="iccable">
+                    @foreach($booleanOptions as $key => $option)
+                        <option value="{{ $key }}">{{ $option }}</option>
+                    @endforeach
+                </select>
+
+                @if($project->iccable != $iccable)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateApprovalLevel">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Level of Approval (for ICCable projects only)</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="approval_level_id" id="approval_level_id" wire:model="approvalLevel">
+                    @foreach($approval_levels as $key => $option)
+                        <option value="{{ $option->id }}">{{ $option->id . ' - ' . $option->name }}</option>
+                    @endforeach
+                </select>
+
+                @if($project->approval_level_id != $approvalLevel)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateApprovalDate">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Date of Approval (for ICCable projects only)</label>
+            </dt>
+            <dd>
+                <input type="date" class="form-control" name="approval_date" id="approval_date" wire:model="approvalDate">
+
+                @if($project->approval_date != $approvalDate)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateGad">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Gender Responsiveness</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="gad_id" id="gad_id" wire:model="gad">
+                    @foreach($gads as $option)
+                        <option value="{{ $option->id }}">{{ $option->id . ' - ' . $option->name }}</option>
+                    @endforeach
+                </select>
+
+                @if($project->gad_id != $gad)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <div class="Subhead hx_Subhead--responsive">
+        <div class="Subhead-heading">{{ __("Regional Development Investment Program") }}</div>
+    </div>
+
+    <form wire:submit.prevent="updateRdip">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Is this PAP included in the RDIP?</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="rdip" id="rdip" wire:model="rdip">
+                    @foreach($booleanOptions as $key => $option)
+                        <option value="{{ $key }}">{{ $key . ' - ' . $option }}</option>
+                    @endforeach
+                </select>
+
+                @if($project->rdip != $rdip)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateRdcEndorsementRequired">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Is RDC endorsement required?</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="rdc_endorsement_required" id="rdc_endorsement_required" wire:model="rdcEndorsementRequired">
+                    @foreach($booleanOptions as $key => $option)
+                        <option value="{{ $key }}">{{ $key . ' - ' . $option }}</option>
+                    @endforeach
+                </select>
+
+                @if($project->rdc_endorsement_required != $rdcEndorsementRequired)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateRdcEndorsed">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Has the PAP been endorsed?</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="rdc_endorsed" id="rdc_endorsed" wire:model="rdcEndorsed">
+                    @foreach($booleanOptions as $key => $option)
+                        <option value="{{ $key }}">{{ $key . ' - ' . $option }}</option>
+                    @endforeach
+                </select>
+
+                @if($project->rdc_endorsed != $rdcEndorsed)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateRdcEndorsedDate">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">RDC Endorsement Date</label>
+            </dt>
+            <dd>
+                <input type="date" class="form-control" name="rdc_endorsed_date" id="rdc_endorsed_date" wire:model="rdcEndorsedDate">
+
+                @if($project->rdc_endorsed_date != $rdcEndorsedDate)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <div class="Subhead hx_Subhead--responsive">
+        <div class="Subhead-heading">{{ __("Project Preparation Details") }}</div>
+    </div>
+
+    <form wire:submit.prevent="updatePreparationDocument">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Project Preparation Document</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="preparation_document_id" id="preparation_document_id" wire:model="preparationDocument">
+                    @foreach($preparation_documents as $key => $option)
+                        <option value="{{ $option->id }}">{{ $option->id . ' - ' . $option->name }}</option>
+                    @endforeach
+                </select>
+
+                @if($project->preparation_document_id != $preparationDocument)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateHasFs">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Does the project require feasibility study?</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="has_fs" id="has_fs" wire:model="hasFs">
+                    @foreach($booleanOptions as $key => $option)
+                        <option value="{{ $key }}">{{ $key . ' - ' . $option }}</option>
+                    @endforeach
+                </select>
+
+                @if($project->has_fs != $hasFs)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateFsStatus">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Status of Feasibility Study (Only if FS is required)</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="feasibility_study[fs_status_id]" id="feasibility_study[fs_status_id]" wire:model="fsStatus">
+                    @foreach($fs_statuses as $key => $option)
+                        <option value="{{ $option->id }}">{{ $option->id . ' - ' . $option->name }}</option>
+                    @endforeach
+                </select>
+
+                @if($project->feasibility_study->fs_status_id != $fsStatus)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateNeedAssistance">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Does the conduct of feasibility study need assistance?</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="feasibility_study[need_assistance]" id="feasibility_study[need_assistance]" wire:model="needAssistance">
+                    @foreach($booleanOptions as $key => $option)
+                        <option value="{{ $key }}">{{ $key . ' - ' . $option }}</option>
+                    @endforeach
+                </select>
+
+                @if($project->feasibility_study->need_assistance != $needAssistance)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateFsCost">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Schedule of Feasibility Study Cost (in absolute PhP)</label>
+            </dt>
+            <dd x-data="{
+                    isEditing: false,
+                    fsY2017: @entangle('fsY2017'),
+                    fsY2018: @entangle('fsY2018'),
+                    fsY2019: @entangle('fsY2019'),
+                    fsY2020: @entangle('fsY2020'),
+                    fsY2021: @entangle('fsY2021'),
+                    fsY2022: @entangle('fsY2022'),
+                }">
+                <div class="d-flex flex-column">
+                    <div x-show="isEditing" x-cloak>
+                        <input type="number" class="form-control text-right mt-2" id="feasibility_study.y2017" name="feasibility_study[y2017]" wire:model="fsY2017">
+                        <input type="number" class="form-control text-right mt-2" id="feasibility_study.y2018" name="feasibility_study[y2018]" wire:model="fsY2018">
+                        <input type="number" class="form-control text-right mt-2" id="feasibility_study.y2019" name="feasibility_study[y2019]" wire:model="fsY2019">
+                        <input type="number" class="form-control text-right mt-2" id="feasibility_study.y2020" name="feasibility_study[y2020]" wire:model="fsY2020">
+                        <input type="number" class="form-control text-right mt-2" id="feasibility_study.y2021" name="feasibility_study[y2021]" wire:model="fsY2021">
+                        <input type="number" class="form-control text-right mt-2" id="feasibility_study.y2022" name="feasibility_study[y2022]" wire:model="fsY2022">
+                    </div>
+                    <div x-show="!isEditing" x-cloak>
+                        <input type="text" class="form-control text-right mt-2" x-bind:value="parseFloat(fsY2017).toLocaleString()" readonly>
+                        <input type="text" class="form-control text-right mt-2" x-bind:value="parseFloat(fsY2018).toLocaleString()" readonly>
+                        <input type="text" class="form-control text-right mt-2" x-bind:value="parseFloat(fsY2019).toLocaleString()" readonly>
+                        <input type="text" class="form-control text-right mt-2" x-bind:value="parseFloat(fsY2020).toLocaleString()" readonly>
+                        <input type="text" class="form-control text-right mt-2" x-bind:value="parseFloat(fsY2021).toLocaleString()" readonly>
+                        <input type="text" class="form-control text-right mt-2" x-bind:value="parseFloat(fsY2022).toLocaleString()" readonly>
+                    </div>
+                    <!-- TODO: compute sum of fs cost -->
+                    <input type="text" class="form-control mt-2" id="feasibility_study.total" name="feasibility_study[total]" wire:model="fsTotal">
+                </div>
+
+                <button class="btn mt-2" @click="isEditing = true" x-show="!isEditing">Edit</button>
+                <button class="btn btn-primary mt-2" type="submit" x-cloak x-show="isEditing" x-cloak>Save</button>
+                <button class="btn mt-2" @click="isEditing = false" x-cloak x-show="isEditing">Cancel</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
 </div>

@@ -56,17 +56,17 @@
                                                 </svg>
                                             </summary>
 
-                                            <details-menu class="SelectMenu" role="menu">
-                                                <div class="SelectMenu-modal rounded-3 mt-1" style="max-height:340px;">
-                                                    <div class="SelectMenu-list SelectMenu-list--borderless p-2" style="overscroll-behavior: contain;">
-                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" data-action="click:readme-toc#blur" data-targets="readme-toc.entries" data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips&quot;,&quot;user_id&quot;:29625844}}" data-hydro-click-hmac="4fe7439e75f410ed65a053a3b84a3848e32b261f272f07c3d15aeece6e52ae61" href="#about-ipms" aria-current="page">About IPMS</a>
-                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" data-action="click:readme-toc#blur" data-targets="readme-toc.entries" data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips&quot;,&quot;user_id&quot;:29625844}}" data-hydro-click-hmac="4fe7439e75f410ed65a053a3b84a3848e32b261f272f07c3d15aeece6e52ae61" href="#deployment">Deployment</a>
-                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" data-action="click:readme-toc#blur" data-targets="readme-toc.entries" data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips&quot;,&quot;user_id&quot;:29625844}}" data-hydro-click-hmac="4fe7439e75f410ed65a053a3b84a3848e32b261f272f07c3d15aeece6e52ae61" href="#bug-report">Bug Report</a>
-                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" data-action="click:readme-toc#blur" data-targets="readme-toc.entries" data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips&quot;,&quot;user_id&quot;:29625844}}" data-hydro-click-hmac="4fe7439e75f410ed65a053a3b84a3848e32b261f272f07c3d15aeece6e52ae61" href="#security-vulnerabilities">Security Vulnerabilities</a>
-                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" data-action="click:readme-toc#blur" data-targets="readme-toc.entries" data-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;entry&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips&quot;,&quot;user_id&quot;:29625844}}" data-hydro-click-hmac="4fe7439e75f410ed65a053a3b84a3848e32b261f272f07c3d15aeece6e52ae61" href="#license">License</a>
-                                                    </div>
-                                                </div>
-                                            </details-menu>
+{{--                                            <details-menu class="SelectMenu" role="menu">--}}
+{{--                                                <div class="SelectMenu-modal rounded-3 mt-1" style="max-height:340px;">--}}
+{{--                                                    <div class="SelectMenu-list SelectMenu-list--borderless p-2" style="overscroll-behavior: contain;">--}}
+{{--                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" href="#office" aria-current="page">About IPMS</a>--}}
+{{--                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" href="#pap">Program or Project</a>--}}
+{{--                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" href="#bug-report">Bug Report</a>--}}
+{{--                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" href="#security-vulnerabilities">Security Vulnerabilities</a>--}}
+{{--                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" href="#license">License</a>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </details-menu>--}}
                                         </details>
 
                                         <h2 class="Box-title">
@@ -81,319 +81,37 @@
                                 <div class="Box-body">
                                     <livewire:show-project :project="$project" />
 
-                                    <div class="col-md-12">
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">{{ __("Implementing Agencies") }}</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-group row">
-                                                    <label for="operating_units" class="col-form-label col-sm-3 required">Implementing
-                                                        Agencies (including own office) </label>
-                                                    <div class="col-sm-9">
-                                                        @foreach($ou_types as $type)
-                                                            <strong>{{ $type->name }}</strong>
-                                                            @foreach($type->operating_units as $option)
-                                                                <div class="form-check">
-                                                                    <label class="form-check-label">
-                                                                        <input
-                                                                            class="form-check-input @error('operating_units') text-danger @enderror"
-                                                                            type="checkbox" name="operating_units[]"
-                                                                            value="{{ $option->id }}" {{ in_array($option->id, old('operating_units', $project->operating_units()->pluck('id')->toArray() ?? []) ?? []) ? 'checked' : '' }}>
-                                                                        {{ $option->name }}
-                                                                    </label>
-                                                                </div>
-                                                            @endforeach
-                                                        @endforeach
-                                                        @error('operating_units')<span
-                                                            class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">{{ __("Spatial Coverage") }}</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-group row">
-                                                    <label for="spatial_coverage_id" class="col-form-label col-sm-3 required">Spatial
-                                                        Coverage </label>
-                                                    <div class="col-sm-9">
-                                                        <select name="spatial_coverage_id" id="spatial_coverage_id"
-                                                                class="form-control @error('spatial_coverage_id') is-invalid @enderror">
-                                                            <option value="" selected disabled>Select Spatial Coverage</option>
-                                                            @foreach($spatial_coverages as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                        @if(old('spatial_coverage_id', $project->spatial_coverage_id) == $option->id) selected @endif>{{ $option->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('spatial_coverage_id')<span
-                                                            class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <div class="col-sm-3">
-                                                        <label for="regions" class="col-form-label required">Regions </label>
-                                                        <p>
-                                                            <button type="button" id="selectRegions" class="btn btn-sm btn-secondary">
-                                                                Check All
-                                                            </button>
-                                                            <button type="button" id="clearRegions" class="btn btn-sm btn-danger">
-                                                                Clear
-                                                            </button>
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-9">
-                                                        @foreach($regions->sortBy('order') as $option)
-                                                            @if($option->id !== 99)
-                                                                <div class="form-check">
-                                                                    <label
-                                                                        class="form-check-label @error('regions') text-danger @enderror">
-                                                                        <input
-                                                                            class="regions-checkboxes form-check-input"
-                                                                            type="checkbox" name="regions[]"
-                                                                            value="{{ $option->id }}" {{ in_array($option->id, old('regions', $project->regions->pluck('id')->toArray() ?? [])) ? 'checked' : '' }}>
-                                                                        {{ $option->name }}
-                                                                    </label>
-                                                                </div>
-                                                            @endif
-                                                        @endforeach
-                                                        @error('regions')<span
-                                                            class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Implementation Period -->
-                                    <div class="col-md-12">
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">{{ __("Implementation Period") }}</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group row">
-                                                            <label for="target_start_year" class="col-form-label col-sm-6 required">Start
-                                                                of Implementation </label>
-                                                            <div class="col-sm-6">
-                                                                <select
-                                                                    class="form-control @error('target_start_year') is-invalid @enderror"
-                                                                    name="target_start_year">
-                                                                    <option value="" disabled selected>Select Year</option>
-                                                                    @foreach($years as $option)
-                                                                        <option
-                                                                            value="{{ $option }}"
-                                                                            @if(old('target_start_year', $project->target_start_year) == $option) selected @endif>{{ $option }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                                @error('target_start_year')<span
-                                                                    class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group row">
-                                                            <label for="target_end_year" class="col-form-label col-sm-6 required">Year
-                                                                of Project Completion </label>
-                                                            <div class="col-sm-6">
-                                                                <select
-                                                                    class="form-control @error('target_end_year') is-invalid @enderror"
-                                                                    name="target_end_year">
-                                                                    <option value="" disabled selected>Select Year</option>
-                                                                    @foreach($years as $option)
-                                                                        <option
-                                                                            value="{{ $option }}"
-                                                                            @if(old('target_end_year', $project->target_end_year) == $option) selected @endif>{{ $option }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                                @error('target_end_year')<span
-                                                                    class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--/. Implementation Period -->
-
-                                    <!-- Approval Status -->
-                                    <div class="col-md-12">
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">{{ __("Approval Status") }}</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-group row">
-                                                    <label for="iccable" class="col-form-label col-sm-3 required">Is the Project ICC-able? </label>
-                                                    <div class="col-sm-9">
-                                                        <div class="form-check-inline">
-                                                            <input type="radio" class="form-check-input" value="1"
-                                                                   name="iccable"
-                                                                   @if(old('iccable', $project->iccable) == 1) checked @endif>
-                                                            <label class="form-check-label">Yes</label>
-                                                        </div>
-                                                        <div class="form-check-inline">
-                                                            <input type="radio" class="form-check-input" value="0"
-                                                                   name="iccable"
-                                                                   @if(old('iccable', $project->iccable) == 0) checked @endif>
-                                                            <label class="form-check-label">No</label>
-                                                        </div>
-                                                        @error('iccable')<span
-                                                            class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="target_start_year" class="col-form-label col-sm-3">Level of Approval
-                                                        (For ICCable only)</label>
-                                                    <div class="col-sm-9">
-                                                        <select class="form-control @error('approval_level_id') is-invalid @enderror"
-                                                                name="approval_level_id">
-                                                            <option value="" disabled selected>Select Approval Level</option>
-                                                            @foreach($approval_levels as $option)
-                                                                <option
-                                                                    value="{{ $option->id }}"
-                                                                    @if(old('approval_level_id', $project->approval_level_id) == $option->id) selected @endif>{{ $option->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('approval_level_id')<span
-                                                            class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="approval_date" class="col-form-label col-sm-3">Date of
-                                                        Submission/Approval</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="date"
-                                                               class="form-control @error('approval_date') is-invalid @enderror"
-                                                               name="approval_date"
-                                                               value="{{ old('approval_date', $project->approval_date) }}">
-                                                        @error('approval_date')<span
-                                                            class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label for="gad_id" class="col-form-label col-sm-3 required">Gender
-                                                        Responsiveness </label>
-                                                    <div class="col-sm-9">
-                                                        <select class="form-control @error('gad_id') is-invalid @enderror"
-                                                                name="gad_id">
-                                                            <option value="" disabled selected>Select GAD Classification</option>
-                                                            @foreach($gads as $option)
-                                                                <option
-                                                                    value="{{ $option->id }}" {{ old('gad_id', $project->gad_id) == $option->id ? 'selected' : '' }}>{{ $option->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('gad_id')<span
-                                                            class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--/. Approval Status -->
-
-                                    <!--/. Regional Development Investment Program -->
-                                    <div class="col-md-12">
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Regional Development Investment Program</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-sm-3 required">Regional Development Investment Program </label>
-                                                    <div class="col-sm-9">
-                                                        <div class="form-check-inline">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="radio" name="rdip" value="1"
-                                                                       @if(old('rdip', $project->rdip) == 1) checked @endif>
-                                                                Yes
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check-inline">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="radio" name="rdip" value="0"
-                                                                       @if(old('rdip', $project->rdip) == 0) checked @endif>
-                                                                No
-                                                            </label>
-                                                        </div>
-                                                        @error('rdip')<span
-                                                            class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                    </div>
-                                                </div>
-                                                <div class="ml-4">
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-sm-3 required">Is RDC endorsement required? </label>
-                                                        <div class="col-sm-9">
-                                                            <div class="form-check-inline">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="radio"
-                                                                           name="rdc_endorsement_required" value="1"
-                                                                           @if(old('rdc_endorsement_required', $project->rdc_endorsement_required) == 1) checked @endif>
-                                                                    Yes
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="radio"
-                                                                           name="rdc_endorsement_required" value="0"
-                                                                           @if(old('rdc_endorsement_required', $project->rdc_endorsement_required) == 0) checked @endif>
-                                                                    No
-                                                                </label>
-                                                            </div>
-                                                            @error('rdc_endorsement_required')<span
-                                                                class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="rdc_endorsed" class="col-form-label col-sm-3">Has the project been
-                                                            endorsed?</label>
-                                                        <div class="col-sm-9">
-                                                            <div class="form-check-inline">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="radio" name="rdc_endorsed"
-                                                                           value="1"
-                                                                           @if(old('rdc_endorsed', $project->rdc_endorsed) == 1) checked @endif>
-                                                                    Yes
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check-inline">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="radio" name="rdc_endorsed"
-                                                                           value="0"
-                                                                           @if(old('rdc_endorsed', $project->rdc_endorsed) == 0) checked @endif>
-                                                                    No
-                                                                </label>
-                                                            </div>
-                                                            @error('rdc_endorsed')<span
-                                                                class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="rdc_endorsed_date" class="col-form-label col-sm-3">RDC Endorsement
-                                                            Date</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="date"
-                                                                   class="form-control @error('rdc_endorsed_date') is-invalid @enderror"
-                                                                   name="rdc_endorsed_date" value="{{ old('rdc_endorsed_date') }}">
-                                                            @error('rdc_endorsed_date')<span
-                                                                class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--/. Regional Development Investment Program -->
+{{--                                    <div class="col-md-12">--}}
+{{--                                        <div class="card card-primary card-outline">--}}
+{{--                                            <div class="card-header">--}}
+{{--                                                <h3 class="card-title">{{ __("Implementing Agencies") }}</h3>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="card-body">--}}
+{{--                                                <div class="form-group row">--}}
+{{--                                                    <label for="operating_units" class="col-form-label col-sm-3 required">Implementing--}}
+{{--                                                        Agencies (including own office) </label>--}}
+{{--                                                    <div class="col-sm-9">--}}
+{{--                                                        @foreach($ou_types as $type)--}}
+{{--                                                            <strong>{{ $type->name }}</strong>--}}
+{{--                                                            @foreach($type->operating_units as $option)--}}
+{{--                                                                <div class="form-check">--}}
+{{--                                                                    <label class="form-check-label">--}}
+{{--                                                                        <input--}}
+{{--                                                                            class="form-check-input @error('operating_units') text-danger @enderror"--}}
+{{--                                                                            type="checkbox" name="operating_units[]"--}}
+{{--                                                                            value="{{ $option->id }}" {{ in_array($option->id, old('operating_units', $project->operating_units()->pluck('id')->toArray() ?? []) ?? []) ? 'checked' : '' }}>--}}
+{{--                                                                        {{ $option->name }}--}}
+{{--                                                                    </label>--}}
+{{--                                                                </div>--}}
+{{--                                                            @endforeach--}}
+{{--                                                        @endforeach--}}
+{{--                                                        @error('operating_units')<span--}}
+{{--                                                            class="error invalid-feedback">{{ $message }}</span>@enderror--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
 
                                     <!-- Project Preparation Details -->
                                     <div class="col-md-12">
@@ -402,44 +120,6 @@
                                                 <h3 class="card-title">{{ __("Project Preparation Details") }}</h3>
                                             </div>
                                             <div class="card-body">
-                                                <div class="form-group row">
-                                                    <label for="preparation_document_id" class="col-form-label col-sm-3 required">Project
-                                                        Preparation Document </label>
-                                                    <div class="col-sm-9">
-                                                        <select name="preparation_document_id" id="preparation_document_id"
-                                                                class="form-control">
-                                                            <option value="" selected disabled>Select document</option>
-                                                            @foreach($preparation_documents as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                        @if(old('preparation_document_id', $project->preparation_document_id) == $option->id) selected @endif>{{ $option->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('preparation_document_id')<span
-                                                            class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="has_fs" class="col-form-label col-sm-3 required">Does the project require
-                                                        feasibility study? </label>
-                                                    <div class="col-sm-9">
-                                                        <div class="form-check-inline">
-                                                            <label class="form-check-label">
-                                                                <input type="radio" class="form-check-input" value="1"
-                                                                       name="has_fs" {{ old('has_fs', $project->has_fs) == 1 ? 'checked' : '' }}>
-                                                                Yes
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check-inline">
-                                                            <label class="form-check-label">
-                                                                <input type="radio" class="form-check-input" value="0"
-                                                                       name="has_fs" {{ old('has_fs', $project->has_fs) == 0 ? 'checked' : '' }}>
-                                                                No
-                                                            </label>
-                                                        </div>
-                                                        @error('has_fs')<span
-                                                            class="error invalid-feedback">{{ $message }}</span>@enderror
-                                                    </div>
-                                                </div>
                                                 <div class="form-group row">
                                                     <label for="fs_status_id" class="col-form-label col-sm-3">Status of Feasibility
                                                         Study (Only if FS is required)</label>
