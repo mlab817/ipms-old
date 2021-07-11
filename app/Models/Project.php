@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Scopes\RoleProjectScope;
 use App\Traits\Auditable;
 use App\Traits\HasUuid;
+use Bkwld\Cloner\Cloneable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class Project extends Model
 {
@@ -22,6 +24,9 @@ class Project extends Model
     use HasUuid;
     use SoftDeletes;
     use Auditable;
+    use Cloneable;
+
+    protected $cloneable_relations = [];
 
     protected $fillable = [
         'ipms_id',
@@ -537,5 +542,12 @@ class Project extends Model
             : static::onlyTrashed()->where(function($q) use ($query) {
                 $q->where('title', 'LIKE', '%'. $query . '%');
             });
+    }
+
+    public function onCloning($src, $child = null)
+    {
+        $this->uuid = Str::uuid();
+        $this->created_by = auth()->id();
+        $this->archived = false;
     }
 }
