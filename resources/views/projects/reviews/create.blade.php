@@ -4,20 +4,11 @@
     <div class="container-lg mb-6">
         <div class="Box">
             <div class="Box-header">
-                <h3 class="Box-title">Review</h3>
+                <h3 class="Box-title">Add a New Review</h3>
             </div>
             <div class="Box-body">
-                @if(!$review)
-                <div class="blankslate blankslate-large">
-                    <img src="https://ghicons.github.com/assets/images/blue/png/Pull%20request.png" alt="" class="mb-3" />
-                    <h3 class="mb-1">This program/project has not been reviewed.</h3>
-                    <a class="btn btn-primary my-3" role="button" href="{{ route('projects.reviews.create', $project) }}">New review</a>
-                </div>
-                @else
-
-                <form action="{{ route('projects.reviews.update', ['project' => $project, 'review' => $review]) }}" method="POST">
+                <form action="{{ route('projects.reviews.store', $project) }}" method="POST">
                     @csrf
-                    @method('PUT')
                     <dl class="form-group my-0">
                         <dt class="input-label">
                             <label for="">Public Investment Program</label>
@@ -68,7 +59,7 @@
                             <label for="">CIP Type</label>
                         </dt>
                         <dd class="form-group-body">
-                            <select id="pip_typology_id" name="pip_typology_id" class="form-select">
+                            <select id="cip_type_id" name="cip_type_id" class="form-select">
                                 @foreach ($cip_types as $option)
                                     <option value="{{ $option->id }}" @if($review->pip_typology_id == $option->id) selected @endif>{{ $option->id . ' - ' . $option->name }}</option>
                                 @endforeach
@@ -118,10 +109,9 @@
                     </dl>
 
                     <div class="form-actions pr-2 pt-2">
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary">Create Review</button>
                     </div>
                 </form>
-                @endif
             </div>
         </div>
     </div>

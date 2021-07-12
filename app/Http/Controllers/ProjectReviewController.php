@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectReviewStoreRequest;
 use App\Models\CipType;
 use App\Models\PipTypology;
 use App\Models\Project;
 use App\Models\ReadinessLevel;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class ProjectReviewController extends Controller
@@ -35,20 +37,33 @@ class ProjectReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Project $project)
     {
-        //
+        return view('projects.reviews.create', [
+            'project'   => $project,
+            'review'    => new Review,
+            'pip_typologies' => PipTypology::all(),
+            'cip_types' => CipType::all(),
+            'readiness_levels' => ReadinessLevel::all(),
+            'yesNo' => [
+                0 => 'No',
+                1 => 'Yes',
+            ]
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ProjectReviewStoreRequest $request
+     * @param Project $project
+     * @return void
      */
-    public function store(Request $request)
+    public function store(ProjectReviewStoreRequest $request, Project $project)
     {
-        //
+        $project->review()->create($request->validated());
+
+        return redirect()->route('projects.reviews.index', $project);
     }
 
     /**
@@ -68,7 +83,7 @@ class ProjectReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Review $review)
     {
         //
     }
@@ -80,7 +95,7 @@ class ProjectReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project, Review $review)
     {
         //
     }
@@ -91,7 +106,7 @@ class ProjectReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project, Review $review)
     {
         //
     }
