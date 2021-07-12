@@ -2,12 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\AssignedProjectsDataTable;
-use App\DataTables\ProjectsDataTable;
-use App\DataTables\Scopes\AssignedProjectsDataTableScope;
-use App\DataTables\Scopes\OfficeProjectsDataTableScope;
-use App\DataTables\Scopes\OwnProjectsDataTableScope;
-use App\DataTables\Scopes\ProjectsDataTableScope;
 use App\Events\ProjectCreatedEvent;
 use App\Events\ProjectReviewedEvent;
 use App\Http\Requests\ProjectDropRequest;
@@ -16,7 +10,6 @@ use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Requests\ReviewStoreRequest;
 use App\Http\Requests\UploadAttachmentRequest;
-use App\Http\Resources\ProjectResource;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
 use App\Models\CipType;

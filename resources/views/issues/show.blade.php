@@ -16,9 +16,9 @@
 
             <div class="js-check-all-container">
 
-                <div id="show_issue" class="js-issues-results js-socket-channel js-updatable-content">
+                <div>
 
-                    <div id="partial-discussion-header" class="gh-header border-bottom pb-3 mb-3 js-details-container Details js-socket-channel js-updatable-content issue">
+                    <div class="border-bottom pb-3 mb-3 js-details-container Details js-socket-channel js-updatable-content issue">
                         <div class="gh-header-show ">
                             <form action="{{ route('projects.issues.update', ['project' => $project, 'issue' => $issue]) }}" method="POST">
                                 @csrf
@@ -113,7 +113,7 @@
                                     <img class="avatar" height="40" width="40" alt="{{ '@' . $issue->creator->username ?? '' }}"
                                          src="{{ $issue->creator->avatar }}" />
                                 </div>
-                                <div class="TimelineItem-body my-0" x-data="{ isEditing: false, description: '{{ $issue->description }}' }">
+                                <div class="TimelineItem-body my-0" x-data="{ isEditing: false, description: `{{ $issue->description }}` }">
                                     <div class="Box Box--blue" x-show="!isEditing">
                                         <div class="Box-header Box-header--blue clearfix p-2 d-block d-flex">
                                             <h3 class="f5 text-normal flex-auto">
@@ -148,55 +148,14 @@
                                             @markdown($issue->description ?? '_No description provided_')
                                         </div>
                                     </div>
-                                    <div class="Box Box--blue" x-show="isEditing" x-cloak>
+                                    <div class="Box" x-show="isEditing" x-cloak>
                                         <form action="{{ route('projects.issues.update', ['project' => $project, 'issue' => $issue]) }}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                            <div class="Box-header Box-header--blue clearfix p-2 d-block d-flex">
-                                                <markdown-toolbar for="description" class="p-1">
-                                                    <span class="tooltipped tooltipped-s tooltipped-align-right-1 mx-1" aria-label="Bold">
-                                                        <md-bold class="btn-link">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd" d="M4 2a1 1 0 00-1 1v10a1 1 0 001 1h5.5a3.5 3.5 0 001.852-6.47A3.5 3.5 0 008.5 2H4zm4.5 5a1.5 1.5 0 100-3H5v3h3.5zM5 9v3h4.5a1.5 1.5 0 000-3H5z"/>
-                                                            </svg>
-                                                        </md-bold>
-                                                    </span>
-                                                    <span class="tooltipped tooltipped-s tooltipped-align-right-1 mx-1" aria-label="Heading">
-                                                        <md-header class="btn-link">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M3.75 2a.75.75 0 01.75.75V7h7V2.75a.75.75 0 011.5 0v10.5a.75.75 0 01-1.5 0V8.5h-7v4.75a.75.75 0 01-1.5 0V2.75A.75.75 0 013.75 2z"/></svg>
-                                                        </md-header>
-                                                    </span>
-                                                    <span class="tooltipped tooltipped-s tooltipped-align-right-1 mx-1" aria-label="Italic">
-                                                        <md-italic class="btn-link">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M6 2.75A.75.75 0 016.75 2h6.5a.75.75 0 010 1.5h-2.505l-3.858 9H9.25a.75.75 0 010 1.5h-6.5a.75.75 0 010-1.5h2.505l3.858-9H6.75A.75.75 0 016 2.75z"/></svg>
-                                                        </md-italic>
-                                                    </span>
-                                                    <div class="position-relative d-inline-block color-text-secondary border-right">&nbsp;</div>
-                                                    <span class="tooltipped tooltipped-s tooltipped-align-right-1 mx-1" aria-label="Unordered List">
-                                                        <md-unordered-list class="btn-link">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"/></svg>
-                                                        </md-unordered-list>
-                                                    </span>
-                                                    <span class="tooltipped tooltipped-s tooltipped-align-right-1 mx-1" aria-label="Ordered List">
-                                                        <md-ordered-list class="btn-link">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.003 2.5a.5.5 0 00-.723-.447l-1.003.5a.5.5 0 00.446.895l.28-.14V6H.5a.5.5 0 000 1h2.006a.5.5 0 100-1h-.503V2.5zM5 3.25a.75.75 0 01.75-.75h8.5a.75.75 0 010 1.5h-8.5A.75.75 0 015 3.25zm0 5a.75.75 0 01.75-.75h8.5a.75.75 0 010 1.5h-8.5A.75.75 0 015 8.25zm0 5a.75.75 0 01.75-.75h8.5a.75.75 0 010 1.5h-8.5a.75.75 0 01-.75-.75zM.924 10.32l.003-.004a.851.851 0 01.144-.153A.66.66 0 011.5 10c.195 0 .306.068.374.146a.57.57 0 01.128.376c0 .453-.269.682-.8 1.078l-.035.025C.692 11.98 0 12.495 0 13.5a.5.5 0 00.5.5h2.003a.5.5 0 000-1H1.146c.132-.197.351-.372.654-.597l.047-.035c.47-.35 1.156-.858 1.156-1.845 0-.365-.118-.744-.377-1.038-.268-.303-.658-.484-1.126-.484-.48 0-.84.202-1.068.392a1.858 1.858 0 00-.348.384l-.007.011-.002.004-.001.002-.001.001a.5.5 0 00.851.525zM.5 10.055l-.427-.26.427.26z"/></svg>
-                                                        </md-ordered-list>
-                                                    </span>
-                                                    <span class="tooltipped tooltipped-s tooltipped-align-right-1 mx-1" aria-label="Task List">
-                                                        <md-task-list class="btn-link">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 2.75a.25.25 0 01.25-.25h10.5a.25.25 0 01.25.25v10.5a.25.25 0 01-.25.25H2.75a.25.25 0 01-.25-.25V2.75zM2.75 1A1.75 1.75 0 001 2.75v10.5c0 .966.784 1.75 1.75 1.75h10.5A1.75 1.75 0 0015 13.25V2.75A1.75 1.75 0 0013.25 1H2.75zm9.03 5.28a.75.75 0 00-1.06-1.06L6.75 9.19 5.28 7.72a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l4.5-4.5z"/></svg>
-                                                        </md-task-list>
-                                                    </span>
-                                                </markdown-toolbar>
-                                            </div>
-                                            <div class="Box-body p-2 d-flex flex-column">
-                                                <div class="d-flex">
-                                                    <textarea x-model="description" id="description" name="description" class="width-full form-control input-contrast"></textarea>
-                                                </div>
-                                                <div class="d-flex flex-row-reverse mt-2">
-                                                    <button type="submit" class="btn btn-primary">Update comment</button>
-                                                    <button type="button" class="btn btn-danger mr-1" @click="isEditing = false">Cancel</button>
-                                                </div>
+                                            <x-md-textarea id="description" name="description" value="{{ $issue->description }}"></x-md-textarea>
+                                            <div class="d-flex flex-row-reverse mt-2 p-2">
+                                                <button type="submit" class="btn btn-primary">Update comment</button>
+                                                <button type="button" class="btn btn-danger mr-1" @click="isEditing = false">Cancel</button>
                                             </div>
                                         </form>
                                     </div>
@@ -284,11 +243,11 @@
                                 <div class="TimelineItem-body mt-0">
                                     <form action="{{ route('issues.issue_comments.store', $issue) }}" method="POST">
                                         @csrf
-                                        <textarea id="comment" name="comment" class="form-control" placeholder="Add comment"></textarea>
+                                        <x-md-textarea id="comment" name="comment" placeholder="Leave a comment"></x-md-textarea>
                                         <div class="d-flex flex-justify-end">
                                             @if($issue->status == 'closed')
                                             <div class="color-bg-secondary">
-                                                <button type="submit" name="comment_and_reopen" value="1" class="btn js-comment-and-button js-quick-submit-alternative" data-comment-text="Reopen and comment" data-disable-with="" formnovalidate="">
+                                                <button type="submit" name="comment_and_reopen" value="1" class="btn" formnovalidate="">
                                                     <span class="js-form-action-text" data-default-action-text="Reopen issue">Reopen issue</span>
                                                 </button>
                                             </div>
@@ -325,20 +284,3 @@
         </div>
     </div>
 @stop
-
-@push('scripts')
-    @include('scripts.easymde')
-
-    <script>
-        const MDE = new EasyMDE({
-            element: document.getElementById('comment'),
-            maxHeight: '120px'
-        });
-
-        // hide error alert
-        function hideMessage() {
-            const el = document.getElementById('error')
-            el.style.display = "none";
-        }
-    </script>
-@endpush

@@ -6,5 +6,29 @@
         <language minSize="99" name="PHP" />
       </Languages>
     </inspection_tool>
+    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="15">
+            <item index="0" class="java.lang.String" itemvalue="nobr" />
+            <item index="1" class="java.lang.String" itemvalue="noembed" />
+            <item index="2" class="java.lang.String" itemvalue="comment" />
+            <item index="3" class="java.lang.String" itemvalue="noscript" />
+            <item index="4" class="java.lang.String" itemvalue="embed" />
+            <item index="5" class="java.lang.String" itemvalue="script" />
+            <item index="6" class="java.lang.String" itemvalue="markdown-toolbar" />
+            <item index="7" class="java.lang.String" itemvalue="md-bold" />
+            <item index="8" class="java.lang.String" itemvalue="md-header" />
+            <item index="9" class="java.lang.String" itemvalue="md-italic" />
+            <item index="10" class="java.lang.String" itemvalue="md-code" />
+            <item index="11" class="java.lang.String" itemvalue="md-link" />
+            <item index="12" class="java.lang.String" itemvalue="md-unordered-list" />
+            <item index="13" class="java.lang.String" itemvalue="md-ordered-list" />
+            <item index="14" class="java.lang.String" itemvalue="md-task-list" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
   </profile>
 </component>

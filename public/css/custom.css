@@ -1,5 +1,16 @@
 [x-cloak] { display: none !important; }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.md-preview::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.md-preview {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
 .ck-editor__editable,
 textarea {
     min-height: 150px;
