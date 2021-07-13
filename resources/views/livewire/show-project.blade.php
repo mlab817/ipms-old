@@ -1090,37 +1090,209 @@
                         Total
                     </div>
                 </div>
-                @foreach ($project->fs_investments as $fs)
-                    <div class="d-table col-12 border-bottom">
+                @foreach ($fsInvestments as $key => $fs)
+                    <div class="d-table col-12 border-bottom" wire:key="fs-investments-{{ $fs->id }}">
                         <div class="col-1 p-1 d-table-cell">
+                            <input type="hidden" wire:model="fsInvestments.{{ $key }}.fs_id">
                             {{ $fs->funding_source->name ?? '' }}
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="text" class="form-control input-contrast width-full">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2016">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="text" class="form-control input-contrast width-full">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2017">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="text" class="form-control input-contrast width-full">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2018">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="text" class="form-control input-contrast width-full">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2019">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="text" class="form-control input-contrast width-full">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2020">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="text" class="form-control input-contrast width-full">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2021">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="text" class="form-control input-contrast width-full">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2022">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="text" class="form-control input-contrast width-full">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2023">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="text" class="form-control input-contrast width-full">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.total">
+                        </div>
+                    </div>
+                @endforeach
+
+                <div class="d-flex mt-2">
+                    <button class="btn" type="submit">Save</button>
+                </div>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="Subhead Subhead--spacious">
+        <div class="Subhead-heading">{{ __("Investment Required by Region") }}</div>
+        <div class="Subhead-description">in absolute PhP terms</div>
+    </div>
+
+    <form wire:submit.prevent="updateRegionInvestments">
+        <dl class="my-0">
+            <dt class="input-label">
+
+            </dt>
+            <dd class="form-group-body">
+                <div class="d-table col-12 border-bottom border-top">
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        Region
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2016 &amp; Prior
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2017
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2018
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2019
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2020
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2021
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2022
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2023 &amp; Beyond
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        Total
+                    </div>
+                </div>
+                @foreach ($regionInvestments->sortBy('region.order') as $key => $region)
+                    <div class="d-table col-12 border-bottom" wire:key="fs-investments-{{ $fs->id }}">
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="hidden" wire:model="regionInvestments.{{ $key }}.fs_id">
+                            {{ $region->region->label ?? '' }}
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2016">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2017">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2018">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2019">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2020">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2021">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2022">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2023">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.total">
+                        </div>
+                    </div>
+                @endforeach
+
+                <div class="d-flex mt-2">
+                    <button class="btn" type="submit">Save</button>
+                </div>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="Subhead Subhead--spacious">
+        <div class="Subhead-heading">{{ __("Financial Status") }}</div>
+    </div>
+
+    <form wire:submit.prevent="updateRegionInvestments">
+        <dl class="my-0">
+            <dt class="input-label">
+
+            </dt>
+            <dd class="form-group-body">
+                <div class="d-table col-12 border-bottom border-top">
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        Region
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2016 &amp; Prior
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2017
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2018
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2019
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2020
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2021
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2022
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2023 &amp; Beyond
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        Total
+                    </div>
+                </div>
+                @foreach ($regionInvestments->sortBy('region.order') as $key => $region)
+                    <div class="d-table col-12 border-bottom" wire:key="fs-investments-{{ $fs->id }}">
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="hidden" wire:model="regionInvestments.{{ $key }}.fs_id">
+                            {{ $region->region->label ?? '' }}
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2016">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2017">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2018">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2019">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2020">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2021">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2022">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2023">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.total">
                         </div>
                     </div>
                 @endforeach

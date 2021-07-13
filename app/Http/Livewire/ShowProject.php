@@ -148,7 +148,28 @@ class ShowProject extends Component
         'projectBases.*'        => 'nullable|array|exists:bases,id',
         'covidInterventions.*'  => 'nullable|array|exists:covid_interventions,id',
         'regions.*'             => 'nullable|array|exists:regions,id',
-        'pdpChapters.*'         => 'nullable|array|exists:pdp_chapters,id'
+        'pdpChapters.*'         => 'nullable|array|exists:pdp_chapters,id',
+        'sdgs.*'                => 'nullable|array|exists:sdgs,id',
+        'tenPointAgendas.*'     => 'nullable|array|exists:ten_point_agendas,id',
+        'fundingSources.*'      => 'nullable|array|exists:funding_sources,id',
+        'fsInvestments.*.fs_id' => 'required|exists:funding_sources,id',
+        'fsInvestments.*.y2016' => 'required|numeric|min:0',
+        'fsInvestments.*.y2017' => 'required|numeric|min:0',
+        'fsInvestments.*.y2018' => 'required|numeric|min:0',
+        'fsInvestments.*.y2019' => 'required|numeric|min:0',
+        'fsInvestments.*.y2020' => 'required|numeric|min:0',
+        'fsInvestments.*.y2021' => 'required|numeric|min:0',
+        'fsInvestments.*.y2022' => 'required|numeric|min:0',
+        'fsInvestments.*.y2023' => 'required|numeric|min:0',
+        'regionInvestments.*.region_id' => 'required|exists:regions,id',
+        'regionInvestments.*.y2016' => 'required|numeric|min:0',
+        'regionInvestments.*.y2017' => 'required|numeric|min:0',
+        'regionInvestments.*.y2018' => 'required|numeric|min:0',
+        'regionInvestments.*.y2019' => 'required|numeric|min:0',
+        'regionInvestments.*.y2020' => 'required|numeric|min:0',
+        'regionInvestments.*.y2021' => 'required|numeric|min:0',
+        'regionInvestments.*.y2022' => 'required|numeric|min:0',
+        'regionInvestments.*.y2023' => 'required|numeric|min:0',
     ];
 
     public function mount(Project $project)
@@ -203,6 +224,8 @@ class ShowProject extends Component
         $this->uacsCode = $project->uacs_code;
         $this->updates = $project->project_update->updates ?? '';
         $this->updatesDate = $project->project_update->updates_date ?? '';
+        $this->fsInvestments = $project->fs_investments;
+        $this->regionInvestments = $project->region_investments;
     }
 
     public function updateOffice()
@@ -251,7 +274,13 @@ class ShowProject extends Component
 
     public function updateExpectedOutputs()
     {
-
+        $project = $this->project;
+        $project->expected_output()->updateOrCreate([
+            'project_id' => $project->id,
+        ],
+        [
+            'expected_outputs' => $this->expectedOutputs
+        ]);
     }
 
     public function updateTotalProjectCost()
@@ -518,6 +547,24 @@ class ShowProject extends Component
         ],[
             'updates_date' => $this->updatesDate,
         ]);
+    }
+
+    public function updateFsInvestments()
+    {
+        foreach ($this->fsInvestments as $fsInvestment) {
+            $this->project->fs_investments()->updateOrCreate([
+                'fs_id' => $fsInvestment->fs_id
+            ],[
+                'y2016' => $fsInvestment->y2016,
+                'y2017' => $fsInvestment->y2017,
+                'y2018' => $fsInvestment->y2018,
+                'y2019' => $fsInvestment->y2019,
+                'y2020' => $fsInvestment->y2020,
+                'y2021' => $fsInvestment->y2021,
+                'y2022' => $fsInvestment->y2022,
+                'y2023' => $fsInvestment->y2023,
+            ]);
+        }
     }
 
     public function render()
