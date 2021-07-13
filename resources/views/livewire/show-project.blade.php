@@ -1,5 +1,5 @@
 <div>
-    <div class="Subhead hx_Subhead--responsive">
+    <div class="Subhead Subhead--spacious">
         <div class="Subhead-heading">{{ __("General Information") }}</div>
     </div>
 
@@ -114,7 +114,7 @@
                                 id="basis_{{ $option->id }}"
                                 name="bases[]"
                                 value="{{ $option->id }}"
-                                wire:model="projectBases.{{ $key }}">
+                                wire:model="projectBases">
                             {{ $option->name }}
                             <p class="note">
                                 {{ $option->description }}
@@ -230,7 +230,7 @@
         </div>
     </form>
 
-    <div class="Subhead hx_Subhead--responsive my-3">
+    <div class="Subhead Subhead--spacious my-3">
         <div class="Subhead-heading">{{ __("Other PAP Information") }}</div>
     </div>
 
@@ -319,7 +319,7 @@
                                 id="covid_int_{{ $option->id }}"
                                 name="covid_interventions[]"
                                 value="{{ $option->id }}"
-                                wire:model="covidInterventions.{{ $key }}">
+                                wire:model="covidInterventions">
                             {{ $option->name }}
                             <p class="note">
                                 {{ $option->description }}
@@ -332,7 +332,7 @@
         </dl>
     </form>
 
-    <div class="Subhead hx_Subhead--responsive my-3">
+    <div class="Subhead Subhead--spacious my-3">
         <div class="Subhead-heading">{{ __("Spatial Coverage") }}</div>
     </div>
 
@@ -373,7 +373,7 @@
                                 id="region_{{ $option->id }}"
                                 name="regions[]"
                                 value="{{ $option->id }}"
-                                wire:model="regions.{{ $key }}">
+                                wire:model="regions">
                             {{ $option->name }}
                         </label>
                     </div>
@@ -386,7 +386,7 @@
 
     <div class="my-3"></div>
 
-    <div class="Subhead hx_Subhead--responsive">
+    <div class="Subhead Subhead--spacious">
         <div class="Subhead-heading">{{ __("Implementation Period") }}</div>
     </div>
 
@@ -432,7 +432,7 @@
 
     <div class="my-3"></div>
 
-    <div class="Subhead hx_Subhead--responsive">
+    <div class="Subhead Subhead--spacious">
         <div class="Subhead-heading">{{ __("Approval Status") }}</div>
     </div>
 
@@ -516,7 +516,7 @@
 
     <div class="my-3"></div>
 
-    <div class="Subhead hx_Subhead--responsive">
+    <div class="Subhead Subhead--spacious">
         <div class="Subhead-heading">{{ __("Regional Development Investment Program") }}</div>
     </div>
 
@@ -600,7 +600,7 @@
 
     <div class="my-3"></div>
 
-    <div class="Subhead hx_Subhead--responsive">
+    <div class="Subhead Subhead--spacious">
         <div class="Subhead-heading">{{ __("Project Preparation Details") }}</div>
     </div>
 
@@ -732,7 +732,7 @@
 
     <div class="my-3"></div>
 
-    <div class="Subhead hx_Subhead--responsive">
+    <div class="Subhead Subhead--spacious">
         <div class="Subhead-heading">{{ __("Employment Generation") }}</div>
     </div>
 
@@ -753,7 +753,7 @@
 
     <div class="my-3"></div>
 
-    <div class="Subhead hx_Subhead--responsive">
+    <div class="Subhead Subhead--spacious">
         <div class="Subhead-heading">{{ __("PDP Chapter") }}</div>
     </div>
 
@@ -778,7 +778,7 @@
 
     <div class="my-3"></div>
 
-    <div class="Subhead hx_Subhead--responsive">
+    <div class="Subhead Subhead--spacious">
         <div class="Subhead-heading">{{ __("Other PDP Chapters") }}</div>
         <div class="Subhead-description">Select all that applies</div>
     </div>
@@ -797,13 +797,337 @@
                                 id="pdp_chapter_{{ $option->id }}"
                                 name="pdp_chapters[]"
                                 value="{{ $option->id }}"
-                                wire:model="pdpChapters.{{ $key }}">
+                                wire:model="pdpChapters">
                             {{ $option->name }}
                         </label>
                     </div>
                 @endforeach
 
                 <button class="btn" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <div class="Subhead Subhead--spacious">
+        <div class="Subhead-heading">{{ __("Sustainable Development Goals") }}</div>
+        <div class="Subhead-description">Select all that applies</div>
+    </div>
+
+    <form wire:submit.prevent="updateSdgs">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Sustainable Development Goals</label>
+            </dt>
+            <dd>
+                @foreach($sdg_options as $key => $option)
+                    <div class="form-checkbox">
+                        <label for="sdg_{{ $option->id }}">
+                            <input
+                                type="checkbox"
+                                id="sdg_{{ $option->id }}"
+                                name="sdgs[]"
+                                value="{{ $option->id }}"
+                                wire:model="sdgs">
+                            {{ $option->name }}
+                        </label>
+                    </div>
+                @endforeach
+
+                <button class="btn" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <div class="Subhead Subhead--spacious">
+        <div class="Subhead-heading">{{ __("Ten Point Agenda") }}</div>
+        <div class="Subhead-description">Select all that applies</div>
+    </div>
+
+    <form wire:submit.prevent="updateTpas">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Ten Point Agenda</label>
+            </dt>
+            <dd>
+                @foreach($ten_point_agendas as $key => $option)
+                    <div class="form-checkbox">
+                        <label for="tpa_{{ $option->id }}">
+                            <input
+                                type="checkbox"
+                                id="tpa_{{ $option->id }}"
+                                name="ten_point_agendas[]"
+                                value="{{ $option->id }}"
+                                wire:model="tenPointAgendas">
+                            {{ $option->name }}
+                            <p class="note">{{ $option->description }}</p>
+                        </label>
+                    </div>
+                @endforeach
+
+                <button class="btn" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <div class="Subhead Subhead--spacious">
+        <div class="Subhead-heading">{{ __("Financial Information") }}</div>
+        <div class="Subhead-description">Select all that applies</div>
+    </div>
+
+    <form wire:submit.prevent="updateFundingSource">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Main Funding Source</label>
+            </dt>
+            <dd>
+                <select name="funding_source_id" id="funding_source_id" class="form-select" wire:model="fundingSource">
+                    @foreach($funding_sources as $option)
+                        <option value="{{ $option->id }}">{{ $option->name }}</option>
+                    @endforeach
+                </select>
+
+                <button class="btn" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateFundingSources">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Other Funding Sources</label>
+            </dt>
+            <dd>
+                @foreach($funding_sources as $option)
+                    <div class="form-checkbox">
+                        <label for="fs_{{ $option->id }}">
+                            <input
+                                type="checkbox"
+                                id="fs_{{ $option->id }}"
+                                name="funding_sources[]"
+                                value="{{ $option->id }}"
+                                wire:model="fundingSources">
+                            {{ $option->name }}
+                        </label>
+                    </div>
+                @endforeach
+
+                <button class="btn" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateOtherFs">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Other Funding Source (please specify)</label>
+            </dt>
+            <dd>
+                <input type="text" name="other_fs" id="other_fs" wire:model="otherFs" class="form-control input-contrast">
+
+                <button class="btn" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateImplementationMode">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Mode of Implementation</label>
+            </dt>
+            <dd>
+                <select name="implementation_mode_id" id="implementation_mode_id" class="form-select" wire:model="implementationMode">
+                    @foreach($implementation_modes as $option)
+                        <option value="{{ $option->id }}">{{ $option->name }}</option>
+                    @endforeach
+                </select>
+
+                <button class="btn" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateFundingInstitution">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Funding Institution</label>
+            </dt>
+            <dd>
+                <select name="funding_institution_id" id="funding_institution_id" class="form-select" wire:model="fundingInstitution">
+                    @foreach($funding_institutions as $option)
+                        <option value="{{ $option->id }}">{{ $option->name }}</option>
+                    @endforeach
+                </select>
+
+                <button class="btn" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateTier">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Budget Tier</label>
+            </dt>
+            <dd>
+                <select name="tier_id" id="tier_id" class="form-select" wire:model="tier">
+                    @foreach($tiers as $option)
+                        <option value="{{ $option->id }}">{{ $option->name }}</option>
+                    @endforeach
+                </select>
+
+                <button class="btn" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateUacsCode">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">UACS Code</label>
+            </dt>
+            <dd>
+                <input type="text" name="uacs_code" id="uacs_code" class="form-control input-contrast" wire:model="uacsCode">
+
+                <button class="btn" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="Subhead Subhead--spacious">
+        <div class="Subhead-heading">{{ __("Status & Updates") }}</div>
+    </div>
+
+    <form wire:submit.prevent="updateUpdates">
+        <dl class="form-group my-0">
+            <dt class="input-label">
+                <label for="rename-field">Updates</label>
+            </dt>
+            <dd class="form-group-body">
+                <textarea id="updates" name="updates" class="form-control input-contrast" wire:model="updates"></textarea>
+
+                <div class="d-flex mt-3">
+                    <button class="btn" type="submit">Save</button>
+                </div>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <form wire:submit.prevent="updateUpdatesDate">
+        <dl class="form-group my-0">
+            <dt class="input-label">
+                <label for="rename-field">As of</label>
+            </dt>
+            <dd class="form-group-body">
+                <input type="date" id="updates_date" name="updates_date" class="form-control input-contrast" wire:model="updatesDate">
+
+                <button class="btn" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <div class="Subhead Subhead--spacious">
+        <div class="Subhead-heading">{{ __("Investment Required by Funding Source") }}</div>
+        <div class="Subhead-description">in absolute PhP terms</div>
+    </div>
+
+    <form wire:submit.prevent="updateFsInvestments">
+        <dl class="my-0">
+            <dt class="input-label">
+
+            </dt>
+            <dd class="form-group-body">
+                <div class="d-table col-12 border-bottom border-top">
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        Funding Source
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2016 &amp; Prior
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2017
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2018
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2019
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2020
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2021
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2022
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        2023 &amp; Beyond
+                    </div>
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        Total
+                    </div>
+                </div>
+                @foreach ($project->fs_investments as $fs)
+                    <div class="d-table col-12 border-bottom">
+                        <div class="col-1 p-1 d-table-cell">
+                            {{ $fs->funding_source->name ?? '' }}
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="text" class="form-control input-contrast width-full">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="text" class="form-control input-contrast width-full">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="text" class="form-control input-contrast width-full">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="text" class="form-control input-contrast width-full">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="text" class="form-control input-contrast width-full">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="text" class="form-control input-contrast width-full">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="text" class="form-control input-contrast width-full">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="text" class="form-control input-contrast width-full">
+                        </div>
+                        <div class="col-1 p-1 d-table-cell">
+                            <input type="text" class="form-control input-contrast width-full">
+                        </div>
+                    </div>
+                @endforeach
+
+                <div class="d-flex mt-2">
+                    <button class="btn" type="submit">Save</button>
+                </div>
             </dd>
         </dl>
     </form>

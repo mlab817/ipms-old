@@ -11,6 +11,10 @@
     scrollbar-width: none;  /* Firefox */
 }
 
+.table-input {
+    width: 100% !important;
+}
+
 .ck-editor__editable,
 textarea {
     min-height: 150px;

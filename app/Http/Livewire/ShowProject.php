@@ -6,7 +6,10 @@ use App\Models\ApprovalLevel;
 use App\Models\Basis;
 use App\Models\CovidIntervention;
 use App\Models\FsStatus;
+use App\Models\FundingInstitution;
+use App\Models\FundingSource;
 use App\Models\Gad;
+use App\Models\ImplementationMode;
 use App\Models\Office;
 use App\Models\PapType;
 use App\Models\PdpChapter;
@@ -14,7 +17,10 @@ use App\Models\PreparationDocument;
 use App\Models\Project;
 use App\Models\ProjectStatus;
 use App\Models\Region;
+use App\Models\Sdg;
 use App\Models\SpatialCoverage;
+use App\Models\TenPointAgenda;
+use App\Models\Tier;
 use Livewire\Component;
 
 class ShowProject extends Component
@@ -109,6 +115,8 @@ class ShowProject extends Component
 
     public $fundingSources = [];
 
+    public $otherFs;
+
     public $fundingInstitution;
 
     public $implementationMode;
@@ -185,6 +193,16 @@ class ShowProject extends Component
         $this->employmentGenerated = $project->employment_generated;
         $this->pdpChapter = $project->pdp_chapter_id;
         $this->pdpChapters = array_map('intval', $project->pdp_chapters()->pluck('id')->toArray() ?? []);
+        $this->sdgs = array_map('intval', $project->sdgs()->pluck('id')->toArray() ?? []);
+        $this->tenPointAgendas = array_map('intval', $project->ten_point_agendas()->pluck('id')->toArray() ?? []);
+        $this->fundingSource = $project->funding_source_id;
+        $this->fundingSources = array_map('intval', $project->funding_sources()->pluck('id')->toArray() ?? []);
+        $this->otherFs = $project->other_fs;
+        $this->implementationMode = $project->implementation_mode_id;
+        $this->fundingInstitution = $project->funding_institution_id;
+        $this->uacsCode = $project->uacs_code;
+        $this->updates = $project->project_update->updates ?? '';
+        $this->updatesDate = $project->project_update->updates_date ?? '';
     }
 
     public function updateOffice()
@@ -430,6 +448,78 @@ class ShowProject extends Component
         $project->pdp_chapters()->sync(array_map('intval', $this->pdpChapters));
     }
 
+    public function updateSdgs()
+    {
+        $project = $this->project;
+        $project->sdgs()->sync(array_map('intval', $this->sdgs));
+    }
+
+    public function updateTpas()
+    {
+        $project = $this->project;
+        $project->ten_point_agendas()->sync(array_map('intval', $this->tenPointAgendas));
+    }
+
+    public function updateFundingSource() {
+        $project = $this->project;
+        $project->funding_source_id = $this->fundingSource;
+        $project->save();
+    }
+
+    public function updateFundingSources() {
+        $project = $this->project;
+        $project->funding_sources()->sync(array_map('intval', $this->fundingSources));
+    }
+
+    public function updateOtherFs() {
+        $project = $this->project;
+        $project->other_fs = $this->otherFs;
+        $project->save();
+    }
+
+    public function updateImplementationMode()
+    {
+        $project = $this->project;
+        $project->implementation_mode_id = $this->implementationMode;
+        $project->save();
+    }
+
+    public function updateFundingInstitution() {
+        $project = $this->project;
+        $project->funding_institution_id = $this->fundingInstitution;
+        $project->save();
+    }
+
+    public function updateTier() {
+        $project = $this->project;
+        $project->tier_id = $this->tier;
+        $project->save();
+    }
+
+    public function updateUacsCode() {
+        $project = $this->project;
+        $project->uacs_code = $this->uacsCode;
+        $project->save();
+    }
+
+    public function updateUpdates() {
+        $project = $this->project;
+        $project->project_update()->updateOrCreate([
+            'project_id' => $project->id,
+        ],[
+            'updates' => $this->updates,
+        ]);
+    }
+
+    public function updateUpdatesDate() {
+        $project = $this->project;
+        $project->project_update()->updateOrCreate([
+            'project_id' => $project->id,
+        ],[
+            'updates_date' => $this->updatesDate,
+        ]);
+    }
+
     public function render()
     {
         return view('livewire.show-project',[
@@ -446,6 +536,12 @@ class ShowProject extends Component
             'preparation_documents' => PreparationDocument::all(),
             'fs_statuses' => FsStatus::all(),
             'pdp_chapters' => PdpChapter::all(),
+            'sdg_options' => Sdg::all(),
+            'ten_point_agendas' => TenPointAgenda::all(),
+            'funding_sources' => FundingSource::all(),
+            'implementation_modes' => ImplementationMode::all(),
+            'funding_institutions' => FundingInstitution::all(),
+            'tiers' => Tier::all(),
         ]);
     }
 }
