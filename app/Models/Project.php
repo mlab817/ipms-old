@@ -388,6 +388,11 @@ class Project extends Model
         return $this->hasMany(ProjectChecklist::class);
     }
 
+    public function project_notifications(): HasMany
+    {
+        return $this->hasMany(ProjectNotification::class);
+    }
+
     public function region_investments(): HasMany
     {
         return $this->hasMany(RegionInvestment::class);

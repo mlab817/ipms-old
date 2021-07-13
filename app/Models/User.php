@@ -108,6 +108,11 @@ class User extends Authenticatable
         return $this->hasMany(Project::class,'created_by','id');
     }
 
+    public function project_notifications()
+    {
+        return $this->hasMany(ProjectNotification::class, 'receiver_id');
+    }
+
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class,'user_id','id');

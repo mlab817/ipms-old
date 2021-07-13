@@ -31,6 +31,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
         Route::post('/auth/password/change', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('password.change');
 
+        Route::resource('project_notifications', \App\Http\Controllers\ProjectNotificationController::class);
+
         // auth routes with registration disabled
 
         Route::middleware('can:projects.manage')->prefix('/admin')->name('admin.')->group(function() {

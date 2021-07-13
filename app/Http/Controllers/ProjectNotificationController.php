@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\ProjectNotification;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,11 @@ class ProjectNotificationController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::whereHas('project_notifications', function ($notification) {
+            return $notification->where('receiver_id', auth()->id());
+        })->get();
+
+        return view('users.notifications.index',compact('projects'));
     }
 
     /**

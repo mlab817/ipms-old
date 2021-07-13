@@ -20,7 +20,7 @@ class CreateProjectNotificationsTable extends Migration
             $table->text('subject')->nullable();
             $table->text('content')->nullable();
             $table->foreignId('receiver_id')->constrained('users');
-            $table->timestamp('read_at')->nullable();``
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
