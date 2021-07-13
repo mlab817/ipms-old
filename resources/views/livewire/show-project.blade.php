@@ -313,10 +313,10 @@
             <dd>
                 @foreach($covid_interventions as $key => $option)
                     <div class="form-checkbox">
-                        <label for="basis_{{ $option->id }}">
+                        <label for="covid_int_{{ $option->id }}">
                             <input
                                 type="checkbox"
-                                id="basis_{{ $option->id }}"
+                                id="covid_int_{{ $option->id }}"
                                 name="covid_interventions[]"
                                 value="{{ $option->id }}"
                                 wire:model="covidInterventions.{{ $key }}">
@@ -731,4 +731,80 @@
     </form>
 
     <div class="my-3"></div>
+
+    <div class="Subhead hx_Subhead--responsive">
+        <div class="Subhead-heading">{{ __("Employment Generation") }}</div>
+    </div>
+
+    <form wire:submit.prevent="updateEmploymentGenerated">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">No. of persons to be employed after completion of the project</label>
+            </dt>
+            <dd>
+                <input type="number" wire:model.debounce.500ms="employmentGenerated" name="employment_generated" id="employment_generated" class="form-control">
+
+                @if($project->employment_generated != $employmentGenerated)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <div class="Subhead hx_Subhead--responsive">
+        <div class="Subhead-heading">{{ __("PDP Chapter") }}</div>
+    </div>
+
+    <form wire:submit.prevent="updatePdpChapter">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">PDP Chapter</label>
+            </dt>
+            <dd>
+                <select class="form-select" name="pdp_chapter_id" id="pdp_chapter_id" wire:model="pdpChapter">
+                    @foreach($pdp_chapters as $option)
+                        <option value="{{ $option->id }}">{{ $option->name }}</option>
+                    @endforeach
+                </select>
+
+                @if($project->pdp_chapter_id != $pdpChapter)
+                    <button class="btn" type="submit">Save</button>
+                @endif
+            </dd>
+        </dl>
+    </form>
+
+    <div class="my-3"></div>
+
+    <div class="Subhead hx_Subhead--responsive">
+        <div class="Subhead-heading">{{ __("Other PDP Chapters") }}</div>
+        <div class="Subhead-description">Select all that applies</div>
+    </div>
+
+    <form wire:submit.prevent="updatePdpChapters">
+        <dl class="form-group d-inline-block my-0">
+            <dt class="input-label">
+                <label for="rename-field">Other PDP Chapters</label>
+            </dt>
+            <dd>
+                @foreach($pdp_chapters as $key => $option)
+                    <div class="form-checkbox">
+                        <label for="pdp_chapter_{{ $option->id }}">
+                            <input
+                                type="checkbox"
+                                id="pdp_chapter_{{ $option->id }}"
+                                name="pdp_chapters[]"
+                                value="{{ $option->id }}"
+                                wire:model="pdpChapters.{{ $key }}">
+                            {{ $option->name }}
+                        </label>
+                    </div>
+                @endforeach
+
+                <button class="btn" type="submit">Save</button>
+            </dd>
+        </dl>
+    </form>
 </div>

@@ -61,9 +61,12 @@ class ProjectReviewController extends Controller
      */
     public function store(ProjectReviewStoreRequest $request, Project $project)
     {
-        $project->review()->create($request->validated());
+        $project->review()->updateOrCreate([
+            'project_id' => $project->id
+        ], $request->validated());
 
-        return redirect()->route('projects.reviews.index', $project);
+        return redirect()->route('projects.reviews.index', $project)
+            ->with('success','Successfully saved review.');
     }
 
     /**
@@ -95,9 +98,14 @@ class ProjectReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project, Review $review)
+    public function update(ProjectReviewStoreRequest $request, Project $project, Review $review)
     {
-        //
+        $project->review()->updateOrCreate([
+            'project_id' => $project->id
+        ], $request->validated());
+
+        return redirect()->route('projects.reviews.index', $project)
+            ->with('success','Successfully updated review.');
     }
 
     /**
@@ -108,6 +116,9 @@ class ProjectReviewController extends Controller
      */
     public function destroy(Project $project, Review $review)
     {
-        //
+        $review->delete();
+
+        return redirect()->route('projects.reviews.index', $project)
+            ->with('success','Successfully saved review.');
     }
 }

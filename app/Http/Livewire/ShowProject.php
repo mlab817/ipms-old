@@ -9,6 +9,7 @@ use App\Models\FsStatus;
 use App\Models\Gad;
 use App\Models\Office;
 use App\Models\PapType;
+use App\Models\PdpChapter;
 use App\Models\PreparationDocument;
 use App\Models\Project;
 use App\Models\ProjectStatus;
@@ -94,6 +95,42 @@ class ShowProject extends Component
 
     public $fsTotal;
 
+    public $employmentGenerated;
+
+    public $pdpChapter;
+
+    public $pdpChapters = [];
+
+    public $sdgs = [];
+
+    public $tenPointAgendas = [];
+
+    public $fundingSource;
+
+    public $fundingSources = [];
+
+    public $fundingInstitution;
+
+    public $implementationMode;
+
+    public $tier;
+
+    public $uacsCode;
+
+    public $updates;
+
+    public $updatesDate;
+
+    public $fsInvestments = [];
+
+    public $regionInvestments = [];
+
+    public $nep = [];
+
+    public $gaa = [];
+
+    public $disbursement = [];
+
     public $booleanOptions = [
         '0' => 'No',
         '1' => 'Yes',
@@ -103,6 +140,7 @@ class ShowProject extends Component
         'projectBases.*'        => 'nullable|array|exists:bases,id',
         'covidInterventions.*'  => 'nullable|array|exists:covid_interventions,id',
         'regions.*'             => 'nullable|array|exists:regions,id',
+        'pdpChapters.*'         => 'nullable|array|exists:pdp_chapters,id'
     ];
 
     public function mount(Project $project)
@@ -113,7 +151,7 @@ class ShowProject extends Component
         $this->papTypeId = $project->pap_type_id;
         $this->regularProgram = $project->regular_program;
         $this->hasInfra = $project->has_infra;
-        $this->projectBases    = $project->bases()->pluck('id')->toArray() ?? [];
+        $this->projectBases    = array_map('intval',$project->bases()->pluck('id')->toArray() ?? []);
         $this->description = $project->description->description ?? '';
         $this->expectedOutputs = $project->expected_output->expected_outputs ?? '';
         $this->totalProjectCost = $project->total_project_cost;
@@ -121,9 +159,9 @@ class ShowProject extends Component
         $this->research = $project->research;
         $this->ict = $project->ict;
         $this->covid = $project->covid;
-        $this->covidInterventions    = $project->covid_interventions()->pluck('id')->toArray() ?? [];
+        $this->covidInterventions    = array_map('intval',$project->covid_interventions()->pluck('id')->toArray() ?? []);
         $this->spatialCoverage = $project->spatial_coverage_id;
-        $this->regions    = $project->regions()->pluck('id')->toArray() ?? [];
+        $this->regions    = array_map('intval',$project->regions()->pluck('id')->toArray() ?? []);
         $this->targetStartYear = $project->target_start_year;
         $this->targetEndYear = $project->target_end_year;
         $this->iccable = $project->iccable;
@@ -144,6 +182,9 @@ class ShowProject extends Component
         $this->fsY2020 = $project->feasibility_study->y2020 ?? 0;
         $this->fsY2021 = $project->feasibility_study->y2021 ?? 0;
         $this->fsY2022 = $project->feasibility_study->y2022 ?? 0;
+        $this->employmentGenerated = $project->employment_generated;
+        $this->pdpChapter = $project->pdp_chapter_id;
+        $this->pdpChapters = array_map('intval', $project->pdp_chapters()->pluck('id')->toArray() ?? []);
     }
 
     public function updateOffice()
@@ -369,6 +410,25 @@ class ShowProject extends Component
         ]);
     }
 
+    public function updateEmploymentGenerated()
+    {
+        $project = $this->project;
+        $project->employment_generated = $this->employmentGenerated;
+        $project->save();
+    }
+
+    public function updatePdpChapter()
+    {
+        $project = $this->project;
+        $project->pdp_chapter_id = $this->pdpChapter;
+        $project->save();
+    }
+
+    public function updatePdpChapters()
+    {
+        $project = $this->project;
+        $project->pdp_chapters()->sync(array_map('intval', $this->pdpChapters));
+    }
 
     public function render()
     {
@@ -385,6 +445,7 @@ class ShowProject extends Component
             'gads' => Gad::all(),
             'preparation_documents' => PreparationDocument::all(),
             'fs_statuses' => FsStatus::all(),
+            'pdp_chapters' => PdpChapter::all(),
         ]);
     }
 }
