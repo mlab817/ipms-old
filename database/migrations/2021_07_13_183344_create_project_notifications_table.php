@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIssuesTable extends Migration
+class CreateProjectNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateIssuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('issues', function (Blueprint $table) {
+        Schema::create('project_notifications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained();
-            $table->text('title');
-            $table->text('description')->nullable();
-            $table->foreignId('created_by')->constrained('users');
-            $table->enum('status',['open','closed'])->default('open');
-            $table->boolean('pinned')->default(0); // added pinned
+            $table->foreignId('user_id')->constrained(); // causer
+            $table->text('subject')->nullable();
+            $table->text('content')->nullable();
+            $table->foreignId('receiver_id')->constrained('users');
+            $table->timestamp('read_at')->nullable();``
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +33,6 @@ class CreateIssuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('issues');
+        Schema::dropIfExists('project_notifications');
     }
 }
