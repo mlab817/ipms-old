@@ -1267,31 +1267,31 @@
                         NEP
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2016">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="nep.y2016">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2017">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="nep.y2017">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2018">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="nep.y2018">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2019">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="nep.y2019">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2020">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="nep.y2020">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2021">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="nep.y2021">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2022">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="nep.y2022">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2023">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="nep.y2023">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.total">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="nep.total">
                     </div>
                 </div>
 
@@ -1300,31 +1300,31 @@
                         GAA
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2016">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2016">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2017">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2017">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2018">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2018">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2019">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2019">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2020">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2020">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2021">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2021">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2022">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2022">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2023">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2023">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.total">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.total">
                     </div>
                 </div>
 
@@ -1333,31 +1333,31 @@
                         Disbursement
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2016">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2016">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2017">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2017">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2018">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2018">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2019">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2019">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2020">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2020">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2021">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2021">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2022">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2022">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2023">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2023">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.total">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.total">
                     </div>
                 </div>
 
