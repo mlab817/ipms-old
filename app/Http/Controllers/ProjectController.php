@@ -119,24 +119,31 @@ class ProjectController extends Controller
 //        $project->operating_units()->sync($request->operating_units);
 //        $project->covid_interventions()->sync($request->covid_interventions);
 //
-//        $project->fs_investments()->createMany($request->fs_investments);
-//        $project->region_investments()->createMany($request->region_investments);
+        foreach (FundingSource::all() as $fs) {
+            $project->fs_investments()->create(['fs_id' => $fs->id]);
+        }
+
+        foreach (Region::all() as $region) {
+            $project->region_investments()->create(['region_id' => $region->id]);
+        }
+
+        $project->project_update()->create([
+            'updates'   => '',
+            'updates_date' => '',
+        ]);
+
+        $project->expected_output()->create([
+            'expected_outputs' => ''
+        ]);
+
+        $project->description()->create([
+            'description' => ''
+        ]);
 //
-//        $project->project_update()->create([
-//            'updates'   => $request->updates,
-//            'updates_date' => $request->updates_date,
-//        ]);
-//        $project->expected_output()->create([
-//            'expected_outputs' => $request->expected_outputs
-//        ]);
-//        $project->description()->create([
-//            'description' => $request->description,
-//        ]);
-//
-//        $project->feasibility_study()->create($request->feasibility_study);
-//        $project->nep()->create($request->nep);
-//        $project->allocation()->create($request->allocation);
-//        $project->disbursement()->create($request->disbursement);
+        $project->feasibility_study()->create([]);
+        $project->nep()->create([]);
+        $project->allocation()->create([]);
+        $project->disbursement()->create([]);
         $project->office_id = auth()->user()->office_id;
         $project->created_by = auth()->id();
         $project->save();

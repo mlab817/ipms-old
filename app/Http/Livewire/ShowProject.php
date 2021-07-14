@@ -567,6 +567,24 @@ class ShowProject extends Component
         }
     }
 
+    public function updateRegionInvestments()
+    {
+        foreach ($this->regionInvestments as $regionInvestment) {
+            $this->project->region_investments()->updateOrCreate([
+                'fs_id' => $regionInvestment->fs_id
+            ],[
+                'y2016' => $regionInvestment->y2016,
+                'y2017' => $regionInvestment->y2017,
+                'y2018' => $regionInvestment->y2018,
+                'y2019' => $regionInvestment->y2019,
+                'y2020' => $regionInvestment->y2020,
+                'y2021' => $regionInvestment->y2021,
+                'y2022' => $regionInvestment->y2022,
+                'y2023' => $regionInvestment->y2023,
+            ]);
+        }
+    }
+
     public function render()
     {
         return view('livewire.show-project',[
