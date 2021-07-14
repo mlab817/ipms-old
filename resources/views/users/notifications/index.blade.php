@@ -11,8 +11,6 @@
                     </h6>
 
                     <form class="d-none d-md-block">
-
-
                         <button type="submit" title="Mark as done" class="btn btn-sm">
                             <span class="text-center d-inline-block" style="width:16px">
                                 <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-check">

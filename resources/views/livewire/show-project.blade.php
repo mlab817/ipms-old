@@ -1177,7 +1177,7 @@
                     </div>
                 </div>
                 @foreach ($regionInvestments->sortBy('region.order') as $key => $region)
-                    <div class="d-table col-12 border-bottom" wire:key="fs-investments-{{ $fs->id }}">
+                    <div class="d-table col-12 border-bottom" wire:key="region-investments-{{ $fs->id }}">
                         <div class="col-1 p-1 d-table-cell">
                             <input type="hidden" wire:model="regionInvestments.{{ $key }}.fs_id">
                             {{ $region->region->label ?? '' }}
@@ -1231,7 +1231,7 @@
             <dd class="form-group-body">
                 <div class="d-table col-12 border-bottom border-top">
                     <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        Region
+
                     </div>
                     <div class="col-1 p-2 text-center v-align-middle d-table-cell">
                         2016 &amp; Prior
@@ -1261,41 +1261,105 @@
                         Total
                     </div>
                 </div>
-                @foreach ($regionInvestments->sortBy('region.order') as $key => $region)
-                    <div class="d-table col-12 border-bottom" wire:key="fs-investments-{{ $fs->id }}">
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="hidden" wire:model="regionInvestments.{{ $key }}.fs_id">
-                            {{ $region->region->label ?? '' }}
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2016">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2017">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2018">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2019">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2020">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2021">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2022">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2023">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.total">
-                        </div>
+
+                <div class="d-table col-12 border-bottom">
+                    <div class="col-1 p-1 d-table-cell">
+                        NEP
                     </div>
-                @endforeach
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2016">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2017">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2018">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2019">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2020">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2021">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2022">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.y2023">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="nep.total">
+                    </div>
+                </div>
+
+                <div class="d-table col-12 border-bottom">
+                    <div class="col-1 p-1 d-table-cell">
+                        GAA
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2016">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2017">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2018">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2019">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2020">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2021">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2022">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.y2023">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="allocation.total">
+                    </div>
+                </div>
+
+                <div class="d-table col-12 border-bottom">
+                    <div class="col-1 p-1 d-table-cell">
+                        Disbursement
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2016">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2017">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2018">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2019">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2020">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2021">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2022">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.y2023">
+                    </div>
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" wire:model="disbursement.total">
+                    </div>
+                </div>
 
                 <div class="d-flex mt-2">
                     <button class="btn" type="submit">Save</button>

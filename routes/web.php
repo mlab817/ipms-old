@@ -196,7 +196,12 @@ Route::get('/generate_username', function() {
     $users = \App\Models\User::all();
 
     foreach ($users as $user) {
-        $user->username = preg_replace( '/[\W]/', '', strtolower(str_replace('@gmail.com','', $user->email)));
+        $first_names = explode(' ', $user->first_name);
+        $initials = '';
+        foreach ($first_names as $name) {
+            $initials .= strtolower($name[0] ?? '');
+        }
+        $user->username = $initials . strtolower($user->last_name);
         $user->save();
     }
 })->name('generate_username');

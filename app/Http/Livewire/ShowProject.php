@@ -135,7 +135,7 @@ class ShowProject extends Component
 
     public $nep = [];
 
-    public $gaa = [];
+    public $allocation = [];
 
     public $disbursement = [];
 
@@ -170,6 +170,30 @@ class ShowProject extends Component
         'regionInvestments.*.y2021' => 'required|numeric|min:0',
         'regionInvestments.*.y2022' => 'required|numeric|min:0',
         'regionInvestments.*.y2023' => 'required|numeric|min:0',
+        'allocation.y2016' => 'required|numeric|min:0',
+        'allocation.y2017' => 'required|numeric|min:0',
+        'allocation.y2018' => 'required|numeric|min:0',
+        'allocation.y2019' => 'required|numeric|min:0',
+        'allocation.y2020' => 'required|numeric|min:0',
+        'allocation.y2021' => 'required|numeric|min:0',
+        'allocation.y2022' => 'required|numeric|min:0',
+        'allocation.y2023' => 'required|numeric|min:0',
+        'nep.y2016' => 'required|numeric|min:0',
+        'nep.y2017' => 'required|numeric|min:0',
+        'nep.y2018' => 'required|numeric|min:0',
+        'nep.y2019' => 'required|numeric|min:0',
+        'nep.y2020' => 'required|numeric|min:0',
+        'nep.y2021' => 'required|numeric|min:0',
+        'nep.y2022' => 'required|numeric|min:0',
+        'nep.y2023' => 'required|numeric|min:0',
+        'disbursement.y2016' => 'required|numeric|min:0',
+        'disbursement.y2017' => 'required|numeric|min:0',
+        'disbursement.y2018' => 'required|numeric|min:0',
+        'disbursement.y2019' => 'required|numeric|min:0',
+        'disbursement.y2020' => 'required|numeric|min:0',
+        'disbursement.y2021' => 'required|numeric|min:0',
+        'disbursement.y2022' => 'required|numeric|min:0',
+        'disbursement.y2023' => 'required|numeric|min:0',
     ];
 
     public function mount(Project $project)
@@ -226,6 +250,9 @@ class ShowProject extends Component
         $this->updatesDate = $project->project_update->updates_date ?? '';
         $this->fsInvestments = $project->fs_investments;
         $this->regionInvestments = $project->region_investments;
+        $this->nep = $project->nep;
+        $this->allocation = $project->allocation;
+        $this->disbursement = $project->disbursement;
     }
 
     public function updateOffice()
