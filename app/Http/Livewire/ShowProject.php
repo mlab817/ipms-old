@@ -139,6 +139,28 @@ class ShowProject extends Component
 
     public $disbursement = [];
 
+    public $regionTotals = [
+        'y2016' => 0,
+        'y2017' => 0,
+        'y2018' => 0,
+        'y2019' => 0,
+        'y2020' => 0,
+        'y2021' => 0,
+        'y2022' => 0,
+        'y2023' => 0,
+    ];
+
+    public $fsTotals = [
+        'y2016' => 0,
+        'y2017' => 0,
+        'y2018' => 0,
+        'y2019' => 0,
+        'y2020' => 0,
+        'y2021' => 0,
+        'y2022' => 0,
+        'y2023' => 0,
+    ];
+
     public $booleanOptions = [
         '0' => 'No',
         '1' => 'Yes',
@@ -207,7 +229,7 @@ class ShowProject extends Component
         $this->projectBases    = array_map('intval',$project->bases()->pluck('id')->toArray() ?? []);
         $this->description = $project->description->description ?? '';
         $this->expectedOutputs = $project->expected_output->expected_outputs ?? '';
-        $this->totalProjectCost = $project->total_project_cost;
+        $this->totalProjectCost = $project->total_project_cost ?? 0;
         $this->projectStatus = $project->project_status_id;
         $this->research = $project->research;
         $this->ict = $project->ict;
@@ -253,6 +275,9 @@ class ShowProject extends Component
         $this->nep = $project->nep;
         $this->allocation = $project->allocation;
         $this->disbursement = $project->disbursement;
+
+        $this->computeFsInvestmentsTotal();
+        $this->computeRegionInvestmentsTotal();
     }
 
     public function updateOffice()
@@ -313,7 +338,7 @@ class ShowProject extends Component
     public function updateTotalProjectCost()
     {
         $project = $this->project;
-        $project->total_project_cost = $this->totalProjectCost;
+        $project->total_project_cost = toFloat($this->totalProjectCost);
         $project->save();
     }
 
@@ -598,7 +623,7 @@ class ShowProject extends Component
     {
         foreach ($this->regionInvestments as $regionInvestment) {
             $this->project->region_investments()->updateOrCreate([
-                'fs_id' => $regionInvestment->fs_id
+                'region_id' => $regionInvestment->region_id
             ],[
                 'y2016' => $regionInvestment->y2016,
                 'y2017' => $regionInvestment->y2017,
@@ -610,6 +635,64 @@ class ShowProject extends Component
                 'y2023' => $regionInvestment->y2023,
             ]);
         }
+    }
+
+    public function updatedRegionInvestments()
+    {
+        $this->computeRegionInvestmentsTotal();
+    }
+
+    public function computeRegionInvestmentsTotal()
+    {
+        $this->regionTotals = collect($this->regionInvestments)->reduce(function ($total, $item) {
+            $total['y2016'] += $item['y2016'];
+            $total['y2017'] += $item['y2017'];
+            $total['y2018'] += $item['y2018'];
+            $total['y2019'] += $item['y2019'];
+            $total['y2020'] += $item['y2020'];
+            $total['y2021'] += $item['y2021'];
+            $total['y2022'] += $item['y2022'];
+            $total['y2023'] += $item['y2023'];
+            return $total;
+        }, [
+            'y2016' => 0,
+            'y2017' => 0,
+            'y2018' => 0,
+            'y2019' => 0,
+            'y2020' => 0,
+            'y2021' => 0,
+            'y2022' => 0,
+            'y2023' => 0,
+        ]);
+    }
+
+    public function updatedFsInvestments()
+    {
+        $this->computeFsInvestmentsTotal();
+    }
+
+    public function computeFsInvestmentsTotal()
+    {
+        $this->fsTotals = collect($this->fsInvestments)->reduce(function ($total, $item) {
+            $total['y2016'] += $item['y2016'];
+            $total['y2017'] += $item['y2017'];
+            $total['y2018'] += $item['y2018'];
+            $total['y2019'] += $item['y2019'];
+            $total['y2020'] += $item['y2020'];
+            $total['y2021'] += $item['y2021'];
+            $total['y2022'] += $item['y2022'];
+            $total['y2023'] += $item['y2023'];
+            return $total;
+        }, [
+            'y2016' => 0,
+            'y2017' => 0,
+            'y2018' => 0,
+            'y2019' => 0,
+            'y2020' => 0,
+            'y2021' => 0,
+            'y2022' => 0,
+            'y2023' => 0,
+        ]);
     }
 
     public function render()

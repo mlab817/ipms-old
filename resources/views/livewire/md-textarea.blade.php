@@ -1,7 +1,7 @@
-<div class="p-0 mb-3 mb-md-0 rounded-top-2 color-bg-canvas" x-data="{ preview: false, {{ $id }}: `{{ $value }}` }">
+<div class="p-0 mb-3 mb-md-0 rounded-top-2 color-bg-canvas" x-data="{ preview: false, {{ $name }}: `{{ $value }}` }">
     <div class="tabnav">
         <div class="float-right">
-            <markdown-toolbar for="{{ $id }}">
+            <markdown-toolbar for="{{ $componentId }}">
                 <md-bold class="tabnav-extra">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a1 1 0 00-1 1v10a1 1 0 001 1h5.5a3.5 3.5 0 001.852-6.47A3.5 3.5 0 008.5 2H4zm4.5 5a1.5 1.5 0 100-3H5v3h3.5zM5 9v3h4.5a1.5 1.5 0 000-3H5z"/></svg>
                 </md-bold>
@@ -32,8 +32,10 @@
     </div>
     <textarea
         x-show="!preview"
-        x-model="{{ $id }}" name="{{ $name }}" id="{{ $id }}"
+        x-model="{{ $componentId }}"
+        name="{{ $name }}"
+        id="{{ $componentId }}"
         placeholder="{{ $placeholder }}"
         class="form-control width-full input-contrast">{{ $value }}</textarea>
-    <div class="border-bottom md-preview" x-cloak x-show="preview" style="height: 150px; overflow-y: scroll;" x-html="{{ $id }} ? window.marked({{ $id }}) : 'Nothing to preview'"></div>
+    <div class="border-bottom md-preview" x-cloak x-show="preview" style="height: 150px; overflow-y: scroll;" x-html="{{ $componentId }} ? window.marked({{ $componentId }}) : 'Nothing to preview'"></div>
 </div>

@@ -18,7 +18,7 @@
                     </select>
 
                     @if($officeId != $project->office_id)
-                        <button class="btn ml-2" type="submit">Save</button>
+                        <button class="btn" type="submit">Save</button>
                     @endif
                 </dd>
             </dl>
@@ -137,15 +137,6 @@
             <dd class="form-group-body">
                 <textarea wire:model="description" class="form-control input-contrast" id="mde-description" name="description"></textarea>
 
-                @push('scripts')
-                    <script>
-                        const mdeDescription = new EasyMDE({
-                            element: document.getElementById('mde-description'),
-                            maxHeight: '120px'
-                        });
-                    </script>
-                @endpush
-
                 @if($description != optional($project->description)->description)
                     <div class="d-flex mt-3">
                         <span class="flex-auto"></span>
@@ -164,16 +155,7 @@
                 <label for="">Expected Outputs</label>
             </dt>
             <dd class="form-group-body">
-                <textarea wire:model="expectedOutputs" class="form-control input-contrast" id="mde-expected-outputs" name="expected_outputs"></textarea>
-
-                @push('scripts')
-                    <script>
-                        const mdeExpectedOutputs = new EasyMDE({
-                            element: document.getElementById('mde-expected-outputs'),
-                            maxHeight: '120px'
-                        });
-                    </script>
-                @endpush
+                <textarea class="form-control input-contrast" id="expected_outputs" name="expected_outputs" wire:model="expectedOutputs"></textarea>
 
                 @if($expectedOutputs != optional($project->expected_output)->expected_outputs)
                     <div class="d-flex mt-3">
@@ -192,7 +174,10 @@
             <dt class="input-label">
                 <label for="">Total Project Cost</label>
             </dt>
-            <dd class="form-group-body" x-data="{ isEditing: false, totalProjectCost: @entangle('totalProjectCost') }">
+            <dd class="form-group-body" x-data="{
+                isEditing: false,
+                totalProjectCost: @entangle('totalProjectCost')
+                }">
                 <input x-show="!isEditing" @click="isEditing = true; $nextTick(() => $refs.totalProjectCost.focus());" type="text" class="form-control input-contrast" readonly x-bind:value="totalProjectCost.toLocaleString()">
                 <input x-cloak x-show="isEditing" @click.away="isEditing = false" type="number" wire:model="totalProjectCost" class="form-control input-contrast" x-ref="totalProjectCost" name="total_project_cost">
                 @if($project->total_project_cost != $totalProjectCost)
@@ -223,14 +208,16 @@
                     </select>
 
                     @if($projectStatus != $project->project_status_id)
-                        <button class="btn ml-2" type="submit">Save</button>
+                        <button class="btn" type="submit">Save</button>
                     @endif
                 </dd>
             </dl>
         </div>
     </form>
 
-    <div class="Subhead Subhead--spacious my-3">
+    <div class="my-3"></div>
+
+    <div class="Subhead Subhead--spacious">
         <div class="Subhead-heading">{{ __("Other PAP Information") }}</div>
     </div>
 
@@ -248,7 +235,7 @@
                     </select>
 
                     @if($research != $project->research)
-                        <button class="btn ml-2" type="submit">Save</button>
+                        <button class="btn" type="submit">Save</button>
                     @endif
                 </dd>
             </dl>
@@ -272,7 +259,7 @@
                     </select>
 
                     @if($ict != $project->ict)
-                        <button class="btn ml-2" type="submit">Save</button>
+                        <button class="btn" type="submit">Save</button>
                     @endif
                 </dd>
             </dl>
@@ -296,7 +283,7 @@
                     </select>
 
                     @if($covid != $project->covid)
-                        <button class="btn ml-2" type="submit">Save</button>
+                        <button class="btn" type="submit">Save</button>
                     @endif
                 </dd>
             </dl>
@@ -345,13 +332,14 @@
             </dt>
             <dd>
                 <select class="form-select" name="spatialCoverage" wire:model="spatialCoverage">
+                    <option value="">Spatial Coverage</option>
                     @foreach($spatial_coverages as $key => $option)
                         <option value="{{ $key }}">{{ $key . ' - ' . $option->name }}</option>
                     @endforeach
                 </select>
 
                 @if($spatialCoverage != $project->spatial_coverage_id)
-                    <button class="btn ml-2" type="submit">Save</button>
+                    <button class="btn" type="submit">Save</button>
                 @endif
             </dd>
         </dl>
@@ -397,13 +385,14 @@
             </dt>
             <dd>
                 <select class="form-select" name="target_start_year" wire:model="targetStartYear">
+                    <option value="">Year</option>
                     @foreach($years as $option)
                         <option value="{{ $option }}">{{ $option }}</option>
                     @endforeach
                 </select>
 
                 @if($targetStartYear != $project->target_start_year)
-                    <button class="btn ml-2" type="submit">Save</button>
+                    <button class="btn" type="submit">Save</button>
                 @endif
             </dd>
         </dl>
@@ -414,17 +403,18 @@
     <form wire:submit.prevent="updateTargetEndYear">
         <dl class="form-group d-inline-block my-0">
             <dt class="input-label">
-                <label>Start Year</label>
+                <label>End Year</label>
             </dt>
             <dd>
                 <select class="form-select" name="target_end_year" wire:model="targetEndYear">
+                    <option value="">Year</option>
                     @foreach($years as $option)
                         <option value="{{ $option }}">{{ $option }}</option>
                     @endforeach
                 </select>
 
                 @if($targetEndYear != $project->target_end_year)
-                    <button class="btn ml-2" type="submit">Save</button>
+                    <button class="btn" type="submit">Save</button>
                 @endif
             </dd>
         </dl>
@@ -464,6 +454,7 @@
             </dt>
             <dd>
                 <select class="form-select" name="approval_level_id" id="approval_level_id" wire:model="approvalLevel">
+                    <option value="">Approval Level</option>
                     @foreach($approval_levels as $key => $option)
                         <option value="{{ $option->id }}">{{ $option->id . ' - ' . $option->name }}</option>
                     @endforeach
@@ -502,6 +493,7 @@
             </dt>
             <dd>
                 <select class="form-select" name="gad_id" id="gad_id" wire:model="gad">
+                    <option value="">Gender Responsiveness</option>
                     @foreach($gads as $option)
                         <option value="{{ $option->id }}">{{ $option->id . ' - ' . $option->name }}</option>
                     @endforeach
@@ -689,11 +681,11 @@
     <div class="my-3"></div>
 
     <form wire:submit.prevent="updateFsCost">
-        <dl class="form-group d-inline-block my-0">
+        <dl class="my-0">
             <dt class="input-label">
                 <label for="rename-field">Schedule of Feasibility Study Cost (in absolute PhP)</label>
             </dt>
-            <dd x-data="{
+            <dd class="form-group-body" x-data="{
                     isEditing: false,
                     fsY2017: @entangle('fsY2017'),
                     fsY2018: @entangle('fsY2018'),
@@ -702,30 +694,29 @@
                     fsY2021: @entangle('fsY2021'),
                     fsY2022: @entangle('fsY2022'),
                 }">
-                <div class="d-flex flex-column">
-                    <div x-show="isEditing" x-cloak>
-                        <input type="number" class="form-control text-right mt-2" id="feasibility_study.y2017" name="feasibility_study[y2017]" wire:model="fsY2017">
-                        <input type="number" class="form-control text-right mt-2" id="feasibility_study.y2018" name="feasibility_study[y2018]" wire:model="fsY2018">
-                        <input type="number" class="form-control text-right mt-2" id="feasibility_study.y2019" name="feasibility_study[y2019]" wire:model="fsY2019">
-                        <input type="number" class="form-control text-right mt-2" id="feasibility_study.y2020" name="feasibility_study[y2020]" wire:model="fsY2020">
-                        <input type="number" class="form-control text-right mt-2" id="feasibility_study.y2021" name="feasibility_study[y2021]" wire:model="fsY2021">
-                        <input type="number" class="form-control text-right mt-2" id="feasibility_study.y2022" name="feasibility_study[y2022]" wire:model="fsY2022">
-                    </div>
-                    <div x-show="!isEditing" x-cloak>
-                        <input type="text" class="form-control text-right mt-2" x-bind:value="parseFloat(fsY2017).toLocaleString()" readonly>
-                        <input type="text" class="form-control text-right mt-2" x-bind:value="parseFloat(fsY2018).toLocaleString()" readonly>
-                        <input type="text" class="form-control text-right mt-2" x-bind:value="parseFloat(fsY2019).toLocaleString()" readonly>
-                        <input type="text" class="form-control text-right mt-2" x-bind:value="parseFloat(fsY2020).toLocaleString()" readonly>
-                        <input type="text" class="form-control text-right mt-2" x-bind:value="parseFloat(fsY2021).toLocaleString()" readonly>
-                        <input type="text" class="form-control text-right mt-2" x-bind:value="parseFloat(fsY2022).toLocaleString()" readonly>
-                    </div>
-                    <!-- TODO: compute sum of fs cost -->
-                    <input type="text" class="form-control mt-2" id="feasibility_study.total" name="feasibility_study[total]" wire:model="fsTotal">
+                <div class="d-table col-12" x-show="isEditing" x-cloak>
+                        <div class="d-table-cell col-2 p-1">
+                            <input type="number" class="form-control text-right width-full input-contrast" id="feasibility_study.y2017" name="feasibility_study[y2017]" wire:model="fsY2017">
+                        </div>
+                        <div class="d-table-cell col-2 p-1">
+                            <input type="number" class="form-control text-right width-full input-contrast" id="feasibility_study.y2018" name="feasibility_study[y2018]" wire:model="fsY2018">
+                        </div>
+                        <div class="d-table-cell col-2 p-1">
+                            <input type="number" class="form-control text-right width-full input-contrast" id="feasibility_study.y2019" name="feasibility_study[y2019]" wire:model="fsY2019">
+                        </div>
+                        <div class="d-table-cell col-2 p-1">
+                            <input type="number" class="form-control text-right width-full input-contrast" id="feasibility_study.y2020" name="feasibility_study[y2020]" wire:model="fsY2020">
+                        </div>
+                        <div class="d-table-cell col-2 p-1">
+                            <input type="number" class="form-control text-right width-full input-contrast" id="feasibility_study.y2021" name="feasibility_study[y2021]" wire:model="fsY2021">
+                        </div>
+                        <div class="d-table-cell col-2 p-1">
+                            <input type="number" class="form-control text-right width-full input-contrast" id="feasibility_study.y2022" name="feasibility_study[y2022]" wire:model="fsY2022">
+                        </div>
+                        <div class="d-table-cell d-inline-flex text-nowrap col">
+                            <button class="btn" type="submit">Save</button>
+                        </div>
                 </div>
-
-                <button class="btn mt-2" @click="isEditing = true" x-show="!isEditing">Edit</button>
-                <button class="btn btn-primary mt-2" type="submit" x-cloak x-show="isEditing" x-cloak>Save</button>
-                <button class="btn mt-2" @click="isEditing = false" x-cloak x-show="isEditing">Cancel</button>
             </dd>
         </dl>
     </form>
@@ -831,6 +822,7 @@
                                 value="{{ $option->id }}"
                                 wire:model="sdgs">
                             {{ $option->name }}
+                            <p class="note">{{ $option->description }}</p>
                         </label>
                     </div>
                 @endforeach
@@ -1023,9 +1015,11 @@
             <dd class="form-group-body">
                 <textarea id="updates" name="updates" class="form-control input-contrast" wire:model="updates"></textarea>
 
+                @if($updates != ($project->update->updates ?? ''))
                 <div class="d-flex mt-3">
                     <button class="btn" type="submit">Save</button>
                 </div>
+                @endif
             </dd>
         </dl>
     </form>
@@ -1091,40 +1085,82 @@
                     </div>
                 </div>
                 @foreach ($fsInvestments as $key => $fs)
-                    <div class="d-table col-12 border-bottom" wire:key="fs-investments-{{ $fs->id }}">
+                    <div class="d-table col-12 border-bottom" wire:key="fs-investments-{{ $fs->id }}" x-data="{ fs: {{ $fs  }} }">
                         <div class="col-1 p-1 d-table-cell">
                             <input type="hidden" wire:model="fsInvestments.{{ $key }}.fs_id">
                             {{ $fs->funding_source->name ?? '' }}
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2016">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2016" x-model="fs.y2016">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2017">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2017" x-model="fs.y2017">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2018">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2018" x-model="fs.y2018">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2019">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2019" x-model="fs.y2019">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2020">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2020" x-model="fs.y2020">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2021">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2021" x-model="fs.y2021">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2022">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2022" x-model="fs.y2022">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2023">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2023" x-model="fs.y2023">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.total">
+                            <input type="number" class="form-control text-right input-contrast width-full" x-bind:value="parseFloat(fs.y2016) + parseFloat(fs.y2017) + parseFloat(fs.y2018) + parseFloat(fs.y2019) + parseFloat(fs.y2020) + parseFloat(fs.y2021) + parseFloat(fs.y2022) + parseFloat(fs.y2023)">
                         </div>
                     </div>
                 @endforeach
+
+                <div class="d-table col-12 border-bottom border-top">
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        Total
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $fsTotals['y2016'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $fsTotals['y2017'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $fsTotals['y2018'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $fsTotals['y2019'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $fsTotals['y2020'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $fsTotals['y2021'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $fsTotals['y2022'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $fsTotals['y2023'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{
+                            $fsTotals['y2016'] ?? 0
+                            + $fsTotals['y2017'] ?? 0
+                            + $fsTotals['y2018'] ?? 0
+                            + $fsTotals['y2019'] ?? 0
+                            + $fsTotals['y2020'] ?? 0
+                            + $fsTotals['y2021'] ?? 0
+                            + $fsTotals['y2022'] ?? 0
+                            + $fsTotals['y2023'] ?? 0
+                        }}
+                    </div>
+                </div>
 
                 <div class="d-flex mt-2">
                     <button class="btn" type="submit">Save</button>
@@ -1177,40 +1213,82 @@
                     </div>
                 </div>
                 @foreach ($regionInvestments->sortBy('region.order') as $key => $region)
-                    <div class="d-table col-12 border-bottom" wire:key="region-investments-{{ $fs->id }}">
+                    <div class="d-table col-12 border-bottom" wire:key="region-investments-{{ $key }}" x-data="{ region: {{ $region  }} }">
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="hidden" wire:model="regionInvestments.{{ $key }}.fs_id">
+                            <input type="hidden" wire:model="regionInvestments.{{ $key }}.region_id">
                             {{ $region->region->label ?? '' }}
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2016">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2016" x-model="region.y2016">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2017">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2017" x-model="region.y2017">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2018">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2018" x-model="region.y2018">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2019">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2019" x-model="region.y2019">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2020">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2020" x-model="region.y2020">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2021">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2021" x-model="region.y2021">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2022">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2022" x-model="region.y2022">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2023">
+                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2023" x-model="region.y2023">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.total">
+                            <input type="number" class="form-control text-right input-contrast width-full" x-bind:value="parseFloat(region.y2016) + parseFloat(region.y2017) + parseFloat(region.y2018) + parseFloat(region.y2019) + parseFloat(region.y2020) + parseFloat(region.y2021) + parseFloat(region.y2022) + parseFloat(region.y2023)">
                         </div>
                     </div>
                 @endforeach
+
+                <div class="d-table col-12 border-bottom border-top">
+                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                        Total
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $regionTotals['y2016'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $regionTotals['y2017'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $regionTotals['y2018'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $regionTotals['y2019'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $regionTotals['y2020'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $regionTotals['y2021'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $regionTotals['y2022'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{ $regionTotals['y2023'] ?? 0 }}
+                    </div>
+                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
+                        {{
+                            $regionTotals['y2016'] ?? 0
+                            + $regionTotals['y2017'] ?? 0
+                            + $regionTotals['y2018'] ?? 0
+                            + $regionTotals['y2019'] ?? 0
+                            + $regionTotals['y2020'] ?? 0
+                            + $regionTotals['y2021'] ?? 0
+                            + $regionTotals['y2022'] ?? 0
+                            + $regionTotals['y2023'] ?? 0
+                        }}
+                    </div>
+                </div>
 
                 <div class="d-flex mt-2">
                     <button class="btn" type="submit">Save</button>
@@ -1262,7 +1340,7 @@
                     </div>
                 </div>
 
-                <div class="d-table col-12 border-bottom">
+                <div class="d-table col-12 border-bottom" x-data="{ nep: @entangle('nep') }">
                     <div class="col-1 p-1 d-table-cell">
                         NEP
                     </div>
@@ -1291,11 +1369,11 @@
                         <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="nep.y2023">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="nep.total">
+                        <input type="number" class="form-control text-right input-contrast width-full" x-bind:value="nep.y2016 + nep.y2017 + nep.y2018 + nep.y2019 + nep.y2020 + nep.y2021 + nep.y2022 + nep.y2023">
                     </div>
                 </div>
 
-                <div class="d-table col-12 border-bottom">
+                <div class="d-table col-12 border-bottom" x-data="{ allocation: @entangle('allocation') }">
                     <div class="col-1 p-1 d-table-cell">
                         GAA
                     </div>
@@ -1324,11 +1402,11 @@
                         <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2023">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.total">
+                        <input type="number" class="form-control text-right input-contrast width-full" x-bind:value="allocation.y2016 + allocation.y2017 + allocation.y2018 + allocation.y2019 + allocation.y2020 + allocation.y2021 + allocation.y2022 + allocation.y2023">
                     </div>
                 </div>
 
-                <div class="d-table col-12 border-bottom">
+                <div class="d-table col-12 border-bottom" x-data="{ disbursement: @entangle('disbursement') }">
                     <div class="col-1 p-1 d-table-cell">
                         Disbursement
                     </div>
@@ -1357,7 +1435,7 @@
                         <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2023">
                     </div>
                     <div class="col-1 p-1 d-table-cell">
-                        <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.total">
+                        <input type="number" class="form-control text-right input-contrast width-full" x-bind:value="disbursement.y2016 + disbursement.y2017 + disbursement.y2018 + disbursement.y2019 + disbursement.y2020 + disbursement.y2021 + disbursement.y2022 + disbursement.y2023">
                     </div>
                 </div>
 
