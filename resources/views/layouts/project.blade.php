@@ -10,6 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="shortcut icon" type="image/ico" href="/images/icons/favicon.ico"/>
+
     <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
     <!-- CSS -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet"/>
