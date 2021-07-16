@@ -63,7 +63,7 @@ Route::middleware(['auth','user.activated'])->group(function () {
         // TRIP
         Route::get('/projects/{project}/settings', [\App\Http\Controllers\ProjectController::class,'settings'])->name('projects.settings');
         Route::get('/projects/{project}/files', [\App\Http\Controllers\ProjectController::class,'files'])->name('projects.files');
-        Route::get('/projects/{project}/history', [\App\Http\Controllers\ProjectController::class,'audit_logs'])->name('projects.audit_logs');
+        Route::get('/projects/{project}/history', [\App\Http\Controllers\ProjectController::class,'history'])->name('projects.history');
         Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
         Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');
         Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');
@@ -101,6 +101,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::resource('pipols',\App\Http\Controllers\PipolController::class);
         Route::resource('users', \App\Http\Controllers\UserController::class);
         Route::resource('offices',\App\Http\Controllers\OfficeController::class);
+        Route::resource('trackers',\App\Http\Controllers\TrackerController::class);
+        Route::resource('updating-periods',\App\Http\Controllers\UpdatingPeriodController::class);
 
         Route::group(['prefix' => 'reports'], function() {
             Route::get('/', [\App\Http\Controllers\ReportController::class,'index'])->name('reports.index');

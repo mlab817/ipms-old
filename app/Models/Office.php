@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class Office extends Model
 {
@@ -38,6 +39,16 @@ class Office extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    /**
+     * Return value when calling revisionable
+     *
+     * @return mixed
+     */
+    public function identifiableName()
+    {
+        return $this->name;
+    }
 
     public function operating_unit(): BelongsTo
     {

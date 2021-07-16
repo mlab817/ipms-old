@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class Project extends Model
 {
@@ -25,6 +26,7 @@ class Project extends Model
     use SoftDeletes;
     use Auditable;
     use Cloneable;
+    use RevisionableTrait;
 
     protected $cloneable_relations = [];
 
@@ -140,6 +142,17 @@ class Project extends Model
     {
         return $this->uuid;
     }
+
+    protected $revisionFormattedFields = [
+        'has_infra' => 'boolean:No|Yes',
+    ];
+
+    protected $revisionFormattedFieldNames = [
+        'title'         => 'Title',
+        'pap_type_id'   => 'PAP Type',
+        'has_infra'     => 'Does this PAP have INFRASTRUCTURE component/s?',
+        'office_id'     => 'Office'
+    ];
 
     /**
      * BelongsTo Relationships

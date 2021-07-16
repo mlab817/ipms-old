@@ -244,7 +244,8 @@
                                     <form action="{{ route('issues.issue_comments.store', $issue) }}" method="POST">
                                         @csrf
                                         <x-md-textarea id="comment" name="comment" placeholder="Leave a comment"></x-md-textarea>
-                                        <div class="d-flex flex-justify-end">
+
+                                        <div class="d-flex flex-justify-end mt-2">
                                             @if($issue->status == 'closed')
                                             <div class="color-bg-secondary">
                                                 <button type="submit" name="comment_and_reopen" value="1" class="btn" formnovalidate="">
@@ -252,6 +253,7 @@
                                                 </button>
                                             </div>
                                             @endif
+
                                             @if(in_array($issue->status, ['','open']))
                                             <div class="color-bg-secondary">
                                                 <button type="submit" name="comment_and_close" value="1" class="btn js-comment-and-button js-quick-submit-alternative" data-comment-text="Close with comment" data-disable-with="" formnovalidate="">

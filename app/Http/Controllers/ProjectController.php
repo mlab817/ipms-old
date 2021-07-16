@@ -592,6 +592,14 @@ class ProjectController extends Controller
         return back();
     }
 
+    public function history(Project $project)
+    {
+        return view('projects.history', [
+            'project' => $project,
+            'history' => $project->revisionHistory()->latest()->get()
+        ]);
+    }
+
     public function audit_logs(Project $project)
     {
         return view('projects.history', compact('project'));

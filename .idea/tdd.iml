@@ -192,6 +192,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/stevebauman/location" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/geoip2/geoip2" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bkwld/cloner" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/venturecraft/revisionable" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
