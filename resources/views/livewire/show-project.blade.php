@@ -1,6 +1,6 @@
 <div>
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("General Information") }}</div>
+        <div id="general-information" class="Subhead-heading">{{ __("General Information") }}</div>
     </div>
 
     <form wire:submit.prevent="updateOffice">
@@ -218,7 +218,7 @@
     <div class="my-3"></div>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Other PAP Information") }}</div>
+        <div class="Subhead-heading" id="other-pap-information">{{ __("Other PAP Information") }}</div>
     </div>
 
     <form wire:submit.prevent="updateResearch">
@@ -320,7 +320,7 @@
     </form>
 
     <div class="Subhead Subhead--spacious my-3">
-        <div class="Subhead-heading">{{ __("Spatial Coverage") }}</div>
+        <div class="Subhead-heading" id="spatial-coverage">{{ __("Spatial Coverage") }}</div>
     </div>
 
     <div class="my-3"></div>
@@ -375,7 +375,7 @@
     <div class="my-3"></div>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Implementation Period") }}</div>
+        <div class="Subhead-heading" id="implementation-period">{{ __("Implementation Period") }}</div>
     </div>
 
     <form wire:submit.prevent="updateTargetStartYear">
@@ -423,7 +423,7 @@
     <div class="my-3"></div>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Approval Status") }}</div>
+        <div class="Subhead-heading" id="approval-status">{{ __("Approval Status") }}</div>
     </div>
 
     <form wire:submit.prevent="updatePapType">
@@ -509,7 +509,7 @@
     <div class="my-3"></div>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Regional Development Investment Program") }}</div>
+        <div class="Subhead-heading" id="regional-development-investment-program">{{ __("Regional Development Investment Program") }}</div>
     </div>
 
     <form wire:submit.prevent="updateRdip">
@@ -593,7 +593,7 @@
     <div class="my-3"></div>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Project Preparation Details") }}</div>
+        <div class="Subhead-heading" id="project-preparation-details">{{ __("Project Preparation Details") }}</div>
     </div>
 
     <form wire:submit.prevent="updatePreparationDocument">
@@ -724,7 +724,7 @@
     <div class="my-3"></div>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Employment Generation") }}</div>
+        <div class="Subhead-heading" id="employment-generation">{{ __("Employment Generation") }}</div>
     </div>
 
     <form wire:submit.prevent="updateEmploymentGenerated">
@@ -745,7 +745,7 @@
     <div class="my-3"></div>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("PDP Chapter") }}</div>
+        <div class="Subhead-heading" id="pdp-chapter">{{ __("PDP Chapter") }}</div>
     </div>
 
     <form wire:submit.prevent="updatePdpChapter">
@@ -769,15 +769,11 @@
 
     <div class="my-3"></div>
 
-    <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Other PDP Chapters") }}</div>
-        <div class="Subhead-description">Select all that applies</div>
-    </div>
-
     <form wire:submit.prevent="updatePdpChapters">
         <dl class="form-group d-inline-block my-0">
             <dt class="input-label">
                 <label for="rename-field">Other PDP Chapters</label>
+                <p class="note">Select all that applies</p>
             </dt>
             <dd>
                 @foreach($pdp_chapters as $key => $option)
@@ -802,7 +798,7 @@
     <div class="my-3"></div>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Sustainable Development Goals") }}</div>
+        <div class="Subhead-heading" id="sustainable-development-goals">{{ __("Sustainable Development Goals") }}</div>
         <div class="Subhead-description">Select all that applies</div>
     </div>
 
@@ -835,7 +831,7 @@
     <div class="my-3"></div>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Ten Point Agenda") }}</div>
+        <div class="Subhead-heading" id="ten-point-agenda">{{ __("Ten Point Agenda") }}</div>
         <div class="Subhead-description">Select all that applies</div>
     </div>
 
@@ -868,7 +864,7 @@
     <div class="my-3"></div>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Financial Information") }}</div>
+        <div class="Subhead-heading" id="financial-information">{{ __("Financial Information") }}</div>
         <div class="Subhead-description">Select all that applies</div>
     </div>
 
@@ -1004,7 +1000,7 @@
     </form>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Status & Updates") }}</div>
+        <div class="Subhead-heading" id="status-and-updates">{{ __("Status & Updates") }}</div>
     </div>
 
     <form wire:submit.prevent="updateUpdates">
@@ -1042,7 +1038,7 @@
     <div class="my-3"></div>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Investment Required by Funding Source") }}</div>
+        <div class="Subhead-heading" id="investment-required-by-fund-source">{{ __("Investment Required by Funding Source") }}</div>
         <div class="Subhead-description">in absolute PhP terms</div>
     </div>
 
@@ -1170,7 +1166,7 @@
     </form>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Investment Required by Region") }}</div>
+        <div class="Subhead-heading" id="investment-required-by-region">{{ __("Investment Required by Region") }}</div>
         <div class="Subhead-description">in absolute PhP terms</div>
     </div>
 
@@ -1298,10 +1294,10 @@
     </form>
 
     <div class="Subhead Subhead--spacious">
-        <div class="Subhead-heading">{{ __("Financial Status") }}</div>
+        <div class="Subhead-heading" id="financial-status">{{ __("Financial Status") }}</div>
     </div>
 
-    <form wire:submit.prevent="updateRegionInvestments">
+    <form wire:submit.prevent="updateFinancialAccomplishments">
         <dl class="my-0">
             <dt class="input-label">
 

@@ -3,6 +3,24 @@
 @section('content')
     <div class="container-xl mx-auto">
         <div class="d-flex">
+            <details class="dropdown details-reset details-overlay d-inline-block">
+                <summary class="btn" aria-haspopup="true">
+                    Updating Period
+                    <div class="dropdown-caret"></div>
+                </summary>
+                <ul class="dropdown-menu dropdown-menu-se">
+                    @foreach(\App\Models\UpdatingPeriod::all() as $item)
+                    <li>
+                        <a role="button" class="dropdown-item" href="{{ route('trackers.index', ['updating_period' => $item->id]) }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="octicon octicon-check @if(request()->get('updating_period') == $item->id) color-text-success @else color-text-white @endif">
+                                <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
+                            </svg>
+                            <span>{{ $item->name }}</span>
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+            </details>
             <div class="flex-auto"></div>
             <input type="text" class="col-6 form-control input-contrast" placeholder="Search" id="search" name="search">
         </div>

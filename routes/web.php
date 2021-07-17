@@ -70,6 +70,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::put('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'update'])->name('trips.update');
         Route::post('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'store'])->name('trips.store');
 
+        Route::post('/projects/{project}/clone',[\App\Http\Controllers\ProjectController::class,'clone'])->name('projects.clone');
+
         Route::post('/projects/{project}/pin',\App\Http\Controllers\ProjectPinController::class)->name('projects.pin');
         // Upload
         Route::post('/projects/{project}/upload', [\App\Http\Controllers\ProjectController::class,'upload'])->name('projects.upload');
@@ -83,9 +85,9 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
         Route::resource('projects.reviews', \App\Http\Controllers\ProjectReviewController::class);
 
-
+        Route::get('/projects/clone', [\App\Http\Controllers\ProjectController::class,'new_clone'])->name('projects.new_clone');
         Route::get('/projects/deleted', [\App\Http\Controllers\ProjectController::class,'deleted'])->name('projects.deleted');
-        Route::get('projects/import', [\App\Http\Controllers\ProjectImportController::class,'index'])->name('projects.import.index');
+        Route::get('/projects/import', [\App\Http\Controllers\ProjectImportController::class,'index'])->name('projects.import.index');
         Route::post('projects/import', [\App\Http\Controllers\ProjectImportController::class,'import'])->name('projects.import.import');
 
         Route::get('/projects/{project}/generate_pdf', \App\Http\Controllers\ProjectGeneratePdfController::class)->name('projects.generatePdf');
@@ -182,6 +184,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         });
     });
 
+    Route::resource('settings', \App\Http\Controllers\SettingController::class);
+
 });
 
 Auth::routes(['register' => false]);
@@ -219,4 +223,18 @@ Route::fallback(function () {
 
 Route::get('/debug', function () {
     \Log::debug('Test debug message');
+});
+
+Route::get('/optimize', function (){
+    Artisan::call('optimize');
+
+    return 'optimized application';
+});
+
+Route::get('/clear', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+
+    return 'cleared cache, route, config';
 });

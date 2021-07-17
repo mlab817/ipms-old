@@ -106,4 +106,5 @@ return [
         'avatar'    => config('app.asset_url') .'/images/system.png',
     ],
     'pipol_base_url' => 'http://pipolv2.neda.gov.ph/editproject/',
+    'current_updating_period' => env('IPMS_CURRENT_UPDATING_PERIOD', 1),
 ];

@@ -10,6 +10,7 @@ use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Requests\ReviewStoreRequest;
 use App\Http\Requests\UploadAttachmentRequest;
+use App\Jobs\ProjectCloneJob;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
 use App\Models\CipType;
@@ -40,6 +41,7 @@ use App\Models\SpatialCoverage;
 use App\Models\SubmissionStatus;
 use App\Models\TenPointAgenda;
 use App\Models\Tier;
+use App\Models\UpdatingPeriod;
 use App\Models\User;
 use App\Notifications\ProjectDeletedNotification;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -643,5 +645,26 @@ class ProjectController extends Controller
                 'message' => 'Program/project title is already taken'
             ], 200);
         }
+    }
+
+    public function clone(Request $request, Project $project)
+    {
+        $this->validate($request, [
+            'updating_period_id' => 'required|exists:updating_periods,id'
+        ]);
+
+        // check updating period id
+        if ($project->updating_period_id == $request->updating_period_id) {
+            return back()->with('error','This project already been cloned to this updating period');
+        }
+
+        dispatch(new ProjectCloneJob($project->id, $request->updating_period_id, auth()->id()));
+
+        return back()->with('message','Successfully cloned project');
+    }
+
+    public function new_clone()
+    {
+        return view('projects.clone');
     }
 }

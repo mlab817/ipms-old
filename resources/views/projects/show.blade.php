@@ -35,36 +35,117 @@
 
                 <div class="gutter-condensed gutter-lg flex-column flex-md-row d-flex">
 
-                    <div class="flex-shrink-0 col-12 col-md-9 mb-4 mb-md-0">
+                    <div class="flex-shrink-0 col-12 mb-4 mb-md-0">
+                        @if(config('ipms.current_updating_period') == $project->updating_period_id)
+                        <div class="flash flash-success mb-3 d-flex flex-justify-between flex-column flex-md-row flex-md-items-center">
+                            <div class="flex-column mb-2 mb-md-0 mr-0 pr-md-4">
+                                <h5 class="mb-1">
+                                    <svg class="octicon octicon-check-circle-fill mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M8 16A8 8 0 108 0a8 8 0 000 16zm3.78-9.72a.75.75 0 00-1.06-1.06L6.75 9.19 5.28 7.72a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l4.5-4.5z"></path></svg>
+                                    {{ $project->updating_period->name ?? '' }}
+                                </h5>
+                            </div>
+                        </div>
+                            @else
+                            <div class="flash flash-error mb-3 d-flex flex-justify-between flex-column flex-md-row flex-md-items-center">
+                                <div class="flex-column mb-2 mb-md-0 mr-0 pr-md-4">
+                                    <h5 class="mb-1">
+                                        <svg class="octicon octicon-alert" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="18" height="18"><path fill-rule="evenodd" d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path></svg>
+                                        {{ $project->updating_period->name ?? 'No updating period selected' }}
+                                    </h5>
+                                </div>
+                            </div>
+                        @endif
 
-                        <div class="file-navigation mb-3 d-flex flex-items-start">
+                        <div class="mb-3 d-flex flex-items-start">
+                            <div>
+                                <details class="dropdown details-reset details-overlay d-inline-block">
+                                    <summary class="btn" aria-haspopup="true">
+                                        {{ '#' . $project->id }}
+                                        <div class="dropdown-caret"></div>
+                                    </summary>
+                                    <ul class="dropdown-menu dropdown-menu-se">
+                                        <div class="dropdown-header">
+                                            Select version
+                                        </div>
+                                        @foreach($project->original->clones as $projectClone)
+                                            <li>
+                                                <a href="{{ route('projects.show', $projectClone) }}" class="dropdown-item">
+                                                    @if($project->id == $projectClone->id)
+                                                    <strong>
+                                                        #{{ $projectClone->id }}
+                                                    </strong>
+                                                    @else
+                                                        #{{ $projectClone->id }}
+                                                    @endif
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </details>
+                            </div>
+                            <div class="flex-auto"></div>
+                            <details class="details-reset details-overlay details-overlay-dark">
+                                <summary class="btn btn-primary" aria-haspopup="dialog">
+                                    <svg class="octicon octicon-clone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M15 0H9v7c0 .55.45 1 1 1h1v1h1V8h3c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 7h-1V6h1v1zm4 0h-3V6h3v1zm0-2h-4V1h4v4zM4 5H3V4h1v1zm0-2H3V2h1v1zM2 1h6V0H1C.45 0 0 .45 0 1v12c0 .55.45 1 1 1h2v2l1.5-1.5L6 16v-2h5c.55 0 1-.45 1-1v-3H2V1zm9 10v2H6v-1H3v1H1v-2h10zM3 8h1v1H3V8zm1-1H3V6h1v1z"></path></svg>
+                                    <span>Clone</span>
+                                </summary>
 
+                                <details-dialog class="Box Box--overlay d-flex flex-column anim-fade-in fast">
+                                    <form action="{{ route('projects.clone', $project) }}" method="POST" accept-charset="UTF-8">
+                                        @csrf
+                                        <div class="Box-header">
+                                            <button class="Box-btn-octicon btn-octicon float-right" type="button" aria-label="Close dialog" data-close-dialog>
+                                                <!-- <%= octicon "x" %> -->
+                                                <svg class="octicon octicon-x" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z"></path></svg>
+                                            </button>
+                                            <h3 class="Box-title">Clone this Project/Program</h3>
+                                        </div>
+                                        <div class="overflow-auto">
+                                            <div class="Box-body overflow-auto">
+                                                <p>
+                                                    To preserve the data for each updating period, users are required to clone the project/program. Cloning a project/program
+                                                    will copy all its information except <code>Review, Issues and History</code>. The original project/program will be archived
+                                                    and turned into readonly. Cloning may take some time.
+                                                </p>
+                                            </div>
+                                            <ul>
+                                                <li class="Box-row">
+                                                    <select name="updating_period_id" id="updating_period_id" class="form-select" required autofocus>
+                                                        <option value="">Select Updating Period</option>
+                                                        @foreach(\App\Models\UpdatingPeriod::where('id', config('ipms.current_updating_period'))->get() as $option)
+                                                            <option value="{{ $option->id }}">{{ $option->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="Box-footer">
+                                            <button type="submit" class="btn btn-block btn-primary">Clone</button>
+                                        </div>
+                                    </form>
+                                </details-dialog>
+                            </details>
                         </div>
 
-                        <div data-catalyst="">
+                        <div data-catalyst="" @if($project->isArchived()) style="pointer-events: none;" @endif>
 
                             <div class="Box md js-code-block-container Box--responsive">
                                 <!-- Navigator -->
                                 <div class="d-flex top-0 border-top-0 border-bottom p-2 flex-items-center flex-justify-between color-bg-primary rounded-top-2 is-stuck" style="position: sticky; z-index: 90; top: 0px !important;" data-original-top="0px">
                                     <div class="d-flex flex-items-center">
-                                        <details data-target="readme-toc.trigger" data-menu-hydro-click="{&quot;event_type&quot;:&quot;repository_toc_menu.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;trigger&quot;,&quot;repository_id&quot;:380256079,&quot;originating_url&quot;:&quot;https://github.com/mlab817/pips&quot;,&quot;user_id&quot;:29625844}}" data-menu-hydro-click-hmac="79a0e57bd49664e92c60fb8b8527e0c1dec1ba43b91c1fbcb86d82ce5ae55c50" class="dropdown details-reset details-overlay">
-                                            <summary class="btn btn-octicon m-0 mr-2 p-2" aria-haspopup="menu" aria-label="Table of Contents" role="button">
+                                        <details class="dropdown details-reset details-overlay">
+                                            <summary class="btn btn-octicon m-0 mr-2 p-2" aria-haspopup="true" role="button">
                                                 <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"  height="16" width="16" class="octicon octicon-list-unordered">
                                                     <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
                                                 </svg>
                                             </summary>
 
-{{--                                            <details-menu class="SelectMenu" role="menu">--}}
-{{--                                                <div class="SelectMenu-modal rounded-3 mt-1" style="max-height:340px;">--}}
-{{--                                                    <div class="SelectMenu-list SelectMenu-list--borderless p-2" style="overscroll-behavior: contain;">--}}
-{{--                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" href="#office" aria-current="page">About IPMS</a>--}}
-{{--                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" href="#pap">Program or Project</a>--}}
-{{--                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" href="#bug-report">Bug Report</a>--}}
-{{--                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" href="#security-vulnerabilities">Security Vulnerabilities</a>--}}
-{{--                                                        <a role="menuitem" class="filter-item py-1 " style="padding-left: 24px;" href="#license">License</a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </details-menu>--}}
+                                            <ul class="dropdown-menu dropdown-menu-e">
+                                                <li><a class="dropdown-item" href="#general-information">General Information</a></li>
+                                                <li><a class="dropdown-item" href="#url">Dropdown item</a></li>
+                                                <li><a class="dropdown-item" href="#url">Dropdown item</a></li>
+                                            </ul>
                                         </details>
 
                                         <h2 class="Box-title">
@@ -84,8 +165,7 @@
 
                     </div>
 
-
-                    </div>
+                </div>
 
             </div>
 

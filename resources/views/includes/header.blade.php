@@ -34,8 +34,8 @@
                         New PAP
                     </a>
 
-                    <a role="menuitem" class="dropdown-item" href="/new/import" data-ga-click="Header, import a repository">
-                        Import repository
+                    <a role="menuitem" class="dropdown-item" href="{{ route('projects.new_clone') }}" data-ga-click="Header, import a repository">
+                        Clone PAP
                     </a>
 
                     <a role="menuitem" class="dropdown-item" href="https://gist.github.com/" data-ga-click="Header, create new gist">

@@ -11,6 +11,8 @@ class ProjectOverview extends Component
 {
     use WithPagination;
 
+    public $updating_period_id;
+
     public $search;
 
     public $status;
@@ -31,6 +33,7 @@ class ProjectOverview extends Component
         'page' => ['except' => 1],
         'status' => ['except' => ''],
         'sort' => ['except' => ''],
+        'updating_period_id' => ['except' => ''],
     ];
 
     public function updatingSearch()
@@ -43,7 +46,13 @@ class ProjectOverview extends Component
         $this->sort = 'id+asc';
         $this->search = null;
         $this->status = null;
+        $this->updating_period_id = null;
 
+    }
+
+    public function setUpdatingPeriodId($updatingPeriodId)
+    {
+        $this->updating_period_id = $updatingPeriodId;
     }
 
     public function unpinProject($id)
@@ -70,6 +79,10 @@ class ProjectOverview extends Component
 
         if ($this->status) {
             $query->where('submission_status_id', SubmissionStatus::findByName($this->status)->id);
+        }
+
+        if ($this->updating_period_id) {
+            $query->where('updating_period_id', $this->updating_period_id);
         }
 
         if ($this->sort) {

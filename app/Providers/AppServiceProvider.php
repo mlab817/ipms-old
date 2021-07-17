@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Project;
 use App\Models\Review;
+use App\Models\Setting;
 use App\Models\User;
 use App\Observers\ProjectObserver;
 use App\Observers\ReviewObserver;
@@ -57,5 +58,19 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('markdown', function ($expression) {
             return "<?php echo \Illuminate\Mail\Markdown::parse($expression); ?>";
         });
+
+        // TODO: check if this is the best settings
+        cache()->remember('settings', 24*60*60, function () {
+            return Setting::all(['key','value'])
+                ->keyBy('key')
+                ->transform(function ($setting) {
+                    return $setting->value;
+                })
+                ->toArray();
+        });
+
+        config([
+            'global' => cache('settings'),
+        ]);
     }
 }

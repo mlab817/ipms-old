@@ -28,7 +28,39 @@ class Project extends Model
     use Cloneable;
     use RevisionableTrait;
 
-    protected $cloneable_relations = [];
+    protected $cloneable_relations = [
+        'bases',
+        'covid_interventions',
+        'funding_institutions',
+        'funding_sources',
+        'infrastructure_sectors',
+        'infrastructure_subsectors',
+        'pdp_chapters',
+        'pdp_indicators',
+        'prerequisites',
+        'regions',
+        'sdgs',
+        'ten_point_agendas',
+        'allocation',
+        'description',
+        'disbursement',
+        'expected_output',
+        'feasibility_study',
+        'pipol',
+        'resettlement_action_plan',
+        'right_of_way',
+        'risk',
+        'review',
+        'project_update',
+        'fs_investments',
+        'fs_infrastructures',
+        'nep',
+        'operating_units',
+        'region_investments',
+        'region_infrastructures',
+    ];
+
+    protected $clone_exempt_attributes = ['uuid'];
 
     protected $fillable = [
         'ipms_id',
@@ -107,6 +139,8 @@ class Project extends Model
         'submission_status_id',
         'reason_id',
         'other_reason',
+        'updating_period_id',
+        'project_id',
     ];
 
     protected $casts = [
@@ -481,6 +515,12 @@ class Project extends Model
         $this->save();
     }
 
+    public function archive()
+    {
+        $this->archived_at = now();
+        $this->save();
+    }
+
     public function isArchived(): bool
     {
         return !!$this->archived_at;
@@ -565,7 +605,33 @@ class Project extends Model
     public function onCloning($src, $child = null)
     {
         $this->uuid = Str::uuid();
-        $this->created_by = auth()->id();
-        $this->archived = false;
+        $this->archived_at = null;
+
+        if ($src->project_id) {
+            $this->project_id = $src->project_id;
+        } else {
+            $this->project_id = $src->id;
+        }
     }
+
+    public function onCloned($src)
+    {
+        $src->archive();
+    }
+
+    public function clones()
+    {
+        return $this->hasMany(Project::class,'project_id');
+    }
+
+    public function original()
+    {
+        return $this->belongsTo(Project::class,'project_id');
+    }
+
+    public function updating_period()
+    {
+        return $this->belongsTo(UpdatingPeriod::class);
+    }
+
 }

@@ -3,20 +3,9 @@
 namespace App\Observers;
 
 use App\Models\Project;
-use App\Models\SubmissionStatus;
 
 class ProjectObserver
 {
-    public function updated(Project $project)
-    {
-        $project->commits()->create([
-            'user_id'   => auth()->id() ?? null,
-            'commit'    => json_encode($project->with([
-                'funding_institution','funding_source','pdp_chapter','gad','project_status','submission_status','preparation_document','implementation_mode','pap_type','spatial_coverage','office','creator','bases','covid_interventions','funding_institutions','funding_sources','infrastructure_sectors','infrastructure_subsectors','pdp_chapters','pdp_indicators','prerequisites','regions','sdgs','ten_point_agendas','allocation','description','disbursement','expected_output','feasibility_study','resettlement_action_plan','right_of_way','risk','project_update','fs_investments','fs_infrastructures','nep','operating_units','region_investments','region_infrastructures']
-            )->find($project->id)),
-        ]);
-    }
-
     /**
      * Handle the Project "force deleted" event.
      *
@@ -66,5 +55,6 @@ class ProjectObserver
         $model->right_of_way()->delete();
         $model->feasibility_study()->delete();
         $model->resettlement_action_plan()->delete();
+        $model->pipol()->delete();
     }
 }

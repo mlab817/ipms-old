@@ -12,7 +12,6 @@
 
     <link rel="shortcut icon" type="image/ico" href="/images/icons/favicon.ico"/>
 
-    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
     <!-- CSS -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet"/>
 
@@ -183,7 +182,7 @@
 
     </div>
 
-    <div class="container-xl mx-auto clearfix px-3 px-md-4 px-lg-5" @if($project->isArchived() && $route != 'projects.settings') style="pointer-events: none;" @endif>
+    <div class="container-xl mx-auto clearfix px-3 px-md-4 px-lg-5">
         @yield('content')
     </div>
 </main>
