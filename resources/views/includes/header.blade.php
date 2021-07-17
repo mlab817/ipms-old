@@ -30,25 +30,12 @@
                 </summary>
                 <div class="dropdown-menu dropdown-menu-sw" role="menu">
 
-                    <a role="menuitem" class="dropdown-item" href="{{ route('projects.create') }}" data-ga-click="Header, create new repository">
+                    <a role="menuitem" class="dropdown-item" href="{{ route('projects.create') }}">
                         New PAP
                     </a>
 
-                    <a role="menuitem" class="dropdown-item" href="{{ route('projects.new_clone') }}" data-ga-click="Header, import a repository">
+                    <a role="menuitem" class="dropdown-item" href="{{ route('projects.new_clone') }}">
                         Clone PAP
-                    </a>
-
-                    <a role="menuitem" class="dropdown-item" href="https://gist.github.com/" data-ga-click="Header, create new gist">
-                        New gist
-                    </a>
-
-                    <a role="menuitem" class="dropdown-item" href="/organizations/new" data-ga-click="Header, create new organization">
-                        New organization
-                    </a>
-
-
-                    <a role="menuitem" class="dropdown-item" href="/new/project" data-ga-click="Header, create new project">
-                        New project
                     </a>
 
                 </div>

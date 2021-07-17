@@ -18,7 +18,9 @@
                                             name="title" id="title">
                                     </div>
 
-                                    <x-md-textarea id="description" name="description"></x-md-textarea>
+                                    <div class="p-2">
+                                        <x-md-textarea id="description" name="description"></x-md-textarea>
+                                    </div>
 
                                     <div
                                         class="flex-items-center flex-justify-end mx-2 mb-2 px-0 d-none d-md-flex">

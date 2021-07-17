@@ -24,6 +24,11 @@ class User extends Authenticatable
     use SoftDeletes;
     use Auditable;
 
+    public function identifiableName()
+    {
+        return $this->username;
+    }
+
     public function getRouteKeyName()
     {
         return 'username';

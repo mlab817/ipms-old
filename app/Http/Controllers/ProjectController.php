@@ -146,9 +146,14 @@ class ProjectController extends Controller
         $project->nep()->create([]);
         $project->allocation()->create([]);
         $project->disbursement()->create([]);
-        $project->office_id = auth()->user()->office_id;
-        $project->created_by = auth()->id();
-        $project->save();
+
+        Project::withoutEvents(function () use ($project) {
+            $project->office_id = auth()->user()->office_id;
+            $project->created_by = auth()->id();
+            $project->updating_period_id = config('ipms.current_updating_period');
+            $project->project_id = $project->id;
+            $project->save();
+        });
 
         event(new ProjectCreatedEvent($project));
 
@@ -655,7 +660,7 @@ class ProjectController extends Controller
 
         // check updating period id
         if ($project->updating_period_id == $request->updating_period_id) {
-            return back()->with('error','This project already been cloned to this updating period');
+            return back()->with('error','This project has already been cloned to this updating period');
         }
 
         dispatch(new ProjectCloneJob($project->id, $request->updating_period_id, auth()->id()));

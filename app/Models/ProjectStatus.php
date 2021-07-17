@@ -40,6 +40,11 @@ class ProjectStatus extends Model
         return 'slug';
     }
 
+    public function identifiableName()
+    {
+        return $this->name;
+    }
+
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);

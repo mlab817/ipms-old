@@ -60,7 +60,7 @@
         This PAP has been archived by the owner. It is now read-only.
     </div>
     @endif
-    <div class="hx_page-header-bg pt-3 hide-full-screen mb-5">
+    <div class="hx_page-header-bg pt-3 hide-full-screen mb-5 color-bg-secondary">
         <div class="d-flex mb-3 px-3 px-md-4 px-lg-5">
             <div class="flex-auto min-width-0 width-fit mr-3">
                 <h1 class="d-flex flex-wrap flex-items-center break-word f3 text-normal">

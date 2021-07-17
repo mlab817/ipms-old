@@ -182,10 +182,13 @@ class Project extends Model
     ];
 
     protected $revisionFormattedFieldNames = [
-        'title'         => 'Title',
-        'pap_type_id'   => 'PAP Type',
-        'has_infra'     => 'Does this PAP have INFRASTRUCTURE component/s?',
-        'office_id'     => 'Office'
+        'title'                 => 'Title',
+        'pap_type_id'           => 'PAP Type',
+        'has_infra'             => 'Does this PAP have INFRASTRUCTURE component/s?',
+        'project_status_id'     => 'Project Status',
+        'total_project_cost'    => 'Total Project Cost',
+        'spatial_coverage_id'   => 'Spatial Coverage',
+        'office_id'             => 'Office'
     ];
 
     /**

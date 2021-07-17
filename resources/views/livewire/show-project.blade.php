@@ -333,8 +333,8 @@
             <dd>
                 <select class="form-select" name="spatialCoverage" wire:model="spatialCoverage">
                     <option value="">Spatial Coverage</option>
-                    @foreach($spatial_coverages as $key => $option)
-                        <option value="{{ $key }}">{{ $key . ' - ' . $option->name }}</option>
+                    @foreach($spatial_coverages as $option)
+                        <option value="{{ $option->id }}">{{ $option->id . ' - ' . $option->name }}</option>
                     @endforeach
                 </select>
 
