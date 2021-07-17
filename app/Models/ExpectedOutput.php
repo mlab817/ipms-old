@@ -11,7 +11,7 @@ class ExpectedOutput extends Model
 {
     use HasFactory;
     use RevisionableTrait;
-    
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:m:s',
         'updated_at' => 'datetime:Y-m-d H:m:s',
