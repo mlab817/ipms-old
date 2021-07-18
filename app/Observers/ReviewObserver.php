@@ -19,7 +19,11 @@ class ReviewObserver
      */
     public function created(Review $review)
     {
-        //
+        // refer to project instead of review
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($review->project)
+            ->log('Created review for project #' . $review->project->id);
     }
 
     public function updating(Review $review)
@@ -37,7 +41,10 @@ class ReviewObserver
      */
     public function updated(Review $review)
     {
-        //
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($review->project)
+            ->log('Updated review for project #' . $review->project->id);
     }
 
     /**
@@ -48,7 +55,10 @@ class ReviewObserver
      */
     public function deleted(Review $review)
     {
-        //
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($review->project)
+            ->log('Deleted review for project #' . $review->project->id);
     }
 
     /**
@@ -59,7 +69,10 @@ class ReviewObserver
      */
     public function restored(Review $review)
     {
-        //
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($review->project)
+            ->log('Restored review for project #' . $review->project->id);
     }
 
     /**
@@ -70,6 +83,9 @@ class ReviewObserver
      */
     public function forceDeleted(Review $review)
     {
-        //
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($review->project)
+            ->log('Force deleted review for project #' . $review->project->id);
     }
 }

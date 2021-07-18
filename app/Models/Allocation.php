@@ -6,11 +6,13 @@ use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class Allocation extends Model
 {
     use HasFactory;
     use HasUuid;
+    use RevisionableTrait;
 
     protected $touches = [
         'project'

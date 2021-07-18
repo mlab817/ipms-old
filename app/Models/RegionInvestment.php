@@ -8,11 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class RegionInvestment extends Model
 {
     use HasFactory;
     use HasUuid;
+    use RevisionableTrait;
+
+    protected $revisionFormattedFieldNames = [
+        'y2016' => 'region_investment_2016',
+        'y2017' => 'region_investment_2017',
+        'y2018' => 'region_investment_2018',
+        'y2019' => 'region_investment_2019',
+        'y2020' => 'region_investment_2020',
+        'y2021' => 'region_investment_2021',
+        'y2022' => 'region_investment_2022',
+        'y2023' => 'region_investment_2023',
+    ];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:m:s',

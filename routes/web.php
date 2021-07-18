@@ -106,6 +106,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::resource('trackers',\App\Http\Controllers\TrackerController::class);
         Route::resource('updating-periods',\App\Http\Controllers\UpdatingPeriodController::class);
 
+        Route::resource('users.activities', \App\Http\Controllers\UserActivityController::class);
+
         Route::group(['prefix' => 'reports'], function() {
             Route::get('/', [\App\Http\Controllers\ReportController::class,'index'])->name('reports.index');
             Route::get('/implementation_modes', [\App\Http\Controllers\ReportController::class,'implementation_modes'])->name('reports.implementation_modes');

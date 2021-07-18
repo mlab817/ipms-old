@@ -6,11 +6,24 @@ use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class FsInvestment extends Model
 {
     use HasFactory;
     use HasUuid;
+    use RevisionableTrait;
+
+    protected $revisionFormattedFieldNames = [
+        'y2016' => 'fs_investment_2016',
+        'y2017' => 'fs_investment_2017',
+        'y2018' => 'fs_investment_2018',
+        'y2019' => 'fs_investment_2019',
+        'y2020' => 'fs_investment_2020',
+        'y2021' => 'fs_investment_2021',
+        'y2022' => 'fs_investment_2022',
+        'y2023' => 'fs_investment_2023',
+    ];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:m:s',

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Telescope\TelescopeServiceProvider;
+use Spatie\Activitylog\Models\Activity;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -49,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
 //        Paginator::useBootstrap();
 
         Paginator::defaultView('includes.primer-pagination');
+        Paginator::defaultSimpleView('includes.primer-simple-pagination');
 
         // blade directives
         Blade::if('admin', function () {
@@ -74,5 +76,10 @@ class AppServiceProvider extends ServiceProvider
                 'global' => cache('settings'),
             ]);
         }
+
+        // log user ip
+        Activity::saving(function (Activity $activity) {
+            $activity->properties = $activity->properties->put('ip', request()->ip());
+        });
     }
 }

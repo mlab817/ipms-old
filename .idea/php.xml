@@ -191,7 +191,6 @@
       <path value="$PROJECT_DIR$/vendor/livewire/livewire" />
       <path value="$PROJECT_DIR$/vendor/rollbar/rollbar" />
       <path value="$PROJECT_DIR$/vendor/rollbar/rollbar-laravel" />
-      <path value="$PROJECT_DIR$/vendor/org_heigl/ghostscript" />
       <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
       <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
       <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
@@ -204,6 +203,7 @@
       <path value="$PROJECT_DIR$/vendor/bkwld/cloner" />
       <path value="$PROJECT_DIR$/vendor/venturecraft/revisionable" />
       <path value="$PROJECT_DIR$/vendor/predis/predis" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-activitylog" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

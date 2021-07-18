@@ -215,6 +215,10 @@ class ProjectController extends Controller
             'pdp_indicators',
             'operating_units');
 
+        $currentVersion = Project::where('project_id', $project->project_id)
+            ->where('updating_period_id', config('ipms.current_updating_period'))
+            ->first();
+
         return view('projects.show', compact('project'))
             ->with([
                 'offices'                   => Office::all(),
@@ -243,6 +247,7 @@ class ProjectController extends Controller
                 'fs_statuses'               => FsStatus::all(),
                 'ou_types'                  => OperatingUnitType::with('operating_units')->get(),
                 'covidInterventions'        => CovidIntervention::all(),
+                'currentVersion'            => $currentVersion
             ]);
     }
 
@@ -544,8 +549,6 @@ class ProjectController extends Controller
 
         $project->restore();
 
-        Alert::success('Success','Project successfully restored');
-
         return redirect()->route('projects.deleted');
     }
 
@@ -601,12 +604,9 @@ class ProjectController extends Controller
 
     public function history(Project $project)
     {
-        $history = $project->revisionHistory()->latest()->get();
-
         return view('projects.history', [
             'project' => $project,
-//            'history' => $project->revisionHistory()->latest()->get()
-            'history' => $history
+            'history' => $project->allRevisionHistory()
         ]);
     }
 
@@ -666,9 +666,9 @@ class ProjectController extends Controller
             return back()->with('error','This project has already been cloned to this updating period');
         }
 
-        dispatch(new ProjectCloneJob($project->id, $request->updating_period_id, auth()->id()));
+        dispatch(new ProjectCloneJob($project->id, $request->updating_period_id ?? config('ipms.current_updating_period'), auth()->id()));
 
-        return back()->with('message','Successfully cloned project');
+        return back()->with('message','Successfully began cloning project. This may take some time.');
     }
 
     public function new_clone()

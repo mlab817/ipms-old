@@ -69,6 +69,12 @@ class ProjectOverview extends Component
         session()->flash('success','Successfully added project to pinned list');
     }
 
+    // initialize the updating period to the current updating period
+    public function mount()
+    {
+        $this->updating_period_id = config('ipms.current_updating_period');
+    }
+
     public function render()
     {
         $query = Project::query();

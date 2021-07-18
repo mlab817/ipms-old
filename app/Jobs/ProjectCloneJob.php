@@ -32,6 +32,8 @@ class ProjectCloneJob implements ShouldQueue
         $this->projectId = $projectId;
         $this->updatingPeriodId = $updatingPeriodId;
         $this->userId = $userId;
+
+        \Log::debug('updating period id: ' . $updatingPeriodId);
     }
 
     /**
@@ -60,16 +62,25 @@ class ProjectCloneJob implements ShouldQueue
             return 0;
         }
 
-        // duplicate
+        // duplicate the model including relationships
         $clone = $project->duplicate();
 
         // retrieve so we can change updating period and creator
         $clonedProject = Project::find($clone->id);
 
+        // turn off logging so as not to trigger revisionable trait or activity log
         Project::withoutEvents(function () use ($clonedProject) {
-            $clonedProject->updating_period()->associate(UpdatingPeriod::find($this->updatingPeriodId));
-            $clonedProject->creator()->associate(User::find($this->userId));
+            $clonedProject->updating_period_id = $this->updatingPeriodId;
+            $clonedProject->created_by = $this->userId;
+            $clonedProject->save();
         });
+
+        // note that this will output cloned original project id in log description
+        // but will reference the cloned project in performedOn
+        activity()
+            ->causedBy(User::find($this->userId))
+            ->performedOn($clonedProject)
+            ->log('Cloned Project #' . $project->id);
 
         return 0;
     }

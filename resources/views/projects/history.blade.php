@@ -11,7 +11,7 @@
     </div>
 
     <div class="container-xl clearfix px-3 px-md-4 px-lg-5 mt-3">
-        <div class="Box">
+        <div class="Box px-3">
             @forelse($history as $item)
             <div class="TimelineItem">
                 <div class="TimelineItem-badge">
@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="TimelineItem-body">
-                    <a href="#" class="text-bold Link--primary mr-1">{{ $item->userResponsible()->username }}</a> changed <strong>{{ $item->fieldName() }}</strong>
+                    <a href="#" class="text-bold Link--primary mr-1">{{ $item->userResponsible()->username ?? 'Unknown user' }}</a> changed <strong>{{ $item->fieldName() }}</strong>
                     from
                     <code>{{ $item->oldValue() }}</code>
                     to
