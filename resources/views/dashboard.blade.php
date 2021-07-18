@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Dashboard')
+
 @section('content')
     <div class="flex-shrink-0 col-12 col-md-9 mb-4 mb-md-0">
         <div>

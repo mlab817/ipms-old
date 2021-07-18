@@ -1,5 +1,7 @@
 @extends('layouts.project')
 
+@section('title', 'Review | ' . str_limit($project->title) )
+
 @section('content')
     <div class="container-lg mb-6">
         <div class="Box">

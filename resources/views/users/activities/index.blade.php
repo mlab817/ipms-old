@@ -1,5 +1,7 @@
 @extends('layouts.header-only')
 
+@section('title', 'Activities')
+
 @section('content')
     <div class="container-lg">
         <div class="Box">

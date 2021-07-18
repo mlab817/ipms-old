@@ -81,7 +81,7 @@ class ProjectController extends Controller
 
         $projects = $this->filter($projectQuery, $request);
 
-        return view('projects.index2', compact('projects'))
+        return view('projects.index', compact('projects'))
             ->with('submission_statuses', SubmissionStatus::withCount('projects')->get());
     }
 
@@ -628,31 +628,6 @@ class ProjectController extends Controller
     public function files(Project $project)
     {
         return view('projects.files', compact('project'));
-    }
-
-    public function checkAvailability(Request $request)
-    {
-        $title = $request->title;
-
-        if ($title) {
-            // check availability
-            $existing = Project::where('title', strtolower($title))
-                ->where('created_by', auth()->id())
-                ->first();
-
-            // if it is not existing, it is available
-            if (! $existing) {
-                return response()->json([
-                    'status' => 'success',
-                    'message' => 'Program/project title is available'
-                ], 200);
-            }
-
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Program/project title is already taken'
-            ], 200);
-        }
     }
 
     public function clone(Request $request, Project $project)

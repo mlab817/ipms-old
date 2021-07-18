@@ -1,5 +1,7 @@
 @extends('layouts.project')
 
+@section('title', 'History | ' . str_limit($project->title) )
+
 @section('content')
     <div class="container-xl clearfix px-3 px-md-4 px-lg-5">
         <div class="repository-content">

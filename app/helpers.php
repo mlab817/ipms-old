@@ -29,3 +29,10 @@ if (! function_exists('markdown')) {
         return \Illuminate\Mail\Markdown::parse($value);
     }
 }
+
+if (! function_exists('str_limit')) {
+    function str_limit($value, $length = 60): string
+    {
+        return \Illuminate\Support\Str::limit($value, $length);
+    }
+}

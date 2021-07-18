@@ -1,5 +1,7 @@
 @extends('layouts.project')
 
+@section('title', 'Profile | ' . str_limit($project->title) )
+
 @section('content')
     @if(session()->has('errors'))
         <div class="flash flash-error mb-3" id="flash">
