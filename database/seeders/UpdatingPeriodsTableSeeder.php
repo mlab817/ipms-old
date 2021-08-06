@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\PipolStatus;
+use App\Models\Project;
 use App\Models\UpdatingPeriod;
 use Illuminate\Database\Seeder;
 
@@ -24,6 +25,16 @@ class UpdatingPeriodsTableSeeder extends Seeder
             UpdatingPeriod::create([
                 'name' => $seed
             ]);
+        }
+
+         Project::whereNull('deleted_at')->update([
+            'updating_period_id' => 1,
+        ]);
+
+        $projects = Project::all();
+
+        foreach ($projects as $project) {
+            $project->update(['project_id' => $project->id]);
         }
     }
 }

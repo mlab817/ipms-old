@@ -66,12 +66,12 @@ class Project extends Model
         'right_of_way',
         'risk',
         'project_update',
-        'fs_investments',
-        'fs_infrastructures',
+//        'fs_investments',
+//        'fs_infrastructures',
         'nep',
         'operating_units',
-        'region_investments',
-        'region_infrastructures',
+//        'region_investments',
+//        'region_infrastructures',
     ];
 
     protected $clone_exempt_attributes = ['uuid','updating_period_id'];

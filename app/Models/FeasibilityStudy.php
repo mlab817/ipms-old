@@ -36,6 +36,10 @@ class FeasibilityStudy extends Model
         'y2023',
         'y2024',
         'y2025',
+        'y2026',
+        'y2027',
+        'y2028',
+        'y2029',
         'completion_date',
     ];
 

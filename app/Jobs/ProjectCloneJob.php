@@ -75,6 +75,71 @@ class ProjectCloneJob implements ShouldQueue
             $clonedProject->save();
         });
 
+        $regionInvestments = $project->region_investments;
+
+        foreach ($regionInvestments as $regionInvestment) {
+            $clonedProject->region_infrastructures()->create([
+                'region_id' => $regionInvestment->region_id,
+                'y2022' => $regionInvestment->y2016
+                    + $regionInvestment->y2017
+                    + $regionInvestment->y2018
+                    + $regionInvestment->y2019
+                    + $regionInvestment->y2020
+                    + $regionInvestment->y2021
+                    + $regionInvestment->y2022,
+                'y2023' => $regionInvestment->y2023,
+            ]);
+        }
+
+        $regionInfrastructures = $project->region_infrastructures;
+
+        foreach ($regionInfrastructures as $regionInfrastructure) {
+            $clonedProject->region_investments()->create([
+                'region_id' => $regionInfrastructure->region_id,
+                'y2022' => $regionInfrastructure->y2016
+                    + $regionInfrastructure->y2017
+                    + $regionInfrastructure->y2018
+                    + $regionInfrastructure->y2019
+                    + $regionInfrastructure->y2020
+                    + $regionInfrastructure->y2021
+                    + $regionInfrastructure->y2022,
+                'y2023' => $regionInfrastructure->y2023,
+            ]);
+        }
+
+        $fsInvestments = $project->fs_investments;
+
+        foreach ($fsInvestments as $fsInvestment) {
+            $clonedProject->fs_investments()->create([
+                'fs_id' => $fsInvestment->fs_id,
+                'y2022' => $fsInvestment->y2016
+                    + $fsInvestment->y2017
+                    + $fsInvestment->y2018
+                    + $fsInvestment->y2019
+                    + $fsInvestment->y2020
+                    + $fsInvestment->y2021
+                    + $fsInvestment->y2022,
+                'y2023' => $fsInvestment->y2023,
+            ]);
+        }
+
+        $fsInfrastructures = $project->fs_infrastructures;
+
+        foreach ($fsInfrastructures as $fsInfrastructure) {
+            $clonedProject->fs_infrastructures()->create([
+                'fs_id' => $fsInfrastructure->fs_id,
+                'y2022' => $fsInfrastructure->y2016
+                    + $fsInfrastructure->y2017
+                    + $fsInfrastructure->y2018
+                    + $fsInfrastructure->y2019
+                    + $fsInfrastructure->y2020
+                    + $fsInfrastructure->y2021
+                    + $fsInfrastructure->y2022,
+                'y2023' => $fsInfrastructure->y2023,
+            ]);
+        }
+
+
         // note that this will output cloned original project id in log description
         // but will reference the cloned project in performedOn
         activity()

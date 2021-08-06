@@ -70,7 +70,7 @@
                 @foreach($pap_types as $pap_type)
                     <div class="form-checkbox">
                         <label class="js-privacy-toggle-label-public">
-                            <input class="mt-2" aria-describedby="public-description" type="radio" wire:model="papTypeId">
+                            <input class="mt-2" aria-describedby="public-description" type="radio" wire:model="papTypeId" value="{{ $pap_type->id }}">
                             {{ $pap_type->name }}
                         </label>
                         <svg height="32" class="octicon octicon-repo float-left mt-1 mr-2" viewBox="0 0 24 24" version="1.1"

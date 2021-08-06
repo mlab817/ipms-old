@@ -31,6 +31,10 @@ class Allocation extends Model
         'y2023' => 'float',
         'y2024' => 'float',
         'y2025' => 'float',
+        'y2026' => 'float',
+        'y2027' => 'float',
+        'y2028' => 'float',
+        'y2029' => 'float',
     ];
 
     protected $fillable = [
@@ -45,6 +49,10 @@ class Allocation extends Model
         'y2023',
         'y2024',
         'y2025',
+        'y2026',
+        'y2027',
+        'y2028',
+        'y2029',
     ];
 
     protected $hidden = [
