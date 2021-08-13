@@ -53,11 +53,11 @@ class ShowProject extends Component
 
     public $covid;
 
-    public $covidInterventions;
+    public $covidInterventions = [];
 
     public $spatialCoverage;
 
-    public $regions;
+    public $projectRegions = [];
 
     public $targetStartYear;
 
@@ -169,7 +169,7 @@ class ShowProject extends Component
     protected $rules = [
         'projectBases.*'        => 'nullable|array|exists:bases,id',
         'covidInterventions.*'  => 'nullable|array|exists:covid_interventions,id',
-        'regions.*'             => 'nullable|array|exists:regions,id',
+        'projectRegions.*'      => 'nullable|array|exists:regions,id',
         'pdpChapters.*'         => 'nullable|array|exists:pdp_chapters,id',
         'sdgs.*'                => 'nullable|array|exists:sdgs,id',
         'tenPointAgendas.*'     => 'nullable|array|exists:ten_point_agendas,id',
@@ -226,7 +226,7 @@ class ShowProject extends Component
         $this->papTypeId = $project->pap_type_id;
         $this->regularProgram = $project->regular_program;
         $this->hasInfra = $project->has_infra;
-        $this->projectBases    = array_map('intval',$project->bases()->pluck('id')->toArray() ?? []);
+        $this->projectBases    = array_map('strval',$project->bases()->pluck('id')->toArray() ?? []);
         $this->description = $project->description->description ?? '';
         $this->expectedOutputs = $project->expected_output->expected_outputs ?? '';
         $this->totalProjectCost = $project->total_project_cost ?? 0;
@@ -234,9 +234,9 @@ class ShowProject extends Component
         $this->research = $project->research;
         $this->ict = $project->ict;
         $this->covid = $project->covid;
-        $this->covidInterventions    = array_map('intval',$project->covid_interventions()->pluck('id')->toArray() ?? []);
+        $this->covidInterventions    = array_map('strval',$project->covid_interventions()->pluck('id')->toArray() ?? []);
         $this->spatialCoverage = $project->spatial_coverage_id;
-        $this->regions    = array_map('intval',$project->regions()->pluck('id')->toArray() ?? []);
+        $this->projectRegions    = array_map('strval',$project->regions()->pluck('id')->toArray() ?? []);
         $this->targetStartYear = $project->target_start_year;
         $this->targetEndYear = $project->target_end_year;
         $this->iccable = $project->iccable;
@@ -259,11 +259,11 @@ class ShowProject extends Component
         $this->fsY2022 = $project->feasibility_study->y2022 ?? 0;
         $this->employmentGenerated = $project->employment_generated;
         $this->pdpChapter = $project->pdp_chapter_id;
-        $this->pdpChapters = array_map('intval', $project->pdp_chapters()->pluck('id')->toArray() ?? []);
-        $this->sdgs = array_map('intval', $project->sdgs()->pluck('id')->toArray() ?? []);
-        $this->tenPointAgendas = array_map('intval', $project->ten_point_agendas()->pluck('id')->toArray() ?? []);
+        $this->pdpChapters = array_map('strval', $project->pdp_chapters()->pluck('id')->toArray() ?? []);
+        $this->sdgs = array_map('strval', $project->sdgs()->pluck('id')->toArray() ?? []);
+        $this->tenPointAgendas = array_map('strval', $project->ten_point_agendas()->pluck('id')->toArray() ?? []);
         $this->fundingSource = $project->funding_source_id;
-        $this->fundingSources = array_map('intval', $project->funding_sources()->pluck('id')->toArray() ?? []);
+        $this->fundingSources = array_map('strval', $project->funding_sources()->pluck('id')->toArray() ?? []);
         $this->otherFs = $project->other_fs;
         $this->implementationMode = $project->implementation_mode_id;
         $this->fundingInstitution = $project->funding_institution_id;
@@ -385,9 +385,7 @@ class ShowProject extends Component
 
     public function updateRegions()
     {
-        $project = $this->project;
-//        dd($this->regions);
-        $project->regions()->sync(array_diff($this->regions,[false]));
+        $this->project->regions()->sync(array_map('intval', $this->projectRegions));
     }
 
     public function updateTargetStartYear()

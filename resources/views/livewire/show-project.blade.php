@@ -106,15 +106,14 @@
                 <label>Basis for Implementation</label>
             </dt>
             <dd>
-                @foreach($bases as $key => $option)
+                @foreach($bases as $option)
                     <div class="form-checkbox">
                         <label for="basis_{{ $option->id }}">
                             <input
                                 type="checkbox"
                                 id="basis_{{ $option->id }}"
-                                name="bases[]"
                                 value="{{ $option->id }}"
-                                wire:model="projectBases">
+                                wire:model.defer="projectBases">
                             {{ $option->name }}
                             <p class="note">
                                 {{ $option->description }}
@@ -306,7 +305,7 @@
                                 id="covid_int_{{ $option->id }}"
                                 name="covid_interventions[]"
                                 value="{{ $option->id }}"
-                                wire:model="covidInterventions">
+                                wire:model.defer="covidInterventions">
                             {{ $option->name }}
                             <p class="note">
                                 {{ $option->description }}
@@ -353,15 +352,14 @@
                 <label>Regions</label>
             </dt>
             <dd>
-                @foreach($region_options as $key => $option)
+                @foreach($region_options as $option)
                     <div class="form-checkbox">
                         <label for="region_{{ $option->id }}">
                             <input
                                 type="checkbox"
                                 id="region_{{ $option->id }}"
-                                name="regions[]"
                                 value="{{ $option->id }}"
-                                wire:model="regions">
+                                wire:model.defer="projectRegions">
                             {{ $option->name }}
                         </label>
                     </div>
@@ -784,7 +782,7 @@
                                 id="pdp_chapter_{{ $option->id }}"
                                 name="pdp_chapters[]"
                                 value="{{ $option->id }}"
-                                wire:model="pdpChapters">
+                                wire:model.defer="pdpChapters">
                             {{ $option->name }}
                         </label>
                     </div>
@@ -816,7 +814,7 @@
                                 id="sdg_{{ $option->id }}"
                                 name="sdgs[]"
                                 value="{{ $option->id }}"
-                                wire:model="sdgs">
+                                wire:model.defer="sdgs">
                             {{ $option->name }}
                             <p class="note">{{ $option->description }}</p>
                         </label>
@@ -849,7 +847,7 @@
                                 id="tpa_{{ $option->id }}"
                                 name="ten_point_agendas[]"
                                 value="{{ $option->id }}"
-                                wire:model="tenPointAgendas">
+                                wire:model.defer="tenPointAgendas">
                             {{ $option->name }}
                             <p class="note">{{ $option->description }}</p>
                         </label>
@@ -901,7 +899,7 @@
                                 id="fs_{{ $option->id }}"
                                 name="funding_sources[]"
                                 value="{{ $option->id }}"
-                                wire:model="fundingSources">
+                                wire:model.defer="fundingSources">
                             {{ $option->name }}
                         </label>
                     </div>
