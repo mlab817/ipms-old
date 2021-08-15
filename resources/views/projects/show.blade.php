@@ -170,7 +170,8 @@
                                 </div>
                                 <!--// Navigator -->
                                 <div class="Box-body">
-                                    <livewire:show-project :project="$project" />
+{{--                                    <livewire:show-project :project="$project" />--}}
+                                    @include('projects.edit2')
                                 </div>
                             </div>
                         </div>

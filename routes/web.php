@@ -35,6 +35,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
         // auth routes with registration disabled
 
+        Route::resource('pending_transfers', \App\Http\Controllers\PendingTransferController::class);
+
         Route::middleware('can:projects.manage')->prefix('/admin')->name('admin.')->group(function() {
             Route::resource('projects', \App\Http\Controllers\Admin\AdminProjectController::class);
             Route::resource('projects.users', \App\Http\Controllers\Admin\ProjectUserController::class);

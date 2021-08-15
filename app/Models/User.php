@@ -218,4 +218,14 @@ class User extends Authenticatable
     {
         return static::where('username', $username)->firstOrFail();
     }
+
+    public function pending_transfers_from(): HasMany
+    {
+        return $this->hasMany(PendingTransfer::class,'from');
+    }
+
+    public function pending_transfers_to(): HasMany
+    {
+        return $this->hasMany(PendingTransfer::class,'to');
+    }
 }
