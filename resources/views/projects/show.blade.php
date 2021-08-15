@@ -140,11 +140,11 @@
                             </details>
                         </div>
 
-                        <div data-catalyst="" @if($project->isArchived() || $project->updating_period_id != config('ipms.current_updating_period')) style="pointer-events: none;" @endif>
+                        <div @if($project->isArchived() || $project->updating_period_id != config('ipms.current_updating_period')) style="pointer-events: none;" @endif>
 
-                            <div class="Box md js-code-block-container Box--responsive">
+                            <div class="Box md Box--responsive">
                                 <!-- Navigator -->
-                                <div class="d-flex top-0 border-top-0 border-bottom p-2 flex-items-center flex-justify-between color-bg-primary rounded-top-2 is-stuck" style="position: sticky; z-index: 90; top: 0px !important;" data-original-top="0px">
+                                <div class="d-flex top-0 border-top-0 border-bottom p-2 flex-items-center flex-justify-between color-bg-primary rounded-top-2 is-stuck" style="position: sticky; z-index: 90; top: 0px !important;">
                                     <div class="d-flex flex-items-center">
                                         <details class="dropdown details-reset details-overlay">
                                             <summary class="btn btn-octicon m-0 mr-2 p-2" aria-haspopup="true" role="button">
@@ -167,6 +167,8 @@
                                             ], key($project->id))
                                         </h2>
                                     </div>
+
+                                    <button class="float-right btn btn-primary" type="submit">Save Changes</button>
                                 </div>
                                 <!--// Navigator -->
                                 <div class="Box-body">
