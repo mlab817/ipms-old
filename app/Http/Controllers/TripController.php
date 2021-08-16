@@ -21,88 +21,28 @@ use Yajra\DataTables\Facades\DataTables;
 
 class TripController extends Controller
 {
-    public function index(TripDataTable $dataTable)
-    {
-        return $dataTable
-            ->addScope(new TripsDataTableScope)
-            ->render('projects.index');
-    }
-
-    public function create(Project $project)
-    {
-        abort_if(! auth()->user()->can('update', $project), 403);
-
-        $project->load('infrastructure_sectors','infrastructure_subsectors','fs_infrastructures','region_infrastructures','right_of_way','resettlement_action_plan');
-
-        return view('trip.create', [
-            'pageTitle'                 => 'Add TRIP Information: '. strtoupper($project->title),
-            'project'                   => $project,
-            'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
-            'regions'                   => Region::all(),
-            'funding_sources'           => FundingSource::all(),
-            'prerequisites'             => Prerequisite::all(),
-        ]);
-    }
-
     public function show(Project $project)
     {
-        return $project;
-    }
-
-    public function edit(Project $project)
-    {
         abort_if(! auth()->user()->can('update', $project), 403);
 
         $project->load('infrastructure_sectors','infrastructure_subsectors','fs_infrastructures','region_infrastructures','right_of_way','resettlement_action_plan');
 
-        return view('trip.edit', [
-            'pageTitle'                 => 'Edit TRIP Information: '. strtoupper($project->title),
+//        dd($project->region_infrastructures);
+//
+//        dd('no region_infrastructures');
+
+        return view('trip.show', [
             'project'                   => $project,
             'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
             'regions'                   => Region::all(),
             'funding_sources'           => FundingSource::all(),
             'prerequisites'             => Prerequisite::all(),
+            'regionInfrastructures'     => $project->region_infrastructures,
         ]);
     }
 
-    public function store(TripStoreRequest $request, Project $project)
+    public function update(TripStoreRequest $request, Project $project)
     {
-        // handle save
-        $project->risk()->create(['risk' => $request->risk]);
-
-        $project->other_infrastructure              = $request->other_infrastructure;
-        $project->trip_info                         = true;
-        $project->save();
-
-        $project->infrastructure_subsectors()->sync($request->infrastructure_subsectors);
-        $project->infrastructure_sectors()->sync($request->infrastructure_sectors);
-        $project->prerequisites()->sync($request->prerequisites);
-
-        if ($request->has('region_infrastructures')) {
-            foreach ($request->region_infrastructures as $entry) {
-                $project->region_infrastructures()->updateOrCreate([
-                    'region_id' => $entry['region_id']
-                ], $entry);
-            }
-        }
-
-//        $project->region_infrastructures()->createMany($request->region_infrastructures);
-        if ($request->has('fs_infrastructures')) {
-            foreach ($request->fs_infrastructures as $entry) {
-                $project->fs_infrastructures()->updateOrCreate([
-                    'fs_id' => $entry['fs_id']
-                ], $entry);
-            }
-        }
-
-        Alert::success('Success', 'Successfully added TRIP information');
-
-        return redirect()->route('projects.own');
-    }
-
-    public function update(TripUpdateRequest $request, Project $project)
-    {
-        // update info
         $project->risk()->update(['risk' => $request->risk]);
 
         $project->other_infrastructure              = $request->other_infrastructure;
@@ -134,8 +74,6 @@ class TripController extends Controller
 
         $project->prerequisites()->sync($request->prerequisites);
 
-        Alert::success('Success', 'Successfully updated TRIP information');
-
-        return redirect()->route('projects.own');
+        return redirect()->route('trips.create', $project);
     }
 }

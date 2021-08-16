@@ -282,7 +282,7 @@
             <label>Regions</label>
         </dt>
         <dd>
-            @foreach($regions as $option)
+            @foreach($regions->sortBy('order') as $option)
                 <div class="form-checkbox">
                     <label for="region_{{ $option->id }}">
                         <input
@@ -507,16 +507,25 @@
         </dd>
     </dl>
 
+    <dl class="form-group d-inline-block my-0">
+        <dt class="input-label">
+            <label for="completion_date">Expected Date of Completion (Only if FS is required)</label>
+        </dt>
+        <dd>
+            <input class="form-control" name="feasibility_study[completion_date]" id="completion_date" type="date" value="{{ old('feasibility_study.completion_date', $project->feasibility_study->completion_date ?? null) }}">
+        </dd>
+    </dl>
+
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block my-0">
         <dt class="input-label">
-            <label for="need_assistance">Does the conduct of feasibility study need assistance?</label>
+            <label for="needs_assistance">Does the conduct of feasibility study need assistance?</label>
         </dt>
         <dd>
-            <select class="form-select" name="feasibility_study[need_assistance]" id="need_assistance">
+            <select class="form-select" name="feasibility_study[needs_assistance]" id="needs_assistance">
                 @foreach($booleanOptions as $key => $option)
-                    <option value="{{ $key }}" @if(old('feasibility_study.need_assistance', $project->feasibility_study->need_assistance ?? null) == $key) selected @endif>{{ $key . ' - ' . $option }}</option>
+                    <option value="{{ $key }}" @if(old('feasibility_study.needs_assistance', $project->feasibility_study->needs_assistance ?? null) == $key) selected @endif>{{ $key . ' - ' . $option }}</option>
                 @endforeach
             </select>
         </dd>
@@ -790,7 +799,7 @@
             <label for="rename-field">Updates</label>
         </dt>
         <dd class="form-group-body">
-            <textarea id="updates" name="updates" class="form-control input-contrast"></textarea>
+            <textarea id="updates" name="updates" class="form-control input-contrast">{{ old('updates', $project->update->updates ?? '') }}</textarea>
         </dd>
     </dl>
 
@@ -801,7 +810,7 @@
             <label for="rename-field">As of</label>
         </dt>
         <dd class="form-group-body">
-            <input type="date" id="updates_date" name="updates_date" class="form-control input-contrast">
+            <input type="date" id="updates_date" name="updates_date" class="form-control input-contrast" value="{{ old('updates', $project->update->updates_date ?? '') }}">
         </dd>
     </dl>
 
@@ -812,81 +821,80 @@
         <div class="Subhead-description">in absolute PhP terms</div>
     </div>
 
-    <form wire:submit.prevent="updateFsInvestments">
-        <dl class="my-0">
-            <dt class="input-label">
+    <dl class="my-0">
+        <dt class="input-label">
 
-            </dt>
-            <dd class="form-group-body">
-                <div class="d-table col-12 border-bottom border-top">
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        Funding Source
+        </dt>
+        <dd class="form-group-body">
+            <div class="d-table col-12 border-bottom border-top">
+                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                    Funding Source
+                </div>
+                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                    2016 &amp; Prior
+                </div>
+                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                    2017
+                </div>
+                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                    2018
+                </div>
+                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                    2019
+                </div>
+                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                    2020
+                </div>
+                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                    2021
+                </div>
+                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                    2022
+                </div>
+                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                    2023 &amp; Beyond
+                </div>
+                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                    Total
+                </div>
+            </div>
+            @foreach ($project->fs_investments as $key => $fs)
+                <div class="d-table col-12 border-bottom" x-data="{ fs: {{ $fs  }} }">
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="hidden" name="fs_investments[{{ $key }}][fs_id]" value="{{ $fs->fs_id }}">
+                        {{ $fs->funding_source->name ?? '' }}
                     </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2016 &amp; Prior
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" name="fs_investments[{{ $key }}][y2016]" x-model="fs.y2016">
                     </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2017
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" name="fs_investments[{{ $key }}][y2017]" x-model="fs.y2017">
                     </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2018
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" name="fs_investments[{{ $key }}][y2018]" x-model="fs.y2018">
                     </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2019
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" name="fs_investments[{{ $key }}][y2019]" x-model="fs.y2019">
                     </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2020
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" name="fs_investments[{{ $key }}][y2020]" x-model="fs.y2020">
                     </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2021
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" name="fs_investments[{{ $key }}][y2021]" x-model="fs.y2021">
                     </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2022
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" name="fs_investments[{{ $key }}][y2022]" x-model="fs.y2022">
                     </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2023 &amp; Beyond
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full" name="fs_investments[{{ $key }}][y2023]" x-model="fs.y2023">
                     </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        Total
+                    <div class="col-1 p-1 d-table-cell">
+                        <input type="number" class="form-control text-right input-contrast width-full">
                     </div>
                 </div>
-                @foreach ($project->fs_investments as $key => $fs)
-                    <div class="d-table col-12 border-bottom" x-data="{ fs: {{ $fs  }} }">
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="hidden">
-                            {{ $fs->funding_source->name ?? '' }}
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2016" x-model="fs.y2016">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2017" x-model="fs.y2017">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2018" x-model="fs.y2018">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2019" x-model="fs.y2019">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2020" x-model="fs.y2020">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2021" x-model="fs.y2021">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2022" x-model="fs.y2022">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="fsInvestments.{{ $key }}.y2023" x-model="fs.y2023">
-                        </div>
-                        <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" x-bind:value="parseFloat(fs.y2016) + parseFloat(fs.y2017) + parseFloat(fs.y2018) + parseFloat(fs.y2019) + parseFloat(fs.y2020) + parseFloat(fs.y2021) + parseFloat(fs.y2022) + parseFloat(fs.y2023)">
-                        </div>
-                    </div>
-                @endforeach
+            @endforeach
 
-                <div class="d-table col-12 border-bottom border-top">
+            <div class="d-table col-12 border-bottom border-top">
 {{--                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">--}}
 {{--                        Total--}}
 {{--                    </div>--}}
@@ -926,14 +934,9 @@
 {{--                            + $fsTotals['y2023'] ?? 0--}}
 {{--                        }}--}}
 {{--                    </div>--}}
-                </div>
-
-                <div class="d-flex mt-2">
-                    <button class="btn" type="submit">Save</button>
-                </div>
-            </dd>
-        </dl>
-    </form>
+            </div>
+        </dd>
+    </dl>
 
     <div class="Subhead Subhead--spacious">
         <div class="Subhead-heading" id="investment-required-by-region">{{ __("Investment Required by Region") }}</div>
@@ -980,35 +983,35 @@
                 @foreach ($project->region_investments->sortBy('region.order') as $key => $region)
                     <div class="d-table col-12 border-bottom" x-data="{ region: {{ $region  }} }">
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="hidden">
+                            <input type="hidden" name="region_investments[{{ $key }}][region_id]" value="{{ $region->region_id }}">
                             {{ $region->region->label ?? '' }}
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2016" x-model="region.y2016">
+                            <input type="number" class="form-control text-right input-contrast width-full" name="region_investments[{{ $key }}][y2016]" x-model="region.y2016">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2017" x-model="region.y2017">
+                            <input type="number" class="form-control text-right input-contrast width-full" name="region_investments[{{ $key }}][y2017]" x-model="region.y2017">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2018" x-model="region.y2018">
+                            <input type="number" class="form-control text-right input-contrast width-full" name="region_investments[{{ $key }}][y2018]" x-model="region.y2018">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2019" x-model="region.y2019">
+                            <input type="number" class="form-control text-right input-contrast width-full" name="region_investments[{{ $key }}][y2019]" x-model="region.y2019">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2020" x-model="region.y2020">
+                            <input type="number" class="form-control text-right input-contrast width-full" name="region_investments[{{ $key }}][y2020]" x-model="region.y2020">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2021" x-model="region.y2021">
+                            <input type="number" class="form-control text-right input-contrast width-full" name="region_investments[{{ $key }}][y2021]" x-model="region.y2021">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2022" x-model="region.y2022">
+                            <input type="number" class="form-control text-right input-contrast width-full" name="region_investments[{{ $key }}][y2022]" x-model="region.y2022">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" wire:model="regionInvestments.{{ $key }}.y2023" x-model="region.y2023">
+                            <input type="number" class="form-control text-right input-contrast width-full" name="region_investments[{{ $key }}][y2023]" x-model="region.y2023">
                         </div>
                         <div class="col-1 p-1 d-table-cell">
-                            <input type="number" class="form-control text-right input-contrast width-full" x-bind:value="parseFloat(region.y2016) + parseFloat(region.y2017) + parseFloat(region.y2018) + parseFloat(region.y2019) + parseFloat(region.y2020) + parseFloat(region.y2021) + parseFloat(region.y2022) + parseFloat(region.y2023)">
+                            <input type="number" class="form-control text-right input-contrast width-full">
                         </div>
                     </div>
                 @endforeach
@@ -1053,10 +1056,6 @@
 {{--                            + $regionTotals['y2023'] ?? 0--}}
 {{--                        }}--}}
 {{--                    </div>--}}
-                </div>
-
-                <div class="d-flex mt-2">
-                    <button class="btn" type="submit">Save</button>
                 </div>
             </dd>
         </dl>
@@ -1108,28 +1107,28 @@
                     NEP
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="nep[y2016]" value="{{ old('nep.y2016', $project->nep->y2016 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="nep[y2017]" value="{{ old('nep.y2017', $project->nep->y2017 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="nep[y2018]" value="{{ old('nep.y2018', $project->nep->y2018 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="nep[y2019]" value="{{ old('nep.y2019', $project->nep->y2019 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="nep[y2020]" value="{{ old('nep.y2020', $project->nep->y2020 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="nep[y2021]" value="{{ old('nep.y2021', $project->nep->y2021 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="nep[y2022]" value="{{ old('nep.y2022', $project->nep->y2022 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="nep[y2023]" value="{{ old('nep.y2023', $project->nep->y2023 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
                     <input type="number" class="form-control text-right input-contrast width-full">
@@ -1141,28 +1140,28 @@
                     GAA
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2016">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="allocation[y2016]" value="{{ old('allocation.y2016', $project->allocation->y2016 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2017">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="allocation[y2017]" value="{{ old('allocation.y2017', $project->allocation->y2017 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2018">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="allocation[y2018]" value="{{ old('allocation.y2018', $project->allocation->y2018 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2019">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="allocation[y2019]" value="{{ old('allocation.y2019', $project->allocation->y2019 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2020">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="allocation[y2020]" value="{{ old('allocation.y2020', $project->allocation->y2020 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2021">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="allocation[y2021]" value="{{ old('allocation.y2021', $project->allocation->y2021 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2022">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="allocation[y2022]" value="{{ old('allocation.y2022', $project->allocation->y2022 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="allocation.y2023">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="allocation[y2023]" value="{{ old('allocation.y2023', $project->allocation->y2023 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
                     <input type="number" class="form-control text-right input-contrast width-full" x-bind:value="allocation.y2016 + allocation.y2017 + allocation.y2018 + allocation.y2019 + allocation.y2020 + allocation.y2021 + allocation.y2022 + allocation.y2023">
@@ -1174,37 +1173,34 @@
                     Disbursement
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2016">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="disbursement[y2016]" value="{{ old('disbursement.y2016', $project->disbursement->y2016 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2017">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="disbursement[y2017]" value="{{ old('disbursement.y2017', $project->disbursement->y2017 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2018">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="disbursement[y2018]" value="{{ old('disbursement.y2018', $project->disbursement->y2018 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2019">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="disbursement[y2019]" value="{{ old('disbursement.y2019', $project->disbursement->y2019 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2020">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="disbursement[y2020]" value="{{ old('disbursement.y2020', $project->disbursement->y2020 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2021">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="disbursement[y2021]" value="{{ old('disbursement.y2021', $project->disbursement->y2021 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2022">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="disbursement[y2022]" value="{{ old('disbursement.y2022', $project->disbursement->y2022 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
-                    <input type="number" class="form-control text-right input-contrast width-full" wire:model.debounce.500ms="disbursement.y2023">
+                    <input type="number" class="form-control text-right input-contrast width-full" name="disbursement[y2023]" value="{{ old('disbursement.y2023', $project->disbursement->y2023 ?? 0) }}">
                 </div>
                 <div class="col-1 p-1 d-table-cell">
                     <input type="number" class="form-control text-right input-contrast width-full" x-bind:value="disbursement.y2016 + disbursement.y2017 + disbursement.y2018 + disbursement.y2019 + disbursement.y2020 + disbursement.y2021 + disbursement.y2022 + disbursement.y2023">
                 </div>
             </div>
 
-            <div class="d-flex mt-2">
-                <button class="btn" type="submit">Save</button>
-            </div>
         </dd>
     </dl>
 </div>

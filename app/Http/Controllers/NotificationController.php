@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
-    public function index(NotificationsDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->render('notifications.index');
+        return;
     }
 
     /**

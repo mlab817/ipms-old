@@ -81,5 +81,10 @@ class AppServiceProvider extends ServiceProvider
         Activity::saving(function (Activity $activity) {
             $activity->properties = $activity->properties->put('ip', request()->ip());
         });
+
+        Blade::directive('alpine', function (string $variables) {
+            $cleanString = str_replace(["'", '"'], ["\'", "'"], json_encode($variables));
+            return "<?php echo $cleanString; ?>";
+        });
     }
 }
