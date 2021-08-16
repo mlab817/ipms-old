@@ -436,73 +436,116 @@
 
                     </dt>
                     <dd class="form-group-body" >
-                        <div x-data="{
-                            regionInfrastructures: @alpine($regionInfrastructures),
-                            get total() {
-                                    console.log(this.regionInfrastructures)
-                                    const regionInfrastructures = this.regionInfrastructures,
-                                        totalsRow = {
-                                            y2016: 0,
-                                            y2017: 0,
-                                            y2018: 0,
-                                            y2019: 0,
-                                            y2020: 0,
-                                            y2021: 0,
-                                            y2022: 0,
-                                            y2023: 0,
-                                        }
+                        <script>
+                            document.addEventListener('alpine:init', () => {
+                                Alpine.data('regionInfrastructures', () => ({
+                                    items: {!! $regionInfrastructures->toJson() !!},
+                                    get total() {
+                                        console.log(this.items)
+                                        const regionInfrastructures = this.items,
+                                            totalsRow = {
+                                                y2016: 0,
+                                                y2017: 0,
+                                                y2018: 0,
+                                                y2019: 0,
+                                                y2020: 0,
+                                                y2021: 0,
+                                                y2022: 0,
+                                                y2023: 0,
+                                            }
 
-                                    regionInfrastructures.length && regionInfrastructures.reduce((acc, item) => {
-                                        acc.y2016 += parseFloat(item.y2016)
-                                        acc.y2017 += parseFloat(item.y2017)
-                                        acc.y2018 += parseFloat(item.y2018)
-                                        acc.y2019 += parseFloat(item.y2019)
-                                        acc.y2020 += parseFloat(item.y2020)
-                                        acc.y2021 += parseFloat(item.y2021)
-                                        acc.y2022 += parseFloat(item.y2022)
-                                        acc.y2023 += parseFloat(item.y2023)
-                                        return acc
-                                    }, totalsRow)
+                                        regionInfrastructures.length && regionInfrastructures.reduce((acc, item) => {
+                                            acc.y2016 += parseFloat(item.y2016)
+                                            acc.y2017 += parseFloat(item.y2017)
+                                            acc.y2018 += parseFloat(item.y2018)
+                                            acc.y2019 += parseFloat(item.y2019)
+                                            acc.y2020 += parseFloat(item.y2020)
+                                            acc.y2021 += parseFloat(item.y2021)
+                                            acc.y2022 += parseFloat(item.y2022)
+                                            acc.y2023 += parseFloat(item.y2023)
+                                            return acc
+                                        }, totalsRow)
 
-                                    return totalsRow
-                                },
-                                format(val) {
-                                    return val.toLocaleString()
-                                }
-                            }">
-                        <div class="d-table col-12 border-bottom border-top">
-                            <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                                Region
+                                        return totalsRow
+                                    },
+                                    format(val) {
+                                        return val.toLocaleString()
+                                    }
+                                }))
+                            })
+                        </script>
+                        <div x-data="regionInfrastructures">
+                            <div class="d-table col-12 border-bottom border-top">
+                                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                                    Region
+                                </div>
+                                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                                    2016 &amp; Prior
+                                </div>
+                                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                                    2017
+                                </div>
+                                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                                    2018
+                                </div>
+                                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                                    2019
+                                </div>
+                                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                                    2020
+                                </div>
+                                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                                    2021
+                                </div>
+                                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                                    2022
+                                </div>
+                                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                                    2023 &amp; Beyond
+                                </div>
+                                <div class="col-1 p-2 text-center v-align-middle d-table-cell">
+                                    Total
+                                </div>
                             </div>
-                            <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                                2016 &amp; Prior
-                            </div>
-                            <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                                2017
-                            </div>
-                            <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                                2018
-                            </div>
-                            <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                                2019
-                            </div>
-                            <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                                2020
-                            </div>
-                            <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                                2021
-                            </div>
-                            <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                                2022
-                            </div>
-                            <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                                2023 &amp; Beyond
-                            </div>
-                            <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                                Total
-                            </div>
-                        </div>
-                        <template x-for="(region, index) in regionInfrastructures" :key="index"></template>
+
+                            <template x-for="(item, index) in items" :key="index">
+                                <div class="d-table col-12 border-bottom">
+                                    <div class="col-1 p-1 d-table-cell">
+                                        <div x-text="item.id"></div>
+                                    </div>
+                                    <div class="col-1 p-1 d-table-cell">
+                                        <input type="number" class="form-control text-right border-0 width-full"  x-bind:name="`region_infrastructures[${index}][y2016]`" x-model="item.y2016">
+                                    </div>
+                                    <div class="col-1 p-1 d-table-cell">
+                                        <input type="number" class="form-control text-right border-0 width-full"  x-bind:name="`region_infrastructures[${index}][y2017]`" x-model="item.y2017">
+                                    </div>
+                                    <div class="col-1 p-1 d-table-cell">
+                                        <input type="number" class="form-control text-right border-0 width-full"  x-bind:name="`region_infrastructures[${index}][y2018]`" x-model="item.y2018">
+                                    </div>
+                                    <div class="col-1 p-1 d-table-cell">
+                                        <input type="number" class="form-control text-right border-0 width-full"  x-bind:name="`region_infrastructures[${index}][y2019]`" x-model="item.y2019">
+                                    </div>
+                                    <div class="col-1 p-1 d-table-cell">
+                                        <input type="number" class="form-control text-right border-0 width-full"  x-bind:name="`region_infrastructures[${index}][y2020]`" x-model="item.y2020">
+                                    </div>
+                                    <div class="col-1 p-1 d-table-cell">
+                                        <input type="number" class="form-control text-right border-0 width-full"  x-bind:name="`region_infrastructures[${index}][y2020]`" x-model="item.y2020">
+                                    </div>
+                                    <div class="col-1 p-1 d-table-cell">
+                                        <input type="number" class="form-control text-right border-0 width-full"  x-bind:name="`region_infrastructures[${index}][y2021]`" x-model="item.y2021">
+                                    </div>
+                                    <div class="col-1 p-1 d-table-cell">
+                                        <input type="number" class="form-control text-right border-0 width-full"  x-bind:name="`region_infrastructures[${index}][y2022]`" x-model="item.y2022">
+                                    </div>
+                                    <div class="col-1 p-1 d-table-cell">
+                                        <input type="number" class="form-control text-right border-0 width-full"  x-bind:name="`region_infrastructures[${index}][y2023]`" x-model="item.y2023">
+                                    </div>
+                                    <div class="col-1 p-1 d-table-cell">
+
+                                    </div>
+                                </div>
+                            </template>
+                            <div x-text="JSON.stringify(items)"></div>
                         </div>
 {{--                        <div x-text="JSON.stringify(regionInfrastructures)"></div>--}}
 {{--                        <template x-for="region in regionInfrastructures" :key="region.id">--}}
