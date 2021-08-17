@@ -25,7 +25,7 @@ class TripController extends Controller
     {
         abort_if(! auth()->user()->can('update', $project), 403);
 
-        $project->load('infrastructure_sectors','infrastructure_subsectors','fs_infrastructures','region_infrastructures','right_of_way','resettlement_action_plan');
+        $project->load('risk','infrastructure_sectors','infrastructure_subsectors','fs_infrastructures.funding_source','region_infrastructures.region','right_of_way','resettlement_action_plan');
 
 //        dd($project->region_infrastructures);
 //
@@ -74,6 +74,6 @@ class TripController extends Controller
 
         $project->prerequisites()->sync($request->prerequisites);
 
-        return redirect()->route('trips.create', $project);
+        return redirect()->route('trips.show', $project);
     }
 }

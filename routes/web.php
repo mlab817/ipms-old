@@ -46,8 +46,6 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
         Route::get('/settings',\App\Http\Controllers\SettingsController::class)->name('settings');
 
-        Route::get('/trips', [\App\Http\Controllers\TripController::class, 'index'])->name('trips.index');
-
         Route::get('/attachments/{attachment}/download', [\App\Http\Controllers\ProjectAttachmentController::class,'download'])->name('attachments.download');
         Route::delete('/attachments/{attachment}', [\App\Http\Controllers\ProjectAttachmentController::class,'destroy'])->name('attachments.destroy');
 
@@ -66,11 +64,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::get('/projects/{project}/settings', [\App\Http\Controllers\ProjectController::class,'settings'])->name('projects.settings');
         Route::get('/projects/{project}/files', [\App\Http\Controllers\ProjectController::class,'files'])->name('projects.files');
         Route::get('/projects/{project}/history', [\App\Http\Controllers\ProjectController::class,'history'])->name('projects.history');
-        Route::get('/projects/{project}/trip/edit', [\App\Http\Controllers\TripController::class,'edit'])->name('trips.edit');
-        Route::get('/projects/{project}/trip/create', [\App\Http\Controllers\TripController::class,'create'])->name('trips.create');
         Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');
         Route::put('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'update'])->name('trips.update');
-        Route::post('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'store'])->name('trips.store');
 
         Route::post('/projects/{project}/clone',[\App\Http\Controllers\ProjectController::class,'clone'])->name('projects.clone');
 
