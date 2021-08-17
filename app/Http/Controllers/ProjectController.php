@@ -630,22 +630,6 @@ class ProjectController extends Controller
         return view('projects.files', compact('project'));
     }
 
-    public function clone(Request $request, Project $project)
-    {
-        $this->validate($request, [
-            'updating_period_id' => 'required|exists:updating_periods,id'
-        ]);
-
-        // check updating period id
-        if ($project->updating_period_id == $request->updating_period_id) {
-            return back()->with('error','This project has already been cloned to this updating period');
-        }
-
-        dispatch(new ProjectCloneJob($project->id, $request->updating_period_id ?? config('ipms.current_updating_period'), auth()->id()));
-
-        return back()->with('message','Successfully began cloning project. This may take some time.');
-    }
-
     public function new_clone()
     {
         return view('projects.clone');

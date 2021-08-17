@@ -25,6 +25,11 @@ class TripController extends Controller
     {
         abort_if(! auth()->user()->can('update', $project), 403);
 
+        if (! $project->has_infra) {
+            return redirect()->route('projects.show', $project)
+                ->withMessage('This project has no infrastructure component');
+        }
+
         $project->load('risk','infrastructure_sectors','infrastructure_subsectors','fs_infrastructures.funding_source','region_infrastructures.region','right_of_way','resettlement_action_plan');
 
 //        dd($project->region_infrastructures);

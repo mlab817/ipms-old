@@ -10,6 +10,8 @@
     <!-- CSS -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
 
+    <link href="https://unpkg.com/@github/details-dialog-element/dist/index.css" rel="stylesheet" />
+
     @livewireStyles
 
     @yield('styles')
@@ -25,6 +27,7 @@
 
     @livewireScripts
     <script defer src="https://unpkg.com/alpinejs@3.1.1/dist/cdn.min.js"></script>
+    <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

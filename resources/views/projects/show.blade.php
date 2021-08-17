@@ -157,8 +157,21 @@
 
                                             <ul class="dropdown-menu dropdown-menu-e">
                                                 <li><a class="dropdown-item" href="#general-information">General Information</a></li>
-                                                <li><a class="dropdown-item" href="#url">Dropdown item</a></li>
-                                                <li><a class="dropdown-item" href="#url">Dropdown item</a></li>
+                                                <li><a class="dropdown-item" href="#other-pap-information">Other PAP Information</a></li>
+                                                <li><a class="dropdown-item" href="#spatial-coverage">Spatial Coverage</a></li>
+                                                <li><a href="#implementation-period" class="dropdown-item">Implementation Period</a></li>
+                                                <li><a href="#approval-status" class="dropdown-item">Approval Status</a></li>
+                                                <li><a href="#regional-development-investment-program" class="dropdown-item">Regional Development Investment Program</a></li>
+                                                <li><a href="#project-preparation-details" class="dropdown-item">Project Preparation Details</a></li>
+                                                <li><a href="#employment-generation" class="dropdown-item">Employment Generation</a></li>
+                                                <li><a href="#pdp-chapter" class="dropdown-item">PDP Chapter</a></li>
+                                                <li><a href="#sustainable-development-goals" class="dropdown-item">Sustainable Development Goals</a></li>
+                                                <li><a href="#ten-point-agendas" class="dropdown-item">Ten Point Agenda</a></li>
+                                                <li><a href="#financial-information" class="dropdown-item">Financial Information</a></li>
+                                                <li><a href="#status-and-updates" class="dropdown-item">Status & Updates</a></li>
+                                                <li><a href="#investment-required-by-funding-source" class="dropdown-item">Investment Required by Funding Source</a></li>
+                                                <li><a href="#investment-required-by-region" class="dropdown-item">Investment Required by Region</a></li>
+                                                <li><a href="#financial-status" class="dropdown-item">Financial Status</a></li>
                                             </ul>
                                         </details>
 

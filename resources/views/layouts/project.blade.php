@@ -99,7 +99,8 @@
                     </a>
                 </li>
 
-                <li  class="d-flex">
+                @if($project->has_infra)
+                <li class="d-flex">
                     <a href="{{ route('trips.show', $project) }}"
                        class="UnderlineNav-item no-wrap @if($route == 'trips.edit') selected @endif">
                         <svg class="octicon octicon-tools UnderlineNav-octicon d-none d-sm-inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
@@ -108,6 +109,7 @@
                         <span>TRIP</span>
                     </a>
                 </li>
+                @endif
 
                 <li  class="d-flex">
                     <!-- TODO: review create -->

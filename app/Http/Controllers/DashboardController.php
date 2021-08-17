@@ -44,6 +44,7 @@ class DashboardController extends Controller
 
         return view('dashboard', [
             'pinnedProjects' => auth()->user()->pinned_projects,
+            'ownedProjects' => auth()->user()->projects,
             'projectCount'  => Project::count(),
             'reviewCount'   => Project::has('review')->count(),
 //            'encodedCount'  => Project::has('pipol')->count(),

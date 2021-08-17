@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
-
 @section('content')
     <div class="flex-shrink-0 col-12 col-md-9 mb-4 mb-md-0">
         <div>
@@ -58,6 +56,60 @@
                         @endif
 
                         <!-- ./ Projects boxes -->
+                    </div>
+
+                </div>
+
+                <div class="mt-4">
+                    <div class="js-pinned-items-reorder-container">
+                        <h2 class="f4 mb-2 text-normal">
+                            My PAPs
+                        </h2>
+
+                    @if(count($ownedProjects))
+                        <!-- Projects boxes -->
+                            <ol class="d-flex flex-wrap list-style-none gutter-condensed mb-4">
+                                @foreach($ownedProjects as $project)
+                                    <li class="mb-3 d-flex flex-content-stretch col-12 col-md-6 col-lg-6">
+                                        <div class="Box pinned-item-list-item d-flex p-3 width-full public source">
+                                            <div class="pinned-item-list-item-content">
+                                                <div class="d-flex width-full flex-items-center position-relative">
+                                                    <a href="{{ route('projects.show', $project) }}" class="text-bold flex-auto min-width-0">
+                                                        <span class="repo" title="ipms-docs">{{ $project->title }}</span>
+                                                    </a>
+                                                    <span class="Label Label--secondary v-align-middle">
+                                                    {{ $project->submission_status->name ?? '' }}
+                                                </span>
+                                                </div>
+
+                                                <p class="pinned-item-desc color-text-secondary text-small d-block mt-2 mb-3">
+                                                    {!! strip_tags(Str::limit($project->description->description, 180)) !!}
+                                                </p>
+
+                                                <p class="mb-0 f6 color-text-secondary">
+                                                <span class="d-inline-block mr-3">
+                                                    <span class="repo-language-color" style="background-color: #f1e05a"></span>
+                                                    <span itemprop="programmingLanguage">
+                                                        {{ $project->pap_type->name ?? '' }}
+                                                    </span>
+                                                </span>
+                                                    <span href="/mlab817/lighthouse-graphql-permission/stargazers" class="pinned-item-meta Link--muted ">
+                                                    PhP
+                                                    {{ number_format($project->total_project_cost, 2) }}
+                                                </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ol>
+                        @else
+                            <div class="Box">
+                                <x-blankslate message="You have not pinned any program/projects. Pin projects for easier and faster access." />
+                            </div>
+                    @endif
+
+                    <!-- ./ Projects boxes -->
                     </div>
 
                 </div>

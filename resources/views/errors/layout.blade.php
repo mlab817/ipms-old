@@ -6,6 +6,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
 
+    <link rel="shortcut icon" type="image/ico" href="/images/icons/favicon.ico"/>
+
     <style>
         #main {
             height: 100vh;

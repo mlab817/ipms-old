@@ -9,7 +9,7 @@
         </div>
     @endif
 
-    <form class="js-braintree-encrypt js-repo-form" id="new_project" aria-label="Create a new repository" action="{{ route('projects.store') }}" accept-charset="UTF-8" method="post">
+    <form id="new_project" aria-label="Create a new repository" action="{{ route('projects.store') }}" accept-charset="UTF-8" method="post">
         @csrf
 
         <div  class="Subhead hx_Subhead--responsive mb-5">
@@ -20,9 +20,9 @@
             </div>
         </div>
 
-        <div class="js-owner-reponame owner-reponame clearfix">
+        <div class="clearfix">
             <div class="d-block d-sm-none mb-2 clearfix"></div>
-            <dl class="form-group mt-1 float-left js-with-permission-fields required" id="title-form-group">
+            <dl class="form-group mt-1 float-left required" id="title-form-group">
                 <dt class="input-label">
                     <label autocapitalize="off" maxlength="255" required="required"
                            aria-describedby="pap-title" for="repository_name">Program/Project Title</label></dt>
@@ -70,7 +70,7 @@
                 @foreach($pap_types as $pap_type)
                     <div class="form-checkbox">
                         <label class="js-privacy-toggle-label-public">
-                            <input class="mt-2" aria-describedby="public-description" type="radio" wire:model="papTypeId" value="{{ $pap_type->id }}">
+                            <input class="mt-2" aria-describedby="public-description" type="radio" name="pap_type_id" wire:model="papTypeId" value="{{ $pap_type->id }}">
                             {{ $pap_type->name }}
                         </label>
                         <svg height="32" class="octicon octicon-repo float-left mt-1 mr-2" viewBox="0 0 24 24" version="1.1"

@@ -54,6 +54,7 @@ class User extends Authenticatable
         'activated_at',
         'password_changed_at',
         'role_id',
+        'is_admin',
     ];
 
     /**
@@ -144,7 +145,7 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return $this->hasRole('admin');
+        return $this->is_admin || $this->hasRole('admin');
     }
 
     public function activate()

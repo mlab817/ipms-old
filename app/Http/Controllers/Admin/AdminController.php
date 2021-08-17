@@ -17,8 +17,6 @@ class AdminController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('admin.index', [
-            'pageTitle' => 'Manage Libraries',
-        ]);
+        return view('admin.index');
     }
 }
