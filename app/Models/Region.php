@@ -25,7 +25,7 @@ class Region extends Model
         'order',
     ];
 
-    protected $hidden = ['created_at','updated_at','deleted_at','slug','description','order','label','pivot'];
+    protected $hidden = ['created_at','updated_at','deleted_at','slug','description','pivot'];
 
     public function getRouteKeyName(): string
     {
