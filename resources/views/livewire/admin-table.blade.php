@@ -164,6 +164,53 @@
 
                             <div class="col-md-2 col-3 f6 d-flex flex-justify-end">
                                 <div class="d-lg-block d-none">
+                                    <details class="details-reset details-overlay details-overlay-dark">
+                                        <summary class="btn-link Link--secondary ml-3" aria-haspopup="dialog" role="button">Edit</summary>
+                                        <details-dialog class="Box Box--overlay d-flex flex-column anim-fade-in fast">
+                                            <div class="Box-header">
+                                                <button class="Box-btn-octicon btn-octicon float-right" type="button" aria-label="Close dialog" data-close-dialog>
+                                                    <!-- <%= octicon "x" %> -->
+                                                    <svg class="octicon octicon-x" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z"></path></svg>
+                                                </button>
+                                                <h3 class="Box-title">Edit Label</h3>
+                                            </div>
+                                            <form action="{{ route('admin.create-label') }}" method="POST" accept-charset="UTF-8">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="id" id="id" value="{{ $label->id }}">
+                                                <input type="hidden" name="labelType" id="labelType" value="{{ request()->query('label') }}">
+                                                <div class="Box-body">
+                                                    <dl class="form-group">
+                                                        <dt class="input-label">
+                                                            <label for="name">Label</label>
+                                                        </dt>
+                                                        <dd>
+                                                            <input type="text" data-maxlength="50" autocomplete="off" required=""
+                                                                   id="name" name="name"
+                                                                   class="form-control width-full"
+                                                                   value="{{ $label->name }}"
+                                                                   placeholder="Label name" value="" aria-describedby="label--name-error">
+                                                        </dd>
+                                                    </dl>
+                                                    <dl class="form-group">
+                                                        <dt class="input-label">
+                                                            <label for="description">Description</label>
+                                                        </dt>
+                                                        <dd>
+                                            <textarea name="description" type="text" id="description"
+                                                      class="form-control width-full"
+                                                      style="resize: none;"
+                                                      placeholder="Description (optional)"
+                                                      rows="4" maxlength="100">{{ $label->description }}</textarea>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="Box-footer">
+                                                    <button type="submit" class="btn btn-block btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </details-dialog>
+                                    </details>
 
                                     <!-- '"` --><!-- </textarea></xmp> -->
                                     <button type="button" onclick="return confirm('Are you sure?') ? @this.delete({{$label->id}}) : false" class="btn-link Link--secondary ml-3"
