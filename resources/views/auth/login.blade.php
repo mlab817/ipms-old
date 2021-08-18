@@ -14,24 +14,24 @@
                     <form action="{{ route('login') }}" method="POST">
                         @csrf
 
-                        <div class="form-group mt-0 @error('email') errored @enderror">
+                        <div class="form-group mt-0 @error('username') errored @enderror">
                             <div class="form-group-header">
-                                <label for="email">Email address or username</label>
+                                <label for="username">Email address or username</label>
                             </div>
                             <div class="form-group-body">
                                 <input
                                     class="form-control input-block"
                                     type="text"
-                                    name="email"
-                                    value="{{ old('email') }}"
-                                    id="email"
-                                    aria-describedby="email-validation"
+                                    name="username"
+                                    value="{{ old('username') }}"
+                                    id="username"
+                                    aria-describedby="username-validation"
                                     tabindex="1"
                                     autofocus
                                 />
                             </div>
                             @error('email')
-                            <p class="note error" id="email-validation">{{ $message }}</p>
+                            <p class="note error" id="username-validation">{{ $message }}</p>
                             @enderror
                         </div>
 

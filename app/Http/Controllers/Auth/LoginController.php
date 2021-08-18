@@ -59,4 +59,16 @@ class LoginController extends Controller
             Auth::logoutOtherDevices($request->password);
         }
     }
+
+    // if the username is a valid email, return email
+    // otherwise return username
+    // see https://medium.com/@shahburhan/laravel-login-with-username-or-email-ea53d61d6b3d
+    public function username(): string
+    {
+        $field = (filter_var(request()->username, FILTER_VALIDATE_EMAIL) || !request()->username) ? 'email' : 'username';
+
+        request()->merge([$field => request()->username]);
+
+        return $field;
+    }
 }

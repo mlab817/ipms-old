@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PipolStoreRequest;
+use App\Http\Requests\PipolUpdateRequest;
 use App\Models\Pipol;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -15,7 +17,9 @@ class ProjectPipolController extends Controller
      */
     public function index(Project $project)
     {
-        return view('pipols.index', compact('project'));
+        $project->load('pipol');
+
+        return view('projects.pipols.index', compact('project'));
     }
 
     /**
@@ -23,9 +27,9 @@ class ProjectPipolController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Project $project)
     {
-        //
+        return view('projects.pipols.create', compact('project'));
     }
 
     /**
@@ -35,7 +39,7 @@ class ProjectPipolController extends Controller
      * @param Project $project
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Project $project)
+    public function store(PipolStoreRequest $request, Project $project)
     {
         // if project already has a pipol entry, return error
         if ($project->pipol) {
@@ -43,6 +47,12 @@ class ProjectPipolController extends Controller
 
             return back();
         }
+
+        $project->pipol()->create(array_merge($request->validated(),[
+                'user_id' => auth()->id(),
+            ]));
+
+        return redirect()->route('projects.pipols.index', $project);
     }
 
     /**
@@ -57,24 +67,13 @@ class ProjectPipolController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project, Pipol $pipol)
+    public function update(PipolUpdateRequest $request, Project $project, Pipol $pipol)
     {
         $pipol->update($request->all());
 
