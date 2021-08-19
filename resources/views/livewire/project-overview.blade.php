@@ -1,7 +1,7 @@
 <div class="position-relative">
-    <div id="user-projects-list" class="mt-3">
+    <div class="mt-3">
         <!-- Top menu -->
-        <div class="container-lg clearfix mb-3">
+        <div class="container clearfix mb-3">
             <div class="d-none d-md-block col-6 float-right mb-2 mb-md-0">
                 <a href="{{ route('projects.create') }}" class="btn btn-primary d-block d-md-inline-block float-right text-center">
                     <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16" class="octicon octicon-repo">
@@ -9,6 +9,7 @@
                     </svg>
                     New
                 </a>
+
                 <details class="dropdown details-reset details-overlay float-right mr-1 d-inline-block">
                     <summary class="btn" aria-haspopup="true">
                         Updating Period
@@ -33,7 +34,7 @@
         <!-- /. Top menu -->
 
         @if($search || $updating_period_id)
-        <div class="container-lg mt-2 mb-3">
+        <div class="container mt-2 mb-3">
             <div class="issues-reset-query-wrapper">
                 <button role="button" class="btn-link" wire:click="resetFilterSort">
                     <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16" class="octicon octicon-x issues-reset-query-icon">
@@ -47,7 +48,7 @@
     </div>
 
     @if($projects->total() > 0)
-        <div class="container-lg clearfix border rounded-1 color-bg-canvas">
+        <div class="container clearfix border rounded-1 color-bg-canvas">
             <div class="color-bg-tertiary p-3 border-bottom">
                 <div class="float-right table-list-header-toggle states">
                     <details class="dropdown details-reset details-overlay d-inline-block">

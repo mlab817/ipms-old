@@ -1,11 +1,9 @@
 @extends('layouts.app')
 
-@section('yield', 'Projects')
+@section('title', 'Projects')
 
 @section('content')
-    <div>
-        <livewire:project-overview />
-    </div>
+    <livewire:project-overview />
 @stop
 
 @section('styles')

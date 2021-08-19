@@ -64,6 +64,11 @@ class ProjectOverview extends Component
 
     public function pinProject($id)
     {
+        if (count(auth()->user()->pinned_projects) >= 10) {
+            return back()
+                ->with('error', 'You can only pin ten PAPs at a time');
+        }
+
         auth()->user()->pinned_projects()->attach(Project::findOrFail($id));
 
         session()->flash('success','Successfully added project to pinned list');

@@ -15,6 +15,11 @@ class ProjectPinController extends Controller
      */
     public function __invoke(Request $request, Project $project)
     {
+        if (count($project->pinned_projects) >= 10) {
+            return back()
+                ->with('error', 'You can only pin ten PAPs at a time');
+        }
+
         auth()->user()->pinned_projects()->attach($project);
 
         return back();

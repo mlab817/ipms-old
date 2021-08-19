@@ -19,9 +19,11 @@
 <div class="Layout Layout--gutter-none" style="min-height: 100vh;">
     <div class="Layout-main color-bg-tertiary">
         <div class="px-3 px-md-4 px-lg-5 py-3 mt-3 mb-4">
-            @include('includes.navigation-tab')
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                @include('includes.navigation-tab')
 
-            @yield('content')
+                @yield('content')
+            </div>
         </div>
     </div>
 

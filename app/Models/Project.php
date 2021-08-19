@@ -677,4 +677,9 @@ class Project extends Model
     {
         return $this->updating_period_id == config('current_updating_period');
     }
+
+    public function isOriginal(): bool
+    {
+        return $this->id == $this->project_id;
+    }
 }

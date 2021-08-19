@@ -405,6 +405,14 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project, Request $request)
     {
+        if ($request->uuid != $project->uuid) {
+            abort(403, 'The code you provided was wrong. Please try again');
+        }
+
+        if ($project->isOriginal() && count($project->clones) > 0) {
+            return back()->with('error', 'You cannot delete an original project if it has clones. Delete the clones first.');
+        }
+
         $projectArray = $project->toArray();
         $creator = $project->creator;
 
@@ -418,9 +426,7 @@ class ProjectController extends Controller
             $creator->notify(new ProjectDeletedNotification($projectArray, auth()->user(), $request->reason));
         }
 
-        Alert::success('Success', 'Successfully deleted project');
-
-        return redirect()->route('projects.own');
+        return redirect()->route('projects.index');
     }
 
     public function review(Request $request, Project $project)
@@ -622,7 +628,8 @@ class ProjectController extends Controller
 
     public function settings(Project $project)
     {
-        return view('projects.settings', compact('project'));
+        return view('projects.settings', compact('project'))
+            ->with('users',User::all());
     }
 
     public function files(Project $project)

@@ -3,6 +3,14 @@ window.marked = require('marked');
 import '@github/markdown-toolbar-element';
 import '@github/details-dialog-element';
 
+function formatNumber(val) {
+    return val && parseFloat(val).toLocaleString('en-US', { minimumFractionDigits: 2 })
+}
+
+function removeCommas(val) {
+    return parseFloat(val.toString().replace(',',''))
+}
+
 const options = {
     // used to match objects when diffing arrays, by default only === operator is used
     objectHash: function(obj) {
