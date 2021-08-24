@@ -25,6 +25,14 @@ class ProjectCloneController extends Controller
             return back()->with('error','This project has already been cloned to this updating period');
         }
 
+        $projectAlreadyCloned = Project::where('project_id', $project->id)
+            ->where('updating_period_id', $request->updating_period_id)
+            ->exists();
+
+        if ($projectAlreadyCloned) {
+            return back()->with('error','This project has already been cloned to this updating period');
+        }
+
         dispatch(new ProjectCloneJob($project->id, $request->updating_period_id ?? config('ipms.current_updating_period'), auth()->id()));
 
         return back()->with('message','Successfully began cloning project. This may take some time.');

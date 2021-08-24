@@ -42,6 +42,8 @@ class DashboardController extends Controller
         // create chart
         $chart = null;
 
+        $this->investmentByUpdatingPeriod();
+
         return view('dashboard', [
             'pinnedProjects' => auth()->user()->pinned_projects,
             'ownedProjects' => auth()->user()->projects,
@@ -71,7 +73,8 @@ class DashboardController extends Controller
                 $q->where('submission_status','Draft');
             })->count(),
             'userCount'     => User::count(),
-            'chart'         => $chart,
+            'chart'         => $this->investmentByUpdatingPeriod(),
+            'treeMap'       => $this->treeMapData(),
             'reviews'       => Review::with('user')->has('project')->latest()->take(5)->get(),
             'latestProjects'=> Project::with('pap_type','project_status','creator.office','office')->latest()->take(5)->get(),
             'users'         => User::whereHas('roles', function ($q) {
@@ -114,7 +117,7 @@ class DashboardController extends Controller
             });
 
         // create chart
-        $chart = null;
+        $chart = $this->investmentByUpdatingPeriod();
 
         return view('dashboard.focal', [
             'projectCount'         => Project::own()->count(),
@@ -155,5 +158,78 @@ class DashboardController extends Controller
             })->withCount('projects','reviews')->get(),
             'by_year'   => $projectSummary
         ]);
+    }
+
+    public function investmentByUpdatingPeriod()
+    {
+        $data = DB::table('projects AS a')
+            ->join('fs_investments AS b','a.id','=','b.project_id')
+            ->join('updating_periods AS c', 'a.updating_period_id','=','c.id')
+            ->selectRaw('
+                c.id AS id,
+                c.name AS name,
+                sum(b.y2016) AS y2016,
+                sum(b.y2017) AS y2017,
+                sum(b.y2018) AS y2018,
+                sum(b.y2019) AS y2019,
+                sum(b.y2020) AS y2020,
+                sum(b.y2021) AS y2021,
+                sum(b.y2022) AS y2022,
+                sum(b.y2023) AS y2023
+                ')
+            ->groupBy('a.updating_period_id')
+            ->get();
+
+        return [
+            'series' => $data->map(function ($d) {
+               return [
+                   'name' => $d->name,
+                   'type' => 'column',
+                   'data' => [
+                       round($d->y2016 / 10**6, 2),
+                       round($d->y2017 / 10**6, 2),
+                       round($d->y2018 / 10**6, 2),
+                       round($d->y2019 / 10**6, 2),
+                       round($d->y2020 / 10**6, 2),
+                       round($d->y2021 / 10**6, 2),
+                       round($d->y2022 / 10**6, 2),
+                       round($d->y2023 / 10**6, 2),
+                   ]
+               ];
+            }),
+            'labels' => [
+                '2016',
+                '2017',
+                '2018',
+                '2019',
+                '2020',
+                '2021',
+                '2022',
+                '2023',
+            ],
+        ];
+    }
+
+    public function treeMapData()
+    {
+        $chartData = DB::table('projects AS a')
+            ->join('fs_investments AS b','a.id','=','b.project_id')
+            ->selectRaw('
+                a.title AS x,
+                SUM(b.y2016 + b.y2017 + b.y2018 + b.y2019 + b.y2020 + b.y2021 + b.y2022 + b.y2023) AS y
+            ')
+            ->where('a.updating_period_id',1)
+            ->groupBy('a.id')
+            ->orderByDesc('y')
+            ->get();
+
+        $first25 = $chartData->splice(25); // all except first 25
+
+        $mergedBack = $chartData->push((object) [
+            'x' => 'Others',
+            'y' => $first25->sum('y'),
+        ]);
+
+        return $mergedBack;
     }
 }

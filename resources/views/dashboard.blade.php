@@ -438,4 +438,122 @@
 {{--        @endcan--}}
 
 {{--    </div>--}}
+
+    <div id="chart"></div>
+
+    <div id="chart2"></div>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+        var options = {
+            series: @json($chart['series']),
+            labels: @json($chart['labels']),
+            chart: {
+                height: 350,
+                type: 'bar',
+                stacked: false,
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'
+                },
+            },
+            fill: {
+                // opacity: [0.85, 0.25, 1],
+                gradient: {
+                    inverseColors: false,
+                    shade: 'light',
+                    type: "vertical",
+                    // opacityFrom: 0.85,
+                    // opacityTo: 0.55,
+                    stops: [0, 100, 100, 100]
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            markers: {
+                size: 0
+            },
+            xaxis: {
+                type: 'number'
+            },
+            yaxis: {
+                title: {
+                    text: 'million pesos',
+                },
+                min: 0,
+                forceNiceScale: true
+            },
+            title: {
+                text: 'Comparison of Investment Requirements per Updating Period'
+            },
+            tooltip: {
+                shared: true,
+                intersect: false,
+                y: {
+                    formatter: function (y) {
+                        if (typeof y !== "undefined") {
+                            return y.toLocaleString() + " pesos";
+                        }
+                        return y;
+
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+        chart.render();
+
+        var options2 = {
+            series: [
+                {
+                    data: @json($treeMap)
+                }
+            ],
+            chart: {
+                height: 450,
+                type: 'treemap',
+                treemap: {
+                    distributed: true,
+                    colorScale: {
+                        ranges: [
+                            {
+                                from: -6,
+                                to: 0,
+                                color: '#CD363A'
+                            },
+                            {
+                                from: 0.001,
+                                to: 6,
+                                color: '#52B12C'
+                            }
+                        ]
+                    }
+                }
+            },
+            title: {
+                text: 'Top 25 PAPs based on Cost'
+            },
+            legend: {
+                show: false
+            }
+        };
+
+        var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+
+        chart2.render()
+    </script>
+@endpush
