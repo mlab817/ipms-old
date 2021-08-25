@@ -176,10 +176,7 @@
                                         </details>
 
                                         <h2 class="Box-title">
-                                            @livewire('form.edit-text', [
-                                            'project' => $project,
-                                            'field' => 'title'
-                                            ], key($project->id))
+                                            {{ $project->title }}
                                         </h2>
                                     </div>
 
@@ -187,7 +184,6 @@
                                 </div>
                                 <!--// Navigator -->
                                 <div class="Box-body">
-                                    {{--                                    <livewire:show-project :project="$project" />--}}
                                     @include('projects.edit2')
                                 </div>
                             </div>

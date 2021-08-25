@@ -1,7 +1,5 @@
 @extends('layouts.header-only')
 
-@section('title', 'Activities')
-
 @section('content')
     <div class="container-lg">
         <div class="Box">
@@ -12,7 +10,7 @@
                 @forelse($activities as $activity)
                     <div class="Box-row d-flex flex-items-start">
                         <div class="flex-auto">
-                            @if(get_class($activity->subject) == 'App\\Models\\Project')
+                            @if($activity->subject && get_class($activity->subject) == 'App\\Models\\Project')
                                 <a href="{{ route('projects.show', $activity->subject) }}" class="btn-link">
                                     <strong>{{ ucfirst($activity->description) }}</strong>
                                 </a>

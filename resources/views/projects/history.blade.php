@@ -24,7 +24,7 @@
                 <div class="TimelineItem-body">
                     <a href="#" class="text-bold Link--primary mr-1">{{ $item->userResponsible()->username ?? 'Unknown user' }}</a> changed <strong>{{ $item->fieldName() }}</strong>
                     from
-                    <code>{{ $item->oldValue() }}</code>
+                    <code>{{ $item->oldValue() ?? '_' }}</code>
                     to
                     <code>{{ $item->newValue() }}</code>
                     <small>{{ $item->created_at->diffForHumans() }}</small>

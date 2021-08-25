@@ -106,7 +106,7 @@
             @forelse(auth()->user()->actions()->latest()->take(6)->get() as $activity)
                 <li class="d-flex flex-items-baseline mt-2">
                         <span>
-                            <svg aria-label="Open issue" role="img" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-issue-opened color-text-success mr-2">
+                            <svg role="img" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="octicon octicon-issue-opened color-text-success mr-2">
                                 <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
                             </svg>
                         </span>

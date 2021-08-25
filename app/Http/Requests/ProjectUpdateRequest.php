@@ -163,6 +163,7 @@ class ProjectUpdateRequest extends FormRequest
             'covid_interventions'               => 'sometimes|nullable',
             'spatial_coverage_id'               => 'sometimes|required|exists:spatial_coverages,id',
             'regions'                           => 'sometimes|required',
+            'regions.*'                         => 'exists:regions,id',
             'iccable'                           => 'sometimes|required|bool',
             'approval_level_id'                 => 'sometimes|required_if:iccable,1|exists:approval_levels,id',
             'approval_date'                     => 'sometimes|required_if:iccable,1',

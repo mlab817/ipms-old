@@ -802,7 +802,7 @@
             <label for="rename-field">Updates</label>
         </dt>
         <dd class="form-group-body">
-            <textarea id="updates" name="updates" class="form-control input-contrast">{{ old('updates', $project->update->updates ?? '') }}</textarea>
+            <textarea id="updates" name="updates" class="form-control input-contrast">{{ old('updates', $project->project_update->updates ?? '') }}</textarea>
         </dd>
     </dl>
 
@@ -813,7 +813,7 @@
             <label for="rename-field">As of</label>
         </dt>
         <dd class="form-group-body">
-            <input type="date" id="updates_date" name="updates_date" class="form-control input-contrast" value="{{ old('updates', $project->update->updates_date ?? '') }}">
+            <input type="date" id="updates_date" name="updates_date" class="form-control input-contrast" value="{{ old('updates', $project->project_update->updates_date ?? '') }}">
         </dd>
     </dl>
 

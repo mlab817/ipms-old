@@ -310,25 +310,25 @@ class ProjectController extends Controller
             $project->regions()->sync($request->regions);
         }
         if ($request->has('funding_sources')) {
-            $project->regions()->sync($request->funding_sources);
+            $project->funding_sources()->sync($request->funding_sources);
         }
         if ($request->has('sdgs')) {
-            $project->regions()->sync($request->sdgs);
+            $project->sdgs()->sync($request->sdgs);
         }
         if ($request->has('pdp_chapters')) {
-            $project->regions()->sync($request->pdp_chapters);
+            $project->pdp_chapters()->sync($request->pdp_chapters);
         }
         if ($request->has('pdp_indicators')) {
-            $project->regions()->sync($request->pdp_indicators);
+            $project->pdp_indicators()->sync($request->pdp_indicators);
         }
         if ($request->has('ten_point_agendas')) {
-            $project->regions()->sync($request->ten_point_agendas);
+            $project->ten_point_agendas()->sync($request->ten_point_agendas);
         }
         if ($request->has('operating_units')) {
-            $project->regions()->sync($request->operating_units);
+            $project->operating_units()->sync($request->operating_units);
         }
         if ($request->has('covid_interventions')) {
-            $project->regions()->sync($request->covid_interventions);
+            $project->covid_interventions()->sync($request->covid_interventions);
         }
         if ($request->has('fs_investments')) {
             foreach ($request->fs_investments as $fs_investment) {
@@ -380,17 +380,6 @@ class ProjectController extends Controller
         }
         if ($request->has('disbursement')) {
             $project->disbursement()->update($request->disbursement);
-        }
-
-        if ($request->has('draft')) {
-            $project->submission_status_id = SubmissionStatus::findByName('Draft')->id;
-            $project->save();
-        }
-
-        if ($request->has('endorse')) {
-            $this->authorize('endorse', $project);
-            $project->submission_status_id = SubmissionStatus::findByName('Endorsed')->id;
-            $project->save();
         }
 
         return back()

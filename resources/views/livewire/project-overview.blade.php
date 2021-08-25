@@ -37,7 +37,7 @@
         <div class="container mt-2 mb-3">
             <div class="issues-reset-query-wrapper">
                 <button role="button" class="btn-link" wire:click="resetFilterSort">
-                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16" class="octicon octicon-x issues-reset-query-icon">
+                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16" class="octicon octicon-x">
                         <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
                     </svg>
                     Clear current search query, filters, and sorts
@@ -50,7 +50,7 @@
     @if($projects->total() > 0)
         <div class="container clearfix border rounded-1 color-bg-canvas">
             <div class="color-bg-tertiary p-3 border-bottom">
-                <div class="float-right table-list-header-toggle states">
+                <div class="float-right">
                     <details class="dropdown details-reset details-overlay d-inline-block">
                         <summary class="btn-link" aria-haspopup="true">
                             Sort
@@ -113,7 +113,7 @@
 
                             <ul class="dropdown-menu dropdown-menu-sw mt-6 mr-1 top-0" role="menu">
                                 <li>
-                                    <a href="{{ route('projects.edit', $project) }}" class="btn-link dropdown-item" role="menuitem">
+                                    <a href="{{ route('projects.show', $project) }}" class="btn-link dropdown-item" role="menuitem">
                                         Edit
                                     </a>
                                 </li>
@@ -137,7 +137,7 @@
                             </ul>
                         </details>
 
-                        <div class="col-12 col-md-6 col-lg-4 pr-2 float-left">
+                        <div class="col-12 col-md-6 col-lg-5 pr-2 float-left">
                             <h4 class="mb-1">
                                 <a href="{{ route('projects.show', $project) }}" class="Link--primary mr-1">
                                     {{ $project->title }}
@@ -201,7 +201,7 @@
 
                         </div>
 
-                        <div class="col-12 col-md-6 col-lg-8 float-left">
+                        <div class="col-12 col-md-6 col-lg-7 float-left">
                             <p class="text-muted text-sm color-text-tertiary">
                                 {!! strip_tags(Str::limit($project->description->description ?? 'No description', 160)) !!}
                             </p>

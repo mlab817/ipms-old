@@ -623,6 +623,7 @@ class Project extends Model
     {
         $this->uuid = Str::uuid();
         $this->archived_at = null;
+        $this->submission_status_id = 1; // reset status
 
         if ($src->project_id) {
             $this->project_id = $src->project_id;
