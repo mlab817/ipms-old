@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-fileinfo": "*",
+        "ext-json": "^1.7",
         "barryvdh/laravel-snappy": "^0.4.8",
         "binarytorch/larecipe": "^2.4",
         "bkwld/cloner": "^3.9",

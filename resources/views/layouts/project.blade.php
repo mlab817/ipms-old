@@ -1,5 +1,5 @@
 @php
-    $route = Route::currentRouteName()
+    $route = Route::currentRouteName();
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
