@@ -52,5 +52,7 @@
     </div>
 </div>
 
+<script defer src="https://unpkg.com/alpinejs@3.1.1/dist/cdn.min.js"></script>
+
 </body>
 </html>

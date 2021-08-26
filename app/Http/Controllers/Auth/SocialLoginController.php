@@ -34,9 +34,8 @@ class SocialLoginController extends Controller
         $existingUser = User::where('email', $socialiteUser->email)->first();
 
         if (! $existingUser) {
-            Alert::error('Error', 'Only existing users can use this feature. Please use the same email currently registered.');
-
-            return redirect()->route('login');
+            return redirect()->route('login')
+                ->with('error', 'Only existing users can use this feature. Please use the same email currently registered.');
         }
 
         // if the existing user has no google id
@@ -54,8 +53,6 @@ class SocialLoginController extends Controller
         Auth::login($existingUser);
 
         event(new AuthenticatedEvent($this->ip, Auth::id()));
-
-        Alert::success('Welcome Back!', 'Thank you for using our application');
 
         return redirect()->route(RouteServiceProvider::HOME);
     }

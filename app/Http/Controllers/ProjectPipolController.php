@@ -6,6 +6,8 @@ use App\Http\Requests\PipolStoreRequest;
 use App\Http\Requests\PipolUpdateRequest;
 use App\Models\Pipol;
 use App\Models\Project;
+use App\Models\Reason;
+use App\Models\SubmissionStatus;
 use Illuminate\Http\Request;
 
 class ProjectPipolController extends Controller
@@ -19,17 +21,12 @@ class ProjectPipolController extends Controller
     {
         $project->load('pipol');
 
-        return view('projects.pipols.index', compact('project'));
-    }
+        $pipol = $project->pipol ? $project->pipol : new Pipol();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Project $project)
-    {
-        return view('projects.pipols.create', compact('project'));
+        return view('projects.pipols.index', compact('pipol'))
+            ->with('project', $project)
+            ->with('submissionStatus', Pipol::SUBMISSION_STATUS)
+            ->with('reasons', Reason::all());
     }
 
     /**

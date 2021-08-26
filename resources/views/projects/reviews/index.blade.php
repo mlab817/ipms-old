@@ -3,23 +3,23 @@
 @section('title', 'Review | ' . str_limit($project->title) )
 
 @section('content')
-    <div class="container-lg mb-6">
-        <div class="Box">
-            <div class="Box-header">
-                <h3 class="Box-title">Review</h3>
-            </div>
-            <div class="Box-body">
-                @if(!$review)
-                <div class="blankslate blankslate-large">
-                    <img src="https://ghicons.github.com/assets/images/blue/png/Pull%20request.png" alt="" class="mb-3" />
-                    <h3 class="mb-1">This program/project has not been reviewed.</h3>
-                    <a class="btn btn-primary my-3" role="button" href="{{ route('projects.reviews.create', $project) }}">New review</a>
-                </div>
-                @else
+    <div class="container-xl px-3 px-md-4 px-lg-5">
+        <form action="{{ route('projects.reviews.update', ['project' => $project, 'review' => $review]) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="Box md Box--responsive">
+                <div class="d-flex top-0 border-top-0 border-bottom p-2 flex-items-center flex-justify-between color-bg-primary rounded-top-2 is-stuck" style="position: sticky; z-index: 90; top: 0px !important;">
+                    <div class="d-flex flex-items-center px-2">
+                        <h2 class="Box-title">
+                            Review
+                        </h2>
+                    </div>
 
-                <form action="{{ route('projects.reviews.update', ['project' => $project, 'review' => $review]) }}" method="POST">
-                    @csrf
-                    @method('PUT')
+                    <button class="float-right btn btn-primary" type="submit">Save Changes</button>
+                </div>
+
+                <div class="Box-body">
+
                     <dl class="form-group my-0">
                         <dt class="input-label">
                             <label for="">Public Investment Program</label>
@@ -118,13 +118,8 @@
                             <x-md-textarea id="comments" name="comments" placeholder="Leave a comment" value="{{ $review->comments }}"></x-md-textarea>
                         </dd>
                     </dl>
-
-                    <div class="form-actions pr-2 pt-2">
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </form>
-                @endif
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 @stop
