@@ -82,7 +82,9 @@
                         <!-- /.col -->
                     </form>
 
-                    <div class="divider"></div>
+                    <div class="text-center">
+                        <div class="border-bottom mt-3"></div>
+                    </div>
 
                     <a href="{{ route('auth.google') }}" role="button" type="submit" class="btn btn-danger btn-block mt-3" tabindex="3">Sign In with Google</a>
 
