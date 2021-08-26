@@ -10,7 +10,7 @@
                     </h3>
                 </div>
                 <div class="Box-body">
-                    <form  action="{{ route('projects.pipols.store', $project) }}" method="POST" accept-charset="UTF-8">
+                    <form action="{{ route('projects.pipols.store', $project) }}" method="POST" accept-charset="UTF-8">
                         @csrf
                         @method('POST')
                         <dl class="form-group my-3">

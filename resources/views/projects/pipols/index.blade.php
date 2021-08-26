@@ -1,7 +1,7 @@
 @extends('layouts.project')
 
 @section('content')
-    <div class="container-md clearfix new-discussion-timeline px-3 px-md-4 px-lg-5">
+    <div class="container-md clearfix px-3 px-md-4 px-lg-5">
         <div>
             <div class="Box">
                 <div class="Box-header color-bg-canvas">

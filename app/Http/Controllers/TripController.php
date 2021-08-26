@@ -36,7 +36,7 @@ class TripController extends Controller
 //
 //        dd('no region_infrastructures');
 
-        return view('trip.show', [
+        return view('projects.trip.show', [
             'project'                   => $project,
             'infrastructure_sectors'    => InfrastructureSector::with('children')->get(),
             'regions'                   => Region::all(),
