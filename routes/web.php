@@ -101,6 +101,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::resource('notifications',\App\Http\Controllers\NotificationController::class)->only('index','show');
         Route::resource('pipols',\App\Http\Controllers\PipolController::class);
         Route::resource('users', \App\Http\Controllers\UserController::class);
+        Route::get('/offices/{office}/projects', [\App\Http\Controllers\OfficeController::class,'projects'])->name('offices.projects');
+        Route::get('/offices/{office}/users', [\App\Http\Controllers\OfficeController::class,'users'])->name('offices.users');
         Route::resource('offices',\App\Http\Controllers\OfficeController::class);
         Route::resource('trackers',\App\Http\Controllers\TrackerController::class);
         Route::resource('updating-periods',\App\Http\Controllers\UpdatingPeriodController::class);

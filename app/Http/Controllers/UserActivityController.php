@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UserActivityController extends Controller
@@ -14,9 +15,116 @@ class UserActivityController extends Controller
      */
     public function index(User $user)
     {
+        // eager load projects with subject
+        $user->load('actions.subject');
+
+        $activities = $user->actions;
+
+        $activitiesGroupedByDay = $activities
+            ->map(function ($item) {
+                $item->day = $item->created_at->format('M d, Y (D)');
+                return $item;
+            })
+            ->groupBy('day')
+            ->sortKeysDesc();
+
+        $labels = $activitiesGroupedByDay->keys();
+        $data = $activitiesGroupedByDay->map(function ($item) {
+            return $item->count();
+        })->values();
+
+        $chart = $this->generateLineChartData($data, $labels);
+
         return view('users.activities.index', [
-            'activities' => $user->actions()->latest()->simplePaginate(),
+            'activitiesGroupedByDay' => $activitiesGroupedByDay,
+            'chart' => $chart
         ]);
+    }
+
+    public function generateLineChartData($data, $labels): array
+    {
+        return [
+            'series' => [
+                [
+                    'name' => 'No. of Activities',
+                    'data' => $data
+                ],
+            ],
+            'chart' => [
+                'height' => 100,
+                'type' => 'area',
+                'zoom' => [
+                    'enabled' => false,
+                ],
+                'toolbar' => [
+                    'show' => false,
+                ],
+                'plotOptions' => [
+                    'area' => [
+                        'dataLabels' => [
+                            'enabled' => false
+                        ]
+                    ],
+                ],
+                'animations' => [
+                    'enabled' => false
+                ],
+            ],
+            'colors' => ['#22863a'],
+            'fill' => [
+                'opacity' => 0.7,
+                'type' => 'solid',
+            ],
+            'dataLabels' => [
+                'enabled' => false
+            ],
+            'grid' => [
+                'show' => false,
+                'xaxis' => [
+                    'lines' => [
+                        'show' => false,
+                    ]
+                ],
+                'yaxis' => [
+                    'lines' => [
+                        'show' => false,
+                    ]
+                ]
+            ],
+            'stroke' => [
+                'curve' => 'smooth',
+                'width' => 0,
+            ],
+            'xaxis' => [
+                'show' => false,
+                'type' => 'datetime',
+                'categories' => $labels->toArray(),
+                'lines' => [
+                    'show' => false,
+                ],
+                'labels' => [
+                    'show' => false
+                ],
+                'axisTicks' => [
+                    'show' => false,
+                    'color' => '#fff'
+                ],
+            ],
+            'yaxis' => [
+                'show' => false,
+                'lines' => [
+                    'show' => false,
+                ],
+                'labels' => [
+                    'show' => false
+                ],
+            ],
+//            'plotOptions' => [
+//                'dataLabels' => [
+//                    'enabled' => false
+//                ]
+//            ],
+        ];
     }
 
     /**

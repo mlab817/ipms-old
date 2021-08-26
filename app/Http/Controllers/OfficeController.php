@@ -18,7 +18,7 @@ class OfficeController extends Controller
     {
         $office = auth()->user()->office;
 
-        return view('offices.show', compact('office'))
+        return view('offices.overview', compact('office'))
             ->with('projects', $office->projects);
     }
 
@@ -51,7 +51,7 @@ class OfficeController extends Controller
      */
     public function show(Office $office)
     {
-        return view('offices.show', compact('office'))
+        return view('offices.overview', compact('office'))
             ->with('projects', $office->projects);
     }
 
@@ -105,5 +105,21 @@ class OfficeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function projects(Request $request, Office $office)
+    {
+        $projects = $office->projects;
+
+        return view('offices.projects', compact('projects'))
+            ->with('office', $office);
+    }
+
+    public function users(Request $request, Office $office)
+    {
+        $users = $office->users;
+
+        return view('offices.users', compact('users'))
+            ->with('office', $office);
     }
 }

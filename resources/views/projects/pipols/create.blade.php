@@ -4,7 +4,7 @@
     <div class="container-md clearfix new-discussion-timeline px-3 px-md-4 px-lg-5">
         <div>
             <div class="Box">
-                <div class="Box-header color-bg-canvas">
+                <div class="Box-header">
                     <h3 class="Box-title">
                         PIPOL Entry
                     </h3>

@@ -36,3 +36,24 @@ if (! function_exists('str_limit')) {
         return \Illuminate\Support\Str::limit($value, $length);
     }
 }
+
+/**
+ * function first_sentence()
+ *
+ * @return string first sentence of the string
+ */
+if (! function_exists('first_sentence')) {
+    function first_sentence($content = ''): string
+    {
+        $content = html_entity_decode(strip_tags($content));
+
+        $pos = strpos($content, '.');
+
+        if($pos === false) {
+            return $content;
+        }
+        else {
+            return substr($content, 0, $pos+1);
+        }
+    }
+}
