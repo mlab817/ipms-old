@@ -1,3 +1,7 @@
+@php
+    $user = auth()->user();
+@endphp
+
 <div class="position-relative">
     <header class="Header flex-wrap flex-md-nowrap">
         <div class="Header-item">
@@ -55,7 +59,7 @@
 
             <details class="details-overlay details-reset">
                 <summary class="Header-link name" aria-label="View profile and more" data-ga-click="Header, show menu, icon:avatar" aria-haspopup="menu" role="button">
-                    <img class="avatar avatar-user" src="{{ auth()->user()->avatar }}" width="20" height="20" alt="@mlab817">
+                    <img class="avatar avatar-user" src="{{ $user->user_avatar() }}" width="20" height="20" alt="@mlab817">
                     <span class="dropdown-caret"></span>
                 </summary>
                 <details-menu class="dropdown-menu dropdown-menu-sw" role="menu">

@@ -82,8 +82,8 @@
                         <!-- /.col -->
                     </form>
 
-                    <div class="text-center">
-                        <div class="border-bottom mt-3"></div>
+                    <div class="text-center border-bottom mt-3" style="line-height: 0.1em; margin: 10px 20px">
+                        <span class="f6 color-text-secondary color-bg-tertiary" style="padding: 0 10px;">OR</span>
                     </div>
 
                     <a href="{{ route('auth.google') }}" role="button" type="submit" class="btn btn-danger btn-block mt-3" tabindex="3">Sign In with Google</a>

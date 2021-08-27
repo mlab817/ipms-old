@@ -179,7 +179,7 @@ return [
         // Socialite provider for social login
         \Laravel\Socialite\SocialiteServiceProvider::class,
 
-        \Laravel\Passport\PassportServiceProvider::class,
+//        \Laravel\Passport\PassportServiceProvider::class,
 
         \Rollbar\Laravel\RollbarServiceProvider::class,
 
