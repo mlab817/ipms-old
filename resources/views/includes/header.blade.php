@@ -77,7 +77,7 @@
                     <a role="menuitem" class="dropdown-item" href="/mlab817/starred" data-ga-click="Header, go to starred gists, text:starred gists">Starred gists</a>
                     <a role="menuitem" class="dropdown-item" href="https://docs.github.com" data-ga-click="Header, go to help, text:help">Help</a>
                     <div role="none" class="dropdown-divider"></div>
-                    <a role="menuitem" class="dropdown-item" href="https://github.com/mlab817">Your profile</a>
+                    <a role="menuitem" class="dropdown-item" href="{{ route('users.show', auth()->user()) }}">Your profile</a>
                     <div role="none" class="dropdown-divider"></div>
                     <form class="logout-form" action="{{ route('logout') }}" method="post">
                         @csrf

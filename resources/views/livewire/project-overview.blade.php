@@ -176,8 +176,8 @@
                                         </svg>
                                     @endif
                                     <span class="text-normal no-wrap mr-1 ml-1" data-target="tracked-issues-progress.label">
-                                            {{ $project->project_checklists->sum('checked') }} of {{ $project->project_checklists->count() }} checks
-                                        </span>
+                                        {{ $project->project_checklists->sum('checked') }} of {{ $project->project_checklists->count() }} checks
+                                    </span>
                                 </div>
                             </h4>
 
@@ -185,6 +185,11 @@
                                 <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16" class="octicon octicon-clock">
                                     <path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.5 4.75a.75.75 0 00-1.5 0v3.5a.75.75 0 00.471.696l2.5 1a.75.75 0 00.557-1.392L8.5 7.742V4.75z"></path>
                                 </svg> Updated on {{ $project->updated_at->format('M d, Y') }}
+                            </div>
+
+                            <div class="f6 pr-sm-5 mb-2 mb-md-0 color-text-tertiary">
+                                Created by
+                                <a href="{{ route('users.show', $project->creator) }}" class="btn-link" role="button">{{ $project->creator->name ?? '_' }}</a>
                             </div>
 
 {{--                            <div class="mt-1 pr-5 mb-2 mb-md-0">--}}

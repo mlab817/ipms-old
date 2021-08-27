@@ -82,10 +82,32 @@ class UserController extends Controller
         return back()->with('message','Successfully updated username');
     }
 
-    public function projects(User $user)
+    public function projects(Request $request, User $user)
     {
         $user->load('projects');
 
-        return view('users.show', compact('user'));
+        $q = $request->query('q')
+            ? $request->query('q')
+            : null;
+
+        $projects = $user->projects;
+
+        if ($q) {
+            $projects = $user->projects()->where('title','like','%' . $q . '%')->get();
+        }
+
+        return view('users.projects', compact('user'))
+            ->with('projects', $projects);
+    }
+
+    public function follow(User $user)
+    {
+        $auth = auth()->user();
+
+        $auth->isFollowing($user->id)
+            ? $auth->unfollow($user->id)
+            : $auth->follow($user);
+
+        return back();
     }
 }

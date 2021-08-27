@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
+use Overtrue\LaravelFollow\Followable;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Permission\Traits\HasRoles;
@@ -27,6 +28,7 @@ class User extends Authenticatable
     use SoftDeletes;
     use Auditable;
     use CausesActivity;
+    use Followable;
 
     public function identifiableName()
     {

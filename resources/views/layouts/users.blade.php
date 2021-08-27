@@ -25,6 +25,21 @@
 <body>
 @include('includes.header')
 
+@if(session()->has('error'))
+    <div x-data="{ show: true }">
+        <div class="flash flash-full flash-error" x-show="show">
+            <div class=" px-2">
+                <button @click="show = false" class="flash-close" type="button" aria-label="Dismiss this message">
+                    <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16" class="octicon octicon-x">
+                        <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+                    </svg>
+                </button>
+                {{ session('error') }}
+            </div>
+        </div>
+    </div>
+@endif
+
 <header class="border-bottom-0 pt-0 mb-4 color-bg-secondary">
 
     <div class="container-lg pt-4 pt-lg-0 p-responsive clearfix">
@@ -33,6 +48,18 @@
             <div class="mr-3 mb-md-0 mr-md-4">
                 <img itemprop="image" class="avatar flex-shrink-0 mb-1" src="{{ $user->user_avatar() }}"
                      width="100" height="100" alt="{{ $user->username }}">
+                @if($user->id != auth()->id())
+                <form action="{{ route('users.follow', $user) }}" method="POST">
+                    @csrf
+                    <button class="btn btn-block mb-1" type="submit" role="button">
+                        @if(auth()->user()->isFollowing($user->id))
+                            Unfollow
+                        @else
+                            Follow
+                        @endif
+                    </button>
+                </form>
+                @else
                 <details class="details-reset details-overlay details-overlay-dark">
                     <summary class="btn btn-block" aria-haspopup="dialog" role="button">
                         Upload
@@ -66,6 +93,7 @@
                         </form>
                     </details-dialog>
                 </details>
+                @endif
             </div>
 
             <div class="flex-1">
@@ -155,7 +183,7 @@
                     </li>
 
                     <li class="d-flex">
-                        <a class="UnderlineNav-item @if($route == 'users.projects.index') selected @endif" href="{{ route('users.projects.index', $user) }}">
+                        <a class="UnderlineNav-item @if($route == 'users.projects') selected @endif" href="{{ route('users.projects', $user) }}">
                             <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16" class="octicon octicon-project UnderlineNav-octicon hide-sm">
                                 <path fill-rule="evenodd" d="M1.75 0A1.75 1.75 0 000 1.75v12.5C0 15.216.784 16 1.75 16h12.5A1.75 1.75 0 0016 14.25V1.75A1.75 1.75 0 0014.25 0H1.75zM1.5 1.75a.25.25 0 01.25-.25h12.5a.25.25 0 01.25.25v12.5a.25.25 0 01-.25.25H1.75a.25.25 0 01-.25-.25V1.75zM11.75 3a.75.75 0 00-.75.75v7.5a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75zm-8.25.75a.75.75 0 011.5 0v5.5a.75.75 0 01-1.5 0v-5.5zM8 3a.75.75 0 00-.75.75v3.5a.75.75 0 001.5 0v-3.5A.75.75 0 008 3z"></path>
                             </svg>
@@ -177,6 +205,7 @@
     </div>
 </main>
 
+<script src="{{ mix('js/app.js') }}"></script>
 @stack('scripts')
 <script defer src="https://unpkg.com/alpinejs@3.1.1/dist/cdn.min.js"></script>
 </body>
