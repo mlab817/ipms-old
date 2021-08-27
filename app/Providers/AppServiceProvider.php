@@ -61,21 +61,21 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo \Illuminate\Mail\Markdown::parse($expression); ?>";
         });
 
-        if(Schema::hasTable('settings')) {
-            // TODO: check if this is the best settings
-            cache()->remember('settings', 24*60*60, function () {
-                return Setting::all(['key','value'])
-                    ->keyBy('key')
-                    ->transform(function ($setting) {
-                        return $setting->value;
-                    })
-                    ->toArray();
-            });
-
-            config([
-                'global' => cache('settings'),
-            ]);
-        }
+//        if(Schema::hasTable('settings')) {
+//            // TODO: check if this is the best settings
+//            cache()->remember('settings', 24*60*60, function () {
+//                return Setting::all(['key','value'])
+//                    ->keyBy('key')
+//                    ->transform(function ($setting) {
+//                        return $setting->value;
+//                    })
+//                    ->toArray();
+//            });
+//
+//            config([
+//                'global' => cache('settings'),
+//            ]);
+//        }
 
         // log user ip
         Activity::saving(function (Activity $activity) {
