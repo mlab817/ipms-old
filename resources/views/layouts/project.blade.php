@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', config('app.name', 'Laravel'))</title>
 
-    <link rel="shortcut icon" type="image/ico" href="{{ asset('images/icons/favicon.ico') }}"/>
+    @favicon
 
     <!-- CSS -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet"/>

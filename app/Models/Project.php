@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Venturecraft\Revisionable\RevisionableTrait;
@@ -682,5 +683,16 @@ class Project extends Model
     public function isOriginal(): bool
     {
         return $this->id == $this->project_id;
+    }
+
+    public function scopeCurrent($query)
+    {
+        return $query
+            ->whereIn('id', function ($query) {
+                $query
+                    ->from('projects')
+                    ->select(DB::raw('MAX(id) as id'))
+                    ->groupBy('project_id');
+            });
     }
 }

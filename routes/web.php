@@ -1,5 +1,14 @@
 <?php
 
+use App\Http\Controllers\CheckUserLoginController;
+use App\Http\Controllers\IssueCommentController;
+use App\Http\Controllers\ProjectAttachmentController;
+use App\Http\Controllers\ProjectCloneController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectImportController;
+use App\Http\Controllers\ProjectIssueController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\TripController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,55 +53,55 @@ Route::middleware(['auth','user.activated'])->group(function () {
             Route::get('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwner'])->name('projects.changeOwner.get');
         });
 
-        Route::get('/settings',\App\Http\Controllers\SettingsController::class)->name('settings');
+        Route::get('/settings', SettingsController::class)->name('settings');
 
-        Route::get('/attachments/{attachment}/download', [\App\Http\Controllers\ProjectAttachmentController::class,'download'])->name('attachments.download');
-        Route::delete('/attachments/{attachment}', [\App\Http\Controllers\ProjectAttachmentController::class,'destroy'])->name('attachments.destroy');
+        Route::get('/attachments/{attachment}/download', [ProjectAttachmentController::class,'download'])->name('attachments.download');
+        Route::delete('/attachments/{attachment}', [ProjectAttachmentController::class,'destroy'])->name('attachments.destroy');
 
-        Route::get('/auth/check', \App\Http\Controllers\CheckUserLoginController::class)->name('auth.check');
+        Route::get('/auth/check', CheckUserLoginController::class)->name('auth.check');
 
-        Route::resource('issues.issue_comments', \App\Http\Controllers\IssueCommentController::class)->shallow();
-        Route::resource('projects.issues', \App\Http\Controllers\ProjectIssueController::class)->except('edit');
+        Route::resource('issues.issue_comments', IssueCommentController::class)->shallow();
+        Route::resource('projects.issues', ProjectIssueController::class)->except('edit');
 
         // other index routes
-        Route::get('/projects/assigned', [\App\Http\Controllers\ProjectController::class,'assigned'])->name('projects.assigned');
-        Route::get('/projects/office', [\App\Http\Controllers\ProjectController::class,'office'])->name('projects.office');
-        Route::get('/projects/own', [\App\Http\Controllers\ProjectController::class,'own'])->name('projects.own');
+        Route::get('/projects/assigned', [ProjectController::class,'assigned'])->name('projects.assigned');
+        Route::get('/projects/office', [ProjectController::class,'office'])->name('projects.office');
+        Route::get('/projects/own', [ProjectController::class,'own'])->name('projects.own');
 
-        Route::put('/projects/{project}/drop', [\App\Http\Controllers\ProjectController::class,'drop'])->name('projects.drop');
+        Route::put('/projects/{project}/drop', [ProjectController::class,'drop'])->name('projects.drop');
 
-        Route::get('/projects/{project}/settings', [\App\Http\Controllers\ProjectController::class,'settings'])->name('projects.settings');
-        Route::get('/projects/{project}/files', [\App\Http\Controllers\ProjectController::class,'files'])->name('projects.files');
-        Route::get('/projects/{project}/history', [\App\Http\Controllers\ProjectController::class,'history'])->name('projects.history');
+        Route::get('/projects/{project}/settings', [ProjectController::class,'settings'])->name('projects.settings');
+        Route::get('/projects/{project}/files', [ProjectController::class,'files'])->name('projects.files');
+        Route::get('/projects/{project}/history', [ProjectController::class,'history'])->name('projects.history');
 
         // TRIP
-        Route::get('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'show'])->name('trips.show');
-        Route::put('/projects/{project}/trip', [\App\Http\Controllers\TripController::class,'update'])->name('trips.update');
+        Route::get('/projects/{project}/trip', [TripController::class,'show'])->name('trips.show');
+        Route::put('/projects/{project}/trip', [TripController::class,'update'])->name('trips.update');
 
-        Route::post('/projects/{project}/clone', \App\Http\Controllers\ProjectCloneController::class)->name('projects.clone');
+        Route::post('/projects/{project}/clone', ProjectCloneController::class)->name('projects.clone');
 
-        Route::post('/projects/{project}/pin',\App\Http\Controllers\ProjectPinController::class)->name('projects.pin');
+        Route::post('/projects/{project}/togglePin',[ProjectController::class, 'togglePin'])->name('projects.togglePin');
         // Upload
-        Route::post('/projects/{project}/upload', [\App\Http\Controllers\ProjectController::class,'upload'])->name('projects.upload');
+        Route::post('/projects/{project}/upload', [ProjectController::class,'upload'])->name('projects.upload');
 
-        Route::post('/projects/{uuid}/restore', [\App\Http\Controllers\ProjectController::class,'restore'])->name('projects.restore');
+        Route::post('/projects/{uuid}/restore', [ProjectController::class,'restore'])->name('projects.restore');
 
-        Route::post('/projects/{project}/endorse', [\App\Http\Controllers\ProjectController::class,'endorse'])->name('reviews.endorse');
+        Route::post('/projects/{project}/endorse', [ProjectController::class,'endorse'])->name('reviews.endorse');
         // Review
-        Route::post('/projects/{project}/review', [\App\Http\Controllers\ProjectController::class,'storeReview'])->name('reviews.store');
-        Route::get('/projects/{project}/review/create', [\App\Http\Controllers\ProjectController::class,'review'])->name('reviews.create');
+        Route::post('/projects/{project}/review', [ProjectController::class,'storeReview'])->name('reviews.store');
+        Route::get('/projects/{project}/review/create', [ProjectController::class,'review'])->name('reviews.create');
 
         Route::resource('projects.reviews', \App\Http\Controllers\ProjectReviewController::class);
 
-        Route::get('/projects/clone', [\App\Http\Controllers\ProjectController::class,'new_clone'])->name('projects.new_clone');
-        Route::get('/projects/deleted', [\App\Http\Controllers\ProjectController::class,'deleted'])->name('projects.deleted');
-        Route::get('/projects/import', [\App\Http\Controllers\ProjectImportController::class,'index'])->name('projects.import.index');
-        Route::post('projects/import', [\App\Http\Controllers\ProjectImportController::class,'import'])->name('projects.import.import');
+        Route::get('/projects/clone', [ProjectController::class,'new_clone'])->name('projects.new_clone');
+        Route::get('/projects/deleted', [ProjectController::class,'deleted'])->name('projects.deleted');
+        Route::get('/projects/import', [ProjectImportController::class,'index'])->name('projects.import.index');
+        Route::post('projects/import', [ProjectImportController::class,'import'])->name('projects.import.import');
 
         Route::get('/projects/{project}/generate_pdf', \App\Http\Controllers\ProjectGeneratePdfController::class)->name('projects.generatePdf');
-        Route::get('/projects/{project}/exportJson', [\App\Http\Controllers\ProjectController::class,'exportJson'])->name('projects.exportJson');
-        Route::post('projects/checkAvailability', [\App\Http\Controllers\ProjectController::class,'checkAvailability'])->name('projects.checkAvailability');
-        Route::resource('projects', \App\Http\Controllers\ProjectController::class);
+        Route::get('/projects/{project}/exportJson', [ProjectController::class,'exportJson'])->name('projects.exportJson');
+        Route::post('projects/checkAvailability', [ProjectController::class,'checkAvailability'])->name('projects.checkAvailability');
+        Route::resource('projects', ProjectController::class);
         Route::resource('projects.pipols', \App\Http\Controllers\ProjectPipolController::class);
 
         Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');

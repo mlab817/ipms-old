@@ -1,6 +1,6 @@
 @auth
 <div class="Layout-sidebar">
-    <aside class="px-3 px-md-4 px-lg-5 overflow-auto" style="position: static;">
+    <aside class="px-3 px-md-4 px-lg-5 overflow-auto">
 
         <div class="border-bottom color-border-secondary py-3 mt-3 mb-4">
             <details id="details-3aa004" class="details-reset details-overlay d-inline-block">

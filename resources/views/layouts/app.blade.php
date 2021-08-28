@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', config('app.name', 'Laravel'))</title>
-    <link rel="shortcut icon" type="image/ico" href="/images/icons/favicon.ico"/>
+    @favicon
 
     <!-- CSS -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     @livewireStyles
     @yield('styles')
 </head>
@@ -16,18 +17,14 @@
 
 @include('includes.header')
 
-<div class="Layout Layout--gutter-none" style="min-height: 100vh;">
-    <div class="Layout-main color-bg-tertiary">
-        <div class="px-3 px-md-4 px-lg-5 py-3 mt-3 mb-4">
-            <div class="col-lg-8 col-md-10 col-sm-12">
-                @include('includes.navigation-tab')
-
-                @yield('content')
-            </div>
-        </div>
+<div class="Layout color-bg-tertiary">
+    <div class="Layout-main">
+        @yield('content')
     </div>
 
-    @include('includes.sidebar')
+    <div class="Layout-sidebar color-bg-canvas border-right" style="min-height: calc(100vh - 64px);">
+        @include('includes.sidebar')
+    </div>
 </div>
 
 <script src="{{ mix('js/app.js') }}"></script>

@@ -11,10 +11,10 @@
 
     <title>@yield('title', config('app.name', 'Laravel'))</title>
 
+    @favicon
+
     <!-- CSS -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
-
-    <link rel="shortcut icon" type="image/ico" href="{{ asset('images/icons/favicon.ico') }}"/>
 
     <link href="https://unpkg.com/@github/details-dialog-element/dist/index.css" rel="stylesheet" />
 

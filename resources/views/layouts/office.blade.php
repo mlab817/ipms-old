@@ -10,8 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/ico" href="{{ asset('images/icons/favicon.ico') }}"/>
+    @favicon
 
     <link href="https://unpkg.com/@github/details-dialog-element/dist/index.css" rel="stylesheet" />
 

@@ -1,126 +1,167 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex-shrink-0 col-12 col-md-9 mb-4 mb-md-0">
-        <div>
+    <div class="Layout Layout--sidebarPosition-end Layout--sidebar-narrow">
+        <div class="Layout-main pr-4">
+            @if(count($pinnedProjects))
+            <h2 class="mt-5 f4 text-normal pt-md-3">Pinned PAPs</h2>
 
-            <div class="position-relative">
+            <ol class="d-flex flex-wrap list-style-none gutter-condensed mb-4 mt-4">
+                @foreach($pinnedProjects as $project)
+                    <li class="col-lg-6 col-md-12">
+                        <div class="Box p-3 mt-2">
+                            <div>
+                                <div class="f5 lh-condensed text-bold color-text-primary">
+                                    <a class="Link--primary flex-auto no-underline text-bold" href="{{ route('projects.show', $project) }}">
+                                        {{ $project->title }}
+                                    </a>
+                                    <div class="float-right d-inline-block">
+                                        <form action="{{ route('projects.togglePin', $project) }}" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="ubEg7wzqrO1GSwMrJIuzuYtR3LKcWc1dzeglGMzQ/kbURBOOu5hHkl6mw6l040253vWFxiNd4nSXBVrmyybvcg==">
+                                            @csrf
+                                            <button name="button" type="submit" class="btn btn-sm ml-2 mb-2" aria-label="Toggle pin" title="Toggle pin">
+                                                @if(auth()->user()->pinned_projects->contains($project))
+                                                    <svg class="octicon octicon-bookmark-slash mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.19 1.143a.75.75 0 10-.88 1.214L3 4.305v9.945a.75.75 0 001.206.596L8 11.944l3.794 2.902A.75.75 0 0013 14.25v-2.703l1.81 1.31a.75.75 0 10.88-1.214l-2.994-2.168a1.09 1.09 0 00-.014-.01L4.196 3.32a.712.712 0 00-.014-.01L1.19 1.143zM4.5 5.39v7.341l3.044-2.328a.75.75 0 01.912 0l3.044 2.328V10.46l-7-5.07zM5.865 1a.75.75 0 000 1.5h5.385a.25.25 0 01.25.25v3.624a.75.75 0 001.5 0V2.75A1.75 1.75 0 0011.25 1H5.865z"></path></svg>
+                                                    Unpin
+                                                @else
+                                                    <svg class="octicon octicon-bookmark mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.75 2.5a.25.25 0 00-.25.25v9.91l3.023-2.489a.75.75 0 01.954 0l3.023 2.49V2.75a.25.25 0 00-.25-.25h-6.5zM3 2.75C3 1.784 3.784 1 4.75 1h6.5c.966 0 1.75.784 1.75 1.75v11.5a.75.75 0 01-1.227.579L8 11.722l-3.773 3.107A.75.75 0 013 14.25V2.75z"></path></svg>
+                                                    Pin
+                                                @endif
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
 
-                <div class="mt-4">
-                    <div class="js-pinned-items-reorder-container">
-                        <h2 class="f4 mb-2 text-normal">
-                            Pinned PAPs
-                        </h2>
+                                <div class="color-text-secondary mt-1">
+                                    <p>{{ first_sentence($project->description->description ?? '_No description_') }}</p>
+                                </div>
 
-                        @if(count($pinnedProjects))
-                            <!-- Projects boxes -->
-                            <ol class="d-flex flex-wrap list-style-none gutter-condensed mb-4">
-                                @foreach($pinnedProjects as $project)
-                                <li class="mb-3 d-flex flex-content-stretch col-12 col-md-6 col-lg-6">
-                                    <div class="Box pinned-item-list-item d-flex p-3 width-full public source">
-                                        <div class="pinned-item-list-item-content">
-                                            <div class="d-flex width-full flex-items-center position-relative">
-                                                <a href="{{ route('projects.show', $project) }}" class="text-bold flex-auto min-width-0">
-                                                    <span class="repo" title="ipms-docs">{{ $project->title }}</span>
-                                                </a>
-                                                <span class="Label Label--secondary v-align-middle">
-                                                    {{ $project->submission_status->name ?? '' }}
-                                                </span>
-                                            </div>
+                                <p class="f6 color-text-secondary mt-2 mb-0">
+                                    <span class="mr-3 f6 color-text-secondary text-normal">
+                                        <span class="">
+                                            <span class="repo-language-color @if($project->pap_type_id == 1) color-bg-success @else color-bg-danger @endif mr-1"></span>
+                                            <span itemprop="pap-type">{{ $project->pap_type->name ?? '_' }}</span>
+                                        </span>
+                                    </span>
 
-                                            <p class="pinned-item-desc color-text-secondary text-small d-block mt-2 mb-3">
-                                                {!! strip_tags(Str::limit($project->description->description, 180)) !!}
-                                            </p>
+                                    <span class="d-inline-block mr-3">
+                                        <span class="mr-2 f6 color-text-secondary text-normal">
+                                            <svg role="img" class="octicon octicon-credit-card" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M10.75 9a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5h-1.5z"></path><path fill-rule="evenodd" d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm14.5 0V5h-13V3.75a.25.25 0 01.25-.25h12.5a.25.25 0 01.25.25zm0 2.75h-13v5.75c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V6.5z"></path></svg>
+                                            {{ 'PhP ' . shorten_value($project->total_project_cost) }}
+                                        </span>
+                                    </span>
 
-                                            <p class="mb-0 f6 color-text-secondary">
-                                                <span class="d-inline-block mr-3">
-                                                    <span class="repo-language-color" style="background-color: #f1e05a"></span>
-                                                    <span itemprop="programmingLanguage">
-                                                        {{ $project->pap_type->name ?? '' }}
-                                                    </span>
-                                                </span>
-                                                <span href="/mlab817/lighthouse-graphql-permission/stargazers" class="pinned-item-meta Link--muted ">
-                                                    PhP
-                                                    {{ number_format($project->total_project_cost, 2) }}
-                                                </span>
-                                            </p>
+                                    <span>Updated {{ $project->updated_at->format('Y M d') }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    @endforeach
+                </ol>
+            @endif
+
+            <h2 class="mt-5 f4 text-normal pt-md-3">Your PAPs</h2>
+
+            @if(count($ownedProjects))
+            <!-- Projects boxes -->
+                <ol class="d-flex flex-wrap list-style-none gutter-condensed mb-4 mt-4">
+                    @foreach($ownedProjects as $project)
+                        <li class="col-lg-6 col-md-12">
+                            <div class="Box p-3 mt-2">
+                                <div>
+                                    <div class="f5 lh-condensed text-bold color-text-primary">
+                                        <a class="Link--primary flex-auto no-underline text-bold" href="{{ route('projects.show', $project) }}">
+                                            {{ $project->title }}
+                                        </a>
+                                        <div class="float-right d-inline-block">
+                                            <form action="{{ route('projects.togglePin', $project) }}" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="ubEg7wzqrO1GSwMrJIuzuYtR3LKcWc1dzeglGMzQ/kbURBOOu5hHkl6mw6l040253vWFxiNd4nSXBVrmyybvcg==">
+                                                @csrf
+                                                <button name="button" type="submit" class="btn btn-sm ml-2 mb-2" aria-label="Toggle pin" title="Toggle pin">
+                                                    @if(auth()->user()->pinned_projects->contains($project))
+                                                        <svg class="octicon octicon-bookmark-slash mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.19 1.143a.75.75 0 10-.88 1.214L3 4.305v9.945a.75.75 0 001.206.596L8 11.944l3.794 2.902A.75.75 0 0013 14.25v-2.703l1.81 1.31a.75.75 0 10.88-1.214l-2.994-2.168a1.09 1.09 0 00-.014-.01L4.196 3.32a.712.712 0 00-.014-.01L1.19 1.143zM4.5 5.39v7.341l3.044-2.328a.75.75 0 01.912 0l3.044 2.328V10.46l-7-5.07zM5.865 1a.75.75 0 000 1.5h5.385a.25.25 0 01.25.25v3.624a.75.75 0 001.5 0V2.75A1.75 1.75 0 0011.25 1H5.865z"></path></svg>
+                                                        Unpin
+                                                    @else
+                                                        <svg class="octicon octicon-bookmark mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.75 2.5a.25.25 0 00-.25.25v9.91l3.023-2.489a.75.75 0 01.954 0l3.023 2.49V2.75a.25.25 0 00-.25-.25h-6.5zM3 2.75C3 1.784 3.784 1 4.75 1h6.5c.966 0 1.75.784 1.75 1.75v11.5a.75.75 0 01-1.227.579L8 11.722l-3.773 3.107A.75.75 0 013 14.25V2.75z"></path></svg>
+                                                        Pin
+                                                    @endif
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
-                                </li>
-                                @endforeach
-                            </ol>
-                        @else
-                            <div class="Box">
-                                <x-blankslate message="You have not pinned any program/projects. Pin projects for easier and faster access." />
+
+                                    <div class="color-text-secondary mt-1">
+                                        <p>{{ first_sentence($project->description->description ?? '_No description_') }}</p>
+                                    </div>
+
+                                    <p class="f6 color-text-secondary mt-2 mb-0">
+                                        <span class="mr-3 f6 color-text-secondary text-normal">
+                                            <span class="">
+                                                <span class="repo-language-color @if($project->pap_type_id == 1) color-bg-success @else color-bg-danger @endif mr-1"></span>
+                                                <span itemprop="pap-type">{{ $project->pap_type->name ?? '_' }}</span>
+                                            </span>
+                                        </span>
+
+                                        <span class="d-inline-block mr-3">
+                                            <span class="mr-2 f6 color-text-secondary text-normal">
+                                                <svg role="img" class="octicon octicon-credit-card" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12"><path d="M10.75 9a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5h-1.5z"></path><path fill-rule="evenodd" d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm14.5 0V5h-13V3.75a.25.25 0 01.25-.25h12.5a.25.25 0 01.25.25zm0 2.75h-13v5.75c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V6.5z"></path></svg>
+                                                {{ 'PhP ' . shorten_value($project->total_project_cost) }}
+                                            </span>
+                                        </span>
+
+                                        <span>
+                                            <svg role="img" class="octicon octicon-clock mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.5 4.75a.75.75 0 00-1.5 0v3.5a.75.75 0 00.471.696l2.5 1a.75.75 0 00.557-1.392L8.5 7.742V4.75z"></path></svg>
+                                            Updated {{ $project->updated_at->format('Y M d') }}
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
-                        @endif
-
-                        <!-- ./ Projects boxes -->
-                    </div>
-
+                        </li>
+                    @endforeach
+                </ol>
+            @else
+                <div class="Box">
+                    <x-blankslate message="You have not pinned any program/projects. Pin projects for easier and faster access." />
                 </div>
+            @endif
 
-                <div class="mt-4">
-                    <div class="js-pinned-items-reorder-container">
-                        <h2 class="f4 mb-2 text-normal">
-                            My PAPs
-                        </h2>
+            <div id="chart"></div>
 
-                    @if(count($ownedProjects))
-                        <!-- Projects boxes -->
-                            <ol class="d-flex flex-wrap list-style-none gutter-condensed mb-4">
-                                @foreach($ownedProjects as $project)
-                                    <li class="mb-3 d-flex flex-content-stretch col-12 col-md-6 col-lg-6">
-                                        <div class="Box pinned-item-list-item d-flex p-3 width-full public source">
-                                            <div class="pinned-item-list-item-content">
-                                                <div class="d-flex width-full flex-items-center position-relative">
-                                                    <a href="{{ route('projects.show', $project) }}" class="text-bold flex-auto min-width-0">
-                                                        <span class="repo" title="ipms-docs">{{ $project->title }}</span>
-                                                    </a>
-                                                    <span class="Label Label--secondary v-align-middle">
-                                                    {{ $project->submission_status->name ?? '' }}
-                                                </span>
-                                                </div>
+            <div id="chart2"></div>
+        </div>
 
-                                                <p class="pinned-item-desc color-text-secondary text-small d-block mt-2 mb-3">
-                                                    {!! strip_tags(Str::limit($project->description->description, 180)) !!}
-                                                </p>
+        <div class="Layout-sidebar">
+            <aside class="mt-5 hide-lg hide-md hide-sm px-4">
+                <h2 class="f5 text-bold mb-1">Explore</h2>
 
-                                                <p class="mb-0 f6 color-text-secondary">
-                                                <span class="d-inline-block mr-3">
-                                                    <span class="repo-language-color" style="background-color: #f1e05a"></span>
-                                                    <span itemprop="programmingLanguage">
-                                                        {{ $project->pap_type->name ?? '' }}
-                                                    </span>
-                                                </span>
-                                                    <span href="/mlab817/lighthouse-graphql-permission/stargazers" class="pinned-item-meta Link--muted ">
-                                                    PhP
-                                                    {{ number_format($project->total_project_cost, 2) }}
-                                                </span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ol>
-                        @else
-                            <div class="Box">
-                                <x-blankslate message="You have not pinned any program/projects. Pin projects for easier and faster access." />
-                            </div>
-                    @endif
+                @foreach ($randomProjects as $project)
+                    <div class="py-2 my-2 border-bottom color-border-secondary">
+                        <p class="f6 color-text-secondary mb-2">
+                            {{ $project->title }}
+                            <a class="f6 text-bold Link--primary d-flex no-underline wb-break-all d-inline-block" href="{{ route('projects.show', $project) }}">
+                                {{ '#' . $project->id }}
+                            </a>
+                        </p>
 
-                    <!-- ./ Projects boxes -->
+                        <span class="mr-2 f6 color-text-secondary text-normal">
+                            <span class="">
+                                <span class="repo-language-color @if($project->pap_type_id == 1) color-bg-success @else color-bg-danger @endif mr-1"></span>
+                                <span itemprop="pap-type">{{ $project->pap_type->name ?? '_' }}</span>
+                            </span>
+                        </span>
+
+                        <span class="mr-2 f6 color-text-secondary text-normal">
+                            <svg role="img" class="octicon octicon-credit-card" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M10.75 9a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5h-1.5z"></path><path fill-rule="evenodd" d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5zm14.5 0V5h-13V3.75a.25.25 0 01.25-.25h12.5a.25.25 0 01.25.25zm0 2.75h-13v5.75c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V6.5z"></path></svg>
+                            {{ shorten_value($project->total_project_cost) }}
+                        </span>
+
+                        <span class="f6 color-text-secondary text-normal">
+                            <svg role="img" class="octicon octicon-clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.5 4.75a.75.75 0 00-1.5 0v3.5a.75.75 0 00.471.696l2.5 1a.75.75 0 00.557-1.392L8.5 7.742V4.75z"></path></svg>
+                            {{ $project->updated_at->diffForHumans(null, null, true) }}
+                        </span>
                     </div>
-
-                </div>
-
-            </div>
+                @endforeach
+            </aside>
         </div>
     </div>
-
-    <div id="chart"></div>
-
-    <div id="chart2"></div>
 @endsection
 
 @push('scripts')

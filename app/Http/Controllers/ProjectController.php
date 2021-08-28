@@ -630,4 +630,21 @@ class ProjectController extends Controller
     {
         return view('projects.clone');
     }
+
+    /**
+     * Toggle a project pin
+     *
+     * @param Project $project
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function togglePin(Project $project)
+    {
+        if (auth()->user()->pinned_projects->contains($project)) {
+            auth()->user()->pinned_projects()->detach($project);
+        } else {
+            auth()->user()->pinned_projects()->attach($project);
+        }
+
+        return back()->with('success', 'Successfully added project to pinned list');
+    }
 }

@@ -44,9 +44,16 @@ class DashboardController extends Controller
 
         $this->investmentByUpdatingPeriod();
 
+        $ownedProjects = Project::where('created_by', auth()->id())
+            ->current()
+            ->get();
+
+        $pinnedProjects = auth()->user()->pinned_projects()->current()->get();
+
         return view('dashboard', [
-            'pinnedProjects' => auth()->user()->pinned_projects,
-            'ownedProjects' => auth()->user()->projects,
+            'pinnedProjects' => $pinnedProjects,
+            'randomProjects' => Project::with('pap_type')->get()->random(5),
+            'ownedProjects' => $ownedProjects,
             'projectCount'  => Project::count(),
             'reviewCount'   => Project::has('review')->count(),
 //            'encodedCount'  => Project::has('pipol')->count(),
@@ -81,82 +88,6 @@ class DashboardController extends Controller
                 $q->where('name','reviewer.main')
                     ->orWhere('name','reviewer');
             })->withCount('projects','reviews')->get(),
-        ]);
-    }
-
-    public function focalDashboard()
-    {
-        $projectSummary = DB::table('projects AS a')
-            ->join('fs_investments AS b','a.id','=','b.project_id')
-            ->select(DB::raw('
-                SUM(y2016) AS `2016`,
-                SUM(y2017) AS `2017`,
-                SUM(y2018) AS `2018`,
-                SUM(y2019) AS `2019`,
-                SUM(y2020) AS `2020`,
-                SUM(y2021) AS `2021`,
-                SUM(y2022) AS `2022`,
-                SUM(y2023) AS `2023`
-            '))
-            ->groupBy('a.office_id')
-            ->where('a.office_id', auth()->user()->office_id)
-            ->whereNull('a.deleted_at')
-            ->get()
-            ->mapWithKeys(function ($item) {
-                return $item;
-            });
-
-        // get daily data of added projects
-        $chartData = DB::table('projects')
-            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
-            ->orderBy('date','ASC')
-            ->groupBy('date')
-            ->get()
-            ->mapWithKeys(function ($item) {
-                return [$item->date  => $item->count];
-            });
-
-        // create chart
-        $chart = $this->investmentByUpdatingPeriod();
-
-        return view('dashboard.focal', [
-            'projectCount'         => Project::own()->count(),
-            'officeProjectsCount'   => Project::ownOffice()->count(),
-            'endorsedOfficeProjectsCount' => Project::ownOffice()->where('submission_status_id', 3)->count(),
-            'endorsedOwnProjectsCount' => Project::own()->where('submission_status_id', 3)->count(),
-            'reviewCount'   => Project::has('review')->count(),
-//            'encodedCount'  => Project::has('pipol')->count(),
-            'pipCount'      => Project::whereHas('review', function ($q) {
-                $q->where('pip', 1);
-            })->count(),
-            'encodedCount'  => Project::whereHas('review', function ($q) {
-                $q->where('pip', 1);
-            })->has('pipol')->count(),
-            'tripCount'      => Project::whereHas('review', function ($q) {
-                $q->where('trip', 1);
-            })->count(),
-//            'encodedCount'  => Review::where('pipol_encoded', true)->count(),
-//            'validatedCount'=> Review::where('pipol_validated', true)->count(),
-//            'finalizedCount'=> Review::where('pipol_finalized', true)->count(),
-            'endorsedCount' => Project::whereHas('review', function ($q) {
-                $q->where('pip', 1);
-            })->whereHas('pipol', function ($q) {
-                $q->where('submission_status','Endorsed');
-            })->count(),
-            'draftCount' => Project::whereHas('review', function ($q) {
-                $q->where('pip', 1);
-            })->whereHas('pipol', function ($q) {
-                $q->where('submission_status','Draft');
-            })->count(),
-            'userCount'     => User::count(),
-            'chart'         => $chart,
-            'reviews'       => Review::with('user')->has('project')->latest()->take(5)->get(),
-            'latestProjects'=> Project::ownOffice()->with('pap_type','project_status','creator.office','office')->latest()->take(5)->get(),
-            'users'         => User::whereHas('roles', function ($q) {
-                $q->where('name','reviewer.main')
-                    ->orWhere('name','reviewer');
-            })->withCount('projects','reviews')->get(),
-            'by_year'   => $projectSummary
         ]);
     }
 

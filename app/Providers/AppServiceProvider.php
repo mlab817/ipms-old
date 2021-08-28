@@ -81,5 +81,15 @@ class AppServiceProvider extends ServiceProvider
         Activity::saving(function (Activity $activity) {
             $activity->properties = $activity->properties->put('ip', request()->ip());
         });
+
+        /**
+         * Return the <link> for shortcut icon
+         */
+        Blade::directive('favicon', function () {
+            $icon = asset('images/icons/favicon.ico');
+            $faviconLink = '<link rel="shortcut icon" type="image/ico" href="' . $icon . '" />';
+
+            return "<?php echo '{$faviconLink}'; ?>";
+        });
     }
 }

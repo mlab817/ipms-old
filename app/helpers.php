@@ -57,3 +57,23 @@ if (! function_exists('first_sentence')) {
         }
     }
 }
+
+if (! function_exists('shorten_value')) {
+    function shorten_value($value = 0): string
+    {
+        if ($value >= 10**9) {
+            return (string) number_format($value / 10**9, 1) . 'B';
+        }
+
+        if ($value >= 10**6) {
+            return (string) number_format($value / 10**6, 1) . 'M';
+        }
+
+        if ($value >= 10**3) {
+            return (string) number_format($value / 10**3, 1) . 'K';
+        }
+
+        return $value;
+    }
+}
+

@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', config('app.name', 'Laravel'))</title>
 
+    @favicon
+
     <!-- CSS -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
 
