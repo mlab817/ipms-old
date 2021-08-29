@@ -1,5 +1,4 @@
 @auth
-<div class="Layout-sidebar">
     <aside class="px-3 px-md-4 px-lg-5 overflow-auto">
 
         <div class="border-bottom color-border-secondary py-3 mt-3 mb-4">
@@ -20,7 +19,7 @@
                                 </svg>
                             </button>
                         </header>
-                        <div id="filter-menu-91da43" class="d-flex flex-column flex-1 overflow-hidden">
+                        <div class="d-flex flex-column flex-1 overflow-hidden">
                             <div class="SelectMenu-list">
                                 <form action="{{ route('roles.switch') }}" method="POST">
                                     @csrf
@@ -127,5 +126,4 @@
         </a>
 
     </aside>
-</div>
 @endauth

@@ -61,6 +61,10 @@ if (! function_exists('first_sentence')) {
 if (! function_exists('shorten_value')) {
     function shorten_value($value = 0): string
     {
+        if (! $value) {
+            return (string) 0.0;
+        }
+
         if ($value >= 10**9) {
             return (string) number_format($value / 10**9, 1) . 'B';
         }
@@ -73,7 +77,7 @@ if (! function_exists('shorten_value')) {
             return (string) number_format($value / 10**3, 1) . 'K';
         }
 
-        return $value;
+        return (string) number_format($value, 1);
     }
 }
 

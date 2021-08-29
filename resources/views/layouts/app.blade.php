@@ -17,15 +17,24 @@
 
 @include('includes.header')
 
-<div class="Layout color-bg-tertiary">
+<div class="Layout">
     <div class="Layout-main">
         @yield('content')
     </div>
-
-    <div class="Layout-sidebar color-bg-canvas border-right" style="min-height: calc(100vh - 64px);">
+    <div class="Layout-sidebar border" style="min-height: calc(100vh - 64px);">
         @include('includes.sidebar')
     </div>
 </div>
+
+{{--<div class="Layout color-bg-tertiary">--}}
+{{--    <div class="Layout-main">--}}
+{{--        @yield('content')--}}
+{{--    </div>--}}
+
+{{--    <div class="Layout-sidebar color-bg-canvas border-right">--}}
+{{--        @include('includes.sidebar')--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 <script src="{{ mix('js/app.js') }}"></script>
 @livewireScripts

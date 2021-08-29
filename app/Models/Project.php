@@ -685,6 +685,11 @@ class Project extends Model
         return $this->id == $this->project_id;
     }
 
+    public function isCurrent(): bool
+    {
+        return config('ipms.current_updating_period') == $this->updating_period_id;
+    }
+
     public function scopeCurrent($query)
     {
         return $query

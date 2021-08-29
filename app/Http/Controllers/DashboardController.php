@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Review;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Activitylog\Models\Activity;
 
 class DashboardController extends Controller
 {
@@ -44,13 +46,27 @@ class DashboardController extends Controller
 
         $this->investmentByUpdatingPeriod();
 
-        $ownedProjects = Project::where('created_by', auth()->id())
+        $ownedProjects = Project::with('issues')
+            ->where('created_by', auth()->id())
             ->current()
             ->get();
 
         $pinnedProjects = auth()->user()->pinned_projects()->current()->get();
 
+        $activities = Activity::select(DB::raw('created_at, COUNT(id) AS count'))
+            ->groupBy('created_at')
+            ->get();
+
+        $timestampActivities = [];
+
+        foreach ($activities as $activity) {
+            array_push($timestampActivities, [
+                Carbon::parse($activity->created_at)->timestamp => $activity->count
+            ]);
+        }
+
         return view('dashboard', [
+            'activities' => $timestampActivities,
             'pinnedProjects' => $pinnedProjects,
             'randomProjects' => Project::with('pap_type')->get()->random(5),
             'ownedProjects' => $ownedProjects,

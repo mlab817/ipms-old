@@ -28,37 +28,47 @@
     @endif
 
     <div class="gutter-condensed"></div>
-
         <div>
-            <div class="d-none d-lg-block mt-6 mr-3 Popover top-0 right-0 color-shadow-medium col-3">
-
-            </div>
-
             <div class="gutter-condensed gutter-lg flex-column flex-md-row d-flex">
 
                 <div class="flex-shrink-0 col-12 mb-4 mb-md-0">
-                    @if(config('ipms.current_updating_period') == $project->updating_period_id)
-                    <div class="flash flash-success mb-3 d-flex flex-justify-between flex-column flex-md-row flex-md-items-center">
-                        <div class="flex-column mb-2 mb-md-0 mr-0 pr-md-4">
-                            <h5 class="mb-1">
-                                <svg class="octicon octicon-check-circle-fill mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M8 16A8 8 0 108 0a8 8 0 000 16zm3.78-9.72a.75.75 0 00-1.06-1.06L6.75 9.19 5.28 7.72a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l4.5-4.5z"></path></svg>
-                                This project is proposed to be included into {{ $project->updating_period->name ?? '' }}.
-                            </h5>
+                    <div class="flash @if($project->isCurrent()) flash-success @else flash-error @endif mb-3">
+                        @if($project->isCurrent())
+                            This project is proposed to be included into {{ $project->updating_period->name ?? '' }}
+                        @else
+                            This project was set to be included into {{ $project->updating_period->name ?? 'No updating period selected' }}.
+                            It cannot be edited. Clone this program/project instead to include in the current updating period.
+                            @if($currentVersion) The current version is <a href="{{ route('projects.show', $currentVersion) }}">#{{ $currentVersion->id }}</a>. @endif
+                        @endif
+
+                        <div class="flash-action">
+                            <details class="details-reset details-overlay details-overlay-dark">
+                                <summary role="button" class="btn btn-sm" aria-haspopup="dialog">Learn More</summary>
+                                <details-dialog class="Box Box--overlay d-flex flex-column anim-fade-in fast" role="dialog" aria-modal="true" tabindex="-1">
+                                    <div class="Box-header">
+                                        <button class="Box-btn-octicon btn-octicon float-right" type="button" aria-label="Close dialog" data-close-dialog>
+                                            <!-- <%= octicon "x" %> -->
+                                            <svg class="octicon octicon-x" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z"></path></svg>
+                                        </button>
+                                        <h3 class="Box-title">PAPs and Updating Period</h3>
+                                    </div>
+                                    <div class="Box-body">
+                                        <p>
+                                            In order to keep track of information every PIP/TRIP updating,
+                                            the system now requires that PAPs be cloned (duplicated) prior
+                                            to editing/updating. This would allow the system to keep track
+                                            of changes in PAP information across updating period which is
+                                            quite common in prior experiences.
+                                        </p>
+                                        <p>
+                                            Note also that PAPs for dropping need to be cloned for tracking
+                                            purposes.
+                                        </p>
+                                    </div>
+                                </details-dialog>
+                            </details>
                         </div>
                     </div>
-                        @else
-                        <div class="flash flash-error mb-3 d-flex flex-justify-between flex-column flex-md-row flex-md-items-center">
-                            <div class="flex-column mb-2 mb-md-0 mr-0 pr-md-4">
-                                <h5 class="mb-1">
-                                    <svg class="octicon octicon-alert" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="18" height="18"><path fill-rule="evenodd" d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path></svg>
-                                    This project was set to be included into {{ $project->updating_period->name ?? 'No updating period selected' }}.
-                                    It cannot be edited. Clone this program/project instead to include in the current updating period. <a href="#">Learn more</a>
-                                    @if($currentVersion) The current version is <a href="{{ route('projects.show', $currentVersion) }}">#{{ $currentVersion->id }}</a>. @endif
-                                </h5>
-                            </div>
-                        </div>
-                    @endif
 
                     <div class="mb-3 d-flex flex-items-start">
                         <div>

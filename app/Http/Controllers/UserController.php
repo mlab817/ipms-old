@@ -90,7 +90,7 @@ class UserController extends Controller
             ? $request->query('q')
             : null;
 
-        $projects = $user->projects;
+        $projects = $user->currentProjects;
 
         if ($q) {
             $projects = $user->projects()->where('title','like','%' . $q . '%')->get();

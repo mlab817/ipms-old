@@ -241,4 +241,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PendingTransfer::class,'to');
     }
+
+    public function currentProjects(): HasMany
+    {
+        return $this->projects()->current();
+    }
 }

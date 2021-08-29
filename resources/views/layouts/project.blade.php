@@ -15,6 +15,8 @@
     <!-- CSS -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet"/>
 
+    <link href="https://unpkg.com/@github/details-dialog-element/dist/index.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
     @livewireStyles
 
