@@ -12,7 +12,7 @@
 
     <div class="my-3" id="pap"></div>
 
-    <dl class="form-group mb-4 @error('title') errored @enderror">
+    <dl class="form-group d-inline-block mb-4 @error('title') errored @enderror">
         <dt class="form-group-header">
             <label for="title">PAP Title</label>
         </dt>
@@ -26,11 +26,11 @@
 
     <div class="my-3" id=""></div>
 
-    <dl class="form-group mb-4 @error('office_id') errored @enderror">
-        <dt class="input-label">
+    <dl class="form-group d-inline-block mb-4 @error('office_id') errored @enderror">
+        <dt class="form-group-header">
             <label for="office_id">Office</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="office_id" id="office_id">
                 <option value="">Select Office</option>
                 @foreach($offices as $option)
@@ -45,7 +45,7 @@
 
     <div class="my-3" id=""></div>
 
-    <dl class="form-group mb-4 @error('pap_type_id') errored @enderror">
+    <dl class="form-group d-inline-block mb-4 @error('pap_type_id') errored @enderror">
         <dt class="form-group-header">
             <label for="pap_type_id">Program or Project</label>
         </dt>
@@ -80,10 +80,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="rename-field">Does this PAP have INFRASTRUCTURE component/s?</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <div class="form-checkbox ">
                 <label>
                     <input class="form-checkbox-details-trigger" type="radio" id="has_infra_1" name="has_infra" value="1" @if(old('has_infra', $project->has_infra) == 1) checked @endif>
@@ -111,10 +111,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label>Basis for Implementation</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             @foreach($bases as $option)
                 <div class="form-checkbox">
                     <label for="basis_{{ $option->id }}">
@@ -135,30 +135,36 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group mb-4">
-        <dt class="input-label">
+    <dl class="form-group d-flex flex-column @error('description') errored @enderror">
+        <dt class="form-group-header">
             <label for="description">Description</label>
         </dt>
-        <dd class="form-group-body">
-            <textarea class="form-control input-contrast" id="description" name="description">{!! old('description', $project->description->description ?? '') !!}</textarea>
+        <dd class="form-group-body mb-4">
+            <textarea style="resize: none;" class="form-control input-contrast" id="description" name="description" aria-describedby="description-input-validation">{!! old('description', $project->description->description ?? '') !!}</textarea>
+            @error('description')
+                <p class="note error" id="description-input-validation">{{ $message }}</p>
+            @enderror
         </dd>
     </dl>
 
     <div class="my-3"></div>
 
-    <dl class="form-group mb-4">
-        <dt class="input-label">
-            <label for="">Expected Outputs</label>
+    <dl class="form-group d-flex flex-column @error('expected_outputs') errored @enderror">
+        <dt class="form-group-header">
+            <label for="expected_outputs">Expected Outputs</label>
         </dt>
-        <dd class="form-group-body">
-            <textarea class="form-control input-contrast" id="expected_outputs" name="expected_outputs">{!! old('expected_outputs', $project->expected_output->expected_outputs ?? '')  !!}</textarea>
+        <dd class="form-group-body mb-4">
+            <textarea style="resize: none;" class="form-control input-contrast" id="expected_outputs" name="expected_outputs" aria-describedby="expected-outputs-input-validation">{!! old('expected_outputs', $project->expected_output->expected_outputs ?? '')  !!}</textarea>
+            @error('expected_outputs')
+                <p class="note error">{{ $message }}</p>
+            @enderror
         </dd>
     </dl>
 
     <div class="my-3"></div>
 
-    <dl class="form-group mb-4">
-        <dt class="input-label">
+    <dl class="form-group d-inline-block mb-4 @error('total_project_cost') errored @enderror">
+        <dt class="form-group-header">
             <label for="">Total Project Cost</label>
         </dt>
 {{--        <dd class="form-group-body" x-data="{--}}
@@ -174,27 +180,30 @@
 {{--            </p>--}}
 {{--        </dd>--}}
         <dd class="form-group-body">
-            <input class="form-control input-contrast" type="number" name="total_project_cost" id="total_project_cost" value="{{ old('total_project_cost', $project->total_project_cost ?? 0) }}">
+            <input class="form-control input-contrast" type="number" name="total_project_cost" id="total_project_cost" aria-describedby="total-project-cost-input-validation" value="{{ old('total_project_cost', $project->total_project_cost ?? 0) }}">
+            @error('total_project_cost')
+            <p class="note error" id="total-project-cost-input-validation">
+                {{ $message }}
+            </p>
+            @enderror
         </dd>
     </dl>
 
     <div class="my-3"></div>
 
-    <div>
-        <dl class="form-group d-inline-block mb-4">
-            <dt class="input-label">
-                <label for="project_status_id">Project Status</label>
-            </dt>
-            <dd>
-                <select class="form-select" name="project_status_id" id="project_status_id">
-                    <option value="">Select Status</option>
-                    @foreach($project_statuses as $option)
-                        <option value="{{ $option->id }}" @if(old('project_status_id', $project->project_status_id) == $option->id) selected @endif>{{ $option->id .' - '. $option->name }}</option>
-                    @endforeach
-                </select>
-            </dd>
-        </dl>
-    </div>
+    <dl class="form-group d-inline-block mb-4">
+        <dt class="form-group-header">
+            <label for="project_status_id">Project Status</label>
+        </dt>
+        <dd class="form-group-body">
+            <select class="form-select" name="project_status_id" id="project_status_id">
+                <option value="">Select Status</option>
+                @foreach($project_statuses as $option)
+                    <option value="{{ $option->id }}" @if(old('project_status_id', $project->project_status_id) == $option->id) selected @endif>{{ $option->id .' - '. $option->name }}</option>
+                @endforeach
+            </select>
+        </dd>
+    </dl>
 
     <div class="my-3"></div>
 
@@ -204,10 +213,10 @@
 
     <div>
         <dl class="form-group d-inline-block mb-4">
-            <dt class="input-label">
+            <dt class="form-group-header">
                 <label for="research">Is it a Research and Development Program/Project?</label>
             </dt>
-            <dd>
+            <dd class="form-group-body">
                 <select class="form-select" name="research">
                     @foreach($booleanOptions as $key => $option)
                         <option value="{{ $key }}" @if(old('research', $project->research) == $key) selected @endif>{{ $key . ' - ' . $option}}</option>
@@ -221,11 +230,11 @@
 
     <div>
         <dl class="form-group d-inline-block mb-4">
-            <dt class="input-label">
+            <dt class="form-group-header">
                 <label for="ict">Is it an ICT
                     Program/Project?</label>
             </dt>
-            <dd>
+            <dd class="form-group-body">
                 <select class="form-select" name="ict" id="ict">
                     @foreach($booleanOptions as $key => $option)
                         <option value="{{ $key }}" @if(old('ict', $project->ict) == $key) selected @endif>{{ $key . ' - ' . $option}}</option>
@@ -239,11 +248,11 @@
 
     <div>
         <dl class="form-group d-inline-block mb-4">
-            <dt class="input-label">
+            <dt class="form-group-header">
                 <label for="research">Is it responsive to
                     COVID-19/New Normal Intervention?</label>
             </dt>
-            <dd>
+            <dd class="form-group-body">
                 <select class="form-select" name="research">
                     @foreach($booleanOptions as $key => $option)
                         <option value="{{ $key }}" @if(old('covid', $project->covid) == $key) selected @endif>{{ $key . ' - ' . $option}}</option>
@@ -256,10 +265,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label>COVID Interventions</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             @foreach($covidInterventions as $key => $option)
                 <div class="form-checkbox">
                     <label for="covid_int_{{ $option->id }}">
@@ -286,10 +295,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label>Spatial Coverage</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="spatial_coverage_id">
                 <option value="">Spatial Coverage</option>
                 @foreach($spatial_coverages as $option)
@@ -302,10 +311,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label>Regions</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             @foreach($regions->sortBy('order') as $option)
                 <div class="form-checkbox">
                     <label for="region_{{ $option->id }}">
@@ -329,10 +338,10 @@
     </div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="target_start_year">Start Year</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="target_start_year" id="target_start_year">
                 <option value="">Year</option>
                 @foreach($years as $option)
@@ -345,10 +354,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="target_end_year">End Year</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="target_end_year" id="target_end_year">
                 <option value="">Year</option>
                 @foreach($years as $option)
@@ -365,10 +374,10 @@
     </div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="iccable">Is this project ICC-able?</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="iccable" id="iccable">
                 @foreach($booleanOptions as $key => $option)
                     <option value="{{ $key }}" @if(old('iccable', $project->iccable) == $key) selected @endif>{{ $option }}</option>
@@ -380,10 +389,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="approval_level_id">Level of Approval (for ICCable projects only)</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="approval_level_id" id="approval_level_id">
                 <option value="">Approval Level</option>
                 @foreach($approval_levels as $key => $option)
@@ -396,10 +405,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="approval_date">Date of Approval (for ICCable projects only)</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <input type="date" class="form-control" name="approval_date" id="approval_date" value="{{ old('approval_date', $project->approval_date) }}">
         </dd>
     </dl>
@@ -407,12 +416,12 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="gad_id">Gender Responsiveness</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="gad_id" id="gad_id">
-                <option value="">Gender Responsiveness</option>
+                <option value="">Select Gender Responsiveness</option>
                 @foreach($gads as $option)
                     <option value="{{ $option->id }}" @if(old('gad_id', $project->gad_id) == $option->id) selected @endif>{{ $option->id . ' - ' . $option->name }}</option>
                 @endforeach
@@ -428,10 +437,10 @@
 
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="rdip">Is this PAP included in the RDIP?</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="rdip" id="rdip">
                 @foreach($booleanOptions as $key => $option)
                     <option value="{{ $key }}" @if(old('rdip', $project->rdip) == $key) selected @endif>{{ $key . ' - ' . $option }}</option>
@@ -443,10 +452,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="rdc_endorsement_required">Is RDC endorsement required?</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="rdc_endorsement_required" id="rdc_endorsement_required">
                 @foreach($booleanOptions as $key => $option)
                     <option value="{{ $key }}" @if(old('rdc_endorsement_required', $project->rdc_endorsement_required) == $key) selected @endif>{{ $key . ' - ' . $option }}</option>
@@ -458,10 +467,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="rdc_endorsed">Has the PAP been endorsed?</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="rdc_endorsed" id="rdc_endorsed">
                 @foreach($booleanOptions as $key => $option)
                     <option value="{{ $key }}" @if(old('rdc_endorsed', $project->rdc_endorsed) == $key) selected @endif>{{ $key . ' - ' . $option }}</option>
@@ -473,10 +482,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="rdc_endorsed_date">RDC Endorsement Date</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <input type="date" class="form-control" name="rdc_endorsed_date" id="rdc_endorsed_date" value="{{ old('rdc_endorsed_date', $project->rdc_endorsed_date) }}">
         </dd>
     </dl>
@@ -491,7 +500,7 @@
         <dt class="preparation_document_id">
             <label for="rename-field">Project Preparation Document</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="preparation_document_id" id="preparation_document_id">
                 @foreach($preparation_documents as $option)
                     <option value="{{ $option->id }}" @if(old('preparation_document_id', $project->preparation_document_id) == $option->id) selected @endif>{{ $option->id . ' - ' . $option->name }}</option>
@@ -503,10 +512,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="has_fs">Does the project require feasibility study?</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="has_fs" id="has_fs">
                 @foreach($booleanOptions as $key => $option)
                     <option value="{{ $key }}" @if(old('has_fs', $project->has_fs) == $key) selected @endif>{{ $key . ' - ' . $option }}</option>
@@ -518,10 +527,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="fs_status_id">Status of Feasibility Study (Only if FS is required)</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="feasibility_study[fs_status_id]" id="fs_status_id">
                 <option value="">FS Status</option>
                 @foreach($fs_statuses as $option)
@@ -532,10 +541,10 @@
     </dl>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="completion_date">Expected Date of Completion (Only if FS is required)</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <input class="form-control" name="feasibility_study[completion_date]" id="completion_date" type="date" value="{{ old('feasibility_study.completion_date', $project->feasibility_study->completion_date ?? null) }}">
         </dd>
     </dl>
@@ -543,10 +552,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="needs_assistance">Does the conduct of feasibility study need assistance?</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="feasibility_study[needs_assistance]" id="needs_assistance">
                 @foreach($booleanOptions as $key => $option)
                     <option value="{{ $key }}" @if(old('feasibility_study.needs_assistance', $project->feasibility_study->needs_assistance ?? null) == $key) selected @endif>{{ $key . ' - ' . $option }}</option>
@@ -558,7 +567,7 @@
     <div class="my-3"></div>
 
     <dl class="mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="rename-field">Schedule of Feasibility Study Cost (in absolute PhP)</label>
         </dt>
         <dd class="form-group-body">
@@ -592,10 +601,10 @@
     </div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="employment_generated">No. of persons to be employed after completion of the project</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <input type="number" name="employment_generated" id="employment_generated" class="form-control" value="{{ old('employment_generated', $project->employment_generated) }}">
         </dd>
     </dl>
@@ -607,10 +616,10 @@
     </div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="pdp_chapter_id">PDP Chapter</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select class="form-select" name="pdp_chapter_id" id="pdp_chapter_id">
                 @foreach($pdp_chapters as $option)
                     <option value="{{ $option->id }}" @if(old('pdp_chapter_id', $project->pdp_chapter_id) == $option->id) selected @endif>{{ $option->name }}</option>
@@ -622,11 +631,11 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="pdp_chapters">Other PDP Chapters</label>
             <p class="note">Select all that applies</p>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             @foreach($pdp_chapters->sortBy('name') as $key => $option)
                 <div class="form-checkbox">
                     <label for="pdp_chapter_{{ $option->id }}">
@@ -651,10 +660,10 @@
     </div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="sdgs">Sustainable Development Goals</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             @foreach($sdgs as $option)
                 <div class="form-checkbox">
                     <label for="sdg_{{ $option->id }}">
@@ -680,10 +689,10 @@
     </div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="ten_point_agendas">Ten Point Agenda</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             @foreach($ten_point_agendas as $key => $option)
                 <div class="form-checkbox">
                     <label for="tpa_{{ $option->id }}">
@@ -709,10 +718,10 @@
     </div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="funding_source_id">Main Funding Source</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select name="funding_source_id" id="funding_source_id" class="form-select">
                 @foreach($funding_sources as $option)
                     <option value="{{ $option->id }}" @if(old('funding_source_id', $project->funding_source_id) == $option->id) selected @endif>{{ $option->name }}</option>
@@ -724,10 +733,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="rename-field">Other Funding Sources</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             @foreach($funding_sources as $option)
                 <div class="form-checkbox">
                     <label for="fs_{{ $option->id }}">
@@ -747,10 +756,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="other_fs">Other Funding Source (please specify)</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <input type="text" name="other_fs" id="other_fs" class="form-control input-contrast" value="{{ old('other_fs', $project->other_fs) }}">
         </dd>
     </dl>
@@ -758,10 +767,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="implementation_mode_id">Mode of Implementation</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select name="implementation_mode_id" id="implementation_mode_id" class="form-select">
                 <option value="">Implementation Mode</option>
                 @foreach($implementation_modes as $option)
@@ -774,10 +783,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="funding_institution_id">Funding Institution</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select name="funding_institution_id" id="funding_institution_id" class="form-select">
                 <option value="">Funding Institution</option>
                 @foreach($funding_institutions as $option)
@@ -790,10 +799,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="rename-field">Budget Tier</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <select name="tier_id" id="tier_id" class="form-select">
                 <option value="">Tier</option>
                 @foreach($tiers as $option)
@@ -806,10 +815,10 @@
     <div class="my-3"></div>
 
     <dl class="form-group d-inline-block mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="uacs_code">UACS Code</label>
         </dt>
-        <dd>
+        <dd class="form-group-body">
             <input type="text" name="uacs_code" id="uacs_code" class="form-control input-contrast" value="{{ old('uacs_code', $project->uacs_code) }}">
         </dd>
     </dl>
@@ -819,7 +828,7 @@
     </div>
 
     <dl class="form-group mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="rename-field">Updates</label>
         </dt>
         <dd class="form-group-body">
@@ -830,7 +839,7 @@
     <div class="my-3"></div>
 
     <dl class="form-group mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
             <label for="rename-field">As of</label>
         </dt>
         <dd class="form-group-body">
@@ -846,7 +855,7 @@
     </div>
 
     <dl class="mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
 
         </dt>
         <dd class="form-group-body">
@@ -1020,7 +1029,7 @@
     </div>
 
     <dl class="mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
 
         </dt>
         <dd class="form-group-body">
@@ -1193,7 +1202,7 @@
     </div>
 
     <dl class="mb-4">
-        <dt class="input-label">
+        <dt class="form-group-header">
 
         </dt>
         <dd class="form-group-body">

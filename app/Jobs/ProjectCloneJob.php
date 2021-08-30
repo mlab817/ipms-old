@@ -78,7 +78,7 @@ class ProjectCloneJob implements ShouldQueue
         $regionInvestments = $project->region_investments;
 
         foreach ($regionInvestments as $regionInvestment) {
-            $clonedProject->region_infrastructures()->create([
+            $clonedProject->region_investments()->create([
                 'region_id' => $regionInvestment->region_id,
                 'y2022' => $regionInvestment->y2016
                     + $regionInvestment->y2017
@@ -94,7 +94,7 @@ class ProjectCloneJob implements ShouldQueue
         $regionInfrastructures = $project->region_infrastructures;
 
         foreach ($regionInfrastructures as $regionInfrastructure) {
-            $clonedProject->region_investments()->create([
+            $clonedProject->region_infrastructures()->create([
                 'region_id' => $regionInfrastructure->region_id,
                 'y2022' => $regionInfrastructure->y2016
                     + $regionInfrastructure->y2017
