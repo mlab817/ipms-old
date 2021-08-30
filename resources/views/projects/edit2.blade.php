@@ -5,6 +5,8 @@
     ];
 @endphp
 
+<x-input-money name="money"></x-input-money>
+
 <div>
     <div class="Subhead Subhead--spacious">
         <div id="general-information" class="Subhead-heading">{{ __("General Information") }}</div>
