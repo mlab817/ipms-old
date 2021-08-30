@@ -17,7 +17,7 @@
         id="{{ $name }}"
         name="{{ $name }}"
         x-model="value"
-        class="form-control text-right"
+        class="form-control text-right input-block"
         x-on:focus="onFocus()"
         x-on:click="onFocus()"
         x-on:blur="onBlur()">
