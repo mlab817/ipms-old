@@ -10,41 +10,58 @@
         <div id="general-information" class="Subhead-heading">{{ __("General Information") }}</div>
     </div>
 
-    <div id="office">
-        <dl class="form-group d-inline-block my-0">
-            <dt class="input-label">
-                <label for="office_id">Office</label>
-            </dt>
-            <dd>
-                <select class="form-select" name="office_id">
-                    <option value="">Select Office</option>
-                    @foreach($offices as $option)
-                        <option value="{{ $option->id }}" @if(old('office_id', $project->office_id) == $option->id) selected @endif>{{ $option->id .' - '. $option->acronym }}</option>
-                    @endforeach
-                </select>
-            </dd>
-        </dl>
-    </div>
-
     <div class="my-3" id="pap"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group mb-4 @error('title') errored @enderror">
+        <dt class="form-group-header">
+            <label for="title">PAP Title</label>
+        </dt>
+        <dd class="form-group-body">
+            <input type="text" class="form-control input-block" name="title" id="title" aria-describedby="title-input-validation" value="{{ old('title', $project->title) }}">
+            @error('title')
+                <p class="note error" id="title-input-validation">{{ $message }}</p>
+            @enderror
+        </dd>
+    </dl>
+
+    <div class="my-3" id=""></div>
+
+    <dl class="form-group mb-4 @error('office_id') errored @enderror">
         <dt class="input-label">
-            <label for="rename-field">Program or Project</label>
+            <label for="office_id">Office</label>
         </dt>
         <dd>
+            <select class="form-select" name="office_id" id="office_id">
+                <option value="">Select Office</option>
+                @foreach($offices as $option)
+                    <option value="{{ $option->id }}" @if(old('office_id', $project->office_id) == $option->id) selected @endif>{{ $option->id .' - '. $option->acronym }}</option>
+                @endforeach
+            </select>
+            @error('office_id')
+            <p class="note error" id="title-input-validation">{{ $message }}</p>
+            @enderror
+        </dd>
+    </dl>
+
+    <div class="my-3" id=""></div>
+
+    <dl class="form-group mb-4 @error('pap_type_id') errored @enderror">
+        <dt class="form-group-header">
+            <label for="pap_type_id">Program or Project</label>
+        </dt>
+        <dd class="form-group-body" x-data="{ pap_type_id: {{ $project->pap_type_id }} }">
             @foreach($pap_types as $pap_type)
                 <div class="form-checkbox">
                     <label for="pap_type_{{$pap_type->id}}">
-                        <input class="form-checkbox" type="radio" id="pap_type_{{$pap_type->id}}" name="pap_type_id" value="{{ $pap_type->id }}" @if(old('pap_type_id', $project->pap_type_id) == $pap_type->id) checked @endif>
+                        <input class="form-checkbox" type="radio" id="pap_type_{{$pap_type->id}}" name="pap_type_id" x-model="pap_type_id" value="{{ $pap_type->id }}" @if(old('pap_type_id', $project->pap_type_id) == $pap_type->id) checked @endif>
                         {{ $pap_type->name }}
                         <p class="note">
                             {{ $pap_type->description }}
                         </p>
-                        @if($pap_type->id ==1)
+                        @if($pap_type->id == 1)
                             <span class="form-checkbox-details text-normal d-block">
                                 <span>Regular Program</span>
-                                <select @if($project->pap_type_id == 2) disabled @endif class="form-select" name="regular_program" id="regular_program">
+                                <select x-bind:disabled="pap_type_id == 2" class="form-select" name="regular_program" id="regular_program">
                                     <option value="0">No</option>
                                     <option value="1">Yes</option>
                                 </select>
@@ -53,12 +70,16 @@
                     </label>
                 </div>
             @endforeach
+
+            @error('pap_type_id')
+                <p class="note error">{{ $message }}</p>
+            @enderror
         </dd>
     </dl>
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="rename-field">Does this PAP have INFRASTRUCTURE component/s?</label>
         </dt>
@@ -89,7 +110,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label>Basis for Implementation</label>
         </dt>
@@ -114,7 +135,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group my-0">
+    <dl class="form-group mb-4">
         <dt class="input-label">
             <label for="description">Description</label>
         </dt>
@@ -125,7 +146,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group my-0">
+    <dl class="form-group mb-4">
         <dt class="input-label">
             <label for="">Expected Outputs</label>
         </dt>
@@ -136,7 +157,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group my-0">
+    <dl class="form-group mb-4">
         <dt class="input-label">
             <label for="">Total Project Cost</label>
         </dt>
@@ -160,7 +181,7 @@
     <div class="my-3"></div>
 
     <div>
-        <dl class="form-group d-inline-block my-0">
+        <dl class="form-group d-inline-block mb-4">
             <dt class="input-label">
                 <label for="project_status_id">Project Status</label>
             </dt>
@@ -182,7 +203,7 @@
     </div>
 
     <div>
-        <dl class="form-group d-inline-block my-0">
+        <dl class="form-group d-inline-block mb-4">
             <dt class="input-label">
                 <label for="research">Is it a Research and Development Program/Project?</label>
             </dt>
@@ -199,7 +220,7 @@
     <div class="my-3"></div>
 
     <div>
-        <dl class="form-group d-inline-block my-0">
+        <dl class="form-group d-inline-block mb-4">
             <dt class="input-label">
                 <label for="ict">Is it an ICT
                     Program/Project?</label>
@@ -217,7 +238,7 @@
     <div class="my-3"></div>
 
     <div>
-        <dl class="form-group d-inline-block my-0">
+        <dl class="form-group d-inline-block mb-4">
             <dt class="input-label">
                 <label for="research">Is it responsive to
                     COVID-19/New Normal Intervention?</label>
@@ -234,7 +255,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label>COVID Interventions</label>
         </dt>
@@ -264,7 +285,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label>Spatial Coverage</label>
         </dt>
@@ -280,7 +301,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label>Regions</label>
         </dt>
@@ -307,7 +328,7 @@
         <div class="Subhead-heading" id="implementation-period">{{ __("Implementation Period") }}</div>
     </div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="target_start_year">Start Year</label>
         </dt>
@@ -323,7 +344,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="target_end_year">End Year</label>
         </dt>
@@ -343,7 +364,7 @@
         <div class="Subhead-heading" id="approval-status">{{ __("Approval Status") }}</div>
     </div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="iccable">Is this project ICC-able?</label>
         </dt>
@@ -358,7 +379,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="approval_level_id">Level of Approval (for ICCable projects only)</label>
         </dt>
@@ -374,7 +395,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="approval_date">Date of Approval (for ICCable projects only)</label>
         </dt>
@@ -385,7 +406,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="gad_id">Gender Responsiveness</label>
         </dt>
@@ -406,7 +427,7 @@
     </div>
 
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="rdip">Is this PAP included in the RDIP?</label>
         </dt>
@@ -421,7 +442,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="rdc_endorsement_required">Is RDC endorsement required?</label>
         </dt>
@@ -436,7 +457,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="rdc_endorsed">Has the PAP been endorsed?</label>
         </dt>
@@ -451,7 +472,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="rdc_endorsed_date">RDC Endorsement Date</label>
         </dt>
@@ -466,7 +487,7 @@
         <div class="Subhead-heading" id="project-preparation-details">{{ __("Project Preparation Details") }}</div>
     </div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="preparation_document_id">
             <label for="rename-field">Project Preparation Document</label>
         </dt>
@@ -481,7 +502,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="has_fs">Does the project require feasibility study?</label>
         </dt>
@@ -496,7 +517,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="fs_status_id">Status of Feasibility Study (Only if FS is required)</label>
         </dt>
@@ -510,7 +531,7 @@
         </dd>
     </dl>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="completion_date">Expected Date of Completion (Only if FS is required)</label>
         </dt>
@@ -521,7 +542,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="needs_assistance">Does the conduct of feasibility study need assistance?</label>
         </dt>
@@ -536,7 +557,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="my-0">
+    <dl class="mb-4">
         <dt class="input-label">
             <label for="rename-field">Schedule of Feasibility Study Cost (in absolute PhP)</label>
         </dt>
@@ -570,7 +591,7 @@
         <div class="Subhead-heading" id="employment-generation">{{ __("Employment Generation") }}</div>
     </div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="employment_generated">No. of persons to be employed after completion of the project</label>
         </dt>
@@ -585,7 +606,7 @@
         <div class="Subhead-heading" id="pdp-chapter">{{ __("PDP Chapter") }}</div>
     </div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="pdp_chapter_id">PDP Chapter</label>
         </dt>
@@ -600,7 +621,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="pdp_chapters">Other PDP Chapters</label>
             <p class="note">Select all that applies</p>
@@ -629,7 +650,7 @@
         <div class="Subhead-description">Select all that applies</div>
     </div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="sdgs">Sustainable Development Goals</label>
         </dt>
@@ -658,7 +679,7 @@
         <div class="Subhead-description">Select all that applies</div>
     </div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="ten_point_agendas">Ten Point Agenda</label>
         </dt>
@@ -687,7 +708,7 @@
         <div class="Subhead-description">Select all that applies</div>
     </div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="funding_source_id">Main Funding Source</label>
         </dt>
@@ -702,7 +723,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="rename-field">Other Funding Sources</label>
         </dt>
@@ -725,7 +746,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="other_fs">Other Funding Source (please specify)</label>
         </dt>
@@ -736,7 +757,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="implementation_mode_id">Mode of Implementation</label>
         </dt>
@@ -752,7 +773,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="funding_institution_id">Funding Institution</label>
         </dt>
@@ -768,7 +789,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="rename-field">Budget Tier</label>
         </dt>
@@ -784,7 +805,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group d-inline-block my-0">
+    <dl class="form-group d-inline-block mb-4">
         <dt class="input-label">
             <label for="uacs_code">UACS Code</label>
         </dt>
@@ -797,7 +818,7 @@
         <div class="Subhead-heading" id="status-and-updates">{{ __("Status & Updates") }}</div>
     </div>
 
-    <dl class="form-group my-0">
+    <dl class="form-group mb-4">
         <dt class="input-label">
             <label for="rename-field">Updates</label>
         </dt>
@@ -808,7 +829,7 @@
 
     <div class="my-3"></div>
 
-    <dl class="form-group my-0">
+    <dl class="form-group mb-4">
         <dt class="input-label">
             <label for="rename-field">As of</label>
         </dt>
@@ -824,7 +845,7 @@
         <div class="Subhead-description">in absolute PhP terms</div>
     </div>
 
-    <dl class="my-0">
+    <dl class="mb-4">
         <dt class="input-label">
 
         </dt>
@@ -998,7 +1019,7 @@
         <div class="Subhead-description">in absolute PhP terms</div>
     </div>
 
-    <dl class="my-0">
+    <dl class="mb-4">
         <dt class="input-label">
 
         </dt>
@@ -1171,7 +1192,7 @@
         <div class="Subhead-heading" id="financial-status">{{ __("Financial Status") }}</div>
     </div>
 
-    <dl class="my-0">
+    <dl class="mb-4">
         <dt class="input-label">
 
         </dt>

@@ -10,6 +10,8 @@ class ProjectClone extends Component
 {
     public $search = '';
 
+    public $projectId;
+
     public $project;
 
     public function updatingSearch()
@@ -17,24 +19,11 @@ class ProjectClone extends Component
         $this->project = null;
     }
 
-    public function clearMessage()
-    {
-        session()->forget('message');
-    }
-
     public function setProject($projectId)
     {
+        $this->projectId = $projectId;
         $this->project = Project::find($projectId);
         $this->search = '#' . $this->project->id . ' ' . $this->project->title;
-    }
-
-    public function cloneProject()
-    {
-        dispatch(new ProjectCloneJob($this->project->id, config('ipms.current_updating_period'), auth()->id()));
-
-        session()->flash('message','Successfully cloned project/program');
-
-        $this->reset();
     }
 
     public function render()

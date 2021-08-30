@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CheckUserLoginController;
+use App\Http\Controllers\CloneProjectController;
 use App\Http\Controllers\IssueCommentController;
 use App\Http\Controllers\ProjectAttachmentController;
 use App\Http\Controllers\ProjectCloneController;
@@ -59,6 +60,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::delete('/attachments/{attachment}', [ProjectAttachmentController::class,'destroy'])->name('attachments.destroy');
 
         Route::get('/auth/check', CheckUserLoginController::class)->name('auth.check');
+
+        Route::post('clone_project', CloneProjectController::class)->name('clone_project');
 
         Route::resource('issues.issue_comments', IssueCommentController::class)->shallow();
         Route::resource('projects.issues', ProjectIssueController::class)->except('edit');
