@@ -5,8 +5,6 @@
     ];
 @endphp
 
-<x-input-money name="money"></x-input-money>
-
 <div>
     <div class="Subhead Subhead--spacious">
         <div id="general-information" class="Subhead-heading">{{ __("General Information") }}</div>
@@ -960,28 +958,28 @@
                             <span x-text="item.funding_source.name"></span>
                         </div>
                         <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`fs_investments[${index}][y2016]`" x-model="item.y2016">
+                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2016]`" x-model="item.y2016">
                         </div>
                         <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`fs_investments[${index}][y2017]`" x-model="item.y2017">
+                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2017]`" x-model="item.y2017">
                         </div>
                         <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`fs_investments[${index}][y2018]`" x-model="item.y2018">
+                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2018]`" x-model="item.y2018">
                         </div>
                         <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`fs_investments[${index}][y2019]`" x-model="item.y2019">
+                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2019]`" x-model="item.y2019">
                         </div>
                         <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`fs_investments[${index}][y2020]`" x-model="item.y2020">
+                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2020]`" x-model="item.y2020">
                         </div>
                         <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`fs_investments[${index}][y2021]`" x-model="item.y2021">
+                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2021]`" x-model="item.y2021">
                         </div>
                         <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`fs_investments[${index}][y2022]`" x-model="item.y2022">
+                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2022]`" x-model="item.y2022">
                         </div>
                         <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`fs_investments[${index}][y2023]`" x-model="item.y2023">
+                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2023]`" x-model="item.y2023">
                         </div>
                         <div class="col-1 px-2 d-table-cell text-right">
                             <span x-text="format(total)"></span>
@@ -1082,119 +1080,106 @@
                 });
             </script>
             <div x-data="regionInvestments">
-                <div class="d-table col-12 border-bottom border-top">
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        Region
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2016 &amp; Prior
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2017
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2018
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2019
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2020
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2021
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2022
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2023 &amp; Beyond
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        Total
-                    </div>
-                </div>
-                <template x-for="(item, index) in items" :key="index">
-                    <div class="d-table col-12 border-bottom" x-data="{
-                            item: item,
-                            get total() {
-                                const { y2016, y2017, y2018, y2019, y2020, y2021, y2022, y2023 } = this.item
-                                return parseFloat(y2016)
-                                    + parseFloat(y2017)
-                                    + parseFloat(y2018)
-                                    + parseFloat(y2019)
-                                    + parseFloat(y2020)
-                                    + parseFloat(y2021)
-                                    + parseFloat(y2022)
-                                    + parseFloat(y2023)
-                            }
-                        }">
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="hidden" x-bind:name="`region_investments[${index}][region_id]`" x-model="item.region_id">
-                            <span x-text="item.region.label"></span>
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`region_investments[${index}][y2016]`" x-model="item.y2016">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`region_investments[${index}][y2017]`" x-model="item.y2017">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`region_investments[${index}][y2018]`" x-model="item.y2018">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`region_investments[${index}][y2019]`" x-model="item.y2019">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`region_investments[${index}][y2020]`" x-model="item.y2020">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`region_investments[${index}][y2021]`" x-model="item.y2021">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`region_investments[${index}][y2022]`" x-model="item.y2022">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right p-0 border-0 width-full" x-bind:name="`region_investments[${index}][y2023]`" x-model="item.y2023">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell text-right">
-                            <span x-text="format(total)"></span>
-                        </div>
-                    </div>
-                </template>
-
-                <div class="d-table col-12 border-bottom border-top">
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        Total
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2016)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2017)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2018)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2019)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2020)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2021)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2022)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2023)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.total)"></span>
-                    </div>
-                </div>
+                <table class="d-table col-12 border-y">
+                    <thead>
+                        <tr class="border-bottom">
+                            <th class="col p-1">Region</th>
+                            <th class="col p-1">2016 &amp; Prior</th>
+                            <th class="col p-1">2017</th>
+                            <th class="col p-1">2018</th>
+                            <th class="col p-1">2019</th>
+                            <th class="col p-1">2020</th>
+                            <th class="col p-1">2021</th>
+                            <th class="col p-1">2022</th>
+                            <th class="col p-1">2023 &amp; Beyond</th>
+                            <th class="col p-1">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template x-for="(item, index) in items" :key="index">
+                            <tr x-data="{
+                                    item: item,
+                                    get total() {
+                                        const { y2016, y2017, y2018, y2019, y2020, y2021, y2022, y2023 } = this.item
+                                        return parseFloat(y2016)
+                                            + parseFloat(y2017)
+                                            + parseFloat(y2018)
+                                            + parseFloat(y2019)
+                                            + parseFloat(y2020)
+                                            + parseFloat(y2021)
+                                            + parseFloat(y2022)
+                                            + parseFloat(y2023)
+                                    }
+                                }">
+                                <td class="p-1">
+                                    <input type="hidden" x-bind:name="`region_investments[${index}][region_id]`" x-model="item.region_id">
+                                    <span x-text="item.region.label"></span>
+                                </td>
+                                <td class="p-1">
+                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2016]`" x-model="item.y2016">
+                                </td>
+                                <td class="p-1">
+                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2017]`" x-model="item.y2017">
+                                </td>
+                                <td class="p-1">
+                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2018]`" x-model="item.y2018">
+                                </td>
+                                <td class="p-1">
+                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2019]`" x-model="item.y2019">
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2020]`" x-model="item.y2020">
+                                </td>
+                                <td class="p-1">
+                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2021]`" x-model="item.y2021">
+                                </td>
+                                <td class="p-1">
+                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2022]`" x-model="item.y2022">
+                                </td>
+                                <td class="p-1">
+                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2023]`" x-model="item.y2023">
+                                </td>
+                                <td class="p-1 text-right">
+                                    <span x-text="format(total)"></span>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="p-1">
+                                Total
+                            </td>
+                            <td class="p-1 text-right">
+                                <span x-text="format(total.y2016)"></span>
+                            </td>
+                            <td class="p-1 text-right">
+                                <span x-text="format(total.y2017)"></span>
+                            </td>
+                            <td class="p-1 text-right">
+                                <span x-text="format(total.y2018)"></span>
+                            </td>
+                            <td class="p-1 text-right">
+                                <span x-text="format(total.y2019)"></span>
+                            </td>
+                            <td class="p-1 text-right">
+                                <span x-text="format(total.y2020)"></span>
+                            </td>
+                            <td class="p-1 text-right">
+                                <span x-text="format(total.y2021)"></span>
+                            </td>
+                            <td class="p-1 text-right">
+                                <span x-text="format(total.y2022)"></span>
+                            </td>
+                            <td class="p-1 text-right">
+                                <span x-text="format(total.y2023)"></span>
+                            </td>
+                            <td class="p-1 text-right">
+                                <span x-text="format(total.total)"></span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </dd>
     </dl>
@@ -1268,28 +1253,28 @@
                     NEP
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="nep[y2016]" x-model="nep.y2016" value="{{ old('nep.y2016', $project->nep->y2016 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="nep[y2016]" x-model="nep.y2016" value="{{ old('nep.y2016', $project->nep->y2016 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="nep[y2017]" x-model="nep.y2017" value="{{ old('nep.y2017', $project->nep->y2017 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="nep[y2017]" x-model="nep.y2017" value="{{ old('nep.y2017', $project->nep->y2017 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="nep[y2018]" x-model="nep.y2018" value="{{ old('nep.y2018', $project->nep->y2018 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="nep[y2018]" x-model="nep.y2018" value="{{ old('nep.y2018', $project->nep->y2018 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="nep[y2019]" x-model="nep.y2019" value="{{ old('nep.y2019', $project->nep->y2019 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="nep[y2019]" x-model="nep.y2019" value="{{ old('nep.y2019', $project->nep->y2019 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="nep[y2020]" x-model="nep.y2020" value="{{ old('nep.y2020', $project->nep->y2020 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="nep[y2020]" x-model="nep.y2020" value="{{ old('nep.y2020', $project->nep->y2020 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="nep[y2021]" x-model="nep.y2021" value="{{ old('nep.y2021', $project->nep->y2021 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="nep[y2021]" x-model="nep.y2021" value="{{ old('nep.y2021', $project->nep->y2021 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="nep[y2022]" x-model="nep.y2022" value="{{ old('nep.y2022', $project->nep->y2022 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="nep[y2022]" x-model="nep.y2022" value="{{ old('nep.y2022', $project->nep->y2022 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="nep[y2023]" x-model="nep.y2023" value="{{ old('nep.y2023', $project->nep->y2023 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="nep[y2023]" x-model="nep.y2023" value="{{ old('nep.y2023', $project->nep->y2023 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell text-right">
                     <span x-text="format(total)"></span>
@@ -1323,28 +1308,28 @@
                     GAA
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="allocation[y2016]" x-model="allocation.y2016" value="{{ old('allocation.y2016', $project->allocation->y2016 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="allocation[y2016]" x-model="allocation.y2016" value="{{ old('allocation.y2016', $project->allocation->y2016 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="allocation[y2017]" x-model="allocation.y2017" value="{{ old('allocation.y2017', $project->allocation->y2017 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="allocation[y2017]" x-model="allocation.y2017" value="{{ old('allocation.y2017', $project->allocation->y2017 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="allocation[y2018]" x-model="allocation.y2018" value="{{ old('allocation.y2018', $project->allocation->y2018 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="allocation[y2018]" x-model="allocation.y2018" value="{{ old('allocation.y2018', $project->allocation->y2018 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="allocation[y2019]" x-model="allocation.y2019" value="{{ old('allocation.y2019', $project->allocation->y2019 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="allocation[y2019]" x-model="allocation.y2019" value="{{ old('allocation.y2019', $project->allocation->y2019 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="allocation[y2020]" x-model="allocation.y2020" value="{{ old('allocation.y2020', $project->allocation->y2020 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="allocation[y2020]" x-model="allocation.y2020" value="{{ old('allocation.y2020', $project->allocation->y2020 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="allocation[y2021]" x-model="allocation.y2021" value="{{ old('allocation.y2021', $project->allocation->y2021 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="allocation[y2021]" x-model="allocation.y2021" value="{{ old('allocation.y2021', $project->allocation->y2021 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="allocation[y2022]" x-model="allocation.y2022" value="{{ old('allocation.y2022', $project->allocation->y2022 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="allocation[y2022]" x-model="allocation.y2022" value="{{ old('allocation.y2022', $project->allocation->y2022 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="allocation[y2023]" x-model="allocation.y2023" value="{{ old('allocation.y2023', $project->allocation->y2023 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="allocation[y2023]" x-model="allocation.y2023" value="{{ old('allocation.y2023', $project->allocation->y2023 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell text-right">
                     <span x-text="format(total)"></span>
@@ -1377,28 +1362,28 @@
                     Disbursement
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="disbursement[y2016]" x-model="disbursement.y2016" value="{{ old('disbursement.y2016', $project->disbursement->y2016 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="disbursement[y2016]" x-model="disbursement.y2016" value="{{ old('disbursement.y2016', $project->disbursement->y2016 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="disbursement[y2017]" x-model="disbursement.y2017" value="{{ old('disbursement.y2017', $project->disbursement->y2017 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="disbursement[y2017]" x-model="disbursement.y2017" value="{{ old('disbursement.y2017', $project->disbursement->y2017 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="disbursement[y2018]" x-model="disbursement.y2018" value="{{ old('disbursement.y2018', $project->disbursement->y2018 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="disbursement[y2018]" x-model="disbursement.y2018" value="{{ old('disbursement.y2018', $project->disbursement->y2018 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="disbursement[y2019]" x-model="disbursement.y2019" value="{{ old('disbursement.y2019', $project->disbursement->y2019 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="disbursement[y2019]" x-model="disbursement.y2019" value="{{ old('disbursement.y2019', $project->disbursement->y2019 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="disbursement[y2020]" x-model="disbursement.y2020" value="{{ old('disbursement.y2020', $project->disbursement->y2020 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="disbursement[y2020]" x-model="disbursement.y2020" value="{{ old('disbursement.y2020', $project->disbursement->y2020 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="disbursement[y2021]" x-model="disbursement.y2021" value="{{ old('disbursement.y2021', $project->disbursement->y2021 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="disbursement[y2021]" x-model="disbursement.y2021" value="{{ old('disbursement.y2021', $project->disbursement->y2021 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="disbursement[y2022]" x-model="disbursement.y2022" value="{{ old('disbursement.y2022', $project->disbursement->y2022 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="disbursement[y2022]" x-model="disbursement.y2022" value="{{ old('disbursement.y2022', $project->disbursement->y2022 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell">
-                    <input type="number" class="form-control text-right p-0 border-0 width-full" name="disbursement[y2023]" x-model="disbursement.y2023" value="{{ old('disbursement.y2023', $project->disbursement->y2023 ?? 0) }}">
+                    <input type="number" class="form-control text-right pr-1 width-full" name="disbursement[y2023]" x-model="disbursement.y2023" value="{{ old('disbursement.y2023', $project->disbursement->y2023 ?? 0) }}">
                 </div>
                 <div class="col-1 p-2 d-table-cell text-right">
                     <span x-text="format(total)"></span>
@@ -1408,3 +1393,25 @@
         </dd>
     </dl>
 </div>
+
+
+@push('scripts')
+    <script>
+        function createMoneyInput() {
+            return {
+                value: {{ $value ?? 0 }},
+                type: 'text',
+                onFocus() {
+                    this.type = 'number';
+                    const value = this.value;
+                    this.value = value ? value.replace(/,/g, '') : 0;
+                },
+                onBlur() {
+                    const value = this.value;
+                    this.type = 'text';
+                    this.value = Number(value).toLocaleString('en-US');
+                }
+            }
+        }
+    </script>
+@endpush

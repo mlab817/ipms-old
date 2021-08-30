@@ -170,7 +170,7 @@
                                 </div>
                                 <!--// Navigator -->
                                 <div class="Box-body">
-                                    @include('projects.edit2')
+                                    @include('projects.edit')
                                 </div>
                             </div>
                         </form>
