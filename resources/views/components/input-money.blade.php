@@ -14,9 +14,10 @@
 }">
     <input
         :type="type"
-        id="{{ $name }}"
+        id="{{ $name }}_{{ rand() }}"
         name="{{ $name }}"
-        x-model="value"
+        x-on:change="$dispatch('input', (evt) => evt.target.value)"
+        :value="value"
         class="form-control text-right input-block"
         x-on:focus="onFocus()"
         x-on:click="onFocus()"

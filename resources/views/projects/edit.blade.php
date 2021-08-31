@@ -906,40 +906,24 @@
                 });
             </script>
             <div x-data="fsInvestments">
-                <div class="d-table col-12 border-bottom border-top">
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        Region
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2016 &amp; Prior
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2017
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2018
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2019
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2020
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2021
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2022
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        2023 &amp; Beyond
-                    </div>
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        Total
-                    </div>
-                </div>
-                <template x-for="(item, index) in items" :key="index">
-                    <div class="d-table col-12 border-bottom" x-data="{
+                <table class="d-table col-12 border-y">
+                    <thead>
+                        <tr class="border-bottom">
+                            <th class="col-1 p-1">Funding Source</th>
+                            <th class="col-1 p-1">2016 &amp; Prior</th>
+                            <th class="col-1 p-1">2017</th>
+                            <th class="col-1 p-1">2018</th>
+                            <th class="col-1 p-1">2019</th>
+                            <th class="col-1 p-1">2020</th>
+                            <th class="col-1 p-1">2021</th>
+                            <th class="col-1 p-1">2022</th>
+                            <th class="col-1 p-1">2023 &amp; Beyond</th>
+                            <th class="col-1 p-1">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <template x-for="(item, index) in items" :key="index">
+                        <tr class="col-12 border-bottom" x-data="{
                             item: item,
                             get total() {
                                 const { y2016, y2017, y2018, y2019, y2020, y2021, y2022, y2023 } = this.item
@@ -953,72 +937,75 @@
                                     + parseFloat(y2023)
                             }
                         }">
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="hidden" x-bind:name="`fs_investments[${index}][fs_id]`" x-model="item.fs_id">
-                            <span x-text="item.funding_source.name"></span>
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2016]`" x-model="item.y2016">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2017]`" x-model="item.y2017">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2018]`" x-model="item.y2018">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2019]`" x-model="item.y2019">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2020]`" x-model="item.y2020">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2021]`" x-model="item.y2021">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2022]`" x-model="item.y2022">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell py-2">
-                            <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2023]`" x-model="item.y2023">
-                        </div>
-                        <div class="col-1 px-2 d-table-cell text-right">
-                            <span x-text="format(total)"></span>
-                        </div>
-                    </div>
-                </template>
-
-                <div class="d-table col-12 border-bottom border-top">
-                    <div class="col-1 p-2 text-center v-align-middle d-table-cell">
-                        Total
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2016)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2017)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2018)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2019)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2020)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2021)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2022)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.y2023)"></span>
-                    </div>
-                    <div class="col-1 p-2 text-right v-align-middle d-table-cell">
-                        <span x-text="format(total.total)"></span>
-                    </div>
-                </div>
+                            <td class="col-1 px-2 py-2">
+                                <input type="hidden" x-bind:name="`fs_investments[${index}][fs_id]`" x-model="item.fs_id">
+                                <span x-text="item.funding_source.name"></span>
+                            </td>
+                            <td class="col-1 px-2 py-2">
+                                <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2016]`" x-model="item.y2016">
+                            </td>
+                            <td class="col-1 px-2 py-2">
+                                <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2017]`" x-model="item.y2017">
+                            </td>
+                            <td class="col-1 px-2 py-2">
+                                <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2018]`" x-model="item.y2018">
+                            </td>
+                            <td class="col-1 px-2 py-2">
+                                <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2019]`" x-model="item.y2019">
+                            </td>
+                            <td class="col-1 px-2 py-2">
+                                <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2020]`" x-model="item.y2020">
+                            </td>
+                            <td class="col-1 px-2 py-2">
+                                <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2021]`" x-model="item.y2021">
+                            </td>
+                            <td class="col-1 px-2 py-2">
+                                <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2022]`" x-model="item.y2022">
+                            </td>
+                            <td class="col-1 px-2 py-2">
+                                <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`fs_investments[${index}][y2023]`" x-model="item.y2023">
+                            </td>
+                            <td class="col-1 px-2 text-right">
+                                <span x-text="format(total)"></span>
+                            </td>
+                        </tr>
+                    </template>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="p-2">
+                                Total
+                            </th>
+                            <th class="p-2 text-right">
+                                <span x-text="format(total.y2016)"></span>
+                            </th>
+                            <th class="p-2 text-right">
+                                <span x-text="format(total.y2017)"></span>
+                            </th>
+                            <th class="p-2 text-right">
+                                <span x-text="format(total.y2018)"></span>
+                            </th>
+                            <th class="p-2 text-right">
+                                <span x-text="format(total.y2019)"></span>
+                            </th>
+                            <th class="p-2 text-right">
+                                <span x-text="format(total.y2020)"></span>
+                            </th>
+                            <th class="p-2 text-right">
+                                <span x-text="format(total.y2021)"></span>
+                            </th>
+                            <th class="p-2 text-right">
+                                <span x-text="format(total.y2022)"></span>
+                            </th>
+                            <th class="p-2 text-right">
+                                <span x-text="format(total.y2023)"></span>
+                            </th>
+                            <th class="p-2 text-right">
+                                <span x-text="format(total.total)"></span>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </dd>
     </dl>
@@ -1036,7 +1023,7 @@
             <script>
                 document.addEventListener('alpine:init', () => {
                     Alpine.data('regionInvestments', () => ({
-                        items: @json($project->region_investments),
+                        items: @json(old('region_investments', $project->region_investments)),
                         get total() {
                             const items = this.items,
                                 totalsRow = {
@@ -1083,21 +1070,21 @@
                 <table class="d-table col-12 border-y">
                     <thead>
                         <tr class="border-bottom">
-                            <th class="col p-1">Region</th>
-                            <th class="col p-1">2016 &amp; Prior</th>
-                            <th class="col p-1">2017</th>
-                            <th class="col p-1">2018</th>
-                            <th class="col p-1">2019</th>
-                            <th class="col p-1">2020</th>
-                            <th class="col p-1">2021</th>
-                            <th class="col p-1">2022</th>
-                            <th class="col p-1">2023 &amp; Beyond</th>
-                            <th class="col p-1">Total</th>
+                            <th class="col-1 p-1">Region</th>
+                            <th class="col-1 p-1">2016 &amp; Prior</th>
+                            <th class="col-1 p-1">2017</th>
+                            <th class="col-1 p-1">2018</th>
+                            <th class="col-1 p-1">2019</th>
+                            <th class="col-1 p-1">2020</th>
+                            <th class="col-1 p-1">2021</th>
+                            <th class="col-1 p-1">2022</th>
+                            <th class="col-1 p-1">2023 &amp; Beyond</th>
+                            <th class="col-1 p-1">Total</th>
                         </tr>
                     </thead>
                     <tbody>
                         <template x-for="(item, index) in items" :key="index">
-                            <tr x-data="{
+                            <tr class="border-bottom" x-data="{
                                     item: item,
                                     get total() {
                                         const { y2016, y2017, y2018, y2019, y2020, y2021, y2022, y2023 } = this.item
@@ -1116,28 +1103,28 @@
                                     <span x-text="item.region.label"></span>
                                 </td>
                                 <td class="p-1">
-                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2016]`" x-model="item.y2016">
+                                    <input type="number" class="form-control border-0 text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2016]`" x-model="item.y2016">
                                 </td>
                                 <td class="p-1">
-                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2017]`" x-model="item.y2017">
+                                    <input type="number" class="form-control border-0 text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2017]`" x-model="item.y2017">
                                 </td>
                                 <td class="p-1">
-                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2018]`" x-model="item.y2018">
+                                    <input type="number" class="form-control border-0 text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2018]`" x-model="item.y2018">
                                 </td>
                                 <td class="p-1">
-                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2019]`" x-model="item.y2019">
+                                    <input type="number" class="form-control border-0 text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2019]`" x-model="item.y2019">
                                 </td>
                                 <td>
-                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2020]`" x-model="item.y2020">
+                                    <input type="number" class="form-control border-0 text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2020]`" x-model="item.y2020">
                                 </td>
                                 <td class="p-1">
-                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2021]`" x-model="item.y2021">
+                                    <input type="number" class="form-control border-0 text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2021]`" x-model="item.y2021">
                                 </td>
                                 <td class="p-1">
-                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2022]`" x-model="item.y2022">
+                                    <input type="number" class="form-control border-0 text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2022]`" x-model="item.y2022">
                                 </td>
                                 <td class="p-1">
-                                    <input type="number" class="form-control text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2023]`" x-model="item.y2023">
+                                    <input type="number" class="form-control border-0 text-right pr-1 width-full" x-bind:name="`region_investments[${index}][y2023]`" x-model="item.y2023">
                                 </td>
                                 <td class="p-1 text-right">
                                     <span x-text="format(total)"></span>
@@ -1147,36 +1134,36 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td class="p-1">
+                            <th class="p-2">
                                 Total
-                            </td>
-                            <td class="p-1 text-right">
+                            </th>
+                            <th class="p-2 text-right">
                                 <span x-text="format(total.y2016)"></span>
-                            </td>
-                            <td class="p-1 text-right">
+                            </th>
+                            <th class="p-2 text-right">
                                 <span x-text="format(total.y2017)"></span>
-                            </td>
-                            <td class="p-1 text-right">
+                            </th>
+                            <th class="p-2 text-right">
                                 <span x-text="format(total.y2018)"></span>
-                            </td>
-                            <td class="p-1 text-right">
+                            </th>
+                            <th class="p-2 text-right">
                                 <span x-text="format(total.y2019)"></span>
-                            </td>
-                            <td class="p-1 text-right">
+                            </th>
+                            <th class="p-2 text-right">
                                 <span x-text="format(total.y2020)"></span>
-                            </td>
-                            <td class="p-1 text-right">
+                            </th>
+                            <th class="p-2 text-right">
                                 <span x-text="format(total.y2021)"></span>
-                            </td>
-                            <td class="p-1 text-right">
+                            </th>
+                            <th class="p-2 text-right">
                                 <span x-text="format(total.y2022)"></span>
-                            </td>
-                            <td class="p-1 text-right">
+                            </th>
+                            <th class="p-2 text-right">
                                 <span x-text="format(total.y2023)"></span>
-                            </td>
-                            <td class="p-1 text-right">
+                            </th>
+                            <th class="p-2 text-right">
                                 <span x-text="format(total.total)"></span>
-                            </td>
+                            </th>
                         </tr>
                     </tfoot>
                 </table>
