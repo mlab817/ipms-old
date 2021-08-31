@@ -80,6 +80,8 @@
                                     @endforeach
                                 </ul>
                             </details>
+
+                            <a href="{{ route('projects.compare', $project) }}" class="btn">Compare</a>
                         </div>
                         <div class="flex-auto"></div>
                         <details class="details-reset details-overlay details-overlay-dark">

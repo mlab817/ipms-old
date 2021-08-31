@@ -71,6 +71,7 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::get('/projects/office', [ProjectController::class,'office'])->name('projects.office');
         Route::get('/projects/own', [ProjectController::class,'own'])->name('projects.own');
 
+        Route::get('/projects/{project}/compare', [ProjectController::class,'compare'])->name('projects.compare');
         Route::put('/projects/{project}/drop', [ProjectController::class,'drop'])->name('projects.drop');
 
         Route::get('/projects/{project}/settings', [ProjectController::class,'settings'])->name('projects.settings');
@@ -90,9 +91,6 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::post('/projects/{uuid}/restore', [ProjectController::class,'restore'])->name('projects.restore');
 
         Route::post('/projects/{project}/endorse', [ProjectController::class,'endorse'])->name('reviews.endorse');
-        // Review
-        Route::post('/projects/{project}/review', [ProjectController::class,'storeReview'])->name('reviews.store');
-        Route::get('/projects/{project}/review/create', [ProjectController::class,'review'])->name('reviews.create');
 
         Route::resource('projects.reviews', \App\Http\Controllers\ProjectReviewController::class);
 

@@ -4,9 +4,8 @@
 
 @section('content')
     <div class="container-xl px-3 px-md-4 px-lg-5">
-        <form action="{{ route('projects.reviews.update', ['project' => $project, 'review' => $review]) }}" method="POST">
+        <form action="{{ route('projects.reviews.store', ['project' => $project, 'review' => $review]) }}" method="POST">
             @csrf
-            @method('PUT')
             <div class="Box md Box--responsive">
                 <div class="d-flex top-0 border-top-0 border-bottom p-2 flex-items-center flex-justify-between color-bg-primary rounded-top-2 is-stuck" style="position: sticky; z-index: 90; top: 0px !important;">
                     <div class="d-flex flex-items-center px-2">
@@ -37,10 +36,11 @@
 
                     <dl class="form-group my-0">
                         <dt class="input-label">
-                            <label for="">Typology</label>
+                            <label for="pip_typology_id">Typology</label>
                         </dt>
                         <dd class="form-group-body">
                             <select id="pip_typology_id" name="pip_typology_id" class="form-select">
+                                <option value="">Select Typology</option>
                                 @foreach ($pip_typologies as $option)
                                     <option value="{{ $option->id }}" @if($review->pip_typology_id == $option->id) selected @endif>{{ $option->id . ' - ' . $option->name }}</option>
                                 @endforeach
@@ -67,10 +67,10 @@
 
                     <dl class="form-group my-0">
                         <dt class="input-label">
-                            <label for="">CIP Type</label>
+                            <label for="cip_type_id">CIP Type</label>
                         </dt>
                         <dd class="form-group-body">
-                            <select id="pip_typology_id" name="pip_typology_id" class="form-select">
+                            <select id="cip_type_id" name="cip_type_id" class="form-select">
                                 @foreach ($cip_types as $option)
                                     <option value="{{ $option->id }}" @if($review->pip_typology_id == $option->id) selected @endif>{{ $option->id . ' - ' . $option->name }}</option>
                                 @endforeach

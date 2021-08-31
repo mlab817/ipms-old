@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\ReadinessLevel;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Str;
 
 class ProjectReviewController extends Controller
 {
@@ -19,9 +20,19 @@ class ProjectReviewController extends Controller
      */
     public function index(Project $project)
     {
+        $review = $project->review;
+
+        if (! $review) {
+            $review = new Review;
+            $review->fill([
+                'user_id' => auth()->id(),
+                'uuid' => Str::uuid()
+            ]);
+        }
+
         return view('projects.reviews.index', [
             'project'   => $project,
-            'review'    => $project->review,
+            'review'    => $review,
             'pip_typologies' => PipTypology::all(),
             'cip_types' => CipType::all(),
             'readiness_levels' => ReadinessLevel::all(),

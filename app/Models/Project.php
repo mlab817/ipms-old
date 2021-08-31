@@ -653,28 +653,6 @@ class Project extends Model
         return $this->belongsTo(UpdatingPeriod::class);
     }
 
-    public function allRevisionHistory()
-    {
-        $history = $this->revisionHistory()->latest()->get();
-        $history = $history->merge($this->description->revisionHistory()->latest()->get());
-        $history = $history->merge($this->expected_output->revisionHistory()->latest()->get());
-        $history = $history->merge($this->nep->revisionHistory()->latest()->get());
-        $history = $history->merge($this->allocation->revisionHistory()->latest()->get());
-        $history = $history->merge($this->disbursement->revisionHistory()->latest()->get());
-        $history = $history->merge($this->feasibility_study->revisionHistory()->latest()->get());
-        $history = $history->merge($this->project_update->revisionHistory()->latest()->get());
-
-        foreach ($this->region_investments as $ri) {
-            $history = $history->merge($ri->revisionHistory()->latest()->get());
-        }
-
-        foreach ($this->fs_investments as $fsi) {
-            $history = $history->merge($fsi->revisionHistory()->latest()->get());
-        }
-
-        return $history->sortByDesc('created_at');
-    }
-
     public function currentVersion(): bool
     {
         return $this->updating_period_id == config('current_updating_period');

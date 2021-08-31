@@ -418,32 +418,6 @@ class ProjectController extends Controller
         return redirect()->route('projects.index');
     }
 
-    public function review(Request $request, Project $project)
-    {
-        abort_if(!(auth()->user()->can('reviews.create') || auth()->user()->can('review', $project)), 403);
-
-        return view('reviews.create', [
-            'pageTitle' => 'Reviewing ' . $project->title,
-            'project' => $project,
-            'pip_typologies' => PipTypology::all(),
-            'cip_types' => CipType::all(),
-            'readiness_levels' => ReadinessLevel::all(),
-        ]);
-    }
-
-    public function storeReview(ReviewStoreRequest $request, Project $project)
-    {
-        abort_if(!(auth()->user()->can('reviews.create') || auth()->user()->can('projects.review', $project)), 403);
-
-        $review = Review::create($request->all());
-
-        event(new ProjectReviewedEvent($review));
-
-        Alert::success('Success', 'Review successfully saved');
-
-        return redirect()->route('reviews.index')->with('message', 'Successfully added review');
-    }
-
     public function upload(UploadAttachmentRequest $request, Project $project)
     {
         $attachment = $request->file('attachment');
@@ -599,9 +573,26 @@ class ProjectController extends Controller
 
     public function history(Project $project)
     {
+        $history = $project->revisionHistory()->latest()->get();
+        $history = $history->merge($project->description->revisionHistory()->latest()->get());
+        $history = $history->merge($project->expected_output->revisionHistory()->latest()->get());
+        $history = $history->merge($project->nep->revisionHistory()->latest()->get());
+        $history = $history->merge($project->allocation->revisionHistory()->latest()->get());
+        $history = $history->merge($project->disbursement->revisionHistory()->latest()->get());
+        $history = $history->merge($project->feasibility_study->revisionHistory()->latest()->get());
+        $history = $history->merge($project->project_update->revisionHistory()->latest()->get());
+
+        foreach ($project->region_investments as $ri) {
+            $history = $history->merge($ri->revisionHistory()->latest()->get());
+        }
+
+        foreach ($project->fs_investments as $fsi) {
+            $history = $history->merge($fsi->revisionHistory()->latest()->get());
+        }
+
         return view('projects.history', [
             'project' => $project,
-            'history' => $project->allRevisionHistory()
+            'history' => $history->sortByDesc('created_at')
         ]);
     }
 
@@ -647,4 +638,113 @@ class ProjectController extends Controller
 
         return back()->with('success', 'Successfully added project to pinned list');
     }
+
+    public function compare(Request $request, Project $project)
+    {
+        $original = Project::find($request->query('project_id')) ?? null;
+
+        $fsInvestments = $this->reduce($project->fs_investments, 'Current');
+        $fsInvestments2 = $this->reduce($original->fs_investments, 'Previous');
+        $compareFsInvestments = collect([$fsInvestments, $fsInvestments2]);
+
+        $regionInvestments = $this->reduce($project->region_investments, 'Current');
+        $regionInvestments2 = $this->reduce($original->region_investments, 'Previous');
+        $compareRegionInvestments = collect([$regionInvestments, $regionInvestments2]);
+
+        // chart 5 is original financial accomp
+        // {
+        //                    name: 'nep',
+        //                    data: [1,2,3,4,5,6,7,8]
+        //                },
+        //                {
+        //                    name: 'allocation',
+        //                    data: [1,2,3,4,5,6,7,8]
+        //                },
+        //                {
+        //                    name: 'disbursement',
+        //                    data: [1,2,3,4,5,6,7,8]
+        //                }
+        $compareNep = [];
+        $compareAllocation = [];
+        $compareDisbursement = [];
+
+        if ($original) {
+            $original->load('disbursement','nep','allocation');
+
+            $nep = $this->extractAnnualData($original->nep, 'Previous NEP');
+            $nep2 = $this->extractAnnualData($project->nep, 'Current NEP');
+            $compareNep = collect([$nep, $nep2]);
+
+            $allocation = $this->extractAnnualData($original->allocation, 'Previous Allocation');
+            $allocation2 = $this->extractAnnualData($project->allocation, 'Current Allocation');
+            $compareAllocation = collect([$allocation, $allocation2]);
+
+            $disbursement = $this->extractAnnualData($original->disbursement, 'Previous Disbursement');
+            $disbursement2 = $this->extractAnnualData($project->disbursement, 'Current Disbursement');
+            $compareDisbursement = collect([$disbursement, $disbursement2]);
+        }
+
+        return view('projects.compare', [
+            'revised'       => $project->load('disbursement','nep','allocation'),
+            'original'      => $original,
+            'compareFsInvestments' => $compareFsInvestments,
+            'compareRegionInvestments' => $compareRegionInvestments,
+            'compareNep' => $compareNep,
+            'compareAllocation' => $compareAllocation,
+            'compareDisbursement' => $compareDisbursement,
+            'labels'        => collect($this->labels)->map(function($key) {
+                return str_replace('y','',$key);
+            }),
+            'project'   => $project,
+        ]);
+    }
+
+    public function extractAnnualData($dataToExtract = [], $name = '')
+    {
+        $data = new \stdClass();
+        $data->name = $name;
+        $dataExtracted = array();
+
+        foreach ($this->labels as $key) {
+            array_push($dataExtracted, $dataToExtract->{$key});
+        }
+
+        $data->data = $dataExtracted;
+
+        return $data;
+    }
+
+    public function reduce($dataToReduce, $name = '')
+    {
+        $carry = [
+            'y2016' => 0,
+            'y2017' => 0,
+            'y2018' => 0,
+            'y2019' => 0,
+            'y2020' => 0,
+            'y2021' => 0,
+            'y2022' => 0,
+            'y2023' => 0,
+        ];
+
+        $data = $dataToReduce->reduce(function ($carry, $item) {
+            $carry['y2016'] += $item->y2016;
+            $carry['y2017'] += $item->y2017;
+            $carry['y2018'] += $item->y2018;
+            $carry['y2019'] += $item->y2019;
+            $carry['y2020'] += $item->y2020;
+            $carry['y2021'] += $item->y2021;
+            $carry['y2022'] += $item->y2022;
+            $carry['y2023'] += $item->y2023;
+            return $carry;
+        }, $carry);
+
+        $newClass = new \stdClass();
+        $newClass->name = $name;
+        $newClass->data = collect($data)->values();
+
+        return $newClass;
+    }
+
+    public $labels = ['y2016','y2017','y2018','y2019','y2020','y2021','y2022','y2023'];
 }
