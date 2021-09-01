@@ -92,7 +92,7 @@
                 @endforelse
             </ul>
 
-            <a href="{{ route('projects.own') }}" role="button" type="submit" class="width-full text-left btn-link f6 Link--muted text-left mt-2 border-md-0 border-top py-md-0 py-3 px-md-0 px-2">
+            <a href="{{ route('users.projects', auth()->user()) }}" role="button" type="submit" class="width-full text-left btn-link f6 Link--muted text-left mt-2 border-md-0 border-top py-md-0 py-3 px-md-0 px-2">
                 Show more
             </a>
         </div>

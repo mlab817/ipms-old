@@ -35,5 +35,5 @@
         x-model="{{ $id }}" name="{{ $name }}" id="{{ $id }}"
         placeholder="{{ $placeholder }}"
         class="form-control width-full input-contrast">{{ $value }}</textarea>
-    <div class="border-bottom md-preview" x-cloak x-show="preview" style="height: 150px; overflow-y: scroll;" x-html="{{ $id }} ? window.marked({{ $id }}) : 'Nothing to preview'"></div>
+    <div class="border-bottom md-preview p-2" x-cloak x-show="preview" style="height: 150px; overflow-y: scroll;" x-html="{{ $id }} ? window.marked({{ $id }}) : 'Nothing to preview'"></div>
 </div>

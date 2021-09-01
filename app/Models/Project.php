@@ -292,6 +292,11 @@ class Project extends Model
         return $this->belongsToMany(Basis::class);
     }
 
+    public function collaborators(): HasMany
+    {
+        return $this->hasMany(Collaborator::class);
+    }
+
     public function covid_interventions(): BelongsToMany
     {
         return $this->belongsToMany(CovidIntervention::class);

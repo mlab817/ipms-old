@@ -14,6 +14,7 @@ use App\Jobs\ProjectCloneJob;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
 use App\Models\CipType;
+use App\Models\Collaborator;
 use App\Models\CovidIntervention;
 use App\Models\FsInvestment;
 use App\Models\FsStatus;
@@ -608,8 +609,10 @@ class ProjectController extends Controller
 
     public function settings(Project $project)
     {
+        $project->load('collaborators.user');
+
         return view('projects.settings', compact('project'))
-            ->with('users',User::all());
+            ->with('users', User::all());
     }
 
     public function files(Project $project)
@@ -637,6 +640,34 @@ class ProjectController extends Controller
         }
 
         return back()->with('success', 'Successfully added project to pinned list');
+    }
+
+    public function view_invitation(Request $request, Project $project, string $token)
+    {
+        $collaborator = Collaborator::where('project_id', $project->id)
+            ->where('token', $token)
+            ->first();
+
+        return view('projects.invitation', compact('project'))
+            ->with('collaborator', $collaborator)
+            ->with('token', $token);
+    }
+
+    public function accept_invite(Request $request, Project $project, string $token)
+    {
+        $collaborator = $project->collaborators()->where('token', $token)->firstOrFail();
+
+        if ($request->accept) {
+            $collaborator->accepted_at = now();
+            $collaborator->save();
+
+            return redirect()->route('projects.show', $project)
+                ->with('success','Successfully accepted invitation');
+        } else {
+            $collaborator->delete();
+
+            return redirect()->route('dashboard');
+        }
     }
 
     public function compare(Request $request, Project $project)

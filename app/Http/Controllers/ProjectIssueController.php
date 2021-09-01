@@ -14,17 +14,17 @@ class ProjectIssueController extends Controller
     {
         $issues = in_array($request->status, ['open','closed'])
             ? $project->issues()->where('status', $request->status)->get()
-            : $project->issues;
+            : $project->issues()->where('status', 'open')->get();
 
-        return view('issues.index', compact('project'))
-            ->with('openIssues', Issue::where('status','open')->count())
-            ->with('closedIssues', Issue::where('status','closed')->count())
+        return view('projects.issues.index', compact('project'))
+            ->with('openIssues', $project->issues()->where('status','open')->count())
+            ->with('closedIssues', $project->issues()->where('status','closed')->count())
             ->with('issues', $issues);
     }
 
     public function create(Project $project)
     {
-        return view('issues.create', compact('project'));
+        return view('projects.issues.create', compact('project'));
     }
 
     public function store(IssueStoreRequest $request, Project $project)
@@ -49,7 +49,7 @@ class ProjectIssueController extends Controller
             abort(404, 'Issue not found under this project');
         }
 
-        return view('issues.show', compact('issue'))
+        return view('projects.issues.show', compact('issue'))
             ->with('project', $project);
     }
 

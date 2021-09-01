@@ -63,7 +63,7 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
         Route::post('clone_project', CloneProjectController::class)->name('clone_project');
 
-        Route::resource('issues.issue_comments', IssueCommentController::class)->shallow();
+        Route::resource('issues.issue_comments', IssueCommentController::class);
         Route::resource('projects.issues', ProjectIssueController::class)->except('edit');
 
         // other index routes
@@ -99,6 +99,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::get('/projects/import', [ProjectImportController::class,'index'])->name('projects.import.index');
         Route::post('projects/import', [ProjectImportController::class,'import'])->name('projects.import.import');
 
+        Route::put('/projects/{project}/invitations/{token}', [ProjectController::class,'accept_invite'])->name('projects.accept_invite');
+        Route::get('/projects/{project}/invitations/{token}', [ProjectController::class,'view_invitation'])->name('projects.view_invitation');
         Route::get('/projects/{project}/generate_pdf', \App\Http\Controllers\ProjectGeneratePdfController::class)->name('projects.generatePdf');
         Route::get('/projects/{project}/exportJson', [ProjectController::class,'exportJson'])->name('projects.exportJson');
         Route::post('projects/checkAvailability', [ProjectController::class,'checkAvailability'])->name('projects.checkAvailability');
@@ -123,6 +125,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::resource('updating-periods',\App\Http\Controllers\UpdatingPeriodController::class);
 
         Route::resource('users.activities', \App\Http\Controllers\UserActivityController::class);
+
+        Route::resource('collaborators', \App\Http\Controllers\CollaboratorController::class);
 
         Route::group(['prefix' => 'reports'], function() {
             Route::get('/', [\App\Http\Controllers\ReportController::class,'index'])->name('reports.index');

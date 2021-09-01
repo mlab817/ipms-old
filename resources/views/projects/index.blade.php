@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.header-only')
 
 @section('title', 'Projects')
 

@@ -2,6 +2,7 @@ window._ = require('lodash');
 window.marked = require('marked');
 import '@github/markdown-toolbar-element';
 import '@github/details-dialog-element';
+import '@github/clipboard-copy-element';
 
 function formatNumber(val) {
     return val && parseFloat(val).toLocaleString('en-US', { minimumFractionDigits: 2 })

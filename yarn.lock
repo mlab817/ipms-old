@@ -894,6 +894,11 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.3.tgz#c36ffa64a2a239bf948541a97b6ae8d729e09a9a"
   integrity sha512-rFnSUN/QOtnOAgqFRooTA3H57JLDm0QEG/jPdk+tLQNL/eWd+Aok8g3qCI+Q1xuDPWpGW/i9JySpJVsq8Q0s9w==
 
+"@github/clipboard-copy-element@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@github/clipboard-copy-element/-/clipboard-copy-element-1.1.2.tgz#7a6e8042749471504d4e7cfcc47097a781db2bdb"
+  integrity sha512-L6CMrcA5we0udafvoSuRCE/Ci/3xrLWKYRGup2IlhxF771bQYsQ2EB1of182pI8ZWM4oxgwzu37+igMeoZjN/A==
+
 "@github/details-dialog-element@^3.1.2":
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/@github/details-dialog-element/-/details-dialog-element-3.1.2.tgz#61f6595c71d786b1a77fbbe79db4c0b9a224fc80"

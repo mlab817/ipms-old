@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="border-bottom color-border-secondary py-3">
-
         <div class="d-flex flex-items-start">
             <div class="d-flex flex-column flex-lg-row flex-auto">
                 <div class="mb-1 flex-auto">
