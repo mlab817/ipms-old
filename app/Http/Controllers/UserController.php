@@ -9,6 +9,19 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    public function index(Request $request)
+    {
+        $q = $request->q;
+
+        $users = User::where('first_name', 'like', '%' . $q . '%')
+            ->orWhere('last_name', 'like', '%' . $q . '%')
+            ->orWhere('email', 'like', '%' . $q . '%')
+            ->orWhere('username', 'like', '%' . $q . '%')
+            ->get();
+
+        return response()->view('users.list', compact('users'));
+    }
+
     public function show(User $user)
     {
         $chart = Project::with(['submission_status','updating_period'])
@@ -75,11 +88,11 @@ class UserController extends Controller
             'username' => 'required|unique:users,username,'. $user->id,
         ]);
 
-        auth()->user()->update([
-            'username' => $request->username,
-        ]);
+        $user = auth()->user();
+        $user->username = $request->username;
+        $user->save();
 
-        return back()->with('message','Successfully updated username');
+        return redirect()->route('users.show', $user)->with('message','Successfully updated username');
     }
 
     public function projects(Request $request, User $user)
@@ -109,5 +122,10 @@ class UserController extends Controller
             : $auth->follow($user);
 
         return back();
+    }
+
+    public function settings(Request $request, User $user)
+    {
+        return view('users.settings', compact('user'));
     }
 }

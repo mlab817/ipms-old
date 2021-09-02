@@ -2,12 +2,57 @@
 
 @section('content')
     <div class="Box">
-        <div class="Box-header">
-            <span class="lh-condensed">
-                Users
-            </span>
+        <div class="Box-header d-flex flex-items-center">
+            <div class="flex-auto">
+                <span class="Box-title lh-condensed">
+                    Members
+                </span>
+            </div>
+
+            <details class="details-reset details-overlay details-overlay-dark">
+                <summary class="btn btn-sm btn-primary" role="button">
+                    Invite member
+                </summary>
+
+                <details-dialog class="anim-fade-in fast Box p-6 Box-overlay--wide js-invite-member-dialog" role="dialog" aria-modal="true">
+                    <button class="btn-octicon position-absolute right-0 top-0 p-4" type="button" aria-label="Close dialog" data-close-dialog="">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" class="octicon octicon-x">
+                            <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+                        </svg>
+                    </button>
+
+                    <div class="blankslate">
+                        <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" class="octicon octicon-mail blankslate-icon">
+                            <path fill-rule="evenodd" d="M1.75 3A1.75 1.75 0 000 4.75v14c0 .966.784 1.75 1.75 1.75h20.5A1.75 1.75 0 0024 18.75v-14A1.75 1.75 0 0022.25 3H1.75zM1.5 4.75a.25.25 0 01.25-.25h20.5a.25.25 0 01.25.25v.852l-10.36 7a.25.25 0 01-.28 0l-10.36-7V4.75zm0 2.662V18.75c0 .138.112.25.25.25h20.5a.25.25 0 00.25-.25V7.412l-9.52 6.433c-.592.4-1.368.4-1.96 0L1.5 7.412z"></path>
+                        </svg>
+
+                        <h3 class="mb-1">Invite a member to {{ $office->acronym }}</h3>
+
+                    </div>
+
+                    <form class="input-block" action="{{ route('offices.members.store', $office) }}" accept-charset="UTF-8" method="post">
+                        @csrf
+                        <div class="input-group mt-3">
+                            <div class="position-relative">
+                                <auto-complete src="{{ route('users.index') }}" for="org-invite-complete-results" class="auto-search-group d-block">
+                                    <input id="org-invite-complete-input" name="username" aria-label="Search by username, full name or email address" autofocus="autofocus" required="required" placeholder="Search by username, full name, or email address" type="text" class="form-control form-control input-block input-contrast auto-search-input new-member-field" role="combobox" aria-controls="org-invite-complete-results" aria-expanded="false" aria-autocomplete="list" aria-haspopup="listbox" autocomplete="off" spellcheck="false">
+                                    <ul id="org-invite-complete-results" class="autocomplete-results invite-member-results" hidden="" role="listbox"></ul>
+                                </auto-complete>
+                            </div>
+                            <div class="input-group-button">
+                                <button type="submit" class="btn-primary btn">
+                                    Invite
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-normal color-text-secondary my-3 text-small text-center">Users added to the office will be able to edit PAPs belonging to the Office. Only invite users you trust.</p>
+                    </form>
+                </details-dialog>
+
+            </details>
+
         </div>
-        @foreach($office->users as $user)
+        @forelse($office->members as $user)
         <div class="Box-row d-flex flex-items-center">
             <img class="avatar mr-2" alt="{{ '@' . $user->username }}" src="{{ $user->user_avatar() }}" width="48" height="48" />
             <div class="flex-auto">
@@ -52,20 +97,24 @@
                                 </p>
                             </div>
                             <div class="Box-footer">
-                                <form action="/orgs/da-pms/people/convert_to_outside_collaborators" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="put"><input type="hidden" name="authenticity_token" value="xcxHG9YX4SaSQM5o8dGiaH5hMYFrzFV6OPhwV+ec2f+J/fzg7FAYEfLu9NjPJqMbVCtXpKNfHZ/eAgCsfQPRAg==">
+                                <form action="#" accept-charset="UTF-8" method="post">
+                                    @csrf
                                     <input type="hidden" name="member_ids" value="29625844">
                                     <button type="submit" class="btn-danger btn input-block">
                                         I know what I am doing, remove this user
                                     </button>
                                 </form>
                             </div>
-
-
                         </details-dialog>
                     </details>
                 </details-menu>
             </details>
         </div>
-        @endforeach
+        @empty
+            <div class="blankslate blankslate-spacious">
+                <h1 class="f3">No users added to the office yet.</h1>
+                <p>Click Invite Member to add users.</p>
+            </div>
+        @endforelse
     </div>
 @stop

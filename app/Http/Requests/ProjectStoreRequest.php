@@ -36,6 +36,7 @@ class ProjectStoreRequest extends FormRequest
                 })
             ],
             'pap_type_id'                       => 'required|exists:pap_types,id',
+            'summary'                           => 'required|string|max:255|min:1'
         ];
     }
 

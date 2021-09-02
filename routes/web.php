@@ -107,6 +107,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::resource('projects', ProjectController::class);
         Route::resource('projects.pipols', \App\Http\Controllers\ProjectPipolController::class);
 
+        Route::resource('offices.members', \App\Http\Controllers\MemberController::class);
+
         Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
         Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
         Route::post('/notifications', [\App\Http\Controllers\NotificationController::class,'markAllAsRead'])->name('notifications.markAllAsRead');
@@ -117,6 +119,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::put('users/{user}/update_name', [\App\Http\Controllers\UserController::class,'update_name'])->name('users.update_name');
         Route::put('users/{user}/upload_avatar', [\App\Http\Controllers\UserController::class,'upload_avatar'])->name('users.upload_avatar');
         Route::get('users/{user}/projects', [\App\Http\Controllers\UserController::class,'projects'])->name('users.projects');
+        Route::get('users/{user}/settings', [\App\Http\Controllers\UserController::class,'settings'])->name('users.settings');
+        Route::get('/users', [\App\Http\Controllers\UserController::class,'index'])->name('users.index');
         Route::resource('users', \App\Http\Controllers\UserController::class)->only('show','update');
         Route::get('/offices/{office}/projects', [\App\Http\Controllers\OfficeController::class,'projects'])->name('offices.projects');
         Route::get('/offices/{office}/users', [\App\Http\Controllers\OfficeController::class,'users'])->name('offices.users');

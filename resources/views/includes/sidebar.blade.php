@@ -1,3 +1,7 @@
+@php
+    $user = auth()->user();
+@endphp
+
 @auth
     <aside class="px-3 px-md-4 px-lg-5 overflow-auto">
 
@@ -12,7 +16,7 @@
                 <details-menu class="SelectMenu" role="menu" aria-label="Switch dashboard context">
                     <div class="SelectMenu-modal">
                         <header class="SelectMenu-header">
-                            <div class="SelectMenu-title">Switch role</div>
+                            <div class="SelectMenu-title">View office</div>
                             <button class="SelectMenu-closeButton" type="button" aria-label="Close menu" data-toggle-for="details-91da43">
                                 <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16" class="octicon octicon-x">
                                     <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -21,22 +25,23 @@
                         </header>
                         <div class="d-flex flex-column flex-1 overflow-hidden">
                             <div class="SelectMenu-list">
-                                <form action="{{ route('roles.switch') }}" method="POST">
-                                    @csrf
-                                    @foreach(auth()->user()->assigned_roles as $role)
-                                        <button type="submit" class="SelectMenu-item" role="menuitemradio" aria-checked="true" name="roleId" value="{{ $role->id }}" class="dropdown-item">
-                                            <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16" fill="currentColor"
-                                                 class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check @if($role->id == auth()->user()->currentRole->id ?? null) color-text-success @else color-text-white @endif">
-                                                <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
-                                            </svg>
-
-                                            <span class="css-truncate css-truncate-overflow flex-1">
-                                                {{ $role->name }}
-                                            </span>
-                                        </button>
-                                    @endforeach
-                                </form>
-
+                                @foreach($user->owned_offices as $office)
+                                    <a class="SelectMenu-item flex-justify-between" role="menuitem" href="{{ route('offices.show', $office) }}">
+                                        <span>
+                                            <img src="{{ $office->image }}" alt="{{ '@' . $office->acronym }}" class="avatar avatar-user mr-1" width="20" height="20">
+                                            {{ $office->acronym }}
+                                        </span>
+                                        <svg
+                                            width="8"
+                                            height="16"
+                                            viewBox="0 0 8 16"
+                                            class="octicon octicon-primitive-dot color-text-primary ml-2"
+                                            aria-hidden="true"
+                                        >
+                                            <path fill-rule="evenodd" d="M0 8c0-2.2 1.8-4 4-4s4 1.8 4 4-1.8 4-4 4-4-1.8-4-4z" />
+                                        </svg>
+                                    </a>
+                                @endforeach
                             </div>
 
                         </div>
@@ -45,7 +50,7 @@
             </details>
         </div>
 
-        <a class="btn btn-outline f6 width-full mb-3" href="{{ route('offices.index') }}">View Office</a>
+        <a class="btn btn-outline f6 width-full mb-3" href="{{ route('offices.show', auth()->user()->owned_offices->first()) }}">View Office</a>
 
         <div class="mb-3 Details" role="navigation">
 

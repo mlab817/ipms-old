@@ -16,6 +16,8 @@ class ProjectCreate extends Component
 
     public $hideAutocomplete = true;
 
+    public $owner;
+
     protected $rules = [
         'title' => 'required|max:255|string',
         'papTypeId' => 'required|exists:pap_types,id'
@@ -40,6 +42,8 @@ class ProjectCreate extends Component
 
     public function saveProject()
     {
+        $owner = $this->owner;
+
         $project = Project::create([
             'title' => $this->title,
             'pap_type_id' => $this->papTypeId,

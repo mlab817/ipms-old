@@ -8,6 +8,9 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Venturecraft\Revisionable\RevisionableTrait;
@@ -70,14 +73,24 @@ class Office extends Model
         return 'https://avatars.githubusercontent.com/u/86537749?s=200&amp;v=4';
     }
 
-    public function users()
+    public function members(): HasMany
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Member::class);
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class,'owner_id');
     }
 
     public function projects()
     {
         return $this->hasMany(Project::class);
+    }
+
+    public function owned_projects(): MorphMany
+    {
+        return $this->morphMany(Project::class,'owner');
     }
 
     /**

@@ -108,7 +108,7 @@
                             </svg>
                             Projects
                             <span title="Not available"
-                                  class="Counter">{{ $office->projects->count() }}</span>
+                                  class="Counter">{{ $office->owned_projects->count() }}</span>
                         </a>
                     </li>
 
@@ -121,7 +121,7 @@
                             </svg>
                             Users
                             <span title="Not available"
-                                  class="Counter">{{ $office->users->count() }}</span>
+                                  class="Counter">{{ $office->members->count() }}</span>
                         </a>
                     </li>
 
@@ -146,12 +146,12 @@
             <div class="Box-body">
                     <span class="d-block color-text-primary">
                         <span class="float-right f5 color-text-secondary">
-                            <span class="Label">{{ $office->users->count() }}</span>
+                            <span class="Label">{{ $office->members->count() }}</span>
                         </span>
                         <h4 class="f4 text-normal mb-3">Users</h4>
                     </span>
                 <div class="clearfix d-flex flex-wrap" style="margin: -1px">
-                    @foreach($office->users as $user)
+                    @foreach($office->members as $user)
                         <a class="member-avatar"
                            href="{{ route('users.show', $user) }}">
                                 <span class="tooltipped tooltipped-nw" aria-label="{{ $user->full_name }}">

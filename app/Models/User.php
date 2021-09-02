@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -183,6 +184,31 @@ class User extends Authenticatable
     public function assigned_roles(): BelongsToMany
     {
         return $this->belongsToMany(\Spatie\Permission\Models\Role::class, 'assigned_roles', 'user_id', 'role_id');
+    }
+
+    public function successor(): BelongsTo
+    {
+        return $this->belongsTo(User::class,'successor_id');
+    }
+
+    public function owned_offices(): HasMany
+    {
+        return $this->hasMany(Office::class,'owner_id');
+    }
+
+    /**
+     * Get projects owned by user based on owner_type, owner_id
+     *
+     * @return MorphMany
+     */
+    public function owned_projects(): MorphMany
+    {
+        return $this->morphMany(Project::class,'owner');
+    }
+
+    public function offices(): BelongsToMany
+    {
+        return $this->belongsToMany(Office::class,'office_member','member_id','office_id');
     }
 
     public function scopeProjectManager($query)

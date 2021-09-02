@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -482,6 +483,11 @@ class Project extends Model
     {
         return $this->belongsToMany(User::class,'project_user_permission','project_id','user_id','id','id')
             ->withPivot('read','update','delete','review','comment');
+    }
+
+    public function owner(): MorphTo
+    {
+        return $this->morphTo();
     }
 
     public function attachments(): HasMany

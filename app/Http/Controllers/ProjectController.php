@@ -110,7 +110,12 @@ class ProjectController extends Controller
      */
     public function store(ProjectStoreRequest $request)
     {
+        $owner = $request->owner;
+        $owner = explode(';', $owner);
+        $model = app($owner[0])->find($owner[1]);
+
         $project = Project::create($request->validated());
+        $project->owner()->save($model);
 
 //        $project->bases()->sync($request->bases);
 //        $project->regions()->sync($request->regions);
