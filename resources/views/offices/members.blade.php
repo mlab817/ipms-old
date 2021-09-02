@@ -52,18 +52,30 @@
             </details>
 
         </div>
-        @forelse($office->members as $user)
+
+        @forelse($members as $member)
         <div class="Box-row d-flex flex-items-center">
-            <img class="avatar mr-2" alt="{{ '@' . $user->username }}" src="{{ $user->user_avatar() }}" width="48" height="48" />
+            <img class="avatar mr-2" alt="{{ '@' . $member->user->username }}" src="{{ $member->user->user_avatar() }}" width="48" height="48" />
             <div class="flex-auto">
-                <strong>{{ $user->full_name }}</strong>
+                <strong>{{ $member->user->full_name }}</strong>
                 <div class="text-small color-text-tertiary">
-                    {{ '@' . $user->username }}
+                    {{ '@' . $member->user->username }}
                 </div>
                 <div class="text-small color-text-tertiary">
-                    Member since {{ $user->created_at->format('M d, Y') }}
+                    @if(! $member->accepted_at)
+                        Added on {{ $member->created_at->format('M d, Y') }}
+                    @else
+                        Joined on {{ $member->accepted_at ? $member->accepted_at->format('M d, Y') : ' not yet' }}
+                    @endif
                 </div>
             </div>
+
+            @if(! $member->accepted_at)
+            <span class="flex-auto color-text-danger">
+                Pending
+            </span>
+            @endif
+
             <details class="details-reset details-overlay dropdown float-right">
                 <summary role="button" class="select-menu-button btn-sm btn" aria-haspopup="menu">
                     <svg aria-label="Member settings" role="img" height="16" viewBox="0 0 16 16" version="1.1" width="16" class="octicon octicon-gear">
@@ -71,7 +83,7 @@
                     </svg>
                 </summary>
                 <details-menu class="dropdown-menu dropdown-menu-no-overflow dropdown-menu-sw" role="menu">
-                    <a href="{{ route('users.show', $user) }}" class="dropdown-item" role="menuitem">
+                    <a href="{{ route('users.show', $member->user) }}" class="dropdown-item" role="menuitem">
                         View
                     </a>
                     <details class="details-reset details-overlay details-overlay-dark lh-default color-text-primary width-full">
@@ -85,7 +97,7 @@
                                         <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
                                     </svg>
                                 </button>
-                                <h3 class="Box-title ">Remove {{ $user->username }} from your office</h3>
+                                <h3 class="Box-title ">Remove {{ $member->user->username }} from your office</h3>
                             </div>
 
                             <div class="Box-body">
@@ -97,9 +109,9 @@
                                 </p>
                             </div>
                             <div class="Box-footer">
-                                <form action="#" accept-charset="UTF-8" method="post">
+                                <form action="{{ route('members.destroy', $member) }}" accept-charset="UTF-8" method="post">
                                     @csrf
-                                    <input type="hidden" name="member_ids" value="29625844">
+                                    @method('DELETE')
                                     <button type="submit" class="btn-danger btn input-block">
                                         I know what I am doing, remove this user
                                     </button>
@@ -107,6 +119,16 @@
                             </div>
                         </details-dialog>
                     </details>
+                    @if (! $member->accepted_at)
+                    <div class="dropdown-divider"></div>
+                    <form action="{{ route('members.destroy', $member) }}" method="post" accept-charset="utf-8">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="dropdown-item color-text-danger btn-link" role="menuitem">
+                            Cancel
+                        </button>
+                    </form>
+                    @endif
                 </details-menu>
             </details>
         </div>

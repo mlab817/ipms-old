@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Member;
 use App\Models\Office;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -20,9 +21,9 @@ class SendInvitationForUserToJoinOfficeNotification extends Notification
      *
      * @return void
      */
-    public function __construct($member)
+    public function __construct($memberId)
     {
-        $this->member = User::find($member->member_id);
+        $this->member = Member::with('inviter','office','user')->find($memberId);
     }
 
     /**
@@ -44,24 +45,13 @@ class SendInvitationForUserToJoinOfficeNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $member = $this->member;
+
         return (new MailMessage)
-                    ->subject('['. config('app.name') .'] @'. $this->inviter->username .' has invited you to join the @' . $this->office->acronym)
+                    ->subject('['. config('app.name') .'] @'. $member->inviter->username .' has invited you to join the @' . $member->office->acronym)
                     ->greeting('Hi ' . $notifiable->username . '!')
                     ->line('The introduction to the notification.')
                     ->line('This invitation will expire in 7 days.')
-                    ->action('Notification Action', url('/'));
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
+                    ->action('Join', route('offices.members.invitation', $member->office));
     }
 }

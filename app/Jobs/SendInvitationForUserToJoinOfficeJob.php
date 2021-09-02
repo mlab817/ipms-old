@@ -38,6 +38,6 @@ class SendInvitationForUserToJoinOfficeJob implements ShouldQueue
     {
         $user = User::find($this->member->member_id);
 
-        $user->notify(new SendInvitationForUserToJoinOfficeNotification($this->member));
+        $user->notify(new SendInvitationForUserToJoinOfficeNotification($this->member->id));
     }
 }

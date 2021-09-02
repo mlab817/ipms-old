@@ -23,6 +23,14 @@
 
 @include('includes.header')
 
+@if(Session::has('error'))
+    <x-dismissable-flash-message :message="Session::get('error')" type="error"></x-dismissable-flash-message>
+@endif
+
+@if(session()->has('success'))
+    <x-dismissable-flash-message :message="Session::get('success')" type="success"></x-dismissable-flash-message>
+@endif
+
 <header class="border-bottom-0 pt-0 mb-4">
 
     <div class="container-lg pt-4 pt-lg-0 p-responsive clearfix">
@@ -71,7 +79,7 @@
                 </h1>
 
                 <div class="color-text-tertiary">
-                    <div></div>
+                    <div>Owned by <a href="{{ route('users.show', $office->owner) }}" class="btn-link no-underline"> {{ '@' . $office->owner->username }}</a></div>
                 </div>
 
                 <div class="d-md-flex flex-items-center mt-2">
@@ -113,7 +121,7 @@
                     </li>
 
                     <li class="d-flex">
-                        <a class="UnderlineNav-item @if($route == 'offices.users') selected @endif" href="{{ route('offices.users', $office) }}">
+                        <a class="UnderlineNav-item @if($route == 'offices.members.index') selected @endif" href="{{ route('offices.members.index', $office) }}">
                             <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1"
                                  height="16" width="16" class="octicon octicon-person UnderlineNav-octicon">
                                 <path fill-rule="evenodd"
@@ -151,11 +159,11 @@
                         <h4 class="f4 text-normal mb-3">Users</h4>
                     </span>
                 <div class="clearfix d-flex flex-wrap" style="margin: -1px">
-                    @foreach($office->members as $user)
+                    @foreach($office->members as $member)
                         <a class="member-avatar"
-                           href="{{ route('users.show', $user) }}">
-                                <span class="tooltipped tooltipped-nw" aria-label="{{ $user->full_name }}">
-                                    <img class="avatar avatar-user" src="{{ $user->user_avatar() }}" width="48" height="48" alt="{{ '@' . $user->username }}">
+                           href="{{ route('users.show', $member->user) }}">
+                                <span class="tooltipped tooltipped-nw" aria-label="{{ $member->user->full_name }}">
+                                    <img class="avatar avatar-user" src="{{ $member->user->user_avatar() }}" width="48" height="48" alt="{{ '@' . $member->user->username }}">
                                 </span>
                         </a>
                     @endforeach

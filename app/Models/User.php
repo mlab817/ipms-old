@@ -208,7 +208,7 @@ class User extends Authenticatable
 
     public function offices(): BelongsToMany
     {
-        return $this->belongsToMany(Office::class,'office_member','member_id','office_id');
+        return $this->belongsToMany(Office::class,'members','member_id','office_id');
     }
 
     public function scopeProjectManager($query)

@@ -115,7 +115,8 @@ class ProjectController extends Controller
         $model = app($owner[0])->find($owner[1]);
 
         $project = Project::create($request->validated());
-        $project->owner()->save($model);
+
+        $project->owner()->associate($model);
 
 //        $project->bases()->sync($request->bases);
 //        $project->regions()->sync($request->regions);

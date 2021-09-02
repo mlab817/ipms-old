@@ -79,7 +79,16 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
-        //
+        $accept = $request->accept;
+        $officeId = $member->office_id;
+
+        if ($accept) {
+            $member->accept();
+        } else {
+            $member->delete();
+        }
+
+        return redirect()->route('offices.show', Office::find($officeId));
     }
 
     /**
@@ -90,6 +99,24 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        //
+        $member->delete();
+
+        return back()->with('success','Successfully cancelled invitation.');
+    }
+
+    public function invitation(Request $request, Office $office)
+    {
+        // look for invitation for the user
+        $member = Member::where('member_id', auth()->id())->first();
+
+        $member->load('user','office','inviter');
+
+        // if member has already accepted the invitation, redirect them to the office page
+        if ($member->accepted_at) {
+            return redirect()->route('offices.show', $office)
+                ->with('error','You have already joined this office.');
+        }
+
+        return view('offices.invitation', compact('member'));
     }
 }

@@ -1,18 +1,6 @@
 @extends('layouts.office')
 
 @section('content')
-    <div class="my-3">
-        <!-- search and filters go here -->
-        <div class="d-flex flex-items-start">
-            <div class="flex flex-column flex-lg-row flex-auto">
-
-            </div>
-            <div class="d-flex flex-wrap">
-
-            </div>
-        </div>
-    </div>
-
     <div class="Box">
         @forelse($projects as $project)
             <ul>
@@ -65,8 +53,8 @@
                                 {{ $project->issues->count() }}
                             </a>
                             <span class="no-wrap">
-                                     Updated {{ $project->updated_at->diffForHumans(null, null, true) }}
-                                </span>
+                                 Updated {{ $project->updated_at->diffForHumans(null, null, true) }}
+                            </span>
                         </div>
                         <div class="color-text-secondary f6 mt-2">
                             Added by:
@@ -87,10 +75,11 @@
                         d="M7 18.25a.25.25 0 01.25-.25h5a.25.25 0 01.25.25v5.01a.25.25 0 01-.397.201l-2.206-1.604a.25.25 0 00-.294 0L7.397 23.46a.25.25 0 01-.397-.2v-5.01z"></path>
                 </svg>
 
-                <h3 class="mb-1">This organization has no repositories.</h3>
+                <h3 class="mb-1">This office does not own any PAP.</h3>
 
-                <a class="btn btn-primary my-3" href="/organizations/da-pms/repositories/new">Create a new
-                    repository</a>
+                <p>Create a new PAP and select the office as owner of the PAP.</p>
+
+                <a class="btn btn-primary my-3" href="{{ route('projects.create') }}">Create a new PAP</a>
 
             </div>
         @endforelse

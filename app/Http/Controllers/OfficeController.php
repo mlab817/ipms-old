@@ -67,7 +67,7 @@ class OfficeController extends Controller
 
     public function projects(Request $request, Office $office)
     {
-        $projects = Project::where('office_id', $office->id)->simplePaginate(10);
+        $projects = $office->owned_projects()->simplePaginate(10);
 
         return view('offices.projects', compact('projects'))
             ->with('office', $office);

@@ -107,7 +107,9 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::resource('projects', ProjectController::class);
         Route::resource('projects.pipols', \App\Http\Controllers\ProjectPipolController::class);
 
-        Route::resource('offices.members', \App\Http\Controllers\MemberController::class);
+        Route::resource('members', \App\Http\Controllers\MemberController::class)->only('destroy');
+        Route::get('/offices/{office}/members/invitation', [\App\Http\Controllers\MemberController::class, 'invitation'])->name('offices.members.invitation');
+        Route::resource('offices.members', \App\Http\Controllers\MemberController::class)->shallow();
 
         Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
         Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
