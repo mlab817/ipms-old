@@ -23,7 +23,7 @@ class TripController extends Controller
 {
     public function show(Project $project)
     {
-        abort_if(! auth()->user()->can('update', $project), 403);
+//        abort_if(! auth()->user()->can('update', $project), 403);
 
         if (! $project->has_infra) {
             return redirect()->route('projects.show', $project)

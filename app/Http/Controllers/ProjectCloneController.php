@@ -95,6 +95,8 @@ class ProjectCloneController extends Controller
      */
     public function store(Request $request, Project $project)
     {
+        $this->authorize('update');
+
         $this->validate($request, [
             'updating_period_id' => 'required|exists:updating_periods,id'
         ]);
