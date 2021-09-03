@@ -81,3 +81,20 @@ if (! function_exists('shorten_value')) {
     }
 }
 
+if (! function_exists('nanoid')) {
+    function nanoid(int $length = 21): string
+    {
+        $client = new \Hidehalo\Nanoid\Client();
+
+        return $client->generateId($length, $mode = \Hidehalo\Nanoid\Client::MODE_DYNAMIC);
+    }
+}
+
+if (! function_exists('generate_username')) {
+    function generate_username($email = ''): string
+    {
+        $position = strpos($email, '@');
+
+        return substr($email, 0, $position);
+    }
+}

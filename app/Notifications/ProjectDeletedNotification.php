@@ -24,7 +24,7 @@ class ProjectDeletedNotification extends Notification
      *
      * @return void
      */
-    public function __construct($project, User $user, string $reason)
+    public function __construct(array $project, User $user, string $reason)
     {
         $this->project  = $project;
         $this->user     = $user;
@@ -39,7 +39,24 @@ class ProjectDeletedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail', 'database'];
+    }
+
+    public function toMail($notifiable)
+    {
+        $id = $this->project['id'];
+        $title = $this->project['title'];
+        $appName = config('app.name');
+        $user = $this->user->username;
+        $fullName = $notifiable->full_name;
+        $subject = "[$appName] @$user deleted one of your projects #$id";
+
+        return (new MailMessage)
+            ->subject($subject)
+            ->greeting("Good day $fullName!")
+            ->line("A project of yours entitled <strong>$title</strong> has been deleted by @$user.")
+            ->line("Message: $this->reason")
+            ->line('For your information');
     }
 
     /**

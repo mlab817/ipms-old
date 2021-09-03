@@ -6,6 +6,10 @@
             <h1 class="sign-in-header p-0">Sign in to {{ config('app.name','Laravel') }}</h1>
         </div>
 
+        @if($errors->any())
+            {{ dd($errors->first()) }}
+        @endif
+
         @if(session()->has('error'))
             <div x-data="{ show: true }">
                 <div class="px-3" x-show="show">

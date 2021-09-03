@@ -50,7 +50,7 @@
             </details>
         </div>
 
-        <a class="btn btn-outline f6 width-full mb-3" href="{{ route('offices.show', auth()->user()->owned_offices->first()) }}">View Office</a>
+        <a class="btn btn-outline f6 width-full mb-3" href="{{ route('offices.show', auth()->user()->office) ?? '#' }}">View Office</a>
 
         <div class="mb-3 Details" role="navigation">
 

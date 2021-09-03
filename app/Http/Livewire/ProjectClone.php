@@ -32,7 +32,7 @@ class ProjectClone extends Component
             'results' => $this->search
                 ? Project::where('title','like','%'. $this->search . '%')
                     ->where('updating_period_id', '<>', config('ipms.current_updating_period'))->paginate(15)
-                : []
+                : [],
         ]);
     }
 }

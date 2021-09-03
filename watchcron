@@ -1,0 +1,2 @@
+#!/bin/bash
+watch -n 10 tail -n 25 /var/log/cron.log

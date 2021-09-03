@@ -38,6 +38,28 @@
                 <button type="submit" class="btn btn-primary">Begin clone</button>
             </div>
         </form>
+
+        <p class="mt-5 color-text-secondary">
+            Recommended PAPs:
+        </p>
+        <ul class="pl-3">
+            @foreach($recommendedProjects as $recommended)
+                <li class="list-style-none mt-2">
+                    <form action="{{ route('projects.clone', $recommended) }}" method="post">
+                        @csrf
+                        <input type="hidden" name="updating_period_id" value="{{ config('ipms.current_updating_period') }}">
+                        <div class="d-flex flex-justify-between">
+                        <span class="flex-auto">
+                            <a href="{{ route('projects.show', $recommended) }}" class="btn-link">
+                                {{ $recommended->title }}
+                            </a>
+                        </span>
+                            <button type="submit" class="btn btn-sm">Clone</button>
+                        </div>
+                    </form>
+                </li>
+            @endforeach
+        </ul>
     </div>
 
 @endsection

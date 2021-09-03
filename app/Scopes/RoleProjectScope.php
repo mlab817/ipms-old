@@ -4,8 +4,9 @@ namespace App\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
 
-class RoleProjectScope implements \Illuminate\Database\Eloquent\Scope
+class RoleProjectScope implements Scope
 {
     /**
      * @param Builder $builder

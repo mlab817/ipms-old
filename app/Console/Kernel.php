@@ -26,7 +26,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('queue:work --once')->everyFiveMinutes()->withoutOverlapping();
+        $schedule->command('queue:work --sleep=5')->everyFiveMinutes()->withoutOverlapping();
+        $schedule->command('queue:restart')->everyFifteenMinutes()->withoutOverlapping();
         Log::info('Schedule was run');
     }
 

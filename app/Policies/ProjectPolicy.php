@@ -31,31 +31,32 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project): bool
     {
-        // if the user has permission to view any project
-        if ($user->hasPermissionTo('projects.view_any')) {
-            return true;
-        }
-
-        // if user has permission to view office
-        // and his office is same as the office of the project
-        if ($user->hasPermissionTo('projects.view_office')
-            && $project->office_id == $user->office_id
-        ) {
-            return true;
-        }
-
-        if ($project->created_by == $user->id) {
-            return true;
-        }
-
-        // TODO: this might throw an error
-        if ($project = $user->assigned_projects()->find($project->id)) {
-            if ($project->pivot->read) {
-                return true;
-            }
-        }
-
-        return false;
+//        // if the user has permission to view any project
+//        if ($user->hasPermissionTo('projects.view_any')) {
+//            return true;
+//        }
+//
+//        // if user has permission to view office
+//        // and his office is same as the office of the project
+//        if ($user->hasPermissionTo('projects.view_office')
+//            && $project->office_id == $user->office_id
+//        ) {
+//            return true;
+//        }
+//
+//        if ($project->created_by == $user->id) {
+//            return true;
+//        }
+//
+//        // TODO: this might throw an error
+//        if ($project = $user->assigned_projects()->find($project->id)) {
+//            if ($project->pivot->read) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+        return true;
     }
 
     /**

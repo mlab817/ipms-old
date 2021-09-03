@@ -46,10 +46,7 @@ class DashboardController extends Controller
 
         $this->investmentByUpdatingPeriod();
 
-        $ownedProjects = Project::with('issues')
-            ->where('created_by', auth()->id())
-            ->current()
-            ->get();
+        $ownedProjects = auth()->user()->owned_projects;
 
         $pinnedProjects = auth()->user()->pinned_projects()->current()->get();
 

@@ -602,6 +602,22 @@ class Project extends Model
         return $query->where('has_infra', true);
     }
 
+    /**
+     * Projects that have not been duplicated yet for this updating period
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeUncloned($query)
+    {
+        $updatingPeriodId = config('ipms.current_updating_period');
+
+        return $query
+            ->whereDoesntHave('clones', function($query) use ($updatingPeriodId) {
+                return $query->where('updating_period_id','=',$updatingPeriodId);
+            });
+    }
+
     public function scopeHasSubprojects($query)
     {
         return $query->where('has_subprojects', true);
@@ -649,7 +665,7 @@ class Project extends Model
         $src->archive();
     }
 
-    public function clones()
+    public function clones(): HasMany
     {
         return $this->hasMany(Project::class,'project_id');
     }
@@ -671,10 +687,10 @@ class Project extends Model
 
     public function isOriginal(): bool
     {
-        return $this->id == $this->project_id;
+        return is_null($this->project_id);
     }
 
-    public function isCurrent(): bool
+    public function isClonedForUpdating(): bool
     {
         return config('ipms.current_updating_period') == $this->updating_period_id;
     }

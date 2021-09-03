@@ -8,13 +8,13 @@
             <div class="gutter-condensed gutter-lg flex-column flex-md-row d-flex">
 
                 <div class="flex-shrink-0 col-12 mb-4 mb-md-0">
-                    <div class="flash @if($project->isCurrent()) flash-success @else flash-error @endif mb-3">
-                        @if($project->isCurrent())
+                    <div class="flash @if($project->isClonedForUpdating()) flash-success @else flash-error @endif mb-3">
+                        @if($project->isClonedForUpdating())
                             This project is proposed to be included into {{ $project->updating_period->name ?? '' }}
                         @else
                             This project was set to be included into {{ $project->updating_period->name ?? 'No updating period selected' }}.
                             It cannot be edited. Clone this program/project instead to include in the current updating period.
-                            @if($currentVersion) The current version is <a href="{{ route('projects.show', $currentVersion) }}">#{{ $currentVersion->id }}</a>. @endif
+{{--                            @if($currentVersion) The current version is <a href="{{ route('projects.show', $currentVersion) }}">#{{ $currentVersion->id }}</a>. @endif--}}
                         @endif
 
                         <div class="flash-action">
@@ -50,34 +50,68 @@
                         <div>
                             <details class="dropdown details-reset details-overlay d-inline-block">
                                 <summary class="btn" aria-haspopup="true">
-                                    {{ '#' . $project->id }}
+                                    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-git-branch">
+                                        <path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path>
+                                    </svg>
+                                    {{ $project->branch }}
                                     <div class="dropdown-caret"></div>
                                 </summary>
                                 <ul class="dropdown-menu dropdown-menu-se">
                                     <div class="dropdown-header">
                                         Select version
                                     </div>
-                                    @foreach($project->original->clones as $projectClone)
+                                    <!--
+                                        Show copies
+                                        first: original (if project_id is null)
+                                        succeeding: clones
+                                    -->
+                                    @if($project->isOriginal())
                                         <li>
-                                            <a href="{{ route('projects.show', $projectClone) }}" class="dropdown-item">
-                                                @if($project->id == $projectClone->id)
-                                                <strong>
-                                                    #{{ $projectClone->id }}
-                                                </strong>
-                                                @else
-                                                <span>
-                                                    #{{ $projectClone->id }}
-                                                </span>
-                                                @endif
-
-                                                @if($projectClone->updating_period_id == config('ipms.current_updating_period'))
-                                                    <div class="float-right">
-                                                        <svg class="octicon octicon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
-                                                    </div>
-                                                @endif
+                                            <a href="#" class="dropdown-item">
+                                                {{ $project->branch }}
                                             </a>
                                         </li>
-                                    @endforeach
+                                        @foreach($project->clones as $projectClone)
+                                            <li>
+                                                <a href="{{ route('projects.clones.show', ['project'=> $project, 'uuid' => $projectClone->uuid]) }}" class="dropdown-item">
+                                                    @if($project->id == $projectClone->id)
+                                                        <strong>
+                                                            {{ $projectClone->branch }}
+                                                        </strong>
+                                                    @else
+                                                        <span>
+                                                    {{ $projectClone->branch }}
+                                                </span>
+                                                    @endif
+
+                                                    @if($projectClone->updating_period_id == config('ipms.current_updating_period'))
+                                                        <div class="float-right">
+                                                            <svg class="octicon octicon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
+                                                        </div>
+                                                    @endif
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <li>
+                                            <a href="{{ route('projects.show', $project->original) }}" class="dropdown-item btn-link">
+                                                {{ $project->original->branch }}
+                                            </a>
+                                        </li>
+                                        @foreach($project->original->clones as $projectClone)
+                                            <li>
+                                                <a href="{{ route('projects.clones.show', ['project'=> $project->original, 'uuid' => $projectClone->uuid]) }}" class="dropdown-item">
+                                                    {{ $projectClone->branch }}
+
+                                                    @if($projectClone->updating_period_id == config('ipms.current_updating_period'))
+                                                        <div class="float-right">
+                                                            <svg class="octicon octicon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
+                                                        </div>
+                                                    @endif
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    @endif
                                 </ul>
                             </details>
 
@@ -91,7 +125,7 @@
                             </summary>
 
                             <details-dialog class="Box Box--overlay d-flex flex-column anim-fade-in fast">
-                                <form action="{{ route('projects.clone', $project) }}" method="POST" accept-charset="UTF-8">
+                                <form action="{{ route('projects.clones.store', $project) }}" method="POST" accept-charset="UTF-8">
                                     @csrf
                                     <div class="Box-header">
                                         <button class="Box-btn-octicon btn-octicon float-right" type="button" aria-label="Close dialog" data-close-dialog>

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+@endsection
+
 @section('content')
     <div class="Layout Layout--sidebarPosition-end Layout--sidebar-wide">
         <div class="Layout-main">
@@ -67,7 +71,7 @@
                     </ol>
                 @endif
 
-                <div class="d-flex flex-justify-between mt-5 pt-md-3 pb-2 border-bottom">
+                <div class="d-flex flex-justify-between mt-5 pt-md-3 pb-2">
                     <h2 class="f4 text-normal">
                         Your PAPs
                     </h2>
@@ -141,7 +145,7 @@
                     </ol>
                 @else
                     <div class="Box">
-                        <x-blankslate message="You have not pinned any program/projects. Pin projects for easier and faster access." />
+                        <x-blankslate message="You do not own any project" />
                     </div>
                 @endif
 
@@ -149,6 +153,8 @@
 
 {{--                <div id="chart2" style="width: 100%;"></div>--}}
             </div>
+
+            <div class="mb-5"></div>
         </div>
 
         <div class="Layout-sidebar">
@@ -158,8 +164,8 @@
                 @foreach ($randomProjects as $project)
                     <div class="py-2 my-2 border-bottom color-border-secondary">
                         <p class="f6 color-text-secondary mb-2">
-                            {{ $project->title }}
                             <a class="f6 text-bold Link--primary d-flex no-underline wb-break-all d-inline-block" href="{{ route('projects.show', $project) }}">
+                                <span>{{ $project->title }}</span>
                                 {{ '#' . $project->id }}
                             </a>
                         </p>
@@ -332,7 +338,3 @@
         });
     </script>
 @endpush
-
-@section('styles')
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
-@endsection

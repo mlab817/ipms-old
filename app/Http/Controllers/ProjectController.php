@@ -11,6 +11,7 @@ use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Requests\ReviewStoreRequest;
 use App\Http\Requests\UploadAttachmentRequest;
 use App\Jobs\ProjectCloneJob;
+use App\Jobs\ProjectDeleteJob;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
 use App\Models\CipType;
@@ -159,6 +160,7 @@ class ProjectController extends Controller
             $project->created_by = auth()->id();
             $project->updating_period_id = config('ipms.current_updating_period');
             $project->project_id = $project->id;
+            $project->branch = 'original';
             $project->save();
         });
 
@@ -222,10 +224,6 @@ class ProjectController extends Controller
             'pdp_indicators',
             'operating_units');
 
-        $currentVersion = Project::where('project_id', $project->project_id)
-            ->where('updating_period_id', config('ipms.current_updating_period'))
-            ->first();
-
         return view('projects.show', compact('project'))
             ->with([
                 'offices'                   => Office::all(),
@@ -254,7 +252,6 @@ class ProjectController extends Controller
                 'fs_statuses'               => FsStatus::all(),
                 'ou_types'                  => OperatingUnitType::with('operating_units')->get(),
                 'covidInterventions'        => CovidIntervention::all(),
-                'currentVersion'            => $currentVersion
             ]);
     }
 
@@ -405,22 +402,11 @@ class ProjectController extends Controller
             abort(403, 'The code you provided was wrong. Please try again');
         }
 
-        if ($project->isOriginal() && count($project->clones) > 0) {
+        if ($project->isOriginal() && count($project->clones) > 1) {
             return back()->with('error', 'You cannot delete an original project if it has clones. Delete the clones first.');
         }
 
-        $projectArray = $project->toArray();
-        $creator = $project->creator;
-
-        if (config('ipms.force_delete')) {
-            $project->forceDelete();
-        } else {
-            $project->delete();
-        }
-
-        if ($creator) {
-            $creator->notify(new ProjectDeletedNotification($projectArray, auth()->user(), $request->reason));
-        }
+        dispatch(new ProjectDeleteJob($project->id, auth()->id(), $request->reason));
 
         return redirect()->route('projects.index');
     }
@@ -628,7 +614,12 @@ class ProjectController extends Controller
 
     public function new_clone()
     {
-        return view('projects.clone');
+        $recommendedProjects = auth()->user()
+            ->owned_projects()
+            ->uncloned()
+            ->get();
+
+        return view('projects.clone', compact('recommendedProjects'));
     }
 
     /**

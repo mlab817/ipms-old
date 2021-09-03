@@ -71,6 +71,7 @@ class ProjectCloneJob implements ShouldQueue
         // turn off logging so as not to trigger revisionable trait or activity log
         Project::withoutEvents(function () use ($clonedProject) {
             $clonedProject->updating_period_id = $this->updatingPeriodId;
+            $clonedProject->branch = 'v' . $this->updatingPeriodId;
             $clonedProject->created_by = $this->userId;
             $clonedProject->save();
         });

@@ -22,7 +22,7 @@ class UserActivatedMiddleware
                 Auth::logout();
 
                 return redirect()->route('login')
-                    ->with('message','User is not activated. Please contact admin');
+                    ->with('error','User is not activated. Please contact admin');
             }
         }
 

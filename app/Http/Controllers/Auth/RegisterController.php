@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invitation;
+use App\Models\Office;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -24,6 +27,8 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    public $invitation;
+
     /**
      * Where to redirect users after registration.
      *
@@ -36,9 +41,26 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->middleware('guest');
+        $invitation = Invitation::where('invitation_token', $request->get('token'))->first();
+        $this->invitation = $invitation;
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function showRegistrationForm()
+    {
+        $invitation = $this->invitation;
+
+        if (! $this->invitation) {
+            return redirect()->route('login')
+                ->with('error', 'A valid token is required to register');
+        }
+
+        return view('auth.register', compact('invitation'));
     }
 
     /**
@@ -50,8 +72,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,10 +86,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        $invitation = $this->invitation;
+
+        $username = generate_username($invitation->email);
+        $officeId = $invitation->office_id;
+
+        $user = User::create([
+            'email'         => $invitation->email,
+            'office_id'     => $officeId,
+            'username'      => $username,
+            'first_name'    => $data['first_name'],
+            'last_name'     => $data['last_name'],
+            'password'      => Hash::make($data['password']),
         ]);
+
+        Office::find($officeId)->members()->create([
+            'member_id'     => $user->id,
+            'accepted_at'   => now(),
+            'invited_by'    => $invitation->invited_by,
+            'token'         => $invitation->invitation_token,
+            'expired_at'    => null,
+        ]);
+
+        return $user;
     }
 }

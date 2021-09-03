@@ -78,9 +78,11 @@
                     {{ $office->name }}
                 </h1>
 
+                @if($office->owner)
                 <div class="color-text-tertiary">
                     <div>Owned by <a href="{{ route('users.show', $office->owner) }}" class="btn-link no-underline"> {{ '@' . $office->owner->username }}</a></div>
                 </div>
+                @endif
 
                 <div class="d-md-flex flex-items-center mt-2">
 
@@ -95,8 +97,8 @@
 
     <div class="position-relative">
         <nav
-            class="js-profile-tab-count-container UnderlineNav hx_UnderlineNav js-responsive-underlinenav overflow-visible"
-            data-url="/users/da-pms/tab_counts" aria-label="Organization">
+            class="UnderlineNav hx_UnderlineNav overflow-visible"
+            aria-label="Office">
             <div class="width-full d-flex position-relative container-lg">
                 <ul class="list-style-none UnderlineNav-body width-full p-responsive overflow-hidden">
 
