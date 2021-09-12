@@ -23,6 +23,7 @@ use App\Models\PipTypology;
 use App\Models\PreparationDocument;
 use App\Models\Project;
 use App\Models\ProjectStatus;
+use App\Models\ReadinessLevel;
 use App\Models\Region;
 use App\Models\Sdg;
 use App\Models\SpatialCoverage;
@@ -32,15 +33,9 @@ use Illuminate\Http\Request;
 
 class BaseProjectBranchController extends Controller
 {
-    public function index(BaseProject $baseProject, $branch = null)
+    public function index(BaseProject $baseProject)
     {
-        $branch = Branch::where('label', $branch)->first();
-
-        if (! $branch) {
-            return redirect()->route('base-projects.show', $baseProject);
-        }
-
-        $project = $baseProject->projects()->where('branch_id', $branch->id)->first();
+        $project = $baseProject->projects()->where('is_current', true)->first();
 
         return view('projects.show', compact(['baseProject','project']))
             ->with([
@@ -73,15 +68,14 @@ class BaseProjectBranchController extends Controller
             ]);
     }
 
-    public function show(BaseProject $baseProject, ?Branch $branch = null)
+    public function show(BaseProject $baseProject, Branch $branch)
     {
-        $branch = Branch::where('label', $branch)->first();
+        $project = $this->getProject($baseProject, $branch);
 
-        if (! $branch) {
-            return redirect()->route('base-projects.show', $baseProject);
+        if (! $project) {
+            return redirect()->route('base-projects.branches.index', $baseProject)
+                ->with('error', $branch->name . ' does not exist yet for this project.');
         }
-
-        $project = $baseProject->projects()->where('branch_id', $branch->id)->first();
 
         return view('projects.show', compact(['baseProject','project']))
             ->with([
@@ -112,5 +106,26 @@ class BaseProjectBranchController extends Controller
                 'ou_types'                  => OperatingUnitType::with('operating_units')->get(),
                 'covidInterventions'        => CovidIntervention::all(),
             ]);
+    }
+
+    public function review(BaseProject $baseProject, Branch $branch)
+    {
+        $project = $this->getProject($baseProject, $branch);
+        $review = $project->review;
+        $pip_typologies = PipTypology::all();
+        $cip_types = CipType::all();
+        $readiness_levels = ReadinessLevel::all();
+
+        return view('projects.reviews.index', compact(['baseProject','project','review','pip_typologies','cip_types','readiness_levels']));
+    }
+
+    public function trips(BaseProject $baseProject, string $branch)
+    {
+
+    }
+
+    public function getProject($baseProject, $branch)
+    {
+        return $baseProject->projects()->where('branch_id', $branch->id)->first();
     }
 }

@@ -10,11 +10,11 @@ class CollaboratorController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'project_id'        => 'required|exists:projects,id',
+            'base_project_id'   => 'required|exists:base_projects,id',
             'collaborator_id'   => 'required|exists:users,id',
         ]);
 
-        Collaborator::create($request->all('project_id','collaborator_id'));
+        Collaborator::create($request->all('base_project_id','collaborator_id'));
 
         return back();
     }

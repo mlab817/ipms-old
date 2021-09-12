@@ -20,16 +20,16 @@ class Collaborator extends Model
     }
 
     protected $fillable = [
-        'project_id',
+        'base_project_id',
         'collaborator_id',
     ];
 
-    public function project()
+    public function base_project(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(BaseProject::class);
     }
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class,'collaborator_id');
     }

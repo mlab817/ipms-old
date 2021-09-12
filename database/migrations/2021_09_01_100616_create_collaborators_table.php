@@ -15,13 +15,13 @@ class CreateCollaboratorsTable extends Migration
     {
         Schema::create('collaborators', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('base_project_id')->constrained()->cascadeOnDelete();
             $table->foreignId('collaborator_id')->constrained('users')->cascadeOnDelete();
             $table->string('token')->nullable();
             $table->timestamp('accepted_at')->nullable();
             $table->timestamps();
 
-            $table->unique(['project_id','collaborator_id'],'project_collab_idx');
+            $table->unique(['base_project_id','collaborator_id'],'base_project_collab_idx');
         });
     }
 

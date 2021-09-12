@@ -1,3 +1,7 @@
+@php
+    $yesNo = [0 => 'No', 1 => 'Yes'];
+@endphp
+
 @extends('layouts.project')
 
 @section('title', 'Review | ' . str_limit($project->title) )

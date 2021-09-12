@@ -40,9 +40,9 @@
 
     <main>
         @if ($baseProject->isArchived())
-        <div class="flash flash-warn flash-full border-top-0 text-center text-bold py-2">
-            This PAP has been archived by the owner. It is now read-only.
-        </div>
+            <div class="flash flash-warn flash-full border-top-0 text-center text-bold py-2">
+                This PAP has been archived by the owner. It is now read-only.
+            </div>
         @endif
         <div class="hx_page-header-bg pt-3 hide-full-screen mb-5 color-bg-secondary">
             <div class="d-flex mb-3 px-3 px-md-4 px-lg-5">
@@ -69,10 +69,9 @@
             </div>
 
             <nav  class="overflow-hidden UnderlineNav px-3 px-md-4 px-lg-5">
-
                 <ul  class="UnderlineNav-body list-style-none">
                     <li  class="d-flex">
-                        <a href="{{ route('projects.show', $project) }}"
+                        <a href="{{ route('base-projects.show', $baseProject) }}"
                            class="UnderlineNav-item no-wrap @if($route == 'projects.show') selected @endif">
 
                             <svg class="octicon octicon-code UnderlineNav-octicon d-none d-sm-inline" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
@@ -85,7 +84,7 @@
 
                     @if($project->has_infra)
                     <li class="d-flex">
-                        <a href="{{ route('trips.show', $project) }}"
+                        <a href="{{ route('base-projects.branches.trip', ['base_project' => $baseProject, 'branch' => $project->branch]) }}"
                            class="UnderlineNav-item no-wrap @if($route == 'trips.edit') selected @endif">
                             <svg class="octicon octicon-tools UnderlineNav-octicon d-none d-sm-inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M5.433 2.304A4.494 4.494 0 003.5 6c0 1.598.832 3.002 2.09 3.802.518.328.929.923.902 1.64v.008l-.164 3.337a.75.75 0 11-1.498-.073l.163-3.33c.002-.085-.05-.216-.207-.316A5.996 5.996 0 012 6a5.994 5.994 0 012.567-4.92 1.482 1.482 0 011.673-.04c.462.296.76.827.76 1.423v2.82c0 .082.041.16.11.206l.75.51a.25.25 0 00.28 0l.75-.51A.25.25 0 009 5.282V2.463c0-.596.298-1.127.76-1.423a1.482 1.482 0 011.673.04A5.994 5.994 0 0114 6a5.996 5.996 0 01-2.786 5.068c-.157.1-.209.23-.207.315l.163 3.33a.75.75 0 11-1.498.074l-.164-3.345c-.027-.717.384-1.312.902-1.64A4.496 4.496 0 0012.5 6a4.494 4.494 0 00-1.933-3.696c-.024.017-.067.067-.067.16v2.818a1.75 1.75 0 01-.767 1.448l-.75.51a1.75 1.75 0 01-1.966 0l-.75-.51A1.75 1.75 0 015.5 5.282V2.463c0-.092-.043-.142-.067-.159zm.01-.005z"></path>
@@ -97,8 +96,8 @@
 
                     <li  class="d-flex">
                         <!-- TODO: review create -->
-                        <a href="{{ route('projects.reviews.index', $project) }}"
-                           class="UnderlineNav-item no-wrap @if($route == 'projects.reviews.index') selected @endif">
+                        <a href="{{ route('base-projects.branches.review', ['base_project' => $baseProject, 'branch' => $project->branch]) }}"
+                           class="UnderlineNav-item no-wrap @if($route == 'base-projects.branches.reviews') selected @endif">
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-git-pull-request UnderlineNav-octicon d-none d-sm-inline">
                                 <path fill-rule="evenodd" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/>
@@ -163,7 +162,7 @@
                     </li>
 
                     <li  class="d-flex">
-                        <a href="{{ route('projects.settings', $project) }}" class="UnderlineNav-item no-wrap @if($route == 'projects.settings') selected @endif">
+                        <a href="{{ route('base-projects.settings', $baseProject) }}" class="UnderlineNav-item no-wrap @if($route == 'base-projects.settings') selected @endif">
                             <!-- TODO: Add Settings page -->
                             <svg class="octicon octicon-gear UnderlineNav-octicon d-none d-sm-inline" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.429 1.525a6.593 6.593 0 011.142 0c.036.003.108.036.137.146l.289 1.105c.147.56.55.967.997 1.189.174.086.341.183.501.29.417.278.97.423 1.53.27l1.102-.303c.11-.03.175.016.195.046.219.31.41.641.573.989.014.031.022.11-.059.19l-.815.806c-.411.406-.562.957-.53 1.456a4.588 4.588 0 010 .582c-.032.499.119 1.05.53 1.456l.815.806c.08.08.073.159.059.19a6.494 6.494 0 01-.573.99c-.02.029-.086.074-.195.045l-1.103-.303c-.559-.153-1.112-.008-1.529.27-.16.107-.327.204-.5.29-.449.222-.851.628-.998 1.189l-.289 1.105c-.029.11-.101.143-.137.146a6.613 6.613 0 01-1.142 0c-.036-.003-.108-.037-.137-.146l-.289-1.105c-.147-.56-.55-.967-.997-1.189a4.502 4.502 0 01-.501-.29c-.417-.278-.97-.423-1.53-.27l-1.102.303c-.11.03-.175-.016-.195-.046a6.492 6.492 0 01-.573-.989c-.014-.031-.022-.11.059-.19l.815-.806c.411-.406.562-.957.53-1.456a4.587 4.587 0 010-.582c.032-.499-.119-1.05-.53-1.456l-.815-.806c-.08-.08-.073-.159-.059-.19a6.44 6.44 0 01.573-.99c.02-.029.086-.075.195-.045l1.103.303c.559.153 1.112.008 1.529-.27.16-.107.327-.204.5-.29.449-.222.851-.628.998-1.189l.289-1.105c.029-.11.101-.143.137-.146zM8 0c-.236 0-.47.01-.701.03-.743.065-1.29.615-1.458 1.261l-.29 1.106c-.017.066-.078.158-.211.224a5.994 5.994 0 00-.668.386c-.123.082-.233.09-.3.071L3.27 2.776c-.644-.177-1.392.02-1.82.63a7.977 7.977 0 00-.704 1.217c-.315.675-.111 1.422.363 1.891l.815.806c.05.048.098.147.088.294a6.084 6.084 0 000 .772c.01.147-.038.246-.088.294l-.815.806c-.474.469-.678 1.216-.363 1.891.2.428.436.835.704 1.218.428.609 1.176.806 1.82.63l1.103-.303c.066-.019.176-.011.299.071.213.143.436.272.668.386.133.066.194.158.212.224l.289 1.106c.169.646.715 1.196 1.458 1.26a8.094 8.094 0 001.402 0c.743-.064 1.29-.614 1.458-1.26l.29-1.106c.017-.066.078-.158.211-.224a5.98 5.98 0 00.668-.386c.123-.082.233-.09.3-.071l1.102.302c.644.177 1.392-.02 1.82-.63.268-.382.505-.789.704-1.217.315-.675.111-1.422-.364-1.891l-.814-.806c-.05-.048-.098-.147-.088-.294a6.1 6.1 0 000-.772c-.01-.147.039-.246.088-.294l.814-.806c.475-.469.679-1.216.364-1.891a7.992 7.992 0 00-.704-1.218c-.428-.609-1.176-.806-1.82-.63l-1.103.303c-.066.019-.176.011-.299-.071a5.991 5.991 0 00-.668-.386c-.133-.066-.194-.158-.212-.224L10.16 1.29C9.99.645 9.444.095 8.701.031A8.094 8.094 0 008 0zm1.5 8a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM11 8a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             <span>Settings</span>
@@ -174,116 +173,6 @@
             </nav>
 
         </div>
-
-        <div class="container-xl mx-auto clearfix px-3 px-md-4 px-lg-5">
-    {{--        <div class="flash @if($project->isClonedForUpdating()) flash-success @else flash-error @endif mb-3">--}}
-    {{--            @if($project->isClonedForUpdating())--}}
-    {{--                This project is proposed to be included into {{ $project->updating_period->name ?? '' }}--}}
-    {{--            @else--}}
-    {{--                This project was set to be included into {{ $project->updating_period->name ?? 'No updating period selected' }}.--}}
-    {{--                It cannot be edited. Clone this program/project instead to include in the current updating period.--}}
-    {{--                @if($currentVersion) The current version is <a href="{{ route('projects.show', $currentVersion) }}">#{{ $currentVersion->id }}</a>. @endif--}}
-    {{--            @endif--}}
-
-    {{--            <div class="flash-action">--}}
-    {{--                <details class="details-reset details-overlay details-overlay-dark">--}}
-    {{--                    <summary role="button" class="btn btn-sm" aria-haspopup="dialog">Learn More</summary>--}}
-    {{--                    <details-dialog class="Box Box--overlay d-flex flex-column anim-fade-in fast" role="dialog" aria-modal="true" tabindex="-1">--}}
-    {{--                        <div class="Box-header">--}}
-    {{--                            <button class="Box-btn-octicon btn-octicon float-right" type="button" aria-label="Close dialog" data-close-dialog>--}}
-    {{--                                <!-- <%= octicon "x" %> -->--}}
-    {{--                                <svg class="octicon octicon-x" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z"></path></svg>--}}
-    {{--                            </button>--}}
-    {{--                            <h3 class="Box-title">PAPs and Updating Period</h3>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="Box-body">--}}
-    {{--                            <p>--}}
-    {{--                                In order to keep track of information every PIP/TRIP updating,--}}
-    {{--                                the system now requires that PAPs be cloned (duplicated) prior--}}
-    {{--                                to editing/updating. This would allow the system to keep track--}}
-    {{--                                of changes in PAP information across updating period which is--}}
-    {{--                                quite common in prior experiences.--}}
-    {{--                            </p>--}}
-    {{--                            <p>--}}
-    {{--                                Note also that PAPs for dropping need to be cloned for tracking--}}
-    {{--                                purposes.--}}
-    {{--                            </p>--}}
-    {{--                        </div>--}}
-    {{--                    </details-dialog>--}}
-    {{--                </details>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-
-            <div class="mb-3 d-flex flex-items-start">
-                <div>
-                    <details class="dropdown details-reset details-overlay d-inline-block">
-                        <summary class="btn" aria-haspopup="true">
-                            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-git-branch">
-                                <path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path>
-                            </svg>
-                            {{ $project->branch->label }}
-                            <div class="dropdown-caret"></div>
-                        </summary>
-                        <ul class="dropdown-menu dropdown-menu-se">
-                            <div class="dropdown-header">
-                                Select branch
-                            </div>
-                            @foreach(\App\Models\Branch::all() as $branch)
-                                <li>
-                                    <a href="{{ route('base-projects.branch.show', ['base_project'=> $baseProject, 'branch' => $branch]) }}" class="dropdown-item">
-                                        {{ $branch->label }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </details>
-
-                    <a href="{{ route('projects.compare', $project) }}" class="btn">Compare</a>
-                </div>
-                <div class="flex-auto"></div>
-                <details class="details-reset details-overlay details-overlay-dark">
-                    <summary class="btn btn-primary" aria-haspopup="dialog">
-                        <svg class="octicon octicon-clone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M15 0H9v7c0 .55.45 1 1 1h1v1h1V8h3c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 7h-1V6h1v1zm4 0h-3V6h3v1zm0-2h-4V1h4v4zM4 5H3V4h1v1zm0-2H3V2h1v1zM2 1h6V0H1C.45 0 0 .45 0 1v12c0 .55.45 1 1 1h2v2l1.5-1.5L6 16v-2h5c.55 0 1-.45 1-1v-3H2V1zm9 10v2H6v-1H3v1H1v-2h10zM3 8h1v1H3V8zm1-1H3V6h1v1z"></path></svg>
-                        <span>Clone</span>
-                    </summary>
-
-                    <details-dialog class="Box Box--overlay d-flex flex-column anim-fade-in fast">
-                        <form action="{{ route('projects.clones.store', $project) }}" method="POST" accept-charset="UTF-8">
-                            @csrf
-                            <div class="Box-header">
-                                <button class="Box-btn-octicon btn-octicon float-right" type="button" aria-label="Close dialog" data-close-dialog>
-                                    <!-- <%= octicon "x" %> -->
-                                    <svg class="octicon octicon-x" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z"></path></svg>
-                                </button>
-                                <h3 class="Box-title">Create a new branch</h3>
-                            </div>
-                            <div class="overflow-auto">
-                                <div class="Box-body overflow-auto">
-                                    <p>
-                                        To preserve the data for each updating period, users are required to clone the project/program. Cloning a project/program
-                                        will copy all its information except <code>Review, Issues and History</code>. The original project/program will be archived
-                                        and turned into readonly. Cloning may take some time.
-                                    </p>
-                                </div>
-                                <ul>
-                                    <li class="Box-row">
-                                        <select name="updating_period_id" id="updating_period_id" class="form-select" required autofocus>
-                                            <option value="">Select Branch</option>
-                                            @foreach(\App\Models\Branch::all() as $option)
-                                                <option value="{{ $option->id }}">{{ $option->label . ' - ' . $option->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="Box-footer">
-                                <button type="submit" class="btn btn-block btn-primary">Clone</button>
-                            </div>
-                        </form>
-                    </details-dialog>
-                </details>
-            </div>
-
             @yield('content')
         </div>
     </main>

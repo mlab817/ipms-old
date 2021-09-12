@@ -58,6 +58,16 @@ class BaseProject extends Model
 
     public function isArchived(): bool
     {
-        return !is_null('archived_at');
+        return !is_null($this->archived_at);
+    }
+
+    public function collaborators(): HasMany
+    {
+        return $this->hasMany(Collaborator::class);
+    }
+
+    public function current()
+    {
+        //
     }
 }

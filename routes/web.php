@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProjectUserController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\PasswordChangeController;
 use App\Http\Controllers\Auth\SocialLoginController;
+use App\Http\Controllers\BaseProjectBranchController;
 use App\Http\Controllers\BaseProjectController;
 use App\Http\Controllers\CheckUserLoginController;
 use App\Http\Controllers\CloneProjectController;
@@ -55,8 +56,13 @@ Route::redirect('/', 'login');
 // Resources secured by auth
 Route::middleware(['auth','user.activated'])->group(function () {
 
-    Route::resource('base-projects', BaseProjectController::class);
-    Route::resource('base-projects.branch', \App\Http\Controllers\BaseProjectBranchController::class)->shallow();
+    Route::get('/base-projects/{base_project}/settings', [BaseProjectController::class,'settings'])->name('base-projects.settings');
+    Route::get('/base-projects/{base_project}/branches/{branch}/review', [BaseProjectBranchController::class,'review'])->name('base-projects.branches.review');
+    Route::get('/base-projects/{base_project}/branches/{branch}/trip', [BaseProjectBranchController::class,'trip'])->name('base-projects.branches.trip');
+
+    Route::resource('base-projects.branches', BaseProjectBranchController::class)
+        ->only('index','show');
+    Route::resource('base-projects', BaseProjectController::class)->except('index');
 
     Route::post('password/change', [PasswordChangeController::class,'update'])->name('change_password_update');
     Route::get('password/change', [PasswordChangeController::class,'index'])->name('change_password_index');
@@ -75,13 +81,6 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
     Route::resource('pending_transfers', PendingTransferController::class);
 
-    Route::middleware('can:projects.manage')->prefix('/admin')->name('admin.')->group(function() {
-        Route::resource('projects', AdminProjectController::class);
-        Route::resource('projects.users', ProjectUserController::class);
-        Route::post('/projects/{project}/change_owner', [AdminProjectController::class,'changeOwnerPost'])->name('projects.changeOwner.post');
-        Route::get('/projects/{project}/change_owner', [AdminProjectController::class,'changeOwner'])->name('projects.changeOwner.get');
-    });
-
     Route::get('/settings', SettingsController::class)->name('settings');
 
     Route::get('/attachments/{attachment}/download', [ProjectAttachmentController::class,'download'])->name('attachments.download');
@@ -92,9 +91,9 @@ Route::middleware(['auth','user.activated'])->group(function () {
     Route::post('clone_project', CloneProjectController::class)->name('clone_project');
 
     Route::resource('issues.issue_comments', IssueCommentController::class);
-    Route::resource('projects.issues', ProjectIssueController::class)->except('edit');
 
-    // other index routes
+    // Projects routes
+    Route::resource('projects.issues', ProjectIssueController::class)->except('edit');
     Route::get('/projects/assigned', [ProjectController::class,'assigned'])->name('projects.assigned');
     Route::get('/projects/office', [ProjectController::class,'office'])->name('projects.office');
     Route::get('/projects/own', [ProjectController::class,'own'])->name('projects.own');
@@ -145,6 +144,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
     Route::post('/notifications', [NotificationController::class,'markAllAsRead'])->name('notifications.markAllAsRead');
     Route::resource('notifications', NotificationController::class)->only('index','show');
     Route::resource('pipols', PipolController::class);
+
+    // User routes
     Route::post('users/{user}/follow', [UserController::class,'follow'])->name('users.follow');
     Route::put('users/{user}/update_username', [UserController::class,'update_username'])->name('users.update_username');
     Route::put('users/{user}/update_name', [UserController::class,'update_name'])->name('users.update_name');
@@ -153,6 +154,7 @@ Route::middleware(['auth','user.activated'])->group(function () {
     Route::get('users/{user}/settings', [UserController::class,'settings'])->name('users.settings');
     Route::get('/users', [UserController::class,'index'])->name('users.index');
     Route::resource('users', UserController::class)->only('show','update');
+
     Route::get('/offices/{office}/projects', [OfficeController::class,'projects'])->name('offices.projects');
     Route::get('/offices/{office}/users', [OfficeController::class,'users'])->name('offices.users');
     Route::resource('offices', OfficeController::class);
@@ -162,46 +164,15 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
     Route::resource('collaborators', \App\Http\Controllers\CollaboratorController::class);
 
-    Route::group(['prefix' => 'reports'], function() {
-        Route::get('/', [ReportController::class,'index'])->name('reports.index');
-        Route::get('/implementation_modes', [ReportController::class,'implementation_modes'])->name('reports.implementation_modes');
-        Route::get('/offices', [ReportController::class,'offices'])->name('reports.offices');
-        Route::get('/spatial_coverages', [ReportController::class,'spatial_coverages'])->name('reports.spatial_coverages');
-        Route::get('/regions', [ReportController::class,'regions'])->name('reports.regions');
-        Route::get('/funding_sources', [ReportController::class,'funding_sources'])->name('reports.funding_sources');
-        Route::get('/tiers', [ReportController::class,'tiers'])->name('reports.tiers');
-        Route::get('/pap_types', [ReportController::class,'pap_types'])->name('reports.pap_types');
-        Route::get('/pdp_chapters', [ReportController::class,'pdp_chapters'])->name('reports.pdp_chapters');
-        Route::get('/project_statuses', [ReportController::class,'project_statuses'])->name('reports.project_statuses');
-    });
-
-    Route::resource('links',\App\Http\Controllers\Admin\LinkController::class)->only('index');
-
-    Route::resource('audit_logs',\App\Http\Controllers\AuditLogController::class)->only('index','show');
-
-    Route::middleware('can:exports.view_index')->prefix('/exports')->name('exports.')->group(function() {
-        Route::get('',[ExportController::class,'index'])->name('index');
-        Route::get('/fs_infrastructures',[ExportController::class,'fs_infrastructures'])->name('fs_infrastructures');
-        Route::get('/fs_investments',[ExportController::class,'fs_investments'])->name('fs_investments');
-        Route::get('/region_investments',[ExportController::class,'region_investments'])->name('region_investments');
-        Route::get('/regions',[ExportController::class,'regions'])->name('regions');
-        Route::get('/ten_point_agendas',[ExportController::class,'ten_point_agendas'])->name('ten_point_agendas');
-        Route::get('/sdgs', [ExportController::class,'sdgs'])->name('sdgs');
-        Route::get('/projects', [ExportController::class,'projects'])->name('projects');
-    });
-
     Route::post('search', [SearchController::class,'search'])->name('search');
     Route::resource('search', SearchController::class)->only('index');
 
-//        Route::resource('users.projects', \App\Http\Controllers\UserProjectController::class);
-
-    // Admin routes
-    Route::middleware(['admin'])->prefix('/admin')->name('admin.')->group(function () {
-        Route::post('offices/export',[\App\Http\Controllers\Admin\OfficeController::class,'index'])->name('offices.export');
+    Route::middleware('can:projects.manage')->prefix('/admin')->name('admin.')->group(function() {
+        Route::resource('projects', AdminProjectController::class);
+        Route::resource('projects.users', ProjectUserController::class);
+        Route::post('/projects/{project}/change_owner', [AdminProjectController::class,'changeOwnerPost'])->name('projects.changeOwner.post');
+        Route::get('/projects/{project}/change_owner', [AdminProjectController::class,'changeOwner'])->name('projects.changeOwner.get');
     });
-
-    Route::resource('settings', SettingController::class);
-
 });
 
 Auth::routes();
@@ -215,33 +186,6 @@ Route::group(['middleware' => 'guest'], function() {
 Route::get('/downloadJson/{filename}', DownloadJsonController::class)->name('projects.downloadJson');
 Route::get('/exportJson', ExportProjectsAsJsonController::class)->name('projects.json');
 
-Route::get('/test', function() {
-    return view('test')
-        ->with('project',\App\Models\Project::with(['funding_institution','funding_source','pdp_chapter','gad','project_status','submission_status','preparation_document','implementation_mode','pap_type','spatial_coverage','office','creator','bases','covid_interventions','funding_institutions','funding_sources','infrastructure_sectors','infrastructure_subsectors','pdp_chapters','pdp_indicators','prerequisites','regions','sdgs','ten_point_agendas','allocation','description','disbursement','expected_output','feasibility_study','resettlement_action_plan','right_of_way','risk','project_update','fs_investments','fs_infrastructures','nep','operating_units','region_investments','region_infrastructures'])->find(15));
-})->name('test');
-
 Route::fallback(function () {
     return view('errors.404');
-});
-
-Route::get('/debug', function () {
-    \Log::debug('Test debug message');
-});
-
-Route::get('/optimize', function (){
-    Artisan::call('optimize');
-
-    return 'optimized application';
-});
-
-Route::get('/clear', function () {
-    Artisan::call('cache:clear');
-    Artisan::call('route:clear');
-    Artisan::call('config:clear');
-
-    return 'cleared cache, route, config';
-});
-
-Route::get('/nanoid', function () {
-    return nanoid();
 });

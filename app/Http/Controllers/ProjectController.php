@@ -43,9 +43,9 @@ use App\Models\SpatialCoverage;
 use App\Models\SubmissionStatus;
 use App\Models\TenPointAgenda;
 use App\Models\Tier;
-use App\Models\UpdatingPeriod;
 use App\Models\User;
 use App\Notifications\ProjectDeletedNotification;
+use App\Job\GenerateProjectRelationsJob;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use File;
 use Illuminate\Database\Eloquent\Model;
@@ -129,40 +129,7 @@ class ProjectController extends Controller
 //        $project->operating_units()->sync($request->operating_units);
 //        $project->covid_interventions()->sync($request->covid_interventions);
 //
-        foreach (FundingSource::all() as $fs) {
-            $project->fs_investments()->create(['fs_id' => $fs->id]);
-        }
-
-        foreach (Region::all() as $region) {
-            $project->region_investments()->create(['region_id' => $region->id]);
-        }
-
-        $project->project_update()->create([
-            'updates'   => '',
-            'updates_date' => '',
-        ]);
-
-        $project->expected_output()->create([
-            'expected_outputs' => ''
-        ]);
-
-        $project->description()->create([
-            'description' => ''
-        ]);
-//
-        $project->feasibility_study()->create([]);
-        $project->nep()->create([]);
-        $project->allocation()->create([]);
-        $project->disbursement()->create([]);
-
-        Project::withoutEvents(function () use ($project) {
-            $project->office_id = auth()->user()->office_id;
-            $project->created_by = auth()->id();
-            $project->updating_period_id = config('ipms.current_updating_period');
-            $project->project_id = $project->id;
-            $project->branch = 'original';
-            $project->save();
-        });
+        dispatch(new GenerateProjectRelationsJob($project));
 
         event(new ProjectCreatedEvent($project));
 

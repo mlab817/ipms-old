@@ -36,15 +36,9 @@
                 </summary>
                 <div class="dropdown-menu dropdown-menu-sw" role="menu">
 
-                    <a role="menuitem" class="dropdown-item" href="{{ route('projects.create') }}">
+                    <a role="menuitem" class="dropdown-item" href="{{ route('base-projects.create') }}">
                         New PAP
                     </a>
-
-                    <a role="menuitem" class="dropdown-item" href="{{ route('projects.new_clone') }}">
-                        Clone PAP
-                    </a>
-
-                    <div class="dropdown-divider"></div>
 
                     <a role="menuitem" class="dropdown-item" href="{{ route('pending_transfers.index') }}">
                         Pending Transfers
