@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Models\Project;
-use App\Models\UpdatingPeriod;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -18,7 +17,7 @@ class ProjectCloneJob implements ShouldQueue
 
     public $projectId;
 
-    public $updatingPeriodId;
+    public $branchId;
 
     public $userId;
 
@@ -27,13 +26,13 @@ class ProjectCloneJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(int $projectId, int $updatingPeriodId, int $userId)
+    public function __construct(int $projectId, int $branchId, int $userId)
     {
         $this->projectId = $projectId;
-        $this->updatingPeriodId = $updatingPeriodId;
+        $this->branchId = $branchId;
         $this->userId = $userId;
 
-        \Log::debug('updating period id: ' . $updatingPeriodId);
+        \Log::debug('branch id: ' . $branchId);
     }
 
     /**
@@ -53,7 +52,7 @@ class ProjectCloneJob implements ShouldQueue
 
         // check that the project has not been duplicated yet for this updating period
         $projectAlreadyDuplicated = Project::where('project_id', $project->id)
-            ->where('updating_period_id', $this->updatingPeriodId)
+            ->where('branch_id', $this->updatingPeriodId)
             ->first();
 
         // if the project has already been duplicated
@@ -70,8 +69,7 @@ class ProjectCloneJob implements ShouldQueue
 
         // turn off logging so as not to trigger revisionable trait or activity log
         Project::withoutEvents(function () use ($clonedProject) {
-            $clonedProject->updating_period_id = $this->updatingPeriodId;
-            $clonedProject->branch = 'v' . $this->updatingPeriodId;
+            $clonedProject->branch_id = $this->branchId;
             $clonedProject->created_by = $this->userId;
             $clonedProject->save();
         });

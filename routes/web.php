@@ -1,15 +1,42 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Admin\AdminProjectController;
+use App\Http\Controllers\Admin\ProjectUserController;
+use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Auth\PasswordChangeController;
+use App\Http\Controllers\Auth\SocialLoginController;
+use App\Http\Controllers\BaseProjectController;
 use App\Http\Controllers\CheckUserLoginController;
 use App\Http\Controllers\CloneProjectController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DownloadJsonController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ExportProjectsAsJsonController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\IssueCommentController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\PendingTransferController;
+use App\Http\Controllers\PipolController;
 use App\Http\Controllers\ProjectAttachmentController;
 use App\Http\Controllers\ProjectCloneController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectImportController;
 use App\Http\Controllers\ProjectIssueController;
+use App\Http\Controllers\ProjectNotificationController;
+use App\Http\Controllers\ProjectPipolController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SubprojectController;
+use App\Http\Controllers\SwitchRoleController;
+use App\Http\Controllers\TrackerController;
 use App\Http\Controllers\TripController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,29 +55,31 @@ Route::redirect('/', 'login');
 // Resources secured by auth
 Route::middleware(['auth','user.activated'])->group(function () {
 
-    Route::post('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'update'])->name('change_password_update');
-    Route::get('password/change', [\App\Http\Controllers\Auth\PasswordChangeController::class,'index'])->name('change_password_index');
+    Route::resource('base-projects', BaseProjectController::class);
+    Route::resource('base-projects.branch', \App\Http\Controllers\BaseProjectBranchController::class)->shallow();
 
+    Route::post('password/change', [PasswordChangeController::class,'update'])->name('change_password_update');
+    Route::get('password/change', [PasswordChangeController::class,'index'])->name('change_password_index');
 
-    Route::post('/switchRole', \App\Http\Controllers\SwitchRoleController::class)->name('roles.switch');
+    Route::post('/switchRole', SwitchRoleController::class)->name('roles.switch');
 
-    Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
-    Route::get('/account/logins', [\App\Http\Controllers\AccountController::class,'logins'])->name('account.logins');
+    Route::get('/account/logins', [AccountController::class,'logins'])->name('account.logins');
 
-    Route::post('/auth/password/change', \App\Http\Controllers\Auth\ChangePasswordController::class)->name('password.change');
+    Route::post('/auth/password/change', ChangePasswordController::class)->name('password.change');
 
-    Route::resource('project_notifications', \App\Http\Controllers\ProjectNotificationController::class);
+    Route::resource('project_notifications', ProjectNotificationController::class);
 
     // auth routes with registration disabled
 
-    Route::resource('pending_transfers', \App\Http\Controllers\PendingTransferController::class);
+    Route::resource('pending_transfers', PendingTransferController::class);
 
     Route::middleware('can:projects.manage')->prefix('/admin')->name('admin.')->group(function() {
-        Route::resource('projects', \App\Http\Controllers\Admin\AdminProjectController::class);
-        Route::resource('projects.users', \App\Http\Controllers\Admin\ProjectUserController::class);
-        Route::post('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwnerPost'])->name('projects.changeOwner.post');
-        Route::get('/projects/{project}/change_owner', [\App\Http\Controllers\Admin\AdminProjectController::class,'changeOwner'])->name('projects.changeOwner.get');
+        Route::resource('projects', AdminProjectController::class);
+        Route::resource('projects.users', ProjectUserController::class);
+        Route::post('/projects/{project}/change_owner', [AdminProjectController::class,'changeOwnerPost'])->name('projects.changeOwner.post');
+        Route::get('/projects/{project}/change_owner', [AdminProjectController::class,'changeOwner'])->name('projects.changeOwner.get');
     });
 
     Route::get('/settings', SettingsController::class)->name('settings');
@@ -105,46 +134,45 @@ Route::middleware(['auth','user.activated'])->group(function () {
     Route::get('/projects/{project}/exportJson', [ProjectController::class,'exportJson'])->name('projects.exportJson');
     Route::post('projects/checkAvailability', [ProjectController::class,'checkAvailability'])->name('projects.checkAvailability');
     Route::resource('projects', ProjectController::class);
-    Route::resource('projects.pipols', \App\Http\Controllers\ProjectPipolController::class);
+    Route::resource('projects.pipols', ProjectPipolController::class);
 
-    Route::resource('members', \App\Http\Controllers\MemberController::class)->only('destroy');
-    Route::get('/offices/{office}/members/invitation', [\App\Http\Controllers\MemberController::class, 'invitation'])->name('offices.members.invitation');
-    Route::resource('offices.members', \App\Http\Controllers\MemberController::class)->shallow();
+    Route::resource('members', MemberController::class)->only('destroy');
+    Route::get('/offices/{office}/members/invitation', [MemberController::class, 'invitation'])->name('offices.members.invitation');
+    Route::resource('offices.members', MemberController::class)->shallow();
 
-    Route::resource('reviews', \App\Http\Controllers\ReviewController::class)->except('store','create');
-    Route::resource('subprojects', \App\Http\Controllers\SubprojectController::class);
-    Route::post('/notifications', [\App\Http\Controllers\NotificationController::class,'markAllAsRead'])->name('notifications.markAllAsRead');
-    Route::resource('notifications',\App\Http\Controllers\NotificationController::class)->only('index','show');
-    Route::resource('pipols',\App\Http\Controllers\PipolController::class);
-    Route::post('users/{user}/follow', [\App\Http\Controllers\UserController::class,'follow'])->name('users.follow');
-    Route::put('users/{user}/update_username', [\App\Http\Controllers\UserController::class,'update_username'])->name('users.update_username');
-    Route::put('users/{user}/update_name', [\App\Http\Controllers\UserController::class,'update_name'])->name('users.update_name');
-    Route::put('users/{user}/upload_avatar', [\App\Http\Controllers\UserController::class,'upload_avatar'])->name('users.upload_avatar');
-    Route::get('users/{user}/projects', [\App\Http\Controllers\UserController::class,'projects'])->name('users.projects');
-    Route::get('users/{user}/settings', [\App\Http\Controllers\UserController::class,'settings'])->name('users.settings');
-    Route::get('/users', [\App\Http\Controllers\UserController::class,'index'])->name('users.index');
-    Route::resource('users', \App\Http\Controllers\UserController::class)->only('show','update');
-    Route::get('/offices/{office}/projects', [\App\Http\Controllers\OfficeController::class,'projects'])->name('offices.projects');
-    Route::get('/offices/{office}/users', [\App\Http\Controllers\OfficeController::class,'users'])->name('offices.users');
-    Route::resource('offices',\App\Http\Controllers\OfficeController::class);
-    Route::resource('trackers',\App\Http\Controllers\TrackerController::class);
-    Route::resource('updating-periods',\App\Http\Controllers\UpdatingPeriodController::class);
+    Route::resource('reviews', ReviewController::class)->except('store','create');
+    Route::resource('subprojects', SubprojectController::class);
+    Route::post('/notifications', [NotificationController::class,'markAllAsRead'])->name('notifications.markAllAsRead');
+    Route::resource('notifications', NotificationController::class)->only('index','show');
+    Route::resource('pipols', PipolController::class);
+    Route::post('users/{user}/follow', [UserController::class,'follow'])->name('users.follow');
+    Route::put('users/{user}/update_username', [UserController::class,'update_username'])->name('users.update_username');
+    Route::put('users/{user}/update_name', [UserController::class,'update_name'])->name('users.update_name');
+    Route::put('users/{user}/upload_avatar', [UserController::class,'upload_avatar'])->name('users.upload_avatar');
+    Route::get('users/{user}/projects', [UserController::class,'projects'])->name('users.projects');
+    Route::get('users/{user}/settings', [UserController::class,'settings'])->name('users.settings');
+    Route::get('/users', [UserController::class,'index'])->name('users.index');
+    Route::resource('users', UserController::class)->only('show','update');
+    Route::get('/offices/{office}/projects', [OfficeController::class,'projects'])->name('offices.projects');
+    Route::get('/offices/{office}/users', [OfficeController::class,'users'])->name('offices.users');
+    Route::resource('offices', OfficeController::class);
+    Route::resource('trackers', TrackerController::class);
 
     Route::resource('users.activities', \App\Http\Controllers\UserActivityController::class);
 
     Route::resource('collaborators', \App\Http\Controllers\CollaboratorController::class);
 
     Route::group(['prefix' => 'reports'], function() {
-        Route::get('/', [\App\Http\Controllers\ReportController::class,'index'])->name('reports.index');
-        Route::get('/implementation_modes', [\App\Http\Controllers\ReportController::class,'implementation_modes'])->name('reports.implementation_modes');
-        Route::get('/offices', [\App\Http\Controllers\ReportController::class,'offices'])->name('reports.offices');
-        Route::get('/spatial_coverages', [\App\Http\Controllers\ReportController::class,'spatial_coverages'])->name('reports.spatial_coverages');
-        Route::get('/regions', [\App\Http\Controllers\ReportController::class,'regions'])->name('reports.regions');
-        Route::get('/funding_sources', [\App\Http\Controllers\ReportController::class,'funding_sources'])->name('reports.funding_sources');
-        Route::get('/tiers', [\App\Http\Controllers\ReportController::class,'tiers'])->name('reports.tiers');
-        Route::get('/pap_types', [\App\Http\Controllers\ReportController::class,'pap_types'])->name('reports.pap_types');
-        Route::get('/pdp_chapters', [\App\Http\Controllers\ReportController::class,'pdp_chapters'])->name('reports.pdp_chapters');
-        Route::get('/project_statuses', [\App\Http\Controllers\ReportController::class,'project_statuses'])->name('reports.project_statuses');
+        Route::get('/', [ReportController::class,'index'])->name('reports.index');
+        Route::get('/implementation_modes', [ReportController::class,'implementation_modes'])->name('reports.implementation_modes');
+        Route::get('/offices', [ReportController::class,'offices'])->name('reports.offices');
+        Route::get('/spatial_coverages', [ReportController::class,'spatial_coverages'])->name('reports.spatial_coverages');
+        Route::get('/regions', [ReportController::class,'regions'])->name('reports.regions');
+        Route::get('/funding_sources', [ReportController::class,'funding_sources'])->name('reports.funding_sources');
+        Route::get('/tiers', [ReportController::class,'tiers'])->name('reports.tiers');
+        Route::get('/pap_types', [ReportController::class,'pap_types'])->name('reports.pap_types');
+        Route::get('/pdp_chapters', [ReportController::class,'pdp_chapters'])->name('reports.pdp_chapters');
+        Route::get('/project_statuses', [ReportController::class,'project_statuses'])->name('reports.project_statuses');
     });
 
     Route::resource('links',\App\Http\Controllers\Admin\LinkController::class)->only('index');
@@ -152,18 +180,18 @@ Route::middleware(['auth','user.activated'])->group(function () {
     Route::resource('audit_logs',\App\Http\Controllers\AuditLogController::class)->only('index','show');
 
     Route::middleware('can:exports.view_index')->prefix('/exports')->name('exports.')->group(function() {
-        Route::get('',[\App\Http\Controllers\ExportController::class,'index'])->name('index');
-        Route::get('/fs_infrastructures',[\App\Http\Controllers\ExportController::class,'fs_infrastructures'])->name('fs_infrastructures');
-        Route::get('/fs_investments',[\App\Http\Controllers\ExportController::class,'fs_investments'])->name('fs_investments');
-        Route::get('/region_investments',[\App\Http\Controllers\ExportController::class,'region_investments'])->name('region_investments');
-        Route::get('/regions',[\App\Http\Controllers\ExportController::class,'regions'])->name('regions');
-        Route::get('/ten_point_agendas',[\App\Http\Controllers\ExportController::class,'ten_point_agendas'])->name('ten_point_agendas');
-        Route::get('/sdgs', [\App\Http\Controllers\ExportController::class,'sdgs'])->name('sdgs');
-        Route::get('/projects', [\App\Http\Controllers\ExportController::class,'projects'])->name('projects');
+        Route::get('',[ExportController::class,'index'])->name('index');
+        Route::get('/fs_infrastructures',[ExportController::class,'fs_infrastructures'])->name('fs_infrastructures');
+        Route::get('/fs_investments',[ExportController::class,'fs_investments'])->name('fs_investments');
+        Route::get('/region_investments',[ExportController::class,'region_investments'])->name('region_investments');
+        Route::get('/regions',[ExportController::class,'regions'])->name('regions');
+        Route::get('/ten_point_agendas',[ExportController::class,'ten_point_agendas'])->name('ten_point_agendas');
+        Route::get('/sdgs', [ExportController::class,'sdgs'])->name('sdgs');
+        Route::get('/projects', [ExportController::class,'projects'])->name('projects');
     });
 
-    Route::post('search', [\App\Http\Controllers\SearchController::class,'search'])->name('search');
-    Route::resource('search', \App\Http\Controllers\SearchController::class)->only('index');
+    Route::post('search', [SearchController::class,'search'])->name('search');
+    Route::resource('search', SearchController::class)->only('index');
 
 //        Route::resource('users.projects', \App\Http\Controllers\UserProjectController::class);
 
@@ -172,29 +200,20 @@ Route::middleware(['auth','user.activated'])->group(function () {
         Route::post('offices/export',[\App\Http\Controllers\Admin\OfficeController::class,'index'])->name('offices.export');
     });
 
-    Route::resource('settings', \App\Http\Controllers\SettingController::class);
+    Route::resource('settings', SettingController::class);
 
 });
 
 Auth::routes();
 
 Route::group(['middleware' => 'guest'], function() {
-    Route::resource('invitations', \App\Http\Controllers\InvitationController::class)->only('update');
-    Route::get('/auth/google', [\App\Http\Controllers\Auth\SocialLoginController::class,'redirectToGoogle'])->name('auth.google');
-    Route::get('/auth/google/callback', [\App\Http\Controllers\Auth\SocialLoginController::class,'handleGoogleCallback'])->name('auth.google-callback');
+    Route::resource('invitations', InvitationController::class)->only('update');
+    Route::get('/auth/google', [SocialLoginController::class,'redirectToGoogle'])->name('auth.google');
+    Route::get('/auth/google/callback', [SocialLoginController::class,'handleGoogleCallback'])->name('auth.google-callback');
 });
 
-Route::get('/downloadJson/{filename}', \App\Http\Controllers\DownloadJsonController::class)->name('projects.downloadJson');
-Route::get('/exportJson', \App\Http\Controllers\ExportProjectsAsJsonController::class)->name('projects.json');
-
-Route::get('/generate_username', function() {
-    $users = \App\Models\User::all();
-
-    foreach ($users as $user) {
-        $user->username = generate_username($user->email);
-        $user->save();
-    }
-})->name('generate_username');
+Route::get('/downloadJson/{filename}', DownloadJsonController::class)->name('projects.downloadJson');
+Route::get('/exportJson', ExportProjectsAsJsonController::class)->name('projects.json');
 
 Route::get('/test', function() {
     return view('test')

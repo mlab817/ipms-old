@@ -97,6 +97,11 @@ class User extends Authenticatable
         return $this->hasMany(LinkedSocialAccount::class);
     }
 
+    public function base_projects(): HasMany
+    {
+        return $this->hasMany(BaseProject::class);
+    }
+
     public function user_avatar()
     {
         if (filter_var($this->avatar, FILTER_VALIDATE_URL)) {
@@ -202,6 +207,11 @@ class User extends Authenticatable
      *
      * @return MorphMany
      */
+    public function owned_base_projects(): MorphMany
+    {
+        return $this->morphMany(BaseProject::class,'owner');
+    }
+
     public function owned_projects(): MorphMany
     {
         return $this->morphMany(Project::class,'owner');

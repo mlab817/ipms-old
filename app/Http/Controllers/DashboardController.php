@@ -46,7 +46,7 @@ class DashboardController extends Controller
 
         $this->investmentByUpdatingPeriod();
 
-        $ownedProjects = auth()->user()->owned_projects;
+        $ownedProjects = auth()->user()->owned_base_projects;
 
         $pinnedProjects = auth()->user()->pinned_projects()->current()->get();
 
@@ -93,7 +93,7 @@ class DashboardController extends Controller
                 $q->where('submission_status','Draft');
             })->count(),
             'userCount'     => User::count(),
-            'chart'         => $this->investmentByUpdatingPeriod(),
+            'chart'         => null, // $this->investmentByUpdatingPeriod(),
             'treeMap'       => $this->treeMapData(),
             'reviews'       => Review::with('user')->has('project')->latest()->take(5)->get(),
             'latestProjects'=> Project::with('pap_type','project_status','creator.office','office')->latest()->take(5)->get(),
@@ -106,23 +106,25 @@ class DashboardController extends Controller
 
     public function investmentByUpdatingPeriod()
     {
-        $data = DB::table('projects AS a')
-            ->join('fs_investments AS b','a.id','=','b.project_id')
-            ->join('updating_periods AS c', 'a.updating_period_id','=','c.id')
-            ->selectRaw('
-                c.id AS id,
-                c.name AS name,
-                sum(b.y2016) AS y2016,
-                sum(b.y2017) AS y2017,
-                sum(b.y2018) AS y2018,
-                sum(b.y2019) AS y2019,
-                sum(b.y2020) AS y2020,
-                sum(b.y2021) AS y2021,
-                sum(b.y2022) AS y2022,
-                sum(b.y2023) AS y2023
-                ')
-            ->groupBy('a.updating_period_id')
-            ->get();
+//        $data = DB::table('projects AS a')
+//            ->join('fs_investments AS b','a.id','=','b.project_id')
+////            ->join('updating_periods AS c', 'a.updating_period_id','=','c.id')
+//            ->selectRaw('
+//                c.id AS id,
+//                c.name AS name,
+//                sum(b.y2016) AS y2016,
+//                sum(b.y2017) AS y2017,
+//                sum(b.y2018) AS y2018,
+//                sum(b.y2019) AS y2019,
+//                sum(b.y2020) AS y2020,
+//                sum(b.y2021) AS y2021,
+//                sum(b.y2022) AS y2022,
+//                sum(b.y2023) AS y2023
+//                ')
+////            ->groupBy('a.updating_period_id')
+//            ->get();
+
+        $data = collect([]);
 
         return [
             'series' => $data->map(function ($d) {
@@ -162,7 +164,7 @@ class DashboardController extends Controller
                 a.title AS x,
                 SUM(b.y2016 + b.y2017 + b.y2018 + b.y2019 + b.y2020 + b.y2021 + b.y2022 + b.y2023) AS y
             ')
-            ->where('a.updating_period_id',1)
+//            ->where('a.updating_period_id',1)
             ->groupBy('a.id')
             ->orderByDesc('y')
             ->get();

@@ -76,7 +76,7 @@ class Project extends Model
 //        'region_infrastructures',
     ];
 
-    protected $clone_exempt_attributes = ['uuid','updating_period_id'];
+    protected $clone_exempt_attributes = ['uuid','branch'];
 
     protected $fillable = [
         'ipms_id',
@@ -155,7 +155,6 @@ class Project extends Model
         'submission_status_id',
         'reason_id',
         'other_reason',
-        'updating_period_id',
         'project_id',
     ];
 
@@ -359,6 +358,11 @@ class Project extends Model
     public function allocation(): HasOne
     {
         return $this->hasOne(Allocation::class,'project_id')->withDefault();
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function description(): HasOne

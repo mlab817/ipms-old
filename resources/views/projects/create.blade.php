@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-md mt-5">
-        <form id="new_project" aria-label="Create a new repository" action="{{ route('projects.store') }}" accept-charset="UTF-8" method="post">
+        <form id="new_project" aria-label="Create a new repository" action="{{ route('base-projects.store') }}" accept-charset="UTF-8" method="post">
             @csrf
 
             <div  class="Subhead hx_Subhead--responsive mb-5">

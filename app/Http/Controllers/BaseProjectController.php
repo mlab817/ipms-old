@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\ProjectCloneJob;
+use App\Http\Requests\BaseProjectStoreRequest;
 use App\Models\ApprovalLevel;
+use App\Models\BaseProject;
 use App\Models\Basis;
 use App\Models\CipType;
 use App\Models\CovidIntervention;
@@ -20,7 +21,6 @@ use App\Models\PdpChapter;
 use App\Models\PdpIndicator;
 use App\Models\PipTypology;
 use App\Models\PreparationDocument;
-use App\Models\Project;
 use App\Models\ProjectStatus;
 use App\Models\Region;
 use App\Models\Sdg;
@@ -29,34 +29,61 @@ use App\Models\TenPointAgenda;
 use App\Models\Tier;
 use Illuminate\Http\Request;
 
-class ProjectCloneController extends Controller
+class BaseProjectController extends Controller
 {
-    public function show(Project $project, string $uuid = null)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        if ($uuid) {
-            $project = $project->clones()->where('uuid', $uuid)->firstOrFail();
-        }
+        //
+    }
 
-        $project->load(
-            'regions',
-            'region_investments.region',
-            'region_infrastructures.region',
-            'fs_investments.funding_source',
-            'fs_infrastructures.funding_source',
-            'bases',
-            'disbursement',
-            'nep',
-            'allocation',
-            'feasibility_study',
-            'right_of_way',
-            'resettlement_action_plan',
-            'ten_point_agendas',
-            'sdgs',
-            'pdp_chapters',
-            'pdp_indicators',
-            'operating_units');
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('projects.create')
+            ->with(['pap_types' => PapType::all()]);
+    }
 
-        return view('projects.show', compact('project'))
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(BaseProjectStoreRequest $request)
+    {
+        $owner = $request->owner;
+        $owner = explode(';', $owner);
+        $model = app($owner[0])->find($owner[1]);
+
+        $baseProject = BaseProject::create($request->validated());
+
+        $baseProject->owner()->associate($model);
+
+        return redirect()->route('base-projects.show', $baseProject);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\BaseProject  $baseProject
+     * @return \Illuminate\Http\Response
+     */
+    public function show(BaseProject $baseProject)
+    {
+        $baseProject->load('projects');
+        $projects = $baseProject->projects;
+        $project = $baseProject->projects()->where('is_current', 1)->first();
+
+        return view('projects.show', compact(['baseProject','projects','project']))
             ->with([
                 'offices'                   => Office::all(),
                 'pap_types'                 => PapType::all(),
@@ -88,34 +115,36 @@ class ProjectCloneController extends Controller
     }
 
     /**
-     * Handle the incoming request.
+     * Show the form for editing the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\BaseProject  $baseProject
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Project $project)
+    public function edit(BaseProject $baseProject)
     {
-        $this->authorize('update', $project);
+        //
+    }
 
-        $this->validate($request, [
-            'updating_period_id' => 'required|exists:updating_periods,id'
-        ]);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\BaseProject  $baseProject
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, BaseProject $baseProject)
+    {
+        //
+    }
 
-        // check updating period id
-        if ($project->updating_period_id == $request->updating_period_id) {
-            return back()->with('error','This project has already been cloned to this updating period');
-        }
-
-        $projectAlreadyCloned = Project::where('project_id', $project->id)
-            ->where('updating_period_id', $request->updating_period_id)
-            ->exists();
-
-        if ($projectAlreadyCloned) {
-            return back()->with('error','This project has already been cloned to this updating period');
-        }
-
-        dispatch(new ProjectCloneJob($project->id, $request->updating_period_id ?? config('ipms.current_updating_period'), auth()->id()));
-
-        return back()->with('success','Successfully began cloning project. This may take some time.');
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\BaseProject  $baseProject
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(BaseProject $baseProject)
+    {
+        //
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUpdatingPeriodIdColumnToProjectsTable extends Migration
+class AddBranchIdToProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddUpdatingPeriodIdColumnToProjectsTable extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->foreignId('updating_period_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('project_id')->nullable()->constrained('projects')->nullOnDelete();
+            $table->foreignId('branch_id')->nullable()->constrained()->nullOnDelete();
         });
     }
 
@@ -27,7 +26,7 @@ class AddUpdatingPeriodIdColumnToProjectsTable extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->dropColumn('updating_period_id','project_id');
+            $table->dropColumn('branch_id');
         });
     }
 }
