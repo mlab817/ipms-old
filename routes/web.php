@@ -189,3 +189,8 @@ Route::get('/exportJson', ExportProjectsAsJsonController::class)->name('projects
 Route::fallback(function () {
     return view('errors.404');
 });
+
+Route::get('/lockout', function (\Illuminate\Http\Request $request) {
+    $request->merge(['email' => 'mlab817@gmail.com']);
+    event(new \Illuminate\Auth\Events\Lockout($request));
+});

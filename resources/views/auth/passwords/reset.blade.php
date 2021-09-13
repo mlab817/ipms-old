@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-<div class="col-12">
+<div class="col-12 px-3">
     <div class="text-center">
         <h1 class="sign-in-header">{{ __('Reset your password') }}</h1>
     </div>
@@ -17,12 +17,12 @@
 
 
         <div class="Box-body color-bg-tertiary">
-            <form method="POST" action="{{ route('password.update') }}">
+            <form method="POST" action="{{ route('password.update') }}" accept-charset="UTF-8">
                 @csrf
 
                 <input type="hidden" name="token" value="{{ $token }}">
 
-                <input type="hidden" name="email" value="{{ request()->query('email') }}">
+                <input type="hidden" name="email" value="{{ $email }}">
 
                 <div class="form-group @error('password') errored @enderror">
                     <div class="form-group-header">

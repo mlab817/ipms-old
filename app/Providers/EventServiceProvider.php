@@ -9,6 +9,7 @@ use App\Events\ProjectOwnerChangedEvent;
 use App\Events\ProjectReviewedEvent;
 use App\Events\UserCreated;
 use App\Events\UserUpdatedEvent;
+use App\Listeners\LockedOutListener;
 use App\Listeners\LoginListener;
 use App\Listeners\PasswordChangedListener;
 use App\Listeners\ProjectCreatedListener;
@@ -22,6 +23,7 @@ use App\Notifications\NotifyOwnerOfProjectReviewed;
 use App\Notifications\SendEmailToNewUserNotification;
 use App\Observers\ProjectObserver;
 use Illuminate\Auth\Events\Authenticated;
+use Illuminate\Auth\Events\Lockout;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -64,6 +66,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         AuthenticatedEvent::class => [
             LoginListener::class,
+        ],
+
+        Lockout::class => [
+            LockedOutListener::class,
         ],
     ];
 
