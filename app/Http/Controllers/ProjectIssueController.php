@@ -17,6 +17,7 @@ class ProjectIssueController extends Controller
             : $project->issues()->where('status', 'open')->get();
 
         return view('projects.issues.index', compact('project'))
+            ->with('baseProject', $project->base_project)
             ->with('openIssues', $project->issues()->where('status','open')->count())
             ->with('closedIssues', $project->issues()->where('status','closed')->count())
             ->with('issues', $issues);
@@ -24,7 +25,8 @@ class ProjectIssueController extends Controller
 
     public function create(Project $project)
     {
-        return view('projects.issues.create', compact('project'));
+        return view('projects.issues.create', compact('project'))
+            ->with('baseProject', $project->base_project);
     }
 
     public function store(IssueStoreRequest $request, Project $project)
@@ -34,8 +36,9 @@ class ProjectIssueController extends Controller
         $issue->save();
 
         return redirect()->route('projects.issues.show', [
-            'project'   => $project,
-            'issue'     => $issue
+            'baseProject'   => $project->base_project,
+            'project'       => $project,
+            'issue'         => $issue
         ]);
     }
 
@@ -50,7 +53,10 @@ class ProjectIssueController extends Controller
         }
 
         return view('projects.issues.show', compact('issue'))
-            ->with('project', $project);
+            ->with([
+                'baseProject'   => $project->base_project,
+                'project'       => $project
+            ]);
     }
 
     public function update(Project $project, Issue $issue, IssueStoreRequest $request)
@@ -67,8 +73,9 @@ class ProjectIssueController extends Controller
         $issue->update($request->validated());
 
         return redirect()->route('projects.issues.show', [
-            'project'   => $project,
-            'issue'     => $issue
+            'baseProject'   => $project->base_project,
+            'project'       => $project,
+            'issue'         => $issue
         ]);
     }
 }
