@@ -64,7 +64,7 @@ Route::middleware(['auth','user.activated'])->group(function () {
     Route::get('/base-projects/{base_project}/branches/{branch}/trip', [BaseProjectBranchController::class,'trip'])->name('base-projects.branches.trip');
 
     Route::resource('base-projects.branches', BaseProjectBranchController::class)
-        ->only('index','show');
+        ->only('index','show','store');
     Route::resource('base-projects', BaseProjectController::class)->except('index');
 
     Route::post('password/change', [PasswordChangeController::class,'update'])->name('change_password_update');

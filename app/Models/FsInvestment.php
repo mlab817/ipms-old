@@ -48,6 +48,10 @@ class FsInvestment extends Model
         'project'
     ];
 
+    protected $with = [
+        'funding_source',
+    ];
+
     protected $fillable = [
         'project_id',
         'fs_id',

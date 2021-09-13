@@ -659,15 +659,9 @@ class Project extends Model
 
     public function onCloning($src, $child = null)
     {
-        $this->uuid = Str::uuid();
-        $this->archived_at = null;
+        $this->uuid                 = nanoid(8);
+        $this->archived_at          = null;
         $this->submission_status_id = 1; // reset status
-
-        if ($src->project_id) {
-            $this->project_id = $src->project_id;
-        } else {
-            $this->project_id = $src->id;
-        }
     }
 
     public function onCloned($src)
@@ -683,11 +677,6 @@ class Project extends Model
     public function original()
     {
         return $this->belongsTo(Project::class,'project_id');
-    }
-
-    public function updating_period()
-    {
-        return $this->belongsTo(UpdatingPeriod::class);
     }
 
     public function currentVersion(): bool

@@ -98,16 +98,16 @@ class ProjectCloneController extends Controller
         $this->authorize('update', $project);
 
         $this->validate($request, [
-            'updating_period_id' => 'required|exists:updating_periods,id'
+            'branch_id' => 'required|exists:branches,id'
         ]);
 
         // check updating period id
-        if ($project->updating_period_id == $request->updating_period_id) {
+        if ($project->branch_id == $request->branch_id) {
             return back()->with('error','This project has already been cloned to this updating period');
         }
 
         $projectAlreadyCloned = Project::where('project_id', $project->id)
-            ->where('updating_period_id', $request->updating_period_id)
+            ->where('branch_id', $request->branch_id)
             ->exists();
 
         if ($projectAlreadyCloned) {

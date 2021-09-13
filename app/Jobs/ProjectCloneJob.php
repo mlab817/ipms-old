@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\BaseProject;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -15,7 +16,7 @@ class ProjectCloneJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $projectId;
+    public $baseProjectId;
 
     public $branchId;
 
@@ -26,9 +27,9 @@ class ProjectCloneJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(int $projectId, int $branchId, int $userId)
+    public function __construct(int $baseProjectId, int $branchId, $userId)
     {
-        $this->projectId = $projectId;
+        $this->baseProjectId = $baseProjectId;
         $this->branchId = $branchId;
         $this->userId = $userId;
 
@@ -43,23 +44,27 @@ class ProjectCloneJob implements ShouldQueue
     public function handle()
     {
         // retrieve project
-        $project = Project::find($this->projectId);
+        $baseProject = BaseProject::find($this->baseProjectId);
 
         // if project is not found, terminate job
-        if (! $project) {
+        if (! $baseProject) {
             return 0;
         }
 
         // check that the project has not been duplicated yet for this updating period
-        $projectAlreadyDuplicated = Project::where('project_id', $project->id)
-            ->where('branch_id', $this->updatingPeriodId)
+        $baseProjectBranchAlreadyExists = $baseProject
+            ->projects()
+            ->where('branch_id', $this->branchId)
             ->first();
 
         // if the project has already been duplicated
         // terminate job
-        if ($projectAlreadyDuplicated) {
+        if ($baseProjectBranchAlreadyExists) {
             return 0;
         }
+
+        // get latest version of base project
+        $project = $baseProject->projects()->latest()->first();
 
         // duplicate the model including relationships
         $clone = $project->duplicate();

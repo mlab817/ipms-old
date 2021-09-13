@@ -24,10 +24,32 @@
                 </dl>
             </form>
 
+            <div class="Subhead hx_Subhead--responsive Subhead--spacious border-bottom-0 mb-0 mt-6">
+                <h2 class="Subhead-heading border-bottom">Branches</h2>
+            </div>
 
-            <div class="clearfix mt-6">
-                <div class="f2 mb-3 text-normal float-left">Manage access</div>
-                <div class="float-right">
+            <p>
+                The default branch based on the current branch set by the System.
+            </p>
+
+            <div class="Box">
+                @foreach($baseProject->projects as $project)
+                    <div class="Box-row d-flex flex-items-center flex-justify-between">
+                        <a href="{{ route('base-projects.branches.show', ['base_project' => $baseProject, 'branch' => $project->branch]) }}">
+                            <span class="f6 branch-name">{{ $project->branch->label }}</span>
+                        </a>
+                        @if ($project->isArchived() == config('ipms.default_branch'))
+                            <span class="f6 color-text-warning">archived</span>
+                        @else
+                            <span class="f6 color-text-success">active</span>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="Subhead hx_Subhead--responsive Subhead--spacious border-bottom mt-6">
+                <div class="Subhead-heading">Manage Access</div>
+                <div class="Subhead-actions">
                     <details class="details-reset details-overlay details-overlay-dark text-left">
                         <summary class="btn btn-sm btn-primary" role="button">
                             Invite a collaborator
@@ -69,6 +91,10 @@
                     </details>
                 </div>
             </div>
+
+            <p>
+                Collaborators will gain edit access to base project and its branches.
+            </p>
 
             @if(! count($baseProject->collaborators))
                 <div class="Box text-center px-4 py-6">

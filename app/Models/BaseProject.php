@@ -68,8 +68,8 @@ class BaseProject extends Model
         return $this->hasMany(Collaborator::class);
     }
 
-    public function current()
+    public function default()
     {
-        //
+        return $this->projects()->where('branch_id', config('ipms.default_branch'))->first();
     }
 }

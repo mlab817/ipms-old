@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProjectCloneJob;
 use App\Models\ApprovalLevel;
 use App\Models\BaseProject;
 use App\Models\Basis;
@@ -107,6 +108,24 @@ class BaseProjectBranchController extends Controller
                 'ou_types'                  => OperatingUnitType::with('operating_units')->get(),
                 'covidInterventions'        => CovidIntervention::all(),
             ]);
+    }
+
+    public function store(Request $request, BaseProject $baseProject)
+    {
+        $this->validate($request, [
+            'branch_id' => 'required|exists:branches,id'
+        ]);
+
+        $projectExists = $baseProject->projects()->where('branch_id', $request->branch_id)->first();
+
+        // check updating period id
+        if ($projectExists) {
+            return back()->with('error','This project already has a similar branch');
+        }
+
+        dispatch(new ProjectCloneJob($baseProject->id, $request->branch_id, auth()->id()));
+
+        return back()->with('success','Successfully began cloning project. This may take some time.');
     }
 
     public function review(BaseProject $baseProject, Branch $branch)

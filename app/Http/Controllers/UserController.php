@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -24,19 +23,8 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        $chart = Project::with(['submission_status','updating_period'])
-            ->where('created_by', $user->id)->get();
-
-        $chart = $chart->map(function ($item) {
-                $item->updating_period = $item->updating_period->name ?? '_';
-                return $item;
-            })->groupBy('updating_period')
-            ->map(function ($item) {
-                return $item->count();
-            });
-
         return view('users.show', compact('user'))
-            ->with('chart', $chart);
+            ->with('chart', collect([]));
     }
 
     public function update(Request $request, User $user)
@@ -103,7 +91,7 @@ class UserController extends Controller
             ? $request->query('q')
             : null;
 
-        $projects = $user->currentProjects;
+        $projects = $user->owned_base_projects;
 
         if ($q) {
             $projects = $user->projects()->where('title','like','%' . $q . '%')->get();

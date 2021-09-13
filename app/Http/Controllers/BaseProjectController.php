@@ -91,6 +91,8 @@ class BaseProjectController extends Controller
     {
         $users = User::all();
 
-        return view('base-projects.settings', compact(['baseProject','users']));
+        $project = $baseProject->default();
+
+        return view('base-projects.settings', compact(['baseProject','users','project']));
     }
 }

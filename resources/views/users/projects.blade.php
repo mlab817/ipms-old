@@ -25,11 +25,11 @@
                 <ul class="dropdown-menu dropdown-menu-sw mt-6 mr-1 top-0" role="menu">
                     <li>
                         @if(auth()->user()->can('update', $project))
-                        <a href="{{ route('projects.show', $project) }}" class="btn-link dropdown-item" role="menuitem">
+                        <a href="{{ route('base-projects.show', $project) }}" class="btn-link dropdown-item" role="menuitem">
                             Edit
                         </a>
                         @else
-                        <a href="{{ route('projects.show', $project) }}" class="btn-link dropdown-item" role="menuitem">
+                        <a href="{{ route('base-projects.show', $project) }}" class="btn-link dropdown-item" role="menuitem">
                             View
                         </a>
                         @endif
@@ -56,7 +56,7 @@
 
             <div class="col-12 col-md-6 col-lg-5 pr-2 float-left">
                 <h4 class="mb-1">
-                    <a href="{{ route('projects.show', $project) }}" class="Link--primary mr-1">
+                    <a href="{{ route('base-projects.show', $project) }}" class="Link--primary mr-1">
                         {{ $project->title }}
                     </a>
                     <div class="d-inline no-wrap">
@@ -90,12 +90,12 @@
                 <p class="text-muted text-sm color-text-tertiary">
                     {!! strip_tags(Str::limit($project->description->description ?? 'No description', 160)) !!}
                 </p>
-                @if($project->original && count($project->original->clones) > 1)
+                @if($project->projects && count($project->projects) > 1)
                     <p class="f5">
                         <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16" class="octicon octicon-link">
                             <path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path>
                         </svg> Linked PAPs:
-                        @foreach($project->original->clones as $clone)
+                        @foreach($project->projects as $clone)
                             @if($clone->id != $project->id)
                                 <a href="{{ route('projects.show', $clone) }}" class="btn-link">
                                     <span class="branch-name">{{ '#' . $clone->id }}</span>
