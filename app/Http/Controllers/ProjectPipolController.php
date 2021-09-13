@@ -21,9 +21,16 @@ class ProjectPipolController extends Controller
     {
         $project->load('pipol');
 
-        $pipol = $project->pipol ? $project->pipol : new Pipol();
+        if ($pipol = $project->pipol) {
+            return view('projects.pipols.index', compact('pipol'))
+                ->with('baseProject', $project->base_project)
+                ->with('project', $project)
+                ->with('submissionStatus', Pipol::SUBMISSION_STATUS)
+                ->with('reasons', Reason::all());
+        }
 
-        return view('projects.pipols.index', compact('pipol'))
+        return view('projects.pipols.create')
+            ->with('baseProject', $project->base_project)
             ->with('project', $project)
             ->with('submissionStatus', Pipol::SUBMISSION_STATUS)
             ->with('reasons', Reason::all());
@@ -50,17 +57,6 @@ class ProjectPipolController extends Controller
             ]));
 
         return redirect()->route('projects.pipols.index', $project);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Project $project, Pipol $pipol)
-    {
-        //
     }
 
     /**

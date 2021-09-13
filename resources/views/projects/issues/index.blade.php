@@ -4,9 +4,7 @@
     <div class="container-xl clearfix new-discussion-timeline px-3 px-md-4 px-lg-5">
         <div id="repo-content-pjax-container" class="repository-content ">
 
-
             <div class="js-check-all-container" data-pjax="">
-
 
                 <div class="d-flex flex-justify-between mb-md-3 flex-column-reverse flex-md-row flex-items-end">
                     <div class="d-flex flex-justify-start flex-auto width-full my-4 my-md-0" role="search">
@@ -50,7 +48,7 @@
                                 <path fill-rule="evenodd"
                                       d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
                             </svg>
-                            {{ $openIssues }}
+                            {{ $openIssues ?? 0 }} Open
                         </a>
 
                         <a href="{{ route('projects.issues.index', ['project' => $project, 'status' => 'closed']) }}" class="btn-link">
@@ -59,7 +57,7 @@
                                 <path fill-rule="evenodd"
                                       d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
                             </svg>
-                            {{ $closedIssues }} Closed
+                            {{ $closedIssues ?? 0 }} Closed
                         </a>
                     </div>
 
@@ -80,7 +78,7 @@
                                             <path fill-rule="evenodd"
                                                   d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>
                                         </svg>
-                                        {{ $openIssues }} Open
+                                        {{ $openIssues ?? 0 }} Open
                                     </a>
 
                                     <a href="{{ route('projects.issues.index', ['project' => $project, 'status' => 'closed']) }}" class="btn-link "
@@ -91,7 +89,7 @@
                                             <path fill-rule="evenodd"
                                                   d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
                                         </svg>
-                                        {{ $closedIssues }} Closed
+                                        {{ $closedIssues ?? 0 }} Closed
                                     </a>
                                 </div>
 

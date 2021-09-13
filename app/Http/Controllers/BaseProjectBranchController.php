@@ -35,7 +35,8 @@ class BaseProjectBranchController extends Controller
 {
     public function index(BaseProject $baseProject)
     {
-        $project = $baseProject->projects()->where('is_current', true)->first();
+        // get the default project whish is the same as the system's default branch
+        $project = $baseProject->projects()->where('branch_id', config('ipms.default_branch'))->first();
 
         return view('projects.show', compact(['baseProject','project']))
             ->with([
@@ -127,5 +128,47 @@ class BaseProjectBranchController extends Controller
     public function getProject($baseProject, $branch)
     {
         return $baseProject->projects()->where('branch_id', $branch->id)->first();
+    }
+
+    public function history(BaseProject $baseProject, Branch $branch)
+    {
+        $project = $this->getProject($baseProject, $branch);
+
+        $history = $project->revisionHistory()->latest()->get();
+        $history = $history->merge($project->description->revisionHistory()->latest()->get());
+        $history = $history->merge($project->expected_output->revisionHistory()->latest()->get());
+        $history = $history->merge($project->nep->revisionHistory()->latest()->get());
+        $history = $history->merge($project->allocation->revisionHistory()->latest()->get());
+        $history = $history->merge($project->disbursement->revisionHistory()->latest()->get());
+        $history = $history->merge($project->feasibility_study->revisionHistory()->latest()->get());
+        $history = $history->merge($project->project_update->revisionHistory()->latest()->get());
+
+        foreach ($project->region_investments as $ri) {
+            $history = $history->merge($ri->revisionHistory()->latest()->get());
+        }
+
+        foreach ($project->fs_investments as $fsi) {
+            $history = $history->merge($fsi->revisionHistory()->latest()->get());
+        }
+
+        $history = $history->sortByDesc('created_at');
+
+        return view('projects.history', compact(['baseProject','branch','project','history']));
+    }
+
+    public function issues(BaseProject $baseProject, Branch $branch)
+    {
+        $project = $this->getProject($baseProject, $branch);
+        $issues = $project->issues;
+
+        return view('projects.issues.index', compact(['baseProject','branch','project','issues']));
+    }
+
+    public function createIssue(BaseProject $baseProject, Branch $branch)
+    {
+        $project = $this->getProject($baseProject, $branch);
+        $issues = $project->issues;
+
+        return view('projects.issues.create', compact(['baseProject','branch','project','issues']));
     }
 }

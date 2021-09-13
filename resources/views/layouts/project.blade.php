@@ -71,9 +71,8 @@
             <nav  class="overflow-hidden UnderlineNav px-3 px-md-4 px-lg-5">
                 <ul  class="UnderlineNav-body list-style-none">
                     <li  class="d-flex">
-                        <a href="{{ route('base-projects.show', $baseProject) }}"
-                           class="UnderlineNav-item no-wrap @if($route == 'projects.show') selected @endif">
-
+                        <a href="{{ route('base-projects.branches.show', ['base_project' => $baseProject, 'branch' => $project->branch]) }}"
+                           class="UnderlineNav-item no-wrap @if(in_array($route,['base-projects.branches.index','base-projects.branches.show'])) selected @endif">
                             <svg class="octicon octicon-code UnderlineNav-octicon d-none d-sm-inline" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M4.72 3.22a.75.75 0 011.06 1.06L2.06 8l3.72 3.72a.75.75 0 11-1.06 1.06L.47 8.53a.75.75 0 010-1.06l4.25-4.25zm6.56 0a.75.75 0 10-1.06 1.06L13.94 8l-3.72 3.72a.75.75 0 101.06 1.06l4.25-4.25a.75.75 0 000-1.06l-4.25-4.25z"></path>
                             </svg>
@@ -82,9 +81,9 @@
                         </a>
                     </li>
 
-                    @if($project->has_infra)
+                    @if($baseProject->has_infra)
                     <li class="d-flex">
-                        <a href="{{ route('base-projects.branches.trip', ['base_project' => $baseProject, 'branch' => $project->branch]) }}"
+                        <a href="{{ route('trips.edit', $project) }}"
                            class="UnderlineNav-item no-wrap @if($route == 'trips.edit') selected @endif">
                             <svg class="octicon octicon-tools UnderlineNav-octicon d-none d-sm-inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M5.433 2.304A4.494 4.494 0 003.5 6c0 1.598.832 3.002 2.09 3.802.518.328.929.923.902 1.64v.008l-.164 3.337a.75.75 0 11-1.498-.073l.163-3.33c.002-.085-.05-.216-.207-.316A5.996 5.996 0 012 6a5.994 5.994 0 012.567-4.92 1.482 1.482 0 011.673-.04c.462.296.76.827.76 1.423v2.82c0 .082.041.16.11.206l.75.51a.25.25 0 00.28 0l.75-.51A.25.25 0 009 5.282V2.463c0-.596.298-1.127.76-1.423a1.482 1.482 0 011.673.04A5.994 5.994 0 0114 6a5.996 5.996 0 01-2.786 5.068c-.157.1-.209.23-.207.315l.163 3.33a.75.75 0 11-1.498.074l-.164-3.345c-.027-.717.384-1.312.902-1.64A4.496 4.496 0 0012.5 6a4.494 4.494 0 00-1.933-3.696c-.024.017-.067.067-.067.16v2.818a1.75 1.75 0 01-.767 1.448l-.75.51a1.75 1.75 0 01-1.966 0l-.75-.51A1.75 1.75 0 015.5 5.282V2.463c0-.092-.043-.142-.067-.159zm.01-.005z"></path>
@@ -96,8 +95,8 @@
 
                     <li  class="d-flex">
                         <!-- TODO: review create -->
-                        <a href="{{ route('base-projects.branches.review', ['base_project' => $baseProject, 'branch' => $project->branch]) }}"
-                           class="UnderlineNav-item no-wrap @if($route == 'base-projects.branches.reviews') selected @endif">
+                        <a href="{{ route('projects.reviews.index', $project) }}"
+                           class="UnderlineNav-item no-wrap @if($route == 'projects.reviews.index') selected @endif">
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-git-pull-request UnderlineNav-octicon d-none d-sm-inline">
                                 <path fill-rule="evenodd" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/>
@@ -145,8 +144,8 @@
                     </li>
 
                     <li  class="d-flex">
-                        <a href="{{ route('projects.issues.index', $project) }}"
-                           class="UnderlineNav-item no-wrap @if($route == 'projects.issues.index') selected @endif">
+                        <a href="{{ route('base-projects.branches.issues', ['base_project' => $baseProject, 'branch' => $project->branch]) }}"
+                           class="UnderlineNav-item no-wrap @if($route == 'base-projects.branches.issues') selected @endif">
 
                             <svg class="octicon octicon-issue-opened UnderlineNav-octicon d-none d-sm-inline"
                                  viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">

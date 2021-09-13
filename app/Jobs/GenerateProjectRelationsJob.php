@@ -23,9 +23,9 @@ class GenerateProjectRelationsJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Project $project)
+    public function __construct($projectId)
     {
-        $this->project = $project;
+        $this->project = Project::find($projectId);
     }
 
     /**

@@ -57,6 +57,9 @@ Route::redirect('/', 'login');
 Route::middleware(['auth','user.activated'])->group(function () {
 
     Route::get('/base-projects/{base_project}/settings', [BaseProjectController::class,'settings'])->name('base-projects.settings');
+    Route::get('/base-projects/{base_project}/branches/{branch}/history', [BaseProjectBranchController::class,'history'])->name('base-projects.branches.history');
+    Route::get('/base-projects/{base_project}/branches/{branch}/issues/create', [BaseProjectBranchController::class,'createIssue'])->name('base-projects.branches.issues.create');
+    Route::get('/base-projects/{base_project}/branches/{branch}/issues', [BaseProjectBranchController::class,'issues'])->name('base-projects.branches.issues');
     Route::get('/base-projects/{base_project}/branches/{branch}/review', [BaseProjectBranchController::class,'review'])->name('base-projects.branches.review');
     Route::get('/base-projects/{base_project}/branches/{branch}/trip', [BaseProjectBranchController::class,'trip'])->name('base-projects.branches.trip');
 

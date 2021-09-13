@@ -3,6 +3,9 @@
 @section('title', 'Profile | ' . str_limit($baseProject->title) )
 
 @section('content')
+    @if(!$project)
+        <p>No project found. If this is a newly created base project, please wait while the system generates the branch.</p>
+    @else
     <div class="gutter-condensed">
         <div class="container-xl mx-auto clearfix px-3 px-md-4 px-lg-5">
             <div class="mb-3 d-flex flex-items-start">
@@ -137,4 +140,5 @@
         </div>
 
     <div class="my-3"></div>
+    @endif
 @endsection

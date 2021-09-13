@@ -28,6 +28,7 @@ class BaseProjectStoreRequest extends FormRequest
             'summary'       => 'required|max:125',
             'pap_type_id'   => 'required|exists:pap_types,id',
             'owner'         => 'required',
+            'has_infra'     => 'sometimes|bool',
         ];
     }
 }

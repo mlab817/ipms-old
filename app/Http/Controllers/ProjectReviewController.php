@@ -31,6 +31,7 @@ class ProjectReviewController extends Controller
         }
 
         return view('projects.reviews.index', [
+            'baseProject' => $project->base_project,
             'project'   => $project,
             'review'    => $review,
             'pip_typologies' => PipTypology::all(),
@@ -78,28 +79,6 @@ class ProjectReviewController extends Controller
 
         return redirect()->route('projects.reviews.index', $project)
             ->with('success','Successfully saved review.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Review $review)
-    {
-        //
     }
 
     /**

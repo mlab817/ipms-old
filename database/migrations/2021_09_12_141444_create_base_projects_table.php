@@ -18,6 +18,7 @@ class CreateBaseProjectsTable extends Migration
             $table->string('uuid', 8)->unique();
             $table->text('title');
             $table->text('summary')->nullable();
+            $table->boolean('has_infra')->default(0);
             $table->foreignId('pap_type_id')->nullable()->constrained()->nullOnDelete();
             $table->morphs('owner');
             $table->timestamp('archived_at')->nullable();

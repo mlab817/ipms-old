@@ -34,6 +34,8 @@ class BaseProject extends Model
         'owner_type',
         'owner_id',
         'summary',
+        'has_infra',
+        'pap_type_id',
     ];
 
     public function getRouteKeyName(): string

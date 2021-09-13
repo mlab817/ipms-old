@@ -551,6 +551,7 @@ class ProjectController extends Controller
         }
 
         return view('projects.history', [
+            'baseProject' => $project->base_project,
             'project' => $project,
             'history' => $history->sortByDesc('created_at')
         ]);
@@ -576,7 +577,9 @@ class ProjectController extends Controller
 
     public function files(Project $project)
     {
-        return view('projects.files', compact('project'));
+        $baseProject = $project->base_project;
+
+        return view('projects.files', compact(['project','baseProject']));
     }
 
     public function new_clone()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BaseProjectStoreRequest;
+use App\Jobs\CreateProjectJob;
 use App\Models\BaseProject;
 use App\Models\PapType;
 use App\Models\User;
@@ -35,7 +36,9 @@ class BaseProjectController extends Controller
 
         $baseProject = BaseProject::create($request->validated());
 
-        $baseProject->owner()->associate($model);
+        $baseProject->owner()->associate($model)->save();
+
+        dispatch(new CreateProjectJob($baseProject->id));
 
         return redirect()->route('base-projects.show', $baseProject);
     }

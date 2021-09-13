@@ -155,7 +155,8 @@ class Project extends Model
         'submission_status_id',
         'reason_id',
         'other_reason',
-        'project_id',
+        'branch_id',
+        'base_project_id',
     ];
 
     protected $casts = [
@@ -212,6 +213,11 @@ class Project extends Model
     public function approval_level(): BelongsTo
     {
         return $this->belongsTo(ApprovalLevel::class)->withDefault();
+    }
+
+    public function base_project(): BelongsTo
+    {
+        return $this->belongsTo(BaseProject::class);
     }
 
     public function creator(): BelongsTo
