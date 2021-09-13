@@ -491,3 +491,7 @@ td.jsondiffpatch-delta-note {
     color: white;
     font-weight: bold;
 }
+
+.cal-heatmap-container{
+    width: 100% !important;
+}

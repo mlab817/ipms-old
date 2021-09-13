@@ -28,7 +28,7 @@ class Announcement extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->user_id = auth()->id() ?? null;
+            $model->user_id = auth()->id() ?? 1;
         });
     }
 

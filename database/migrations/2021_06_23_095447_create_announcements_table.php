@@ -18,7 +18,7 @@ class CreateAnnouncementsTable extends Migration
             $table->string('title');
             $table->text('content')->nullable();
             $table->date('expires_at')->nullable();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

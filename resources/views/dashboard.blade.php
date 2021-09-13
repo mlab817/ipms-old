@@ -5,14 +5,17 @@
 @endsection
 
 @section('content')
-    <div class="Layout Layout--sidebarPosition-end Layout--sidebar-wide">
+    <div class="Layout Layout--sidebarPosition-end Layout--sidebar-narrow">
         <div class="Layout-main">
-            <div class="">
+            <div class="container">
                 <h2 class="mt-5 f4 text-normal pt-md-3">Activities</h2>
 
-                <div class="mt-4" style="overflow-x: auto;">
-                    <div id="chart3"></div>
+                <div class="d-flex flex-column flex-items-center">
+{{--                    @include('activity-graph', ['activities' => $activities])--}}
+                    <div id="chart3" class="mt-4 mx-auto"></div>
                 </div>
+
+{{--                <div id="chart3" class="mt-4 mx-3 d-flex flex-column flex-items-center overflow-hidden pt-1 width-full height-full text-center"></div>--}}
 
                 @if(count($pinnedProjects))
                     <h2 class="mt-5 f4 text-normal pt-md-3">Pinned PAPs</h2>
@@ -152,6 +155,8 @@
 
         <div class="Layout-sidebar">
             <aside class="mt-5 hide-lg hide-md hide-sm px-4">
+                @include('includes.announcement')
+
                 <h2 class="f5 text-bold mb-1">Explore</h2>
 
                 @foreach ($randomProjects as $project)
@@ -323,10 +328,11 @@
             subDomain: 'x_day',
             data: reduced,
             start: new Date(2020, 12, 1),
-            cellSize: 12,
+            cellSize: 11,
+            domainDynamicDimension: true,
             range: 12,
             displayLegend: false,
-            highlight: ['now']
+            highlight: ['now'],
             // legend: [20, 40, 60, 80]
         });
     </script>
