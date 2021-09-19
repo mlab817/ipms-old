@@ -78,8 +78,6 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
     Route::post('/auth/password/change', ChangePasswordController::class)->name('password.change');
 
-    Route::resource('project_notifications', ProjectNotificationController::class);
-
     // auth routes with registration disabled
 
     Route::resource('pending_transfers', PendingTransferController::class);
@@ -88,8 +86,6 @@ Route::middleware(['auth','user.activated'])->group(function () {
 
     Route::get('/attachments/{attachment}/download', [ProjectAttachmentController::class,'download'])->name('attachments.download');
     Route::delete('/attachments/{attachment}', [ProjectAttachmentController::class,'destroy'])->name('attachments.destroy');
-
-    Route::get('/auth/check', CheckUserLoginController::class)->name('auth.check');
 
     Route::post('clone_project', CloneProjectController::class)->name('clone_project');
 
@@ -143,7 +139,6 @@ Route::middleware(['auth','user.activated'])->group(function () {
     Route::resource('offices.members', MemberController::class)->shallow();
 
     Route::resource('reviews', ReviewController::class)->except('store','create');
-    Route::resource('subprojects', SubprojectController::class);
     Route::post('/notifications', [NotificationController::class,'markAllAsRead'])->name('notifications.markAllAsRead');
     Route::resource('notifications', NotificationController::class)->only('index','show');
     Route::resource('pipols', PipolController::class);
@@ -157,6 +152,8 @@ Route::middleware(['auth','user.activated'])->group(function () {
     Route::get('users/{user}/settings', [UserController::class,'settings'])->name('users.settings');
     Route::get('/users', [UserController::class,'index'])->name('users.index');
     Route::resource('users', UserController::class)->only('show','update');
+
+    Route::resource('users.base-projects', \App\Http\Controllers\UserBaseProjectController::class)->only('index','show');
 
     Route::get('/offices/{office}/projects', [OfficeController::class,'projects'])->name('offices.projects');
     Route::get('/offices/{office}/users', [OfficeController::class,'users'])->name('offices.users');
@@ -186,7 +183,6 @@ Route::group(['middleware' => 'guest'], function() {
     Route::get('/auth/google/callback', [SocialLoginController::class,'handleGoogleCallback'])->name('auth.google-callback');
 });
 
-Route::get('/downloadJson/{filename}', DownloadJsonController::class)->name('projects.downloadJson');
 Route::get('/exportJson', ExportProjectsAsJsonController::class)->name('projects.json');
 
 Route::fallback(function () {

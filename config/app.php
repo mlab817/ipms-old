@@ -174,14 +174,9 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-//        App\Providers\TelescopeServiceProvider::class,
 
         // Socialite provider for social login
         \Laravel\Socialite\SocialiteServiceProvider::class,
-
-//        \Laravel\Passport\PassportServiceProvider::class,
-
-        \Rollbar\Laravel\RollbarServiceProvider::class,
 
         \Stevebauman\Location\LocationServiceProvider::class,
     ],

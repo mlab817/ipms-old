@@ -1,5 +1,22 @@
 <?php
 
+$googleService = [
+    'client_id' => env('GOOGLE_CLIENT_ID'),
+    'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+    'redirect' => env('GOOGLE_REDIRECT_URI')
+];
+
+// if google secret file exists
+if ($googleSecretFile = base_path('google_secret.json')) {
+    $googleSecret = json_decode(file_get_contents($googleSecretFile), true);
+
+    $googleService = [
+        'client_id' => $googleSecret['web']['client_id'],
+        'client_secret' => $googleSecret['web']['client_secret'],
+        'redirect' => env('GOOGLE_REDIRECT_URI')
+    ];
+}
+
 return [
 
     /*
@@ -31,9 +48,9 @@ return [
     ],
 
     'google' => [
-        'client_id' => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT_URI')
+        'client_id' => $googleService['client_id'],
+        'client_secret' => $googleService['client_secret'],
+        'redirect' => $googleService['redirect']
     ],
 
     'discord' => [

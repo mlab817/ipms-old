@@ -45,10 +45,6 @@ class AppServiceProvider extends ServiceProvider
         Review::observe(ReviewObserver::class);
         User::observe(UserObserver::class);
 
-//        Model::preventLazyLoading(true);
-
-//        Paginator::useBootstrap();
-
         Paginator::defaultView('includes.primer-pagination');
         Paginator::defaultSimpleView('includes.primer-simple-pagination');
 
@@ -60,22 +56,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('markdown', function ($expression) {
             return "<?php echo \Illuminate\Mail\Markdown::parse($expression); ?>";
         });
-
-//        if(Schema::hasTable('settings')) {
-//            // TODO: check if this is the best settings
-//            cache()->remember('settings', 24*60*60, function () {
-//                return Setting::all(['key','value'])
-//                    ->keyBy('key')
-//                    ->transform(function ($setting) {
-//                        return $setting->value;
-//                    })
-//                    ->toArray();
-//            });
-//
-//            config([
-//                'global' => cache('settings'),
-//            ]);
-//        }
 
         // log user ip
         Activity::saving(function (Activity $activity) {
