@@ -21,12 +21,12 @@ class ApprovalLevel extends Model
 
     protected $hidden = ['created_at','updated_at','deleted_at','slug','description','pivot'];
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
-    public function sluggable()
+    public function sluggable(): array
     {
       return [
         'slug' => [

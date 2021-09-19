@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InvitationStoreRequest;
 use App\Models\Invitation;
 use App\Models\User;
+use App\Notifications\InviteUserToJoinNotification;
 use Illuminate\Http\Request;
 
 class InvitationController extends Controller
