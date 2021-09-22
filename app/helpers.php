@@ -98,3 +98,24 @@ if (! function_exists('generate_username')) {
         return substr($email, 0, $position);
     }
 }
+
+if (! function_exists('format_money')) {
+    function format_money($money): string
+    {
+        $money = (float) $money;
+
+        if ($money > 10**9) {
+            return number_format($money / 10**9, 2) .' B';
+        }
+
+        if ($money > 10**6) {
+            return number_format($money / 10**6, 2) .' M';
+        }
+
+        if ($money > 10**3) {
+            return number_format($money / 10**3, 2) .' K';
+        }
+
+        return number_format($money, 2);
+    }
+}
