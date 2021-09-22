@@ -162,7 +162,7 @@
                 @foreach ($randomProjects as $project)
                     <div class="py-2 my-2 border-bottom color-border-secondary">
                         <p class="f6 color-text-secondary mb-2">
-                            <a class="f6 text-bold Link--primary d-flex no-underline wb-break-all d-inline-block" href="{{ route('projects.show', $project) }}">
+                            <a class="f6 text-bold Link--primary d-flex no-underline wb-break-all d-inline-block" href="{{ route('base-projects.show', $project) }}">
                                 <span>{{ $project->title }}</span>
                                 {{ '#' . $project->id }}
                             </a>
