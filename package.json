@@ -35,6 +35,7 @@
     "dependencies": {
         "@coreui/coreui": "^3.4.0",
         "@fortawesome/fontawesome-free": "^5.15.3",
+        "@github/time-elements": "^3.1.2",
         "@ttskch/select2-bootstrap4-theme": "^1.5.2",
         "alpinejs": "^3.2.1",
         "cross-env": "^7.0.3",

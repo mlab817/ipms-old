@@ -45,7 +45,7 @@ class AppSetupCommand extends Command
         return 0;
     }
 
-    public function setupBranchestable()
+    public function setupBranchesTable()
     {
         if (! Branch::count()) {
             Artisan::call('db:seed BranchesTableSeeder');
@@ -71,7 +71,7 @@ class AppSetupCommand extends Command
             $item->save();
 
             // only create base project if there is none made
-            if (! $item->base_project) {
+//            if (! $item->base_project) {
                 // create a base project for all projects
                 $baseProject = BaseProject::create([
                     'title' => $item->title,
@@ -79,14 +79,15 @@ class AppSetupCommand extends Command
                 ]);
 
                 // set the owner to the project owner
-                $baseProject->owner()->associate($item->owner);
+                $baseProject->owner()->associate(User::find($item->created_by));
+                $baseProject->save();
 
                 // link the base project id to the project
                 $item->base_project_id = $baseProject->id;
                 $item->save();
 
                 $bar->advance();
-            }
+//            }
         }
 
         $bar->finish();
