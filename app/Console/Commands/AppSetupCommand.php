@@ -28,16 +28,6 @@ class AppSetupCommand extends Command
     protected $description = 'Set up the application for new features';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return int
@@ -48,13 +38,25 @@ class AppSetupCommand extends Command
 
         $this->info('Completed generating username');
 
+        $this->setupBranchesTable();
+
+        $this->setupBaseProjects();
+
+        return 0;
+    }
+
+    public function setupBranchestable()
+    {
         if (! Branch::count()) {
             Artisan::call('db:seed BranchesTableSeeder');
             $this->info('Seeded branches seeder');
         } else {
             $this->info('Branches table is not empty');
         }
+    }
 
+    public function setupBaseProjects()
+    {
         $projects = Project::all();
 
         $bar = $this->output->createProgressBar(count($projects));
@@ -68,26 +70,27 @@ class AppSetupCommand extends Command
             $item->owner()->associate(User::find($item->created_by));
             $item->save();
 
-            // create a base project for all projects
-            $baseProject = BaseProject::create([
-                'title' => $item->title,
-                'pap_type_id' => $item->pap_type_id,
-            ]);
+            // only create base project if there is none made
+            if (! $item->base_project) {
+                // create a base project for all projects
+                $baseProject = BaseProject::create([
+                    'title' => $item->title,
+                    'pap_type_id' => $item->pap_type_id,
+                ]);
 
-            // set the owner to the project owner
-            $baseProject->owner()->associate($item->owner);
+                // set the owner to the project owner
+                $baseProject->owner()->associate($item->owner);
 
-            // link the base project id to the project
-            $item->base_project_id = $baseProject->id;
-            $item->save();
+                // link the base project id to the project
+                $item->base_project_id = $baseProject->id;
+                $item->save();
 
-            $bar->advance();
+                $bar->advance();
+            }
         }
 
         $bar->finish();
 
         $this->info('Completed setting up projects');
-
-        return 0;
     }
 }
