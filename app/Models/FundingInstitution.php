@@ -24,6 +24,8 @@ class FundingInstitution extends Model
         'funding_source_id',
     ];
 
+    protected $hidden = ['created_at','updated_at','deleted_at',];
+
     public function funding_source(): BelongsTo
     {
         return $this->belongsTo(FundingSource::class);

@@ -22,6 +22,8 @@ class CipType extends Model
         'description',
     ];
 
+    protected $hidden = ['created_at','updated_at','deleted_at',];
+
     public function getRouteKeyName()
     {
         return 'slug';
