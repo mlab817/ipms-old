@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BaseProject;
 use App\Models\Project;
 use App\Models\Review;
 use App\Models\User;
@@ -65,7 +66,7 @@ class DashboardController extends Controller
         return view('dashboard', [
             'activities' => $timestampActivities,
             'pinnedProjects' => $pinnedProjects,
-            'randomProjects' => Project::with('pap_type')->get()->random(5),
+            'randomProjects' => BaseProject::with('pap_type')->get()->random(5),
             'ownedProjects' => $ownedProjects,
             'projectCount'  => Project::count(),
             'reviewCount'   => Project::has('review')->count(),

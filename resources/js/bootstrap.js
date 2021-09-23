@@ -4,6 +4,7 @@ import '@github/markdown-toolbar-element';
 import '@github/details-dialog-element';
 import '@github/clipboard-copy-element';
 import '@github/auto-complete-element';
+import '@github/time-elements';
 
 function formatNumber(val) {
     return val && parseFloat(val).toLocaleString('en-US', { minimumFractionDigits: 2 })

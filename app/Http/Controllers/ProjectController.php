@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Events\ProjectCreatedEvent;
-use App\Events\ProjectReviewedEvent;
 use App\Http\Requests\ProjectDropRequest;
-use App\Http\Requests\ProjectEndorseRequest;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
-use App\Http\Requests\ReviewStoreRequest;
 use App\Http\Requests\UploadAttachmentRequest;
-use App\Jobs\ProjectCloneJob;
 use App\Jobs\ProjectDeleteJob;
 use App\Models\ApprovalLevel;
 use App\Models\Basis;
@@ -25,7 +21,6 @@ use App\Models\Gad;
 use App\Models\ImplementationMode;
 use App\Models\InfrastructureSector;
 use App\Models\Office;
-use App\Models\OperatingUnit;
 use App\Models\OperatingUnitType;
 use App\Models\PapType;
 use App\Models\PdpChapter;
@@ -34,29 +29,17 @@ use App\Models\PipTypology;
 use App\Models\PreparationDocument;
 use App\Models\Project;
 use App\Models\ProjectStatus;
-use App\Models\ReadinessLevel;
 use App\Models\Region;
-use App\Models\RegionInvestment;
-use App\Models\Review;
 use App\Models\Sdg;
 use App\Models\SpatialCoverage;
 use App\Models\SubmissionStatus;
 use App\Models\TenPointAgenda;
 use App\Models\Tier;
 use App\Models\User;
-use App\Notifications\ProjectDeletedNotification;
-use App\Job\GenerateProjectRelationsJob;
-use Barryvdh\Snappy\Facades\SnappyPdf;
-use File;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Knp\Snappy\Pdf;
 
 use Spatie\Searchable\Search;
 
@@ -75,7 +58,7 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $projectQuery = Project::query()->with(['office','creator.office','project_status','pipol']);
+        $projectQuery = Project::query()->with(['office','owner','project_status','pipol']);
 
         if ($request->status) {
             $projectQuery->where('submission_status_id', SubmissionStatus::findByName($request->status)->id );
